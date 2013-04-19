@@ -14,7 +14,7 @@ In particular this shall cover systems like:
  * Variable frequency systems, e.g. in wind turbines or for drive control, and
  * DC power systems, like HVDC
 
-![PowerWorld.png](PowerSystems 0.2/Examples/PowerWorld/Resources/PowerWorld.png)
+![PowerWorld.png](PowerSystems/Examples/PowerWorld/Resources/PowerWorld.png)
 
 
 ## Current release
