@@ -1,9 +1,10 @@
 within PowerSystems.Examples;
 package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work package 5.3"
 
+
     extends Modelica.Icons.ExamplesPackage;
 
-    constant string PowerWorldResources = Modelica.Utilities.Files.loadResource("modelica://PowerSystems.Examples.PowerWorld/Resources/");
+
 
     model PowerWorld "Interoperation of wind power and thermal power"
       extends Modelica.Icons.Example;
@@ -1347,6 +1348,7 @@ The following switches/features are provided:
     end LoadDispatcherTest;
   end Test;
 
+  constant String PowerWorldResources = Modelica.Utilities.Files.loadResource("modelica://PowerSystems.Examples.PowerWorld/Resources/");
 
 annotation (preferredView="info",Documentation(info="<html>
 <p>The example demonstrates power/frequency control exploiting a thermal power plant and a pump store for the stabilization of fluctuating wind power.
