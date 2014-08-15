@@ -73,6 +73,14 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 </html>",
   revisions="<html>
 <ul>
+<li><i>15 Aug 2014</i>
+    by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
+     Version 0.2.1
+  <ul>
+  <li>use Modelica.Utilities.Files.loadResource() instead of deprecated classDirectory()</li>
+  <li>fix references to Connections package</li>
+  </ul>
+</li>
 <li><i>18 Apr 2013</i>
     by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
      Version 0.2
@@ -119,25 +127,12 @@ The following table summerizes the PhaseSystems that are predefined in the Power
       PhaseSystems.ThreePhase_dq "Default phase system"
     annotation (choicesAllMatching=true);
 
-
-
-
-
-
-
-
-
-
-
-
-
-  constant String TableDir=classDirectory() + "Resources/Tables/"
+  constant String TableDir=Modelica.Utilities.Files.loadResource("modelica://PowerSystems/Resources/Tables/")
   "Directory of example tables";
 
-
   annotation (preferedView="info",
-  version="0.2",
-  versionDate="2013-04-18",
+  version="0.2.1",
+  versionDate="2014-08-15",
   Documentation(info="<html>
 <h3><font color=\"#000080\" size=5>Modelica PowerSystems library</font></h3>
 <p>The library is intended to model electrical <b>power systems</b> at different <b>levels of detail</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
@@ -154,7 +149,7 @@ by funding of the IST Programme, Contract No. IST-1999-11979. </i></p>
 <p/>
 </html>
 "),
-  uses(Modelica(version="3.2")),
+  uses(Modelica(version="3.2.1")),
   Icon(graphics={
       Line(
         points={{-60,-16},{38,-16}},

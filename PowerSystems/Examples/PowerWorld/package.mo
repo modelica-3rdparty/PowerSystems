@@ -1,9 +1,9 @@
 within PowerSystems.Examples;
 package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work package 5.3"
 
-
     extends Modelica.Icons.ExamplesPackage;
 
+    constant string PowerWorldResources = Modelica.Utilities.Files.loadResource("modelica://PowerSystems.Examples.PowerWorld/Resources/");
 
     model PowerWorld "Interoperation of wind power and thermal power"
       extends Modelica.Icons.Example;
@@ -618,7 +618,7 @@ The following switches/features are provided:
 
       Modelica.Blocks.Sources.CombiTimeTable wind(
         tableName="tab",
-        fileName="Examples/PowerWorld/Resources/LoadData.txt",
+        fileName=PowerWorldResources + "LoadData.txt",
         tableOnFile=true,
         table=fill(
                 0.0,
@@ -706,7 +706,7 @@ The following switches/features are provided:
 
       Modelica.Blocks.Sources.CombiTimeTable data(
         tableName="tab",
-        fileName="Examples/PowerWorld/Resources/LoadData.txt",
+        fileName=PowerWorldResources + "LoadData.txt",
         tableOnFile=true,
         table=fill(
             0.0,
@@ -877,7 +877,7 @@ The following switches/features are provided:
       extends PowerSystems.Generic.Ports.PartialLoad;
       Modelica.Blocks.Sources.CombiTimeTable data(
         tableName="tab",
-        fileName="Examples/PowerWorld/Resources/LoadData.txt",
+        fileName=PowerWorldResources + "LoadData.txt",
         tableOnFile=true,
         table=fill(
                 0.0,
@@ -1351,6 +1351,6 @@ The following switches/features are provided:
 annotation (preferredView="info",Documentation(info="<html>
 <p>The example demonstrates power/frequency control exploiting a thermal power plant and a pump store for the stabilization of fluctuating wind power.
 The demonstrator developed for Eurosyslib WP5.3 complements the model with a 3D animation using DLR&apos;s SimVis software.</p>
-<p><img src=\"modelica://PowerSystems/Examples/PowerWorld/Resources/PowerWorld.png\"/></p>
+<p><img src=\"modelica://PowerSystems.Examples.PowerWorld/Resources/PowerWorld.png\"/></p>
 </html>"));
 end PowerWorld;
