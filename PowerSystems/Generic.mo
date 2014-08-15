@@ -162,7 +162,7 @@ package Generic "Simple components for basic investigations"
     if PhaseSystem.m > 0 then
       if synchronous then
         flange.phi = PhaseSystem.thetaRef(terminal.theta);
-        if isRoot(terminal.theta) then
+        if Connections.isRoot(terminal.theta) then
           V = V_ref;
           if PhaseSystem.m > 1 then
             PhaseSystem.thetaRel(terminal.theta) = 0;
@@ -235,7 +235,7 @@ package Generic "Simple components for basic investigations"
     SI.Angle thetaRel;
   equation
     if PhaseSystem.m > 0 then
-      if isRoot(terminal.theta) then
+      if Connections.isRoot(terminal.theta) then
         PhaseSystem.thetaRef(terminal.theta) = 2*pi*f_ref*time;
         if PhaseSystem.m > 1 then
           PhaseSystem.thetaRel(terminal.theta) = 0;
@@ -300,7 +300,7 @@ package Generic "Simple components for basic investigations"
     SI.Angle thetaRel;
   equation
     if PhaseSystem.m > 0 then
-      if isRoot(terminal.theta) then
+      if Connections.isRoot(terminal.theta) then
         PhaseSystem.thetaRef(terminal.theta) =  2*pi*f*time;
         if PhaseSystem.m > 1 then
           PhaseSystem.thetaRel(terminal.theta) = 0;
@@ -388,7 +388,7 @@ package Generic "Simple components for basic investigations"
     SI.Angle thetaRel;
   equation
     if PhaseSystem.m > 0 then
-      if isRoot(terminal.theta) then
+      if Connections.isRoot(terminal.theta) then
         PhaseSystem.thetaRef(terminal.theta) =  2*pi*f*time;
         if PhaseSystem.m > 1 then
           PhaseSystem.thetaRel(terminal.theta) = 0;
