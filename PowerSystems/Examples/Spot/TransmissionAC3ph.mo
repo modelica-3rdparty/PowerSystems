@@ -594,7 +594,7 @@ Compare with FaultRXline.</p>
             extent={{-90,-20},{-110,0}}, rotation=0)));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
             extent={{90,-20},{110,0}}, rotation=0)));
-    PowerSystems.Examples.Spot.Data.Lines.OHline400kV OH400kV
+    parameter PowerSystems.Examples.Spot.Data.Lines.OHline400kV OH400kV
                                    annotation (Placement(transformation(extent=
               {{0,80},{40,100}}, rotation=0)));
     PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
@@ -707,7 +707,7 @@ Compare with DoublePIline.</p>
             rotation=0)));
     PowerSystems.AC3ph.Sensors.PVImeter meterF(S_nom=1000e6, V_nom=400e3)
       annotation (Placement(transformation(extent={{-10,0},{10,20}}, rotation=0)));
-    PowerSystems.Examples.Spot.Data.Lines.OHline_400kV OH_400kV
+    parameter PowerSystems.Examples.Spot.Data.Lines.OHline_400kV OH_400kV
                                      annotation (Placement(transformation(
             extent={{0,80},{40,100}}, rotation=0)));
     PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(

@@ -37,7 +37,7 @@ package DrivesDC "DC drives"
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
     annotation (Placement(transformation(extent={{60,-20},{80,0}}, rotation=0)));
-    PowerSystems.Examples.Spot.Data.Machines.DCser1500V_1p5MVA DCs1500_1p5M
+    parameter PowerSystems.Examples.Spot.Data.Machines.DCser1500V_1p5MVA DCs1500_1p5M
       annotation (Placement(transformation(extent={{-60,80},{-20,100}},
             rotation=0)));
 
@@ -115,7 +115,7 @@ package DrivesDC "DC drives"
       slope_perc=2.5,
       cFrict={50,15})
     annotation (Placement(transformation(extent={{60,-20},{80,0}}, rotation=0)));
-    PowerSystems.Examples.Spot.Data.Machines.DCpar1500V_1p5MVA DCp1500_1p5M
+    parameter PowerSystems.Examples.Spot.Data.Machines.DCpar1500V_1p5MVA DCp1500_1p5M
       annotation (Placement(transformation(extent={{-60,80},{-20,100}},
             rotation=0)));
 
@@ -189,7 +189,7 @@ package DrivesDC "DC drives"
       useSupport=false)
                 annotation (Placement(transformation(extent={{90,20},{70,40}},
             rotation=0)));
-    PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA DCpm100_1k
+    parameter PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA DCpm100_1k
                                            annotation (Placement(transformation(
             extent={{-60,80},{-20,100}}, rotation=0)));
 
@@ -279,7 +279,7 @@ package DrivesDC "DC drives"
       useSupport=false)
                 annotation (Placement(transformation(extent={{90,20},{70,40}},
             rotation=0)));
-    PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA bldc100_1k
+    parameter PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA bldc100_1k
                                            annotation (Placement(transformation(
             extent={{-60,80},{-20,100}}, rotation=0)));
     PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A

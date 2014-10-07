@@ -41,7 +41,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
             extent={{90,0},{110,20}}, rotation=0)));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{10,20},{30,40}}, rotation=0)));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
       annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
 
   equation
@@ -316,7 +316,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
             extent={{80,-20},{100,0}}, rotation=0)));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=1) annotation (Placement(
           transformation(extent={{-30,0},{-10,20}}, rotation=0)));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
       annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
 
   equation
@@ -400,7 +400,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
             extent={{-80,-20},{-100,0}}, rotation=0)));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{-10,0},{10,20}}, rotation=0)));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
       annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
 
   equation

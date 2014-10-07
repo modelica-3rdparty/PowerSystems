@@ -505,7 +505,7 @@ The machine defines the reference-system independent of the system choice (as ne
       Ti=0.2,
       Td=0.1,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      initType=Modelica.Blocks.Types.Init.SteadyState)
+      initType=Modelica.Blocks.Types.InitPID.SteadyState)
            annotation (Placement(transformation(extent={{-60,10},{-40,30}},
             rotation=0)));
     PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA syn3rdpm400_30k
