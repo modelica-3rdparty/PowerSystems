@@ -1338,7 +1338,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=0)))
     Td=0.1,
     Ti=0.5,
     k=1/vDC_nom,
-    initType=Modelica.Blocks.Types.Init.SteadyState)
+    initType=Modelica.Blocks.Types.InitPID.SteadyState)
          annotation (Placement(transformation(extent={{40,20},{20,40}},
             rotation=0)));
   Modelica.Blocks.Sources.Constant set_vDC(k=vDC_nom)
@@ -1486,7 +1486,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=0)))
   Modelica.Blocks.Continuous.LimPID PI_vDC(
       Td=0.05,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      initType=Modelica.Blocks.Types.Init.SteadyState,
+      initType=Modelica.Blocks.Types.InitPID.SteadyState,
     Ti=0.1,
       k=0.3*I_nom/vDC_nom,
       yMax=1.4*I_nom)
@@ -1495,11 +1495,11 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=0)))
   Modelica.Blocks.Math.Gain gain(k=-1) "generator: negative torque tau_act"
                                        annotation (Placement(transformation(
             extent={{-40,20},{-20,40}}, rotation=0)));
-  PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm560V_100kVA syn3rdpm560_100k(
+  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm560V_100kVA syn3rdpm560_100k(
                                                            neu_iso=true)
       annotation (Placement(transformation(extent={{-60,80},{-20,100}},
             rotation=0)));
-  PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100(
+  parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100(
                                                     Vf=0)
     annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
 
