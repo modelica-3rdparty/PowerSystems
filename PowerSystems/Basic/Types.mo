@@ -124,7 +124,7 @@ package Types
 "));
   end SInotused;
 
-  type Color = Integer[3] (min=0, max=255) "RGB color" annotation (choices(
+  type Color = Integer[3] (each min=0, each max=255) "RGB color" annotation (choices(
         choice={255,0,0} "{255, 000, 000 }  red",
         choice={255,255,0} "{255, 255, 000}  yellow",
         choice={0,255,0} "{000, 255, 000}  green",

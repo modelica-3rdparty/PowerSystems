@@ -174,7 +174,7 @@ package Governors "Turbine Governors "
   partial block GovernorBase "Governor base"
     extends PowerSystems.Basic.Icons.Block1;
 
-    parameter SIpu.Power[2] p_minmax(unit="1")={0,2} "{min,max} turbine power";
+    parameter SIpu.Power[2] p_minmax(each unit="1")={0,2} "{min,max} turbine power";
     protected
     outer System system;
     public

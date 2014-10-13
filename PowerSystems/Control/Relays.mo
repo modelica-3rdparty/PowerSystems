@@ -10,7 +10,7 @@ package Relays "Relays"
     parameter Boolean ini_state=true "initial state (closed true, open false)"
       annotation(choices(choice=true "closed", choice=false "open"));
     parameter SI.Time t_switch[:]={1} "switching time vector";
-    Modelica.Blocks.Interfaces.BooleanOutput[n] y(start=fill(ini_state, n), fixed=true)
+    Modelica.Blocks.Interfaces.BooleanOutput[n] y(start=fill(ini_state, n), each fixed=true)
       "boolean state of switch (closed:true, open:false)"
       annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
              0)));
@@ -56,9 +56,9 @@ package Relays "Relays"
   block TapChangerRelay "Relay for setting tap-changer "
     extends PowerSystems.Basic.Icons.Block0;
 
-    parameter Integer preset_1[:](min=0)={0}
+    parameter Integer preset_1[:](each min=0)={0}
       "1: index v-levels tap-chg, 0 is nom";
-    parameter Integer preset_2[:](min=0)={0}
+    parameter Integer preset_2[:](each min=0)={0}
       "2: index v-levels tap-chg, 0 is nom";
     parameter SI.Time t_switch_1[:]={1} "1: switching times";
     parameter SI.Time t_switch_2[:]={1} "2:switching times";

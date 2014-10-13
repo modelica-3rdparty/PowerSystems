@@ -623,10 +623,10 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
         "= true if p0 defined by parameter p0_set otherwise by input signal p_set"
         annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
-      parameter SIpu.Power[2] p0_set(min=0)={sqrt(3),1}/2
+      parameter SIpu.Power[2] p0_set(each min=0)={sqrt(3),1}/2
         "{active, reactive} power, (start val if signal inp)" annotation(Dialog(enable=scType_par));
       parameter SIpu.Resistance r_n=0 "resistance neutral to grd";
-      Modelica.Blocks.Interfaces.RealInput[2] p_set(min=0) if not scType_par
+      Modelica.Blocks.Interfaces.RealInput[2] p_set(each min=0) if not scType_par
         "desired {active, reactive} power"                 annotation (Placement(
             transformation(
             origin={0,100},

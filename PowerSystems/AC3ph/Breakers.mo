@@ -419,7 +419,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       extends PowerSystems.Basic.Nominal.NominalVI;
 
       parameter Integer n=3 "number of independent switches";
-      parameter Real[2] eps(final min={0,0}, unit="1")={1e-4,1e-4}
+      parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
         "{resistance 'closed', conductance 'open'}";
       SI.Voltage[3] v;
       SI.Current[3] i;

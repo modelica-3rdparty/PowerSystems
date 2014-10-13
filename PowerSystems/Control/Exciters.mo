@@ -167,7 +167,7 @@ package Exciters "Generator Exciters "
   partial block ExciterBase "Exciter base"
     extends PowerSystems.Basic.Icons.Block1;
 
-    parameter SIpu.Voltage[2] v_f_minmax(unit="1")={0, 3}
+    parameter SIpu.Voltage[2] v_f_minmax(each unit="1")={0, 3}
         "{min,max} exciter voltage";
     protected
     outer System system;
@@ -178,7 +178,7 @@ package Exciters "Generator Exciters "
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
               rotation=0)));
     Modelica.Blocks.Interfaces.RealInput termVoltage[3](
-                             final unit="1") "terminal voltage pu"
+                             each final unit="1") "terminal voltage pu"
       annotation (Placement(transformation(
             origin={-60,-100},
             extent={{-10,-10},{10,10}},

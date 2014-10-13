@@ -364,7 +364,7 @@ model TabPosSlopeTorque "Torque using table (position... slope)"
 
   constant SI.Force g_n=Modelica.Constants.g_n;
   parameter SI.Length s_unit=1 "unit of 'position' in tab";
-  parameter Real[2] s_bd(unit="m")={0,1} "{first, last} position in tab";
+  parameter Real[2] s_bd(each unit="m")={0,1} "{first, last} position in tab";
   parameter Integer dirTrack(min=-1,max=1)=+1 "forward or backward track"
     annotation(choices(
     choice=1 "first-pos ---> last-pos", choice=-1 "first-pos <--- last-pos"));
