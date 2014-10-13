@@ -5,7 +5,7 @@ package Ideal "Custom models"
 record SCparameter "Ideal semiconductor parameters"
   extends Basic.Nominal.NominalDataVI;
 
-  parameter Real[2] eps(final min={0,0}, final unit="1")={1e-4,1e-4}
+  parameter Real[2] eps(each final min={0,0}, each final unit="1")={1e-4,1e-4}
       "{resistance 'on', conductance 'off'}";
   parameter SI.Voltage Vf(final min=0)=0 "forward threshold-voltage" annotation(Evaluate=true);
   parameter SI.Heat Hsw_nom=0 "switching loss at V_nom, I_nom (av on off)"

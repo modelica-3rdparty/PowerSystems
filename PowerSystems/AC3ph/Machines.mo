@@ -408,13 +408,13 @@ The mapping from current demand to voltage demand is based on the steady-state e
         PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_pm par);
 
     Modelica.Blocks.Interfaces.RealOutput[2] i_meas(
-                             final unit="1") "measured current {i_d, i_q} pu"
+                             each final unit="1") "measured current {i_d, i_q} pu"
       annotation (Placement(transformation(
           origin={-60,100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
     Modelica.Blocks.Interfaces.RealInput[2] i_act(
-                             final unit="1") "actuated current {i_d, i_q} pu"
+                             each final unit="1") "actuated current {i_d, i_q} pu"
       annotation (Placement(transformation(
           origin={60,100},
           extent={{10,-10},{-10,10}},

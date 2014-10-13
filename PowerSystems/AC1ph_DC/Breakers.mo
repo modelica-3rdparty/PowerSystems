@@ -582,7 +582,7 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
        extends Ports.Port_pn;
        extends Basic.Nominal.NominalVI;
 
-       parameter Real[2] eps(final min={0,0}, unit="1")={1e-4,1e-4}
+       parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
         "{resistance 'closed', conductance 'open'}";
     protected
        final parameter SI.Resistance epsR=eps[1]*V_nom/I_nom;
