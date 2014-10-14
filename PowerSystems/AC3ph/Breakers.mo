@@ -105,7 +105,7 @@ with
     extends Ports.PortBase;
     extends PowerSystems.Basic.Nominal.NominalVI;
 
-    parameter Real[2] eps(final min={0,0}, unit="1")={1e-4,1e-4}
+    parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
       "{resistance 'closed', conductance 'open'}";
     parameter SI.Time t_relax=10e-3 "switch relaxation time";
     parameter Integer p_relax(min=2)=4 "power of relaxation exponent";
