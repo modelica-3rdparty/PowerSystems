@@ -2149,10 +2149,10 @@ model TransDatFromEqCirc "Calculates transient data from equivalent circuit"
 
   output SI.Time[n_d] tc_d "time constant closed-loop d-axis";
   output SI.Time[n_d] to_d "time constant open-loop d-axis";
-  output SIpu.Reactance[n_d] xtr_d(unit="1") "transient reactance d-axis";
+  output SIpu.Reactance[n_d] xtr_d(each unit="1") "transient reactance d-axis";
   output SI.Time[n_q] tc_q "time constant closed-loop q-axis";
   output SI.Time[n_q] to_q "time constant open-loop q-axis";
-  output SIpu.Reactance[n_q] xtr_q(unit="1") "transient reactance q-axis";
+  output SIpu.Reactance[n_q] xtr_q(each unit="1") "transient reactance q-axis";
   protected
   final parameter Boolean use_trans=false;
   final parameter Integer n_d=size(xsig_rd,1);
@@ -2451,12 +2451,12 @@ model EqCircFromTransDat "Calculates equivalent circuit from transient data"
   parameter Real tol=1e-6 "tolerance precalculation"
     annotation(Dialog(enable=use_trans));
 
-  output SIpu.Resistance[n_d] r_rd(unit="1");
-  output SIpu.Reactance[n_d] xsig_rd(unit="1");
-  output SIpu.Reactance[n_d+1] xm_d(unit="1");
-  output SIpu.Resistance[n_q] r_rq(unit="1");
-  output SIpu.Reactance[n_q] xsig_rq(unit="1");
-  output SIpu.Reactance[n_q+1] xm_q(unit="1");
+  output SIpu.Resistance[n_d] r_rd(each unit="1");
+  output SIpu.Reactance[n_d] xsig_rd(each unit="1");
+  output SIpu.Reactance[n_d+1] xm_d(each unit="1");
+  output SIpu.Resistance[n_q] r_rq(each unit="1");
+  output SIpu.Reactance[n_q] xsig_rq(each unit="1");
+  output SIpu.Reactance[n_q+1] xm_q(each unit="1");
 
   protected
   final parameter Boolean use_trans=true;

@@ -559,7 +559,7 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
     input Real x(unit="1") "total or syn reactance";
     input SI.Angle[:] Tc "time constant closed-loop";
     input SI.Angle[size(Tc,1)] To "time constant open-loop";
-    output SIpu.Reactance[size(Tc,1)] xtr(unit="1") "transient reactance";
+    output SIpu.Reactance[size(Tc,1)] xtr(each unit="1") "transient reactance";
   protected
     parameter Integer n=size(Tc,1);
     Real[n] y;
@@ -590,7 +590,7 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
     extends PowerSystems.Basic.Icons.Function;
 
     input SIpu.Reactance x(unit="1") "total or syn reactance";
-    input SIpu.Reactance[:] xtr(unit="1") "transient reactance";
+    input SIpu.Reactance[:] xtr(each unit="1") "transient reactance";
     input SI.Angle[size(xtr,1)] To "time constant open-loop";
     output SI.Angle[size(xtr,1)] Tc "time constant closed-loop";
   protected
@@ -611,7 +611,7 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
     extends PowerSystems.Basic.Icons.Function;
 
     input SIpu.Reactance x(unit="1") "total or syn reactance";
-    input SIpu.Reactance[:] xtr(unit="1") "transient reactance";
+    input SIpu.Reactance[:] xtr(each unit="1") "transient reactance";
     input SI.Angle[size(xtr,1)] Tc "time constant closed-loop";
     output SI.Angle[size(xtr,1)] To "time constant open-loop";
   protected
@@ -643,7 +643,7 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
     import PowerSystems.Basic.Complex.re;
     import PowerSystems.Basic.Complex.im;
 
-    input SIpu.Reactance[:] xm2_n(unit="1") "approximate value of xm[2:n]";
+    input SIpu.Reactance[:] xm2_n(each unit="1") "approximate value of xm[2:n]";
     input Real[:] x_opt "additional input arguments";
     output Real di_f2 "i_f*conjugate(i_f)";
     output Boolean result "true if Tsig real and convergence tol-ok";
@@ -704,11 +704,11 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
     input Real[n] ac "polynome coefficient closed loop";
     input Real[n] ao "polynome coefficient open loop";
     input SIpu.Reactance xsig_s(unit="1") "leakage reactance stator";
-    input SIpu.Reactance[n+1] xm(unit="1") "coupling reactance";
+    input SIpu.Reactance[n+1] xm(each unit="1") "coupling reactance";
     input Boolean field "field winding yes/no";
     input Real tol "tolerance, iterative solution";
     output SI.Angle[n] Tsig "sig-time constants";
-    output SIpu.Reactance[n] xsig(unit="1") "leakage reactance rotor";
+    output SIpu.Reactance[n] xsig(each unit="1") "leakage reactance rotor";
     output Boolean result "true if Tsig real and convergence tol-ok";
   protected
     final parameter Integer n1=n-1;
@@ -807,8 +807,8 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
       "angle field current (sign: mathematical convention)";
     input Real tol "tolerance, iterative solution";
     input Boolean field "field winding yes/no";
-    output SIpu.Resistance[n+1] zr(unit="1") "impedance matrix resistive";
-    output SIpu.Reactance[n+1,n+1] zx(unit="1") "impedance matrix reactive";
+    output SIpu.Resistance[n+1] zr(each unit="1") "impedance matrix resistive";
+    output SIpu.Reactance[n+1,n+1] zx(each unit="1") "impedance matrix reactive";
   protected
     Real[n] ac;
     Real[n] ao;
@@ -860,11 +860,11 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     input SIpu.Reactance x(unit="1") "total or syn reactance";
     input SIpu.Reactance xsig_s(unit="1") "leakage reactance stator";
     input SIpu.Resistance r_s(unit="1") "resistance stator";
-    input SIpu.Reactance[n-1] xm2_n(unit="1") "coupling reactance";
-    input SIpu.Reactance[n] xsig_r(unit="1") "leakage reactance rotor";
-    input SIpu.Resistance[n] r_r(unit="1") "resistance rotor";
-    output SIpu.Resistance[n+1] zr(unit="1") "impedance matrix resistive";
-    output SIpu.Reactance[n+1,n+1] zx(unit="1") "impedance matrix reactive";
+    input SIpu.Reactance[n-1] xm2_n(each unit="1") "coupling reactance";
+    input SIpu.Reactance[n] xsig_r(each unit="1") "leakage reactance rotor";
+    input SIpu.Resistance[n] r_r(each unit="1") "resistance rotor";
+    output SIpu.Resistance[n+1] zr(each unit="1") "impedance matrix resistive";
+    output SIpu.Reactance[n+1,n+1] zx(each unit="1") "impedance matrix reactive";
 
   algorithm
     zr := cat(1, r_r, {r_s});
@@ -892,9 +892,9 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
       "angle field current (sign: mathematical convention)";
     input Real tol "tolerance, iterative solution";
     input Boolean field "field winding yes/no";
-    output SIpu.Resistance[n] r_r(unit="1") "resistance rotor";
-    output SIpu.Reactance[n] xsig_r(unit="1") "leakage reactance rotor";
-    output SIpu.Reactance[n+1] xm(unit="1") "coupling reactance";
+    output SIpu.Resistance[n] r_r(each unit="1") "resistance rotor";
+    output SIpu.Reactance[n] xsig_r(each unit="1") "leakage reactance rotor";
+    output SIpu.Reactance[n+1] xm(each unit="1") "coupling reactance";
   protected
     Real[n] ac;
     Real[n] ao;
@@ -943,12 +943,12 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     input SIpu.Reactance x(unit="1") "total or syn reactance";
     input SIpu.Reactance xsig_s(unit="1") "leakage reactance stator";
     input SIpu.Resistance r_s(unit="1") "resistance stator";
-    input SIpu.Reactance[n-1] xm2_n(unit="1") "coupling reactance";
-    input SIpu.Reactance[n] xsig_r(unit="1") "leakage reactance rotor";
-    input SIpu.Resistance[n] r_r(unit="1") "resistance rotor";
+    input SIpu.Reactance[n-1] xm2_n(each unit="1") "coupling reactance";
+    input SIpu.Reactance[n] xsig_r(each unit="1") "leakage reactance rotor";
+    input SIpu.Resistance[n] r_r(each unit="1") "resistance rotor";
     output SI.Angle[n] Tc "time constant closed-loop";
     output SI.Angle[n] To "time constant open-loop";
-    output SIpu.Reactance[n] xtr(unit="1") "transient reactance";
+    output SIpu.Reactance[n] xtr(each unit="1") "transient reactance";
   protected
     constant Real eps=Modelica.Constants.eps;
     Real[n+1] xm;
