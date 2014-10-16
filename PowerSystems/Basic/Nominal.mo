@@ -119,14 +119,14 @@ end NominalDC;
 
 record NominalData "Units and nominal data"
   extends Modelica.Icons.Record;
-  Boolean puUnits = true
+  parameter Boolean puUnits = true
       "= true, if scaled with nom. values (pu), else scaled with 1 (SI)"
     annotation(Evaluate=true, Dialog(group="Parameter Scaling"));
 
-  SI.Voltage V_nom(final min=0)=1 "nominal Voltage (= base for pu)"
+  parameter SI.Voltage V_nom(final min=0)=1 "nominal Voltage (= base for pu)"
     annotation(Evaluate=true, Dialog(group="Nominal"));
 
-  SI.ApparentPower S_nom(final min=0)=1
+  parameter SI.ApparentPower S_nom(final min=0)=1
       "nominal Power (= base for pu)"
     annotation(Evaluate=true, Dialog(group="Nominal"));
 
