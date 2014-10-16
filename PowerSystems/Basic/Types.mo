@@ -349,10 +349,10 @@ package Types
 </html>"));
     end ReferenceAngle;
 
-    type AngularVelocity = SI.AngularVelocity(displayUnit = "rpm");
+    type AngularVelocity = SI.AngularVelocity(displayUnit="rpm");
     type Charge_Ah = Real (final quantity="ElectricCharge", final unit="A.h");
     type Length = SI.Length(displayUnit="km");
-    type Percent = Real(final quantity="Percent",final unit="%");
+    type Percent = Real(final quantity="Percent",final unit="m1");
     type Stiffness = Real (final quantity="Stiffness", final unit="N", final min=0);
     type TorsionStiffness = Real (final quantity="TorsionStiffness", final unit="N.m/rad", final min=0);
 
