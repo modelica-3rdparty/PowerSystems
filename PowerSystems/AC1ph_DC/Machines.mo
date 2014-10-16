@@ -562,11 +562,11 @@ package Parameters "Parameter data for interactive use"
 record DCser "DC machine parameters series excited"
   extends Basic.Nominal.NominalDataDC(w_nom=157.079632679489661923);
 
-  Integer pp=2 "pole-pair nb";
-  SIpu.Inductance l_fd=0.15 "inductance field (d-axis)";
-  SIpu.Resistance r_fd=0.01 "resistance field (d-axis)";
-  SIpu.Inductance l_q=0.5 "inductance armature+ (q-axis)";
-  SIpu.Resistance r_q=0.05 "resistance armature+ (q-axis)";
+  parameter Integer pp=2 "pole-pair nb";
+  parameter SIpu.Inductance l_fd=0.15 "inductance field (d-axis)";
+  parameter SIpu.Resistance r_fd=0.01 "resistance field (d-axis)";
+  parameter SIpu.Inductance l_q=0.5 "inductance armature+ (q-axis)";
+  parameter SIpu.Resistance r_q=0.05 "resistance armature+ (q-axis)";
 
   annotation (defaultComponentName="dc_serPar",
     Window(
@@ -592,13 +592,13 @@ end DCser;
 record DCpar "DC machine parameters parallel excited"
   extends Basic.Nominal.NominalDataDC(w_nom=157.079632679489661923);
 
-  SI.Voltage Vf_nom=1 "nom field voltage"
+  parameter SI.Voltage Vf_nom=1 "nom field voltage"
     annotation(Evaluate=true, Dialog(group="Nominal"));
-  Integer pp=2 "pole-pair nb";
-  SIpu.Inductance l_fd=100*pi "inductance field (d-axis)";
-  SIpu.Resistance r_fd=100 "resistance field (d-axis)";
-  SIpu.Inductance l_q=0.5 "inductance armature+ (q-axis)";
-  SIpu.Resistance r_q=0.05 "resistance armature+ (q-axis)";
+  parameter Integer pp=2 "pole-pair nb";
+  parameter SIpu.Inductance l_fd=100*pi "inductance field (d-axis)";
+  parameter SIpu.Resistance r_fd=100 "resistance field (d-axis)";
+  parameter SIpu.Inductance l_q=0.5 "inductance armature+ (q-axis)";
+  parameter SIpu.Resistance r_q=0.05 "resistance armature+ (q-axis)";
 
   annotation (defaultComponentName="dc_parPar",
     Window(
@@ -624,9 +624,9 @@ end DCpar;
 record DCpm "DC machine parameters permanent magnet excited"
   extends Basic.Nominal.NominalDataDC(w_nom=157.079632679489661923);
 
-  Integer pp=2 "pole-pair nb";
-  SIpu.Inductance l_aq=0.5 "inductance armature (q-axis)";
-  SIpu.Resistance r_aq=0.05 "resistance armature (q-axis)";
+  parameter Integer pp=2 "pole-pair nb";
+  parameter SIpu.Inductance l_aq=0.5 "inductance armature (q-axis)";
+  parameter SIpu.Resistance r_aq=0.05 "resistance armature (q-axis)";
 
   annotation (defaultComponentName="dc_pmPar",
     Window(
@@ -672,10 +672,10 @@ package Coefficients "Coefficient matrices of machine equations"
 record DCser "Coefficients of DC machine series excited"
   extends Modelica.Icons.Record;
 
-  SI.Inductance L "series inductance";
-  SI.Resistance[2] R
+  final parameter SI.Inductance L "series inductance";
+  final parameter SI.Resistance[2] R
         "resistance {d (field), q (armature)} axis";
-  SI.Inductance L_md "mutual inductance";
+  final parameter SI.Inductance L_md "mutual inductance";
 
   annotation (defaultComponentName="data",
     Window(
@@ -701,11 +701,11 @@ end DCser;
 record DCpar "Coefficients of DC machine parallel excited"
   extends Modelica.Icons.Record;
 
-  SI.Inductance[2] L
+  final parameter SI.Inductance[2] L
         "inductance {d (field), q (armature)} axis";
-  SI.Resistance[2] R
+  final parameter SI.Resistance[2] R
         "resistance {d (field), q (armature)} axis";
-  SI.Inductance L_md "mutual inductance";
+  final parameter SI.Inductance L_md "mutual inductance";
 
   annotation (defaultComponentName="data",
     Window(
@@ -731,9 +731,9 @@ end DCpar;
 record DCpm "Coefficients of DC machine permanent magnet excited"
   extends Modelica.Icons.Record;
 
-  SI.Resistance R "resistance";
-  SI.Inductance L "inductance";
-  SI.MagneticFlux Psi_pm "flux permanent magnet";
+  final parameter SI.Resistance R "resistance";
+  final parameter SI.Inductance L "inductance";
+  final parameter SI.MagneticFlux Psi_pm "flux permanent magnet";
 
   annotation (defaultComponentName="data",
     Window(
