@@ -107,7 +107,7 @@ package Exciters "Generator Exciters "
     parameter SI.Time t=0.005 "time constant voltage regulator";
   protected
     outer System system;
-    final parameter Integer initType=if system.steadyIni then
+    final parameter Modelica.Blocks.Types.Init initType=if system.steadyIni then
            Modelica.Blocks.Types.Init.SteadyState else
            Modelica.Blocks.Types.Init.NoInit;
     Blocks.Math.Norm norm(final n=3, n_eval=3)

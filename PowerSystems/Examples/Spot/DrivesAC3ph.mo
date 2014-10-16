@@ -295,8 +295,9 @@ Compare 'transient' and 'steady-state' mode.</p>
     Modelica.Blocks.Continuous.LimPID PI_i_q(
       Td=0.1,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      initType=Modelica.Blocks.Types.Init.SteadyState,
-      Ti=0.1)
+      initType=Modelica.Blocks.Types.InitPID.SteadyState,
+      Ti=0.1,
+      yMax=1)
            annotation (Placement(transformation(extent={{-50,0},{-30,20}},
             rotation=0)));
     PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA asyn3k_1p5M
@@ -316,11 +317,11 @@ Compare 'transient' and 'steady-state' mode.</p>
                               annotation (Line(points={{-70,10},{-52,10}},
           color={0,0,127}));
     connect(i_d.y, asm_ctrl.i_act[1])       annotation (Line(points={{-50,40},{16,
-            40},{16,-20.5}},    color={0,0,127}));
+            40},{16,-19.5}},    color={0,0,127}));
     connect(asm_ctrl.i_meas[2], PI_i_q.u_m) annotation (Line(points={{4,-19.5},
             {4,-12},{-40,-12},{-40,-2}}, color={0,0,127}));
     connect(PI_i_q.y, asm_ctrl.i_act[2]) annotation (Line(points={{-29,10},{16,10},
-            {16,-19.5}},     color={0,0,127}));
+            {16,-20.5}},     color={0,0,127}));
     connect(asm_ctrl.heat, bdCond.heat)
       annotation (Line(points={{10,-20},{10,-20}}, color={176,0,0}));
     annotation (
@@ -505,7 +506,8 @@ The machine defines the reference-system independent of the system choice (as ne
       Ti=0.2,
       Td=0.1,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      initType=Modelica.Blocks.Types.InitPID.SteadyState)
+      initType=Modelica.Blocks.Types.InitPID.SteadyState,
+      yMax=1)
            annotation (Placement(transformation(extent={{-60,10},{-40,30}},
             rotation=0)));
     PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA syn3rdpm400_30k
@@ -532,10 +534,10 @@ The machine defines the reference-system independent of the system choice (as ne
       annotation (Line(points={{-20,-30},{0,-30}}, color={0,0,255}));
     connect(sm_ctrl.i_meas[2], PI_i_q.u_m)        annotation (Line(points={{4,
             -19.5},{4,0},{-50,0},{-50,8}}, color={0,0,127}));
-    connect(PI_i_q.y, sm_ctrl.i_act[2])        annotation (Line(points={{-39,20},{
-            16,20},{16,-19.5}},  color={0,0,127}));
-    connect(i_d.y, sm_ctrl.i_act[1])        annotation (Line(points={{-60,50},{16,
-            50},{16,-20.5}},    color={0,0,127}));
+    connect(PI_i_q.y, sm_ctrl.i_act[2])        annotation (Line(points={{-39,20},
+            {16,20},{16,-20.5}}, color={0,0,127}));
+    connect(i_d.y, sm_ctrl.i_act[1])        annotation (Line(points={{-60,50},{
+            16,50},{16,-19.5}}, color={0,0,127}));
   annotation (
     Window(
         x=0.45,
@@ -608,8 +610,9 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
       Td=0.05,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=0.2,
-      initType=Modelica.Blocks.Types.Init.InitialState,
-      xi_start=0.1)
+      initType=Modelica.Blocks.Types.InitPID.InitialState,
+      xi_start=0.1,
+      yMax=1)
            annotation (Placement(transformation(extent={{-60,10},{-40,30}},
             rotation=0)));
     PowerSystems.Blocks.Signals.Transient i_d(
@@ -641,10 +644,10 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
       annotation (Line(points={{-20,-30},{0,-30}}, color={0,0,255}));
     connect(sm_ctrl.i_meas[2], PI_i_q.u_m)        annotation (Line(points={{4,
             -19.5},{4,0},{-50,0},{-50,8}}, color={0,0,127}));
-    connect(PI_i_q.y, sm_ctrl.i_act[2])        annotation (Line(points={{-39,20},
-            {16,20},{16,-19.5}}, color={0,0,127}));
-    connect(i_d.y, sm_ctrl.i_act[1])        annotation (Line(points={{-60,50},{
-            16,50},{16,-20.5}}, color={0,0,127}));
+    connect(PI_i_q.y, sm_ctrl.i_act[2])        annotation (Line(points={{-39,20},{
+            16,20},{16,-20.5}},  color={0,0,127}));
+    connect(i_d.y, sm_ctrl.i_act[1])        annotation (Line(points={{-60,50},{16,
+            50},{16,-19.5}},    color={0,0,127}));
   annotation (
     Window(
         x=0.45,
@@ -729,7 +732,7 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
     Modelica.Blocks.Continuous.LimPID PI_i_q(
       Td=0.1,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      initType=Modelica.Blocks.Types.Init.SteadyState,
+      initType=Modelica.Blocks.Types.InitPID.SteadyState,
       Ti=0.1,
       yMax=1,
       gainPID(y(start=1)))
@@ -760,9 +763,9 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
     connect(asm_ctrl.i_meas[2], PI_i_q.u_m)       annotation (Line(points={{4,
             -19.5},{4,0},{-50,0},{-50,8}}, color={0,0,127}));
     connect(PI_i_q.y, asm_ctrl.i_act[2])       annotation (Line(points={{-39,20},{
-            16,20},{16,-19.5}},  color={0,0,127}));
+            16,20},{16,-20.5}},  color={0,0,127}));
     connect(i_d.y, asm_ctrl.i_act[1])       annotation (Line(points={{-60,50},{16,
-            50},{16,-20.5}},    color={0,0,127}));
+            50},{16,-19.5}},    color={0,0,127}));
   annotation (
     Window(
         x=0.45,
@@ -837,7 +840,8 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
     Modelica.Blocks.Continuous.LimPID PI_i_q(
       Td=0.05,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      Ti=0.1)
+      Ti=0.1,
+      yMax=1)
            annotation (Placement(transformation(extent={{-60,10},{-40,30}},
             rotation=0)));
     PowerSystems.Blocks.Signals.Transient i_d(
@@ -872,10 +876,10 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
       annotation (Line(points={{-20,-30},{0,-30}}, color={0,0,255}));
     connect(asm_ctrl.i_meas[2], PI_i_q.u_m)       annotation (Line(points={{4,
             -19.5},{4,0},{-50,0},{-50,8}}, color={0,0,127}));
-    connect(PI_i_q.y, asm_ctrl.i_act[2])       annotation (Line(points={{-39,20},{
-            16,20},{16,-19.5}},  color={0,0,127}));
-    connect(i_d.y, asm_ctrl.i_act[1])       annotation (Line(points={{-60,50},{16,
-            50},{16,-20.5}},    color={0,0,127}));
+    connect(PI_i_q.y, asm_ctrl.i_act[2])       annotation (Line(points={{-39,20},
+            {16,20},{16,-20.5}}, color={0,0,127}));
+    connect(i_d.y, asm_ctrl.i_act[1])       annotation (Line(points={{-60,50},{
+            16,50},{16,-19.5}}, color={0,0,127}));
   annotation (
     Window(
         x=0.45,

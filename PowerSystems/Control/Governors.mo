@@ -116,7 +116,7 @@ package Governors "Turbine Governors "
     parameter Real t=5 "time constant speed regulator";
   protected
     outer System system;
-    final parameter Integer initType=if system.steadyIni then
+    final parameter Modelica.Blocks.Types.Init initType=if system.steadyIni then
            Modelica.Blocks.Types.Init.SteadyState else
            Modelica.Blocks.Types.Init.NoInit;
     Modelica.Blocks.Math.Add delta_speed(k2=-1)
@@ -174,7 +174,8 @@ package Governors "Turbine Governors "
   partial block GovernorBase "Governor base"
     extends PowerSystems.Basic.Icons.Block1;
 
-    parameter SIpu.Power[2] p_minmax(each unit="1")={0,2} "{min,max} turbine power";
+    parameter SIpu.Power[2] p_minmax(each unit="1")={0,2}
+        "{min,max} turbine power";
     protected
     outer System system;
     public
