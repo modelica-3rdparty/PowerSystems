@@ -571,8 +571,7 @@ package AC3ph "AC 3-phase components dqo"
     PowerSystems.AC3ph.Sensors.PVImeter meterAC(av=true, tcst=0.1)
       annotation (Placement(transformation(extent={{-20,-10},{0,10}}, rotation=
               0)));
-    replaceable PowerSystems.AC3ph.Inverters.Rectifier rectifier(rectifier(s(
-            each start=0.5)))
+    replaceable PowerSystems.AC3ph.Inverters.Rectifier rectifier
       annotation (Placement(transformation(extent={{30,-10},{10,10}}, rotation=
               0)));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1)

@@ -529,7 +529,7 @@ end InverterAverage;
     SI.Voltage[3] v "voltage in inertial abc representation";
     SI.Voltage[3] i_sc
         "current scaled to voltage in inertial abc representation";
-    Real[3] s "arc-length on characteristic";
+    Real[3] s(each start = 0.5) "arc-length on characteristic";
     Real[3] switch "switch function in inertial abc representation";
     Real[3,3] Park = Basic.Transforms.park(        AC.theta[2]);
 
@@ -777,7 +777,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
     SI.Voltage[3] v "voltage in inertial abc representation";
     SI.Voltage[3] i_sc
         "current scaled to voltage in inertial abc representation";
-    Real[3] s "arc-length on characteristic";
+    Real[3] s(each start = 0.5) "arc-length on characteristic";
     Real[3] switch "switch function in inertial abc representation";
     Real[3,3] Park = Basic.Transforms.park(        AC.theta[2]);
 

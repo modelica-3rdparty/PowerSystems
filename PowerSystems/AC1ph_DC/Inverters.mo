@@ -624,7 +624,7 @@ model RectifierEquation "Rectifier equation, 1-phase"
     protected
   SI.Voltage[2] V;
   SI.Voltage[2] i_sc "current scaled to voltage in inertial abc representation";
-  Real[2] s "arc-length on characteristic";
+  Real[2] s(each start = 0.5) "arc-length on characteristic";
 
 equation
   i_sc = AC.i*par.V_nom/par.I_nom;
@@ -853,7 +853,7 @@ model InverterEquation "Inverter equation, 1-phase"
   SI.Voltage[2] V_s;
   SI.Voltage[2] V_d;
   SI.Voltage[2] i_sc "current scaled to voltage in inertial abc representation";
-  Real[2] s "arc-length on characteristic";
+  Real[2] s(each start = 0.5) "arc-length on characteristic";
 
 equation
   i_sc = AC.i*par.V_nom/par.I_nom;

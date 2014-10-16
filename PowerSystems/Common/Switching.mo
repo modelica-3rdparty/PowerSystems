@@ -255,7 +255,7 @@ partial model SwitchBase "Switch base kernel, no terminals"
         extent={{-10,-10},{10,10}},
         rotation=270)));
     protected
-  Real s;
+  Real s(start = 0.5);
 
   annotation (
     Window(

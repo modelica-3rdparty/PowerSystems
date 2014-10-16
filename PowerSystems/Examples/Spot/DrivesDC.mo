@@ -186,7 +186,8 @@ package DrivesDC "DC drives"
     Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStep(
       stepTorque=-10,
       startTime=1.5,
-      useSupport=false)
+      useSupport=false,
+      offsetTorque=0)
                 annotation (Placement(transformation(extent={{90,20},{70,40}},
             rotation=0)));
     parameter PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA DCpm100_1k
@@ -276,7 +277,8 @@ package DrivesDC "DC drives"
       annotation (Placement(transformation(extent={{70,-20},{90,0}}, rotation=0)));
     Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStep(
       startTime=1.5, stepTorque=-10,
-      useSupport=false)
+      useSupport=false,
+      offsetTorque=0)
                 annotation (Placement(transformation(extent={{90,20},{70,40}},
             rotation=0)));
     parameter PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA bldc100_1k
