@@ -95,27 +95,28 @@ partial model NominalDC "Units and nominal values DC"
           grid={2,2}), graphics));
 end NominalDC;
 
-  partial model NominalVI "Nominal values"
+partial model NominalVI "Nominal values"
 
-    parameter SI.Voltage V_nom(final min=0)=1 "nom Voltage"
-      annotation(Evaluate=true, Dialog(group="Nominal"));
-    parameter SI.Current I_nom(final min=0)=1 "nom Current"
-      annotation(Evaluate=true, Dialog(group="Nominal"));
+  parameter SI.Voltage V_nom(final min=0)=1 "nom Voltage"
+    annotation(Evaluate=true, Dialog(group="Nominal"));
+  parameter SI.Current I_nom(final min=0)=1 "nom Current"
+    annotation(Evaluate=true, Dialog(group="Nominal"));
 
-    annotation (
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
-      Documentation(info="<html>
+  annotation (
+    Window(
+      x=0.45,
+      y=0.01,
+      width=0.44,
+      height=0.65),
+    Documentation(info="<html>
 <p>Nominal values without units choice.</p>
 </html>
-"),          Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
-  end NominalVI;
+"),
+    Icon(coordinateSystem(
+      preserveAspectRatio=false,
+      extent={{-100,-100},{100,100}},
+      grid={2,2}), graphics));
+end NominalVI;
 
 record NominalData "Units and nominal data"
   extends Modelica.Icons.Record;
@@ -149,14 +150,14 @@ record NominalDataDC "Units and nominal data DC"
     choice=1800 "1800 rpm"));
 end NominalDataDC;
 
-  record NominalDataVI "Units and nominal data"
-    extends Modelica.Icons.Record;
+record NominalDataVI "Units and nominal data"
+  extends Modelica.Icons.Record;
 
-    parameter SI.Voltage V_nom(final min=0)=1 "nom Voltage"
-      annotation(Evaluate=true, Dialog(group="Nominal"));
-    parameter SI.Current I_nom(final min=0)=1 "nom Current"
-      annotation(Evaluate=true, Dialog(group="Nominal"));
-  end NominalDataVI;
+  parameter SI.Voltage V_nom(final min=0)=1 "nom Voltage"
+    annotation(Evaluate=true, Dialog(group="Nominal"));
+  parameter SI.Current I_nom(final min=0)=1 "nom Current"
+    annotation(Evaluate=true, Dialog(group="Nominal"));
+end NominalDataVI;
 
 record NominalDataTrafo "Units and nominal data transformer"
   extends Modelica.Icons.Record;
@@ -170,10 +171,8 @@ record NominalDataTrafo "Units and nominal data transformer"
   parameter SI.ApparentPower S_nom(final min=0)=1
       "nominal Power (= base of pu)"
     annotation(Evaluate=true, Dialog(group="Nominal"));
-  parameter SI.Frequency f_nom=system.f_nom "nominal frequency"
+  parameter SI.Frequency f_nom=50 "nominal frequency"
     annotation(Evaluate=true, Dialog(group="Nominal"), choices(choice=50 "50 Hz", choice=60 "60 Hz"));
-  protected
-  outer PowerSystems.System system;
   annotation (
     Window(
       x=0.45,
