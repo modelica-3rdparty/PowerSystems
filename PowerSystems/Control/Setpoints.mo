@@ -8,10 +8,11 @@ block Set_w_p_v "Constant setpoints w, p, v for generation"
       "setpoints {speed, power, voltage} pu"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
   protected
-  parameter SIpu.AngularVelocity w_set(unit="1", fixed=false)=1
+  parameter SIpu.AngularVelocity w_set(unit="1", fixed=false, start=1)
       "setpt turbine speed pu";
-  parameter SIpu.Power p_set(unit="1", fixed=false)=1 "setpt turbine power pu";
-  parameter SIpu.Voltage v_set(unit="1", fixed=false)=1
+  parameter SIpu.Power p_set(unit="1", fixed=false, start=1)
+      "setpt turbine power pu";
+  parameter SIpu.Voltage v_set(unit="1", fixed=false, start=1)
       "setpt exciter voltage pu";
 
 equation
@@ -88,10 +89,11 @@ block SetVariable_w_p_v "Variable setpoints w, p, v for generation"
       "setpoints {speed, power, voltage} pu"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
   protected
-  parameter SIpu.AngularVelocity w_set(unit="1", fixed=false)=1
+  parameter SIpu.AngularVelocity w_set(unit="1", fixed=false, start=1)
       "setpt turbine speed pu";
-  parameter SIpu.Power p_set(unit="1", fixed=false)=1 "setpt turbine power pu";
-  parameter SIpu.Voltage v_set(unit="1", fixed=false)=1
+  parameter SIpu.Power p_set(unit="1", fixed=false, start=1)
+      "setpt turbine power pu";
+  parameter SIpu.Voltage v_set(unit="1", fixed=false, start=1)
       "setpt exciter voltage pu";
 
 initial equation
