@@ -111,8 +111,7 @@ partial model NominalVI "Nominal values"
     Documentation(info="<html>
 <p>Nominal values without units choice.</p>
 </html>
-"),
-    Icon(coordinateSystem(
+"), Icon(coordinateSystem(
       preserveAspectRatio=false,
       extent={{-100,-100},{100,100}},
       grid={2,2}), graphics));

@@ -5,7 +5,6 @@ package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work p
     extends Modelica.Icons.ExamplesPackage;
 
 
-
     model PowerWorld "Interoperation of wind power and thermal power"
       extends Modelica.Icons.Example;
 
@@ -1349,6 +1348,7 @@ The following switches/features are provided:
   end Test;
 
   constant String PowerWorldResources = Modelica.Utilities.Files.loadResource("modelica://PowerSystems.Examples.PowerWorld/Resources/");
+
 
 annotation (preferredView="info",Documentation(info="<html>
 <p>The example demonstrates power/frequency control exploiting a thermal power plant and a pump store for the stabilization of fluctuating wind power.

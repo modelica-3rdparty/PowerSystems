@@ -808,7 +808,8 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     input Real tol "tolerance, iterative solution";
     input Boolean field "field winding yes/no";
     output SIpu.Resistance[n+1] zr(each unit="1") "impedance matrix resistive";
-    output SIpu.Reactance[n+1,n+1] zx(each unit="1") "impedance matrix reactive";
+    output SIpu.Reactance[n+1,n+1] zx(each unit="1")
+      "impedance matrix reactive";
   protected
     Real[n] ac;
     Real[n] ao;
@@ -864,7 +865,8 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     input SIpu.Reactance[n] xsig_r(each unit="1") "leakage reactance rotor";
     input SIpu.Resistance[n] r_r(each unit="1") "resistance rotor";
     output SIpu.Resistance[n+1] zr(each unit="1") "impedance matrix resistive";
-    output SIpu.Reactance[n+1,n+1] zx(each unit="1") "impedance matrix reactive";
+    output SIpu.Reactance[n+1,n+1] zx(each unit="1")
+      "impedance matrix reactive";
 
   algorithm
     zr := cat(1, r_r, {r_s});

@@ -130,6 +130,7 @@ The following table summerizes the PhaseSystems that are predefined in the Power
   constant String TableDir=Modelica.Utilities.Files.loadResource("modelica://PowerSystems/Resources/Tables/")
   "Directory of example tables";
 
+
   annotation (preferedView="info",
   version="0.2.1",
   versionDate="2014-08-15",
@@ -137,7 +138,7 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 <h3><font color=\"#000080\" size=5>Modelica PowerSystems library</font></h3>
 <p>The library is intended to model electrical <b>power systems</b> at different <b>levels of detail</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
 <p>The Users Guide to the library is <a href=\"PowerSystems.UsersGuide\"><b>here</b></a>.</p>
-<p><br/>Copyright &copy; 2007-2013, Modelica Association. </p>
+<p><br/>Copyright &copy; 2007-2014, Modelica Association. </p>
 <p><i>This Modelica package is <b>Open Source</b> software; it can be redistributed and/or modified
 under the terms of the <b>Modelica license, version 2.0, see the license conditions and
 the accompanying disclaimer <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">here</a>.</b></i> </p>

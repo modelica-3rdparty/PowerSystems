@@ -12,7 +12,7 @@ Window(
   library=1,
   autolayout=1),
 Documentation(info="<html>
-<p><a href=\"Spot3.UsersGuide.Overview\">up users guide</a></p>
+<p><a href=\"PowerSystems.UsersGuide.Overview\">up users guide</a></p>
 </html>
 "));
 end Common;

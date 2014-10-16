@@ -14,6 +14,8 @@ In particular this shall cover systems like:
  * Variable frequency systems, e.g. in wind turbines or for drive control, and
  * DC power systems, like HVDC
 
+See also the publication [Franke, Wiesmann: Flexible modeling of electrical power systems -- the Modelica PowerSystems library, Modelica conference 2014](https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf).
+
 ![PowerWorld.png](PowerSystems/Examples/PowerWorld/Resources/PowerWorld.png)
 
 
@@ -23,6 +25,9 @@ Download [PowerSystems v0.2 (2013-04-18)](../../archive/v0.2.zip)
 
 #### Revisions
 
+ * Version v0.2.1  (2014-08-15)
+   * replace deprecated classDirectory() with loadResource()
+   * fix references to Connections package
  * [Version v0.2 (2013-04-18)](../../archive/v0.2.zip)
    * Clean-up Examples and Resources
  * Version v0.1.3  (2013-02-28)
@@ -38,7 +43,7 @@ Download [PowerSystems v0.2 (2013-04-18)](../../archive/v0.2.zip)
 
 ## License
 
-Copyright &copy; 2007-2013, Modelica Association.
+Copyright &copy; 2007-2014, Modelica Association.
 
 This Modelica package is free software and the use is completely at your own risk;
 it can be redistributed and/or modified under the terms of the [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2).

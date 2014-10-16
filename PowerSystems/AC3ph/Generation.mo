@@ -798,13 +798,15 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
         "rotor generator"          annotation (Placement(transformation(extent=
                 {{-20,-10},{0,10}}, rotation=0)));
       Modelica.Blocks.Interfaces.RealOutput[2] i_meas(
-                               each final unit="1") "measured current {i_d, i_q} pu"
+                               each final unit="1")
+        "measured current {i_d, i_q} pu"
         annotation (Placement(transformation(
             origin={60,100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
       Modelica.Blocks.Interfaces.RealInput[2] i_act(
-                               each final unit="1") "actuated current {i_d, i_q} pu"
+                               each final unit="1")
+        "actuated current {i_d, i_q} pu"
         annotation (Placement(transformation(
             origin={-60,100},
             extent={{10,-10},{-10,10}},

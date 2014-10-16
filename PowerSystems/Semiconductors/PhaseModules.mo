@@ -87,8 +87,8 @@ model SwitchModule "Switch module"
 
 /*replaceable package SCpackage=Semiconductors.Ideal "SC package"
   annotation (choices(
-  choice(redeclare package SCpackage=Spot3.Semiconductors.Ideal "ideal"),
-  choice(redeclare package SCpackage=Spot3.Semiconductors.Custom "custom")));*/
+  choice(redeclare package SCpackage=PowerSystems.Semiconductors.Ideal "ideal"),
+  choice(redeclare package SCpackage=PowerSystems.Semiconductors.Custom "custom")));*/
   package SCpackage=Semiconductors.Ideal "SC package";
   parameter SCpackage.SCparameter par "SC parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
