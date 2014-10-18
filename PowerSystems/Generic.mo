@@ -144,26 +144,30 @@ package Generic "Simple components for basic investigations"
                                Diagram(graphics));
   end Ground;
 
-  model EMF "Electro-Motoric Force"
+  model Generator "Basic transformation of rotational to electrical power"
     extends PowerSystems.Generic.Ports.PartialSource(
                                      final potentialReference = synchronous);
     parameter Boolean synchronous = PhaseSystem.m > 0 "synchronous machine";
-    parameter SI.Frequency f_ref = 50 "reference value of frequency"
+    parameter Integer pp = 1 "pole-pair number";
+    parameter SI.Frequency f_nom = system.f_nom "nominal value of frequency"
       annotation (Dialog(group="Reference Parameters"));
-    parameter SI.Voltage V_ref = 10e3 "reference value of voltage"
+    parameter SI.Voltage V_nom = 10e3 "nominal value of voltage"
       annotation (Dialog(group="Reference Parameters"));
     Modelica.Mechanics.Rotational.Interfaces.Flange_a flange
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
             rotation=0)));
-    SI.AngularVelocity w = der(flange.phi);
-    SI.Voltage V;
+    SI.AngularVelocity w = pp*der(flange.phi);
+    SI.Voltage V(start = V_nom);
     SI.Angle thetaRel;
+  protected
+    outer System system;
+
   equation
     if PhaseSystem.m > 0 then
       if synchronous then
-        flange.phi = PhaseSystem.thetaRef(terminal.theta);
+        pp*flange.phi = PhaseSystem.thetaRef(terminal.theta);
         if Connections.isRoot(terminal.theta) then
-          V = V_ref;
+          V = V_nom;
           if PhaseSystem.m > 1 then
             PhaseSystem.thetaRel(terminal.theta) = 0;
           end if;
@@ -174,7 +178,7 @@ package Generic "Simple components for basic investigations"
       thetaRel = 0;
     end if;
     if PhaseSystem.m == 0 or not synchronous then
-      V = V_ref/f_ref*w/2/pi;
+      V = V_nom/f_nom*w/2/pi;
     end if;
     0 = PhaseSystem.activePower(terminal.v, terminal.i) + w*flange.tau;
     terminal.v = PhaseSystem.phaseVoltages(V, thetaRel);
@@ -218,7 +222,7 @@ package Generic "Simple components for basic investigations"
             fillPattern=FillPattern.Solid,
             textString="S",
             visible=synchronous)}));
-  end EMF;
+  end Generator;
 
   model Inverter "Convert direct current to alternating current"
     extends PowerSystems.Generic.Ports.PartialSource(
@@ -229,14 +233,14 @@ package Generic "Simple components for basic investigations"
       redeclare package PhaseSystem = PhaseSystem_dc)
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
     parameter SI.Voltage V_dc = 150e3 "voltage of dc system";
-    parameter SI.Frequency f_ref = 50 "frequency of sinusoidal voltage"
-      annotation (Dialog(group="Reference Parameters"));
     SI.Current I "value of current";
     SI.Angle thetaRel;
+  protected
+    outer System system;
   equation
     if PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
-        PhaseSystem.thetaRef(terminal.theta) = 2*pi*f_ref*time;
+        PhaseSystem.thetaRef(terminal.theta) = system.theta;
         if PhaseSystem.m > 1 then
           PhaseSystem.thetaRel(terminal.theta) = 0;
         end if;
@@ -295,13 +299,13 @@ package Generic "Simple components for basic investigations"
   model FixedVoltageSource
     extends PowerSystems.Generic.Ports.PartialSource;
     parameter SI.Voltage V = 10e3 "value of constant voltage";
-    parameter SI.Frequency f = 50 "frequency of sinusoidal voltage"
-      annotation (Dialog(group="Reference Parameters"));
     SI.Angle thetaRel;
+  protected
+    outer System system;
   equation
     if PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
-        PhaseSystem.thetaRef(terminal.theta) =  2*pi*f*time;
+        PhaseSystem.thetaRef(terminal.theta) = system.theta;
         if PhaseSystem.m > 1 then
           PhaseSystem.thetaRel(terminal.theta) = 0;
         end if;
@@ -380,16 +384,16 @@ package Generic "Simple components for basic investigations"
   model PrescribedPowerSource "Prescribed power source"
     extends PowerSystems.Generic.Ports.PartialSource(
       final potentialReference=true);
-    parameter SI.Frequency f = 50 "frequency of sinusoidal voltage"
-      annotation (Dialog(group="Reference Parameters"));
     Modelica.Blocks.Interfaces.RealInput P(unit="W") annotation (Placement(
           transformation(extent={{-130,-20},{-90,20}}, rotation=0)));
     SI.Current I "value of current";
     SI.Angle thetaRel;
+  protected
+    outer System system;
   equation
     if PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
-        PhaseSystem.thetaRef(terminal.theta) =  2*pi*f*time;
+        PhaseSystem.thetaRef(terminal.theta) = system.theta;
         if PhaseSystem.m > 1 then
           PhaseSystem.thetaRel(terminal.theta) = 0;
         end if;
@@ -442,9 +446,10 @@ package Generic "Simple components for basic investigations"
   package Ports "Interfaces for generic components"
     extends Modelica.Icons.InterfacesPackage;
     connector Terminal_p "Positive terminal"
-      extends PowerSystems.Interfaces.Terminal(v(each start=1e3, each nominal=1e3), i(each start=1e3, each
-            nominal =                                                                                           1e3));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+      extends PowerSystems.Interfaces.Terminal(
+        v(each start=1e3, each nominal=1e3),
+        i(each start=1e3, each nominal=1e3));
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                     -100},{100,100}}), graphics={Polygon(
                   points={{60,60},{-60,60},{-60,-60},{60,-60},{60,60}},
                   lineColor={0,120,120},
@@ -464,9 +469,10 @@ package Generic "Simple components for basic investigations"
     end Terminal_p;
 
     connector Terminal_n "Negative terminal"
-      extends PowerSystems.Interfaces.Terminal(v(each start=1e3, each nominal=1e3), i(each start=-1e3, each
-            nominal =                                                                                            1e3));
-          annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+      extends PowerSystems.Interfaces.Terminal(
+        v(each start=1e3, each nominal=1e3),
+        i(each start=-1e3, each nominal=1e3));
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                 -100},{100,100}}),     graphics={
                 Text(
                   extent={{-150,110},{150,50}},
@@ -491,23 +497,27 @@ package Generic "Simple components for basic investigations"
         PowerSystems.PhaseSystems.PartialPhaseSystem "Phase system"
         annotation (choicesAllMatching=true);
       function j = PhaseSystem.j;
-      PowerSystems.Generic.Ports.Terminal_p
-                                         terminal_p(
-                                        redeclare package PhaseSystem =
-            PhaseSystem)                                           annotation (Placement(
-            transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-      PowerSystems.Generic.Ports.Terminal_n
-                                         terminal_n(
-                                        redeclare package PhaseSystem =
-            PhaseSystem)                                           annotation (Placement(
-            transformation(extent={{90,-10},{110,10}}, rotation=0)));
-      SI.Voltage v[:] = terminal_p.v - terminal_n.v;
-      SI.Current i[:] = terminal_p.i;
+      parameter SI.Voltage[PhaseSystem.n] v_start = zeros(PhaseSystem.n)
+        "Start value for voltage drop" annotation(Dialog(tab="Initialization"));
+      parameter SI.Current[PhaseSystem.n] i_start = zeros(PhaseSystem.n)
+        "Start value for current" annotation(Dialog(tab="Initialization"));
+      PowerSystems.Generic.Ports.Terminal_p terminal_p(
+        redeclare package PhaseSystem = PhaseSystem)
+        annotation (Placement(
+          transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+      PowerSystems.Generic.Ports.Terminal_n terminal_n(
+        redeclare package PhaseSystem = PhaseSystem)
+        annotation (Placement(
+          transformation(extent={{90,-10},{110,10}}, rotation=0)));
+      SI.Voltage[PhaseSystem.n] v(start = v_start);
+      SI.Current[PhaseSystem.n] i(start = i_start);
       SI.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i);
       SI.Voltage V = PhaseSystem.systemVoltage(v);
       SI.Current I = PhaseSystem.systemCurrent(i);
       SI.Angle phi = PhaseSystem.phase(v) - PhaseSystem.phase(i);
     equation
+      v = terminal_p.v - terminal_n.v;
+      i = terminal_p.i;
       if PhaseSystem.m > 0 then
         Connections.branch(terminal_p.theta, terminal_n.theta);
       end if;

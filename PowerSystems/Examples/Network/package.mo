@@ -4,7 +4,7 @@ package Network "Network flow calculations"
 
 
   model NetworkLoop
-  "See Oeding, Oswald: Elektrische Kraftwerke und Netze, section 14.2.6: Leistungsfluss in Ringnetzen"
+  "Simple textbook example for a steady-state power flow calculation"
     extends Modelica.Icons.Example;
 
     PowerSystems.Generic.FixedVoltageSource
@@ -59,6 +59,8 @@ package Network "Network flow calculations"
           origin={50,30},
           extent={{-10,-10},{10,10}},
           rotation=270)));
+    inner System system
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   equation
     connect(impedance1.terminal_n, impedance2.terminal_p)
       annotation (Line(points={{-50,-20},{-50,-40}}, color={0,120,120}));
@@ -91,7 +93,10 @@ package Network "Network flow calculations"
         points={{50,-60},{50,-80},{10,-80}},
         color={0,120,120},
         smooth=Smooth.None));
-    annotation (preferredView="diagram", Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+    annotation (Documentation(info="<html>
+  <p>This textbook example demonstrates a basic power flow calculation.</p>
+  <p>See Oeding, Oswald: Elektrische Kraftwerke und Netze, section 14.2.6: Leistungsfluss in Ringnetzen.</p>
+</html>"),   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}),
                         graphics),
                          experiment(StopTime=1));
@@ -99,7 +104,7 @@ package Network "Network flow calculations"
 
 
     model NetworkOpened
-  "See Oeding, Oswald: Elektrische Kraftwerke und Netze, section 14.2.6: Leistungsfluss in Ringnetzen"
+  "Steady-state power flow calculation with two voltage sources"
       extends Modelica.Icons.Example;
 
       PowerSystems.Generic.FixedVoltageSource
@@ -160,6 +165,8 @@ package Network "Network flow calculations"
             origin={50,30},
             extent={{-10,-10},{10,10}},
             rotation=270)));
+      inner System system
+        annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
       connect(impedance1.terminal_n, impedance2.terminal_p)
         annotation (Line(points={{-50,-20},{-50,-40}}, color={0,120,120}));
@@ -185,10 +192,16 @@ package Network "Network flow calculations"
         annotation (Line(points={{50,60},{50,40}}, color={0,120,120}));
       connect(transformer2.terminal_n, impedance5.terminal_p)
         annotation (Line(points={{50,20},{50,0}}, color={0,120,120}));
-      annotation (preferredView="diagram", Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+      annotation (Documentation(info="<html>
+  <p>The loop of the NetworkLoop example has been opened and a second voltage source was added.</p>
+</html>"),     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                 -100},{100,100}}),
                           graphics),
                            experiment(StopTime=1));
     end NetworkOpened;
 
+
+  annotation(Documentation(info="<html><p>The Network examples demonstrate the evolution of 
+  a simple powerflow calculation from a textbook to a dynamic simulation model with power/frequency control.
+  </p></html>"));
 end Network;

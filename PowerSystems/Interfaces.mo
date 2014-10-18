@@ -315,8 +315,8 @@ Used in 'System' for sending/receiving weighted frequency-data.</p>
   end Frequency;
 
   model Sender "Sender of weighted frequency"
-    input SI.Time H "inertia constant";
-    input SI.AngularVelocity w "angular velocity";
+    input SI.Time H "inertia constant" annotation(Dialog);
+    input SI.AngularVelocity w "angular velocity" annotation(Dialog);
     Frequency sendFreq annotation (Placement(transformation(extent={{
               -60,-92},{60,28}}, rotation=0), iconTransformation(extent={{-60,-92},
               {60,28}})));
