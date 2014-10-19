@@ -102,7 +102,9 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
     PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo1(par(
       v_tc1={0.9,1.0,1.1},
       v_tc2={0.9,1.0,1.1},
-      V_nom={1,10}))
+      V_nom={1,10}),
+      use_tap_p=true,
+      use_tap_n=true)
                     annotation (Placement(transformation(extent={{0,20},{20,40}},
             rotation=0)));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter12(V_nom=10)
@@ -113,7 +115,9 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
     PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo2(par(
       v_tc1={0.9,1.0,1.1},
       v_tc2={0.9,1.0,1.1},
-      V_nom={1,10}))
+      V_nom={1,10}),
+      use_tap_p=true,
+      use_tap_n=true)
                     annotation (Placement(transformation(extent={{0,-20},{20,
               -40}}, rotation=0)));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter22(V_nom=10)
