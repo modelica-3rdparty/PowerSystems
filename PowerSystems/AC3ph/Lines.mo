@@ -706,9 +706,12 @@ The set of equations of two series connected lines of length len1 and len2 is id
       "rel fault-pos (1/2ne <= p < 1 - 1/2ne)";
     extends Partials.PIlineBase;
 
+    parameter SI.Current[3] iF_start = zeros(3) "start value of fault current"
+      annotation(Dialog(tab="Initialization"));
+
     SI.Voltage[3,ne] v(start = transpose(fill(v_start/ne, ne)));
     SI.Current[3,ne1] i(start = transpose(fill(i_start, ne1)));
-    SI.Current[3] iF;
+    SI.Current[3] iF(start = iF_start);
     SI.Current[3,2] iF_p(each stateSelect=StateSelect.never);
   protected
     final parameter Integer ne1=ne + 1;
