@@ -3,7 +3,7 @@ package Ports "Strandard electric ports"
   extends Modelica.Icons.InterfacesPackage;
 
   connector TwoPin_p "AC1/DC terminal ('positive')"
-    extends Interfaces.Terminal(redeclare package PhaseSystem =
+    extends Interfaces.TerminalDC(redeclare package PhaseSystem =
           PhaseSystems.TwoConductor);
     annotation (defaultComponentName = "term_p",
     Documentation(info="<html>
@@ -47,7 +47,7 @@ package Ports "Strandard electric ports"
   end TwoPin_p;
 
   connector TwoPin_n "AC1/DC terminal ('negative')"
-    extends Interfaces.Terminal(redeclare package PhaseSystem =
+    extends Interfaces.TerminalDC(redeclare package PhaseSystem =
           PhaseSystems.TwoConductor);
     annotation (defaultComponentName = "term_n",
     Documentation(info="<html>

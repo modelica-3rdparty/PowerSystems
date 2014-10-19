@@ -8,9 +8,17 @@ package Interfaces
       annotation (choicesAllMatching=true);
     PhaseSystem.Voltage v[PhaseSystem.n] "voltage vector";
     flow PhaseSystem.Current i[PhaseSystem.n] "current vector";
-    PhaseSystem.ReferenceAngle theta[PhaseSystem.m] if PhaseSystem.m > 0
+    PhaseSystem.ReferenceAngle theta[PhaseSystem.m]
       "optional vector of phase angles";
   end Terminal;
+
+  connector TerminalDC "Power terminal for pure DC models"
+    replaceable package PhaseSystem = PhaseSystems.PartialPhaseSystem
+      "Phase system"
+      annotation (choicesAllMatching=true);
+    PhaseSystem.Voltage v[PhaseSystem.n] "voltage vector";
+    flow PhaseSystem.Current i[PhaseSystem.n] "current vector";
+  end TerminalDC;
 
   connector Electric_p "Electric terminal ('positive')"
     extends Modelica.Electrical.Analog.Interfaces.Pin;

@@ -8,14 +8,14 @@ package Generic "Simple components for basic investigations"
     parameter SI.Inductance L = 1/314 "reactive component";
     SI.AngularFrequency omegaRef;
   equation
-    if PhaseSystem.m > 0 then
+    if true or PhaseSystem.m > 0 then
       omegaRef = der(PhaseSystem.thetaRef(terminal_p.theta));
     else
       omegaRef = 0;
     end if;
     v = R*i + omegaRef*L*j(i);
     zeros(PhaseSystem.n) = terminal_p.i + terminal_n.i;
-    if PhaseSystem.m > 0 then
+    if true or PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -51,14 +51,14 @@ package Generic "Simple components for basic investigations"
     parameter Modelica.SIunits.Capacitance C = 1/314 "reactive component";
     SI.AngularFrequency omegaRef;
   equation
-    if PhaseSystem.m > 0 then
+    if true or PhaseSystem.m > 0 then
       omegaRef = der(PhaseSystem.thetaRef(terminal_p.theta));
     else
       omegaRef = 0;
     end if;
     i = G*v + omegaRef*C*j(v);
     zeros(PhaseSystem.n) = terminal_p.i + terminal_n.i;
-    if PhaseSystem.m > 0 then
+    if true or PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
@@ -99,7 +99,7 @@ package Generic "Simple components for basic investigations"
   equation
     terminal_p.v = ratio*terminal_n.v;
     zeros(PhaseSystem.n) = ratio*terminal_p.i + terminal_n.i;
-    if PhaseSystem.m > 0 then
+    if true or PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -163,7 +163,7 @@ package Generic "Simple components for basic investigations"
     outer System system;
 
   equation
-    if PhaseSystem.m > 0 then
+    if true or PhaseSystem.m > 0 then
       if synchronous then
         pp*flange.phi = PhaseSystem.thetaRef(terminal.theta);
         if Connections.isRoot(terminal.theta) then
@@ -226,10 +226,9 @@ package Generic "Simple components for basic investigations"
 
   model Inverter "Convert direct current to alternating current"
     extends PowerSystems.Generic.Ports.PartialSource(
-                                     final potentialReference = true);
+      final potentialReference = true);
     package PhaseSystem_dc = PowerSystems.PhaseSystems.DirectCurrent;
-    PowerSystems.Generic.Ports.Terminal_p
-                                       terminal_dc(
+    PowerSystems.Generic.Ports.Terminal_p terminal_dc(
       redeclare package PhaseSystem = PhaseSystem_dc)
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
     parameter SI.Voltage V_dc = 150e3 "voltage of dc system";
@@ -238,7 +237,7 @@ package Generic "Simple components for basic investigations"
   protected
     outer System system;
   equation
-    if PhaseSystem.m > 0 then
+    if true or PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
         PhaseSystem.thetaRef(terminal.theta) = system.theta;
         if PhaseSystem.m > 1 then
@@ -249,9 +248,14 @@ package Generic "Simple components for basic investigations"
     else
       thetaRel = 0;
     end if;
+    if true then
+      Connections.branch(terminal.theta, terminal_dc.theta)
+        "needed because terminal_dc is a generic Terminal with theta";
+    end if;
     terminal_dc.v = PhaseSystem_dc.phaseVoltages(V_dc);
     terminal.i = PhaseSystem.phaseCurrents(I, thetaRel);
-    0 = PhaseSystem_dc.activePower(terminal_dc.v, terminal_dc.i) + PhaseSystem.activePower(terminal.v, terminal.i);
+    0 = PhaseSystem_dc.activePower(terminal_dc.v, terminal_dc.i)
+      + PhaseSystem.activePower(terminal.v, terminal.i);
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}),
                         graphics),
@@ -303,7 +307,7 @@ package Generic "Simple components for basic investigations"
   protected
     outer System system;
   equation
-    if PhaseSystem.m > 0 then
+    if true or PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
         PhaseSystem.thetaRef(terminal.theta) = system.theta;
         if PhaseSystem.m > 1 then
@@ -391,7 +395,7 @@ package Generic "Simple components for basic investigations"
   protected
     outer System system;
   equation
-    if PhaseSystem.m > 0 then
+    if true or PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
         PhaseSystem.thetaRef(terminal.theta) = system.theta;
         if PhaseSystem.m > 1 then
@@ -518,7 +522,7 @@ package Generic "Simple components for basic investigations"
     equation
       v = terminal_p.v - terminal_n.v;
       i = terminal_p.i;
-      if PhaseSystem.m > 0 then
+      if true or PhaseSystem.m > 0 then
         Connections.branch(terminal_p.theta, terminal_n.theta);
       end if;
     end PartialTwoTerminal;
@@ -541,7 +545,7 @@ package Generic "Simple components for basic investigations"
       parameter Boolean definiteReference = false "serve as definite root"
          annotation (Evaluate=true, Dialog(group="Reference Parameters"));
     equation
-      if PhaseSystem.m > 0 then
+      if true or PhaseSystem.m > 0 then
         if potentialReference then
           if definiteReference then
             Connections.root(terminal.theta);
@@ -585,7 +589,7 @@ package Generic "Simple components for basic investigations"
       P = S[1];
       v = zeros(PhaseSystem.n);
       zeros(PhaseSystem.n) = terminal_p.i + terminal_n.i;
-      if PhaseSystem.m > 0 then
+      if true or PhaseSystem.m > 0 then
         terminal_p.theta = terminal_n.theta;
       end if;
       annotation(Icon(coordinateSystem(
