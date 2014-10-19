@@ -4,7 +4,7 @@ package Governors "Turbine Governors "
 
   block GovernorSimple "Simple governor for constant turbine power"
 
-    parameter Boolean par=true "p parameter or initialised?"   annotation(evaluate=true,
+    parameter Boolean par=true "p parameter or initialised?"   annotation(Evaluate=true,
       choices(choice=true "parameter", choice=false "initialised"));
     parameter SIpu.Power p(unit="1", fixed=par)=1 "turbine power"
                                                 annotation(Dialog(enable=par));
@@ -55,11 +55,7 @@ package Governors "Turbine Governors "
 <p>Constant excitation-voltage.</p>
 <p><tt>fieldVoltage=1</tt> corresponds to <tt>norm(v)=1 pu</tt> at open generator terminals.</p>
 </html>
-"),   Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
+"),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -98,11 +94,7 @@ package Governors "Turbine Governors "
               info="<html>
 <p>Constant turbine power (setpoint value).</p>
 </html>
-"),   Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
+"),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -145,11 +137,6 @@ package Governors "Turbine Governors "
     connect(delta_power.y, limiter.u)
       annotation (Line(points={{31,0},{48,0}}, color={0,0,127}));
     annotation (defaultComponentName = "governor",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>First order control of turbine power.</p>
@@ -207,11 +194,6 @@ package Governors "Turbine Governors "
     connect(limiter.y, power)   annotation (Line(points={{71,0},{80,0},{80,-80},
               {60,-80},{60,-100}}, color={0,0,127}));
     annotation (defaultComponentName = "governor",
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 </html>"),
         Diagram(coordinateSystem(
@@ -222,14 +204,7 @@ package Governors "Turbine Governors "
     annotation (Documentation(info="<html>
 </html>"));
   end Partials;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.28,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 </html>
 "), Icon(coordinateSystem(

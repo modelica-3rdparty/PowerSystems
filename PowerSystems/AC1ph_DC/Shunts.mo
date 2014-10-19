@@ -20,11 +20,6 @@ equation
   i_x = i - G*v;
   L*der(i_x) + R*i_x = v;
 annotation (defaultComponentName = "xShunt",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Info see package AC1ph_DC.Impedances.</p>
@@ -102,11 +97,6 @@ model CapacitiveShunt "Shunt capacitor with parallel conductor, 1-phase, pp pg"
 equation
   C*der(v) + G*v = i;
 annotation (defaultComponentName = "cShunt",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Terminology.<br>
@@ -230,11 +220,6 @@ package Partials "Partial models"
     v = term.v;
     i = term.i;
   annotation (
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(
   info="<html>
 </html>
@@ -259,18 +244,12 @@ package Partials "Partial models"
     Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-      DymolaStoredErrors);
+            grid={2,2}), graphics));
   end ShuntBase;
-  annotation (            Window(
-      x=0.05,
-      y=0.44,
-      width=0.31,
-      height=0.23,
-      library=1,
-      autolayout=1));
+
 end Partials;
-  annotation (preferedView="info", Documentation(info="<html>
+
+  annotation (preferredView="info", Documentation(info="<html>
 <p>Info see package AC1ph_DC.Impedances.</p>
 </html>
 "));

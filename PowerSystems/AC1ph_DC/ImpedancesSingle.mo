@@ -10,11 +10,6 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
   equation
     R*i = v;
     annotation (defaultComponentName="res1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1ph_DC.ImpedancesSingle.</p>
@@ -46,11 +41,6 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
   equation
     G*v = i;
     annotation (defaultComponentName="cond1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1ph_DC.ImpedancesSingle.</p>
@@ -83,11 +73,6 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
   equation
     L*der(i) + R*i = v;
     annotation (defaultComponentName="ind1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1ph_DC.ImpedancesSingle.</p>
@@ -129,11 +114,6 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
   equation
     C*der(v) + G*v = i;
     annotation (defaultComponentName="cap1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1ph_DC.ImpedancesSingle.</p>
@@ -210,11 +190,6 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
     connect(res2.term_n, term_n)
       annotation (Line(points={{40,0},{100,0}}, color={0,0,255}));
     annotation (defaultComponentName="resSym",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1ph_DC.ImpedancesSingle.</p>
@@ -279,11 +254,6 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
     connect(cap2.term_n, term_n)
       annotation (Line(points={{40,0},{100,0}}, color={0,0,255}));
     annotation (defaultComponentName="capSym",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Info see package AC1ph_DC.ImpedancesSingle.</p>
@@ -356,13 +326,6 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
       v = term_p.v - term_n.v;
       i = term_p.i;
     annotation (
-      Window(
-        x=0.45,
-        y=0.01,
-        width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
 </html>
@@ -381,23 +344,9 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
                   255}), Line(points={{60,0},{90,0}}, color={0,0,255})}));
     end ImpedBase;
 
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>One-conductor models <b>without</b> choice of units and base-values, using directly the parameters</p>
 <pre>

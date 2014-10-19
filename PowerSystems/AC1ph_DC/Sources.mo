@@ -24,11 +24,6 @@ package Sources "DC voltage sources"
     phi = theta + alpha + system.alpha0;
     term.v[1] - term.v[2] = V*cos(phi);
     annotation (defaultComponentName = "voltage1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>AC voltage with constant amplitude and phase when 'vType' is 'parameter',<br>
@@ -75,11 +70,6 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
     phi = h*(theta + alpha + system.alpha0) + h.*alpha0;
     term.v[1] - term.v[2] = V*veff*cos(phi);
     annotation (defaultComponentName = "voltage1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>AC voltage spectrum with constant amplitude and phase when 'vType' is 'parameter',<br>
@@ -133,11 +123,6 @@ where
     end if;
     term.v[1] - term.v[2] = v;
     annotation (defaultComponentName = "voltage1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>DC voltage with constant amplitude when 'vType' is 'parameter',<br>
@@ -160,7 +145,7 @@ with variable amplitude when 'vType' is 'signal'.</p>
     extends Basic.Nominal.Nominal;
 
     parameter Integer pol(min=-1,max=1)=-1 "grounding scheme"
-      annotation(evaluate=true,
+      annotation(Evaluate=true,
       choices(choice=1 "plus",
       choice=0 "symmetrical",
       choice=-1 "negative"));
@@ -177,11 +162,6 @@ with variable amplitude when 'vType' is 'signal'.</p>
     term.v[1] - term.v[2] = v;
     term.i[1] = -i;
     annotation (defaultComponentName = "battery1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p><b>Preliminary:</b> Battery is DC voltage with constant amplitude.<br>
@@ -227,7 +207,7 @@ To be completed later with charging and discharging characteristic.</p>
                                  final S_nom=1);
 
       parameter Integer pol(min=-1,max=1)=-1 "grounding scheme"
-        annotation(evaluate=true,
+        annotation(Evaluate=true,
         choices(choice=1 "positive",
         choice=0 "symmetrical",
         choice=-1 "negative"));
@@ -253,13 +233,6 @@ To be completed later with charging and discharging characteristic.</p>
 
       sum(term.i) + neutral.i = 0;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 <p>Allows positive, symmetrical, and negativ grounding according to the choice of parameter 'pol'.<br>
@@ -341,13 +314,6 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
         der(theta) = omega_internal;
       end if;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -372,7 +338,7 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
       extends VoltageBase;
 
       parameter Integer pol(min=-1,max=1)=-1 "grounding scheme"
-        annotation(evaluate=true,
+        annotation(Evaluate=true,
         choices(choice=1 "positive",
         choice=0 "symmetrical",
         choice=-1 "negative"));
@@ -392,13 +358,6 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
       end if;
 
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -418,23 +377,10 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics));
     end DCvoltageBase;
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.35,
-  height=0.27,
-  library=1,
-  autolayout=1));
+
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>AC sources have the optional inputs:</p>
 <pre>

@@ -50,14 +50,6 @@ package Types
     type Torque = Real (final quantity="Torque", unit="N.m/(N.m)");
 
    annotation (
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65,
-      library=1,
-      autolayout=1),
-    Invisible=true,
     Documentation(info="<html>
 </html>
 "));
@@ -111,14 +103,6 @@ package Types
     type Torque = Real (final quantity="Torque", unit="N.m");
 
    annotation (
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65,
-      library=1,
-      autolayout=1),
-    Invisible=true,
     Documentation(info="<html>
 </html>
 "));

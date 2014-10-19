@@ -57,7 +57,7 @@ package Turbines "Turbine example data"
       ratio={1,6,42},
       stiff_sh={16,1}*1e4);
   end WindTurbineGear;
-   annotation (preferedView="info",
+   annotation (preferredView="info",
  Documentation(info="<html>
 </html>"));
 end Turbines;

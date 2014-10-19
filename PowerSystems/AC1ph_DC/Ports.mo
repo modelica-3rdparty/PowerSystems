@@ -9,11 +9,7 @@ package Ports "Strandard electric ports"
     Documentation(info="<html>
 <p>Electric connector with a vector of 'pin's, positive.</p>
 </html>
-"), Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
+"),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -53,11 +49,6 @@ package Ports "Strandard electric ports"
     Documentation(info="<html>
 <p>Electric connector with a vector of 'pin's, negative.</p>
 </html>"),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -296,14 +287,7 @@ package Ports "Strandard electric ports"
   Diagram(graphics));
   end PortTrafo_p_n_n;
 
-    annotation (preferedView="info",
-      Window(
-        x=0,
-        y=0.55,
-        width=0.15,
-        height=0.41,
-        library=1,
-        autolayout=1),
+    annotation (preferredView="info",
       Documentation(info="<html>
 <p>Electrical ports with connectors Ports.AC1ph_DC:</p>
 <p>The index notation <tt>_p_n</tt> and <tt>_pn</tt> is used for</p>

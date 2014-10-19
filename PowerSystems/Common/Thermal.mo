@@ -473,7 +473,7 @@ end BdCondBase;
 
 partial model BoundaryBase "Boundary model base"
 
-  parameter Boolean av=false "time average heat-flow"  annotation(evaluate=true,Dialog(group="Options"));
+  parameter Boolean av=false "time average heat-flow"  annotation(Evaluate=true,Dialog(group="Options"));
   parameter SI.Time tcst(min=1e-9)=1 "average time-constant"
                                                   annotation(Evaluate=true, Dialog(group="Options",enable=av));
   parameter Boolean ideal=true "ideal cooling";
@@ -526,20 +526,13 @@ end BoundaryBase;
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-    Window(
-x=0.05,
-y=0.44,
-width=0.31,
-height=0.26,
-library=1,
-autolayout=1),
     Documentation(
             info="<html>
 </html>
 "));
 end Partials;
 
-  annotation (preferedView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>Auxiliary thermal boundary-conditions, boundary-elements and adptors.</p>
 </html>"));
 end Thermal;

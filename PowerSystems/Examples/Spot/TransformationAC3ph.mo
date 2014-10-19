@@ -61,11 +61,6 @@ package TransformationAC3ph "Transformation dqo"
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-90,0},{-90,0}}, color={0,0,255}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Primary and secondary signals show a topology dependent phase shift.</p>
@@ -94,8 +89,7 @@ Delta_Y configuration:<br>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment,
-      experimentSetupOutput);
+      experiment(StopTime=1));
   end PhaseShifts;
 
   model TapChanger "Tap changing primary and secondary"
@@ -184,11 +178,6 @@ Delta_Y configuration:<br>
     connect(TapRelay2.tap_n, trafo2.tap_n) annotation (Line(points={{14,-60},{
             14,-40}}, color={255,127,0}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -214,8 +203,7 @@ if secondary side is changed at fixed source.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(StopTime=4),
-      experimentSetupOutput);
+      experiment(StopTime=4));
   end TapChanger;
 
   model TreeWinding "Tree winding transformer"
@@ -267,11 +255,6 @@ if secondary side is changed at fixed source.</p>
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-90,0},{-90,0}}, color={0,0,255}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Primary and secondary signals show a topology dependent phase shift.</p>
@@ -300,17 +283,9 @@ Delta_Y configuration:<br>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment,
-      experimentSetupOutput);
+      experiment(StopTime=1));
   end TreeWinding;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transformers three-phase and tap changer control.</p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>

@@ -14,13 +14,6 @@ equation
   end when;
   {v,i} = if closed or arc then {epsR*s,s} else {s,epsG*s};
   annotation (defaultComponentName = "switch_",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>Use only as component within complete Switch model.<br>
@@ -81,13 +74,6 @@ equation
   i_arc = if arc then s else 0;
   {v,i} = if closed then {epsR*s,s} else if arc then {v_arc,i_arc} else {s,epsG*s};
   annotation (defaultComponentName = "breaker_",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>Use only as component within complete Breaker model.<br>
@@ -114,7 +100,7 @@ end Breaker;
 model Short "Short kernel optionally with exponential relaxation, no terminals"
   extends Partials.FaultBase;
 
-  parameter Boolean relax=false "use relaxation fct" annotation(evaluate=true);
+  parameter Boolean relax=false "use relaxation fct" annotation(Evaluate=true);
   parameter SI.Time t_c=10e-3 "relaxation time constant" annotation(Dialog(enable=relax));
   parameter Real beta(min=2)=4 "power of exponent" annotation(Dialog(enable=relax));
   SI.Time t0(start=-Modelica.Constants.inf, fixed=true);
@@ -134,13 +120,6 @@ equation
   end if;
       annotation (
         defaultComponentName="fault_",
-Window(
-  x=0.45,
-    y=0.01,
-    width=
-0.44,
-  height=
- 0.65),
 Documentation(
       info="<html>
 <p>Use only as component within complete Short model.</p>
@@ -213,13 +192,6 @@ equation
   end if;
   cleared = Q < Qclear;
 annotation (defaultComponentName = "fault_",
-  Window(
-    x=0.45,
-      y=0.01,
-      width=
-  0.44,
-    height=
-   0.65),
   Documentation(
         info="<html>
 <p>Use only as component within complete Fault model.<br>
@@ -256,7 +228,7 @@ partial model SwitchBase "Switch base kernel, no terminals"
   Boolean open(start=true)=not closed;
   Modelica.Blocks.Interfaces.BooleanInput closed(start=false)
         "true:closed, false:open"
-    annotation (preferedView="info", Placement(transformation(
+    annotation (Placement(transformation(
         origin={0,100},
         extent={{-10,-10},{10,10}},
         rotation=270)));
@@ -264,13 +236,6 @@ partial model SwitchBase "Switch base kernel, no terminals"
   Real s(start = 0.5);
 
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 </html>
@@ -327,15 +292,8 @@ partial model FaultBase "Fault kernel base"
     protected
   Real s(start = 0.5);
       annotation (
-        structurallyIncomplete,
+        __Dymola_structurallyIncomplete=true,
         defaultComponentName="fault_",
-Window(
-  x=0.45,
-    y=0.01,
-    width=
-0.44,
-  height=
- 0.65),
 Documentation(
       info="<html>
 </html>"),
@@ -361,19 +319,12 @@ end FaultBase;
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-    Window(
-x=0.05,
-y=0.44,
-width=0.31,
-height=0.26,
-library=1,
-autolayout=1),
     Documentation(
             info="<html>
 </html>
 "));
 end Partials;
-  annotation (preferedView="info",
+  annotation (preferredView="info",
     Documentation(info="<html>
 <p>Structurally incomplete kernel models.</p>
 </html>"));

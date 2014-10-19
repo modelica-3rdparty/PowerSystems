@@ -26,11 +26,6 @@ package Interfaces
   Documentation(info="<html>
 </html>
 "),
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -57,11 +52,6 @@ package Interfaces
     annotation (defaultComponentName = "term_n",
   Documentation(info="<html>
 </html>"),
-  Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -212,14 +202,7 @@ package Interfaces
     Modelica.SIunits.Temperature T "Temperature of conductor";
     Modelica.SIunits.HeatFlowRate Q_flow "Dissipated heat of conductor";
     Thermal_p heat "heat port"
-    annotation (                                       Documentation(info="<html>
-  <pre>
-  Adds a scalar heat port to the component.
-  The port collects the total heat dissipated by the component.
-  </pre>
-  </html>"),
-           Diagram(graphics),
-      Placement(transformation(
+      annotation (Placement(transformation(
           origin={0,100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
@@ -247,14 +230,7 @@ package Interfaces
     Modelica.SIunits.HeatFlowRate[m_heat] Q_flow
       "Dissipated heat of conductors";
     ThermalV_p heat(final m=m_heat) "vector heat port"
-    annotation (                                       Documentation(info="<html>
-  <pre>
-  Adds a vector heat port to the component.
-  Each port-component collects the heat dissipated by one conductor of the device.
-  </pre>
-  </html>"),
-           Diagram(graphics),
-      Placement(transformation(
+      annotation (Placement(transformation(
           origin={0,100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
@@ -307,11 +283,6 @@ package Interfaces
             lineColor={120,0,120},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid)}),
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>System frequency reference.<br>
 Used in 'System' for sending/receiving weighted frequency-data.</p>
@@ -332,13 +303,6 @@ Used in 'System' for sending/receiving weighted frequency-data.</p>
     sendFreq.H = -H;
     sendFreq.w_H = -H*w;
     annotation (defaultComponentName = "sendFreq",
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
 <p>Contains system frequency reference.<br>

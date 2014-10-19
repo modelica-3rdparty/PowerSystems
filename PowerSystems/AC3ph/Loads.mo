@@ -9,11 +9,6 @@ package Loads "Loads"
     Z = (p0/(p0*p0))*V2_nom;
     annotation (
       defaultComponentName="zLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductive load with impedance characteristic.<br>
@@ -88,11 +83,6 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     der(Z) = ((p0/(p0*p0))*v2*tanh(imax)/tanh((imax/V2_nom)*v2) - Z)/tcst;
     annotation (
       defaultComponentName="pqLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductive load with constant characteristic.<br>
@@ -158,11 +148,6 @@ Consumes the desired active and reactive power independent of voltage.</p>
     Y = (p0/(p0*p0))*I2_nom;
     annotation (
       defaultComponentName="yLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Capacitive load with admittance characteristic.<br>
@@ -260,11 +245,6 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     der(Y) = ((p0/(p0*p0))*i2*tanh(vmax)/tanh((vmax/I2_nom)*i2) - Y)/tcst;
     annotation (
       defaultComponentName="pqLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Capacitive load with constant characteristic.<br>
@@ -368,11 +348,6 @@ Consumes the desired active and reactive power independent of voltage.</p>
     der(Z) = ((p/(p*p))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
     annotation (
       defaultComponentName="zipLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductive load with characteristic depending on powers 0,1,2 of voltage or current.<br>
@@ -452,11 +427,6 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     der(Z) = ((p/(p*p))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
     annotation (
       defaultComponentName="freqLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductive load with frequency and voltage sensitive characteristic.<br>
@@ -547,11 +517,6 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     der(Z) = ((p/(p*p))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
     annotation (
       defaultComponentName="dynLoad",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductive load with characteristic depending on dynamic state.<br>
@@ -617,7 +582,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
       extends Basic.Nominal.Nominal;
 
       parameter Boolean stIni_en=true "enable steady-state initial equation"
-                annotation(evaluate=true, choices(__Dymola_checkBox=true));
+                annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
       parameter Boolean scType_par = true
         "= true if p0 defined by parameter p0_set otherwise by input signal p_set"
@@ -655,11 +620,6 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
       end if;
       v_n = R_n*i_n "equation neutral to ground";
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
       info="<html>
 </html>"),
@@ -710,11 +670,6 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
         omega[2]*j_dqo(psi)  + Z[1]*i = v;
       end if;
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(info=
         "<html>
 </html>
@@ -760,11 +715,6 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
         omega[2]*j_dqo(q) + Y[1]*v = i;
       end if;
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(info=
         "<html>
 </html>
@@ -794,22 +744,9 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
             grid={2,2}), graphics));
     end CapLoadBase;
 
-    annotation (            Window(
-        x=0.05,
-        y=0.44,
-        width=0.31,
-        height=0.23,
-        library=1,
-        autolayout=1));
   end Partials;
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.44,
-library=1,
-autolayout=1),
+
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Load models with an optional input (if scType=signal):</p>
 <pre>  p_set:     {active, reactive} power</pre>

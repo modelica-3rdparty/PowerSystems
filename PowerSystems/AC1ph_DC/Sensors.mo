@@ -23,11 +23,6 @@ package Sensors "Sensors n-phase or DC"
             lineColor={135,135,135},
             fillColor={175,175,175},
             fillPattern=FillPattern.Solid)}),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -50,11 +45,6 @@ package Sensors "Sensors n-phase or DC"
   equation
     i = 0.5*(term_p.i[1] - term_p.i[2]);
     annotation (defaultComponentName = "Isensor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
@@ -93,11 +83,6 @@ package Sensors "Sensors n-phase or DC"
             fillPattern=FillPattern.Solid),
           Line(points={{-20,50},{20,70}}, color={135,135,135}),
           Line(points={{-20,40},{20,60}}, color={135,135,135})}),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -120,11 +105,6 @@ package Sensors "Sensors n-phase or DC"
   equation
     i = term_p.i;
     annotation (defaultComponentName = "Isensor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
@@ -154,11 +134,6 @@ package Sensors "Sensors n-phase or DC"
   equation
     p = term_p.v*term_p.i;
    annotation (defaultComponentName = "Psensor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -203,11 +178,6 @@ package Sensors "Sensors n-phase or DC"
             fillPattern=FillPattern.Solid),
           Line(points={{-15,45},{15,59}}, color={135,135,135}),
           Line(points={{-15,35},{15,49}}, color={135,135,135})}),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>'Meters' are intended as diagnostic instruments. They allow displaying signals both in SI-units or in 'pu'.
@@ -239,11 +209,6 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     i = (i_ab[1] - i_ab[2])/2;
     i0 = (i_ab[1] + i_ab[2]);
     annotation (defaultComponentName = "Imeter1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>'Meters' are intended as diagnostic instruments. They allow displaying signals both in SI-units or in 'pu'.
@@ -290,11 +255,6 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
       pav = 0;
     end if;
     annotation (defaultComponentName = "Pmeter1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>'Meters' are intended as diagnostic instruments. They allow displaying signals both in SI-units or in 'pu'.
@@ -353,11 +313,6 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
       pav = 0;
     end if;
     annotation (defaultComponentName = "PVImeter1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>'Meters' are intended as diagnostic instruments. They allow displaying signals both in SI-units or in 'pu'.
@@ -394,11 +349,11 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
           origin={0,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    parameter Boolean dir_in=true "direction" annotation(evaluate=true, choices(
+    parameter Boolean dir_in=true "direction" annotation(Evaluate=true, choices(
       choice=true "points into the component",
       choice=false "point out of the component"));
     parameter Integer m(final min=1)=1 "dimension of heat port";
-    parameter Boolean av=false "time average efficiency" annotation(evaluate=true,Dialog(group="Options"));
+    parameter Boolean av=false "time average efficiency" annotation(Evaluate=true,Dialog(group="Options"));
     parameter SI.Time tcst(min=1e-9)=1 "average time-constant"
       annotation(Evaluate=true, Dialog(group="Options",enable=av));
     parameter SI.Temperature T_amb=300 "ambient temperature";
@@ -439,13 +394,6 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     end if;
     annotation (
       defaultComponentName="efficiency",
-  Window(
-      x=0.45,
-        y=0.01,
-        width=
-    0.44,
-      height=
-     0.65),
   Documentation(
           info="<html>
 <p>Measures the electric power <tt>p</tt> flowing from 'term_p' to 'term_n' and the total heat inflow <tt>q</tt> at term 'heat'. The efficiency eta in % is then defined by
@@ -484,13 +432,6 @@ In problematic cases use power sensors electrical and mechanical.</p>
     equation
       term.i = zeros(2);
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -513,13 +454,6 @@ In problematic cases use power sensors electrical and mechanical.</p>
     equation
       term_p.v = term_n.v;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -543,13 +477,6 @@ In problematic cases use power sensors electrical and mechanical.</p>
       extends Basic.Nominal.Nominal;
 
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -572,22 +499,9 @@ In problematic cases use power sensors electrical and mechanical.</p>
                   {135,135,135})}));
     end Meter2Base;
 
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Sensors directly output terminal signals (voltage, current, power).</p>
 <p>Meters allow choosing base-units for output variables.</p>

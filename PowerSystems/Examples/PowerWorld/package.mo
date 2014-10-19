@@ -108,7 +108,7 @@ package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work p
           smooth=Smooth.None));
     annotation (
         experiment(StopTime=86400),
-        Commands(file(ensureSimulated=true)="Examples/PowerWorld/Resources/plot summary.mos"
+        __Dymola_Commands(file(ensureSimulated=true)="Examples/PowerWorld/Resources/plot summary.mos"
         "plot summary",
                  file(ensureSimulated=true)="Examples/PowerWorld/Resources/plot powerPlant.mos"
         "plot powerPlant",
@@ -1068,7 +1068,6 @@ The following switches/features are provided:
         color={0,0,127},
         smooth=Smooth.None));
       annotation (experiment(StopTime=30),
-                  experimentSetupOutput,
                   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}),
                           graphics));
@@ -1122,7 +1121,6 @@ The following switches/features are provided:
         color={0,0,127},
         smooth=Smooth.None));
       annotation (experiment(StopTime=600),
-                  experimentSetupOutput,
                   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}),
                           graphics));
@@ -1168,7 +1166,6 @@ The following switches/features are provided:
             {-30,50},{-30,4.66667},{-20,4.66667}},                     color={0,0,127},
                                                                        smooth=Smooth.None));
       annotation (experiment(StopTime=600),
-                  experimentSetupOutput,
                   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                                                                                -100},{100,100}}),
                           graphics));
@@ -1228,7 +1225,6 @@ The following switches/features are provided:
         color={0,0,127},
         smooth=Smooth.None));
       annotation (experiment(StopTime=900),
-                  experimentSetupOutput,
                   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}),
                           graphics));
@@ -1280,7 +1276,6 @@ The following switches/features are provided:
                                                                      color={0,0,0},
                                                                      smooth=Smooth.None));
       annotation (experiment(StopTime=86400),
-                  experimentSetupOutput,
                   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                                                                                -100},{100,100}}),
                           graphics));
@@ -1306,7 +1301,6 @@ The following switches/features are provided:
                                                                    color={0,0,0},
                                                                    smooth=Smooth.None));
       annotation (experiment(StopTime=86400),
-                  experimentSetupOutput,
                   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                                                                                -100},{100,100}}),
                           graphics));
@@ -1327,7 +1321,6 @@ The following switches/features are provided:
         color={0,0,0},
         smooth=Smooth.None));
       annotation (experiment(StopTime=86400),
-                  experimentSetupOutput,
                   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                                                                                -100},{100,100}}),
                           graphics));
@@ -1375,7 +1368,6 @@ The following switches/features are provided:
         color={0,0,0},
         smooth=Smooth.None));
       annotation (experiment(StopTime=86400),
-                  experimentSetupOutput,
                   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                                                                                -100},{100,100}}),
                           graphics));

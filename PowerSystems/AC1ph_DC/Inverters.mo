@@ -91,11 +91,6 @@ equation
     uPhasor_out[2] = uPhasor_internal[2];
   end if;
 annotation (defaultComponentName="select1",
-  Window(
-        x=0,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>This is an optional component. If combined with an inverter, a structure is obtained that is equivalent to a voltage source.<br>
@@ -141,11 +136,6 @@ equation
   connect(rectifier.heat, heat)
       annotation (Line(points={{0,10},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="rectifier",
-  Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
   Documentation(
           info="<html>
 <p>Passive rectifier, allows choosing between equation-based and modular version.</p>
@@ -212,11 +202,6 @@ equation
   connect(inverter.heat, heat) annotation (Line(points={{0,10},{0,20},{20,20},{
             20,80},{0,80},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="inverter",
-  Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
   Documentation(
           info="<html>
 <p>Four quadrant switched inverter with modulator. Fulfills the power balance:
@@ -309,13 +294,6 @@ equation
   Q_flow = {par.eps[1]*R_nom*AC.i*AC.i+
                        cT*(par.Vf + hsw_nom*abs(vDC1))*(abs(AC.i[1])+abs(AC.i[2]))};
   annotation (defaultComponentName="inverter",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -420,11 +398,6 @@ equation
   connect(chopper.heat, heat)   annotation (Line(points={{0,10},{0,20},{20,20},
             {20,80},{0,80},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="chopper",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>One quadrant switched converter. Fulfills the power balance:
@@ -481,13 +454,6 @@ equation
                      cT*(par.Vf + hsw_nom*abs(vDCin))*abs(DCin.i[1])};
   annotation (
     defaultComponentName="chopper",
-Window(
-  x=0.45,
-      y=0.01,
-      width=
-0.44,
-  height=
- 0.65),
 Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -643,13 +609,6 @@ equation
 
   Q_flow = (v - switch*vDC1).*i_sc*par.I_nom/par.V_nom;
   annotation (defaultComponentName="rectifier",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -730,11 +689,6 @@ equation
   connect(heat_adapt.port_ab, heat)
         annotation (Line(points={{0,76},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="rectifier",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Passive rectifier, using diode-modules.</p>
@@ -783,13 +737,6 @@ equation
 
   Q_flow = zeros(heat.m);
   annotation (defaultComponentName="inverter",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -832,7 +779,7 @@ equation
 <pre>  true=on, false=off.</pre></p>
 <p>Contains no forward drop voltage Vf. Heat losses are set to zero.</p>
 </html>
-"), DymolaStoredErrors);
+"));
 end InverterSwitch;
 
 model InverterEquation "Inverter equation, 1-phase"
@@ -915,13 +862,6 @@ equation
     Q_flow = (v - switch*vDC1).*i_sc*par.I_nom/par.V_nom;
   end if;
   annotation (defaultComponentName="inverter",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -978,8 +918,7 @@ equation
 <pre>  true=on, false=off.</pre></p>
 <p>The Boolean parameter Vf_zero chooses faster code if both Vf_s and Vf_d are zero.<br>
 Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</tt>.</p>
-</html>"),
-    DymolaStoredErrors);
+</html>"));
 end InverterEquation;
 
 model InverterModular "Inverter modular, 1-phase"
@@ -1033,11 +972,6 @@ equation
   connect(heat_adapt.port_ab, heat)
         annotation (Line(points={{0,76},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="inverter",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info=""),
   Icon(coordinateSystem(
@@ -1106,13 +1040,6 @@ equation
   connect(heat_adapt.port_ab, heat)
         annotation (Line(points={{0,76},{0,100}}, color={176,0,0}));
   annotation (defaultComponentName = "chopper",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>One-quadrant chopper.</p>
@@ -1132,14 +1059,7 @@ equation
             grid={2,2}), graphics));
 end ChopperModular;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Contains alternative components:
 <ul>
@@ -1181,13 +1101,6 @@ partial model AC_DC_base "AC-DC base, 1-phase"
               textString="="),
             Line(points={{-80,-60},{80,60}}, color={0,0,255}),
             Text(extent={{0,-6},{80,-36}}, textString="~")}),
-    Window(
-      x=0.45,
-          y=0.01,
-          width=
-    0.44,
-      height=
-     0.65),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -1211,13 +1124,6 @@ partial model DC_DC_base "DC-DC base"
             extent={{-10,-10},{10,10}},
             rotation=90)));
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 </html>
@@ -1269,13 +1175,6 @@ equation
   T = heat.ports.T;
   heat.ports.Q_flow = -Q_flow;
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -1349,22 +1248,9 @@ equation
 "));
 end SwitchEquation;
 
-  annotation (       Window(
-x=0.05,
-y=0.44,
-width=0.31,
-height=0.26,
-library=1,
-autolayout=1));
 end Partials;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>The package contains passive rectifiers and switched/modulated inverters. Different implementations use:
 <ul>

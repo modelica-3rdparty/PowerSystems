@@ -37,11 +37,6 @@ package TurboGroups "Turbines including generator-rotor"
     0 = der(w);
     speed = w/w_nom;
     annotation (defaultComponentName = "rotor1mass",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Turbine-rotor and generator-rotor together represent one single rotating object without dynamical properties. The constant rotor velocity is determined at initialisation.</p>
@@ -135,11 +130,6 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     J*a = tau_pu*tau_nom + airgap.tau;
     speed = w/w_nom;
     annotation (defaultComponentName = "rotor1mass",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>This model can be regarded as a default model.<br><br>
@@ -298,11 +288,6 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     connect(airgap, genRotor.rotor) annotation (Line(points={{100,60},{60,60},{
             60,6}}, color={0,0,0}));
     annotation (defaultComponentName = "turboGrp",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Example model of a large steam turbo-group with generator rotor.<br>
@@ -339,37 +324,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
             points={{-60,-70},{-60,-40},{-10,-70},{-60,-70}},
             lineColor={176,0,0},
             fillColor={176,0,0},
-            fillPattern=FillPattern.Solid)},
-           Icon(
-        Polygon(points=[-100,20; -60,50; -60,-48; -100,-20; -100,20], style(
-            color=0,
-            rgbcolor={0,0,0},
-            gradient=2,
-            fillColor=30,
-            rgbfillColor={215,215,215},
-            fillPattern=8)),
-        Polygon(points=[-60,28; -10,70; -10,-70; -60,-30; -60,28], style(
-            color=0,
-            rgbcolor={0,0,0},
-            gradient=2,
-            fillColor=30,
-            rgbfillColor={215,215,215},
-            fillPattern=8)),
-        Rectangle(extent=[-10,10; 10,-10], style(
-            color=0,
-            rgbcolor={0,0,0},
-            gradient=2,
-            fillColor=30,
-            rgbfillColor={215,215,215},
-            fillPattern=8)),
-        Rectangle(extent=[10,40; 100,-40], style(
-            color=0,
-            rgbcolor={0,0,0},
-            gradient=2,
-            fillColor=30,
-            rgbfillColor={215,215,215},
-            fillPattern=8))),
-      Diagram),
+            fillPattern=FillPattern.Solid)}),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -474,11 +429,6 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     connect(airgap, genRotor.rotor) annotation (Line(points={{100,60},{80,60},{
             80,6}}, color={0,0,0}));
     annotation (defaultComponentName = "GTgrp",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Example model of a small gas-turbine with gear and generator rotor.
@@ -568,11 +518,6 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     connect(airgap, genRotor.rotor) annotation (Line(points={{100,60},{15,60},{
             15,6}}, color={0,0,0}));
     annotation (defaultComponentName = "hydroGrp",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Hydro turbine and generator rotor, coupled with a massive shaft.</p>
@@ -608,8 +553,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
             extent={{-43,10},{-10,-10}},
             lineColor={0,0,0},
             fillPattern=FillPattern.HorizontalCylinder,
-            fillColor={215,215,215})},
-      Diagram),
+            fillColor={215,215,215})}),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -651,11 +595,6 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     connect(airgap, genRotor.rotor) annotation (Line(points={{100,60},{15,60},{
             15,6}}, color={0,0,0}));
     annotation (defaultComponentName = "dieselGrp",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Diesel with generator rotor, coupled with a massless shaft.</p>
@@ -687,8 +626,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
             extent={{-85,-6},{-25,-66}},
             lineColor={95,95,95},
             fillColor={175,175,175},
-            fillPattern=FillPattern.Solid)},
-      Diagram),
+            fillPattern=FillPattern.Solid)}),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -747,11 +685,6 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     connect(shaft2.flange_n, genRotor.flange_p) annotation (Line(points={{20,0},
             {20,0}}, color={0,0,0}));
     annotation (defaultComponentName = "windGrp",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Wind turbine, gear and generator rotor, coupled with massless shafts.</p>
@@ -826,11 +759,6 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     end for;
     speed = der(phi)/w_nom;
     annotation (defaultComponentName = "turbTorq",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>This is a default model. The torque is directly determined by the pu power control-signal.
@@ -921,11 +849,6 @@ torque control for speed &lt  speed_thr (speed threshold)
     connect(windSpeed, table.u)
       annotation (Line(points={{-100,0},{-24,0}}, color={0,0,127}));
     annotation (defaultComponentName = "turbTorq",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>This is a default model. The torque is directly determined by the pu torque-signal. It does not contain aerodynamic forces, but it may be replaced by appropriate physical models.</p>
@@ -990,11 +913,6 @@ record SteamTurboGroup "Steam turbo-group parameters"
         "stiffness shafts";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>"),
@@ -1030,11 +948,6 @@ record GasTurbineGear "Turbo-group parameters"
                                      130*1e6 "stiffness coupling";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>"),
@@ -1045,8 +958,7 @@ height=0.65),
     Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    DymolaStoredErrors);
+            grid={2,2}), graphics));
 end GasTurbineGear;
 
 record HydroTurbine "Turbo-group parameters"
@@ -1064,11 +976,6 @@ record HydroTurbine "Turbo-group parameters"
                                  300e6 "stiffness shaft";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>"),
@@ -1079,8 +986,7 @@ height=0.65),
     Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    DymolaStoredErrors);
+            grid={2,2}), graphics));
 end HydroTurbine;
 
 record Diesel "Turbo-group parameters"
@@ -1095,11 +1001,6 @@ record Diesel "Turbo-group parameters"
   parameter Types.TorsionStiffness stiff=1e6 "stiffness shaft";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>"),
@@ -1110,8 +1011,7 @@ height=0.65),
     Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    DymolaStoredErrors);
+            grid={2,2}), graphics));
 end Diesel;
 
 record WindTurbineGear "Turbo-group parameters"
@@ -1129,11 +1029,6 @@ record WindTurbineGear "Turbo-group parameters"
                            2] stiff_sh={16,1}*1e6 "stiffness shafts";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>"),
@@ -1144,17 +1039,9 @@ height=0.65),
     Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    DymolaStoredErrors);
+            grid={2,2}), graphics));
 end WindTurbineGear;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
 </html>"),
@@ -1180,13 +1067,6 @@ end Parameters;
     protected
       outer System system;
           annotation (
-            Window(
-              x=
-        0.45, y=
-        0.01, width=
-            0.44,
-              height=
-             0.65),
             Documentation(
                   info="<html>
 </html>
@@ -1247,13 +1127,6 @@ end Parameters;
     partial model TurboBase1 "Turbine-generator rotor base "
       extends Partials.TurboBase;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>
@@ -1284,13 +1157,6 @@ end Parameters;
     partial model TurboBase2 "Turbine-generator rotor base "
       extends Partials.TurboBase;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>
@@ -1311,13 +1177,6 @@ end Parameters;
     partial model TurboBase3 "Turbine-generator rotor base "
       extends Partials.TurboBase;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>
@@ -1338,13 +1197,6 @@ end Parameters;
     partial model TurboBase4 "Turbine-generator rotor base "
       extends Partials.TurboBase;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>
@@ -1365,23 +1217,10 @@ end Parameters;
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics));
     end TurboBase4;
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
+
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Contains a single mass and examples of multi-mass models of turbo groups.</p>
 <li>Default torque models</li>

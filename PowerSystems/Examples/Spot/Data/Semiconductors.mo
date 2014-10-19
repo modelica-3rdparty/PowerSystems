@@ -19,13 +19,6 @@ package Semiconductors "Breaker example data"
     parameter SI.Current I_nom=10 "nom Current"
       annotation(Evaluate=true);
     annotation (defaultComponentName="idealSC100_10",
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
 </html>"),
@@ -56,13 +49,6 @@ package Semiconductors "Breaker example data"
     parameter SI.Current I_nom=10 "nom Current"
       annotation(Evaluate=true);
     annotation (defaultComponentName="idealSC1k_100",
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
 </html>"),
@@ -93,13 +79,6 @@ package Semiconductors "Breaker example data"
     parameter SI.Current I_nom=500 "nom Current"
       annotation(Evaluate=true);
     annotation (defaultComponentName="idealSC3k_500",
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Documentation(
             info="<html>
 </html>"),
@@ -113,7 +92,7 @@ package Semiconductors "Breaker example data"
           grid={2,2}), graphics));
   end IdealSC3kV_500A;
 
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 </html>"));
 end Semiconductors;

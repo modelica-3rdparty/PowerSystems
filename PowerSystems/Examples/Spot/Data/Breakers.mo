@@ -10,11 +10,6 @@ package Breakers "Breaker example data"
     parameter SI.ElectricFieldStrength Earc= 50e3 "electric field arc";
     parameter Real R0= 1 "small signal resistance arc";
     annotation (defaultComponentName="breakerExpl",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
@@ -27,7 +22,7 @@ package Breakers "Breaker example data"
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics));
   end BreakerArc;
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 </html>"));
 end Breakers;

@@ -561,14 +561,7 @@ i.e. for negative t y takes its asymptotic values.</p>
 <pre>  sig = -1 if x[k] &lt  b else 0</pre>component-wise.</p>
 </html>"));
     end sign_lt;
-    annotation (preferedView="info",
-  Window(
-    x=0.05,
-    y=0.41,
-    width=0.4,
-    height=0.38,
-    library=1,
-    autolayout=1),
+    annotation (preferredView="info",
   Documentation(info="<html>
 </html>
 "),   Icon(coordinateSystem(

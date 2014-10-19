@@ -46,11 +46,6 @@ equation
     connect(grd2.term, infBus2.neutral)
       annotation (Line(points={{80,10},{80,10}}, color={0,0,255}));
   annotation (
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Shows the influence of phase-difference on power flow.<br>
@@ -70,8 +65,7 @@ Alternatively one can look at a variation of amplitude ratios.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(StopTime=60),
-      experimentSetupOutput);
+      experiment(StopTime=60));
 end PowerTransfer;
 
 model VoltageStability "Voltage stability"
@@ -161,11 +155,6 @@ equation
   connect(infBus.neutral, grd4.term)
       annotation (Line(points={{60,10},{60,10}}, color={0,0,255}));
   annotation (
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Power flow between source and infinite bus. The bus-voltage decreases from 1 to 0.
@@ -188,8 +177,7 @@ height=0.65),
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(StopTime=180, NumberOfIntervals=1000),
-      experimentSetupOutput);
+      experiment(StopTime=180, Interval=180e-3));
 end VoltageStability;
 
   model RXline "Single lumped line"
@@ -250,11 +238,6 @@ end VoltageStability;
     connect(infBus2.neutral, grd2.term)
       annotation (Line(points={{90,-10},{90,-10}}, color={0,0,255}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Short-time line switched off.<br>
@@ -271,8 +254,7 @@ Compare with PIline.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment,
-      experimentSetupOutput);
+      experiment(StopTime=1));
   end RXline;
 
   model PIline "Single PI-line"
@@ -333,11 +315,6 @@ Compare with PIline.</p>
     connect(infBus2.neutral, grd2.term)
       annotation (Line(points={{90,-10},{90,-10}}, color={0,0,255}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -357,8 +334,7 @@ Compare with RXline.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(NumberOfIntervals=34567),
-      experimentSetupOutput);
+      experiment(StopTime=1, Interval=2.5e-5));
   end PIline;
 
   model FaultRXline "Faulted lumped line"
@@ -424,11 +400,6 @@ Compare with RXline.</p>
     connect(infBus2.neutral, grd2.term)
       annotation (Line(points={{90,-10},{90,-10}}, color={0,0,255}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Fault clearance by short-time line switched off.<br>
@@ -448,8 +419,7 @@ Compare with FaultPIline.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment,
-      experimentSetupOutput);
+      experiment(StopTime=1));
   end FaultRXline;
 
   model FaultPIline "Faulted PI-line"
@@ -515,11 +485,6 @@ Compare with FaultPIline.</p>
     connect(infBus2.neutral, grd2.term)
       annotation (Line(points={{90,-10},{90,-10}}, color={0,0,255}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -540,8 +505,7 @@ Compare with FaultRXline.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(NumberOfIntervals=34567),
-      experimentSetupOutput);
+      experiment(StopTime=1, Interval=2.5e-5));
   end FaultPIline;
 
   model DoubleRXline "Parallel lumped lines, one faulted"
@@ -633,11 +597,6 @@ Compare with FaultRXline.</p>
     connect(InfBus2.neutral, grd2.term)
       annotation (Line(points={{90,-10},{90,-10}}, color={0,0,255}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Fault clearance by short-time line switched off.<br>
@@ -657,8 +616,7 @@ Compare with DoublePIline.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(StopTime=0.5, NumberOfIntervals=20000),
-      experimentSetupOutput);
+      experiment(StopTime=0.5, Interval=2.5e-5));
   end DoubleRXline;
 
   model DoublePIline "Parallel PI-lines, one faulted"
@@ -750,11 +708,6 @@ Compare with DoublePIline.</p>
     connect(grd2.term, InfBus2.neutral)
       annotation (Line(points={{90,-10},{90,-10}}, color={0,0,255}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Fault clearance by short-time line switched off.<br>
@@ -776,8 +729,7 @@ Compare with DoublePIline.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(StopTime=0.5, NumberOfIntervals=20000),
-      experimentSetupOutput);
+      experiment(StopTime=0.5, Interval=2.5e-5));
   end DoublePIline;
 
   model DoubleRXlineTG
@@ -880,11 +832,6 @@ Compare with DoublePIline.</p>
     connect(turbGen.heat, boundary.heat)
       annotation (Line(points={{-80,0},{-80,0}}, color={176,0,0}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Fault clearance by short-time line switched off.<br>
@@ -904,8 +851,7 @@ Compare with DoublePIline.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(StopTime=0.5),
-      experimentSetupOutput);
+      experiment(StopTime=0.5));
   end DoubleRXlineTG;
 
   model DoublePIlineTG
@@ -1007,11 +953,6 @@ Compare with DoublePIline.</p>
     connect(turbGen.heat, boundary.heat)
       annotation (Line(points={{-80,0},{-80,0}}, color={176,0,0}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Fault clearance by short-time line switched off.<br>
@@ -1033,17 +974,9 @@ Compare with DoublePIline.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(StopTime=0.5, NumberOfIntervals=3400),
-      experimentSetupOutput);
+      experiment(StopTime=0.5, Interval=1.5e-4));
   end DoublePIlineTG;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transmission line models and faults.</p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>

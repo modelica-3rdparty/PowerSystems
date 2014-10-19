@@ -6,7 +6,7 @@ package Visualise "Elementary visualisers"
 
       parameter PowerSystems.Basic.Types.Color color=
                                           {0,0,0};
-      input Real x annotation(Hide=false);
+      input Real x annotation(Dialog);
       annotation (Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{0,0},{1,1}},
@@ -26,9 +26,10 @@ package Visualise "Elementary visualisers"
 
       parameter PowerSystems.Basic.Types.Color color=
                                           {0,0,0};
-      input Real x;
-      input Real y;
-      final Real[2,2] needle=[0,0; x,y] annotation(Hide=false);
+      input Real x annotation(Dialog);
+      input Real y annotation(Dialog);
+    protected
+      final Real[2,2] needle=[0,0; x,y];
       annotation (
         Icon(coordinateSystem(
             preserveAspectRatio=false,
@@ -45,13 +46,13 @@ package Visualise "Elementary visualisers"
                                            {255,0,0};
       parameter PowerSystems.Basic.Types.Color color2=
                                            {0,0,255};
-      input Real x1;
-      input Real y1;
-      input Real x2;
-      input Real y2;
-  protected
-      final Real[2,2] needle1=[{0,x1},{0,y1}] annotation(Hide=false);
-      final Real[2,2] needle2=[{0,x2},{0,y2}] annotation(Hide=false);
+      input Real x1 annotation(Dialog);
+      input Real y1 annotation(Dialog);
+      input Real x2 annotation(Dialog);
+      input Real y2 annotation(Dialog);
+    protected
+      final Real[2,2] needle1=[{0,x1},{0,y1}];
+      final Real[2,2] needle2=[{0,x2},{0,y2}];
       annotation (
         Icon(coordinateSystem(
             preserveAspectRatio=false,
@@ -68,7 +69,7 @@ package Visualise "Elementary visualisers"
             extent={{-1,-1},{1,1}},
             grid={0.02,0.02}), graphics));
     end DoubleNeedle;
-    annotation (preferedView="info",
+    annotation (preferredView="info",
   Documentation(info="<html>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Visualisation\">up users guide</a></p>
 </html>

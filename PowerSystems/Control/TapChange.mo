@@ -2,14 +2,7 @@ within PowerSystems.Control;
 package TapChange "Tap changers"
   extends Modelica.Icons.VariantsPackage;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Here one could add an updated version of
 <ul>

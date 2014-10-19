@@ -2711,14 +2711,7 @@ algorithm
                  "xsig_rq1")}));
 end EqCircFromTransDat;
 
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.42,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>These examples illustrate the connection between different ways of specifying a machine.<br>
 In particular they show the calculation of

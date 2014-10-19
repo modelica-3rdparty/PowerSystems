@@ -15,11 +15,6 @@ partial model Nominal "Units and nominal values"
       "nominal Power (= base for pu)"
     annotation(Evaluate=true, Dialog(enable=puUnits, group="Nominal"));
   annotation (
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>'Nominal' values that are used to define 'base'-values in the case where input is in 'pu'-units</p>
 <p>The parameter 'units' allows choosing between SI ('Amp Volt') and pu ('per unit') for input-parameters of components and output-variables of meters.<br>
@@ -55,11 +50,6 @@ partial model NominalAC "Units and nominal values AC"
   protected
   outer PowerSystems.System system;
   annotation (
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>Same as 'Nominal', but with additional parameter 'nominal frequency'.</p>
 </html>
@@ -81,11 +71,6 @@ partial model NominalDC "Units and nominal values DC"
   protected
   outer PowerSystems.System system;
   annotation (
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>Same as 'Nominal', but with additional parameter 'nominal rpm'.</p>
 </html>
@@ -103,11 +88,6 @@ partial model NominalVI "Nominal values"
     annotation(Evaluate=true, Dialog(group="Nominal"));
 
   annotation (
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>Nominal values without units choice.</p>
 </html>
@@ -173,11 +153,6 @@ record NominalDataTrafo "Units and nominal data transformer"
   parameter SI.Frequency f_nom=50 "nominal frequency"
     annotation(Evaluate=true, Dialog(group="Nominal"), choices(choice=50 "50 Hz", choice=60 "60 Hz"));
   annotation (
-    Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
     Documentation(info="<html>
 <p>'Nominal' values for transformers. Same as 'NominalAC, but with two components for voltage: {primary, secondary}. The winding ratio is indirectly defined through the voltage ratio.</p>
 </html>"), Icon(coordinateSystem(
@@ -186,14 +161,7 @@ record NominalDataTrafo "Units and nominal data transformer"
           grid={2,2}), graphics));
 end NominalDataTrafo;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 </html>
 "), Icon(coordinateSystem(

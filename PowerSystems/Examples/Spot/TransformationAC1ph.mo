@@ -45,11 +45,6 @@ package TransformationAC1ph "Transformation 1 phase"
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-90,0},{-90,0}}, color={0,0,255}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The one-phase transformer has fluctuating potential primary and secondary side.<br>
@@ -72,8 +67,7 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(NumberOfIntervals=1234),
-      experimentSetupOutput);
+      experiment(StopTime=1, Interval=1e-3));
   end OnePhase;
 
   model TapChanger "One phase tap changing primary and secondary"
@@ -168,11 +162,6 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
     connect(TapRelay2.tap_n, trafo2.tap_n) annotation (Line(points={{14,-60},{
             14,-40}}, color={255,127,0}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -197,17 +186,9 @@ Note that the primary voltage source is fixed.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(StopTime=4, NumberOfIntervals=4567),
-      experimentSetupOutput);
+      experiment(StopTime=4, Interval=1e-3));
   end TapChanger;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transformers one-phase and tap changer control.</p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>

@@ -991,14 +991,7 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
 <p>See also analog circuit on 'Diagram layer' of 'CoefSynchron' and 'CoefAsynchron'!</p>
 </html>"));
   end transientData;
-    annotation (preferedView="info",
-                       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1),
+    annotation (preferredView="info",
       Documentation(info="<html>
 <p>Functions needed for the determination of coefficient-matrices from a set of phenomenological input parameters.</p>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Precalculation\">up users guide</a></p>

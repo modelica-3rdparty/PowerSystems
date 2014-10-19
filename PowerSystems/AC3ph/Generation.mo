@@ -23,11 +23,6 @@ package Generation "Turbo generator groups dqo"
                                        annotation (Line(points={{-44,50},{-44,
             10}}, color={0,0,127}));
   annotation (defaultComponentName = "turboGen1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Turbo generator model with governor and exciter.<br>
@@ -78,11 +73,6 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
                                           annotation (Line(points={{-44,50},{
             -44,10}}, color={0,0,127}));
   annotation (defaultComponentName = "turboGrpGen1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Turbo generator model with governor and exciter.<br>
@@ -140,11 +130,6 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
                                           annotation (Line(points={{-44,50},{
             -44,10}}, color={0,0,127}));
   annotation (defaultComponentName = "turboGen1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Turbo generator model with governor and exciter.<br>
@@ -213,11 +198,6 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
                                           annotation (Line(points={{-44,50},{
             -44,10}}, color={0,0,127}));
   annotation (defaultComponentName = "hydroGen1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Hydro generator model with governor and exciter.<br>
@@ -278,11 +258,6 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
                                           annotation (Line(points={{-44,50},{
             -44,10}}, color={0,0,127}));
   annotation (defaultComponentName = "dieselGen1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Diesel generator model with Diesel-controller and exciter.<br>
@@ -380,11 +355,6 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
     connect(generator.phiRotor, phiRotor)     annotation (Line(points={{40,10},
             {30,10},{30,100},{100,100}}, color={0,0,127}));
   annotation (defaultComponentName = "turboPMgen",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Turbo generator model with governor and pm machine.<br>
@@ -529,11 +499,6 @@ The machine inertia is determined by the inertia time constant H.</p>
     connect(generator.heat, heat) annotation (Line(points={{50,10},{50,40},{0,
             40},{0,100}}, color={176,0,0}));
   annotation (defaultComponentName = "windGen1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Wind generator.<br>
@@ -567,11 +532,6 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
       outer System system;
 
     annotation (
-        Window(
-    x=0.45,
-        y=0.01,
-        width=0.44,
-    height=0.65),
         Documentation(
         info="<html>
 </html>"),
@@ -621,11 +581,6 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
         annotation (Placement(transformation(extent={{90,-10},{110,10}},
               rotation=0)));
     annotation (
-        Window(
-    x=0.45,
-        y=0.01,
-        width=0.44,
-    height=0.65),
         Documentation(
         info="<html>
 </html>"),
@@ -745,13 +700,6 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
       connect(generator.heat, heat) annotation (Line(points={{50,10},{50,16},{0,
               16},{0,100}}, color={176,0,0}));
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 <p>
@@ -820,13 +768,6 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
       connect(gear.flange_n, rotor.flange_p)
         annotation (Line(points={{-40,0},{-20,0}}, color={0,0,0}));
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -844,22 +785,9 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
             grid={2,2}), graphics));
     end GenBase_ctrl;
 
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Combined turbine-generator systems with governor and exciter, both electrical and mechanical model.</p>
 <p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"PowerSystems.UsersGuide.Overview\">up users guide</a></p>

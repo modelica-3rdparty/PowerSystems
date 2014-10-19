@@ -16,11 +16,6 @@ package Transformers "Transformers 3-phase"
     end if;
     annotation (
       defaultComponentName="trafo",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Ideal magnetic coupling, no stray-impedance, zero magnetisation current.</p>
@@ -54,11 +49,6 @@ package Transformers "Transformers 3-phase"
     end if;
     annotation (
       defaultComponentName="trafo",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Stray-impedance, but ideal magnetic coupling, i.e. zero magnetisation current.<br>
@@ -118,11 +108,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
     end if;
     annotation (
       defaultComponentName="trafo",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Stray-impedance and resistance, with non-ideal magnetic coupling, i.e. non-zero magnetisation current
@@ -196,11 +181,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
     end if;
     annotation (
       defaultComponentName="trafo",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Stray-impedance and resistance, with non-ideal magnetic coupling, i.e. non-zero magnetisation current, eddy current losses and effective saturation.<br>
@@ -276,11 +256,6 @@ The factor <tt>0.66</tt> in the expression of the effective pu flux is an estima
     Park*diagonal(gp)*transpose(Park)*(der(psi0) + omega[2]*j_dqo(psi0)) = v0;
     annotation (
       defaultComponentName="trafo",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Stray-impedance and resistance, with non-ideal magnetic coupling, i.e. non-zero magnetisation current, eddy current losses and saturation.<br>
@@ -380,12 +355,12 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         parameter SI.Current[3] i2_start = i1_start "start value of secondary current"
           annotation(Dialog(tab="Initialization"));
 
-        parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(evaluate=true, choices(__Dymola_checkBox=true));
+        parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
         parameter Boolean use_tap_p = false "= true, if input tap_p is enabled"
-                            annotation(evaluate=true, choices(__Dymola_checkBox=true));
+                            annotation(Evaluate=true, choices(__Dymola_checkBox=true));
         parameter Boolean use_tap_n = false "= true, if input tap_n is enabled"
-                            annotation(evaluate=true, choices(__Dymola_checkBox=true));
+                            annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
         Modelica.Blocks.Interfaces.IntegerInput tap_p if use_tap_p
         "1: index of voltage level"
@@ -418,9 +393,9 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         final parameter Real W_nom=par.V_nom[2]/par.V_nom[1]
           annotation(Evaluate=true);
         final parameter Real[:] W1=cat(1, {1}, par.v_tc1*V_base[1]/par.V_nom[1])*sqrt(scale[1])
-          annotation(evaluate=true);
+          annotation(Evaluate=true);
         final parameter Real[:] W2=cat(1, {1}, par.v_tc2*V_base[2]/par.V_nom[2])*W_nom*sqrt(scale[2])
-          annotation(evaluate=true);
+          annotation(Evaluate=true);
         final parameter SI.Resistance R_n1=par.r_n1*RL_base[1,1];
         final parameter SI.Resistance R_n2=par.r_n2*RL_base[2,1];
         SI.AngularFrequency[2] omega;
@@ -459,11 +434,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         v_n2 = R_n2*i_n2
         "2: equation neutral to ground (relevant if Y-topology)";
         annotation (
-          Window(
-            x=0.45,
-            y=0.01,
-            width=0.44,
-            height=0.65),
           Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -553,19 +523,12 @@ For variable transformer ratio tap changer input needed.</p>
     partial model TrafoStrayBase
       "Base for ideal magnetic coupling transformer, 3-phase dqo"
       extends TrafoIdealBase(redeclare replaceable parameter
-          PowerSystems.AC3ph.Transformers.Parameters.TrafoStray par)
-        annotation (extent=[-80,60; -60,80], Placement(transformation(extent={{
-                -80,60},{-60,80}}, rotation=0)));
+          PowerSystems.AC3ph.Transformers.Parameters.TrafoStray par);
     protected
       final parameter SI.Resistance[2] R=par.r.*RL_base[:, 1];
       final parameter SI.Inductance[2] L=par.x.*RL_base[:, 2];
       final parameter SI.Inductance[2] L0=par.x0.*RL_base[:, 2];
       annotation (
-        Window(
-    x=0.45,
-          y=0.01,
-          width=0.44,
-    height=0.65),
         Documentation(
         info="<html>
 <p>Precalculation of coefficients for ideal magnetic coupling transformer</p>
@@ -595,21 +558,13 @@ For variable transformer ratio tap changer input needed.</p>
     partial model TrafoMagBase
       "Base for magnetic coupling transformer, 3-phase dqo"
       extends TrafoStrayBase(redeclare replaceable parameter
-          PowerSystems.AC3ph.Transformers.Parameters.TrafoMag par)
-        annotation (extent=[-80,60; -60,80], Placement(transformation(extent={{
-                -80,60},{-60,80}}, rotation=0)));
-
+          PowerSystems.AC3ph.Transformers.Parameters.TrafoMag par);
     protected
       final parameter SI.Resistance[2] RL12_base = sqrt((RL_base[1,:].*RL_base[2,:])/product(scale));
       final parameter SI.Resistance Redc=par.redc*RL12_base[1];
       final parameter SI.Inductance Lm=par.xm*RL12_base[2];
       final parameter SI.Inductance Lm0=par.xm0*RL12_base[2];
       annotation (
-        Window(
-    x=0.45,
-          y=0.01,
-          width=0.44,
-    height=0.65),
         Documentation(
         info="<html>
 <p>Precalculation of coefficients for magnetic coupling trafo transformer</p>
@@ -650,20 +605,13 @@ For variable transformer ratio tap changer input needed.</p>
 
     partial model TrafoSatBase "Base for saturation transformer, 3-phase dqo"
       extends TrafoMagBase(redeclare replaceable parameter
-          PowerSystems.AC3ph.Transformers.Parameters.TrafoSat par)
-        annotation (extent=[-80,60; -60,80], Placement(transformation(extent={{
-                -80,60},{-60,80}}, rotation=0)));
+          PowerSystems.AC3ph.Transformers.Parameters.TrafoSat par);
     protected
       final parameter Real xratio=par.xm_sat/par.xm;
       final parameter Real[3] c_sat={1-xratio,(1-xratio)/(par.psi_sat-xratio),xratio};
       final parameter SI.MagneticFlux psi_nom=sqrt(scale[1])*par.V_nom[1]/(2*pi*par.f_nom)
         "amplitude!";
       annotation (
-        Window(
-    x=0.45,
-          y=0.01,
-          width=0.44,
-    height=0.65),
         Documentation(
         info="<html>
 <p>Precalculation of coefficients for saturation transformer</p>
@@ -705,13 +653,13 @@ For variable transformer ratio tap changer input needed.</p>
       final term_nb(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[3])));
 
     parameter Boolean stIni_en=true "enable steady-state initial equation"
-                                                                         annotation(evaluate=true, choices(__Dymola_checkBox=true));
-    parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(evaluate=true, choices(__Dymola_checkBox=true));
+                                                                         annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+    parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
     parameter Boolean use_tap_p = false "= true, if input tap_p is enabled"
-                        annotation(evaluate=true, choices(__Dymola_checkBox=true));
+                        annotation(Evaluate=true, choices(__Dymola_checkBox=true));
     parameter Boolean use_tap_n = false "= true, if input tap_n is enabled"
-                        annotation(evaluate=true, choices(__Dymola_checkBox=true));
+                        annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
     Modelica.Blocks.Interfaces.IntegerInput tap_p if  use_tap_p
         "1: index of voltage level"
@@ -745,11 +693,11 @@ For variable transformer ratio tap changer input needed.</p>
     final parameter Real Wb_nom=par.V_nom[3]/par.V_nom[1]
       annotation(Evaluate=true);
     final parameter Real[:] W1=cat(1, {1}, par.v_tc1*V_base[1]/par.V_nom[1])*sqrt(scale[1])
-      annotation(evaluate=true);
+      annotation(Evaluate=true);
     final parameter Real[:] W2a=cat(1, {1}, par.v_tc2a*V_base[2]/par.V_nom[2])*Wa_nom*sqrt(scale[2])
-      annotation(evaluate=true);
+      annotation(Evaluate=true);
     final parameter Real[:] W2b=cat(1, {1}, par.v_tc2b*V_base[3]/par.V_nom[3])*Wb_nom*sqrt(scale[3])
-      annotation(evaluate=true);
+      annotation(Evaluate=true);
     final parameter SI.Resistance R_n1=par.r_n1*RL_base[1,1];
     final parameter SI.Resistance R_n2a=par.r_n2a*RL_base[2,1];
     final parameter SI.Resistance R_n2b=par.r_n2b*RL_base[3,1];
@@ -795,11 +743,6 @@ For variable transformer ratio tap changer input needed.</p>
     v_n2b = R_n2b*i_n2b
         "2b: equation neutral to ground (relevant if Y-topology)";
     annotation (
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -911,19 +854,12 @@ For variable transformer ratio tap changer input needed.</p>
   partial model Trafo3StrayBase
       "Base for ideal magnetic coupling 3-winding transformer, 3-phase dqo"
     extends Trafo3IdealBase(redeclare replaceable parameter
-          PowerSystems.AC3ph.Transformers.Parameters.Trafo3Stray par)
-      annotation (extent=[-80,60; -60,80], Placement(transformation(extent={{
-                -80,60},{-60,80}}, rotation=0)));
+          PowerSystems.AC3ph.Transformers.Parameters.Trafo3Stray par);
     protected
     final parameter SI.Resistance[3] R=par.r.*RL_base[:, 1];
     final parameter SI.Inductance[3] L=par.x.*RL_base[:, 2];
     final parameter SI.Inductance[3] L0=par.x0.*RL_base[:, 2];
     annotation (
-      Window(
-  x=0.45,
-        y=0.01,
-        width=0.44,
-  height=0.65),
       Documentation(
       info="<html>
 <p>Precalculation of coefficients for ideal magnetic coupling 3-winding transformer</p>
@@ -950,13 +886,6 @@ For variable transformer ratio tap changer input needed.</p>
               fillPattern=FillPattern.Solid)}));
   end Trafo3StrayBase;
 
-    annotation (            Window(
-        x=0.05,
-        y=0.44,
-        width=0.31,
-        height=0.32,
-        library=1,
-        autolayout=1));
   end Partials;
 
 package Parameters "Parameter data for interactive use"
@@ -971,11 +900,6 @@ record TrafoIdeal "Parameters for ideal transformer, 3-phase"
   parameter SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)";
   parameter SIpu.Resistance r_n2=1 "2: resistance neutral to grd (if Y)";
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>"),
@@ -996,11 +920,6 @@ record TrafoStray "Parameters for ideal magnetic coupling transformer, 3-phase"
   parameter SIpu.Reactance[2] x0={x[1],x[2]} "{1,2}: stray reactance zero-comp";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>"),
@@ -1021,11 +940,6 @@ record TrafoMag "Parameters for magnetic coupling transformer, 3-phase"
   parameter SIpu.Reactance xm0=1 "mutual reactance zero";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>"),
@@ -1045,11 +959,6 @@ record TrafoSat "Parameters for saturation transformer, 3-phase"
   parameter SIpu.Reactance xm_sat=1 "mutual reactance saturated";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>"),
@@ -1077,11 +986,6 @@ record Trafo3Ideal "Parameters for ideal 3-winding transformer, 3-phase"
   parameter SIpu.Resistance r_n2a=1 "2a: resistance neutral to grd (if Y)";
   parameter SIpu.Resistance r_n2b=1 "2b: resistance neutral to grd (if Y)";
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 <p>Nominal voltage with 3 components: {prim, sec_a, sec_b}.</p>
@@ -1106,11 +1010,6 @@ record Trafo3Stray
         "{1,2a,2b}: stray reactance zero-comp";
 
   annotation (defaultComponentName="data",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>"),
@@ -1123,14 +1022,8 @@ height=0.65),
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics));
 end Trafo3Stray;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
 </html>"),
@@ -1139,14 +1032,8 @@ Documentation(info="<html>
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics));
 end Parameters;
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.32,
-library=1,
-autolayout=1),
+
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Transformer models in different abstraction levels.</p>
 <p>All transformers allow the choice between Y- and Delta-topology both at primary and secondary side.<br>

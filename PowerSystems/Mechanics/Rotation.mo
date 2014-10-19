@@ -85,14 +85,7 @@ package Rotation "Rotating parts "
   end Compliant;
 
     annotation (
-      preferedView="info",
-  Window(
-    x=0.05,
-    y=0.03,
-    width=0.4,
-    height=0.38,
-    library=1,
-    autolayout=1),
+      preferredView="info",
   Documentation(info="<html>
 <p>Contains mechanical one and two-ports with rotational connectors.</p>
 </html>"),
@@ -130,12 +123,7 @@ package Rotation "Rotating parts "
 
     der(flange.phi) = phi_dot;
     der(phi_dot) = if scType_par then (w0 - phi_dot)/tcst else (w_internal - phi_dot)/tcst;
-     annotation(Evaluate=true,
-              defaultComponentName = "speed1",
-    Coordsys(
-        extent=[-100,-100; 100,100],
-        grid=[2,2],
-        component=[20,20]),
+    annotation(defaultComponentName = "speed1",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
               100}}), graphics={
           Ellipse(
@@ -159,11 +147,6 @@ package Rotation "Rotating parts "
             lineColor={0,0,0},
             fillColor={175,175,175},
             fillPattern=FillPattern.Solid)}),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Diagram(graphics={
           Text(
             extent={{-50,10},{50,-10}},
@@ -239,11 +222,6 @@ The start value is always given by <tt>w0</tt>.</p>
             lineColor={0,0,0},
             fillColor={175,175,175},
             fillPattern=FillPattern.Solid)}),
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -309,11 +287,6 @@ equation
     terminate("BOUNDARY TIME REACHED!");
   end when;
   annotation (defaultComponentName = "tabTorq1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The torque is defined in a table as a function of time.
@@ -336,27 +309,7 @@ negative direction, if tau_table &gt  0 and drive_load = -1 or tau_table &lt  0 
     Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-              defaultComponentName = "tabTorq1",
-    Coordsys(
-extent=[-100, -100; 100, 100],
-grid=[2, 2],
-component=[20, 20]),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
-    Documentation(
-            info="<html>
-<p>The torque load is defined in a table.
-<pre>
-  Column 1 contains the time in units <tt>t_unit</tt> (<tt>t_unit</tt> in \"s\").
-  Column 'colTorque' contains the torque in units <tt>tau_unit</tt> (<tt>tau_unit</tt> in \"N.m\").
-</pre>
-</html>
-"), Icon,
-    Diagram);
+          grid={2,2}), graphics));
 end TabTimeTorque;
 
 model TabPosSlopeTorque "Torque using table (position... slope)"
@@ -412,11 +365,6 @@ equation
     terminate("BOUNDARY POSITION REACHED!");
   end when;
   annotation (defaultComponentName = "tabTorq1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>This model uses a position-slope table. It is mainly intended for test-purposes.</p>
@@ -473,11 +421,6 @@ end TabPosSlopeTorque;
     w = der(phi);
     flange.tau = (cFrict[1]*cFrictUnit1 + cFrict[2]*cFrictUnit2*noEvent(abs(w)))*w;
   annotation (defaultComponentName = "frictTorq1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Linear and quadratic friction torque <tt>tau</tt>.</p>
@@ -522,11 +465,6 @@ model FixedAngle "Flange at fixed angular position"
 equation
   flange.phi = phi0;
   annotation (defaultComponentName = "fixAng1",
-    Window(
-      x=0.27,
-      y=0.02,
-      width=0.63,
-      height=0.73),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -556,11 +494,6 @@ model Rotor "Rigid rotating mass"
 equation
   J*a = flange_p.tau + flange_n.tau;
   annotation (defaultComponentName = "rotor1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -595,11 +528,6 @@ end Rotor;
     extends Partials.RigidRotorCase;
 
     annotation (defaultComponentName = "turbRotor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
@@ -653,11 +581,6 @@ phi and w represent the mechanical angle and angular velocity.
     extends Partials.RigidRotorCase;
 
     annotation (defaultComponentName = "turbRotor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
@@ -724,11 +647,6 @@ phi and w represent the mechanical angle and angular velocity.
     extends Partials.RigidRotorCase;
 
     annotation (defaultComponentName = "turbRotor1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
@@ -785,11 +703,6 @@ phi and w represent the mechanical angle and angular velocity.
     extends Partials.RigidRotorCase;
 
   annotation (defaultComponentName = "turbRotor1",
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
@@ -847,11 +760,6 @@ phi and w represent the mechanical angle and angular velocity.
     extends Partials.RigidRotorCase;
 
   annotation (defaultComponentName = "elRotor",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Rotor as one single stiff mass.</p>
@@ -910,11 +818,6 @@ equation
   flange_p.tau + flange_n.tau = 0;
   d_tau = stiff*d_phi;
   annotation (defaultComponentName = "shaft1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Rotating torsion-elastic massless shaft. It is equivalent to a massless torsion spring.<br><br>
@@ -951,11 +854,6 @@ equation
   J*a = flange_p.tau + flange_n.tau;
   d_tau = stiff*d_phi;
   annotation (defaultComponentName = "shaft1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Rotating torsion-elastic massive shaft. It is equivalent to a massive torsion spring.<br>
@@ -988,11 +886,6 @@ equation
   flange_p.phi = ratio_pn*flange_n.phi;
   ratio_pn*flange_p.tau + flange_n.tau = 0;
   annotation (defaultComponentName = "gear",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ideal massless gear. Rigid coupling with gear-ratio</p>
@@ -1133,11 +1026,6 @@ equation
   a = der(w);
   (ratio2*J)*a = ratio_pn*flange_p.tau + flange_n.tau;
   annotation (defaultComponentName = "gear",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ideal massive gear. N rigidly coupled inertias with gear-ratio
@@ -1265,11 +1153,6 @@ equation
   flange_p.phi = flange_n.phi;
   flange_p.tau + flange_n.tau = 0;
   annotation (defaultComponentName = "joint",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Joining two rotational flanges directly, in place of gear.</p>
@@ -1309,11 +1192,6 @@ equation
   phi = flange.phi;
   w = der(flange.phi);
   annotation (defaultComponentName = "angleSens1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 </html>
@@ -1372,11 +1250,6 @@ equation
   tau = flange_p.tau;
   p = der(flange_p.phi)*flange_p.tau;
   annotation (defaultComponentName = "powerSens1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 </html>
@@ -1431,11 +1304,6 @@ end PowerSensor;
       flange_p.phi = flange_n.phi;
       flange_p.tau + flange_n.tau + tau = 0;
       annotation (defaultComponentName = "tabForce1",
-        Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
         Documentation(
                 info="<html>
 </html>
@@ -1489,13 +1357,6 @@ end PowerSensor;
       w = der(phi);
       a = der(w);
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>"),
@@ -1539,13 +1400,6 @@ end PowerSensor;
       friction.phi = rotor.phi;
       J*a = rotor.tau + flange_p.tau + flange_n.tau + friction.tau;
       annotation (
-        Window(
-          x=
-    0.45, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 <p>Rigid rotor base with an additional access for torque on rotor, stator (case) reaction torque, and a collective access for friction.</p>
@@ -1564,23 +1418,9 @@ end PowerSensor;
               thickness=0.5)}));
     end RigidRotorCase;
 
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 </html>
 "), Icon(coordinateSystem(

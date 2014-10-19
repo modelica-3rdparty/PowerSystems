@@ -13,11 +13,6 @@ package Partials "Partial models"
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      Window(
-  x=0.55,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -39,11 +34,6 @@ package Partials "Partial models"
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      Window(
-  x=0.55,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -67,11 +57,6 @@ package Partials "Partial models"
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      Window(
-  x=0.55,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -96,11 +81,6 @@ package Partials "Partial models"
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      Window(
-  x=0.55,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -126,11 +106,6 @@ package Partials "Partial models"
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      Window(
-  x=0.55,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),

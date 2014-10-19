@@ -29,11 +29,6 @@ package Lines "Transmission lines 3-phase"
     end if;
   annotation (
     defaultComponentName="RXline0_1",
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 <p>This component contains the same equations as 'Impedances.Inductor', but it is specified using the parameters x and x0 instead of xs and xm (see info package 'Impedances'), similar to 'RXline'. It does not contain the length parameter 'len'. Together with 'Sources.InfBus' it may be used to model a network specified by voltage and impedance values.</p>
@@ -137,11 +132,6 @@ package Lines "Transmission lines 3-phase"
     end if;
     annotation (
       defaultComponentName="RXline1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Transmission line modelled as concentrated RX-impedance.</p>
@@ -263,11 +253,6 @@ package Lines "Transmission lines 3-phase"
     end if;
     annotation (
       defaultComponentName="PIline1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Transmission line modelled as discretised telegraph-equation, 'pi-elements'.</p>
@@ -530,11 +515,6 @@ The set of equations of two series connected lines of length len1 and len2 is id
     end if;
     annotation (
       defaultComponentName="faultRXline",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Transmission line modelled as concentrated RX-impedance, with third terminal for connecting line-fault component.</p>
@@ -758,11 +738,6 @@ The set of equations of two series connected lines of length len1 and len2 is id
     end if;
     annotation (
       defaultComponentName="faultPIline",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Transmission line modelled as discretised telegraph-equation, 'pi-elements'.</p>
@@ -894,11 +869,6 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
       final parameter SI.Inductance L=par.x*delta_len_km*RL_base[2];
       final parameter SI.Inductance L0=par.x0*delta_len_km*RL_base[2];
       annotation (
-        Window(
-    x=0.45,
-          y=0.01,
-          width=0.44,
-    height=0.65),
         Documentation(
         info="<html>
 <p>Precalculation of coefficient matrices.</p>
@@ -916,21 +886,13 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
 
     partial model PIlineBase "PI-line base, 3-phase dqo"
       extends RXlineBase(ne=3, redeclare replaceable parameter
-          PowerSystems.AC3ph.Lines.Parameters.PIline par)
-                                            annotation (extent=[-80,60; -60,80],
-          Placement(transformation(extent={{-80,60},{-60,80}}, rotation=0)));
-
+          PowerSystems.AC3ph.Lines.Parameters.PIline par);
     protected
       final parameter Real[2] GC_base=Basic.Precalculation.baseGC(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
       final parameter SI.Conductance G=(par.b_pg + 3*par.b_pp)*delta_len_km*GC_base[1];
       final parameter SI.Capacitance C=(par.b_pg + 3*par.b_pp)*delta_len_km*GC_base[2];
       final parameter SI.Capacitance C0=par.b_pg*delta_len_km*GC_base[2];
       annotation (
-        Window(
-    x=0.45,
-          y=0.01,
-          width=0.44,
-    height=0.65),
         Documentation(
         info="<html>
 <p>Precalculation of coefficient matrices.</p>
@@ -940,13 +902,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics));
     end PIlineBase;
-    annotation (            Window(
-        x=0.05,
-        y=0.44,
-        width=0.31,
-        height=0.23,
-        library=1,
-        autolayout=1));
+
   end Partials;
 
  package Parameters "Parameter data for interactive use"
@@ -961,11 +917,6 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
 
        annotation (
          defaultComponentName="data",
-         Window(
-      x=0.45,
-   y=0.01,
-   width=0.44,
-      height=0.65),
          Documentation(info=
       "<html>
 <p>Relations.</p>
@@ -999,11 +950,6 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
 
        annotation (
          defaultComponentName="data",
-   Window(
-       x=0.45,
-     y=0.01,
-     width=0.44,
-       height=0.65),
    Documentation(
    info="<html>
 <p>Relations.</p>
@@ -1020,14 +966,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics));
    end PIline;
-  annotation (preferedView="info",
-      Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
       Documentation(info=
                    "<html>
 <p>Records containing parameters of the corresponding components.</p>
@@ -1037,14 +976,8 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics));
  end Parameters;
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.32,
-library=1,
-autolayout=1),
+
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Contains different types of transmission line models.<br>
 Faulted transmission lines contain a third terminal for connection to a fault-component.</p>

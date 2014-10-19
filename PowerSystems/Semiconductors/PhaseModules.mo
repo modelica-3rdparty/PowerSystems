@@ -43,13 +43,6 @@ equation
   connect(diode2.heat, heat)   annotation (Line(points={{-10,-30},{-20,-30},{
             -20,80},{0,80},{0,100}}, color={176,0,0}));
   annotation (defaultComponentName = "diodeMod1",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>Diode-module for passive AC-DC rectifiers.</p>
@@ -140,13 +133,6 @@ equation
   connect(switch_D2.heat, heat)   annotation (Line(points={{-10,-30},{-20,-30},
             {-20,80},{0,80},{0,100}}, color={176,0,0}));
   annotation (defaultComponentName = "switchMod1",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>Switch-module for controlled DC-AC inverters.</p>
@@ -198,14 +184,7 @@ for all times.</p>
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics));
 end SwitchModule;
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.32,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Phase modules for passive and active devices.<br>
 </html>

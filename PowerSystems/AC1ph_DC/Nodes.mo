@@ -8,11 +8,6 @@ package Nodes "Nodes "
   equation
     term.v = zeros(2);
     annotation (defaultComponentName = "grd1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Zero voltage on both conductors of terminal.</p>
@@ -42,7 +37,7 @@ package Nodes "Nodes "
   model PolarityGround "Polarity grounding, 1-phase"
     extends Ports.Port_p;
 
-    parameter Integer pol(min=-1,max=1)=-1 "grounding scheme" annotation(evaluate=true,
+    parameter Integer pol(min=-1,max=1)=-1 "grounding scheme" annotation(Evaluate=true,
       choices(choice=1 "plus", choice=0 "symmetrical", choice=-1 "negative"));
 
   equation
@@ -57,11 +52,6 @@ package Nodes "Nodes "
       term.i[1] = term.i[2];
     end if;
     annotation (defaultComponentName = "polGrd1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Zero voltage depending on polarity choice.</p>
@@ -128,11 +118,6 @@ package Nodes "Nodes "
     term.v = 0;
     annotation (
       defaultComponentName="grdOne1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Zero voltage on terminal.</p>
@@ -176,11 +161,6 @@ package Nodes "Nodes "
     term.i = zeros(2);
     v = term.v[1] - term.v[2];
     annotation (defaultComponentName = "bus1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -221,11 +201,6 @@ package Nodes "Nodes "
     term_pn.v = {term_p.v, term_n.v};
     term_pn.i + {term_p.i, term_n.i} = zeros(2);
     annotation (defaultComponentName = "pn_p_n",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -274,11 +249,6 @@ package Nodes "Nodes "
     {term_a.v,term_b.v,term_c.v} = term_abc.v;
     term_abc.i + {term_a.i,term_b.i,term_c.i} = zeros(3);
       annotation (defaultComponentName = "abc_a_b_c",
-          Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
           Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -307,14 +277,7 @@ package Nodes "Nodes "
           Line(points={{-40,0},{40,0}}, color={0,0,255})}));
   end Electric_abc_a_b_c;
 */
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 </html>"),
     Icon(coordinateSystem(

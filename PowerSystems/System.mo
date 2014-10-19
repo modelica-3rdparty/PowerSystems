@@ -80,16 +80,11 @@ equation
   receiveFreq.h = 0.0;
   receiveFreq.w_h = 0.0;
   annotation (
-  preferedView="info",
+  preferredView="info",
   defaultComponentName="system",
   defaultComponentPrefixes="inner",
   missingInnerMessage="No \"system\" component is defined.
     Drag PowerSystems.System into the top level of your model.",
-  Window(
-    x=0.13,
-    y=0.1,
-    width=0.81,
-    height=0.83),
   Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

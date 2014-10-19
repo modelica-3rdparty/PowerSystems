@@ -10,11 +10,6 @@ package Signals "Special signals"
   equation
     y = c;
     annotation (defaultComponentName = "cstSig1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -45,11 +40,6 @@ package Signals "Special signals"
   equation
     y = 0.5*((s_fin + s_ini) + (s_fin - s_ini)*tanh(coef*(time - t_change)));
     annotation (defaultComponentName = "transSig1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The signal changes from <tt>s_ini</tt> to <tt>s_fin</tt><br>
@@ -88,11 +78,6 @@ The transition function is a hyperbolic tangent.</p>
   equation
     y= {a, ph};
     annotation (defaultComponentName = "cstPh1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>
@@ -129,11 +114,6 @@ The transition function is a hyperbolic tangent.</p>
   equation
     y = 0.5*({a_fin+a_ini, ph_fin+ph_ini} + {a_fin-a_ini, ph_fin-ph_ini}*tanh(coef*(time - t_change)));
      annotation (defaultComponentName = "transPh1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The signal is a two-dimensional vector in polar representation.<br>
@@ -176,11 +156,6 @@ The transition function is a hyperbolic tangent for both norm and phase.</p>
   protected
     outer System system;
     annotation (defaultComponentName = "cstFreq1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 </html>"),
@@ -208,11 +183,6 @@ The transition function is a hyperbolic tangent for both norm and phase.</p>
     final parameter SI.AngularFrequency omega_ini=2*pi*f_ini;
     final parameter SI.AngularFrequency omega_fin=2*pi*f_fin;
     annotation (defaultComponentName = "transFreq1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The frequency changes from <tt>f_ini</tt> to <tt>f_fin</tt><br>
@@ -250,11 +220,6 @@ The transition function is a hyperbolic tangent.</p>
   equation
     y = a*sin(omega*time*ones(n) + ph);
    annotation (defaultComponentName = "sin",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The signal has constant amplitude, phase, and frequency.
@@ -294,11 +259,6 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
     der(theta) = omega;
     y = amplitude*sin(fill(theta, n) + ph);
     annotation (defaultComponentName = "varSin",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The signal has variable amplitude and frequency and constant phase.
@@ -344,11 +304,6 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
       y[k] = amplitude*(a_rel*sin((theta + ph[k])*h + ph_h));
     end for;
    annotation (defaultComponentName = "varSin_spec",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>The signal has variable amplitude and frequency and constant phase.
@@ -371,14 +326,7 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics));
   end VarSinSpec;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.38,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 </html>"),
     Icon(coordinateSystem(

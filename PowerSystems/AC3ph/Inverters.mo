@@ -90,11 +90,6 @@ equation
     uPhasor_out[2] = uPhasor_internal[2];
   end if;
 annotation (defaultComponentName="select1",
-  Window(
-        x=0,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>This is an optional component. If combined with an inverter, a structure is obtained that is equivalent to a voltage source.<br>
@@ -139,11 +134,6 @@ equation
   connect(rectifier.heat, heat)
       annotation (Line(points={{0,10},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="rectifier",
-  Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
   Documentation(
           info="<html>
 <p>Passive rectifier, allows choosing between equation-based and modular version.</p>
@@ -184,13 +174,6 @@ equation
 
   Q_flow = {par.eps[1]*R_nom*iAC2 + (2*sqrt(6)/pi)*par.Vf*sqrt(iAC2)};
   annotation (defaultComponentName="rectifier",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -308,11 +291,6 @@ equation
   connect(inverter.heat, heat) annotation (Line(points={{0,10},{0,20},{20,20},{
             20,80},{0,80},{0,100}}, color={176,0,0}));
 annotation (defaultComponentName="inverter",
-  Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
   Documentation(
           info="<html>
 <p>Four quadrant switched inverter with modulator. Fulfills the power balance:
@@ -422,13 +400,6 @@ equation
  Q_flow = {par.eps[1]*R_nom*iAC2 +
                      (2*sqrt(6)/pi)*cT*(par.Vf + hsw_nom*abs(vDC1))*sqrt(iAC2)};
   annotation (defaultComponentName="inverter",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -552,13 +523,6 @@ end InverterAverage;
     switch_dqo = Park*switch;
     Q_flow = (v - switch*vDC1).*i_sc*par.I_nom/par.V_nom;
     annotation (defaultComponentName="rectifier",
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -649,11 +613,6 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
     connect(heat_adapt.port_abc, heat)
         annotation (Line(points={{0,86},{0,100}}, color={176,0,0}));
   annotation (defaultComponentName="rectifier",
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
     Documentation(
             info="<html>
 <p>Passive rectifier, using diode-modules.</p>
@@ -706,13 +665,6 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
     switch_dqo = Park*switch;
     Q_flow = zeros(heat.m);
     annotation (defaultComponentName="inverter",
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -844,13 +796,6 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
     v_dqo = Park*v;
     switch_dqo = Park*switch;
     annotation (defaultComponentName="inverter",
-      Window(
-        x=
-  0.45, y=
-  0.01, width=
-      0.44,
-        height=
-       0.65),
       Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -975,11 +920,6 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
     connect(heat_adapt.port_abc, heat)
         annotation (Line(points={{0,86},{0,100}}, color={176,0,0}));
   annotation (defaultComponentName="inverter",
-    Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
     Documentation(
             info="<html>
 <p>Four quadrant switched inverter,  using switch-modules. Fulfills the power balance:
@@ -1001,7 +941,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
             grid={2,2}), graphics));
   end InverterModular;
 
-    annotation (preferedView="info",
+    annotation (preferredView="info",
   Documentation(info="<html>
 <p>Contains alternative components:
 <ul>
@@ -1059,13 +999,6 @@ equation
   T = heat.ports.T;
   heat.ports.Q_flow = -Q_flow;
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -1134,24 +1067,12 @@ equation
 </html>"));
 end SwitchEquation;
 
-  annotation (       Window(
-x=0.05,
-y=0.44,
-width=0.31,
-height=0.26,
-library=1,
-autolayout=1),
+  annotation (
       Documentation(info="<html>
 </html>"));
 end Partials;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>The package contains passive rectifiers and switched/modulated inverters. Different implementations use:
 <ul>

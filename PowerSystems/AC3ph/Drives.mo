@@ -22,11 +22,6 @@ package Drives "AC-drives dqo"
     connect(term, motor.term) annotation (Line(points={{-100,0},{-40,0}}, color=
            {0,120,120}));
     annotation (defaultComponentName = "asm",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Complete ASM drive.</p>
@@ -71,11 +66,6 @@ package Drives "AC-drives dqo"
     connect(term, motor.term) annotation (Line(points={{-100,0},{-40,0}}, color=
            {0,120,120}));
     annotation (defaultComponentName = "asm_Y_D",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Complete ASM drive with switcheable Y-Delta topology.</p>
@@ -206,11 +196,6 @@ package Drives "AC-drives dqo"
     connect(excitation.termVoltage, termVoltage) annotation (Line(points={{-66,
             40},{-66,60},{-60,60},{-60,100}}, color={0,0,127}));
     annotation (defaultComponentName = "sm_el",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Complete SM drive with electrically excited motor.</p>
@@ -374,13 +359,6 @@ package Drives "AC-drives dqo"
               lineColor={255,170,85},
               fillColor={255,170,85},
               fillPattern=FillPattern.Solid)}),
-  Window(
-    x=0.41,
-        y=0.01,
-        width=
-  0.6,
-    height=
-   0.6),
   Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -448,13 +426,6 @@ package Drives "AC-drives dqo"
               lineColor={255,170,85},
               fillColor={255,170,85},
               fillPattern=FillPattern.Solid)}),
-  Window(
-    x=0.41,
-        y=0.01,
-        width=
-  0.6,
-    height=
-   0.6),
   Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -501,11 +472,6 @@ package Drives "AC-drives dqo"
     connect(heat_adapt.port_ab, heat)
       annotation (Line(points={{0,76},{0,100}}, color={176,0,0}));
   annotation (
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 </html>"),
@@ -523,23 +489,9 @@ package Drives "AC-drives dqo"
             grid={2,2}), graphics));
   end DriveBase_ctrl;
 
-    annotation (       Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.23,
-  library=1,
-  autolayout=1));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Contains both electrical and mechanical parts of AC-drives, dqo-representation.</p>
 <p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"PowerSystems.UsersGuide.Overview\">up users guide</a></p>

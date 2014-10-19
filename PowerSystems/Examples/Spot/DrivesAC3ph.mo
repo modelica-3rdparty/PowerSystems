@@ -49,8 +49,7 @@ package DrivesAC3ph "AC drives, dqo"
     connect(speedSignal.y, speed.w)
     annotation (Line(points={{58,-10},{40,-10}}, color={0,0,127}));
   annotation (Diagram(graphics),
-      experiment(Algorithm="Dassl"),
-      experimentSetupOutput,
+      experiment(StopTime=1),
       Documentation(info="<html>
 <p>Steady-state simulation to produce motor characteristic 'torque vs slip'.<br>
 <pre>
@@ -113,11 +112,6 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
     connect(asm_Y_D.heat, bdCond.heat) annotation (Line(points={{0,0},{0,0}},
           color={176,0,0}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Asynchron machine, Y-Delta switcheable, start-up.</p>
@@ -140,8 +134,7 @@ Compare 'transient' and 'steady-state' mode.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(StopTime=3),
-      experimentSetupOutput);
+      experiment(StopTime=3));
   end ASM_Y_D;
 
   model ASMav
@@ -216,11 +209,6 @@ Compare 'transient' and 'steady-state' mode.</p>
     connect(inverter.heat,bdCond2. heat) annotation (Line(points={{-40,0},{-40,
             0}}, color={176,0,0}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Asynchron machine with load (drive along height-profile), on-load steady-state start.<br>
@@ -244,9 +232,8 @@ Compare 'transient' and 'steady-state' mode.</p>
           grid={2,2}), graphics),
       experiment(
         StopTime=60,
-        NumberOfIntervals=1357,
-        Tolerance=1e-006),
-      experimentSetupOutput);
+        Interval=5e-2,
+        Tolerance=1e-006));
   end ASMav;
 
   model ASMav_icontrol
@@ -326,11 +313,6 @@ Compare 'transient' and 'steady-state' mode.</p>
     connect(asm_ctrl.heat, bdCond.heat)
       annotation (Line(points={{10,-20},{10,-20}}, color={176,0,0}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Current (torque) controlled asynchron machine with load (drive along height-profile), steady-state start, torque-increase after start.<br>
@@ -353,9 +335,8 @@ Compare 'transient' and 'steady-state' mode.</p>
           grid={2,2}), graphics),
       experiment(
         StopTime=60,
-        NumberOfIntervals=1357,
-        Tolerance=1e-006),
-      experimentSetupOutput);
+        Interval=5e-2,
+        Tolerance=1e-006));
   end ASMav_icontrol;
 
   model ASM "AC asynchronous machine, voltage controlled"
@@ -431,11 +412,6 @@ Compare 'transient' and 'steady-state' mode.</p>
     connect(inverter.heat,bdCond2. heat) annotation (Line(points={{-40,0},{-40,
             0}}, color={176,0,0}));
     annotation (
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Asynchron machine with load (drive along height-profile), on-load transient start.<br>
@@ -456,11 +432,7 @@ The machine defines the reference-system independent of the system choice (as ne
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      experiment(Tolerance=1e-005, Algorithm="Lsodar"),
-      experimentSetupOutput(
-        derivatives=false,
-        auxiliaries=false,
-        events=false));
+      experiment(StopTime=1, Tolerance=1e-005));
   end ASM;
 
   model SM_ctrlAv
@@ -541,11 +513,6 @@ The machine defines the reference-system independent of the system choice (as ne
     connect(i_d.y, sm_ctrl.i_act[1])        annotation (Line(points={{-60,50},{
             16,50},{16,-19.5}}, color={0,0,127}));
   annotation (
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Field oriented control of pm synchronous machine with time-average inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.<br>
@@ -568,8 +535,7 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-    experiment(StopTime=10),
-    experimentSetupOutput);
+    experiment(StopTime=10));
   end SM_ctrlAv;
 
   model SM_ctrl "AC synchronous pm machine, current controlled"
@@ -651,11 +617,6 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
     connect(i_d.y, sm_ctrl.i_act[1])        annotation (Line(points={{-60,50},{16,
             50},{16,-19.5}},    color={0,0,127}));
   annotation (
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Field oriented control of pm synchronous machine with modulated inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.<br>
@@ -680,12 +641,7 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
           grid={2,2}), graphics),
     experiment(
         StopTime=3,
-        Tolerance=1e-005,
-        Algorithm="Lsodar"),
-    experimentSetupOutput(
-        derivatives=false,
-        inputs=false,
-        events=false));
+        Tolerance=1e-005));
   end SM_ctrl;
 
   model ASM_ctrlAv
@@ -769,11 +725,6 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
     connect(i_d.y, asm_ctrl.i_act[1])       annotation (Line(points={{-60,50},{16,
             50},{16,-19.5}},    color={0,0,127}));
   annotation (
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Field oriented control of asynchronous machine with time-average inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.</p>
@@ -798,9 +749,7 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
           grid={2,2}), graphics),
     experiment(
         StopTime=10,
-        fixedstepsize=0.001,
-        Algorithm="Dassl"),
-    experimentSetupOutput);
+        Interval=0.001));
   end ASM_ctrlAv;
 
   model ASM_ctrl "AC asynchronous machine, current controlled"
@@ -883,11 +832,6 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
     connect(i_d.y, asm_ctrl.i_act[1])       annotation (Line(points={{-60,50},{
             16,50},{16,-19.5}}, color={0,0,127}));
   annotation (
-    Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
     Documentation(
             info="<html>
 <p>Field oriented control of asynchronous machine with modulated inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.</p>
@@ -911,22 +855,10 @@ Transient start with torque-increase at 0.5 s, load-step 2 s and field-increase 
           grid={2,2}), graphics),
     experiment(
         StopTime=3,
-        Tolerance=1e-005,
-        Algorithm="Lsodar"),
-    experimentSetupOutput(
-        derivatives=false,
-        inputs=false,
-        events=false));
+        Tolerance=1e-005));
   end ASM_ctrl;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.42,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>AC drives (motors electrical and mechanical). Electric motor terminal in dqo-representation.</p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>

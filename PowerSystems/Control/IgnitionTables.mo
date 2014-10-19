@@ -22,11 +22,6 @@ record Table_2 "Ignition Table2, 3 pulses/period"
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ignition Table_mult: (2*mult - 1) pulses/period, equidistant arguments u.<br>
@@ -62,11 +57,6 @@ record Table_3 "Ignition Table3, 5 pulses/period"
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ignition Table_mult: (2*mult - 1) pulses/period, equidistant arguments u.<br>
@@ -113,11 +103,6 @@ record Table_4 "Ignition Table4, 7 pulses/period"
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ignition Table_mult: (2*mult - 1) pulses/period, equidistant arguments u.<br>
@@ -164,11 +149,6 @@ record Table_5 "Ignition Table5, 9 pulses/period"
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ignition Table_mult: (2*mult - 1) pulses/period, equidistant arguments u.<br>
@@ -183,14 +163,7 @@ Initial state is <tt>{true,false}</tt>.<br>
 </html>"));
 end Table_5;
 
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.26,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Ignition tables for synchronous PWM gate-control.</p>
 </html>

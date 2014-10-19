@@ -19,11 +19,6 @@ record TrafoIdeal1ph "Ideal trafo, 1-phase, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="trafo15k_1400",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
@@ -56,11 +51,6 @@ record TrafoStray1ph "Trafo with ideal magnetic coupling, 1-phase, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="trafo15k_1400",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
@@ -103,11 +93,6 @@ record TrafoMag1ph "Trafo with magnetic coupling, 1-phase, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="trafo15k_1400",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
@@ -150,11 +135,6 @@ record TrafoSat1ph "Trafo with saturation, 1-phase, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="trafo15k_1400",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
@@ -191,11 +171,6 @@ record TrafoIdeal "Ideal trafo, 3-phase, example"
   parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="trafo20k_400k",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
@@ -231,11 +206,6 @@ record TrafoStray "Trafo with ideal magnetic coupling, 3-phase, example"
   parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="trafo20k_400k",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
@@ -274,11 +244,6 @@ record TrafoMag "Trafo with magnetic coupling, 3-phase, example"
   parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="trafo20k_400k",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
@@ -319,11 +284,6 @@ record TrafoSat "Trafo with saturation, 3-phase, example"
   parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="trafo20k_400k",
-    Window(
-x=0.45,
-      y=0.01,
-      width=0.44,
-height=0.65),
     Documentation(
     info="<html>
 </html>
@@ -336,7 +296,7 @@ height=0.65),
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics));
 end TrafoSat;
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Note: a correct value for S_nom is only needed, if you choose input in pu-units. In this case the 'nominal' values are chosen as base-values. For SI-units S_nom is not used. Nevertheless it must be defined. V_nom however is used to define the winding ratio and voltage start values.</p>
 </html>"));

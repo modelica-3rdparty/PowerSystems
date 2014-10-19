@@ -131,7 +131,7 @@ The following table summerizes the PhaseSystems that are predefined in the Power
   "Directory of example tables";
 
 
-  annotation (preferedView="info",
+  annotation (preferredView="info",
   version="0.2.1",
   versionDate="2014-08-15",
   Documentation(info="<html>

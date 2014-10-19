@@ -10,11 +10,6 @@ block Integrator "Integral of input-signal"
 equation
   der(y) = u;
   annotation (
-    Window(
-      x=0.29,
-      y=0.05,
-      width=0.53,
-      height=0.54),
     Documentation(info="<html>
 <p/>Calculates:
 <pre>  y_ini + Integral dt u</pre>
@@ -58,11 +53,6 @@ end Integrator;
   equation
     der(y) = (u - y)/tcst;
     annotation (defaultComponentName = "time_av",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Calculates the time-average of the input-signal u with exponential memory function (first order transfer function with initial condition).</p>
@@ -98,11 +88,6 @@ end Integrator;
     der(U) = u;
     y = (U - delay(U, tcst))/tcst;
     annotation (defaultComponentName = "time_avI",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Calculates the time-average of the input-signal u over the interval {time - tau, time}.</p>
@@ -144,11 +129,6 @@ end Integrator;
               info="<html>
 <p>Calculates the average over the components of the input-signal u.</p>
 </html>"),
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -165,11 +145,6 @@ end Integrator;
   equation
     y = sqrt(u[1:n_eval]*u[1:n_eval]);
     annotation (defaultComponentName = "norm",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
       Documentation(
               info="<html>
 <p>Allows in particular to calculate the dqo-norm (n_eval=3) or dq-norm (n_eval=2) of the input signal.</p>
@@ -208,11 +183,6 @@ end Integrator;
             lineColor={128,128,128},
             textString=
                  "polar >")}),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 <p>Converts Euclidean {u[1], u[2]} to  polar {y[1], y[2]} coordinates, where
 <pre>
@@ -257,11 +227,6 @@ end Integrator;
             lineColor={255,85,85},
             textString=
                  "polar >")}),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 <p>Converts Euclidean {u[1], u[2]} to  polar {y[1], y[2]} coordinates, where
 <pre>
@@ -291,11 +256,6 @@ end Integrator;
             lineColor={128,128,128},
             textString=
                  "< polar")}),
-      Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
       Documentation(info="<html>
 <p>Converts polar {u[1], u[2]} to Euclidean {y[1], y[2]} coordinates, where
 <pre>
@@ -308,14 +268,7 @@ end Integrator;
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics));
   end FromPolar;
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 </html>"),
     Icon(coordinateSystem(

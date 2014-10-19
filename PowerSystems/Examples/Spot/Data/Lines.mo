@@ -17,11 +17,6 @@ package Lines "Line example data"
     parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="OH15kV1ph",
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>
@@ -47,11 +42,6 @@ package Lines "Line example data"
     parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
   annotation (defaultComponentName="OH_15kV1ph",
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>
@@ -73,11 +63,6 @@ record OHline132kV1ph "Overhead PI-line 132kV 1-phase rail, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
 annotation (defaultComponentName="OH132kV1ph",
-    Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
     Documentation(
       info="<html>
 </html>"));
@@ -102,11 +87,6 @@ record OHline_132kV1ph "Overhead PI-line 132kV 1-phase rail, example"
   parameter SI.ApparentPower f_nom=50/3 "nom frequency";
 
 annotation (defaultComponentName="OH_132kV1ph",
-    Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
     Documentation(
       info="<html>
 </html>"));
@@ -131,11 +111,6 @@ end OHline_132kV1ph;
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -162,12 +137,7 @@ end OHline_132kV1ph;
   annotation (defaultComponentName="C_132kVDC",
       Documentation(
         info="<html>
-</html>"),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65));
+</html>"));
   end Cable_132kVDC;
 
   record OHline132kV "Overhead RX-line 132kV 3-phase, example"
@@ -185,11 +155,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="OH132kV",
-    Window(
-    x=0.45,
-    y=0.01,
-    width=0.44,
-    height=0.65),
     Documentation(
       info="<html>
 </html>"));
@@ -214,11 +179,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="OH_132kV",
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -239,11 +199,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="OH400kV",
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -268,11 +223,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="OH_400kV",
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -297,11 +247,6 @@ end OHline_132kV1ph;
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -328,12 +273,7 @@ end OHline_132kV1ph;
   annotation (defaultComponentName="C_132kV",
       Documentation(
         info="<html>
-</html>"),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65));
+</html>"));
   end Cable_132kV;
 
   record Cable400kV "Cable RX-line 400kV 3-phase, example"
@@ -355,11 +295,6 @@ end OHline_132kV1ph;
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65),
       Documentation(
         info="<html>
 </html>"));
@@ -386,14 +321,9 @@ end OHline_132kV1ph;
   annotation (defaultComponentName="C_400kV",
       Documentation(
         info="<html>
-</html>"),
-      Window(
-      x=0.45,
-      y=0.01,
-      width=0.44,
-      height=0.65));
+</html>"));
   end Cable_400kV;
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Some examples of standard-types.<br>
 Exact data for specific cases still have to be determined.</p>

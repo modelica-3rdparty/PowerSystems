@@ -30,11 +30,6 @@ equation
     omega[2]*L*j_dqo(i_x) + R*i_x = v;
   end if;
 annotation (defaultComponentName = "xShunt1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Info see package ACabc.Impedances.</p>
@@ -151,11 +146,6 @@ equation
     omega[2]*C*j_dqo(v) + diagonal({G,G,G0})*v = i;
   end if;
 annotation (defaultComponentName = "cShunt1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Terminology.<br>
@@ -360,11 +350,6 @@ equation
   psi_x = L*(i - G*v);
   der(psi_x) + omega[2]*j_dqo(psi_x) + R*i_x = v;
 annotation (defaultComponentName = "xShuntNonSym",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Reactive shunt with general reactance matrix and parallel conductor, defined in abc inertial system.<br>
@@ -496,11 +481,6 @@ equation
   q = C*v;
   der(q) + omega[2]*j_dqo(q) + G*v = i;
 annotation (defaultComponentName = "cShuntNonSym",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Capacitive shunt with general susceptance matrix and parallel conductor, defined in abc inertial system.<br>
@@ -697,11 +677,6 @@ end CapacitiveShuntNonSym;
       v = term.v;
       i = term.i;
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
       info="<html>
 </html>
@@ -743,11 +718,6 @@ end CapacitiveShuntNonSym;
       Real[3,3] Park = Basic.Transforms.park(
                                             term.theta[2]);
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
       info="<html>
 <p>Same as ShuntBase, but contains additionally a Park-transform which is needed for
@@ -764,23 +734,10 @@ transformation of general impedance matrices from abc rest- to general dqo-syste
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics));
     end ShuntBaseNonSym;
-    annotation (            Window(
-        x=0.05,
-        y=0.44,
-        width=0.31,
-        height=0.23,
-        library=1,
-        autolayout=1));
+
   end Partials;
 
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.44,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Info see package ACdqo.Impedances.</p>
 </html>

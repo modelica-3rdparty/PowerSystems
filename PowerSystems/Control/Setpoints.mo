@@ -20,11 +20,6 @@ equation
   setpts[2] = p_set;
   setpts[3] = v_set;
   annotation (defaultComponentName = "setpts1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The speed-, power-, and voltage setpoints setpts[1:3] are determined by the corresponding setpoint-parameters.<br>
@@ -106,11 +101,6 @@ equation
   setpts[2] = setpt_p;
   setpts[3] = setpt_v;
   annotation (defaultComponentName = "setpts1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The speed-, power-, and voltage setpoints setpts[1:3] are are taken from inputs set_w, setpt_p, set_v.<br>
@@ -169,11 +159,6 @@ equation
   setpts[1] = w_set;
   setpts[2] = setpt_p;
   annotation (defaultComponentName = "setpts1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>The speed setpoint setpts[1] is directly determined by the parameter w_set with attribute 'fixed=true'.<br>

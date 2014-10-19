@@ -64,13 +64,6 @@ record BLDC100V_1kVA
   parameter SI.Frequency f_nom=60 "nom frequency";
 
   annotation (defaultComponentName="bldc100_1k",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>The relation between source DC voltage V_dc and nominal 3-phase voltage of the synchronous machine V_nom is given by
@@ -112,13 +105,6 @@ record BLDC100V_1kVA_SI
   parameter SI.Frequency f_nom=60 "nom frequency";
 
   annotation (defaultComponentName="bldc100_1k_SI",
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>The relation between source DC voltage V_dc and nominal 3-phase voltage of the synchronous machine V_nom is given by
@@ -401,7 +387,7 @@ end BLDC100V_1kVA_SI;
       f_nom=50);
   end SynchronIso20kV_500MVA;
 
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Note: a correct value for S_nom is only needed, if you choose input in pu-units. In this case the 'nominal' values are chosen as base-values. For SI-units S_nom is not used. Nevertheless it must be defined. V_nom however is used to define voltage start values.</p>
 </html>"));

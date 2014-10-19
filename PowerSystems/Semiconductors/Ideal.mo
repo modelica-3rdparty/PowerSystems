@@ -15,13 +15,6 @@ record SCparameter "Ideal semiconductor parameters"
   parameter SI.Temp_K T0_loss=300 "reference T for cT_loss expansion"
     annotation(Dialog(enable=size(cT_loss,1)>0), Evaluate=true);
   annotation (
-    Window(
-      x=
-0.45, y=
-0.01, width=
-    0.44,
-      height=
-     0.65),
     Documentation(
           info="<html>
 <p>The small parameters epsR and epsG are given in dimensionless units. This allows to work with deault values also in cases where the exact semiconductor data are missing. A resonable (approximate) value for <tt>Z_nom</tt> is needed for scaling.
@@ -67,13 +60,6 @@ equation
   V = if size(par.cT_loss,1)==0 then par.Vf else par.Vf*loss(T - par.T0_loss, par.cT_loss);
   {v,i_sc} = if on then {par.eps[1]*s + (1 - par.eps[1])*V,s - (1 - par.eps[2])*V} else {s,par.eps[2]*s};
 annotation (
-  Window(
-    x=0.45,
-      y=0.01,
-      width=
-  0.44,
-    height=
-   0.65),
   Documentation(
         info="<html>
 </html>
@@ -94,11 +80,6 @@ model Diode "Diode"
 equation
   on = s > V;
   annotation (defaultComponentName = "diode1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ideal Diode with forward threshold voltage <tt>Vf_d</tt>.</p>
@@ -133,11 +114,6 @@ model Thyristor "Thyristor"
 equation
   on = s > V and (pre(on) or gate);
   annotation (defaultComponentName = "thyristor1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 </html>
@@ -175,11 +151,6 @@ model SCswitch "Semiconductor switch"
 equation
   on = s > V and gate;
   annotation (defaultComponentName = "GTO1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ideal semiconductor switch with forward threshold voltage <tt>Vf_s</tt>.<br>
@@ -239,11 +210,6 @@ equation
     {v, i_sc} = if s < - V then {par.eps[1]*s - (1 - par.eps[1])*V, s + (1 - par.eps[2])*V} else {s,par.eps[2]*s};
   end if;
   annotation (defaultComponentName = "GTO_D1",
-    Window(
-x=0.45,
-y=0.01,
-width=0.44,
-height=0.65),
     Documentation(
             info="<html>
 <p>Ideal semiconductor switch with forward threshold voltage <tt>Vf_s</tt> and reverse Diode with forward threshold voltage <tt>Vf_d</tt>.<br>
@@ -275,14 +241,7 @@ height=0.65),
           grid={2,2}), graphics));
 end SCswitch_Diode;
 
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.32,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Ideal semiconductor models (default choice).</p>
 </html>

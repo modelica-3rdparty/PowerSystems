@@ -11,7 +11,7 @@ package Plasma "Plasma arcs"
 
   equation
     v = d*E*tanh(r*i);
-    annotation (structurallyIncomplete, defaultComponentName = "arcBreaker1",
+    annotation (__Dymola_structurallyIncomplete=true, defaultComponentName="arcBreaker1",
     Documentation(info="<html>
 <p>
 <b>Structurally incomplete model</b>. Use only as component within Breaker kernel.<br><br>
@@ -37,12 +37,7 @@ The 'arc voltage vs current' characteristic is a hyperbolic tangent.
 
   equation
     v = V*tanh(r*i);
-    annotation (structurallyIncomplete, defaultComponentName = "arcFault1",
-      Window(
-  x=0.45,
-  y=0.01,
-  width=0.44,
-  height=0.65),
+    annotation (__Dymola_structurallyIncomplete=true, defaultComponentName="arcFault1",
       Documentation(
               info="<html>
 <p>
@@ -106,13 +101,6 @@ The 'arc voltage vs current' characteristic is a hyperbolic tangent.
               extent={{-100,-100},{100,-140}},
               lineColor={0,0,0},
               textString="%name")}),
-        Window(
-          x=
-    0.55, y=
-    0.01, width=
-        0.44,
-          height=
-         0.65),
         Documentation(
               info="<html>
 </html>
@@ -127,27 +115,13 @@ The 'arc voltage vs current' characteristic is a hyperbolic tangent.
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics),
-      Window(
-  x=0.05,
-  y=0.44,
-  width=0.31,
-  height=0.26,
-  library=1,
-  autolayout=1),
       Documentation(
               info="<html>
 </html>
 "));
   end Partials;
 
-  annotation (preferedView="info",
-Window(
-  x=0.05,
-  y=0.41,
-  width=0.4,
-  height=0.32,
-  library=1,
-  autolayout=1),
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>Properties of plasma arcs for breakers and faults.</p>
 </html>

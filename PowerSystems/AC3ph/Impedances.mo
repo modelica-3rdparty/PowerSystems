@@ -13,11 +13,6 @@ package Impedances "Impedance and admittance two terminal"
     R*i = v;
     annotation (
       defaultComponentName="res1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Info see package ACdqo.Impedances.</p>
@@ -66,11 +61,6 @@ package Impedances "Impedance and admittance two terminal"
     G*v = i;
     annotation (
       defaultComponentName="cond1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Info see package ACdqo.Impedances.</p>
@@ -135,11 +125,6 @@ package Impedances "Impedance and admittance two terminal"
     end if;
     annotation (
       defaultComponentName="ind1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Info see package ACdqo.Impedances.</p>
@@ -240,11 +225,6 @@ package Impedances "Impedance and admittance two terminal"
     end if;
     annotation (
       defaultComponentName="cap1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>No phase to phase capacitance.</p>
@@ -366,11 +346,6 @@ package Impedances "Impedance and admittance two terminal"
     end if;
     annotation (
       defaultComponentName="impedance1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>This model corresponds to ACdqo.Inductor, but uses a different determination of the coefficients.<br>
@@ -499,11 +474,6 @@ Instead of x_s, x_m, and r the parameters z_abs, cos(phi), and x_o are used.</p>
     end if;
     annotation (
       defaultComponentName="admittance1",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>This model corresponds to ACdqo.Capacitor, but uses a different determination of the coefficients.<br>
@@ -624,11 +594,6 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     R*i = v;
     annotation (
       defaultComponentName="resNonSym",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Resistor with general resistance matrix, defined in abc inertial system.<br>
@@ -702,11 +667,6 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     der(psi) + omega[2]*j_dqo(psi) + R*i = v;
     annotation (
       defaultComponentName="indNonSym",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Inductor with general reactance matrix, defined in abc inertial system.<br>
@@ -821,11 +781,6 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     der(q) + omega[2]*j_dqo(q) + G*v = i;
     annotation (
       defaultComponentName="capNonSym",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Capacitor with general susceptance matrix, defined in abc inertial system.<br>
@@ -944,11 +899,6 @@ a time dependent transform of the coefficient matrix.</p>
     v = Park*v_abc;
     annotation (
       defaultComponentName="varistor",
-  Window(
-        x=0.45,
-        y=0.01,
-        width=0.44,
-        height=0.65),
   Documentation(
           info="<html>
 <p>Voltage limiter with hyperbolic tangent characteristic.</p>
@@ -1018,11 +968,6 @@ a time dependent transform of the coefficient matrix.</p>
       v = term_p.v - term_n.v;
       i = term_p.i;
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
       info="<html>
 </html>
@@ -1050,11 +995,6 @@ a time dependent transform of the coefficient matrix.</p>
                                         term_p.theta[2]);
 
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
     info="<html>
 <p>Same as ImpedBase, but contains additionally a Park-transform which is needed for
@@ -1078,11 +1018,6 @@ transformation of general impedance matrices from abc rest to general dqo-system
     equation
       Q_flow = v*i;
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
       info="<html>
 <p>Same as ImpedBase, but contains an additional heat port.</p>
@@ -1110,11 +1045,6 @@ transformation of general impedance matrices from abc rest to general dqo-system
     equation
       Q_flow = v_abc.*i_abc;
       annotation (
-        Window(
-          x=0.45,
-          y=0.01,
-          width=0.44,
-          height=0.65),
         Documentation(
       info="<html>
 <p>Same as ImpedNonSymBase, but contains an additional vector heat port.</p>
@@ -1130,23 +1060,9 @@ transformation of general impedance matrices from abc rest to general dqo-system
             grid={2,2}), graphics));
     end ImpedNonSymHeat;
 
-    annotation (            Window(
-        x=0.05,
-        y=0.44,
-        width=0.31,
-        height=0.23,
-        library=1,
-        autolayout=1));
   end Partials;
 
-annotation (preferedView="info",
-    Window(
-x=0.05,
-y=0.41,
-width=0.4,
-height=0.44,
-library=1,
-autolayout=1),
+annotation (preferredView="info",
     Documentation(info="<html>
 <p>Contains lumped impedance models and can also be regarded as a collection of basic formulas. Shunts are part of a separate package.</p>
 <p>General relations.</p>
