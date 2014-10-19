@@ -225,8 +225,7 @@ package Generic "Simple components for basic investigations"
   end Generator;
 
   model Inverter "Convert direct current to alternating current"
-    extends PowerSystems.Generic.Ports.PartialSource(
-      final potentialReference = true);
+    extends PowerSystems.Generic.Ports.PartialSource;
     package PhaseSystem_dc = PowerSystems.PhaseSystems.DirectCurrent;
     PowerSystems.Generic.Ports.Terminal_p terminal_dc(
       redeclare package PhaseSystem = PhaseSystem_dc)
