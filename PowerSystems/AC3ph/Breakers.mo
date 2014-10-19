@@ -9,7 +9,7 @@ package Breakers "Switches and Breakers 3-phase"
     parameter Integer p_relax(min=2)=4 "power of relaxation exponent";
   protected
     outer System system;
-    SI.Time t0(start=-Modelica.Constants.inf, fixed=true);
+    SI.Time t0(start=-Modelica.Constants.inf);
     Real[2] r(start={0,1});
     Real[3] s;
   /*
@@ -28,6 +28,9 @@ package Breakers "Switches and Breakers 3-phase"
   initial equation
     pre(open) = not control[1];
     pre(closed) = control[1];
+    if system.transientSim then
+      t0 = -Modelica.Constants.inf;
+    end if;
   equation
     if system.transientSim then
       when edge(open) or edge(closed) then
@@ -133,7 +136,7 @@ with
     outer System system;
     final parameter SI.Resistance epsR=eps[1]*V_nom/I_nom;
     final parameter SI.Conductance epsG=eps[2]*I_nom/V_nom;
-    SI.Time t0(start=-Modelica.Constants.inf, fixed=true);
+    SI.Time t0(start=-Modelica.Constants.inf);
     Real[2] r(start={0,1});
     Real[3] s_t;
     Real[3] s_f;
@@ -152,6 +155,9 @@ with
   initial equation
     pre(open_t) = not control;
     pre(closed_t) = control;
+    if system.transientSim then
+      t0 = -Modelica.Constants.inf;
+    end if;
   equation
     Connections.branch(term_p.theta, term_nt.theta);
     Connections.branch(term_p.theta, term_nf.theta);
@@ -304,11 +310,11 @@ with
     switch_c.v=v_abc[3];
     switch_c.i=i_abc[3];
 
-    connect(control[1], switch_a.closed)  annotation (Line(points={{0,93.3333},
+    connect(control[1], switch_a.closed)  annotation (Line(points={{0,106.667},
             {0,90},{-30,90}}, color={255,0,255}));
     connect(control[2], switch_b.closed)  annotation (Line(points={{0,100},{0,
             30}}, color={255,0,255}));
-    connect(control[3], switch_c.closed)  annotation (Line(points={{0,106.667},
+    connect(control[3], switch_c.closed)  annotation (Line(points={{0,93.3333},
             {0,90},{30,90},{30,-30}}, color={255,0,255}));
     annotation (defaultComponentName = "switch1",
       Window(
@@ -377,11 +383,11 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
     breaker_c.v=v_abc[3];
     breaker_c.i=i_abc[3];
 
-    connect(control[1], breaker_a.closed)  annotation (Line(points={{0,93.3333},
+    connect(control[1], breaker_a.closed)  annotation (Line(points={{0,106.667},
             {0,90},{-30,90}}, color={255,0,255}));
     connect(control[2], breaker_b.closed)
       annotation (Line(points={{0,100},{0,30}}, color={255,0,255}));
-    connect(control[3], breaker_c.closed)  annotation (Line(points={{0,106.667},
+    connect(control[3], breaker_c.closed)  annotation (Line(points={{0,93.3333},
             {0,90},{30,90},{30,-30}}, color={255,0,255}));
     annotation (defaultComponentName = "breaker1",
       Window(
