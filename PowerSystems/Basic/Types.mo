@@ -325,27 +325,29 @@ package Types
                                "inert" "inertial";
 */
 
-    type ReferenceAngle "reference angle"
-      extends Modelica.SIunits.Angle;
+    type ReferenceAngle "Reference angle"
+      extends SI.Angle;
 
       function equalityConstraint
-        input ReferenceAngle[2] theta_p;
-        input ReferenceAngle[2] theta_n;
-        output Real[0] residue;
+        input ReferenceAngle theta1[:];
+        input ReferenceAngle theta2[:];
+        output Real[0] residue "No constraints";
       algorithm
-        assert(abs(theta_p[1] - theta_n[1]) < Modelica.Constants.eps, "theta[1] term_p and term_n not equal!");
-        assert(abs(theta_p[2] - theta_n[2]) < Modelica.Constants.eps, "theta[2] term_p and term_n not equal!");
+        for i in 1:size(theta1, 1) loop
+          assert(abs(theta1[i] - theta2[i]) < Modelica.Constants.eps, "angles theta1 and theta2 not equal over connection!");
+        end for;
       end equalityConstraint;
 
     annotation (Documentation(info="<html>
 <p>Type ReferenceAngle specifies the variable-type that contains relative frequency and angular orientation of a rotating electrical reference system.
+In the case of three phase AC models we have:</p>
 <pre>
-  theta_p[1]     angle relative to reference-system
-  theta_p[2]     reference angle, defining reference-system
+  theta[1]       angle relative to reference-system
+  theta[2]       reference angle, defining reference-system
 
   der(theta[1])  relative frequency in reference-system with orientation theta[2]
   der(theta[1] + theta[2])  absolute frequency
-</pre></p>
+</pre>
 </html>"));
     end ReferenceAngle;
 
