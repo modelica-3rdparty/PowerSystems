@@ -26,7 +26,7 @@ package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work p
       annotation (Placement(transformation(extent={{-36,-6},{-24,6}})));
     PowerSystems.Generic.VoltageConverter distribution(ratio=380/50)
       annotation (Placement(transformation(extent={{44,-46},{56,-34}})));
-    PowerSystems.Generic.Inverter HVDC
+    PowerSystems.Generic.Inverter HVDC(potentialReference=false)
       annotation (Placement(transformation(extent={{-16,34},{-4,46}})));
     Components.HydroPlant hydroPlant(primaryControlMax=200)
       annotation (Placement(transformation(extent={{80,20},{60,40}})));
@@ -45,7 +45,7 @@ package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work p
             rotation=-90,
             origin={40,-10})));
     Modelica.Blocks.Sources.RealExpression frequency(y=system.omega/2/pi)
-      "Average frequency" annotation (Placement(
+    "Average frequency"   annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
             rotation=-90,
@@ -153,7 +153,7 @@ The following switches/features are provided:
 
     model PowerPlant "Thermal Power Plant with primary and secondary control"
       extends PowerSystems.Generic.Ports.PartialSource(
-        final potentialReference=true, final definiteReference=false);
+        final potentialReference=true);
 
       parameter Boolean Modakond = false "Install Modakond for condensate stop"
         annotation(Dialog(group="Features"));
@@ -264,7 +264,7 @@ The following switches/features are provided:
       Interfaces.Sender sender(w=generator.w, H=0.5*rotor.J*rotor.w^2/800e6)
       annotation (Placement(transformation(extent={{66,6},{74,14}})));
     initial equation
-      if potentialReference then
+      if Connections.isRoot(generator.terminal.theta) then
         if system.steadyIni then
           rotor.a = 0;
         else
@@ -452,7 +452,7 @@ The following switches/features are provided:
 
     model HydroPlant
       extends PowerSystems.Generic.Ports.PartialSource(
-        final potentialReference=true, final definiteReference=false);
+        final potentialReference=true);
 
       parameter Real primaryControlMax(unit="MW") = 200
       "Maximum power for primary frequency control"
@@ -520,7 +520,7 @@ The following switches/features are provided:
       Interfaces.Sender sender(w=generator.w, H=0.5*rotor.J*rotor.w^2/200e6)
       annotation (Placement(transformation(extent={{66,16},{74,24}})));
     initial equation
-      if potentialReference then
+      if Connections.isRoot(generator.terminal.theta) then
         if system.steadyIni then
           rotor.a = 0;
         else
