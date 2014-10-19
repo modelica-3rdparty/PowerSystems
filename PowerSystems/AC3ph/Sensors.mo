@@ -397,6 +397,13 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     parameter SI.Time tcst(min=1e-9)=1 "average time-constant"
                                                     annotation(Evaluate=true, Dialog(group="Options",enable=av));
 
+    function v2vpp_abc
+      input SIpu.Voltage[3] v_abc;
+      output SIpu.Voltage[3] vpp_abc;
+    algorithm
+      vpp_abc := {v_abc[2],v_abc[3],v_abc[1]} - {v_abc[3],v_abc[1],v_abc[2]};
+    end v2vpp_abc;
+
     output SIpu.Power[3] p(each stateSelect=StateSelect.never);
     output SIpu.Power[3] p_av=pav if av;
     output SIpu.Voltage[3] v(each stateSelect=StateSelect.never);
@@ -404,14 +411,13 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     output SIpu.Current[3] i(each stateSelect=StateSelect.never);
 
     output SIpu.Voltage[3] v_abc(each stateSelect=StateSelect.never)=transpose(Park)*v if abc;
-    output SIpu.Voltage[3] vpp_abc(each stateSelect=StateSelect.never)=
-      {v_abc[2],v_abc[3],v_abc[1]} - {v_abc[3],v_abc[1],v_abc[2]} if abc;
+    output SIpu.Voltage[3] vpp_abc(each stateSelect=StateSelect.never)=v2vpp_abc(transpose(Park)*v) if abc;
     output SIpu.Current[3] i_abc(each stateSelect=StateSelect.never)=transpose(Park)*i if abc;
 
     output SIpu.Voltage v_norm(stateSelect=StateSelect.never)=sqrt(v*v) if phasor;
-    output SI.Angle alpha_v(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*v[1:2], Rot_dq[:,1]*v[1:2]) if phasor;
+    output SI.Angle alpha_v(stateSelect=StateSelect.never);
     output SIpu.Current i_norm(stateSelect=StateSelect.never)=sqrt(i*i) if phasor;
-    output SI.Angle alpha_i(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*i[1:2], Rot_dq[:,1]*i[1:2]) if phasor;
+    output SI.Angle alpha_i(stateSelect=StateSelect.never);
     output Real cos_phi(stateSelect=StateSelect.never)=cos(alpha_v - alpha_i) if phasor;
   protected
     outer System system;
@@ -433,6 +439,13 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
       der(pav) = (p - pav)/tcst;
     else
       pav = zeros(3);
+    end if;
+    if phasor then
+      alpha_v = atan2(Rot_dq[:,2]*v[1:2], Rot_dq[:,1]*v[1:2]);
+      alpha_i = atan2(Rot_dq[:,2]*i[1:2], Rot_dq[:,1]*i[1:2]);
+    else
+      alpha_v = 0;
+      alpha_i = 0;
     end if;
     annotation (defaultComponentName = "PVImeter1",
       Window(
@@ -752,13 +765,25 @@ In problematic cases use power sensors electrical and mechanical.</p>
       extends Sensor1Base(final signalTrsf=0);
 
       parameter Boolean abc=false "abc inertial"
-        annotation(evaluate=true,Dialog(group="Options"));
-      parameter Boolean phasor=false "phasor"  annotation(evaluate=true,Dialog(group="Options"));
+        annotation(Evaluate=true,Dialog(group="Options"));
+      parameter Boolean phasor=false "phasor"
+        annotation(Evaluate=true,Dialog(group="Options"));
       extends Basic.Nominal.Nominal;
     protected
-      Real[3,3] Park = park(term.theta[2]) if abc;
-      Real[2,2] Rot_dq = rot_dq(term.theta[1]) if phasor;
+      Real[3,3] Park;
+      Real[2,2] Rot_dq;
       function atan2 = Modelica.Math.atan2;
+    equation
+      if abc then
+        Park = park(term.theta[2]);
+      else
+        Park = zeros(3,3);
+      end if;
+      if phasor then
+        Rot_dq = rot_dq(term.theta[1]);
+      else
+        Rot_dq = zeros(2,2);
+      end if;
       annotation (
         Window(
           x=
@@ -785,13 +810,25 @@ In problematic cases use power sensors electrical and mechanical.</p>
       extends Sensor2Base(final signalTrsf=0);
 
       parameter Boolean abc=false "abc inertial"
-        annotation(evaluate=true,Dialog(group="Options"));
-      parameter Boolean phasor=false "phasor"  annotation(evaluate=true,Dialog(group="Options"));
+        annotation(Evaluate=true,Dialog(group="Options"));
+      parameter Boolean phasor=false "phasor"
+        annotation(Evaluate=true,Dialog(group="Options"));
       extends Basic.Nominal.Nominal;
     protected
-      Real[3,3] Park = park(term_p.theta[2]) if abc;
-      Real[2,2] Rot_dq = rot_dq(term_p.theta[1]) if phasor;
+      Real[3,3] Park;
+      Real[2,2] Rot_dq;
       function atan2 = Modelica.Math.atan2;
+    equation
+      if abc then
+        Park = park(term_p.theta[2]);
+      else
+        Park = zeros(3,3);
+      end if;
+      if phasor then
+        Rot_dq = rot_dq(term_p.theta[1]);
+      else
+        Rot_dq = zeros(2,2);
+      end if;
       annotation (
         Window(
           x=
