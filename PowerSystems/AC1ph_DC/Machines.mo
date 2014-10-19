@@ -76,6 +76,8 @@ package Machines "DC-machines, electric part"
   initial equation
     if steadyIni_t then
       der(i) = 0;
+    elseif not system.steadyIni then
+      i = i_start;
     end if;
 
   equation
@@ -142,6 +144,8 @@ L_md depends on the winding ratio between armature and field winding</p>
   initial equation
     if steadyIni_t then
       der({i_f, i}) = {0,0};
+    elseif not system.steadyIni then
+      i = i_start;
     end if;
 
   equation
@@ -215,6 +219,8 @@ It can be determined in several ways,<br>
   initial equation
     if steadyIni_t then
       der(i) = 0;
+    elseif not system.steadyIni then
+      i = i_start;
     end if;
 
   equation
@@ -264,9 +270,13 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
     partial model DCBase "Base DC machine"
       extends Ports.Port_p;
 
-      parameter Integer pp=2 "pole-pair nb";
       parameter Boolean stIni_en=true "enable steady-state initial equation"
-                                                                           annotation(evaluate=true);
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter SI.Voltage v_start = 0
+        "start value of voltage drop" annotation(Dialog(tab="Initialization"));
+      parameter SI.Current i_start = 0
+        "start value of current" annotation(Dialog(tab="Initialization"));
+      parameter Integer pp=2 "pole-pair number";
       parameter SI.Angle phi_el_ini=0 "initial rotor angle electric";
       parameter SI.AngularVelocity w_el_ini=0
         "initial rotor angular velocity el";
@@ -275,8 +285,8 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
       SI.AngularVelocity w_el(start=w_el_ini, stateSelect=StateSelect.always)
         "rotor angular velocity el";
       SI.Torque tau_el "electromagnetic torque";
-      SI.Voltage v "voltage";
-      SI.Current i "current";
+      SI.Voltage v(start = v_start) "voltage";
+      SI.Current i(start = i_start) "current";
 
       Interfaces.Rotation_n airgap "electro-mechanical connection"
         annotation (                   layer="icon", Placement(transformation(
@@ -305,7 +315,7 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
       v = term.v[1] - term.v[2];
       i = term.i[1];
 
-       pp*airgap.phi = phi_el;
+      pp*airgap.phi = phi_el;
       airgap.tau = -pp*tau_el;
       w_el = der(phi_el);
       annotation (

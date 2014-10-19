@@ -123,6 +123,8 @@ package Impedances "Impedance and admittance two terminal"
   initial equation
     if steadyIni_t then
       der(i) = omega[1]*j_dqo(i);
+    elseif not system.steadyIni then
+      i = i_start;
     end if;
 
   equation
@@ -226,6 +228,8 @@ package Impedances "Impedance and admittance two terminal"
   initial equation
     if steadyIni_t then
       der(v) = omega[1]*j_dqo(v);
+    elseif not system.steadyIni then
+      v = v_start;
     end if;
 
   equation
@@ -350,6 +354,8 @@ package Impedances "Impedance and admittance two terminal"
   initial equation
     if steadyIni_t then
       der(i) = omega[1]*j_dqo(i);
+    elseif not system.steadyIni then
+      i = i_start;
     end if;
 
   equation
@@ -481,6 +487,8 @@ Instead of x_s, x_m, and r the parameters z_abs, cos(phi), and x_o are used.</p>
   initial equation
     if steadyIni_t then
       der(v) = omega[1]*j_dqo(v);
+    elseif not system.steadyIni then
+      v = v_start;
     end if;
 
   equation
@@ -992,9 +1000,15 @@ a time dependent transform of the coefficient matrix.</p>
       extends Basic.Nominal.NominalAC;
 
       parameter Boolean stIni_en=true "enable steady-state initial equation"
-                                                                           annotation(evaluate=true);
-      SI.Voltage[3] v;
-      SI.Current[3] i;
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter SI.Voltage[3] v_start = zeros(3)
+        "start value of voltage drop" annotation(Dialog(tab="Initialization"));
+      parameter SI.Current[3] i_start = zeros(3)
+        "start value of current" annotation(Dialog(tab="Initialization"));
+
+      SI.Voltage[3] v(start = v_start);
+      SI.Current[3] i(start = i_start);
+
     protected
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       SI.AngularFrequency[2] omega;

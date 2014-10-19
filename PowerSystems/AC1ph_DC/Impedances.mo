@@ -98,6 +98,13 @@ package Impedances "Impedance and admittance two terminal"
     final parameter SI.Resistance[2] R=r*RL_base[1];
     final parameter SI.Inductance[2,2] L=x*RL_base[2];
 
+  initial equation
+    if steadyIni_t then
+      der(i) = zeros(2);
+    elseif not system.steadyIni then
+      i = i_start;
+    end if;
+
   equation
     L*der(i) + diagonal(R)*i = v;
     annotation (defaultComponentName="ind1",
@@ -166,6 +173,13 @@ package Impedances "Impedance and admittance two terminal"
     final parameter Real[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
     final parameter SI.Conductance[2] G=g*GC_base[1];
     final parameter SI.Capacitance[2] C=b*GC_base[2];
+
+  initial equation
+    if steadyIni_t then
+      der(v) = zeros(2);
+    elseif not system.steadyIni then
+      v = v_start;
+    end if;
 
   equation
     diagonal(C)*der(v) + diagonal(G)*v = i;
@@ -254,6 +268,13 @@ package Impedances "Impedance and admittance two terminal"
     function acos = Modelica.Math.acos;
     final parameter SI.Resistance R=z_abs*cos_phi*RL_base[1];
     final parameter SI.Inductance[2,2] L=([1,cpl;cpl,1]/(1 - cpl))*z_abs*sin(acos(cos_phi))*RL_base[2];
+
+  initial equation
+    if steadyIni_t then
+      der(i) = zeros(2);
+    elseif not system.steadyIni then
+      i = i_start;
+    end if;
 
   equation
     L*der(i) + R*i = v;
@@ -347,6 +368,13 @@ Instead of x and r the parameters z_abs and cos(phi) are used.</p>
     function acos = Modelica.Math.acos;
     final parameter SI.Conductance G=y_abs*cos_phi*GC_base[1];
     final parameter SI.Capacitance C=y_abs*sin(acos(cos_phi))*GC_base[2];
+
+  initial equation
+    if steadyIni_t then
+      der(v) = zeros(2);
+    elseif not system.steadyIni then
+      v = v_start;
+    end if;
 
   equation
     C*der(v) + G*v = i;
@@ -892,8 +920,18 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
       extends Ports.Port_pn;
       extends Basic.Nominal.NominalAC;
 
-      SI.Voltage[2] v;
-      SI.Current[2] i;
+      parameter Boolean stIni_en=true "enable steady-state initialization"
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter SI.Voltage[2] v_start = zeros(2)
+        "start value of voltage drop" annotation(Dialog(tab="Initialization"));
+      parameter SI.Current[2] i_start = zeros(2)
+        "start value of current" annotation(Dialog(tab="Initialization"));
+
+      SI.Voltage[2] v(start = v_start);
+      SI.Current[2] i(start = i_start);
+
+    protected
+      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
 
     equation
       v = term_p.v - term_n.v;

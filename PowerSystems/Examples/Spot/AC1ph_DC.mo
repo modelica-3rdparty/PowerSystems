@@ -4,7 +4,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Breaker "Breaker"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(ref="inertial", ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
              0)));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
@@ -75,7 +75,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Fault "Fault"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(ref="inertial", ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
              0)));
     PowerSystems.Control.Relays.SwitchRelay relay1(                       n=2, t_switch=
@@ -160,7 +160,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Impedance "Impedance"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(ref="inertial", ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
              0)));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
@@ -214,7 +214,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model ImpedanceOneTerm "Impedance One-terminal"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(ref="inertial", ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
              0)));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
@@ -263,7 +263,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Line "Line"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(ref="inertial", ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
              0)));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(ph_fin=
@@ -328,7 +328,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model LoadAC "AC load"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(ref="inertial", ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
              0)));
     PowerSystems.Blocks.Signals.Transient[2] trsSignal(s_ini={1,2}, s_fin={2,3})
@@ -511,7 +511,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Sensor "Sensor and meter"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(ref="inertial", ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
              0)));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
@@ -562,7 +562,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Source "Source"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(ref="inertial", ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
              0)));
     replaceable PowerSystems.AC1ph_DC.Sources.ACvoltage voltage
@@ -606,7 +606,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Transformer "Transformer"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(ref="inertial", ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
              0)));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
@@ -687,7 +687,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Rectifier "Rectifier"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(ref="inertial", ini="tr")
                         annotation (Placement(transformation(extent={{-80,60},{
               -60,80}}, rotation=0)));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
@@ -760,7 +760,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Inverter "Inverter, controlled rectifier"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(ref="inertial", ini="tr")
                         annotation (Placement(transformation(extent={{-80,60},{
               -60,80}}, rotation=0)));
     PowerSystems.Blocks.Signals.TransientPhasor transPh

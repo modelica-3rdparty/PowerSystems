@@ -228,15 +228,15 @@ package Icons "Icons"
             Text(
               extent={{0,58},{60,18}},
               lineColor={0,0,255},
-              textString =            "~"),
+              textString=             "~"),
             Text(
               extent={{0,18},{60,-22}},
               lineColor={0,0,255},
-              textString =             "~"),
+              textString=              "~"),
             Text(
               extent={{0,-22},{60,-62}},
               lineColor={0,0,255},
-              textString =              "~"),
+              textString=               "~"),
             Text(
               extent={{50,50},{70,30}},
               lineColor={0,0,255},
@@ -270,12 +270,12 @@ package Icons "Icons"
             Text(
               extent={{-60,62},{0,22}},
               lineColor={0,120,120},
-              textString =            "~"),
+              textString=             "~"),
             Line(points={{-46,30},{-14,30}}, color={0,120,120}),
             Text(
               extent={{-60,22},{0,-18}},
               lineColor={0,120,120},
-              textString =             "~"),
+              textString=              "~"),
             Line(points={{-46,-10},{-14,-10}}, color={0,120,120}),
             Line(points={{-46,-40},{-14,-40}}, color={0,120,120}),
             Text(
@@ -405,12 +405,12 @@ package Icons "Icons"
               extent={{10,20},{70,-10}},
               lineColor={0,120,120},
               lineThickness=0.5,
-              textString =             "~"),
+              textString=              "~"),
             Text(
               extent={{10,0},{70,-30}},
               lineColor={0,120,120},
               lineThickness=0.5,
-              textString =            "~"),
+              textString=             "~"),
             Line(points={{24,0},{56,0}}, color={0,120,120}),
             Line(points={{24,-20},{56,-20}}, color={0,120,120}),
             Line(points={{24,-40},{56,-40}}, color={0,120,120}),

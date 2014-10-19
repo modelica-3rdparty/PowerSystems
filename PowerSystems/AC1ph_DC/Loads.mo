@@ -256,11 +256,20 @@ Consumes the desired power independent of voltage.</p>
       extends Basic.Nominal.Nominal;
       extends Ports.Port_p;
 
-      SI.Voltage v;
-      SI.Current i;
+      parameter Boolean stIni_en=true "enable steady-state initialization"
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter SI.Voltage v_start = 0
+        "start value of voltage drop" annotation(Dialog(tab="Initialization"));
+      parameter SI.Current i_start = 0
+        "start value of current" annotation(Dialog(tab="Initialization"));
+
+      SI.Voltage v(start = v_start);
+      SI.Current i(start = i_start);
+
     protected
       outer System system;
-      final parameter Real S_base=Basic.Precalculation.baseS(            puUnits, S_nom);
+      final parameter Real S_base=Basic.Precalculation.baseS(puUnits, S_nom);
+      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
 
     equation
       term.i[1] + term.i[2] = 0;
@@ -343,8 +352,6 @@ Consumes the desired power independent of voltage.</p>
     partial model LoadBaseAC "Load base AC, 1-phase"
       extends LoadBase;
 
-      parameter Boolean stIni_en=true "enable steady-state initial equation"
-        annotation(evaluate=true, choices(__Dymola_checkBox=true));
       parameter Boolean scType_par = true
         "= true if p0 defined by parameter p0_set otherwise by input signal p_set"
         annotation(Evaluate=true, choices(__Dymola_checkBox=true));
@@ -360,8 +367,8 @@ Consumes the desired power independent of voltage.</p>
     protected
       Modelica.Blocks.Interfaces.RealInput[2] p_set_internal
         "Needed to connect to conditional connector";
-      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       SI.Power[2] p0;
+
     equation
       connect(p_set, p_set_internal);
 
@@ -393,7 +400,9 @@ Consumes the desired power independent of voltage.</p>
                  partial model IndLoadBaseAC "Inductive load base AC, 1-phase"
                    extends LoadBaseAC(v(start=vstart), i(start=istart));
 
-                   SI.MagneticFlux psi(stateSelect=StateSelect.prefer)
+                   parameter SI.MagneticFlux psi_start=0 "start value for magnetic flux"
+		     annotation(Dialog(tab="Initialization"));
+                   SI.MagneticFlux psi(start=psi_start, stateSelect=StateSelect.prefer)
         "magnetic flux";
     protected
                    final parameter Real V2_nom=V_nom*V_nom;
@@ -406,6 +415,8 @@ Consumes the desired power independent of voltage.</p>
                  initial equation
                    if steadyIni_t then
                      der(psi) = 0;
+		   elseif not system.steadyIni then
+		     psi = psi_start;
                    end if;
 
                  equation
@@ -442,7 +453,9 @@ Consumes the desired power independent of voltage.</p>
                  partial model CapLoadBaseAC "Capacitive load base AC, 1-phase"
                    extends LoadBaseAC(v(start=vstart), i(start=istart));
 
-                   SI.ElectricCharge q(stateSelect=StateSelect.prefer)
+                   parameter SI.ElectricCharge q_start=0 "start value for electric charge"
+		     annotation(Dialog(tab="Initialization"));
+                   SI.ElectricCharge q(start=q_start, stateSelect=StateSelect.prefer)
         "electric charge";
     protected
                    final parameter Real I2_nom=(S_nom/V_nom)^2;
@@ -455,6 +468,8 @@ Consumes the desired power independent of voltage.</p>
                  initial equation
                    if steadyIni_t then
                      der(q) = 0;
+		   elseif not system.steadyIni then
+		     q = q_start;
                    end if;
 
                  equation
@@ -499,8 +514,6 @@ Consumes the desired power independent of voltage.</p>
     partial model LoadBaseDC "Inductive load base DC"
       extends LoadBase;
 
-      parameter Boolean stIni_en=true "enable steady-state initial equation"
-        annotation(evaluate=true, choices(__Dymola_checkBox=true));
       parameter Boolean scType_par = true
         "= true if p0 defined by parameter p0_set otherwise by input signal p_set"
         annotation(Evaluate=true, choices(__Dymola_checkBox=true));
@@ -515,9 +528,8 @@ Consumes the desired power independent of voltage.</p>
     protected
       Modelica.Blocks.Interfaces.RealInput p_set_internal
         "Needed to connect to conditional connector";
-
-      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       SI.Power p0;
+
     equation
       connect(p_set, p_set_internal);
 
@@ -563,6 +575,8 @@ Consumes the desired power independent of voltage.</p>
     initial equation
       if steadyIni_t then
         der(L*i) = 0;
+      elseif not system.steadyIni then
+	i = i_start;
       end if;
 
     equation

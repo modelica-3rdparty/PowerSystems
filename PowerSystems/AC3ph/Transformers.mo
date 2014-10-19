@@ -370,10 +370,16 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
   */
         extends Ports.YDportTrafo_p_n(
           final term_p(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[1])),
-          final term_n(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2])));
+          final term_n(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2])),
+          i1(start=i1_start), i2(start=i2_start));
 
         parameter Boolean stIni_en=true "enable steady-state initial equation"
-                                                                             annotation(evaluate=true, choices(__Dymola_checkBox=true));
+          annotation(Evaluate=true, Dialog(tab="Initialization"));
+        parameter SI.Current[3] i1_start = zeros(3) "start value of primary current"
+          annotation(Dialog(tab="Initialization"));
+        parameter SI.Current[3] i2_start = i1_start "start value of secondary current"
+          annotation(Dialog(tab="Initialization"));
+
         parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(evaluate=true, choices(__Dymola_checkBox=true));
 
         parameter Boolean use_tap_p = false "= true, if input tap_p is enabled"

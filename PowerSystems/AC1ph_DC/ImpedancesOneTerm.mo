@@ -88,6 +88,13 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
     final parameter SI.Resistance R=r*RL_base[1];
     final parameter SI.Inductance L=x*RL_base[2];
 
+  initial equation
+    if steadyIni_t then
+      der(i) = 0;
+    elseif not system.steadyIni then
+      i = i_start;
+    end if;
+
   equation
     L*der(i) + R*i = v;
     annotation (defaultComponentName="ind1",
@@ -137,6 +144,13 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
     final parameter Real[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
     final parameter SI.Conductance G=g*GC_base[1];
     final parameter SI.Capacitance C=b*GC_base[2];
+
+  initial equation
+    if steadyIni_t then
+      der(v) = 0;
+    elseif not system.steadyIni then
+      v = v_start;
+    end if;
 
   equation
     C*der(v) + G*v = i;
@@ -243,8 +257,18 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
       extends Ports.Port_p;
       extends Basic.Nominal.NominalAC;
 
-      SI.Voltage v;
-      SI.Current i;
+      parameter Boolean stIni_en = true "enable steady-state initialization"
+        annotation(Evaluate=true);
+      parameter SI.Voltage v_start = 0 "start value of voltage drop"
+        annotation(Dialog(tab="Initialization"));
+      parameter SI.Current i_start = 0 "start value of current"
+        annotation(Dialog(tab="Initialization"));
+
+      SI.Voltage v(start = v_start);
+      SI.Current i(start = i_start);
+
+    protected 
+      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
 
     equation
       term.i[1] + term.i[2] = 0;

@@ -6,8 +6,16 @@ package Lines "Transmission lines 1-phase"
     extends Ports.Port_pn;
     extends Partials.RXlineBase(final ne=1);
 
-    SI.Voltage[2] v;
-    SI.Current[2] i;
+    SI.Voltage[2] v(start = v_start);
+    SI.Current[2] i(start = i_start);
+
+  initial equation
+    if steadyIni_t then
+      der(i) = zeros(2);
+    elseif not system.steadyIni then
+      i = i_start;
+    end if;
+
   equation
     v = term_p.v - term_n.v;
     i = term_p.i;
@@ -78,15 +86,18 @@ package Lines "Transmission lines 1-phase"
     extends Ports.Port_p_n;
     extends Partials.PIlineBase;
 
-    SIpu.Voltage v[2,ne];
-    SIpu.Current i[2,ne1];
+    SIpu.Voltage[2,ne] v(start = transpose(fill(v_start/ne, ne)));
+    SIpu.Current[2,ne1] i(start = transpose(fill(i_start, ne1)));
   protected
     final parameter Integer ne1=ne + 1;
 
   initial equation
-    if system.steadyIni_t then
+    if steadyIni_t then
       der(v) = zeros(2,ne);
       der(i[:,2:ne1]) = zeros(2,ne);
+    elseif not system.steadyIni then
+      v = transpose(fill(v_start/ne, ne));
+      i[:,1:ne1] = transpose(fill(i_start, ne1));
     end if;
 
   equation
@@ -239,8 +250,17 @@ model FaultRXline "Faulted RX transmission line, 1-phase"
   parameter Real p(min=0,max=1)=0.5 "rel fault-position (0 < p < 1)";
   extends Partials.RXlineBase(final ne=1);
 
-  SI.Current[2] i1;
-  SI.Current[2] i2;
+  SI.Current[2] i1(start = i_start);
+  SI.Current[2] i2(start = i_start);
+
+initial equation
+  if steadyIni_t then
+    der(i1) = zeros(2);
+    der(i2) = zeros(2);
+  elseif not system.steadyIni then
+    i1 = i_start;
+    i2 = i_start;
+  end if;
 
 equation
   term_p.i + term_n.i + term_f.i = {0,0};
@@ -378,8 +398,8 @@ model FaultPIline "Faulted PI transmission line, 1-phase"
       "rel fault-pos (1/2ne <= p < 1 - 1/2ne)";
   extends Partials.PIlineBase;
 
-  SI.Voltage[2,ne] v;
-  SI.Current[2,ne1] i;
+  SI.Voltage[2,ne] v(start = transpose(fill(v_start/ne, ne)));
+  SI.Current[2,ne1] i(start = transpose(fill(i_start, ne1)));
   SI.Current[2] iF;
   SI.Current[2,2] iF_p(each stateSelect=StateSelect.never);
   protected
@@ -389,9 +409,12 @@ model FaultPIline "Faulted PI transmission line, 1-phase"
       "relative fault position within element nF";
 
 initial equation
-  if system.steadyIni_t then
+  if steadyIni_t then
     der(v) = zeros(2,ne);
     der(i[:,2:ne1]) = zeros(2,ne);
+  elseif not system.steadyIni then
+    v = transpose(fill(v_start/ne, ne));
+    i[:,1:ne1] = transpose(fill(i_start, ne1));
   end if;
 
 equation
@@ -506,8 +529,17 @@ end FaultPIline;
       replaceable parameter Parameters.RXline par "line parameter"
                                            annotation (Placement(transformation(
               extent={{-80,60},{-60,80}}, rotation=0)));
+
+      parameter Boolean stIni_en=true "enable steady-state initialization"
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter SI.Voltage[2] v_start = zeros(2) "start value of voltage drop"
+                                       annotation(Dialog(tab="Initialization"));
+      parameter SI.Current[2] i_start = zeros(2) "start value of current"
+                                  annotation(Dialog(tab="Initialization"));
+
     protected
       outer System system;
+      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       final parameter Real[2] RL_base=Basic.Precalculation.baseRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
       final parameter Real delta_len_km(final quantity="Length", final unit="km")=len/1e3/ne;
       final parameter SI.Resistance[2] R=par.r*delta_len_km*RL_base[1];

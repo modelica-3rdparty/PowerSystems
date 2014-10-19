@@ -382,7 +382,7 @@ model TabPosSlopeTorque "Torque using table (position... slope)"
   parameter SI.Length r=1 "radius wheel";
   parameter Real gRatio=1 "gear-ratio";
   SI.Length s;
-  SI.Velocity vVehicle "vehicle horizontal velocity";
+  SI.Velocity vVehicle(start=0) "vehicle horizontal velocity";
   protected
   final parameter Real s_factor=if scale then D/abs(s_bd[2]-s_bd[1]) else s_unit;
   final parameter Real slope_factor=if scale then 0.01*slope_perc else 1;
@@ -1477,8 +1477,11 @@ end PowerSensor;
       extends Ports.Rigid;
 
       parameter SI.Inertia J=1 "inertia";
+      parameter SI.AngularVelocity w_start = 0
+        "start value of angular velocity"
+        annotation(Dialog(tab="Initialization"));
       SI.Angle phi "rotation angle absolute";
-      SI.AngularVelocity w;
+      SI.AngularVelocity w(start = w_start);
       SI.AngularAcceleration a;
 
     equation

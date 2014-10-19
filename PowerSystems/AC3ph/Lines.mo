@@ -17,6 +17,8 @@ package Lines "Transmission lines 3-phase"
   initial equation
     if steadyIni_t then
       der(i) = omega[1]*j_dqo(i);
+    elseif not system.steadyIni then
+      i = i_start;
     end if;
 
   equation
@@ -111,14 +113,16 @@ package Lines "Transmission lines 3-phase"
     extends Ports.Port_pn;
     extends Partials.RXlineBase(final ne=1);
 
-    SI.Voltage[3] v;
-    SI.Current[3] i;
+    SI.Voltage[3] v(start = v_start);
+    SI.Current[3] i(start = i_start);
   protected
     SI.AngularFrequency[2] omega;
 
   initial equation
     if steadyIni_t then
       der(i) = omega[1]*j_dqo(i);
+    elseif not system.steadyIni then
+      i = i_start;
     end if;
 
   equation
@@ -224,8 +228,8 @@ package Lines "Transmission lines 3-phase"
     extends Ports.Port_p_n;
     extends Partials.PIlineBase;
 
-    SI.Voltage[3,ne] v;
-    SI.Current[3,ne1] i;
+    SI.Voltage[3,ne] v(start = transpose(fill(v_start/ne, ne)));
+    SI.Current[3,ne1] i(start = transpose(fill(i_start, ne1)));
   protected
     final parameter Integer ne1=ne + 1;
     SI.AngularFrequency[2] omega;
@@ -237,6 +241,9 @@ package Lines "Transmission lines 3-phase"
     elseif system.steadyIni_t then
       der(v) = omega[1]*jj_dqo(v);
       der(i[:,2:ne1]) = omega[1]*jj_dqo(i[:,2:ne1]);
+    elseif not system.steadyIni then
+      v = transpose(fill(v_start/ne, ne));
+      i[:,1:ne1] = transpose(fill(i_start, ne1));
     end if;
 
   equation
@@ -490,8 +497,8 @@ The set of equations of two series connected lines of length len1 and len2 is id
     parameter Real p(min=0,max=1)=0.5 "rel fault-position (0 < p < 1)";
     extends Partials.RXlineBase(final ne=1);
 
-    SI.Current[3] i1;
-    SI.Current[3] i2;
+    SI.Current[3] i1(start = i_start);
+    SI.Current[3] i2(start = i_start);
   protected
     SI.AngularFrequency[2] omega;
 
@@ -501,6 +508,9 @@ The set of equations of two series connected lines of length len1 and len2 is id
       der(i2) = omega[1]*j_dqo(i2);
     elseif system.steadyIni_t then
       der(term_f.i) = omega[1]*j_dqo(term_f.i);
+    elseif not system.steadyIni then
+      i1 = i_start;
+      i2 = i_start;
     end if;
 
   equation
@@ -696,8 +706,8 @@ The set of equations of two series connected lines of length len1 and len2 is id
       "rel fault-pos (1/2ne <= p < 1 - 1/2ne)";
     extends Partials.PIlineBase;
 
-    SI.Voltage[3,ne] v;
-    SI.Current[3,ne1] i;
+    SI.Voltage[3,ne] v(start = transpose(fill(v_start/ne, ne)));
+    SI.Current[3,ne1] i(start = transpose(fill(i_start, ne1)));
     SI.Current[3] iF;
     SI.Current[3,2] iF_p(each stateSelect=StateSelect.never);
   protected
@@ -716,6 +726,9 @@ The set of equations of two series connected lines of length len1 and len2 is id
       der(v) = omega[1]*jj_dqo(v);
       der(i[:,2:ne1]) = omega[1]*jj_dqo(i[:,2:ne1]);
       der(iF) = omega[1]*j_dqo(iF);
+    elseif not system.steadyIni then
+      v = transpose(fill(v_start/ne, ne));
+      i[:,1:ne1] = transpose(fill(i_start, ne1));
     end if;
 
   equation
@@ -857,7 +870,12 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
     partial model RXlineBase "RX-line base, 3-phase dqo"
 
       parameter Boolean stIni_en=true "enable steady-state initial equation"
-                                                                           annotation(evaluate=true);
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter SI.Voltage[3] v_start = zeros(3) "start value of voltage drop"
+        annotation(Dialog(tab="Initialization"));
+      parameter SI.Current[3] i_start = zeros(3) "start value of current"
+        annotation(Dialog(tab="Initialization"));
+
       parameter Types.Length len=100e3 "line length";
       parameter Integer ne(min=1)=1 "number of pi-elements";
       replaceable parameter Parameters.RXline par

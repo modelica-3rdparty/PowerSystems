@@ -5,6 +5,9 @@ package Switching "Common switching components"
 model Switch "Switch kernel, no terminals"
   extends Partials.SwitchBase;
 
+initial equation
+  pre(open) = not closed;
+
 equation
   when {open and i < 0, open and i > 0, closed} then
     arc = edge(open);
@@ -57,6 +60,9 @@ model Breaker "Breaker kernel, no terminals"
   SI.Time t0(start=Modelica.Constants.inf, fixed=true) "start opening";
   SI.Distance d "contact distance";
   Boolean opening(start=false, fixed=true);
+
+initial equation
+  pre(open) = not closed;
 
 equation
   arcBreaker.d=d;
@@ -319,7 +325,7 @@ partial model FaultBase "Fault kernel base"
   SI.Current i;
   input Boolean on(start=false, fixed=true);
     protected
-  Real s;
+  Real s(start = 0.5);
       annotation (
         structurallyIncomplete,
         defaultComponentName="fault_",

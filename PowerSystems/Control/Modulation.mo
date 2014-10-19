@@ -908,7 +908,7 @@ block ChopperPWM "Chopper PWM (voltage)"
           origin={60,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-  Modelica.Blocks.Interfaces.BooleanOutput gate "gate"
+  Modelica.Blocks.Interfaces.BooleanOutput gate(start=false) "gate"
   annotation (Placement(transformation(
           origin={-60,-100},
           extent={{-10,-10},{10,10}},
@@ -961,7 +961,7 @@ block ChopperPWM_I "Chopper PWM (current)"
   extends PowerSystems.Basic.Icons.BlockS;
 
   parameter SI.Current iRipple=1 "max ripple current";
-  Modelica.Blocks.Interfaces.BooleanOutput gate "gate"
+  Modelica.Blocks.Interfaces.BooleanOutput gate(start=false) "gate"
   annotation (Placement(transformation(
           origin={-60,-100},
           extent={{-10,-10},{10,10}},
@@ -1026,7 +1026,7 @@ package Partials "Partial models"
             origin={60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-    Modelica.Blocks.Interfaces.BooleanOutput[2*m] gates "gates"
+    Modelica.Blocks.Interfaces.BooleanOutput[2*m] gates(each start=false) "gates"
       annotation (Placement(transformation(
             origin={-60,-100},
             extent={{-10,-10},{10,10}},
@@ -1370,7 +1370,7 @@ protected
             origin={60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-    Modelica.Blocks.Interfaces.BooleanOutput[2*m] gates "gates"
+    Modelica.Blocks.Interfaces.BooleanOutput[2*m] gates(each start=false) "gates"
       annotation (Placement(transformation(
             origin={-60,-100},
             extent={{-10,-10},{10,10}},

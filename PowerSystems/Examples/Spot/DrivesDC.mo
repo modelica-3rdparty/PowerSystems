@@ -164,7 +164,7 @@ package DrivesDC "DC drives"
 
   model DCmotor_pm "DC motor permanent magnet excited"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(ref="inertial")
     annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=
              0)));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
@@ -245,7 +245,6 @@ package DrivesDC "DC drives"
   model BLDC "Brushless DC motor"
 
     inner PowerSystems.System system(f_nom=60,
-      ini="tr",
       ref="inertial")
     annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=
              0)));

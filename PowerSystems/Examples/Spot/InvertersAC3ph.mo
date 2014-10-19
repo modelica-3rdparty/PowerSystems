@@ -97,7 +97,7 @@ package InvertersAC3ph "Inverters dqo"
 
   model InverterToLoad "Inverter to load"
 
-    inner PowerSystems.System system(ini="tr", ref="inertial")
+    inner PowerSystems.System system(          ref="inertial")
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}}, rotation=0)));
     PowerSystems.AC3ph.Nodes.GroundOne grd
@@ -190,7 +190,7 @@ package InvertersAC3ph "Inverters dqo"
 
   model InverterToGrid "Inverter to grid"
 
-    inner PowerSystems.System system(ini="tr", ref="synchron")
+    inner PowerSystems.System system(          ref="synchron")
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}}, rotation=0)));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0,

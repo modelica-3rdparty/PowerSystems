@@ -121,7 +121,8 @@ package Exciters "Generator Exciters "
     Modelica.Blocks.Continuous.TransferFunction voltageReg(
       initType=initType,
       a={t,1},
-      b={k})
+      b={k},
+      y(start=voltageReg.y_start))
       annotation (Placement(transformation(extent={{-30,-10},{-10,10}},
             rotation=0)));
 

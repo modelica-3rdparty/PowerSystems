@@ -69,7 +69,7 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
 
   model ASM_Y_D "AC asynchronous machine Y-Delta switcheable"
 
-    inner PowerSystems.System system(ini="tr")
+    inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100,80},{-80,100}},
             rotation=0)));
     PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
@@ -295,9 +295,10 @@ Compare 'transient' and 'steady-state' mode.</p>
     Modelica.Blocks.Continuous.LimPID PI_i_q(
       Td=0.1,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      initType=Modelica.Blocks.Types.InitPID.SteadyState,
       Ti=0.1,
-      yMax=1)
+      yMax=1,
+      initType=Modelica.Blocks.Types.InitPID.SteadyState,
+      gainPID(y(start=0.1)))
            annotation (Placement(transformation(extent={{-50,0},{-30,20}},
             rotation=0)));
     PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA asyn3k_1p5M
@@ -359,7 +360,7 @@ Compare 'transient' and 'steady-state' mode.</p>
 
   model ASM "AC asynchronous machine, voltage controlled"
 
-    inner PowerSystems.System system(ini="tr", ref="inertial")
+    inner PowerSystems.System system(          ref="inertial")
       annotation (Placement(transformation(extent={{-100,80},{-80,100}},
             rotation=0)));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
@@ -507,7 +508,8 @@ The machine defines the reference-system independent of the system choice (as ne
       Td=0.1,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       initType=Modelica.Blocks.Types.InitPID.SteadyState,
-      yMax=1)
+      yMax=1,
+      gainPID(y(start=0.1)))
            annotation (Placement(transformation(extent={{-60,10},{-40,30}},
             rotation=0)));
     PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA syn3rdpm400_30k
@@ -732,10 +734,10 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
     Modelica.Blocks.Continuous.LimPID PI_i_q(
       Td=0.1,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      initType=Modelica.Blocks.Types.InitPID.SteadyState,
       Ti=0.1,
       yMax=1,
-      gainPID(y(start=1)))
+      gainPID(y(start=0.1)),
+      initType=Modelica.Blocks.Types.InitPID.SteadyState)
            annotation (Placement(transformation(extent={{-60,10},{-40,30}},
             rotation=0)));
     PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
@@ -803,7 +805,7 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
 
   model ASM_ctrl "AC asynchronous machine, current controlled"
 
-    inner PowerSystems.System system(ini="tr", ref="inertial")
+    inner PowerSystems.System system(          ref="inertial")
     annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=
              0)));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
@@ -822,7 +824,7 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
             rotation=0)));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=5) annotation (Placement(
           transformation(extent={{0,-20},{20,0}}, rotation=0)));
-    PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.5)
+    PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.5, w_start=1)
     annotation (Placement(transformation(extent={{40,-40},{60,-20}}, rotation=0)));
     PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={5,0.5})
       annotation (Placement(transformation(extent={{80,-40},{100,-20}},

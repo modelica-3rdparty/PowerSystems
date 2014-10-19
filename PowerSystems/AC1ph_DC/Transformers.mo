@@ -32,6 +32,13 @@ package Transformers "Transformers 1-phase "
   model TrafoStray "Ideal magnetic coupling transformer, 1-phase"
     extends Partials.TrafoStrayBase;
 
+  initial equation
+    if steadyIni_t then
+      der(i1) = 0;
+    elseif not system.steadyIni then
+      i1 = i1_start;
+    end if;
+
   equation
     i1 + i2 = 0;
     sum(L)*der(i1) + sum(R)*i1 = v1 - v2;
@@ -299,7 +306,14 @@ and eddy current losses.</p>
   if dynTC=true, w1,w2 are initialized in the initial equation section and
   otherwise, there is an algebraic equation for w1 and w2.
   */
-      extends Ports.PortTrafo_p_n;
+      extends Ports.PortTrafo_p_n(i1(start = i1_start), i2(start = i2_start));
+
+      parameter Boolean stIni_en=true "enable steady-state initial equation"
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter SI.Current i1_start = 0 "start value of primary current"
+        annotation(Dialog(tab="Initialization"));
+      parameter SI.Current i2_start = i1_start "start value of secondary current"
+        annotation(Dialog(tab="Initialization"));
 
       parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(evaluate=true, choices(__Dymola_checkBox=true));
       parameter Boolean use_tap_p = false "= true, if input tap_p is enabled"
@@ -324,6 +338,7 @@ and eddy current losses.</p>
                                 annotation (Placement(transformation(extent={{
                 -80,60},{-60,80}}, rotation=0)));
     protected
+      final parameter Boolean steadyIni_t = system.steadyIni_t and stIni_en;
       Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
       Modelica.Blocks.Interfaces.IntegerInput tap_n_internal

@@ -56,7 +56,7 @@ partial model IdealCharacteristic "Ideal diode characteristic"
   protected
   constant Real unitAmperePerVolt(unit="A/V") = 1    annotation(HideResult=true);
 
-  Boolean on;
+  Boolean on(start = false);
   Real s(start = 0.5) "auxiliary variable";
   SI.Voltage V "forward threshold voltage";
   SI.Current i_sc = i*par.V_nom/par.I_nom*unitAmperePerVolt
@@ -218,7 +218,7 @@ model SCswitch_Diode "Semiconductor switch with reverse Diode"
   protected
   constant Real unitAmperePerVolt(unit="A/V") = 1    annotation(HideResult=true);
 
-  Real s "auxiliary variable";
+  Real s(start = 0.5) "auxiliary variable";
   SI.Voltage V "forward threshold voltage";
   SI.Current i_sc = i*par.V_nom/par.I_nom*unitAmperePerVolt
       "current scaled to voltage";
