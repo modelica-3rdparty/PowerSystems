@@ -354,7 +354,7 @@ In the case of three phase AC models we have:</p>
     type AngularVelocity = SI.AngularVelocity(displayUnit="rpm");
     type Charge_Ah = Real (final quantity="ElectricCharge", final unit="A.h");
     type Length = SI.Length(displayUnit="km");
-    type Percent = Real(final quantity="Percent",final unit="m1");
+    type Percent = Real(final quantity="Percent",final unit="PC0") "Note: the unit PC0 is used until Modelica supports %";
     type Stiffness = Real (final quantity="Stiffness", final unit="N", final min=0);
     type TorsionStiffness = Real (final quantity="TorsionStiffness", final unit="N.m/rad", final min=0);
 
