@@ -2,7 +2,7 @@ within PowerSystems.AC3ph;
 package Loads "Loads"
   extends Modelica.Icons.VariantsPackage;
 
-  model Zload "Impedance load, 3-phase dqo"
+  model Zload "Impedance load, 3-phase dq0"
     extends Partials.IndLoadBase;
 
   equation
@@ -67,7 +67,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
             fillPattern=FillPattern.Solid)}));
   end Zload;
 
-  model PQindLoad "PQ inductive load, 3-phase dqo"
+  model PQindLoad "PQ inductive load, 3-phase dq0"
     extends Partials.IndLoadBase;
 
     parameter SIpu.Current imax(unit="1")=2 "maximum current";
@@ -141,7 +141,7 @@ Consumes the desired active and reactive power independent of voltage.</p>
             fillPattern=FillPattern.Solid)}));
   end PQindLoad;
 
-  model Yload "Admittance load, 3-phase dqo"
+  model Yload "Admittance load, 3-phase dq0"
     extends Partials.CapLoadBase;
 
   equation
@@ -229,7 +229,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
           Line(points={{-10,-24},{20,-24},{20,-16}}, color={0,0,255})}));
   end Yload;
 
-  model PQcapLoad "PQ capacitive load, 3-phase dqo"
+  model PQcapLoad "PQ capacitive load, 3-phase dq0"
     extends Partials.CapLoadBase;
 
     parameter SIpu.Voltage vmax(unit="1")=2 "maximum voltage";
@@ -326,7 +326,7 @@ Consumes the desired active and reactive power independent of voltage.</p>
           Line(points={{-10,-24},{20,-24},{20,-16}}, color={0,0,255})}));
   end PQcapLoad;
 
-  model ZIPload "ZIP inductive load, 3-phase dqo"
+  model ZIPload "ZIP inductive load, 3-phase dq0"
     extends Partials.IndLoadBase;
 
     parameter SIpu.Current imax(unit="1")=2 "maximum current";
@@ -405,7 +405,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
             fillPattern=FillPattern.Solid)}));
   end ZIPload;
 
-  model FrequencyLoad "Frequency inductive load, 3-phase dqo"
+  model FrequencyLoad "Frequency inductive load, 3-phase dq0"
     extends Partials.IndLoadBase;
 
     parameter SIpu.Current imax(unit="1")=2 "maximum current";
@@ -484,7 +484,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
             fillPattern=FillPattern.Solid)}));
   end FrequencyLoad;
 
-  model DynamicLoad "Dynamic inductive load, 3-phase dqo"
+  model DynamicLoad "Dynamic inductive load, 3-phase dq0"
     extends Partials.IndLoadBase;
 
     parameter SIpu.Current imax(unit="1")=2 "maximum current";
@@ -577,7 +577,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
   package Partials "Partial models"
     extends Modelica.Icons.BasesPackage;
 
-    partial model LoadBase "Load base, 3-phase dqo"
+    partial model LoadBase "Load base, 3-phase dq0"
       extends Ports.Yport_p;
       extends Basic.Nominal.Nominal;
 
@@ -642,7 +642,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
               fillPattern=FillPattern.Solid)}));
     end LoadBase;
 
-    partial model IndLoadBase "Inductive load base, 3-phase dqo"
+    partial model IndLoadBase "Inductive load base, 3-phase dq0"
       extends LoadBase(v(start={vstart[1],vstart[2],0}), i(start={istart[1],istart[2],0}));
 
       parameter Real cpl(min=-0.5,max=1)=0
@@ -665,9 +665,9 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
     equation
       psi = Z[2]*{i[1], i[2], c0*i[3]}/system.omega_nom;
       if system.transientSim then
-        der(psi) + omega[2]*j_dqo(psi) + Z[1]*i = v;
+        der(psi) + omega[2]*j_dq0(psi) + Z[1]*i = v;
       else
-        omega[2]*j_dqo(psi)  + Z[1]*i = v;
+        omega[2]*j_dq0(psi)  + Z[1]*i = v;
       end if;
       annotation (
         Documentation(info=
@@ -688,7 +688,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
             grid={2,2}), graphics));
     end IndLoadBase;
 
-    partial model CapLoadBase "Capacitive load base, 3-phase dqo"
+    partial model CapLoadBase "Capacitive load base, 3-phase dq0"
       extends LoadBase(v(start={vstart[1],vstart[2],0}), i(start={istart[1],istart[2],0}));
 
       parameter Real beta(min=0)=0 "ratio b_pp/b_pg, (beta > 0)";
@@ -710,9 +710,9 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
     equation
       q = Y[2]*{v[1], v[2], c0*v[3]}/system.omega_nom;
       if system.transientSim then
-        der(q) + omega[2]*j_dqo(q) + Y[1]*v = i;
+        der(q) + omega[2]*j_dq0(q) + Y[1]*v = i;
       else
-        omega[2]*j_dqo(q) + Y[1]*v = i;
+        omega[2]*j_dq0(q) + Y[1]*v = i;
       end if;
       annotation (
         Documentation(info=

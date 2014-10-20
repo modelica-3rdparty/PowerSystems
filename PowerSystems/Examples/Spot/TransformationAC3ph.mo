@@ -1,5 +1,5 @@
 within PowerSystems.Examples.Spot;
-package TransformationAC3ph "Transformation dqo"
+package TransformationAC3ph "Transformation dq0"
   extends Modelica.Icons.ExamplesPackage;
 
   model PhaseShifts "Phase shift primary-secondary"

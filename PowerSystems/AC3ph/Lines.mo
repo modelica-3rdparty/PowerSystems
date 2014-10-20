@@ -2,7 +2,7 @@ within PowerSystems.AC3ph;
 package Lines "Transmission lines 3-phase"
   extends Modelica.Icons.VariantsPackage;
 
-  model RXline0 "RX line without length parameter, 3-phase dqo"
+  model RXline0 "RX line without length parameter, 3-phase dq0"
     extends Impedances.Partials.ImpedBase;
 
     parameter SIpu.Resistance r=0.01 "resistance";
@@ -16,16 +16,16 @@ package Lines "Transmission lines 3-phase"
 
   initial equation
     if steadyIni_t then
-      der(i) = omega[1]*j_dqo(i);
+      der(i) = omega[1]*j_dq0(i);
     elseif not system.steadyIni then
       i = i_start;
     end if;
 
   equation
     if system.transientSim then
-      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dqo(i) + R*i = v;
+      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = v;
     else
-      omega[2]*L*j_dqo(i) + R*i = v;
+      omega[2]*L*j_dq0(i) + R*i = v;
     end if;
   annotation (
     defaultComponentName="RXline0_1",
@@ -104,7 +104,7 @@ package Lines "Transmission lines 3-phase"
             fillPattern=FillPattern.Solid)}));
   end RXline0;
 
-  model RXline "RX transmission line, 3-phase dqo"
+  model RXline "RX transmission line, 3-phase dq0"
     extends Ports.Port_pn;
     extends Partials.RXlineBase(final ne=1);
 
@@ -115,7 +115,7 @@ package Lines "Transmission lines 3-phase"
 
   initial equation
     if steadyIni_t then
-      der(i) = omega[1]*j_dqo(i);
+      der(i) = omega[1]*j_dq0(i);
     elseif not system.steadyIni then
       i = i_start;
     end if;
@@ -126,9 +126,9 @@ package Lines "Transmission lines 3-phase"
     i = term_p.i;
 
     if system.transientSim then
-      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dqo(i) + R*i = v;
+      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = v;
     else
-      omega[2]*L*j_dqo(i) + R*i = v;
+      omega[2]*L*j_dq0(i) + R*i = v;
     end if;
     annotation (
       defaultComponentName="RXline1",
@@ -214,7 +214,7 @@ package Lines "Transmission lines 3-phase"
           Line(points={{60,-35},{80,-35}}, color={0,0,255})}));
   end RXline;
 
-  model PIline "PI transmission line, 3-phase dqo"
+  model PIline "PI transmission line, 3-phase dq0"
     extends Ports.Port_p_n;
     extends Partials.PIlineBase;
 
@@ -226,11 +226,11 @@ package Lines "Transmission lines 3-phase"
 
   initial equation
     if steadyIni_t then
-      der(v) = omega[1]*jj_dqo(v);
-      der(i) = omega[1]*jj_dqo(i);
+      der(v) = omega[1]*jj_dq0(v);
+      der(i) = omega[1]*jj_dq0(i);
     elseif system.steadyIni_t then
-      der(v) = omega[1]*jj_dqo(v);
-      der(i[:,2:ne1]) = omega[1]*jj_dqo(i[:,2:ne1]);
+      der(v) = omega[1]*jj_dq0(v);
+      der(i[:,2:ne1]) = omega[1]*jj_dq0(i[:,2:ne1]);
     elseif not system.steadyIni then
       v = transpose(fill(v_start/ne, ne));
       i[:,1:ne1] = transpose(fill(i_start, ne1));
@@ -242,13 +242,13 @@ package Lines "Transmission lines 3-phase"
     i[:, ne1] = -term_n.i;
 
     if system.transientSim then
-      diagonal({C,C,C0})*der(v) + omega[2]*C*jj_dqo(v) + G*v =
+      diagonal({C,C,C0})*der(v) + omega[2]*C*jj_dq0(v) + G*v =
        i[:,1:ne] - i[:,2:ne1];
-      diagonal({L,L,L0})*der(i) + omega[2]*L*jj_dqo(i) + R*i =
+      diagonal({L,L,L0})*der(i) + omega[2]*L*jj_dq0(i) + R*i =
        [[2*(term_p.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.v)]];
     else
-      omega[2]*C*jj_dqo(v) + G*v = i[:,1:ne] - i[:,2:ne1];
-      omega[2]*L*jj_dqo(i) + R*i =
+      omega[2]*C*jj_dq0(v) + G*v = i[:,1:ne] - i[:,2:ne1];
+      omega[2]*L*jj_dq0(i) + R*i =
        [[2*(term_p.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.v)]];
     end if;
     annotation (
@@ -477,7 +477,7 @@ The set of equations of two series connected lines of length len1 and len2 is id
             fillPattern=FillPattern.Solid)}));
   end PIline;
 
-  model FaultRXline "Faulted RX transmission line, 3-phase dqo"
+  model FaultRXline "Faulted RX transmission line, 3-phase dq0"
     extends Ports.Port_p_n_f;
     parameter Real p(min=0,max=1)=0.5 "rel fault-position (0 < p < 1)";
     extends Partials.RXlineBase(final ne=1);
@@ -489,10 +489,10 @@ The set of equations of two series connected lines of length len1 and len2 is id
 
   initial equation
     if steadyIni_t then
-      der(i1) = omega[1]*j_dqo(i1);
-      der(i2) = omega[1]*j_dqo(i2);
+      der(i1) = omega[1]*j_dq0(i1);
+      der(i2) = omega[1]*j_dq0(i2);
     elseif system.steadyIni_t then
-      der(term_f.i) = omega[1]*j_dqo(term_f.i);
+      der(term_f.i) = omega[1]*j_dq0(term_f.i);
     elseif not system.steadyIni then
       i1 = i_start;
       i2 = i_start;
@@ -505,13 +505,13 @@ The set of equations of two series connected lines of length len1 and len2 is id
     i2 = -term_n.i;
 
     if system.transientSim then
-      p*(diagonal({L,L,L0})*der(i1) + omega[2]*L*j_dqo(i1) + R*i1) =
+      p*(diagonal({L,L,L0})*der(i1) + omega[2]*L*j_dq0(i1) + R*i1) =
        term_p.v - term_f.v;
-      (1 - p)*(diagonal({L,L,L0})*der(i2) + omega[2]*L*j_dqo(i2) + R*i2) =
+      (1 - p)*(diagonal({L,L,L0})*der(i2) + omega[2]*L*j_dq0(i2) + R*i2) =
        term_f.v - term_n.v;
     else
-      p*(omega[2]*L*j_dqo(i1) + R*i1) = term_p.v - term_f.v;
-      (1 - p)*(omega[2]*L*j_dqo(i2) + R*i2) = term_f.v - term_n.v;
+      p*(omega[2]*L*j_dq0(i1) + R*i1) = term_p.v - term_f.v;
+      (1 - p)*(omega[2]*L*j_dq0(i2) + R*i2) = term_f.v - term_n.v;
     end if;
     annotation (
       defaultComponentName="faultRXline",
@@ -680,7 +680,7 @@ The set of equations of two series connected lines of length len1 and len2 is id
             fillPattern=FillPattern.Solid)}));
   end FaultRXline;
 
-  model FaultPIline "Faulted PI transmission line, 3-phase dqo"
+  model FaultPIline "Faulted PI transmission line, 3-phase dq0"
     extends Ports.Port_p_n_f;
     parameter Real p(min=0.5/ne,max=1-0.5/ne)=0.5
       "rel fault-pos (1/2ne <= p < 1 - 1/2ne)";
@@ -702,13 +702,13 @@ The set of equations of two series connected lines of length len1 and len2 is id
 
   initial equation
     if steadyIni_t then
-      der(v) = omega[1]*jj_dqo(v);
-      der(i) = omega[1]*jj_dqo(i);
-      der(iF) = omega[1]*j_dqo(iF);
+      der(v) = omega[1]*jj_dq0(v);
+      der(i) = omega[1]*jj_dq0(i);
+      der(iF) = omega[1]*j_dq0(iF);
     elseif system.steadyIni_t then
-      der(v) = omega[1]*jj_dqo(v);
-      der(i[:,2:ne1]) = omega[1]*jj_dqo(i[:,2:ne1]);
-      der(iF) = omega[1]*j_dqo(iF);
+      der(v) = omega[1]*jj_dq0(v);
+      der(i[:,2:ne1]) = omega[1]*jj_dq0(i[:,2:ne1]);
+      der(iF) = omega[1]*j_dq0(iF);
     elseif not system.steadyIni then
       v = transpose(fill(v_start/ne, ne));
       i[:,1:ne1] = transpose(fill(i_start, ne1));
@@ -722,18 +722,18 @@ The set of equations of two series connected lines of length len1 and len2 is id
     iF_p = [(1-pe)*iF, pe*iF];
 
     if system.transientSim then
-      diagonal({C,C,C0})*der(v) + omega[2]*C*jj_dqo(v) + G*v =
+      diagonal({C,C,C0})*der(v) + omega[2]*C*jj_dq0(v) + G*v =
        [i[:,1:nF-2]-i[:, 2:nF-1], i[:,nF-1:nF]-i[:,nF:nF+1]-iF_p, i[:,nF+1:ne]-i[:,nF+2:ne1]];
-      diagonal({L,L,L0})*der(i) + omega[2]*L*jj_dqo(i) + R*i =
+      diagonal({L,L,L0})*der(i) + omega[2]*L*jj_dq0(i) + R*i =
        [[2*(term_p.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.v)]];
-      diagonal({L,L,L0})*der(iF) + omega[2]*L*j_dqo(iF) + R*iF =
+      diagonal({L,L,L0})*der(iF) + omega[2]*L*j_dq0(iF) + R*iF =
        (v[:, nF-1] - term_f.v)/pe + (v[:, nF] - term_f.v)/(1-pe);
     else
-      omega[2]*C*jj_dqo(v) + G*v =
+      omega[2]*C*jj_dq0(v) + G*v =
        [i[:,1:nF-2]-i[:, 2:nF-1], i[:,nF-1:nF]-i[:,nF:nF+1]-iF_p, i[:,nF+1:ne]-i[:,nF+2:ne1]];
-      omega[2]*L*jj_dqo(i) + R*i =
+      omega[2]*L*jj_dq0(i) + R*i =
        [[2*(term_p.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.v)]];
-      omega[2]*L*j_dqo(iF) + R*iF =
+      omega[2]*L*j_dq0(iF) + R*iF =
        (v[:, nF-1] - term_f.v)/pe + (v[:, nF] - term_f.v)/(1-pe);
     end if;
     annotation (
@@ -845,7 +845,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
   package Partials "Partial models"
     extends Modelica.Icons.MaterialPropertiesPackage;
 
-    partial model RXlineBase "RX-line base, 3-phase dqo"
+    partial model RXlineBase "RX-line base, 3-phase dq0"
 
       parameter Boolean stIni_en=true "enable steady-state initial equation"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
@@ -884,7 +884,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
 
     end RXlineBase;
 
-    partial model PIlineBase "PI-line base, 3-phase dqo"
+    partial model PIlineBase "PI-line base, 3-phase dq0"
       extends RXlineBase(ne=3, redeclare replaceable parameter
           PowerSystems.AC3ph.Lines.Parameters.PIline par);
     protected
@@ -992,7 +992,7 @@ Faulted transmission lines contain a third terminal for connection to a fault-co
 <pre>
   cpl = x_m/x_s &gt  0,        positive for lines
 </pre>
-<p>More info see package ACdqoImpedances.</p>
+<p>More info see package ACdq0Impedances.</p>
 </html>"),
   Icon(coordinateSystem(
         preserveAspectRatio=false,

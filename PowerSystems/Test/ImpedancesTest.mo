@@ -4,7 +4,7 @@ package ImpedancesTest
 
     PowerSystems.Generic.FixedVoltageSource
                                source(redeclare package PhaseSystem =
-          PowerSystems.PhaseSystems.ThreePhase_dqo)
+          PowerSystems.PhaseSystems.ThreePhase_dq0)
       annotation (Placement(transformation(extent={{-80,0},{-60,20}},
                                            rotation=0)));
     AC3ph.Impedances.Inductor
@@ -12,7 +12,7 @@ package ImpedancesTest
       annotation (Placement(transformation(extent={{-20,0},{0,20}}, rotation=0)));
     PowerSystems.Generic.Ground
       ground(redeclare package PhaseSystem =
-          PowerSystems.PhaseSystems.ThreePhase_dqo)
+          PowerSystems.PhaseSystems.ThreePhase_dq0)
       annotation (Placement(transformation(extent={{40,0},{60,20}}, rotation=0)));
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));

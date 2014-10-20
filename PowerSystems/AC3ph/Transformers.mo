@@ -2,7 +2,7 @@ within PowerSystems.AC3ph;
 package Transformers "Transformers 3-phase"
   extends Modelica.Icons.VariantsPackage;
 
-  model TrafoIdeal "Ideal transformer, 3-phase dqo"
+  model TrafoIdeal "Ideal transformer, 3-phase dq0"
     parameter Boolean D_D=false "set true if Delta-Delta topology!";
     extends Partials.TrafoIdealBase(final stIni_en=false);
 
@@ -31,21 +31,21 @@ package Transformers "Transformers 3-phase"
           grid={2,2}), graphics));
   end TrafoIdeal;
 
-  model TrafoStray "Ideal magnetic coupling transformer, 3-phase dqo"
+  model TrafoStray "Ideal magnetic coupling transformer, 3-phase dq0"
     extends Partials.TrafoStrayBase;
 
   initial equation
     if steadyIni_t then
-      der(i1) = omega[1]*j_dqo(i1);
+      der(i1) = omega[1]*j_dq0(i1);
     end if;
 
   equation
     i1 + i2 = zeros(3);
     if system.transientSim then
-      diagonal({sum(L),sum(L),sum(L0)})*der(i1) + omega[2]*sum(L)*j_dqo(i1) + sum(R)
+      diagonal({sum(L),sum(L),sum(L0)})*der(i1) + omega[2]*sum(L)*j_dq0(i1) + sum(R)
       *i1 = v1 - v2;
     else
-      omega[2]*sum(L)*j_dqo(i1) + sum(R)*i1 = v1 - v2;
+      omega[2]*sum(L)*j_dq0(i1) + sum(R)*i1 = v1 - v2;
     end if;
     annotation (
       defaultComponentName="trafo",
@@ -78,7 +78,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
           grid={2,2}), graphics));
   end TrafoStray;
 
-  model TrafoMag "Magnetic coupling transformer, 3-phase dqo"
+  model TrafoMag "Magnetic coupling transformer, 3-phase dq0"
     extends Partials.TrafoMagBase;
 
     SI.Voltage[3] v0;
@@ -87,24 +87,24 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 
   initial equation
     if steadyIni_t then
-      der(i1) = omega[1]*j_dqo(i1);
-      der(i2) = omega[1]*j_dqo(i2);
-      der(imag) = omega[1]*j_dqo(imag);
+      der(i1) = omega[1]*j_dq0(i1);
+      der(i2) = omega[1]*j_dq0(i2);
+      der(imag) = omega[1]*j_dq0(imag);
     elseif system.steadyIni_t then
-      der(imag) = omega[1]*j_dqo(imag);
+      der(imag) = omega[1]*j_dq0(imag);
     end if;
 
   equation
     i1 + i2 = imag + iedc;
     Redc*iedc = v0;
     if system.transientSim then
-      diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dqo(i1) + R[1]*i1 = v1 - v0;
-      diagonal({L[2],L[2],L0[2]})*der(i2) + omega[2]*L[2]*j_dqo(i2) + R[2]*i2 = v2 - v0;
+      diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
+      diagonal({L[2],L[2],L0[2]})*der(i2) + omega[2]*L[2]*j_dq0(i2) + R[2]*i2 = v2 - v0;
       Lm*der(imag) + omega[2]*Lm*{-imag[2], imag[1], 0} = v0;
     else
-      omega[2]*L[1]*j_dqo(i1) + R[1]*i1 = v1 - v0;
-      omega[2]*L[2]*j_dqo(i2) + R[2]*i2 = v2 - v0;
-      omega[2]*Lm*j_dqo(imag) = v0;
+      omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
+      omega[2]*L[2]*j_dq0(i2) + R[2]*i2 = v2 - v0;
+      omega[2]*Lm*j_dq0(imag) = v0;
     end if;
     annotation (
       defaultComponentName="trafo",
@@ -144,7 +144,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
           grid={2,2}), graphics));
   end TrafoMag;
 
-  model TrafoSatEff "Averaged saturation transformer, 3-phase dqo"
+  model TrafoSatEff "Averaged saturation transformer, 3-phase dq0"
     extends Partials.TrafoSatBase;
 
     SI.Voltage[3] v0;
@@ -157,11 +157,11 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 
   initial equation
     if steadyIni_t then
-      der(i1) = omega[1]*j_dqo(i1);
-      der(i2) = omega[1]*j_dqo(i2);
-      der(psi0) = omega[1]*j_dqo(psi0);
+      der(i1) = omega[1]*j_dq0(i1);
+      der(i2) = omega[1]*j_dq0(i2);
+      der(psi0) = omega[1]*j_dq0(psi0);
     elseif system.steadyIni_t then
-      der(psi0) = omega[1]*j_dqo(psi0);
+      der(psi0) = omega[1]*j_dq0(psi0);
     end if;
 
   equation
@@ -171,13 +171,13 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
     gp = scalar(der_sat({0.66*sqrt(psi0*psi0)/psi_nom}, c_sat));
 
     if system.transientSim then
-      diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dqo(i1) + R[1]*i1 = v1 - v0;
-      diagonal({L[2],L[2],L0[2]})*der(i2) + omega[2]*L[2]*j_dqo(i2) + R[2]*i2 = v2 - v0;
-      gp*(der(psi0) + omega[2]*j_dqo(psi0)) = v0;
+      diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
+      diagonal({L[2],L[2],L0[2]})*der(i2) + omega[2]*L[2]*j_dq0(i2) + R[2]*i2 = v2 - v0;
+      gp*(der(psi0) + omega[2]*j_dq0(psi0)) = v0;
     else
-      omega[2]*L[1]*j_dqo(i1) + R[1]*i1 = v1 - v0;
-      omega[2]*L[2]*j_dqo(i2) + R[2]*i2 = v2 - v0;
-      gp*(omega[2]*j_dqo(psi0)) = v0;
+      omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
+      omega[2]*L[2]*j_dq0(i2) + R[2]*i2 = v2 - v0;
+      gp*(omega[2]*j_dq0(psi0)) = v0;
     end if;
     annotation (
       defaultComponentName="trafo",
@@ -223,7 +223,7 @@ The factor <tt>0.66</tt> in the expression of the effective pu flux is an estima
           grid={2,2}), graphics));
   end TrafoSatEff;
 
-  model TrafoSat "Saturation transformer, 3-phase dqo"
+  model TrafoSat "Saturation transformer, 3-phase dq0"
     extends Partials.TrafoSatBase;
 
     SI.Voltage[3] v0;
@@ -238,11 +238,11 @@ The factor <tt>0.66</tt> in the expression of the effective pu flux is an estima
 
   initial equation
     if steadyIni_t then
-      der(i1) = omega[1]*j_dqo(i1);
-      der(i2) = omega[1]*j_dqo(i2);
-      der(psi0) = omega[1]*j_dqo(psi0);
+      der(i1) = omega[1]*j_dq0(i1);
+      der(i2) = omega[1]*j_dq0(i2);
+      der(psi0) = omega[1]*j_dq0(psi0);
     elseif system.steadyIni_t then
-      der(psi0) = omega[1]*j_dqo(psi0);
+      der(psi0) = omega[1]*j_dq0(psi0);
     end if;
 
   equation
@@ -251,9 +251,9 @@ The factor <tt>0.66</tt> in the expression of the effective pu flux is an estima
     psi0 = Lm*imag;
     gp = der_sat(transpose(Park)*psi0/psi_nom, c_sat);
 
-    diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dqo(i1) + R[1]*i1 = v1 - v0;
-    diagonal({L[2],L[2],L0[2]})*der(i2) + omega[2]*L[2]*j_dqo(i2) + R[2]*i2 = v2 - v0;
-    Park*diagonal(gp)*transpose(Park)*(der(psi0) + omega[2]*j_dqo(psi0)) = v0;
+    diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
+    diagonal({L[2],L[2],L0[2]})*der(i2) + omega[2]*L[2]*j_dq0(i2) + R[2]*i2 = v2 - v0;
+    Park*diagonal(gp)*transpose(Park)*(der(psi0) + omega[2]*j_dq0(psi0)) = v0;
     annotation (
       defaultComponentName="trafo",
   Documentation(
@@ -306,20 +306,20 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 
   initial equation
     if steadyIni_t then
-      der(i2a) = omega[1]*j_dqo(i2a);
-      der(i2b) = omega[1]*j_dqo(i2b);
+      der(i2a) = omega[1]*j_dq0(i2a);
+      der(i2b) = omega[1]*j_dq0(i2b);
     end if;
 
   equation
     i1 + i2a + i2b = zeros(3);
     if system.transientSim then
-      diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dqo(i1) + R[1]*i1 = v1 - v0;
-      diagonal({L[2],L[2],L0[2]})*der(i2a) + omega[2]*L[2]*j_dqo(i2a) + R[2]*i2a = v2a - v0;
-      diagonal({L[3],L[3],L0[3]})*der(i2b) + omega[2]*L[3]*j_dqo(i2b) + R[3]*i2b = v2b - v0;
+      diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
+      diagonal({L[2],L[2],L0[2]})*der(i2a) + omega[2]*L[2]*j_dq0(i2a) + R[2]*i2a = v2a - v0;
+      diagonal({L[3],L[3],L0[3]})*der(i2b) + omega[2]*L[3]*j_dq0(i2b) + R[3]*i2b = v2b - v0;
     else
-      omega[2]*L[1]*j_dqo(i1) + R[1]*i1 = v1 - v0;
-      omega[2]*L[2]*j_dqo(i2a) + R[2]*i2a = v2a - v0;
-      omega[2]*L[3]*j_dqo(i2b) + R[3]*i2b = v2b - v0;
+      omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
+      omega[2]*L[2]*j_dq0(i2a) + R[2]*i2a = v2a - v0;
+      omega[2]*L[3]*j_dq0(i2b) + R[3]*i2b = v2b - v0;
     end if;
         annotation (Diagram(graphics),
                              Icon(coordinateSystem(preserveAspectRatio=false,
@@ -330,7 +330,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
   package Partials "Partial models"
     extends Modelica.Icons.BasesPackage;
 
-      partial model TrafoIdealBase "Base for ideal transformer, 3-phase dqo"
+      partial model TrafoIdealBase "Base for ideal transformer, 3-phase dq0"
 
         /*
   extends Ports.YDportTrafo_p_n(
@@ -521,7 +521,7 @@ For variable transformer ratio tap changer input needed.</p>
       end TrafoIdealBase;
 
     partial model TrafoStrayBase
-      "Base for ideal magnetic coupling transformer, 3-phase dqo"
+      "Base for ideal magnetic coupling transformer, 3-phase dq0"
       extends TrafoIdealBase(redeclare replaceable parameter
           PowerSystems.AC3ph.Transformers.Parameters.TrafoStray par);
     protected
@@ -556,7 +556,7 @@ For variable transformer ratio tap changer input needed.</p>
     end TrafoStrayBase;
 
     partial model TrafoMagBase
-      "Base for magnetic coupling transformer, 3-phase dqo"
+      "Base for magnetic coupling transformer, 3-phase dq0"
       extends TrafoStrayBase(redeclare replaceable parameter
           PowerSystems.AC3ph.Transformers.Parameters.TrafoMag par);
     protected
@@ -603,7 +603,7 @@ For variable transformer ratio tap changer input needed.</p>
               pattern=LinePattern.Dot)}));
     end TrafoMagBase;
 
-    partial model TrafoSatBase "Base for saturation transformer, 3-phase dqo"
+    partial model TrafoSatBase "Base for saturation transformer, 3-phase dq0"
       extends TrafoMagBase(redeclare replaceable parameter
           PowerSystems.AC3ph.Transformers.Parameters.TrafoSat par);
     protected
@@ -634,7 +634,7 @@ For variable transformer ratio tap changer input needed.</p>
     end TrafoSatBase;
 
   partial model Trafo3IdealBase
-      "Base for ideal 3-winding transformer, 3-phase dqo"
+      "Base for ideal 3-winding transformer, 3-phase dq0"
   /*
   extends Ports.YDportTrafo_p_n_n(
     w1(start=w1_set), w2a(start=w2a_set), w2b(start=w2b_set),
@@ -852,7 +852,7 @@ For variable transformer ratio tap changer input needed.</p>
   end Trafo3IdealBase;
 
   partial model Trafo3StrayBase
-      "Base for ideal magnetic coupling 3-winding transformer, 3-phase dqo"
+      "Base for ideal magnetic coupling 3-winding transformer, 3-phase dq0"
     extends Trafo3IdealBase(redeclare replaceable parameter
           PowerSystems.AC3ph.Transformers.Parameters.Trafo3Stray par);
     protected
@@ -1043,7 +1043,7 @@ The impedance parameters are defined 'as seen from the terminals', directly rela
 compared to the terminal voltage and current. Therefore the impedance relating conductor current and voltage is a factor 3 larger, the admittance a factor 1/3 smaller than the impedance and admittance as seen from the terminal.</p>
 <p>If impedance parameters are given for the Deta-connected WINDINGS, choose:</p>
 <pre>  input values impedance parameters = 1/3 * (impedance parameters of windings)</pre>
-<p>In the dqo-representation the following relations hold between terminal-voltage <tt>v_term</tt> and -current <tt>i_term</tt> on the one hand and conductor-voltage <tt>v_cond</tt> and -current <tt>i_cond</tt> on the other.</p>
+<p>In the dq0-representation the following relations hold between terminal-voltage <tt>v_term</tt> and -current <tt>i_term</tt> on the one hand and conductor-voltage <tt>v_cond</tt> and -current <tt>i_cond</tt> on the other.</p>
 <p>A) Y-topology.</p>
 <pre>
   v_cond = v_term - {0, 0, sqrt(3)*v_n};

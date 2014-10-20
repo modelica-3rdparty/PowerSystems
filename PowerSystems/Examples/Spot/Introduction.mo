@@ -111,7 +111,7 @@ and other meter-signals.</p>
     inner PowerSystems.System system(f_nom=60, ref="inertial")
                       annotation (Placement(transformation(extent={{-100,80},{
               -80,100}}, rotation=0)));
-    PowerSystems.Blocks.Signals.TransientFreq theta_dqo(f_fin=50, f_ini=10)
+    PowerSystems.Blocks.Signals.TransientFreq theta_dq0(f_fin=50, f_ini=10)
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=
              0)));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(veff=230)
@@ -157,7 +157,7 @@ and other meter-signals.</p>
       annotation (Line(points={{-50,30},{-40,30}}, color={0,0,255}));
     connect(grdV2.term, voltage2.neutral) annotation (Line(points={{-50,-30},{
             -40,-30}}, color={0,0,255}));
-    connect(theta_dqo.y, voltage2.omega) annotation (Line(points={{-60,-10},{
+    connect(theta_dq0.y, voltage2.omega) annotation (Line(points={{-60,-10},{
             -36,-10},{-36,-20}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(
@@ -185,35 +185,35 @@ and other meter-signals.</p>
     inner PowerSystems.System system(ini="tr", ref="inertial")
                       annotation (Placement(transformation(extent={{-100,80},{
               -80,100}}, rotation=0)));
-    PowerSystems.AC3ph.Sources.Voltage voltage_dqo(
+    PowerSystems.AC3ph.Sources.Voltage voltage_dq0(
       V_nom=400,
       v0=1.02)
            annotation (Placement(transformation(extent={{-60,-40},{-40,-20}},
             rotation=0)));
-    PowerSystems.AC3ph.Nodes.GroundOne grdV_dqo
+    PowerSystems.AC3ph.Nodes.GroundOne grdV_dq0
                                 annotation (Placement(transformation(extent={{
               -70,-40},{-90,-20}}, rotation=0)));
-    PowerSystems.AC3ph.Sensors.PVImeter meter_dqo(
+    PowerSystems.AC3ph.Sensors.PVImeter meter_dq0(
       V_nom=400,
       S_nom=10e3)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}}, rotation=0)));
-    PowerSystems.AC3ph.Impedances.Inductor load_dqo(
+    PowerSystems.AC3ph.Impedances.Inductor load_dq0(
       V_nom=400,
       S_nom=10e3,
       r=0.1)
      annotation (Placement(transformation(extent={{20,-40},{40,-20}}, rotation=
               0)));
-    PowerSystems.AC3ph.Nodes.Ground grd_dqo        annotation (Placement(
+    PowerSystems.AC3ph.Nodes.Ground grd_dq0        annotation (Placement(
           transformation(extent={{50,-40},{70,-20}}, rotation=0)));
 
   equation
-    connect(voltage_dqo.term, meter_dqo.term_p) annotation (Line(points={{-40,
+    connect(voltage_dq0.term, meter_dq0.term_p) annotation (Line(points={{-40,
             -30},{-20,-30}}, color={0,120,120}));
-    connect(meter_dqo.term_n, load_dqo.term_p) annotation (Line(points={{0,-30},
+    connect(meter_dq0.term_n, load_dq0.term_p) annotation (Line(points={{0,-30},
             {20,-30}}, color={0,120,120}));
-    connect(load_dqo.term_n, grd_dqo.term) annotation (Line(points={{40,-30},{
+    connect(load_dq0.term_n, grd_dq0.term) annotation (Line(points={{40,-30},{
             50,-30}}, color={0,120,120}));
-    connect(grdV_dqo.term, voltage_dqo.neutral) annotation (Line(points={{-70,
+    connect(grdV_dq0.term, voltage_dq0.neutral) annotation (Line(points={{-70,
             -30},{-60,-30}}, color={0,0,255}));
   annotation (
     Diagram(coordinateSystem(
@@ -222,13 +222,13 @@ and other meter-signals.</p>
           grid={2,2}), graphics),
     Documentation(
             info="<html>
-<p>This example shows two physically identical systems, the upper one in abc-, the lower one in dqo-representation.</p>
+<p>This example shows two physically identical systems, the upper one in abc-, the lower one in dq0-representation.</p>
 <p>In the inertial, non rotating reference frame (<tt>SynRef=false</tt>), signals oscillate with the source frequency.</p>
 <p>
 <i>See for example:</i>
 <pre>
   meter_abc.i     standard notation: 'abc'-system
-  meter_dqo.i     standard notation: 'alpha beta gamma'-system
+  meter_dq0.i     standard notation: 'alpha beta gamma'-system
 </pre>
 and other meter-signals.<br>
 Compare with the signals of the identical system in the example below.</p>
@@ -242,36 +242,36 @@ Compare with the signals of the identical system in the example below.</p>
     inner PowerSystems.System system(ini="tr")
                       annotation (Placement(transformation(extent={{-100,80},{
               -80,100}}, rotation=0)));
-    PowerSystems.AC3ph.Sources.Voltage voltage_dqo(
+    PowerSystems.AC3ph.Sources.Voltage voltage_dq0(
       V_nom=400,
       v0=1.02)
            annotation (Placement(transformation(extent={{-60,-40},{-40,-20}},
             rotation=0)));
-    PowerSystems.AC3ph.Nodes.GroundOne grdV_dqo
+    PowerSystems.AC3ph.Nodes.GroundOne grdV_dq0
                                 annotation (Placement(transformation(extent={{
               -70,-40},{-90,-20}}, rotation=0)));
-    PowerSystems.AC3ph.Sensors.PVImeter meter_dqo(
+    PowerSystems.AC3ph.Sensors.PVImeter meter_dq0(
       V_nom=400,
       S_nom=10e3,
       abc=true)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}}, rotation=0)));
-    PowerSystems.AC3ph.Impedances.Inductor load_dqo(
+    PowerSystems.AC3ph.Impedances.Inductor load_dq0(
       V_nom=400,
       S_nom=10e3,
       r=0.1)
      annotation (Placement(transformation(extent={{20,-40},{40,-20}}, rotation=
               0)));
-    PowerSystems.AC3ph.Nodes.Ground grd_dqo        annotation (Placement(
+    PowerSystems.AC3ph.Nodes.Ground grd_dq0        annotation (Placement(
           transformation(extent={{50,-40},{70,-20}}, rotation=0)));
 
   equation
-    connect(voltage_dqo.term, meter_dqo.term_p) annotation (Line(points={{-40,
+    connect(voltage_dq0.term, meter_dq0.term_p) annotation (Line(points={{-40,
             -30},{-20,-30}}, color={0,120,120}));
-    connect(meter_dqo.term_n, load_dqo.term_p) annotation (Line(points={{0,-30},
+    connect(meter_dq0.term_n, load_dq0.term_p) annotation (Line(points={{0,-30},
             {20,-30}}, color={0,120,120}));
-    connect(load_dqo.term_n, grd_dqo.term) annotation (Line(points={{40,-30},{
+    connect(load_dq0.term_n, grd_dq0.term) annotation (Line(points={{40,-30},{
             50,-30}}, color={0,120,120}));
-    connect(grdV_dqo.term, voltage_dqo.neutral) annotation (Line(points={{-70,
+    connect(grdV_dq0.term, voltage_dq0.neutral) annotation (Line(points={{-70,
             -30},{-60,-30}}, color={0,0,255}));
   annotation (
     Diagram(coordinateSystem(
@@ -280,13 +280,13 @@ Compare with the signals of the identical system in the example below.</p>
           grid={2,2}), graphics),
     Documentation(
             info="<html>
-<p>This example shows two physically identical systems, the upper one in abc-, the lower one in dqo-representation.</p>
+<p>This example shows two physically identical systems, the upper one in abc-, the lower one in dq0-representation.</p>
 <p>In the synchronous, rotating reference frame (<tt>SynRef=true</tt>), steady-state signals are constant (after an initial oscillation).</p>
 <p>
 <i>See for example:</i>
 <pre>
   meter_abc.i
-  meter_dqo.i     standard notation: 'dqo'-system
+  meter_dq0.i     standard notation: 'dq0'-system
 </pre>
 and other meter-signals.<br>
 Compare with the signals of the identical system in the example above.</p>
@@ -300,36 +300,36 @@ Compare with the signals of the identical system in the example above.</p>
     inner PowerSystems.System system(ref="inertial")
                       annotation (Placement(transformation(extent={{-100,80},{
               -80,100}}, rotation=0)));
-    PowerSystems.AC3ph.Sources.Voltage voltage_dqo(
+    PowerSystems.AC3ph.Sources.Voltage voltage_dq0(
       V_nom=400,
       v0=1.02)
            annotation (Placement(transformation(extent={{-60,-40},{-40,-20}},
             rotation=0)));
-    PowerSystems.AC3ph.Nodes.GroundOne grdV_dqo
+    PowerSystems.AC3ph.Nodes.GroundOne grdV_dq0
                                 annotation (Placement(transformation(extent={{
               -70,-40},{-90,-20}}, rotation=0)));
-    PowerSystems.AC3ph.Sensors.PVImeter meter_dqo(
+    PowerSystems.AC3ph.Sensors.PVImeter meter_dq0(
       V_nom=400,
       S_nom=10e3,
       abc=true)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}}, rotation=0)));
-    PowerSystems.AC3ph.Impedances.Inductor load_dqo(
+    PowerSystems.AC3ph.Impedances.Inductor load_dq0(
       V_nom=400,
       S_nom=10e3,
       r=0.1)
      annotation (Placement(transformation(extent={{20,-40},{40,-20}}, rotation=
               0)));
-    PowerSystems.AC3ph.Nodes.Ground grd_dqo        annotation (Placement(
+    PowerSystems.AC3ph.Nodes.Ground grd_dq0        annotation (Placement(
           transformation(extent={{50,-40},{70,-20}}, rotation=0)));
 
   equation
-    connect(voltage_dqo.term, meter_dqo.term_p) annotation (Line(points={{-40,
+    connect(voltage_dq0.term, meter_dq0.term_p) annotation (Line(points={{-40,
             -30},{-20,-30}}, color={0,120,120}));
-    connect(meter_dqo.term_n, load_dqo.term_p) annotation (Line(points={{0,-30},
+    connect(meter_dq0.term_n, load_dq0.term_p) annotation (Line(points={{0,-30},
             {20,-30}}, color={0,120,120}));
-    connect(load_dqo.term_n, grd_dqo.term) annotation (Line(points={{40,-30},{
+    connect(load_dq0.term_n, grd_dq0.term) annotation (Line(points={{40,-30},{
             50,-30}}, color={0,120,120}));
-    connect(grdV_dqo.term, voltage_dqo.neutral) annotation (Line(points={{-70,
+    connect(grdV_dq0.term, voltage_dq0.neutral) annotation (Line(points={{-70,
             -30},{-60,-30}}, color={0,0,255}));
   annotation (
     Documentation(
@@ -340,7 +340,7 @@ Compare with the signals of the identical system in the example above.</p>
 <i>See for example:</i>
 <pre>
   meter_abc.i_abc
-  meter_dqo.i_abc
+  meter_dq0.i_abc
 </pre>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
@@ -446,7 +446,7 @@ Compare with the signals of the identical system in the example above.</p>
     Documentation(
             info="<html>
 <p>With 'system.sim = transient' fast dynamics after switching are resolved.</p>
-<p>The example uses the dqo-representation, but is valid for abc too.</p>
+<p>The example uses the dq0-representation, but is valid for abc too.</p>
 <p>
 <i>See for example:</i>
 <pre>
@@ -559,7 +559,7 @@ and other meter-signals.</p>
             info="<html>
 <p>With 'system.sim = steady' transients are suppressed and only slow dynamics, imposed by the source-voltage is resolved.<br>
 This approximation corresponds to an infinitely fast response of the system.</p>
-<p>The example uses the dqo-representation, but is valid for abc too.</p>
+<p>The example uses the dq0-representation, but is valid for abc too.</p>
 <p>
 <i>See for example:</i>
 <pre>
@@ -663,7 +663,7 @@ Inductive current (blue) is behind, capacitive ahead of voltage (red).</p>
 The left bar (green) displays the active power,<br>
 the right bar (violet) displays the reactive power.<br>
 An additional arrow indicates the direction of active power flow.</p>
-<p>The example uses the dqo-representation, but is valid for abc too.</p>
+<p>The example uses the dq0-representation, but is valid for abc too.</p>
 <p>
 Select Experiment Setup/Compiler/'MS Visual C++ with DDE'<br>
 Check Experiment Setup/Realtime/'Synchronize with realtime'<br>
@@ -725,7 +725,7 @@ Interpolates table-values.</p>
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Each of the introductory examples points out one specific aspect of specifying and simulating a model.
-The examples are based on most elementary configurations. A meter is added for convenience, displaying signals both in abc- and dqo-representation. </p>
+The examples are based on most elementary configurations. A meter is added for convenience, displaying signals both in abc- and dq0-representation. </p>
 <p>The component PowerSystems.System is needed in all models, except in Introduction.Tables.</p>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>

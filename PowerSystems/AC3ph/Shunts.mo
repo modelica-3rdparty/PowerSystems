@@ -2,7 +2,7 @@ within PowerSystems.AC3ph;
 package Shunts "Reactive and capacitive shunts"
   extends Modelica.Icons.VariantsPackage;
 
-model ReactiveShunt "Shunt reactor with parallel conductor, 3-phase dqo"
+model ReactiveShunt "Shunt reactor with parallel conductor, 3-phase dq0"
   extends Partials.ShuntBase;
 
   parameter SIpu.Conductance g=0 "conductance (parallel)";
@@ -19,15 +19,15 @@ model ReactiveShunt "Shunt reactor with parallel conductor, 3-phase dqo"
 
 initial equation
   if system.steadyIni_t then
-    der(i_x) = omega[1]*j_dqo(i_x);
+    der(i_x) = omega[1]*j_dq0(i_x);
   end if;
 
 equation
   i_x = i - G*v;
   if system.transientSim then
-    diagonal({L,L,L0})*der(i_x) + omega[2]*L*j_dqo(i_x) + R*i_x = v;
+    diagonal({L,L,L0})*der(i_x) + omega[2]*L*j_dq0(i_x) + R*i_x = v;
   else
-    omega[2]*L*j_dqo(i_x) + R*i_x = v;
+    omega[2]*L*j_dq0(i_x) + R*i_x = v;
   end if;
 annotation (defaultComponentName = "xShunt1",
   Documentation(
@@ -120,7 +120,7 @@ annotation (defaultComponentName = "xShunt1",
 end ReactiveShunt;
 
 model CapacitiveShunt
-    "Shunt capacitor with parallel conductor, 3-phase dqo, pp pg"
+    "Shunt capacitor with parallel conductor, 3-phase dq0, pp pg"
   extends Partials.ShuntBase;
 
   parameter SIpu.Conductance g_pg=0 "conductance ph-grd";
@@ -136,14 +136,14 @@ model CapacitiveShunt
 
 initial equation
   if system.steadyIni_t then
-    der(v) = omega[1]*j_dqo(v);
+    der(v) = omega[1]*j_dq0(v);
   end if;
 
 equation
   if system.transientSim then
-    diagonal({C,C,C0})*der(v) + omega[2]*C*j_dqo(v) + diagonal({G,G,G0})*v = i;
+    diagonal({C,C,C0})*der(v) + omega[2]*C*j_dq0(v) + diagonal({G,G,G0})*v = i;
   else
-    omega[2]*C*j_dqo(v) + diagonal({G,G,G0})*v = i;
+    omega[2]*C*j_dq0(v) + diagonal({G,G,G0})*v = i;
   end if;
 annotation (defaultComponentName = "cShunt1",
   Documentation(
@@ -151,7 +151,7 @@ annotation (defaultComponentName = "cShunt1",
 <p>Terminology.<br>
 &nbsp;  _pg denotes phase-to-ground<br>
 &nbsp;  _pp denotes phase-to-phase</p>
-<p>Info see package ACdqo.Impedances.</p>
+<p>Info see package ACdq0.Impedances.</p>
 </html>
 "),
   Icon(coordinateSystem(
@@ -318,7 +318,7 @@ annotation (defaultComponentName = "cShunt1",
 end CapacitiveShunt;
 
 model ReactiveShuntNonSym
-    "Shunt reactor with parallel conductor non symmetric, 3-phase dqo"
+    "Shunt reactor with parallel conductor non symmetric, 3-phase dq0"
   extends Partials.ShuntBaseNonSym;
 
   parameter SIpu.Conductance[3] g={0,0,0} "conductance abc (parallel)";
@@ -337,7 +337,7 @@ model ReactiveShuntNonSym
 
 initial equation
   if system.steadyIni then
-    der(psi_x[1:2]) = omega[1]*j_dqo(psi_x[1:2]);
+    der(psi_x[1:2]) = omega[1]*j_dq0(psi_x[1:2]);
     psi_x[3] = 0;
   end if;
 
@@ -348,13 +348,13 @@ equation
 
   i_x = i - G*v;
   psi_x = L*(i - G*v);
-  der(psi_x) + omega[2]*j_dqo(psi_x) + R*i_x = v;
+  der(psi_x) + omega[2]*j_dq0(psi_x) + R*i_x = v;
 annotation (defaultComponentName = "xShuntNonSym",
   Documentation(
           info="<html>
 <p>Reactive shunt with general reactance matrix and parallel conductor, defined in abc inertial system.<br>
 Use only if 'non symmetric' is really desired because this component needs a time dependent transform of the coefficient matrix.</p>
-<p>Info see package ACdqo.Impedances.</p>
+<p>Info see package ACdq0.Impedances.</p>
 </html>
 "),
   Icon(coordinateSystem(
@@ -449,7 +449,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
 end ReactiveShuntNonSym;
 
 model CapacitiveShuntNonSym
-    "Shunt capacitor with parallel conductor non symmetric, 3-phase dqo, pp pg"
+    "Shunt capacitor with parallel conductor non symmetric, 3-phase dq0, pp pg"
   extends Partials.ShuntBaseNonSym;
 
   parameter SIpu.Conductance[3] g_pg={0,0,0} "conductance ph-grd abc";
@@ -470,7 +470,7 @@ model CapacitiveShuntNonSym
 
 initial equation
   if system.steadyIni then
-    der(q[1:2]) = omega[1]*j_dqo(q[1:2]);
+    der(q[1:2]) = omega[1]*j_dq0(q[1:2]);
     q[3] = 0;
   end if;
 
@@ -479,7 +479,7 @@ equation
   G = Park*G_abc*transpose(Park);
 
   q = C*v;
-  der(q) + omega[2]*j_dqo(q) + G*v = i;
+  der(q) + omega[2]*j_dq0(q) + G*v = i;
 annotation (defaultComponentName = "cShuntNonSym",
   Documentation(
           info="<html>
@@ -488,7 +488,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
 <p>Terminology.<br>
 &nbsp;  _pg denotes phase-to-ground<br>
 &nbsp;  _pp denotes phase-to-phase</p>
-<p>Info see package ACdqo.Impedances.</p>
+<p>Info see package ACdq0.Impedances.</p>
 </html>
 "),
   Icon(coordinateSystem(
@@ -663,7 +663,7 @@ end CapacitiveShuntNonSym;
   package Partials "Partial models"
     extends Modelica.Icons.BasesPackage;
 
-    partial model ShuntBase "Shunt base, 3-phase dqo"
+    partial model ShuntBase "Shunt base, 3-phase dq0"
       extends Ports.Port_p;
       extends Basic.Nominal.NominalAC;
 
@@ -711,7 +711,7 @@ end CapacitiveShuntNonSym;
             grid={2,2}), graphics));
     end ShuntBase;
 
-    partial model ShuntBaseNonSym "Shunt base non symmetric, 3-phase dqo"
+    partial model ShuntBaseNonSym "Shunt base non symmetric, 3-phase dq0"
       extends ShuntBase;
 
     protected
@@ -721,7 +721,7 @@ end CapacitiveShuntNonSym;
         Documentation(
       info="<html>
 <p>Same as ShuntBase, but contains additionally a Park-transform which is needed for
-transformation of general impedance matrices from abc rest- to general dqo-system.
+transformation of general impedance matrices from abc rest- to general dq0-system.
 (for example when coefficients of non symmetric systems are defined in abc representation.)
 </pre>
 </html>"),
@@ -739,7 +739,7 @@ transformation of general impedance matrices from abc rest- to general dqo-syste
 
 annotation (preferredView="info",
     Documentation(info="<html>
-<p>Info see package ACdqo.Impedances.</p>
+<p>Info see package ACdq0.Impedances.</p>
 </html>
 "),
   Icon(coordinateSystem(

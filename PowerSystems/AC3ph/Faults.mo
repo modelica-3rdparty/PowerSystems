@@ -2,7 +2,7 @@ within PowerSystems.AC3ph;
 package Faults "Line-faults "
   extends Modelica.Icons.VariantsPackage;
 
-  model Short_ABC "a, b, c to ground short, 3-phase dqo"
+  model Short_ABC "a, b, c to ground short, 3-phase dq0"
     extends Partials.FaultBase;
 
     Real[3] s;
@@ -49,7 +49,7 @@ The transformation to inertial abc is only needed to determine the correct phase
           grid={2,2}), graphics));
   end Short_ABC;
 
-                model Fault_bc "b to c fault, 3-phase dqo"
+                model Fault_bc "b to c fault, 3-phase dq0"
     extends Partials.Fault_pp(final n_ph=1);
 
                 annotation (defaultComponentName = "fault_bc",
@@ -75,7 +75,7 @@ The transformation to inertial abc is only needed to determine the correct phase
                             fillPattern=FillPattern.Solid)}));
                 end Fault_bc;
 
-  model Fault_ca "c to a fault, 3-phase dqo"
+  model Fault_ca "c to a fault, 3-phase dq0"
     extends Partials.Fault_pp(final n_ph=2);
 
   annotation (defaultComponentName = "fault_ca",
@@ -104,7 +104,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             fillPattern=FillPattern.Solid)}));
   end Fault_ca;
 
-  model Fault_ab "a to b fault, 3-phase dqo"
+  model Fault_ab "a to b fault, 3-phase dq0"
     extends Partials.Fault_pp(final n_ph=3);
 
   annotation (defaultComponentName = "fault_ab",
@@ -133,7 +133,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             fillPattern=FillPattern.Solid)}));
   end Fault_ab;
 
-  model Fault_abc "a to b to c fault, 3-phase dqo"
+  model Fault_abc "a to b to c fault, 3-phase dq0"
     extends Partials.FaultBase;
 
     parameter Integer n_ph=1 "double connected phase, 2=(1-2,2-3)";
@@ -202,7 +202,7 @@ The transformation to inertial abc is only needed to determine the correct phase
           grid={2,2}), graphics));
   end Fault_abc;
 
-  model Fault_A "a to ground fault, 3-phase dqo"
+  model Fault_A "a to ground fault, 3-phase dq0"
     extends Partials.Fault_pg(final n_ph=1);
 
     annotation (defaultComponentName = "fault_A",
@@ -231,7 +231,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             fillPattern=FillPattern.Solid)}));
   end Fault_A;
 
-  model Fault_B "b to ground fault, 3-phase dqo"
+  model Fault_B "b to ground fault, 3-phase dq0"
     extends Partials.Fault_pg(final n_ph=2);
 
     annotation (defaultComponentName = "fault_B",
@@ -260,7 +260,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             fillPattern=FillPattern.Solid)}));
   end Fault_B;
 
-  model Fault_C "c to ground fault, 3-phase dqo"
+  model Fault_C "c to ground fault, 3-phase dq0"
     extends Partials.Fault_pg(final n_ph=3);
 
     annotation (defaultComponentName = "fault_C",
@@ -289,7 +289,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             fillPattern=FillPattern.Solid)}));
   end Fault_C;
 
-  model Fault_bC "b to c to ground fault, 3-phase dqo"
+  model Fault_bC "b to c to ground fault, 3-phase dq0"
     extends Partials.Fault_ppg(final n_ph=1);
 
     annotation (defaultComponentName = "fault_bC",
@@ -318,7 +318,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             fillPattern=FillPattern.Solid)}));
   end Fault_bC;
 
-  model Fault_cA "c to a to ground fault, 3-phase dqo"
+  model Fault_cA "c to a to ground fault, 3-phase dq0"
     extends Partials.Fault_ppg(final n_ph=2);
 
     annotation (defaultComponentName = "fault_cA",
@@ -347,7 +347,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             fillPattern=FillPattern.Solid)}));
   end Fault_cA;
 
-  model Fault_aB "a to b to ground fault, 3-phase dqo"
+  model Fault_aB "a to b to ground fault, 3-phase dq0"
     extends Partials.Fault_ppg(final n_ph=3);
 
     annotation (defaultComponentName = "fault_aB",
@@ -376,7 +376,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             fillPattern=FillPattern.Solid)}));
   end Fault_aB;
 
-  model Fault_Abc "b to a, c to a, a to ground fault, 3-phase dqo"
+  model Fault_Abc "b to a, c to a, a to ground fault, 3-phase dq0"
     extends Partials.Fault_pppg(final n_ph=1);
 
     annotation (defaultComponentName = "fault_Abc",
@@ -390,7 +390,7 @@ The transformation to inertial abc is only needed to determine the correct phase
           grid={2,2}), graphics));
   end Fault_Abc;
 
-  model Fault_aBc "a to b, c to b, b to ground fault, 3-phase dqo"
+  model Fault_aBc "a to b, c to b, b to ground fault, 3-phase dq0"
     extends Partials.Fault_pppg(final n_ph=2);
 
     annotation (defaultComponentName = "fault_aBc",
@@ -404,7 +404,7 @@ The transformation to inertial abc is only needed to determine the correct phase
           grid={2,2}), graphics));
   end Fault_aBc;
 
-  model Fault_abC "a to c, b to c, c to ground fault, 3-phase dqo"
+  model Fault_abC "a to c, b to c, c to ground fault, 3-phase dq0"
     extends Partials.Fault_pppg(final n_ph=3);
 
     annotation (defaultComponentName = "fault_abC",
@@ -421,7 +421,7 @@ The transformation to inertial abc is only needed to determine the correct phase
   package Partials "Partial models"
     extends Modelica.Icons.BasesPackage;
 
-    partial model FaultBase "Line fault base, 3-phase dqo"
+    partial model FaultBase "Line fault base, 3-phase dq0"
       extends Ports.Port_f;
 
       parameter SI.Time t_on=0.1 "approx time fault on";
@@ -489,7 +489,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               thickness=0.5)}));
     end FaultBase;
 
-    partial model Fault_pp "Two-phase fault, 3-phase dqo"
+    partial model Fault_pp "Two-phase fault, 3-phase dq0"
       extends FaultBase(final n_phRef=n_ph);
 
       parameter Integer n_ph(min=1,max=3)=1 "faulted pair"
@@ -521,7 +521,7 @@ The transformation to inertial abc is only needed to determine the correct phase
       sum(i_abc[m_ph]) = epsG*sum(v_abc[m_ph]);
     end Fault_pp;
 
-    partial model Fault_pg "One-phase to ground fault, 3-phase dqo"
+    partial model Fault_pg "One-phase to ground fault, 3-phase dq0"
       extends FaultBase(final n_phRef=n_ph);
 
       parameter Integer n_ph(min=1,max=3)=1 "faulted phase" annotation(choices(
@@ -561,7 +561,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               fillPattern=FillPattern.Solid)}));
     end Fault_pg;
 
-    partial model Fault_ppg "Two-phase to ground fault, 3-phase dqo"
+    partial model Fault_ppg "Two-phase to ground fault, 3-phase dq0"
       extends FaultBase(final n_phRef=n_ph);
 
       parameter Integer n_ph(min=1,max=3)=1 "faulted pair" annotation(choices(
@@ -613,7 +613,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               fillPattern=FillPattern.Solid)}));
     end Fault_ppg;
 
-    partial model Fault_pppg "Three-phase to ground fault, 3-phase dqo"
+    partial model Fault_pppg "Three-phase to ground fault, 3-phase dq0"
       extends FaultBase;
 
       parameter Integer n_ph(min=1,max=3)=1 "which phase to ground" annotation(choices(

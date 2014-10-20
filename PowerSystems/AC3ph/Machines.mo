@@ -2,7 +2,7 @@ within PowerSystems.AC3ph;
 package Machines "AC machines, electric part "
   extends Modelica.Icons.VariantsPackage;
 
-  model Asynchron "Asynchronous machine, cage-rotor, 3-phase dqo"
+  model Asynchron "Asynchronous machine, cage-rotor, 3-phase dq0"
     extends Partials.AsynchronBase(redeclare replaceable parameter
         Parameters.Asynchron_cage                                                            par);
 
@@ -17,7 +17,7 @@ package Machines "AC machines, electric part "
       defaultComponentName="asynchron",
   Documentation(
           info="<html>
-<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdqo.Machines.Parameters.*</p>
+<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>More information see Partials.AsynchronBase.</p>
 </html>"),
   Icon(coordinateSystem(
@@ -30,7 +30,7 @@ package Machines "AC machines, electric part "
           grid={2,2}), graphics));
   end Asynchron;
 
-  model AsynchronY_D "Asynchronous machine Y-Delta, cage-rotor, 3-phase dqo"
+  model AsynchronY_D "Asynchronous machine Y-Delta, cage-rotor, 3-phase dq0"
     extends Partials.AsynchronBase(redeclare
         PowerSystems.AC3ph.Ports.Topology.Y_Delta top(control=YDcontrol)
         "Y-Delta", redeclare replaceable parameter Parameters.Asynchron_cage par);
@@ -53,7 +53,7 @@ package Machines "AC machines, electric part "
   annotation (defaultComponentName = "asynchron",
     Documentation(
             info="<html>
-<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdqo.Machines.Parameters.*</p>
+<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>Switcheable topology Y-Delta. The impedance values are defined with respect to the WINDINGS, i.e. they refer to Y-topology. Terminal impedance in Delta-topology is a factor 3 higher.</p>
 <p>More information see Partials.AsynchronBase.</p>
 </html>"),
@@ -68,7 +68,7 @@ package Machines "AC machines, electric part "
   end AsynchronY_D;
 
   model Asynchron_ctrl
-    "Asynchronous machine, cage-rotor, for field-oriented control, 3-phase dqo"
+    "Asynchronous machine, cage-rotor, for field-oriented control, 3-phase dq0"
     extends Partials.AsynchronBase(redeclare replaceable parameter
         Parameters.Asynchron_cage                                                            par);
 
@@ -140,7 +140,7 @@ package Machines "AC machines, electric part "
   second component ('torque'): pu current in rotorflux q-axis (q 90deg pos vs d)
 </pre>
 The mapping from current demand to voltage demand is based on the steady-state equations of the machine.</p>
-<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdqo.Machines.Parameters.*</p>
+<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>More information see Partials.AsynchronBase.</p>
 </html>
 "),
@@ -159,7 +159,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
   end Asynchron_ctrl;
 
   model Synchron3rd_ee
-    "Synchronous machine electrically excited, 3rd order model, 3-phase dqo"
+    "Synchronous machine electrically excited, 3rd order model, 3-phase dq0"
     extends Partials.Synchron3rdBase(final phi_el_ini=-pi/2+system.alpha0,
       redeclare replaceable parameter
         PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_ee par);
@@ -193,7 +193,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
     annotation (defaultComponentName = "synchron",
       Documentation(
               info="<html>
-<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdqo.Machines.Parameters.*</p>
+<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>Electric excitation (<tt>excite = 1</tt>).</p>
 <p>More information see Partials.Synchron3rdBase.</p>
 </html>"),
@@ -207,7 +207,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
           grid={2,2}), graphics));
   end Synchron3rd_ee;
 
-  model Synchron_ee "Synchronous machine electrically excited, 3-phase dqo"
+  model Synchron_ee "Synchronous machine electrically excited, 3-phase dq0"
     extends Partials.SynchronBase(final phi_el_ini=-pi/2+system.alpha0,
       redeclare replaceable parameter
         PowerSystems.AC3ph.Machines.Parameters.Synchron_ee par);
@@ -241,7 +241,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
   annotation (defaultComponentName = "synchron",
     Documentation(
             info="<html>
-<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdqo.Machines.Parameters.*</p>
+<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>Electric excitation (<tt>excite = 1</tt>).</p>
 <p>More information see Partials.SynchronBase.</p>
 </html>"),
@@ -279,7 +279,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
                  "field")}));
   end Synchron_ee;
 
-  model Synchron3rd_pm "Synchronous machine pm, 3rd order model, 3-phase dqo"
+  model Synchron3rd_pm "Synchronous machine pm, 3rd order model, 3-phase dq0"
     extends Partials.Synchron3rdBase(redeclare replaceable parameter
         PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_pm par);
 
@@ -310,7 +310,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
               -100},{100,100}}),
                      graphics),
                       Documentation(info="<html>
-<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdqo.Machines.Parameters.*</p>
+<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>The model is valid for permanent magnet (<tt>excite = 2</tt>) or reluctance machines (<tt>excite = 3</tt>).</p>
 <p>The relation between 'flux induced by permanent magnet' <tt>Psi_pm [Wb]</tt> and 'magnetisation' <tt>psi_pm [pu]</tt> is given by the following relation;
 <pre>
@@ -322,7 +322,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
       Diagram(graphics));
   end Synchron3rd_pm;
 
-  model Synchron_pm "Synchronous machine pm, 3-phase dqo"
+  model Synchron_pm "Synchronous machine pm, 3-phase dq0"
     extends Partials.SynchronBase(redeclare replaceable parameter
         PowerSystems.AC3ph.Machines.Parameters.Synchron_pm par);
 
@@ -354,7 +354,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
   annotation (defaultComponentName = "synchron",
     Documentation(
             info="<html>
-<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdqo.Machines.Parameters.*</p>
+<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>The model is valid for permanent magnet (<tt>excite = 2</tt>) or reluctance machines (<tt>excite = 3</tt>).</p>
 <p>The relation between 'flux induced by permanent magnet' <tt>Psi_pm [Wb]</tt> and 'magnetisation' <tt>psi_pm [pu]</tt> is given by the following relation;
 <pre>
@@ -378,7 +378,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
   end Synchron_pm;
 
   model Synchron3rd_pm_ctrl
-    "Synchronous machine, for field-oriented control, 3rd order model, 3-phase dqo"
+    "Synchronous machine, for field-oriented control, 3rd order model, 3-phase dq0"
     extends Partials.Synchron3rdBase(redeclare replaceable parameter
         PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_pm par);
 
@@ -446,7 +446,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
   second component ('torque'): pu current in rotor q-axis (q 90deg pos vs d)
 </pre>
 The mapping from current demand to voltage demand is based on the steady-state equations of the machine.</p>
-<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdqo.Machines.Parameters.*</p>
+<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>The model is valid for permanent magnet (<tt>excite=2</tt>) or reluctance machines (<tt>excite=3</tt>).</p>
 <p>Limit velocity for pm-excitation without field weakening (d-axis current i_s[1]=0).
 <pre>  w_lim = omega_nom/psi_pm</pre></p>
@@ -456,7 +456,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
   end Synchron3rd_pm_ctrl;
 
   model Synchron_pm_ctrl
-    "Synchronous machine, for field-oriented control, 3-phase dqo"
+    "Synchronous machine, for field-oriented control, 3-phase dq0"
     extends Partials.SynchronBase(redeclare replaceable parameter
         PowerSystems.AC3ph.Machines.Parameters.Synchron_pm par);
 
@@ -521,7 +521,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
   second component ('torque'): pu current in rotor q-axis (q 90deg pos vs d)
 </pre>
 The mapping from current demand to voltage demand is based on the steady-state equations of the machine.</p>
-<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdqo.Machines.Parameters.*</p>
+<p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>The model is valid for permanent magnet (<tt>excite=2</tt>) or reluctance machines (<tt>excite=3</tt>).</p>
 <p>Limit velocity for pm-excitation without field weakening (d-axis current i_s[1]=0).
 <pre>  w_lim = omega_nom/psi_pm</pre></p><p>More information see Partials.SynchronBase.</p>
@@ -547,7 +547,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
   package Partials "Partial models"
     extends Modelica.Icons.BasesPackage;
 
-    partial model ACmachine "AC machine base, 3-phase dqo"
+    partial model ACmachine "AC machine base, 3-phase dq0"
       extends Ports.YDport_p(i(start = i_start));
 
       parameter Boolean stIni_en=true "enable steady-state initialization"
@@ -705,7 +705,7 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
               textString="rotor")}));
     end ACmachine;
 
-    partial model AsynchronBase "Asynchronous machine base, 3-phase dqo"
+    partial model AsynchronBase "Asynchronous machine base, 3-phase dq0"
       extends ACmachine(final pp=par.pp, v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom));
 
       output Real slip "<0: motor, >0: generator";
@@ -782,11 +782,11 @@ The rotor contains n_r windings each in d-axis and q-axis (at least one).<br>
 See also equivalent circuit on 'Diagram layer' of
 <a href=\"Parameters.Asynchron\">Parameters.Asynchron</a> !</p>
 <pre>
-  v, i:                  stator-voltage and -current dqo
+  v, i:                  stator-voltage and -current dq0
   v_rd[n_r], i_rd[n_r]:  rotor-voltage and -current d-axis
   v_rq[n_r], i_rq[n_r]:  rotor-voltage and -current q-axis
 </pre>
-<p>The equations are valid for <i>all</i> dqo reference systems with arbitrary angular orientation.<br>
+<p>The equations are valid for <i>all</i> dq0 reference systems with arbitrary angular orientation.<br>
 Special choices are</p>
 <pre>
   omega[2] = omega  defines 'stator' system, rotating with stator frequency
@@ -881,15 +881,15 @@ Special choices are</p>
       extends ACmachine;
 
       parameter SI.Current[3] i_s_start = zeros(3)
-        "start value of stator current dqo in rotor-system"
+        "start value of stator current dq0 in rotor-system"
 	annotation(Dialog(tab="Initialization"));
 
     protected
       SI.MagneticFlux psi_e "excitation flux";
-      SI.Voltage[3] v_s "stator voltage dqo in rotor-system";
+      SI.Voltage[3] v_s "stator voltage dq0 in rotor-system";
       SI.Current[3] i_s(each stateSelect=StateSelect.prefer, start=i_s_start)
-        "stator current dqo in rotor-system";
-      Real[2,2] Rot_dq "Rotation reference-dqo to rotor-dqo system";
+        "stator current dq0 in rotor-system";
+      Real[2,2] Rot_dq "Rotation reference-dq0 to rotor-dq0 system";
 
     equation
       Rot_dq = Basic.Transforms.rotation_dq(
@@ -899,11 +899,11 @@ Special choices are</p>
       annotation (
         Documentation(
               info="<html>
-<p>Contains the transformation of stator voltage and current from the dqo reference-frame to the dqo rotor-frame.<br>
+<p>Contains the transformation of stator voltage and current from the dq0 reference-frame to the dq0 rotor-frame.<br>
 The transformation angle is the (electric) rotor-angle relative to the reference frame.</p>
 <p>If 'rotorSys = true', the reference frame is specified by the rotor. This allows to avoid the transformation. In this case, the system choice ('synchronous', 'inertial') has no influence. Note that this choice is not generally possible (for example several machines coupled to one common source).
 <pre>
-  v_s, i_s:    stator-voltage and -current dqo in the rotor frame of the machine.
+  v_s, i_s:    stator-voltage and -current dq0 in the rotor frame of the machine.
 </pre></p>
 </html>"),
         Icon(coordinateSystem(
@@ -919,7 +919,7 @@ The transformation angle is the (electric) rotor-angle relative to the reference
               textString="(armature)")}));
     end SynTransform;
 
-    partial model Synchron3rdBase "Synchronous machine 3rd base, 3-phase dqo"
+    partial model Synchron3rdBase "Synchronous machine 3rd base, 3-phase dq0"
       extends SynTransform(final pp=par.pp,  v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom));
 
       replaceable parameter Parameters.Synchron3rd par(f_nom=system.f_nom)
@@ -964,8 +964,8 @@ One winding in d-axis, q-axis, o-axis.<br>
 See also equivalent circuit on 'Diagram layer' of
 <a href=\"Parameters.Synchron3rd\">Parameters.Synchron3rd</a> !</p>
 <pre>
-  v, i:          stator-voltage and -current dqo reference-system
-  v_s, i_s:      stator-voltage and -current dqo rotor-system<br>
+  v, i:          stator-voltage and -current dq0 reference-system
+  v_s, i_s:      stator-voltage and -current dq0 rotor-system<br>
 </pre>
 <p>The model is valid for reference systems with arbitrary angular orientation theta[2].</p>
 <p>Voltage of field-winding:</p>
@@ -999,7 +999,7 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
             grid={2,2}), graphics));
     end Synchron3rdBase;
 
-    partial model SynchronBase "Synchronous machine base, 3-phase dqo"
+    partial model SynchronBase "Synchronous machine base, 3-phase dq0"
       extends SynTransform(final pp=par.pp,v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom));
 
       replaceable parameter Parameters.Synchron par(f_nom=system.f_nom)
@@ -1082,8 +1082,8 @@ Rotor: n_d windings in d-axis (field f, (n_d-1) damper D1, ..), n_q windings in 
 See also equivalent circuit on 'Diagram layer' of
 <a href=\"Parameters.Synchron\">Parameters.Synchron</a> !</p>
 <pre>
-  v, i:          stator-voltage and -current dqo reference-system
-  v_s, i_s:      stator-voltage and -current dqo rotor-system
+  v, i:          stator-voltage and -current dq0 reference-system
+  v_s, i_s:      stator-voltage and -current dq0 rotor-system
   v_rd, i_rd:    rotor-voltage and -current d-axis rotor-system
   v_rq, i_rq:    rotor-voltage and -current q-axis rotor-system
 </pre>
@@ -2335,7 +2335,7 @@ record Asynchron "Coefficient matrices of asynchronous machine"
   extends Modelica.Icons.Record;
 
   parameter Integer n_r "number of rotor circuits";
-  final parameter SI.Inductance[3] L_s "L matrix stator dqo, d=q";
+  final parameter SI.Inductance[3] L_s "L matrix stator dq0, d=q";
   final parameter SI.Inductance[n_r, n_r] L_r "L matrix rotor";
   final parameter SI.Inductance[n_r] L_m "L matrix mutual";
   final parameter SI.Resistance R_s "R matrix stator";
@@ -2350,7 +2350,7 @@ end Asynchron;
 record Synchron3rd "Coefficient matrices of synchronous machine, 3rd order"
   extends Modelica.Icons.Record;
 
-  final parameter SI.Inductance[3] L_s "L matrix stator dqo";
+  final parameter SI.Inductance[3] L_s "L matrix stator dq0";
   final parameter SI.Resistance R_s "R stator (armature)";
   final parameter SI.Resistance R_n "resistance neutral to grd (if Y)";
   final parameter SI.MagneticFlux Psi_pm "flux permanent magnet";
@@ -2365,7 +2365,7 @@ record Synchron "Coefficient matrices of synchronous machine"
 
   parameter Integer n_d "number of rotor circuits d-axis";
   parameter Integer n_q "number of rotor circuits q-axis";
-  final parameter SI.Inductance[3] L_s "L matrix stator dqo";
+  final parameter SI.Inductance[3] L_s "L matrix stator dq0";
   final parameter SI.Inductance[n_d, n_d] L_rd "L matrix rotor";
   final parameter SI.Inductance[n_q, n_q] L_rq "L matrix rotor";
   final parameter SI.Inductance[n_d] L_md "L matrix mutual d-axis";

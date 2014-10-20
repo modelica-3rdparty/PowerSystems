@@ -2,7 +2,7 @@ within PowerSystems.AC3ph;
 package Nodes "Nodes and adaptors"
   extends Modelica.Icons.VariantsPackage;
 
-  model Ground "AC Ground, 3-phase dqo"
+  model Ground "AC Ground, 3-phase dq0"
     extends Ports.Port_p;
 
   equation
@@ -79,12 +79,12 @@ package Nodes "Nodes and adaptors"
             fillPattern=FillPattern.Solid)}));
   end GroundOne;
 
-  model BusBar "Busbar, 3-phase dqo"
+  model BusBar "Busbar, 3-phase dq0"
     extends Ports.PortBase;
 
     output SI.Voltage v_norm(stateSelect=StateSelect.never);
     output SI.Angle alpha_v(stateSelect=StateSelect.never);
-    Ports.ACdqo_p term "bus bar"
+    Ports.ACdq0_p term "bus bar"
   annotation (Placement(transformation(extent={{-8,-66},{8,66}}, rotation=0)));
   protected
     Real[2,2] R = Basic.Transforms.rotation_dq(
@@ -122,13 +122,13 @@ package Nodes "Nodes and adaptors"
   end BusBar;
 
 /*
-  model Y_Delta "Y_Delta switch, 3-phase dqo"
+  model Y_Delta "Y_Delta switch, 3-phase dq0"
     extends Ports.PortBase;
 
-    Ports.ACdqo_p term_p
+    Ports.ACdq0_p term_p
       "connect to non source side of windings"
   annotation (Placement(transformation(extent={{110,-70},{90,-50}}, rotation=0)));
-    Ports.ACdqo_n term_n
+    Ports.ACdq0_n term_n
       "connect to source side of windings"
   annotation (Placement(transformation(extent={{-90,-70},{-110,-50}}, rotation=
               0)));
@@ -267,7 +267,7 @@ package Nodes "Nodes and adaptors"
   end Y_Delta;
 */
 
-  model Ynode "Y-node with neutral-access, 3-phase dqo"
+  model Ynode "Y-node with neutral-access, 3-phase dq0"
     extends Ports.Port_p;
 
     Interfaces.Electric_n neutral "neutral Y"
@@ -282,7 +282,7 @@ package Nodes "Nodes and adaptors"
     defaultComponentName="Ynode",
       Documentation(
         info="<html>
-<p>Can be used for grounding neutral of AC dqo 3phase components.</p>
+<p>Can be used for grounding neutral of AC dq0 3phase components.</p>
 </html>
 "),   Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -323,7 +323,7 @@ package Nodes "Nodes and adaptors"
           Line(points={{26,0},{90,0}})}));
   end Ynode;
 
-  model ResistiveGround "Y-node with neutral-access, 3-phase dqo"
+  model ResistiveGround "Y-node with neutral-access, 3-phase dq0"
     extends Ports.Yport_p;
     extends Basic.Nominal.Nominal;
 
@@ -339,7 +339,7 @@ package Nodes "Nodes and adaptors"
       defaultComponentName="resGrd",
   Documentation(
           info="<html>
-<p>Can be used for grounding neutral of AC dqo 3phase components.</p>
+<p>Can be used for grounding neutral of AC dq0 3phase components.</p>
 </html>
 "),
   Icon(coordinateSystem(
@@ -394,7 +394,7 @@ package Nodes "Nodes and adaptors"
            "neutral point")}));
   end ResistiveGround;
 
-  model InductiveGround "Y-node with neutral-access, 3-phase dqo"
+  model InductiveGround "Y-node with neutral-access, 3-phase dq0"
     extends Ports.Yport_p;
     extends Basic.Nominal.NominalAC;
 
@@ -417,7 +417,7 @@ package Nodes "Nodes and adaptors"
       defaultComponentName="indGrd",
   Documentation(
           info="<html>
-<p>Can be used for grounding neutral of AC dqo 3phase components.</p>
+<p>Can be used for grounding neutral of AC dq0 3phase components.</p>
 </html>
 "),
   Icon(coordinateSystem(
@@ -483,7 +483,7 @@ package Nodes "Nodes and adaptors"
            "neutral point")}));
   end InductiveGround;
 
-  model CapacitiveGround "Y-node with neutral-access, 3-phase dqo"
+  model CapacitiveGround "Y-node with neutral-access, 3-phase dq0"
     extends Ports.Yport_p;
     extends Basic.Nominal.NominalAC;
 
@@ -506,7 +506,7 @@ package Nodes "Nodes and adaptors"
       defaultComponentName="capGrd",
   Documentation(
           info="<html>
-<p>Can be used for grounding neutral of AC dqo 3phase components.</p>
+<p>Can be used for grounding neutral of AC dq0 3phase components.</p>
 </html>
 "),
   Icon(coordinateSystem(
@@ -573,9 +573,9 @@ package Nodes "Nodes and adaptors"
            "neutral point")}));
   end CapacitiveGround;
 
-model Y_OnePhase "Terminator, ACdqo to an, bn, cn"
+model Y_OnePhase "Terminator, ACdq0 to an, bn, cn"
   extends Ports.Port_p;
-  extends Basic.Icons.Adaptor_dqo;
+  extends Basic.Icons.Adaptor_dq0;
 
   Interfaces.Electric_p neutral "neutral Y"
                                 annotation (Placement(transformation(
@@ -617,9 +617,9 @@ annotation (defaultComponentName = "Y_abcn",
           grid={2,2}), graphics));
 end Y_OnePhase;
 
-model ACdqo_a_b_c "Adaptor ACdqo to pins a, b, c"
+model ACdq0_a_b_c "Adaptor ACdq0 to pins a, b, c"
   extends Ports.Port_p;
-  extends PowerSystems.Basic.Icons.Adaptor_dqo;
+  extends PowerSystems.Basic.Icons.Adaptor_dq0;
 
   Interfaces.Electric_n term_a "phase a"
       annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
@@ -637,7 +637,7 @@ model ACdqo_a_b_c "Adaptor ACdqo to pins a, b, c"
 equation
   {term_a.v,term_b.v,term_c.v} = transpose(P)*term.v;
   term.i + P*{term_a.i,term_b.i,term_c.i} = zeros(3);
-  annotation (defaultComponentName = "acdqo_a_b_c",
+  annotation (defaultComponentName = "acdq0_a_b_c",
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -648,12 +648,12 @@ equation
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics));
-end ACdqo_a_b_c;
+end ACdq0_a_b_c;
 
 /*
-model ACdqo_abc "Adaptor ACdqo to 3-vector abc"
+model ACdq0_abc "Adaptor ACdq0 to 3-vector abc"
   extends Ports.Port_p;
-  extends Basic.Icons.Adaptor_dqo;
+  extends Basic.Icons.Adaptor_dq0;
 
   Interfaces.ElectricV_n term_abc(     final m=3) "phase abc vector-pin"
                                                       annotation (Placement(
@@ -665,7 +665,7 @@ model ACdqo_abc "Adaptor ACdqo to 3-vector abc"
 equation
   term_abc.pin.v = transpose(P)*term.v;
   term.i + P*term_abc.pin.i = zeros(3);
-  annotation (defaultComponentName = "acdqo_abc",
+  annotation (defaultComponentName = "acdq0_abc",
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -676,14 +676,14 @@ equation
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics));
-end ACdqo_abc;
+end ACdq0_abc;
 */
 
-  model DefReference "Defines reference frame, 3phase dqo"
+  model DefReference "Defines reference frame, 3phase dq0"
     extends Ports.PortBase;
     outer System system;
 
-    Ports.ACdqo_p term "bus bar"
+    Ports.ACdq0_p term "bus bar"
   annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
     Modelica.Blocks.Interfaces.RealInput theta "absolute angle"
       annotation (Placement(transformation(
@@ -727,12 +727,12 @@ end ACdqo_abc;
           grid={2,2}), graphics));
   end DefReference;
 
-  model Break "Breaks transmission of term.theta, 3phase dqo"
+  model Break "Breaks transmission of term.theta, 3phase dq0"
     extends Ports.PortBase;
 
-    Ports.ACdqo_p term_p "positive terminal"
+    Ports.ACdq0_p term_p "positive terminal"
   annotation (Placement(transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
-    Ports.ACdqo_n term_n "negative terminal"
+    Ports.ACdq0_n term_n "negative terminal"
   annotation (Placement(transformation(extent={{20,-10},{40,10}}, rotation=0)));
 
   equation
@@ -753,7 +753,7 @@ end ACdqo_abc;
             fillColor={255,255,0})}),
       Documentation(info="<html>
 <p>Breaks explicitly transfer of angle theta from term_p to term_n.</p>
-<p>The electric connections remain the same as in Base.PortsACdqo.Port_pn, whereas the equation</p>
+<p>The electric connections remain the same as in Base.PortsACdq0.Port_pn, whereas the equation</p>
 <pre>  term_n.theta = term_p.theta</pre>
 <p>is omitted together with the function 'Connections.branch'<br>
 (only for advanced use needed).</p>

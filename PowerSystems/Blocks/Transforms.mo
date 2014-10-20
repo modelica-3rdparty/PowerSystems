@@ -32,7 +32,7 @@ package Transforms "Auxiliary blocks"
             textString=
                  "park")}),
       Documentation(info="<html>
-<p>The block <tt>Park</tt> transforms abc variables (u) into dqo variables (y) with arbitrary angular orientation
+<p>The block <tt>Park</tt> transforms abc variables (u) into dq0 variables (y) with arbitrary angular orientation
 <pre>  y = P*u</pre>
 <tt>P</tt> can be factorised into a constant, angle independent orthogonal matrix <tt>P0</tt> and an angle-dependent rotation <tt>R</tt></p>
 <pre>
@@ -96,26 +96,26 @@ and
       Documentation(info="<html>
 <p>The block <tt>Rotation_dq</tt> rotates u by an arbitrary angle <tt>theta</tt> into y according to
 <pre>  y = R_dq*u</pre>
-<tt>R_dq</tt> is the restriction of <tt>R_dqo</tt> from dqo to dq.</p>
-<p>The matrix <tt>R_dqo</tt> rotates dqo variables around the o-axis in dqo-space with arbitrary angle <tt>theta</tt>.
+<tt>R_dq</tt> is the restriction of <tt>R_dq0</tt> from dq0 to dq.</p>
+<p>The matrix <tt>R_dq0</tt> rotates dq0 variables around the o-axis in dq0-space with arbitrary angle <tt>theta</tt>.
 <p>It takes the form
 <pre>
                  [cos(theta), -sin(theta), 0]
-  R_dqo(theta) = [sin(theta),  cos(theta), 0]
+  R_dq0(theta) = [sin(theta),  cos(theta), 0]
                  [  0,           0,        1]
 </pre>
 and has the real eigenvector
 <pre>  {0, 0, 1}</pre>
-in the dqo reference-frame.</p>
+in the dq0 reference-frame.</p>
 <p>Coefficient matrices of the form (symmetrical systems)
 <pre>
       [x, 0, 0 ]
   X = [0, x, 0 ]
       [0, 0, xo]
 </pre>
-are invariant under transformations R_dqo</p>
-<p>The connection between R_dqo and R_abc is the following
-<pre>  R_dqo = P0*R_abc*P0'.</pre>
+are invariant under transformations R_dq0</p>
+<p>The connection between R_dq0 and R_abc is the following
+<pre>  R_dq0 = P0*R_abc*P0'.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
 </html>
 "),   Diagram(coordinateSystem(
@@ -175,8 +175,8 @@ in the abc reference-frame.</p>
       [xm, xm, x ]
 </pre>
 are invariant under transformations R_abc</p>
-<p>The connection between R_abc and R_dqo is the following
-<pre>  R_abc = P0'*R_dqo*P0.</pre>
+<p>The connection between R_abc and R_dq0 is the following
+<pre>  R_abc = P0'*R_dq0*P0.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
 </html>"));
   end Rotation_abc;

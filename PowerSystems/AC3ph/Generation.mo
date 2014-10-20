@@ -1,5 +1,5 @@
 within PowerSystems.AC3ph;
-package Generation "Turbo generator groups dqo"
+package Generation "Turbo generator groups dq0"
   extends Modelica.Icons.VariantsPackage;
 
   model TurboGenerator "Turbo generator single mass"
@@ -293,7 +293,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
   model TurboPMgenerator "Turbo generator single mass, permanent magnet"
     extends Partials.GenBase;
 
-    AC3ph.Ports.ACdqo_n term "negative terminal"
+    AC3ph.Ports.ACdq0_n term "negative terminal"
       annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
              0)));
     Modelica.Blocks.Interfaces.RealInput[2] setpts
@@ -466,7 +466,7 @@ The machine inertia is determined by the inertia time constant H.</p>
   model WindGenerator "Wind generator"
     extends Partials.GenBase;
 
-    AC3ph.Ports.ACdqo_n term "negative terminal"
+    AC3ph.Ports.ACdq0_n term "negative terminal"
       annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
              0)));
     replaceable PowerSystems.AC3ph.Machines.Asynchron generator(w_el_ini=w_ini*generator.par.pp)
@@ -577,7 +577,7 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
       parameter SIpu.AngularVelocity speed_ini(unit="1")=1
         "initial speed (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
-      AC3ph.Ports.ACdqo_n term "negative terminal"
+      AC3ph.Ports.ACdq0_n term "negative terminal"
         annotation (Placement(transformation(extent={{90,-10},{110,10}},
               rotation=0)));
     annotation (
@@ -609,7 +609,7 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
         annotation(Dialog(enable=system.steadyIni and (iniType==PowerSystems.Basic.Types.IniType.v_q or iniType==PowerSystems.Basic.Types.IniType.p_q)));
       parameter Boolean dispPA=false "display power angle"
         annotation(Evaluate=true);
-      AC3ph.Ports.ACdqo_n term "negative terminal"
+      AC3ph.Ports.ACdq0_n term "negative terminal"
         annotation (Placement(transformation(extent={{90,-10},{110,10}},
               rotation=0)));
       Modelica.Blocks.Interfaces.RealInput[3] setpts

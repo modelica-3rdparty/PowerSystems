@@ -1,5 +1,5 @@
 within PowerSystems.Examples.Spot;
-package InvertersAC3ph "Inverters dqo"
+package InvertersAC3ph "Inverters dq0"
   extends Modelica.Icons.ExamplesPackage;
 
   model Rectifier "Rectifier"

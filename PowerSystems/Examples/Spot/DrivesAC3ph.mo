@@ -1,5 +1,5 @@
 within PowerSystems.Examples.Spot;
-package DrivesAC3ph "AC drives, dqo"
+package DrivesAC3ph "AC drives, dq0"
   extends Modelica.Icons.ExamplesPackage;
 
   model ASMcharacteristic
@@ -860,7 +860,7 @@ Transient start with torque-increase at 0.5 s, load-step 2 s and field-increase 
 
   annotation (preferredView="info",
 Documentation(info="<html>
-<p>AC drives (motors electrical and mechanical). Electric motor terminal in dqo-representation.</p>
+<p>AC drives (motors electrical and mechanical). Electric motor terminal in dq0-representation.</p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>
 "), Icon(coordinateSystem(

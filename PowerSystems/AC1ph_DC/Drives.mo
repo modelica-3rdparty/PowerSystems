@@ -307,7 +307,7 @@ where 0 &lt  uPhasor[1] &lt  1.</p>
   end DriveBase;
 
   model Synchron3rd_bldc
-      "Synchronous machine, torque-control, 3rd order model, 3-phase dqo"
+      "Synchronous machine, torque-control, 3rd order model, 3-phase dq0"
     extends AC3ph.Machines.Synchron3rd_pm(i_s(start={0,1,0}));
 
     Modelica.Blocks.Interfaces.RealOutput rotorAngle=

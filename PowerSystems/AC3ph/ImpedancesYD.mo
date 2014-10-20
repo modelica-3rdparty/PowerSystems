@@ -3,7 +3,7 @@ package ImpedancesYD
   "Impedance and admittance one terminal, Y and Delta topology"
   extends Modelica.Icons.VariantsPackage;
 
-  model Resistor "Resistor, 3-phase dqo"
+  model Resistor "Resistor, 3-phase dq0"
     extends Partials.ImpedYDBase(final f_nom=0, final stIni_en=false);
 
     parameter SIpu.Resistance r=1 "resistance";
@@ -16,7 +16,7 @@ package ImpedancesYD
       defaultComponentName="resYD1",
   Documentation(
           info="<html>
-<p>Info see package ACdqo.ImpedancesYD.</p>
+<p>Info see package ACdq0.ImpedancesYD.</p>
 </html>
 "),
   Icon(coordinateSystem(
@@ -51,7 +51,7 @@ package ImpedancesYD
             fillPattern=FillPattern.Solid)}));
   end Resistor;
 
-  model Conductor "Conductor, 3-phase dqo"
+  model Conductor "Conductor, 3-phase dq0"
     extends Partials.ImpedYDBase(final f_nom=0, final stIni_en=false);
 
     parameter SIpu.Conductance g=1 "conductance";
@@ -64,7 +64,7 @@ package ImpedancesYD
       defaultComponentName="resYD1",
   Documentation(
           info="<html>
-<p>Info see package ACdqo.ImpedancesYD.</p>
+<p>Info see package ACdq0.ImpedancesYD.</p>
 </html>"),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -98,7 +98,7 @@ package ImpedancesYD
             fillPattern=FillPattern.Solid)}));
   end Conductor;
 
-  model Inductor "Inductor with series resistor, 3-phase dqo"
+  model Inductor "Inductor with series resistor, 3-phase dq0"
     extends Partials.ImpedYDBase;
 
     parameter SIpu.Resistance r=0 "resistance";
@@ -112,20 +112,20 @@ package ImpedancesYD
 
   initial equation
     if steadyIni_t then
-      der(i) = omega[1]*j_dqo(i);
+      der(i) = omega[1]*j_dq0(i);
     end if;
 
   equation
     if system.transientSim then
-      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dqo(i) + R*i = v;
+      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = v;
     else
-      omega[2]*L*j_dqo(i) + R*i = v;
+      omega[2]*L*j_dq0(i) + R*i = v;
     end if;
     annotation (
       defaultComponentName="indYD1",
   Documentation(
           info="<html>
-<p>Info see package ACdqo.ImpedancesYD.</p>
+<p>Info see package ACdq0.ImpedancesYD.</p>
 </html>"),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -198,7 +198,7 @@ package ImpedancesYD
             fillPattern=FillPattern.Solid)}));
   end Inductor;
 
-  model Capacitor "Capacitor with parallel conductor, 3-phase dqo"
+  model Capacitor "Capacitor with parallel conductor, 3-phase dq0"
     extends Partials.ImpedYDBase;
 
     parameter SIpu.Conductance g=0 "conductance";
@@ -210,21 +210,21 @@ package ImpedancesYD
 
   initial equation
     if steadyIni_t then
-      der(v) = omega[1]*j_dqo(v);
+      der(v) = omega[1]*j_dq0(v);
     end if;
 
   equation
     if system.transientSim then
-      C*der(v) + omega[2]*C*j_dqo(v) + G*v = i;
+      C*der(v) + omega[2]*C*j_dq0(v) + G*v = i;
     else
-      omega[2]*C*j_dqo(v) + G*v = i;
+      omega[2]*C*j_dq0(v) + G*v = i;
     end if;
     annotation (
       defaultComponentName="capYD1",
   Documentation(
           info="<html>
 <p>No phase to phase capacitance.</p>
-<p>Info see package ACdqo.ImpedancesYD.</p>
+<p>Info see package ACdq0.ImpedancesYD.</p>
 </html>"),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -315,7 +315,7 @@ package ImpedancesYD
           Line(points={{-10,-24},{20,-24},{20,-16}}, color={0,0,255})}));
   end Capacitor;
 
-  model ResistorNonSym "Resistor non symmetric, 3-phase dqo"
+  model ResistorNonSym "Resistor non symmetric, 3-phase dq0"
     extends Partials.ImpedYDNonSymBase(final f_nom=0, final stIni_en=false);
 
     parameter SIpu.Resistance[3] r={1,1,1} "resistance[3] abc";
@@ -332,7 +332,7 @@ package ImpedancesYD
           info="<html>
 <p>Resistor with general resistance matrix, defined in abc inertial system.<br>
 Use only if 'non symmetric' is really desired because this component needs a time dependent transform of the coefficient matrix.</p>
-<p>More info see package ACdqo.ImpedancesYD.</p>
+<p>More info see package ACdq0.ImpedancesYD.</p>
 </html>"),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -372,7 +372,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
   end ResistorNonSym;
 
   model InductorNonSym
-    "Inductor with series resistor non symmetric, 3-phase dqo"
+    "Inductor with series resistor non symmetric, 3-phase dq0"
     extends Partials.ImpedYDNonSymBase;
 
     parameter SIpu.Resistance[3] r={0,0,0} "resistance[3] abc";
@@ -388,7 +388,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
 
   initial equation
     if steadyIni_t then
-      der(psi[1:2]) = omega[1]*j_dqo(psi[1:2]);
+      der(psi[1:2]) = omega[1]*j_dq0(psi[1:2]);
       psi[3] = 0;
     end if;
 
@@ -397,14 +397,14 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     R = Park*diagonal(R_abc)*transpose(Park);
 
     psi = L*i;
-    der(psi) + omega[2]*j_dqo(psi) + R*i = v;
+    der(psi) + omega[2]*j_dq0(psi) + R*i = v;
     annotation (
       defaultComponentName="indYDnonSym",
   Documentation(
           info="<html>
 <p>Inductor with general reactance matrix, defined in abc inertial system.<br>
 Use only if 'non symmetric' is really desired because this component needs a time dependent transform of the coefficient matrix.</p>
-<p>More info see package ACdqo.ImpedancesYD.</p>
+<p>More info see package ACdq0.ImpedancesYD.</p>
 </html>"),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -486,7 +486,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
   end InductorNonSym;
 
   model CapacitorNonSym
-    "Capacitor with parallel conductor non symmetric, 3-phase dqo"
+    "Capacitor with parallel conductor non symmetric, 3-phase dq0"
     extends Partials.ImpedYDNonSymBase;
 
     parameter SIpu.Conductance[3] g={0,0,0} "conductance[3] abc";
@@ -502,7 +502,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
 
   initial equation
     if steadyIni_t then
-      der(q[1:2]) = omega[1]*j_dqo(q[1:2]);
+      der(q[1:2]) = omega[1]*j_dq0(q[1:2]);
       q[3] = 0;
     end if;
 
@@ -511,7 +511,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     G = Park*diagonal(G_abc)*transpose(Park);
 
     q = C*v;
-    der(q) + omega[2]*j_dqo(q) + G*v = i;
+    der(q) + omega[2]*j_dq0(q) + G*v = i;
     annotation (
       defaultComponentName="capYDnonSym",
   Documentation(
@@ -519,7 +519,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
 <p>Capacitor with general susceptance matrix, defined in abc inertial system.<br>
 Use only if 'non symmetric' is really desired because this component needs a time dependent transform of the coefficient matrix.</p>
 <p>No phase to phase capacitance.</p>
-<p> More info see package ACdqo.ImpedancesYD.</p>
+<p> More info see package ACdq0.ImpedancesYD.</p>
 </html>
 "),
   Icon(coordinateSystem(
@@ -617,7 +617,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
           Line(points={{-10,-24},{20,-24},{20,-16}}, color={0,0,255})}));
   end CapacitorNonSym;
 
-  model Varistor "Varistor, 3-phase dqo"
+  model Varistor "Varistor, 3-phase dq0"
     extends Partials.ImpedYDNonSymBase(final f_nom=0, final stIni_en=false);
 
     parameter SIpu.Resistance r0=100 "small voltage resistance";
@@ -637,7 +637,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
   Documentation(
           info="<html>
 <p>Voltage limiter with hyperbolic tangent characteristic.</p>
-<p>More info see package ACdqo.ImpedancesYD.</p>
+<p>More info see package ACdq0.ImpedancesYD.</p>
 </html>
 "),
   Icon(coordinateSystem(
@@ -680,7 +680,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
   package Partials "Partial models"
     extends Modelica.Icons.BasesPackage;
 
-    partial model ImpedYDBase "One terminal impedance base, 3-phase dqo"
+    partial model ImpedYDBase "One terminal impedance base, 3-phase dq0"
       extends Ports.YDport_p;
       extends Basic.Nominal.NominalAC;
 
@@ -722,7 +722,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     end ImpedYDBase;
 
     partial model ImpedYDNonSymBase
-      "One terminal impedance base non symmetric, 3-phase dqo"
+      "One terminal impedance base non symmetric, 3-phase dq0"
       extends ImpedYDBase;
 
     protected
@@ -732,7 +732,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
         Documentation(
       info="<html>
 <p>Same as ImpedYDBase, but contains additionally a Park-transform which is needed for
-transformation of general impedance matrices from abc rest to general dqo-system.
+transformation of general impedance matrices from abc rest to general dq0-system.
 (for example when coefficients of non symmetric systems are defined in abc representation.)</p>
 </html>"),
         Diagram(coordinateSystem(
@@ -747,7 +747,7 @@ transformation of general impedance matrices from abc rest to general dqo-system
     end ImpedYDNonSymBase;
 
     partial model ImpedYDHeat
-      "One terminal impedance base with heat port, 3-phase dqo"
+      "One terminal impedance base with heat port, 3-phase dq0"
       extends ImpedYDBase;
       extends PowerSystems.Interfaces.AddHeat;
 
@@ -770,7 +770,7 @@ transformation of general impedance matrices from abc rest to general dqo-system
     end ImpedYDHeat;
 
     partial model ImpedYDNonSymHeat
-      "One terminal impedance base non symmetric with heat port, 3-phase dqo"
+      "One terminal impedance base non symmetric with heat port, 3-phase dq0"
       extends ImpedYDNonSymBase;
       extends PowerSystems.Interfaces.AddHeatV(
                                        final m_heat=3);
@@ -808,7 +808,7 @@ The impedance parameters are defined 'as seen from the terminals', directly rela
 compared to the terminal voltage and current. Therefore the impedance relating conductor current and voltage is a factor 3 larger, the admittance a factor 1/3 smaller than the impedance and admittance as seen from the terminal.</p>
 <p>If impedance parameters are known for the WINDINGS, choose:</p>
 <pre>  input values impedance parameters = (winding values of impedance parameters)/3</pre>
-<p>In dqo-representation the following relations hold between<br>
+<p>In dq0-representation the following relations hold between<br>
 terminal-voltage term.v and -current term.i on the one hand<br>
 and conductor-voltage v and -current i on the other:</p>
 <p><b>Y-topology</b>:</p>

@@ -1,5 +1,5 @@
 within PowerSystems.Examples.Spot;
-package GenerationAC3ph "AC power generation, dqo"
+package GenerationAC3ph "AC power generation, dq0"
   extends Modelica.Icons.ExamplesPackage;
 
 model Vsource "Power transfer from voltage source to slack bus"

@@ -158,7 +158,7 @@ package Icons "Icons"
 
   end Adaptor_abc;
 
-  partial model Adaptor_dqo "Adaptor icon dqo"
+  partial model Adaptor_dq0 "Adaptor icon dq0"
 
     annotation (
       Icon(coordinateSystem(
@@ -228,7 +228,7 @@ package Icons "Icons"
             grid={2,2}), graphics),
         Documentation(info=""));
 
-  end Adaptor_dqo;
+  end Adaptor_dq0;
 
   partial model Inverter "Inverter icon"
 
@@ -303,7 +303,7 @@ package Icons "Icons"
 
   end Inverter_abc;
 
-  partial model Inverter_dqo "Inverter icon"
+  partial model Inverter_dq0 "Inverter icon"
 
     annotation (
       Icon(coordinateSystem(
@@ -341,7 +341,7 @@ package Icons "Icons"
             grid={2,2}), graphics),
         Documentation(info=""));
 
-  end Inverter_dqo;
+  end Inverter_dq0;
 
   partial record Record "Record icon"
 

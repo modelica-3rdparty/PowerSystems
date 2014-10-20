@@ -1,5 +1,5 @@
 within PowerSystems.Examples.Spot;
-package TransmissionAC3ph "AC transmission, dqo"
+package TransmissionAC3ph "AC transmission, dq0"
   extends Modelica.Icons.ExamplesPackage;
 
 model PowerTransfer "Power transfer between two nodes"

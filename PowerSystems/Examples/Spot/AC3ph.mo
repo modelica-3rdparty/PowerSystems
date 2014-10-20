@@ -1,5 +1,5 @@
 within PowerSystems.Examples.Spot;
-package AC3ph "AC 3-phase components dqo"
+package AC3ph "AC 3-phase components dq0"
   extends Modelica.Icons.ExamplesPackage;
 
   model Breaker "Breaker"

@@ -1,5 +1,5 @@
 within PowerSystems.AC3ph;
-package Drives "AC-drives dqo"
+package Drives "AC-drives dq0"
   extends Modelica.Icons.VariantsPackage;
 
   model ASM "Asynchronous machine with cage rotor"
@@ -377,7 +377,7 @@ package Drives "AC-drives dqo"
   partial model DriveBase "AC drives base"
     extends DriveBase0;
 
-    AC3ph.Ports.ACdqo_p term "electric terminal"
+    AC3ph.Ports.ACdq0_p term "electric terminal"
                             annotation (Placement(transformation(extent={{-110,
                 -10},{-90,10}}, rotation=0)));
 
@@ -493,7 +493,7 @@ package Drives "AC-drives dqo"
 
   annotation (preferredView="info",
 Documentation(info="<html>
-<p>Contains both electrical and mechanical parts of AC-drives, dqo-representation.</p>
+<p>Contains both electrical and mechanical parts of AC-drives, dq0-representation.</p>
 <p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"PowerSystems.UsersGuide.Overview\">up users guide</a></p>
 </html>
 "), Icon(coordinateSystem(

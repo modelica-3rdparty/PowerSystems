@@ -147,7 +147,7 @@ end Integrator;
     annotation (defaultComponentName = "norm",
       Documentation(
               info="<html>
-<p>Allows in particular to calculate the dqo-norm (n_eval=3) or dq-norm (n_eval=2) of the input signal.</p>
+<p>Allows in particular to calculate the dq0-norm (n_eval=3) or dq-norm (n_eval=2) of the input signal.</p>
 </html>
 "),   Icon(coordinateSystem(
           preserveAspectRatio=false,

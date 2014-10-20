@@ -2,14 +2,14 @@ within PowerSystems.AC3ph;
 package Sensors "Sensors and meters 3-phase"
   extends Modelica.Icons.SensorsPackage;
 
-  model VnormSensor "Voltage-norm sensor, 3-phase dqo"
+  model VnormSensor "Voltage-norm sensor, 3-phase dq0"
     extends Partials.Sensor1Base(final signalTrsf=0);
 
     parameter Integer n_eval(
       min=2,
-      max=3) = 2 "dq- or dqo-norm" annotation(choices(
+      max=3) = 2 "dq- or dq0-norm" annotation(choices(
       choice=2 "2: dq-norm",
-      choice=3 "3: dqo-norm"));
+      choice=3 "3: dq0-norm"));
     Modelica.Blocks.Interfaces.RealOutput v "voltage norm, phase-to-ground"
     annotation (Placement(transformation(
           origin={0,100},
@@ -36,14 +36,14 @@ package Sensors "Sensors and meters 3-phase"
           grid={2,2}), graphics));
   end VnormSensor;
 
-  model InormSensor "Current-norm sensor, 3-phase dqo"
+  model InormSensor "Current-norm sensor, 3-phase dq0"
     extends Partials.Sensor2Base(final signalTrsf=0);
 
     parameter Integer n_eval(
       min=2,
-      max=3) = 2 "dq- or dqo-norm" annotation(choices(
+      max=3) = 2 "dq- or dq0-norm" annotation(choices(
       choice=2 "2: dq-norm",
-      choice=3 "3: dqo-norm"));
+      choice=3 "3: dq0-norm"));
     Modelica.Blocks.Interfaces.RealOutput i "current norm, term_p to term_n"
                                        annotation (Placement(transformation(
           origin={0,100},
@@ -66,7 +66,7 @@ package Sensors "Sensors and meters 3-phase"
           grid={2,2}), graphics));
   end InormSensor;
 
-  model Vsensor "Voltage sensor, 3-phase dqo"
+  model Vsensor "Voltage sensor, 3-phase dq0"
     extends Partials.Sensor1Base;
 
     Modelica.Blocks.Interfaces.RealOutput[3] v "voltage, phase-to-ground"
@@ -79,7 +79,7 @@ package Sensors "Sensors and meters 3-phase"
     if signalTrsf == 0 then
       v = term.v; // actual
     elseif signalTrsf == 1 then
-      v = cat(1, transpose(rot_dq(term.theta[1]))*term.v[1:2], term.v[3:3]); // dqo
+      v = cat(1, transpose(rot_dq(term.theta[1]))*term.v[1:2], term.v[3:3]); // dq0
     elseif signalTrsf == 2 then
       v = cat(1, rot_dq(term.theta[2])*term.v[1:2], term.v[3:3]); // alpha-beta_o
     elseif signalTrsf == 3 then
@@ -91,7 +91,7 @@ package Sensors "Sensors and meters 3-phase"
 <p>The parameter 'signalTrsf' allows the choice of different reference systems for the output signal<br>
 <pre>
   signalTrsf=0     voltage in actual ref frame
-  signalTrsf=1     voltage in dqo synchronous frame
+  signalTrsf=1     voltage in dq0 synchronous frame
   signalTrsf=2     voltage in alpha_beta_o frame
   signalTrsf=3     voltage in abc inertial frame
 </pre>
@@ -114,7 +114,7 @@ package Sensors "Sensors and meters 3-phase"
           grid={2,2}), graphics));
   end Vsensor;
 
-  model Isensor "Current sensor, 3-phase dqo"
+  model Isensor "Current sensor, 3-phase dq0"
     extends Partials.Sensor2Base;
 
     Modelica.Blocks.Interfaces.RealOutput[3] i "current, term_p to term_n"              annotation (Placement(
@@ -127,7 +127,7 @@ package Sensors "Sensors and meters 3-phase"
     if signalTrsf == 0 then
       i = term_p.i;
     elseif signalTrsf == 1 then // actual
-      i = cat(1, transpose(rot_dq(term_p.theta[1]))*term_p.i[1:2], term_p.i[3:3]); // dqo
+      i = cat(1, transpose(rot_dq(term_p.theta[1]))*term_p.i[1:2], term_p.i[3:3]); // dq0
     elseif signalTrsf == 2 then
       i = cat(1, rot_dq(term_p.theta[2])*term_p.i[1:2], term_p.i[3:3]); // alpha-beta_o
     elseif signalTrsf == 3 then
@@ -139,7 +139,7 @@ package Sensors "Sensors and meters 3-phase"
 <p>The parameter 'signalTrsf' allows the choice of different reference systems for the output signal<br>
 <pre>
   signalTrsf=0     current in actual ref frame
-  signalTrsf=1     current in dqo synchronous frame
+  signalTrsf=1     current in dq0 synchronous frame
   signalTrsf=2     current in alpha_beta_o frame
   signalTrsf=3     current in abc inertial frame
 </pre>
@@ -157,7 +157,7 @@ package Sensors "Sensors and meters 3-phase"
           grid={2,2}), graphics));
   end Isensor;
 
-  model Psensor "Power sensor, 3-phase dqo"
+  model Psensor "Power sensor, 3-phase dq0"
     extends Partials.Sensor2Base(final signalTrsf=0);
 
     Modelica.Blocks.Interfaces.RealOutput[3] p
@@ -168,11 +168,11 @@ package Sensors "Sensors and meters 3-phase"
           rotation=90)));
 
   equation
-    p = {term_p.v[1:2]*term_p.i[1:2], -j_dqo(term_p.v[1:2])*term_p.i[1:2], term_p.v[3]*term_p.i[3]};
+    p = {term_p.v[1:2]*term_p.i[1:2], -j_dq0(term_p.v[1:2])*term_p.i[1:2], term_p.v[3]*term_p.i[3]};
   annotation (defaultComponentName = "Psensor1",
     Documentation(
             info="<html>
-<p><i>Comment on the sign-definition of reactive power see</i> ACdqo.Sensors.</p>
+<p><i>Comment on the sign-definition of reactive power see</i> ACdq0.Sensors.</p>
 </html>"),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -191,7 +191,7 @@ package Sensors "Sensors and meters 3-phase"
           grid={2,2}), graphics));
   end Psensor;
 
-  model Vmeter "Voltage meter, 3-phase dqo"
+  model Vmeter "Voltage meter, 3-phase dq0"
     extends Partials.Meter1Base(final S_nom=1);
 
     output SIpu.Voltage[3] v(each stateSelect=StateSelect.never);
@@ -245,7 +245,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
           grid={2,2}), graphics));
   end Vmeter;
 
-  model Imeter "Current meter, 3-phase dqo"
+  model Imeter "Current meter, 3-phase dq0"
     extends Partials.Meter2Base;
 
     output SIpu.Current[3] i(each stateSelect=StateSelect.never);
@@ -282,7 +282,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
           Line(points={{-15,30},{15,44}}, color={135,135,135})}));
   end Imeter;
 
-  model Pmeter "Power meter, 3-phase dqo"
+  model Pmeter "Power meter, 3-phase dq0"
 
     parameter Boolean av=false "time average power"  annotation(Evaluate=true,Dialog(group="Options"));
     parameter SI.Time tcst(min=1e-9)=1 "average time-constant"
@@ -302,7 +302,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
     end if;
 
   equation
-    p = {term_p.v[1:2]*term_p.i[1:2], -j_dqo(term_p.v[1:2])*term_p.i[1:2], term_p.v[3]*term_p.i[3]}/S_base;
+    p = {term_p.v[1:2]*term_p.i[1:2], -j_dq0(term_p.v[1:2])*term_p.i[1:2], term_p.v[3]*term_p.i[3]}/S_base;
     if av then
       der(pav) = (p - pav)/tcst;
     else
@@ -331,7 +331,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
 <pre>  p         {AC active, AC reactive, DC} power term_p to term_n</pre>
 <p>Optional output variables:</p>
 <pre>  p_av       power term_p to term_n, time tau average of p</pre>
-<p><i>Comment on the sign-definition of reactive power see</i> ACdqo.Sensors.</p>
+<p><i>Comment on the sign-definition of reactive power see</i> ACdq0.Sensors.</p>
 </html>
 "),   Diagram(coordinateSystem(
           preserveAspectRatio=false,
@@ -339,7 +339,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
           grid={2,2}), graphics));
   end Pmeter;
 
-  model PVImeter "Power-voltage-current meter, 3-phase dqo"
+  model PVImeter "Power-voltage-current meter, 3-phase dq0"
     extends Partials.Meter2Base;
 
     parameter Boolean av=false "time average power"  annotation(Evaluate=true,Dialog(group="Options"));
@@ -383,7 +383,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     v = term_p.v/V_base;
     vpp = sqrt(3)*{v[2],-v[1]};
     i = term_p.i/I_base;
-    p = {v[1:2]*i[1:2], -j_dqo(v[1:2])*i[1:2], v[3]*i[3]};
+    p = {v[1:2]*i[1:2], -j_dq0(v[1:2])*i[1:2], v[3]*i[3]};
     if av then
       der(pav) = (p - pav)/tcst;
     else
@@ -425,9 +425,9 @@ As they use time-dependent coordinate transforms, use them only when and where n
 <p>Output variables in the chosen reference system:</p>
 <pre>
   p         {AC active, AC reactive, DC} power term_p to term_n
-  v          voltage phase-to-ground dqo
+  v          voltage phase-to-ground dq0
   vpp        voltage phase-to-phase dq
-  i          current dqo, term_p to term_n
+  i          current dq0, term_p to term_n
 </pre>
 <p>Optional output variables:</p>
 <pre>
@@ -441,7 +441,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
   alpha_i    phase(i)
   cos_phi    cos(alpha_v - alpha_i)
 </pre>
-<p><i>Comment on the sign-definition of reactive power see</i> ACdqo.Sensors.</p>
+<p><i>Comment on the sign-definition of reactive power see</i> ACdq0.Sensors.</p>
 </html>
 "),   Diagram(coordinateSystem(
           preserveAspectRatio=false,
@@ -449,7 +449,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
           grid={2,2}), graphics));
   end PVImeter;
 
-  model Efficiency "Power sensor, 3-phase dqo"
+  model Efficiency "Power sensor, 3-phase dq0"
     extends Partials.Sensor2Base(final signalTrsf=0);
 
     Interfaces.ThermalV_p heat(     m=m) "vector heat port"
@@ -531,7 +531,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
           grid={2,2}), graphics));
   end Efficiency;
 
-  model Phasor "Visualiser of voltage and current phasor, 3-phase dqo"
+  model Phasor "Visualiser of voltage and current phasor, 3-phase dq0"
     extends Partials.PhasorBase;
 
     Basic.Types.Color     color_p;
@@ -591,13 +591,13 @@ In problematic cases use power sensors electrical and mechanical.</p>
   package Partials "Partial models"
     extends Modelica.Icons.BasesPackage;
 
-    partial model Sensor1Base "Sensor 1 terminal base, 3-phase dqo"
+    partial model Sensor1Base "Sensor 1 terminal base, 3-phase dq0"
       extends Ports.Port_p;
 
       parameter Integer signalTrsf=0 "signal in which reference frame?"
        annotation(Evaluate=true,Dialog(group="Options"), choices(
          choice=0 "0: actual ref frame",
-         choice=1 "1: dqo synchronous",
+         choice=1 "1: dq0 synchronous",
          choice=2 "2: alpha_beta_o",
          choice=3 "3: abc inertial"));
     protected
@@ -630,13 +630,13 @@ In problematic cases use power sensors electrical and mechanical.</p>
             grid={2,2}), graphics));
     end Sensor1Base;
 
-    partial model Sensor2Base "Sensor 2 terminal base, 3-phase dqo"
+    partial model Sensor2Base "Sensor 2 terminal base, 3-phase dq0"
       extends Ports.Port_pn;
 
       parameter Integer signalTrsf=0 "signal in which reference frame?"
        annotation(Evaluate=true,Dialog(group="Options"), choices(
          choice=0 "0: actual ref frame",
-         choice=1 "1: dqo synchronous",
+         choice=1 "1: dq0 synchronous",
          choice=2 "2: alpha_beta_o",
          choice=3 "3: abc inertial"));
     protected
@@ -678,7 +678,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
             grid={2,2}), graphics));
     end Sensor2Base;
 
-    partial model Meter1Base "Meter 1 terminal base, 3-phase dqo"
+    partial model Meter1Base "Meter 1 terminal base, 3-phase dq0"
       extends Sensor1Base(final signalTrsf=0);
 
       parameter Boolean abc=false "abc inertial"
@@ -716,7 +716,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
             grid={2,2}), graphics));
     end Meter1Base;
 
-    partial model Meter2Base "Meter 2 terminal base, 3-phase dqo"
+    partial model Meter2Base "Meter 2 terminal base, 3-phase dq0"
       extends Sensor2Base(final signalTrsf=0);
 
       parameter Boolean abc=false "abc inertial"
@@ -754,7 +754,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
             grid={2,2}), graphics));
     end Meter2Base;
 
-  partial model PhasorBase "Phasor base, 3-phase dqo"
+  partial model PhasorBase "Phasor base, 3-phase dq0"
     extends Ports.Port_pn;
     extends Basic.Nominal.Nominal;
 
@@ -773,7 +773,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
     term_p.v = term_n.v;
     v_dq = transpose(Rot_dq)*term_p.v[1:2]/V_base;
     i_dq = transpose(Rot_dq)*term_p.i[1:2]/I_base;
-    p = {v_dq*i_dq, -j_dqo(v_dq)*i_dq};
+    p = {v_dq*i_dq, -j_dq0(v_dq)*i_dq};
     annotation (
       Documentation(
       info="<html>

@@ -466,8 +466,8 @@ package PhaseSystems "Phase systems used in power connectors"
             smooth=Smooth.None)}));
   end ThreePhase_dq;
 
-  package ThreePhase_dqo "AC system in dqo representation"
-    extends PartialPhaseSystem(phaseSystemName="ThreePhase_dqo", n=3, m=2);
+  package ThreePhase_dq0 "AC system in dq0 representation"
+    extends PartialPhaseSystem(phaseSystemName="ThreePhase_dq0", n=3, m=2);
 
     redeclare function j
       "Rotation(pi/2) of vector around {0,0,1} and projection on orth plane"
@@ -593,7 +593,7 @@ package PhaseSystems "Phase systems used in power connectors"
             points={{-70,-28},{50,-28}},
             color={95,95,95},
             smooth=Smooth.None)}));
-  end ThreePhase_dqo;
+  end ThreePhase_dq0;
 
   annotation (Icon(graphics={Line(
           points={{-70,-52},{50,-52}},

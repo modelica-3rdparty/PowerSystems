@@ -115,7 +115,7 @@ The component is not needed, if specific control components are available.</p>
           grid={2,2}), graphics));
 end Select;
 
-model Rectifier "Rectifier, 3-phase dqo"
+model Rectifier "Rectifier, 3-phase dq0"
   extends Partials.AC_DC_base(heat(final m=3));
 
   replaceable Components.RectifierEquation rectifier "rectifier model"
@@ -149,7 +149,7 @@ annotation (defaultComponentName="rectifier",
           grid={2,2}), graphics));
 end Rectifier;
 
-model RectifierAverage "Rectifier time-average, 3-phase dqo"
+model RectifierAverage "Rectifier time-average, 3-phase dq0"
   extends Partials.SwitchEquation(heat(final m=1));
 
   replaceable parameter Semiconductors.Ideal.SCparameter par(final Hsw_nom=0)
@@ -169,8 +169,8 @@ equation
   cT = if size(par.cT_loss,1)==0 then 1 else loss(T[1]-par.T0_loss, par.cT_loss);
   iAC2 = AC.i*AC.i;
 
-  switch_dqo = S_abs*AC.i/(sqrt(iAC2) + 1e-5);
-  v_dqo = (vDC1 + cT*par.Vf)*switch_dqo;
+  switch_dq0 = S_abs*AC.i/(sqrt(iAC2) + 1e-5);
+  v_dq0 = (vDC1 + cT*par.Vf)*switch_dq0;
 
   Q_flow = {par.eps[1]*R_nom*iAC2 + (2*sqrt(6)/pi)*par.Vf*sqrt(iAC2)};
   annotation (defaultComponentName="rectifier",
@@ -216,20 +216,20 @@ AC_power = DC_power.</p>
 <pre>
    sigma=1.0966227
 
-+) increase S_dqo:  better approximation at vAC smaller
++) increase S_dq0:  better approximation at vAC smaller
    S_abs=(2*sqrt(6)/pi)*sigma
 
 0) no correction:
    S_abs=(2*sqrt(6)/pi)
 
--) decrease S_dqo: better approximation at vAC larger
+-) decrease S_dq0: better approximation at vAC larger
    S_abs=(2*sqrt(6)/pi)/sigma
 </pre></p>
 <p><i>This is not yet a solution with sufficient precision.</i></p>
 </html>"));
 end RectifierAverage;
 
-model Inverter "Complete modulator and inverter, 3-phase dqo"
+model Inverter "Complete modulator and inverter, 3-phase dq0"
   extends Partials.AC_DC_base(heat(final m=3));
 
   Modelica.Blocks.Interfaces.RealInput theta "abs angle, der(theta)=omega"
@@ -335,7 +335,7 @@ For block modulation:
           grid={2,2}), graphics));
 end Inverter;
 
-model InverterAverage "Inverter time-average, 3-phase dqo"
+model InverterAverage "Inverter time-average, 3-phase dq0"
   extends Partials.SwitchEquation(heat(final m=1));
 
   replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
@@ -393,8 +393,8 @@ equation
                         4*par.Hsw_nom*f_carr/(par.V_nom*par.I_nom);
 
   phi = AC.theta[1] + uPhasor[2] + system.alpha0;
-  switch_dqo = factor*uPhasor[1]*{cos(phi), sin(phi), 0};
-  v_dqo = (vDC1 - cT*Vloss)*switch_dqo;
+  switch_dq0 = factor*uPhasor[1]*{cos(phi), sin(phi), 0};
+  v_dq0 = (vDC1 - cT*Vloss)*switch_dq0;
 // passive mode?
 
  Q_flow = {par.eps[1]*R_nom*iAC2 +
@@ -488,7 +488,7 @@ end InverterAverage;
   package Components "Equation-based and modular components"
     extends Modelica.Icons.VariantsPackage;
 
-  model RectifierEquation "Rectifier equation, 3-phase dqo"
+  model RectifierEquation "Rectifier equation, 3-phase dq0"
     extends Partials.SwitchEquation(heat(final m=3));
 
     replaceable parameter Semiconductors.Ideal.SCparameter par(final Hsw_nom=0)
@@ -519,8 +519,8 @@ end InverterAverage;
       switch[k] = noEvent(sign(s[k]));
     end for;
 
-    v_dqo = Park*v;
-    switch_dqo = Park*switch;
+    v_dq0 = Park*v;
+    switch_dq0 = Park*switch;
     Q_flow = (v - switch*vDC1).*i_sc*par.I_nom/par.V_nom;
     annotation (defaultComponentName="rectifier",
       Icon(coordinateSystem(
@@ -572,7 +572,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
         "SC parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
                0)));
-    Nodes.ACdqo_a_b_c acdqo_a_b_c annotation (Placement(transformation(extent={
+    Nodes.ACdq0_a_b_c acdq0_a_b_c annotation (Placement(transformation(extent={
                 {80,-10},{60,10}}, rotation=0)));
     Common.Thermal.Heat_a_b_c_abc heat_adapt annotation (Placement(
             transformation(extent={{-10,70},{10,90}}, rotation=0)));
@@ -590,13 +590,13 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
               rotation=0)));
 
   equation
-    connect(AC, acdqo_a_b_c.term) annotation (Line(points={{100,0},{80,0}},
+    connect(AC, acdq0_a_b_c.term) annotation (Line(points={{100,0},{80,0}},
             color={0,120,120}));
-    connect(acdqo_a_b_c.term_a, diodeMod_a.AC) annotation (Line(points={{60,4},
+    connect(acdq0_a_b_c.term_a, diodeMod_a.AC) annotation (Line(points={{60,4},
               {40,4},{40,40},{10,40}}, color={0,0,255}));
-    connect(acdqo_a_b_c.term_b, diodeMod_b.AC)
+    connect(acdq0_a_b_c.term_b, diodeMod_b.AC)
         annotation (Line(points={{60,0},{10,0}}, color={0,0,255}));
-    connect(acdqo_a_b_c.term_c, diodeMod_c.AC) annotation (Line(points={{60,-4},
+    connect(acdq0_a_b_c.term_c, diodeMod_c.AC) annotation (Line(points={{60,-4},
               {40,-4},{40,-40},{10,-40}}, color={0,0,255}));
     connect(diodeMod_a.DC, DC) annotation (Line(points={{-10,40},{-40,40},{-40,
               0},{-100,0}}, color={0,0,255}));
@@ -631,7 +631,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
             grid={2,2}), graphics));
   end RectifierModular;
 
-  model InverterSwitch "Inverter switch, 3-phase dqo"
+  model InverterSwitch "Inverter switch, 3-phase dq0"
     extends Partials.SwitchEquation(heat(final m=3));
 
     Modelica.Blocks.Interfaces.BooleanInput[6] gates
@@ -661,8 +661,8 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
       end if;
     end for;
 
-    v_dqo = Park*v;
-    switch_dqo = Park*switch;
+    v_dq0 = Park*v;
+    switch_dq0 = Park*switch;
     Q_flow = zeros(heat.m);
     annotation (defaultComponentName="inverter",
       Icon(coordinateSystem(
@@ -709,7 +709,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
 </html>"));
   end InverterSwitch;
 
-  model InverterEquation "Inverter equation, 3-phase dqo"
+  model InverterEquation "Inverter equation, 3-phase dq0"
     extends Partials.SwitchEquation(heat(final m=3));
 
     replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
@@ -793,8 +793,8 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
       Q_flow = (v - switch*vDC1).*i_sc*par.I_nom/par.V_nom;
     end if;
 
-    v_dqo = Park*v;
-    switch_dqo = Park*switch;
+    v_dq0 = Park*v;
+    switch_dq0 = Park*switch;
     annotation (defaultComponentName="inverter",
       Icon(coordinateSystem(
             preserveAspectRatio=false,
@@ -868,7 +868,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
             origin={-60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-    Nodes.ACdqo_a_b_c acdqo_a_b_c annotation (Placement(transformation(extent={
+    Nodes.ACdq0_a_b_c acdq0_a_b_c annotation (Placement(transformation(extent={
                 {80,-10},{60,10}}, rotation=0)));
     Common.Thermal.Heat_a_b_c_abc heat_adapt annotation (Placement(
             transformation(extent={{-10,70},{10,90}}, rotation=0)));
@@ -889,17 +889,17 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
               rotation=0)));
 
   equation
-    connect(AC, acdqo_a_b_c.term)   annotation (Line(points={{100,0},{80,0}},
+    connect(AC, acdq0_a_b_c.term)   annotation (Line(points={{100,0},{80,0}},
             color={0,120,120}));
-    connect(acdqo_a_b_c.term_a, switchMod_a.AC)   annotation (Line(points={{60,
+    connect(acdq0_a_b_c.term_a, switchMod_a.AC)   annotation (Line(points={{60,
               4},{40,4},{40,40},{10,40}}, color={0,0,255}));
     connect(switchMod_a.DC, DC)   annotation (Line(points={{-10,40},{-60,40},{
               -60,0},{-100,0}}, color={0,0,255}));
-    connect(acdqo_a_b_c.term_b, switchMod_b.AC)
+    connect(acdq0_a_b_c.term_b, switchMod_b.AC)
         annotation (Line(points={{60,0},{10,0}}, color={0,0,255}));
     connect(switchMod_b.DC, DC)
         annotation (Line(points={{-10,0},{-100,0}}, color={0,0,255}));
-    connect(acdqo_a_b_c.term_c, switchMod_c.AC)   annotation (Line(points={{60,
+    connect(acdq0_a_b_c.term_c, switchMod_c.AC)   annotation (Line(points={{60,
               -4},{40,-4},{40,-40},{10,-40}}, color={0,0,255}));
     connect(switchMod_c.DC, DC)   annotation (Line(points={{-10,-40},{-60,-40},
               {-60,0},{-100,0}}, color={0,0,255}));
@@ -954,11 +954,11 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
 package Partials "Partial models"
   extends Modelica.Icons.BasesPackage;
 
-partial model AC_DC_base "AC-DC base, 3-phase dqo"
-  extends PowerSystems.Basic.Icons.Inverter_dqo;
+partial model AC_DC_base "AC-DC base, 3-phase dq0"
+  extends PowerSystems.Basic.Icons.Inverter_dq0;
   extends Ports.PortBase;
 
-  Ports.ACdqo_n AC "AC 3-phase connection"
+  Ports.ACdq0_n AC "AC 3-phase connection"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
   AC1ph_DC.Ports.TwoPin_p DC "DC connection"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
@@ -976,7 +976,7 @@ partial model AC_DC_base "AC-DC base, 3-phase dqo"
 
 end AC_DC_base;
 
-partial model SwitchEquation "Switch equation, 3-phase dqo"
+partial model SwitchEquation "Switch equation, 3-phase dq0"
   extends AC_DC_base;
 
     protected
@@ -984,16 +984,16 @@ partial model SwitchEquation "Switch equation, 3-phase dqo"
   SI.Voltage vDC0=0.5*(DC.v[1] + DC.v[2]);
   SI.Current iDC1=(DC.i[1] - DC.i[2]);
   SI.Current iDC0=(DC.i[1] + DC.i[2]);
-  Real[3] v_dqo "switching function voltage in dqo representation";
-  Real[3] switch_dqo "switching function in dqo representation";
+  Real[3] v_dq0 "switching function voltage in dq0 representation";
+  Real[3] switch_dq0 "switching function in dq0 representation";
 
   SI.Temperature[heat.m] T "component temperature";
   SI.HeatFlowRate[heat.m] Q_flow "component loss-heat flow";
   function loss = Basic.Math.taylor "temp dependence of losses";
 
 equation
-  AC.v = v_dqo + {0,0,sqrt(3)*vDC0};
-  iDC1 + switch_dqo*AC.i = 0;
+  AC.v = v_dq0 + {0,0,sqrt(3)*vDC0};
+  iDC1 + switch_dq0*AC.i = 0;
   iDC0 + sqrt(3)*AC.i[3] = 0;
 
   T = heat.ports.T;

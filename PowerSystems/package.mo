@@ -49,7 +49,7 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 <td>ThreePhase_dq</td> <td>2</td> <td>1</td> <td>Two modal components for active and reactive power; one reference angle for frequency &mdash; cf. complex phasors with variable frequency</td>
 </tr>
 <tr>
-<td>ThreePhase_dqo</td>      <td>3</td> <td>2</td> <td>Three modal components for active, reactive and dc power; two reference angles for Spot dqo components</td>
+<td>ThreePhase_dq0</td>      <td>3</td> <td>2</td> <td>Three modal components for active, reactive and dc power; two reference angles for Spot dq0 components</td>
 </tr>
 </table>
 <p/>

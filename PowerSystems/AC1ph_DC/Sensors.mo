@@ -341,7 +341,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
           Line(points={{-15,35},{15,49}}, color={135,135,135})}));
   end PVImeter;
 
-  model Efficiency "Power sensor, 3-phase dqo"
+  model Efficiency "Power sensor, 3-phase dq0"
     extends Partials.Sensor2Base;
 
     Interfaces.ThermalV_p heat(     m=m) "vector heat port"

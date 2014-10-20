@@ -1,18 +1,18 @@
 within PowerSystems.AC3ph;
-package Ports "AC three-phase ports dqo representation"
+package Ports "AC three-phase ports dq0 representation"
   extends Modelica.Icons.InterfacesPackage;
 
 partial model PortBase "base model adapting Spot to PowerSystems"
-  function j_dqo = PhaseSystems.ThreePhase_dqo.j;
-  function jj_dqo = PhaseSystems.ThreePhase_dqo.jj;
+  function j_dq0 = PhaseSystems.ThreePhase_dq0.j;
+  function jj_dq0 = PhaseSystems.ThreePhase_dq0.jj;
 end PortBase;
 
-connector ACdqo_p "AC terminal, 3-phase dqo ('positive')"
+connector ACdq0_p "AC terminal, 3-phase dq0 ('positive')"
   extends Interfaces.Terminal(redeclare package PhaseSystem =
-          PhaseSystems.ThreePhase_dqo);
+          PhaseSystems.ThreePhase_dq0);
   annotation (defaultComponentName = "term_p",
       Documentation(info="<html>
-<p>AC connector with vector variables in dqo-representation, positive.</p>
+<p>AC connector with vector variables in dq0-representation, positive.</p>
 </html>"),
       Icon(coordinateSystem(
             preserveAspectRatio=false,
@@ -24,7 +24,7 @@ connector ACdqo_p "AC terminal, 3-phase dqo ('positive')"
               fillPattern=FillPattern.Solid), Text(
               extent={{-60,60},{60,-60}},
               lineColor={255,255,255},
-              textString="dqo")}),
+              textString="dq0")}),
       Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -38,19 +38,19 @@ connector ACdqo_p "AC terminal, 3-phase dqo ('positive')"
               extent={{12,40},{90,-40}},
               lineColor={255,255,255},
               pattern=LinePattern.None,
-              textString="dqo"),
+              textString="dq0"),
             Text(
               extent={{-120,120},{100,60}},
               lineColor={0,120,120},
               textString="%name")}));
-end ACdqo_p;
+end ACdq0_p;
 
-connector ACdqo_n "AC terminal, 3-phase dqo ('negative')"
+connector ACdq0_n "AC terminal, 3-phase dq0 ('negative')"
   extends Interfaces.Terminal(redeclare package PhaseSystem =
-          PhaseSystems.ThreePhase_dqo);
+          PhaseSystems.ThreePhase_dq0);
   annotation (defaultComponentName = "term_n",
       Documentation(info="<html>
-<p>AC connector with vector variables in dqo-representation, negative.</p>
+<p>AC connector with vector variables in dq0-representation, negative.</p>
 </html>"),
       Icon(coordinateSystem(
             preserveAspectRatio=false,
@@ -62,7 +62,7 @@ connector ACdqo_n "AC terminal, 3-phase dqo ('negative')"
               fillPattern=FillPattern.Solid), Text(
               extent={{-60,60},{60,-60}},
               lineColor={0,120,120},
-              textString="dqo")}),
+              textString="dq0")}),
       Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -75,19 +75,19 @@ connector ACdqo_n "AC terminal, 3-phase dqo ('negative')"
             Text(
               extent={{-90,40},{-10,-40}},
               lineColor={0,120,120},
-              textString="dqo"),
+              textString="dq0"),
             Text(
               extent={{-100,120},{120,60}},
               lineColor={0,120,120},
               fillColor={0,100,100},
               fillPattern=FillPattern.Solid,
               textString="%name")}));
-end ACdqo_n;
+end ACdq0_n;
 
 partial model Port_p "AC one port 'positive', 3-phase"
   extends PortBase;
 
-  Ports.ACdqo_p term "positive terminal"
+  Ports.ACdq0_p term "positive terminal"
                           annotation (Placement(transformation(extent={{-110,
               -10},{-90,10}}, rotation=0)));
   annotation (
@@ -105,7 +105,7 @@ end Port_p;
 partial model Port_n "AC one port 'negative', 3-phase"
   extends PortBase;
 
-  Ports.ACdqo_n term "negative terminal"
+  Ports.ACdq0_n term "negative terminal"
 annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
   annotation (
           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -122,7 +122,7 @@ end Port_n;
 partial model Port_f "AC one port 'fault', 3-phase"
   extends PortBase;
 
-  Ports.ACdqo_p term "fault terminal"
+  Ports.ACdq0_p term "fault terminal"
 annotation (Placement(transformation(
           origin={0,-100},
           extent={{-10,-10},{10,10}},
@@ -140,9 +140,9 @@ end Port_f;
 partial model Port_p_n "AC two port, 3-phase"
   extends PortBase;
 
-  Ports.ACdqo_p term_p "positive terminal"
+  Ports.ACdq0_p term_p "positive terminal"
 annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
-  Ports.ACdqo_n term_n "negative terminal"
+  Ports.ACdq0_n term_n "negative terminal"
 annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
 equation
   Connections.branch(term_p.theta, term_n.theta);
@@ -176,7 +176,7 @@ end Port_pn;
 partial model Port_p_n_f "AC three port, 3-phase"
   extends Port_p_n;
 
-  Ports.ACdqo_n term_f "fault terminal"
+  Ports.ACdq0_n term_f "fault terminal"
 annotation (Placement(transformation(
           origin={0,100},
           extent={{-10,-10},{10,10}},
@@ -530,13 +530,13 @@ partial model YDportTrafo_p_n_n
     "AC three port with Y or Delta topology for 3-winding transformers"
   extends PortBase;
 
-  Ports.ACdqo_p term_p "positive terminal"
+  Ports.ACdq0_p term_p "positive terminal"
                                       annotation (Placement(transformation(
             extent={{-110,-10},{-90,10}}, rotation=0)));
-  Ports.ACdqo_n term_na "negative terminal a"
+  Ports.ACdq0_n term_na "negative terminal a"
                                        annotation (Placement(transformation(
             extent={{90,30},{110,50}}, rotation=0)));
-  Ports.ACdqo_n term_nb "negative terminal b"
+  Ports.ACdq0_n term_nb "negative terminal b"
                                        annotation (Placement(transformation(
             extent={{90,-50},{110,-30}}, rotation=0)));
 
@@ -1111,7 +1111,7 @@ Regularised version of Y_Delta. To be used, if device is fed accross an inductiv
   annotation (preferredView="info",
     Documentation(info="<HTML>
 <p>
-Contains transforms for Y and Delta topology dqo.
+Contains transforms for Y and Delta topology dq0.
 </p>
 </HTML>"),
     Icon(coordinateSystem(
@@ -1122,7 +1122,7 @@ end Topology;
 
   annotation (preferredView="info",
 Documentation(info="<html>
-<p>Electrical ports with connectors ACdqo:</p>
+<p>Electrical ports with connectors ACdq0:</p>
 <p>The index notation <tt>_p_n</tt> and <tt>_pn</tt> is used for</p>
 <pre>
   _p_n:     no conservation of current

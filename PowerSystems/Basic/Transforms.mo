@@ -7,10 +7,10 @@ package Transforms "Transform functions"
     constant Real[3, 3] J_abc=[0,-1,1; 1,0,-1; -1,1,0]/sqrt(3)
     "Rotation (pi/2) around {1,1,1} and projection on orth plane";
     //constant Real[3, 3] J_abc=skew(fill(sqrt(1/3), 3))/ "alternative";
-    //J_abc = P0'*J_dqo*P0 = Park'*J_dqo*Park
-    constant Real[3, 3] J_dqo=[0,-1,0; 1,0,0; 0,0,0]
+    //J_abc = P0'*J_dq0*P0 = Park'*J_dq0*Park
+    constant Real[3, 3] J_dq0=[0,-1,0; 1,0,0; 0,0,0]
     "Rotation (pi/2) around {0,0,1} and projection on orth plane";
-    //J_dqo = P0*J_abc*P0' = Park*J_abc*Park'
+    //J_dq0 = P0*J_abc*P0' = Park*J_abc*Park'
 
     function j_abc
     "Rotation(pi/2) of vector around {1,1,1} and projection on orth plane"
@@ -60,7 +60,7 @@ It acts on the first index in the same way as j_abc for all values of the second
 </html>"));
     end jj_abc;
 
-    function j_dqo
+    function j_dq0
     "Rotation(pi/2) of vector around {0,0,1} and projection on orth plane"
       extends PowerSystems.Basic.Icons.Function;
 
@@ -71,7 +71,7 @@ It acts on the first index in the same way as j_abc for all values of the second
       y := cat(1, {-u[2], u[1]}, zeros(size(u,1)-2));
       annotation (smoothOrder=2,
     Documentation(info="<html>
-<p>The function <tt>j_dqo(u)</tt> is a projection of u onto the dq-plane and a rotation by +90 degrees around the axis {0,0,1}.</p>
+<p>The function <tt>j_dq0(u)</tt> is a projection of u onto the dq-plane and a rotation by +90 degrees around the axis {0,0,1}.</p>
 <p>The notation is chosen in analogy to the expression
 <pre>  j*omega*u</pre>
 used in complex 2-dimensional notation with
@@ -83,13 +83,13 @@ used in complex 2-dimensional notation with
 <p>The matrix expression corresponding to
 <pre>  j*u</pre>
 is
-<pre>  J_dqo*u = [0,-1,0; 1,0,0; 0,0,0]*u</pre></p>
-<p>Note: If the argument u is 2-dimensional, then <tt>j_dqo(u)</tt> is the restriction of <tt>j_dqo(u)</tt> to the dq-plane.</p>
+<pre>  J_dq0*u = [0,-1,0; 1,0,0; 0,0,0]*u</pre></p>
+<p>Note: If the argument u is 2-dimensional, then <tt>j_dq0(u)</tt> is the restriction of <tt>j_dq0(u)</tt> to the dq-plane.</p>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
-    end j_dqo;
+    end j_dq0;
 
-    function jj_dqo
+    function jj_dq0
     "Rotation(pi/2) of vector around {0,0,1} and projection on orth plane"
       extends PowerSystems.Basic.Icons.Function;
 
@@ -102,10 +102,10 @@ is
     //  y := cat(1, {-u[2,1:size(u,2)], u[1,1:size(u,2)]}, zeros(size(u,1)-2, size(u,2))); // preliminary until bug removed
       annotation (smoothOrder=2,
     Documentation(info="<html>
-<p>The function <tt>jj_dqo(u)</tt> corresponds to <a href=\"PowerSystems.Basic.Transforms.j_dqo\">j_dqo</a> but has a matrix argument u.<br>
-It acts on the first index in the same way as j_dqo for all values of the second index.
+<p>The function <tt>jj_dq0(u)</tt> corresponds to <a href=\"PowerSystems.Basic.Transforms.j_dq0\">j_dq0</a> but has a matrix argument u.<br>
+It acts on the first index in the same way as j_dq0 for all values of the second index.
 </html>"));
-    end jj_dqo;
+    end jj_dq0;
 
     function park "Park transform"
       extends PowerSystems.Basic.Icons.Function;
@@ -128,7 +128,7 @@ It acts on the first index in the same way as j_dqo for all values of the second
       P := transpose([s23*c, -s23*s, {s13, s13, s13}]);
       annotation (derivative = PowerSystems.Basic.Transforms.der_park,
     Documentation(info="<html>
-<p>The function <tt>park</tt> calculates the matrix <tt>P</tt> that transforms abc variables into dqo variables with arbitrary angular orientation <tt>theta</tt>.<br>
+<p>The function <tt>park</tt> calculates the matrix <tt>P</tt> that transforms abc variables into dq0 variables with arbitrary angular orientation <tt>theta</tt>.<br>
 <tt>P</tt> can be factorised into a constant, angle independent orthogonal matrix <tt>P0</tt> and an angle-dependent rotation <tt>R</tt></p>
 <pre>
   P(theta) = R'(theta)*P0
@@ -231,26 +231,26 @@ and
       R_dq :=  [c, -s; s, c];
       annotation (derivative = PowerSystems.Basic.Transforms.der_rotation_dq,
     Documentation(info="<html>
-<p>The function <tt>rotation_dq</tt> calculates the matrix <tt>R_dq</tt> that is the restriction of <tt>R_dqo</tt> from dqo to dq.</p>
-<p>The matrix <tt>R_dqo</tt> rotates dqo variables around the o-axis in dqo-space with arbitrary angle <tt>theta</tt>.
+<p>The function <tt>rotation_dq</tt> calculates the matrix <tt>R_dq</tt> that is the restriction of <tt>R_dq0</tt> from dq0 to dq.</p>
+<p>The matrix <tt>R_dq0</tt> rotates dq0 variables around the o-axis in dq0-space with arbitrary angle <tt>theta</tt>.
 <p>It takes the form
 <pre>
                  [cos(theta), -sin(theta), 0]
-  R_dqo(theta) = [sin(theta),  cos(theta), 0]
+  R_dq0(theta) = [sin(theta),  cos(theta), 0]
                  [  0,           0,        1]
 </pre>
 and has the real eigenvector
 <pre>  {0, 0, 1}</pre>
-in the dqo reference-frame.</p>
+in the dq0 reference-frame.</p>
 <p>Coefficient matrices of the form (symmetrical systems)
 <pre>
       [x, 0, 0 ]
   X = [0, x, 0 ]
       [0, 0, xo]
 </pre>
-are invariant under transformations R_dqo</p>
-<p>The connection between R_dqo and R_abc is the following
-<pre>  R_dqo = P0*R_abc*P0'.</pre>
+are invariant under transformations R_dq0</p>
+<p>The connection between R_dq0 and R_abc is the following
+<pre>  R_dq0 = P0*R_abc*P0'.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>
@@ -345,8 +345,8 @@ in the abc reference-frame.</p>
       [xm, xm, x ]
 </pre>
 are invariant under transformations R_abc</p>
-<p>The connection between R_abc and R_dqo is the following
-<pre>  R_abc = P0'*R_dqo*P0.</pre>
+<p>The connection between R_abc and R_dq0 is the following
+<pre>  R_abc = P0'*R_dq0*P0.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));

@@ -2,7 +2,7 @@ within PowerSystems.AC3ph;
 package Breakers "Switches and Breakers 3-phase"
   extends Modelica.Icons.VariantsPackage;
 
-  model ForcedSwitch "Forced switch, 3-phase dqo"
+  model ForcedSwitch "Forced switch, 3-phase dq0"
     extends Partials.SwitchBase(final n=1);
 
     parameter SI.Time t_relax=10e-3 "switch relaxation time";
@@ -69,7 +69,7 @@ with
             extent={{-80,-20},{80,-60}},
             lineColor={0,120,120},
             pattern=LinePattern.Dot,
-            textString="dqo exp")}),
+            textString="dq0 exp")}),
     Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -99,7 +99,7 @@ with
                  " forced switch with exponential relaxation")}));
   end ForcedSwitch;
 
-  model ForcedCommSwitch "Forced commuting switch, 3-phase dqo"
+  model ForcedCommSwitch "Forced commuting switch, 3-phase dq0"
     extends Ports.PortBase;
     extends PowerSystems.Basic.Nominal.NominalVI;
 
@@ -112,13 +112,13 @@ with
     SI.Current[3] i_t;
     SI.Current[3] i_f;
 
-    Ports.ACdqo_p term_p "positive terminal"
+    Ports.ACdq0_p term_p "positive terminal"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
             rotation=0)));
-    Ports.ACdqo_n term_nt "negative terminal 'true'"
+    Ports.ACdq0_n term_nt "negative terminal 'true'"
       annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
               0)));
-    Ports.ACdqo_n term_nf "negative terminal 'false'"
+    Ports.ACdq0_n term_nf "negative terminal 'false'"
       annotation (Placement(transformation(extent={{90,-50},{110,-30}},
             rotation=0)));
     Modelica.Blocks.Interfaces.BooleanInput control
@@ -227,7 +227,7 @@ with
             extent={{-80,-50},{80,-80}},
             lineColor={0,120,120},
             pattern=LinePattern.Dot,
-            textString="dqo exp"),
+            textString="dq0 exp"),
           Line(
             points={{0,90},{0,22}},
             color={255,0,255},
@@ -275,7 +275,7 @@ with
                  "false")}));
   end ForcedCommSwitch;
 
-  model Switch "Ideal switch, 3-phase dqo"
+  model Switch "Ideal switch, 3-phase dq0"
     extends Partials.SwitchTrsfBase;
 
   protected
@@ -328,7 +328,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
           grid={2,2}), graphics));
   end Switch;
 
-  model Breaker "Breaker, 3-phase dqo"
+  model Breaker "Breaker, 3-phase dq0"
     extends Partials.SwitchTrsfBase;
 
     replaceable Parameters.BreakerArc par "breaker parameter"
@@ -400,7 +400,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
   package Partials "Partial models"
     extends Modelica.Icons.MaterialPropertiesPackage;
 
-    partial model SwitchBase "Switch base, 3-phase dqo"
+    partial model SwitchBase "Switch base, 3-phase dq0"
       extends Ports.Port_pn;
       extends PowerSystems.Basic.Nominal.NominalVI;
 
@@ -454,7 +454,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
     end SwitchBase;
 
     partial model SwitchTrsfBase
-      "Switch base, additional abc-variables, 3-phase dqo"
+      "Switch base, additional abc-variables, 3-phase dq0"
       extends SwitchBase(final n=3);
 
       SI.Voltage[3] v_abc(each stateSelect=StateSelect.never)
@@ -482,7 +482,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
 */
     /*
   Initial equation needed, if the equation
-  der(i_abc) = transpose(Park)*(der(i) + omega[2]*j_dqo(i));
+  der(i_abc) = transpose(Park)*(der(i) + omega[2]*j_dq0(i));
   is used:
   initial equation
   i_abc = transpose(Park)*i;

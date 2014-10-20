@@ -2,7 +2,7 @@ within PowerSystems.AC3ph;
 package Sources "Voltage and Power Sources"
   extends Modelica.Icons.SourcesPackage;
 
-  model Voltage "Ideal voltage, 3-phase dqo"
+  model Voltage "Ideal voltage, 3-phase dq0"
     extends Partials.VoltageBase;
 
     parameter SIpu.Voltage v0=1 "voltage" annotation(Dialog(enable=scType_par));
@@ -45,7 +45,7 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
           grid={2,2}), graphics));
   end Voltage;
 
-  model Vspectrum "Ideal voltage spectrum, 3-phase dqo"
+  model Vspectrum "Ideal voltage spectrum, 3-phase dq0"
     extends Partials.VoltageBase;
 
     constant Real s2=sqrt(2);
@@ -124,7 +124,7 @@ where
           grid={2,2}), graphics));
   end Vspectrum;
 
-  model InfBus "Infinite slack bus, 3-phase dqo"
+  model InfBus "Infinite slack bus, 3-phase dq0"
     extends Partials.PowerBase(final S_nom=1);
 
     Modelica.Blocks.Interfaces.RealInput[2] vPhasor if not scType_par
@@ -191,7 +191,7 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
           grid={2,2}), graphics));
   end InfBus;
 
-  model VsourceRX "Voltage behind reactance source, 3-phase dqo"
+  model VsourceRX "Voltage behind reactance source, 3-phase dq0"
     extends Partials.PowerBase;
 
     parameter Boolean stIni_en=true "enable steady-state initial equation";
@@ -240,7 +240,7 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
       {v[1:2]*i[1:2], {v[2],-v[1]}*i[1:2]} = pq_ini*S_base;
     end if;
     if steadyIni_t then
-      der(i) = omega[1]*j_dqo(i);
+      der(i) = omega[1]*j_dq0(i);
     end if;
 
   equation
@@ -250,9 +250,9 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
     phi = term.theta[1] + alpha0 + system.alpha0;
 
     if system.transientSim then
-      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dqo(i) + R*i = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v} - v;
+      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v} - v;
     else
-      omega[2]*L*j_dqo(i) + R*i = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v} - v;
+      omega[2]*L*j_dq0(i) + R*i = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v} - v;
     end if;
     annotation (defaultComponentName = "Vsource1",
       Documentation(
@@ -287,7 +287,7 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
           grid={2,2}), graphics));
   end VsourceRX;
 
-  model PVsource "Power-voltage source, 3-phase dqo"
+  model PVsource "Power-voltage source, 3-phase dq0"
     extends Partials.PowerBase;
 
     Modelica.Blocks.Interfaces.RealInput[2] pv if not scType_par
@@ -354,7 +354,7 @@ with variable power and voltage when 'pv' connected to a signal-input.</p>
           grid={2,2}), graphics));
   end PVsource;
 
-  model PQsource "Power source, 3-phase dqo"
+  model PQsource "Power source, 3-phase dq0"
     extends Partials.PowerBase;
 
     Modelica.Blocks.Interfaces.RealInput[2] pq(
@@ -421,7 +421,7 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
   package Partials "Partial models"
     extends Modelica.Icons.BasesPackage;
 
-    partial model SourceBase "Voltage base, 3-phase dqo"
+    partial model SourceBase "Voltage base, 3-phase dq0"
       extends Ports.Port_n;
       extends Basic.Nominal.Nominal;
 
@@ -455,7 +455,7 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
             grid={2,2}), graphics));
     end SourceBase;
 
-    partial model VoltageBase "Voltage base, 3-phase dqo"
+    partial model VoltageBase "Voltage base, 3-phase dq0"
       extends SourceBase(final S_nom=1);
 
       parameter Boolean fType_sys = true
@@ -544,7 +544,7 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
             grid={2,2}), graphics));
     end VoltageBase;
 
-    partial model PowerBase "Power source base, 3-phase dqo"
+    partial model PowerBase "Power source base, 3-phase dq0"
       extends SourceBase;
 
     protected
@@ -604,7 +604,7 @@ relative to each other (pu, norm = 1) and as example (SI, 400 V).</p>
 <tr><td>Single-phase effective</td><td>eff (v_a), ..</td><td><b>1/sqrt(3)</b></td><td><b>230</b></td></tr>
 <tr><td>Phase to phase amplitude</td><td>ampl (v_b - v_c), ..</td><td>sqrt(2)</td><td>565</td></tr>
 <tr><td>Phase to phase effective</td><td>eff (v_b - v_c), ..</td><td><b>1</b></td><td><b>400</b></td></tr>
-<tr><td>Three-phase norm</td><td>|v_dqo|</td><td><b>1</b></td><td><b>400</b></td> </tr>
+<tr><td>Three-phase norm</td><td>|v_dq0|</td><td><b>1</b></td><td><b>400</b></td> </tr>
 <tr><td>Phase to phase dq-norm</td><td>|vpp_dq|</td><td>sqrt(2)</td><td>565</td></tr>
 </table>
 </html>
