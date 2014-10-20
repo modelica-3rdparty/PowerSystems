@@ -25,7 +25,7 @@ Download [PowerSystems v0.3 (2014-10-20)](../../archive/v0.3.zip)
 
 #### Revisions
 
- * Version v0.3  (2014-10-20)
+ * [Version v0.3  (2014-10-20)](../../archive/v0.3.zip)
    * add initial equations to Generic models and related examples
    * add start parameters to AC1phDC and extend transient initialization
    * add start parameters to AC3ph to improve steady-state initialization
