@@ -4,25 +4,37 @@ The library is intended to model electrical power systems at different levels of
 
 ## Library description
 
-`PowerSystems` combines the interface concept of the `PowerFlow` library (developed as part of [Eurosyslib](http://www.eurosyslib.com/) project) with the component models of the [SPOT](https://github.com/modelica-3rdparty/SPOT) library.
+`PowerSystems` combines a generic concept for the modeling of electrical power systems at different levels of detail with the extensive component models of the former [SPOT](https://github.com/modelica-3rdparty/SPOT) library.
 
-`PowerSystems` uses replaceable PhaseSystems to define the voltage and current variables as well as optional supporting reference angles in the connectors. The aim is to support different single and polyphase systems and different mathematical formulations in one framework.
+`PowerSystems` uses replaceable PhaseSystems to define the voltage and current variables as well as optional supporting reference angles in the connectors. The aim is to have different single and polyphase systems and different mathematical formulations in one framework.
 
 In particular this shall cover systems like:
 
- * AC systems, including steady-state, transient, and unsymmetric,
+ * AC power systems, including dc power flow, steady-state, transient, and unsymmetric,
  * Variable frequency systems, e.g. in wind turbines or for drive control, and
  * DC power systems, like HVDC
 
-![PowerWorld.png](PowerSystems 0.2/Examples/PowerWorld/Resources/PowerWorld.png)
+See also the publication [Franke, Wiesmann: Flexible modeling of electrical power systems -- the Modelica PowerSystems library, Modelica conference 2014](https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf).
+
+![PowerWorld.png](PowerSystems/Examples/PowerWorld/Resources/PowerWorld.png)
 
 
 ## Current release
 
-Download [PowerSystems v0.2 (2013-04-18)](../../archive/v0.2.zip)
+Download [PowerSystems v0.3 (2014-10-20)](../../archive/v0.3.zip)
 
 #### Revisions
 
+ * [Version v0.3  (2014-10-20)](../../archive/v0.3.zip)
+   * add initial equations to Generic models and related examples
+   * add start parameters to AC1phDC and extend transient initialization
+   * add start parameters to AC3ph to improve steady-state initialization
+   * fix use of condionally declared variables
+   * clean up annotations
+   * rename dqo to dq0
+ * Version v0.2.1  (2014-08-15)
+   * replace deprecated classDirectory() with loadResource()
+   * fix references to Connections package
  * [Version v0.2 (2013-04-18)](../../archive/v0.2.zip)
    * Clean-up Examples and Resources
  * Version v0.1.3  (2013-02-28)
@@ -38,7 +50,7 @@ Download [PowerSystems v0.2 (2013-04-18)](../../archive/v0.2.zip)
 
 ## License
 
-Copyright &copy; 2007-2013, Modelica Association.
+Copyright &copy; 2007-2014, Modelica Association.
 
 This Modelica package is free software and the use is completely at your own risk;
 it can be redistributed and/or modified under the terms of the [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2).
