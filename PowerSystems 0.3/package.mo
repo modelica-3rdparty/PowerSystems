@@ -144,8 +144,8 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 
 
   annotation (preferredView="info",
-  version="0.2.1",
-  versionDate="2014-08-15",
+  version="0.3",
+  versionDate="2014-10-20",
   Documentation(info="<html>
 <h3><font color=\"#000080\" size=5>Modelica PowerSystems library</font></h3>
 <p>The library is intended to model electrical <b>power systems</b> at different <b>levels of detail</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
