@@ -4,13 +4,13 @@ The library is intended to model electrical power systems at different levels of
 
 ## Library description
 
-`PowerSystems` combines the interface concept of the `PowerFlow` library (developed as part of [Eurosyslib](http://www.eurosyslib.com/) project) with the component models of the [SPOT](https://github.com/modelica-3rdparty/SPOT) library.
+`PowerSystems` combines a generic concept for the modeling of electrical power systems at different levels of detail with the extensive component models of the former [SPOT](https://github.com/modelica-3rdparty/SPOT) library.
 
-`PowerSystems` uses replaceable PhaseSystems to define the voltage and current variables as well as optional supporting reference angles in the connectors. The aim is to support different single and polyphase systems and different mathematical formulations in one framework.
+`PowerSystems` uses replaceable PhaseSystems to define the voltage and current variables as well as optional supporting reference angles in the connectors. The aim is to have different single and polyphase systems and different mathematical formulations in one framework.
 
 In particular this shall cover systems like:
 
- * AC systems, including steady-state, transient, and unsymmetric,
+ * AC power systems, including dc power flow, steady-state, transient, and unsymmetric,
  * Variable frequency systems, e.g. in wind turbines or for drive control, and
  * DC power systems, like HVDC
 
@@ -21,10 +21,17 @@ See also the publication [Franke, Wiesmann: Flexible modeling of electrical powe
 
 ## Current release
 
-Download [PowerSystems v0.2 (2013-04-18)](../../archive/v0.2.zip)
+Download [PowerSystems v0.3 (2014-10-20)](../../archive/v0.3.zip)
 
 #### Revisions
 
+ * Version v0.3  (2014-10-20)
+   * add initial equations to Generic models and related examples
+   * add start parameters to AC1phDC and extend transient initialization
+   * add start parameters to AC3ph to improve steady-state initialization
+   * fix use of condionally declared variables
+   * clean up annotations
+   * rename dqo to dq0
  * Version v0.2.1  (2014-08-15)
    * replace deprecated classDirectory() with loadResource()
    * fix references to Connections package

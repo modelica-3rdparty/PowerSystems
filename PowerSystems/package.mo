@@ -13,10 +13,10 @@ package PowerSystems "Library for electrical power systems"
 
     annotation(__Dymola_DocumentationClass=true, preferredView="info", Documentation(info="<html>
 <p><b><font style=\"font-size: 10pt; color: #008000; \">Overview</font></b></p>
-<p>PowerSystems combines the interface concept of the PowerFlow library (cf. Eurosyslib) with the component models of the Spot library. </p>
-<p>PowerSystems uses replaceable PhaseSystems to define the voltage and current variables as well as optional supporting reference angles in the connectors. The aim is to support different single and polyphase systems and different mathematical formulations in one framework. In particular this shall cover systems like: </p>
+<p>PowerSystems combines a generic concept for the modeling of electrical power systems at different levels of detail with the extensive component models of the former SPOT library. </p>
+<p>PowerSystems uses replaceable PhaseSystems to define the voltage and current variables as well as optional supporting reference angles in the connectors. The aim is to have different single and polyphase systems and different mathematical formulations in one framework. In particular this shall cover systems like: </p>
 <p><ul>
-<li>AC systems, including steady-state, transient, and unsymmetric,</li>
+<li>AC power systems, including dc power flow, steady-state, transient, and unsymmetric,</li>
 <li>Variable frequency systems, e.g. in wind turbines or for drive control, and </li>
 <li>DC power systems, like HVDC </li>
 </ul></p>
@@ -25,7 +25,7 @@ package PowerSystems "Library for electrical power systems"
   replaceable package PhaseSystem = PhaseSystems.PartialPhaseSystem &QUOT;Phase system&QUOT;;
   PhaseSystem.Voltage v[PhaseSystem.n] &QUOT;voltage vector&QUOT;;
   flow PhaseSystem.Current i[PhaseSystem.n] &QUOT;current vector&QUOT;;
-  PhaseSystem.ReferenceAngle theta[PhaseSystem.m] if PhaseSystem.m > 0 &QUOT;optional vector of phase angles&QUOT;;
+  PhaseSystem.ReferenceAngle theta[PhaseSystem.m] &QUOT;optional vector of phase angles&QUOT;;
 end Terminal;</pre>
 <p>The replaceable PhaseSystem defines the number <code><b>n</b></code> of independent voltage and current components and their representation in the connector. Moreover it defines types for the physical quantities so that terminals of different phase systems cannot be directly connected. </p>
 <p>The vector of reference angles <code><b>theta[m]</b></code> allows the definition of a rotating reference system for the description of AC systems with modal components. It is known from the Spot library that this enables the treatment of modal quantities in the time domain, covering transient and unsymmetric systems as well. </p>
@@ -73,6 +73,18 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 </html>",
   revisions="<html>
 <ul>
+<li><i>20 Oct 2014</i>
+    by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
+     Version 0.3
+  <ul>
+  <li>add initial equations to Generic models and related examples</li>
+  <li>add start parameters to AC1phDC and extend transient initialization</li>
+  <li>add start parameters to AC3ph to improve steady-state initialization</li>
+  <li>fix use of condionally declared variables</li>
+  <li>clean up annotations</li>
+  <li>rename dqo to dq0</li>
+  </ul>
+</li>
 <li><i>15 Aug 2014</i>
     by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
      Version 0.2.1
