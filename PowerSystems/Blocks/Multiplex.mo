@@ -6,15 +6,12 @@ package Multiplex "Multiplexer and AD converter"
     extends PowerSystems.Basic.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u1[n[1]] "vector of dimension n[1]"
-      annotation (Placement(transformation(extent={{-110,30},{-90,50}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
     Modelica.Blocks.Interfaces.RealInput u2[n[2]] "vector of dimension n[2]"
-      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
     Modelica.Blocks.Interfaces.RealOutput y[sum(n)]
       "vector of dimension sum(n)"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     parameter Integer n[2]={1,1} "dim of input signals" annotation(Evaluate=true);
 
   equation
@@ -45,18 +42,14 @@ package Multiplex "Multiplexer and AD converter"
     extends PowerSystems.Basic.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u1[n[1]] "vector of dimension n[1]"
-      annotation (Placement(transformation(extent={{-110,30},{-90,50}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
     Modelica.Blocks.Interfaces.RealInput u2[n[2]] "vector of dimension n[2]"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Modelica.Blocks.Interfaces.RealInput u3[n[3]] "vector of dimension n[3]"
-      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
     Modelica.Blocks.Interfaces.RealOutput y[sum(n)]
       "vector of dimension sum(n)"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     parameter Integer n[3]={1,1,1} "dim of input signals" annotation(Evaluate=true);
 
   equation
@@ -65,10 +58,6 @@ package Multiplex "Multiplexer and AD converter"
       Documentation(
               info="<html>
 </html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -91,21 +80,16 @@ package Multiplex "Multiplexer and AD converter"
     extends PowerSystems.Basic.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u1[n[1]] "vector of dimension n[1]"
-      annotation (Placement(transformation(extent={{-110,50},{-90,70}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
     Modelica.Blocks.Interfaces.RealInput u2[n[2]] "vector of dimension n[2]"
-      annotation (Placement(transformation(extent={{-110,10},{-90,30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
     Modelica.Blocks.Interfaces.RealInput u3[n[3]] "vector of dimension n[3]"
-      annotation (Placement(transformation(extent={{-110,-30},{-90,-10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
     Modelica.Blocks.Interfaces.RealInput u4[n[4]] "vector of dimension n[4]"
-      annotation (Placement(transformation(extent={{-110,-70},{-90,-50}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
     Modelica.Blocks.Interfaces.RealOutput y[sum(n)]
       "vector of dimension sum(n)"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     parameter Integer n[4]={1,1,1,1} "dim of input signals" annotation(Evaluate=true);
 
   equation
@@ -136,14 +120,11 @@ package Multiplex "Multiplexer and AD converter"
     extends PowerSystems.Basic.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u[sum(n)] "vector of dimension sum(n)"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Modelica.Blocks.Interfaces.RealOutput y1[n[1]] "vector of dimension n[1]"
-      annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,30},{110,50}})));
     Modelica.Blocks.Interfaces.RealOutput y2[n[2]] "vector of dimension n[2]"
-      annotation (Placement(transformation(extent={{90,-50},{110,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
     parameter Integer n[2]={1,1} "dim of output signals" annotation(Evaluate=true);
 
   equation
@@ -152,11 +133,7 @@ package Multiplex "Multiplexer and AD converter"
       Documentation(
               info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
+"),      Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={
@@ -178,17 +155,13 @@ package Multiplex "Multiplexer and AD converter"
     extends PowerSystems.Basic.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u[sum(n)] "vector of dimension sum(n)"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Modelica.Blocks.Interfaces.RealOutput y1[n[1]] "vector of dimension n[1]"
-      annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,30},{110,50}})));
     Modelica.Blocks.Interfaces.RealOutput y2[n[2]] "vector of dimension n[2]"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     Modelica.Blocks.Interfaces.RealOutput y3[n[3]] "vector of dimension n[3]"
-      annotation (Placement(transformation(extent={{90,-50},{110,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
     parameter Integer n[3]={1,1,1} "dim of output signals" annotation(Evaluate=true);
 
   equation
@@ -219,20 +192,15 @@ package Multiplex "Multiplexer and AD converter"
     extends PowerSystems.Basic.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u[sum(n)] "vector of dimension sum(n)"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Modelica.Blocks.Interfaces.RealOutput y1[n[1]] "vector of dimension n[1]"
-      annotation (Placement(transformation(extent={{90,50},{110,70}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,50},{110,70}})));
     Modelica.Blocks.Interfaces.RealOutput y2[n[2]] "vector of dimension n[2]"
-      annotation (Placement(transformation(extent={{90,10},{110,30}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,10},{110,30}})));
     Modelica.Blocks.Interfaces.RealOutput y3[n[3]] "vector of dimension n[3]"
-      annotation (Placement(transformation(extent={{90,-30},{110,-10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
     Modelica.Blocks.Interfaces.RealOutput y4[n[4]] "vector of dimension n[4]"
-      annotation (Placement(transformation(extent={{90,-70},{110,-50}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
     parameter Integer n[4]={1,1,1,1} "dim of output signals" annotation(Evaluate=true);
 
   equation
@@ -256,26 +224,19 @@ package Multiplex "Multiplexer and AD converter"
             extent={{20,-20},{60,-60}},
             lineColor={0,0,127},
             textString=
-                 "4")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "4")}));
   end R4demux;
 
   block B2mux "Boolean multiplexer 2-fold "
     extends PowerSystems.Basic.Icons.Block0;
 
     Modelica.Blocks.Interfaces.BooleanInput u1[n[1]] "vector of dimension n[1]"
-      annotation (Placement(transformation(extent={{-110,30},{-90,50}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
     Modelica.Blocks.Interfaces.BooleanInput u2[n[2]] "vector of dimension n[2]"
-      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
     Modelica.Blocks.Interfaces.BooleanOutput y[sum(n)]
       "vector of dimension sum(n)"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     parameter Integer n[2]={1,1} "dim of input signals" annotation(Evaluate=true);
 
   equation
@@ -299,11 +260,7 @@ package Multiplex "Multiplexer and AD converter"
             textString=
            "2"),
           Line(points={{-20,40},{0,40},{60,0},{0,-40},{-20,-40}}, color={255,0,
-                255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                255})}));
   end B2mux;
 
   block B2demux "Boolean demultiplexer 2-fold "
@@ -311,16 +268,13 @@ package Multiplex "Multiplexer and AD converter"
 
     Modelica.Blocks.Interfaces.BooleanInput u[sum(n)]
       "vector of dimension sum(n)"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Modelica.Blocks.Interfaces.BooleanOutput y1[n[1]]
       "vector of dimension n[1]"
-      annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,30},{110,50}})));
     Modelica.Blocks.Interfaces.BooleanOutput y2[n[2]]
       "vector of dimension n[2]"
-      annotation (Placement(transformation(extent={{90,-50},{110,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
     parameter Integer n[2]={1,1} "dim of output signals" annotation(Evaluate=true);
 
   equation
@@ -344,11 +298,7 @@ package Multiplex "Multiplexer and AD converter"
             extent={{20,-20},{60,-60}},
             lineColor={255,0,255},
             textString=
-           "2")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "2")}));
   end B2demux;
 
   block Gate2demux "Boolean demultiplexer 2-fold"
@@ -394,11 +344,7 @@ package Multiplex "Multiplexer and AD converter"
             extent={{30,-8},{50,-48}},
             lineColor={255,0,255},
             textString=
-           "2")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "2")}));
   end Gate2demux;
 
   block Gate3demux "Boolean demultiplexer 3-fold "
@@ -456,11 +402,7 @@ package Multiplex "Multiplexer and AD converter"
             extent={{-70,-10},{-50,-50}},
             lineColor={255,0,255},
             textString=
-           "a")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "a")}));
   end Gate3demux;
 
   block AD1ph "Analog-Digital converter 1-phase"
@@ -468,13 +410,12 @@ package Multiplex "Multiplexer and AD converter"
 
     Modelica.Blocks.Interfaces.RealInput p "scalar analog p-signal"
                               annotation (Placement(transformation(extent={{
-              -110,30},{-90,50}}, rotation=0)));
+              -110,30},{-90,50}})));
     Modelica.Blocks.Interfaces.RealInput n "scalar analog n-signal"
                               annotation (Placement(transformation(extent={{
-              -110,-50},{-90,-30}}, rotation=0)));
+              -110,-50},{-90,-30}})));
     Modelica.Blocks.Interfaces.BooleanOutput gates[2] "boolean {p, n}-gate"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   equation
     gates[1] = if p > 0.5 then true else false;
@@ -507,14 +448,13 @@ package Multiplex "Multiplexer and AD converter"
     extends PowerSystems.Basic.Icons.Block0;
 
     Modelica.Blocks.Interfaces.BooleanInput gates[2] "boolean {p, n}-gate"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Modelica.Blocks.Interfaces.RealOutput p "scalar analog p-signal"
                                annotation (Placement(transformation(extent={{90,
-              30},{110,50}}, rotation=0)));
+              30},{110,50}})));
     Modelica.Blocks.Interfaces.RealOutput n "scalar analog n-signal"
                                annotation (Placement(transformation(extent={{90,
-              -50},{110,-30}}, rotation=0)));
+              -50},{110,-30}})));
 
   equation
     p = if gates[1] then 1 else 0;
@@ -548,26 +488,25 @@ package Multiplex "Multiplexer and AD converter"
 
     Modelica.Blocks.Interfaces.RealInput a_p "scalar analog p-signal phase a"
                                 annotation (Placement(transformation(extent={{
-              -110,90},{-90,110}}, rotation=0)));
+              -110,90},{-90,110}})));
     Modelica.Blocks.Interfaces.RealInput a_n "scalar analog n-signal phase a"
                                 annotation (Placement(transformation(extent={{
-              -110,50},{-90,70}}, rotation=0)));
+              -110,50},{-90,70}})));
     Modelica.Blocks.Interfaces.RealInput b_p "scalar analog p-signal phase b"
                                 annotation (Placement(transformation(extent={{
-              -110,10},{-90,30}}, rotation=0)));
+              -110,10},{-90,30}})));
     Modelica.Blocks.Interfaces.RealInput b_n "scalar analog n-signal phase b"
                                 annotation (Placement(transformation(extent={{
-              -110,-30},{-90,-10}}, rotation=0)));
+              -110,-30},{-90,-10}})));
     Modelica.Blocks.Interfaces.RealInput c_p "scalar analog p-signal phase c"
                                 annotation (Placement(transformation(extent={{
-              -110,-70},{-90,-50}}, rotation=0)));
+              -110,-70},{-90,-50}})));
     Modelica.Blocks.Interfaces.RealInput c_n "scalar analog n-signal phase c"
                                 annotation (Placement(transformation(extent={{
-              -110,-110},{-90,-90}}, rotation=0)));
+              -110,-110},{-90,-90}})));
     Modelica.Blocks.Interfaces.BooleanOutput gates[6]
       "boolean {a_p,a_n, b_p,b_n, c_p,c_n,}-gate"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   equation
     gates[1] = if a_p > 0.5 then true else false;
@@ -621,26 +560,25 @@ package Multiplex "Multiplexer and AD converter"
 
     Modelica.Blocks.Interfaces.BooleanInput gates[6]
       "boolean {a_p,a_n, b_p,b_n, c_p,c_n,}-gate"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Modelica.Blocks.Interfaces.RealOutput a_p "scalar analog p-signal phase a"
                                  annotation (Placement(transformation(extent={{
-              90,90},{110,110}}, rotation=0)));
+              90,90},{110,110}})));
     Modelica.Blocks.Interfaces.RealOutput a_n "scalar analog n-signal phase a"
                                  annotation (Placement(transformation(extent={{
-              90,50},{110,70}}, rotation=0)));
+              90,50},{110,70}})));
     Modelica.Blocks.Interfaces.RealOutput b_p "scalar analog p-signal phase b"
                                  annotation (Placement(transformation(extent={{
-              90,10},{110,30}}, rotation=0)));
+              90,10},{110,30}})));
     Modelica.Blocks.Interfaces.RealOutput b_n "scalar analog n-signal phase b"
                                  annotation (Placement(transformation(extent={{
-              90,-30},{110,-10}}, rotation=0)));
+              90,-30},{110,-10}})));
     Modelica.Blocks.Interfaces.RealOutput c_p "scalar analog p-signal phase c"
                                  annotation (Placement(transformation(extent={{
-              90,-70},{110,-50}}, rotation=0)));
+              90,-70},{110,-50}})));
     Modelica.Blocks.Interfaces.RealOutput c_n "scalar analog n-signal phase c"
                                  annotation (Placement(transformation(extent={{
-              90,-110},{110,-90}}, rotation=0)));
+              90,-110},{110,-90}})));
 
   equation
     a_p = if gates[1] then 1 else 0;
@@ -690,9 +628,5 @@ package Multiplex "Multiplexer and AD converter"
   end DA3ph;
   annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Multiplex;

@@ -51,7 +51,7 @@ model System "System reference"
 */
   Interfaces.Frequency receiveFreq
     "receives weighted frequencies from generators"
-   annotation (Placement(transformation(extent={{-96,64},{-64,96}}, rotation=0)));
+   annotation (Placement(transformation(extent={{-96,64},{-64,96}})));
 initial equation
   if not fType_par then
     theta = omega*time;
@@ -121,10 +121,6 @@ equation
           extent={{-100,-70},{100,-100}},
           lineColor={176,0,0},
           textString =                         "ini:%ini  sim:%sim")}),
-  Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
   Documentation(info="<html>
 <p>The model <b>System</b> represents a global reference for the following purposes:</p>
 <p>It allows the choice of </p>

@@ -36,10 +36,7 @@ The default setting is 'pu'.</p>
 <p>Note that the choice between SI and pu does <b>not</b> affect state- and connector variables.
 These remain <b>always</b> in SI-units. It only affects input of parameter values and output variables.</p>
 </html>
-"),        Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Nominal;
 
 partial model NominalAC "Units and nominal values AC"
@@ -53,10 +50,7 @@ partial model NominalAC "Units and nominal values AC"
     Documentation(info="<html>
 <p>Same as 'Nominal', but with additional parameter 'nominal frequency'.</p>
 </html>
-"),        Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end NominalAC;
 
 partial model NominalDC "Units and nominal values DC"
@@ -74,10 +68,7 @@ partial model NominalDC "Units and nominal values DC"
     Documentation(info="<html>
 <p>Same as 'Nominal', but with additional parameter 'nominal rpm'.</p>
 </html>
-"),        Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end NominalDC;
 
 partial model NominalVI "Nominal values"
@@ -91,10 +82,7 @@ partial model NominalVI "Nominal values"
     Documentation(info="<html>
 <p>Nominal values without units choice.</p>
 </html>
-"), Icon(coordinateSystem(
-      preserveAspectRatio=false,
-      extent={{-100,-100},{100,100}},
-      grid={2,2}), graphics));
+"));
 end NominalVI;
 
 record NominalData "Units and nominal data"
@@ -155,17 +143,11 @@ record NominalDataTrafo "Units and nominal data transformer"
   annotation (
     Documentation(info="<html>
 <p>'Nominal' values for transformers. Same as 'NominalAC, but with two components for voltage: {primary, secondary}. The winding ratio is indirectly defined through the voltage ratio.</p>
-</html>"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end NominalDataTrafo;
 
   annotation (preferredView="info",
 Documentation(info="<html>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Nominal;

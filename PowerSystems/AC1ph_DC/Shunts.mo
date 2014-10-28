@@ -240,11 +240,7 @@ package Partials "Partial models"
               fillColor={128,128,128},
               fillPattern=FillPattern.Solid),
             Line(points={{-80,20},{-60,20}}, color={0,0,255}),
-            Line(points={{-80,-20},{-60,-20}}, color={0,0,255})}),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+            Line(points={{-80,-20},{-60,-20}}, color={0,0,255})}));
   end ShuntBase;
 
 end Partials;

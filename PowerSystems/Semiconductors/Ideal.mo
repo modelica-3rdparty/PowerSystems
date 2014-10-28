@@ -30,22 +30,14 @@ where <tt>Vf</tt> denotes the parameter value. With input <tt>cT</tt> empty,  no
 <pre>  h = hSw_nom*v*i/S_nom,   S_nom = V_nom*I_nom</pre>
 where <tt>q</tt> denotes the dissipated heat per switching operation at nominal voltage and current, averaged over 'on' and 'off'.<br>
 A generalisation to powers of i and v is straightforward.</p>
-</html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end SCparameter;
 
 partial model IdealCharacteristic "Ideal diode characteristic"
   extends Partials.ComponentBase;
 
   parameter Ideal.SCparameter par "ideal with forward Vf"
- annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=0)));
+ annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   protected
   constant Real unitAmperePerVolt(unit="A/V") = 1    annotation(HideResult=true);
 
@@ -63,15 +55,7 @@ annotation (
   Documentation(
         info="<html>
 </html>
-"),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end IdealCharacteristic;
 
 model Diode "Diode"
@@ -95,11 +79,7 @@ equation
             fillPattern=FillPattern.Solid),
           Line(points={{-90,0},{-40,0}}, color={0,0,255}),
           Line(points={{40,0},{90,0}}, color={0,0,255}),
-          Line(points={{40,40},{40,-40}}, color={0,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{40,40},{40,-40}}, color={0,0,255})}));
 end Diode;
 
 model Thyristor "Thyristor"
@@ -132,11 +112,7 @@ equation
           Line(
             points={{20,0},{60,40},{60,90}},
             color={255,0,255},
-            pattern=LinePattern.Dot)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            pattern=LinePattern.Dot)}));
 end Thyristor;
 
 model SCswitch "Semiconductor switch"
@@ -168,11 +144,7 @@ equation
           Line(points={{-90,0},{-60,0}}, color={0,0,255}),
           Line(points={{20,0},{90,0}}, color={0,0,255}),
           Line(points={{20,40},{20,-40}}, color={0,0,255}),
-          Line(points={{20,0},{60,40},{60,90}}, color={255,0,255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{20,0},{60,40},{60,90}}, color={255,0,255})}));
 end SCswitch;
 
 model SCswitch_Diode "Semiconductor switch with reverse Diode"
@@ -180,7 +152,7 @@ model SCswitch_Diode "Semiconductor switch with reverse Diode"
 
   parameter SCparameter par "ideal with forward Vf"
                                         annotation (Placement(transformation(
-            extent={{-80,-80},{-60,-60}}, rotation=0)));
+            extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput gate "true:on, false: off"
     annotation (Placement(transformation(
           origin={60,100},
@@ -234,20 +206,12 @@ equation
             fillPattern=FillPattern.Solid),
           Line(points={{30,40},{60,40},{60,-40},{40,-40}}, color={0,0,255}),
           Line(points={{-40,40},{-60,40},{-60,-40},{-30,-40}}, color={0,0,255}),
-          Line(points={{30,40},{60,70},{60,90}}, color={255,0,255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{30,40},{60,70},{60,90}}, color={255,0,255})}));
 end SCswitch_Diode;
 
 annotation (preferredView="info",
     Documentation(info="<html>
 <p>Ideal semiconductor models (default choice).</p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Ideal;

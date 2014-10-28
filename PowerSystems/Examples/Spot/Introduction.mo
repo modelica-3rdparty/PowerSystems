@@ -6,41 +6,38 @@ package Introduction "Introductory examples"
 
     inner PowerSystems.System system(ref="inertial")
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
     PowerSystems.AC3ph.Sources.Voltage voltage_SI(
       v0=408, scType_par=true)
-           annotation (Placement(transformation(extent={{-60,20},{-40,40}},
-            rotation=0)));
+           annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdV1
                                 annotation (Placement(transformation(extent={{
-              -70,20},{-90,40}}, rotation=0)));
+              -70,20},{-90,40}})));
     PowerSystems.AC3ph.Sources.Voltage voltage_pu(
       V_nom=400,
       v0=1.02)
-           annotation (Placement(transformation(extent={{-60,-40},{-40,-20}},
-            rotation=0)));
+           annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdV2
                                 annotation (Placement(transformation(extent={{
-              -70,-40},{-90,-20}}, rotation=0)));
+              -70,-40},{-90,-20}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter_SI
-    annotation (Placement(transformation(extent={{-20,20},{0,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter_pu(
       V_nom=400,
       S_nom=10e3)
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
     PowerSystems.AC3ph.Impedances.Resistor load_SI(
       r=20)
-      annotation (Placement(transformation(extent={{20,20},{40,40}}, rotation=0)));
+      annotation (Placement(transformation(extent={{20,20},{40,40}})));
     PowerSystems.AC3ph.Impedances.Resistor load_pu(
       V_nom=400,
       S_nom=10e3,
       r=1.25)
-     annotation (Placement(transformation(extent={{20,-40},{40,-20}}, rotation=
-              0)));
+     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Nodes.Ground grd1           annotation (Placement(
-          transformation(extent={{50,20},{70,40}}, rotation=0)));
+          transformation(extent={{50,20},{70,40}})));
     PowerSystems.AC3ph.Nodes.Ground grd2           annotation (Placement(
-          transformation(extent={{50,-40},{70,-20}}, rotation=0)));
+          transformation(extent={{50,-40},{70,-20}})));
 
   equation
     connect(voltage_SI.term, meter_SI.term_p) annotation (Line(points={{-40,30},
@@ -60,10 +57,6 @@ package Introduction "Introductory examples"
     connect(grdV2.term, voltage_pu.neutral) annotation (Line(points={{-70,-30},
             {-60,-30}}, color={0,0,255}));
   annotation (
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Documentation(
             info="<html>
 <p>This example shows, how input-parameters can be defined in SI- or in pu-units (V, A or 'per unit').<br>
@@ -110,39 +103,34 @@ and other meter-signals.</p>
 
     inner PowerSystems.System system(f_nom=60, ref="inertial")
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
     PowerSystems.Blocks.Signals.TransientFreq theta_dq0(f_fin=50, f_ini=10)
-      annotation (Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(veff=230)
-      annotation (Placement(transformation(extent={{-40,20},{-20,40}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grdV1
                                  annotation (Placement(transformation(extent={{
-              -50,20},{-70,40}}, rotation=0)));
+              -50,20},{-70,40}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage2(
       veff=230,
       fType_sys=false, fType_par=false)
                    annotation (Placement(transformation(extent={{-40,-40},{-20,
-              -20}}, rotation=0)));
+              -20}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grdV2
                                  annotation (Placement(transformation(extent={{
-              -50,-40},{-70,-20}}, rotation=0)));
+              -50,-40},{-70,-20}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Inductor ind1(
       x=0.2,
       r=0.5,
       f_nom=700)
-             annotation (Placement(transformation(extent={{40,20},{60,40}},
-            rotation=0)));
+             annotation (Placement(transformation(extent={{40,20},{60,40}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Inductor ind2(
       x=0.2,
-      r=0.5) annotation (Placement(transformation(extent={{40,-40},{60,-20}},
-            rotation=0)));
+      r=0.5) annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter1
-      annotation (Placement(transformation(extent={{0,20},{20,40}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,20},{20,40}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter2
-      annotation (Placement(transformation(extent={{0,-40},{20,-20}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
   equation
     connect(voltage1.term, meter1.term_p)
@@ -160,10 +148,6 @@ and other meter-signals.</p>
     connect(theta_dq0.y, voltage2.omega) annotation (Line(points={{-60,-10},{
             -36,-10},{-36,-20}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Documentation(
             info="<html>
 <p>Example of two frequency-independent parts, one with system- and one with autonomous frequency.</p>
@@ -184,27 +168,25 @@ and other meter-signals.</p>
 
     inner PowerSystems.System system(ini="tr", ref="inertial")
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
     PowerSystems.AC3ph.Sources.Voltage voltage_dq0(
       V_nom=400,
       v0=1.02)
-           annotation (Placement(transformation(extent={{-60,-40},{-40,-20}},
-            rotation=0)));
+           annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdV_dq0
                                 annotation (Placement(transformation(extent={{
-              -70,-40},{-90,-20}}, rotation=0)));
+              -70,-40},{-90,-20}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter_dq0(
       V_nom=400,
       S_nom=10e3)
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
     PowerSystems.AC3ph.Impedances.Inductor load_dq0(
       V_nom=400,
       S_nom=10e3,
       r=0.1)
-     annotation (Placement(transformation(extent={{20,-40},{40,-20}}, rotation=
-              0)));
+     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Nodes.Ground grd_dq0        annotation (Placement(
-          transformation(extent={{50,-40},{70,-20}}, rotation=0)));
+          transformation(extent={{50,-40},{70,-20}})));
 
   equation
     connect(voltage_dq0.term, meter_dq0.term_p) annotation (Line(points={{-40,
@@ -216,10 +198,6 @@ and other meter-signals.</p>
     connect(grdV_dq0.term, voltage_dq0.neutral) annotation (Line(points={{-70,
             -30},{-60,-30}}, color={0,0,255}));
   annotation (
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Documentation(
             info="<html>
 <p>This example shows two physically identical systems, the upper one in abc-, the lower one in dq0-representation.</p>
@@ -241,28 +219,26 @@ Compare with the signals of the identical system in the example below.</p>
 
     inner PowerSystems.System system(ini="tr")
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
     PowerSystems.AC3ph.Sources.Voltage voltage_dq0(
       V_nom=400,
       v0=1.02)
-           annotation (Placement(transformation(extent={{-60,-40},{-40,-20}},
-            rotation=0)));
+           annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdV_dq0
                                 annotation (Placement(transformation(extent={{
-              -70,-40},{-90,-20}}, rotation=0)));
+              -70,-40},{-90,-20}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter_dq0(
       V_nom=400,
       S_nom=10e3,
       abc=true)
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
     PowerSystems.AC3ph.Impedances.Inductor load_dq0(
       V_nom=400,
       S_nom=10e3,
       r=0.1)
-     annotation (Placement(transformation(extent={{20,-40},{40,-20}}, rotation=
-              0)));
+     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Nodes.Ground grd_dq0        annotation (Placement(
-          transformation(extent={{50,-40},{70,-20}}, rotation=0)));
+          transformation(extent={{50,-40},{70,-20}})));
 
   equation
     connect(voltage_dq0.term, meter_dq0.term_p) annotation (Line(points={{-40,
@@ -274,10 +250,6 @@ Compare with the signals of the identical system in the example below.</p>
     connect(grdV_dq0.term, voltage_dq0.neutral) annotation (Line(points={{-70,
             -30},{-60,-30}}, color={0,0,255}));
   annotation (
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Documentation(
             info="<html>
 <p>This example shows two physically identical systems, the upper one in abc-, the lower one in dq0-representation.</p>
@@ -299,28 +271,26 @@ Compare with the signals of the identical system in the example above.</p>
 
     inner PowerSystems.System system(ref="inertial")
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
     PowerSystems.AC3ph.Sources.Voltage voltage_dq0(
       V_nom=400,
       v0=1.02)
-           annotation (Placement(transformation(extent={{-60,-40},{-40,-20}},
-            rotation=0)));
+           annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdV_dq0
                                 annotation (Placement(transformation(extent={{
-              -70,-40},{-90,-20}}, rotation=0)));
+              -70,-40},{-90,-20}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter_dq0(
       V_nom=400,
       S_nom=10e3,
       abc=true)
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
     PowerSystems.AC3ph.Impedances.Inductor load_dq0(
       V_nom=400,
       S_nom=10e3,
       r=0.1)
-     annotation (Placement(transformation(extent={{20,-40},{40,-20}}, rotation=
-              0)));
+     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Nodes.Ground grd_dq0        annotation (Placement(
-          transformation(extent={{50,-40},{70,-20}}, rotation=0)));
+          transformation(extent={{50,-40},{70,-20}})));
 
   equation
     connect(voltage_dq0.term, meter_dq0.term_p) annotation (Line(points={{-40,
@@ -344,10 +314,6 @@ Compare with the signals of the identical system in the example above.</p>
 </pre>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     experiment(StopTime=0.1, Interval=0.1e-3));
   end InitialSteadyState;
 
@@ -355,38 +321,36 @@ Compare with the signals of the identical system in the example above.</p>
 
     inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
       a_ini=1.14,
       a_fin=1.0865,
       t_duration=0.8,
       ph_ini=0.32114058236696,
       ph_fin=0.16667894356546)
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
     PowerSystems.AC3ph.Sources.Voltage voltageL(V_nom=400e3, scType_par=false)
-           annotation (Placement(transformation(extent={{-70,20},{-50,40}},
-            rotation=0)));
+           annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdL
                                 annotation (Placement(transformation(extent={{
-              -80,20},{-100,40}}, rotation=0)));
+              -80,20},{-100,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
     PowerSystems.AC3ph.Lines.RXline lineR(par(
         V_nom=400e3,
         r=0.02e-3,
         x=0.25e-3))
-     annotation (Placement(transformation(extent={{30,20},{50,40}}, rotation=0)));
+     annotation (Placement(transformation(extent={{30,20},{50,40}})));
     PowerSystems.AC3ph.Lines.RXline lineL(par(
         V_nom=400e3,
         r=0.02e-3,
         x=0.25e-3))
-     annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=0)));
+     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
     PowerSystems.AC3ph.Sources.Voltage voltageR(V_nom=400e3)
-    annotation (Placement(transformation(extent={{80,20},{60,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{80,20},{60,40}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdR
                                 annotation (Placement(transformation(extent={{
-              90,20},{110,40}}, rotation=0)));
+              90,20},{110,40}})));
     PowerSystems.AC3ph.Breakers.ForcedSwitch switch(V_nom=400e3, I_nom=5e3)
     annotation (Placement(transformation(
           origin={20,-10},
@@ -395,8 +359,7 @@ Compare with the signals of the identical system in the example above.</p>
     PowerSystems.Control.Relays.SwitchRelay relayNet(n=1,
       ini_state=true,
       t_switch={0.4,0.6})
-      annotation (Placement(transformation(extent={{-30,-20},{-10,0}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC3ph.Lines.RXline lineB(par(
         V_nom=400e3,
         r=0.02e-3,
@@ -456,49 +419,43 @@ Compare with the signals of the identical system in the example above.</p>
 and other meter-signals.</p>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>
-"), Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    experiment(StopTime=1, Interval=1e-3));
+"),    experiment(StopTime=1, Interval=1e-3));
   end SimulationTransient;
 
   model SimulationSteadyState "Steady-state simulation"
 
     inner PowerSystems.System system(sim="st")
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
       a_ini=1.14,
       a_fin=1.0865,
       t_duration=0.8,
       ph_ini=0.32114058236696,
       ph_fin=0.16667894356546)
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
     PowerSystems.AC3ph.Sources.Voltage voltageL(V_nom=400e3, scType_par=false)
-           annotation (Placement(transformation(extent={{-70,20},{-50,40}},
-            rotation=0)));
+           annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdL
                                 annotation (Placement(transformation(extent={{
-              -80,20},{-100,40}}, rotation=0)));
+              -80,20},{-100,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter(V_nom=400e3, S_nom=2000e6)
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
     PowerSystems.AC3ph.Lines.RXline lineR(par(
         V_nom=400e3,
         r=0.02e-3,
         x=0.25e-3))
-     annotation (Placement(transformation(extent={{30,20},{50,40}}, rotation=0)));
+     annotation (Placement(transformation(extent={{30,20},{50,40}})));
     PowerSystems.AC3ph.Lines.RXline lineL(par(
         V_nom=400e3,
         r=0.02e-3,
         x=0.25e-3))
-     annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=0)));
+     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
     PowerSystems.AC3ph.Sources.Voltage voltageR(V_nom=400e3)
-    annotation (Placement(transformation(extent={{80,20},{60,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{80,20},{60,40}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdR
                                 annotation (Placement(transformation(extent={{
-              90,20},{110,40}}, rotation=0)));
+              90,20},{110,40}})));
     PowerSystems.AC3ph.Breakers.ForcedSwitch switch(V_nom=400e3, I_nom=5e3)
     annotation (Placement(transformation(
           origin={20,-10},
@@ -507,8 +464,7 @@ and other meter-signals.</p>
     PowerSystems.Control.Relays.SwitchRelay relayNet(n=1,
       ini_state=true,
       t_switch={0.4,0.6})
-      annotation (Placement(transformation(extent={{-30,-20},{-10,0}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC3ph.Lines.RXline lineB(par(
         V_nom=400e3,
         r=0.02e-3,
@@ -569,18 +525,14 @@ This approximation corresponds to an infinitely fast response of the system.</p>
 and other meter-signals.</p>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>
-"), Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    experiment(StopTime=1, Interval=1e-3));
+"),    experiment(StopTime=1, Interval=1e-3));
   end SimulationSteadyState;
 
   model Display "Display of phasors and power"
 
     inner PowerSystems.System system(f=50)
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
       a_fin=1.2,
       ph_ini=-pi,
@@ -588,48 +540,42 @@ and other meter-signals.</p>
       a_ini=0.7,
       t_change=15,
       t_duration=30)
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC3ph.Sources.Voltage voltageL(
       V_nom=400,
       scType_par=false,
       alpha0=0.10035643198967)
-           annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+           annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdV1
                                 annotation (Placement(transformation(extent={{
-              -80,-10},{-100,10}}, rotation=0)));
+              -80,-10},{-100,10}})));
     PowerSystems.AC3ph.Sensors.Phasor phasor_ind(V_nom=400, S_nom=10e3)
-      annotation (Placement(transformation(extent={{-30,20},{10,60}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{-30,20},{10,60}})));
     PowerSystems.AC3ph.Impedances.Inductor ind(
       V_nom=400,
       S_nom=10e3,
       x_m=0.5,
       x_s=2,
       r=1)
-      annotation (Placement(transformation(extent={{20,30},{40,50}}, rotation=0)));
+      annotation (Placement(transformation(extent={{20,30},{40,50}})));
     PowerSystems.AC3ph.Sources.Voltage voltageR(V_nom=400)            annotation (Placement(
-          transformation(extent={{80,30},{60,50}}, rotation=0)));
+          transformation(extent={{80,30},{60,50}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdV2
                                 annotation (Placement(transformation(extent={{
-              90,30},{110,50}}, rotation=0)));
+              90,30},{110,50}})));
     PowerSystems.AC3ph.Sensors.Phasor phasor_cap(V_nom=400, S_nom=10e3)
-      annotation (Placement(transformation(extent={{-30,-60},{10,-20}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-30,-60},{10,-20}})));
     PowerSystems.AC3ph.Impedances.Capacitor cap(
       V_nom=400,
       S_nom=10e3,
       g=0.1,
       b=1)
-      annotation (Placement(transformation(extent={{50,-50},{70,-30}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
     PowerSystems.AC3ph.Nodes.Ground grd            annotation (Placement(
-          transformation(extent={{80,-50},{100,-30}}, rotation=0)));
+          transformation(extent={{80,-50},{100,-30}})));
     PowerSystems.AC3ph.Impedances.Resistor res(V_nom=400, S_nom=10e3,
       r=0.5)
-           annotation (Placement(transformation(extent={{20,-50},{40,-30}},
-            rotation=0)));
+           annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
   equation
     connect(transPh.y, voltageL.vPhasor)
@@ -671,10 +617,6 @@ Select Experiment Setup/Realtime/'Load result interval' = 0.1 s<br>
 Select 'Diagram' in the Simulation layer</p>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     experiment(StopTime=30, Interval=0.02));
   end Display;
 
@@ -690,7 +632,7 @@ Select 'Diagram' in the Simulation layer</p>
       tableName="values",
       fileName=TableDir + "TableExample.tab")
                              annotation (Placement(transformation(extent={{-20,
-              -20},{20,20}}, rotation=0)));
+              -20},{20,20}})));
 
   equation
     u = 10*time "for plotting, time = {0, 1}";
@@ -715,10 +657,6 @@ Interpolates table-values.</p>
 (choose  u as 'independent variable', right mouse)</p>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     experiment(StopTime=1));
   end Tables;
 
@@ -729,8 +667,5 @@ The examples are based on most elementary configurations. A meter is added for c
 <p>The component PowerSystems.System is needed in all models, except in Introduction.Tables.</p>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Introduction;

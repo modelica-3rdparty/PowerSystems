@@ -21,11 +21,7 @@ Consumes the desired power at <b>nominal</b> voltage.</p>
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-                 "R")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "R")}));
   end Rload;
   extends Modelica.Icons.VariantsPackage;
 
@@ -56,11 +52,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-                 "~")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "~")}));
   end ZloadAC;
 
   model YloadAC "Admittance load AC, 1-phase"
@@ -90,11 +82,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-                 "~")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "~")}));
   end YloadAC;
 
   model ZloadDC "Impedance load DC"
@@ -125,11 +113,7 @@ Consumes the desired power at <b>nominal</b> voltage.</p>
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-                 "=")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "=")}));
   end ZloadDC;
 
   model PindLoadDC "Inductive load DC"
@@ -169,11 +153,7 @@ Consumes the desired power independent of voltage.</p>
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-                 "=")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "=")}));
   end PindLoadDC;
 
   model PresLoadDC "P resistive load"
@@ -212,11 +192,7 @@ Consumes the desired power independent of voltage.</p>
             fillColor={128,128,128},
             fillPattern=FillPattern.Solid,
             textString=
-                 "=")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "=")}));
   end PresLoadDC;
 
   package Partials "Partial models"
@@ -249,10 +225,6 @@ Consumes the desired power independent of voltage.</p>
         Documentation(
       info="<html>
 </html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -298,15 +270,7 @@ Consumes the desired power independent of voltage.</p>
       annotation (
         Documentation(
       info="<html>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end ResLoadBase;
 
     partial model LoadBaseAC "Load base AC, 1-phase"
@@ -341,15 +305,7 @@ Consumes the desired power independent of voltage.</p>
       annotation (
         Documentation(
       info="<html>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end LoadBaseAC;
 
                  partial model IndLoadBaseAC "Inductive load base AC, 1-phase"
@@ -393,11 +349,7 @@ Consumes the desired power independent of voltage.</p>
                                points={{-40,-45},{-40,45},{80,0},{-40,-45}},
                                lineColor={0,0,255},
                                fillColor={0,0,255},
-                               fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+                               fillPattern=FillPattern.Solid)}));
                  end IndLoadBaseAC;
 
                  partial model CapLoadBaseAC "Capacitive load base AC, 1-phase"
@@ -449,11 +401,7 @@ Consumes the desired power independent of voltage.</p>
                                points={{-20,36},{-20,-36},{-10,-33},{-10,33},{-20,36}},
               lineColor={0,0,255},
                                fillColor={0,0,255},
-                               fillPattern=FillPattern.Solid)}),
-                     Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+                               fillPattern=FillPattern.Solid)}));
                  end CapLoadBaseAC;
 
     partial model LoadBaseDC "Inductive load base DC"
@@ -488,10 +436,6 @@ Consumes the desired power independent of voltage.</p>
         Documentation(
       info="<html>
 </html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -525,10 +469,6 @@ Consumes the desired power independent of voltage.</p>
         Documentation(
       info="<html>
 </html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -547,9 +487,5 @@ annotation (preferredView="info",
 <pre>  p_set:     active or {active, reactive} power</pre>
 <p>If p_set is <b>not</b> connected to a corresponding signal, parameter-values are relevant.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Loads;

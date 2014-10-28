@@ -734,15 +734,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
 <p>Same as ImpedYDBase, but contains additionally a Park-transform which is needed for
 transformation of general impedance matrices from abc rest to general dq0-system.
 (for example when coefficients of non symmetric systems are defined in abc representation.)</p>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 
     end ImpedYDNonSymBase;
 
@@ -759,14 +751,7 @@ transformation of general impedance matrices from abc rest to general dq0-system
 <p>Same as ImpedYDBase, but contains an additional heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connector is given by the total dissipated electric energy of all conductors (not included neutral-to-ground!).</p>
 </html>
-"),     Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
     end ImpedYDHeat;
 
     partial model ImpedYDNonSymHeat
@@ -785,15 +770,7 @@ transformation of general impedance matrices from abc rest to general dq0-system
       info="<html>
 <p>Same as ImpedYDNonSymBase, but contains an additional vector heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connectors is given by the dissipated electric power per conductor (not included neutral-to-ground!).</p>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end ImpedYDNonSymHeat;
 
   end Partials;
@@ -826,9 +803,5 @@ and conductor-voltage v and -current i on the other:</p>
 </pre>
 <p>with <tt>R30 = rotation_30deg</tt><br>
 (Alternative solutions corresponding to permuted phases are <tt>R-90</tt> and <tt>R150</tt> instead of <tt>R30</tt>).</p>
-</html>"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end ImpedancesYD;

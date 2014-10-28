@@ -14,14 +14,7 @@ package Transformers "Transformers 1-phase "
         info="<html>
 <p>Ideal magnetic coupling, no stray-impedance, zero magnetisation current.</p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end TrafoIdeal;
 
   model TrafoStray "Ideal magnetic coupling transformer, 1-phase"
@@ -62,11 +55,7 @@ package Transformers "Transformers 1-phase "
             extent={{-10,62},{10,-62}},
             lineColor={215,215,215},
             fillColor={215,215,215},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end TrafoStray;
 
   model TrafoMag "Magnetic coupling transformer, 1-phase"
@@ -133,11 +122,7 @@ and eddy current losses.</p>
             extent={{18,-58},{22,-62}},
             lineColor={0,128,255},
             fillColor={0,128,255},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end TrafoMag;
 
   model TrafoSat "Saturation transformer, 1-phase"
@@ -262,11 +247,7 @@ and eddy current losses.</p>
             extent={{-10,62},{10,-62}},
             lineColor={215,215,215},
             fillColor={215,215,215},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end Trafo3Stray;
 
   package Partials "Partial models"
@@ -311,7 +292,7 @@ and eddy current losses.</p>
 
       replaceable parameter Parameters.TrafoIdeal1ph par "trafo parameter"
                                 annotation (Placement(transformation(extent={{
-                -80,60},{-60,80}}, rotation=0)));
+                -80,60},{-60,80}})));
     protected
       final parameter Boolean steadyIni_t = system.steadyIni_t and stIni_en;
       Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
@@ -432,10 +413,6 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for ideal magnetic coupling transformer</p>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -463,10 +440,6 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for magnetic coupling trafo transformer</p>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -492,10 +465,6 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for saturation transformer</p>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -543,7 +512,7 @@ For variable transformer ratio tap changer input needed.</p>
 
       replaceable parameter Parameters.Trafo3Ideal1ph par "trafo parameter"
                                 annotation (Placement(transformation(extent={{
-                -80,60},{-60,80}}, rotation=0)));
+                -80,60},{-60,80}})));
     protected
       Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
@@ -683,10 +652,6 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for ideal magnetic coupling 3-winding transformer</p>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -715,15 +680,7 @@ record TrafoIdeal1ph "Parameters for ideal transformer, 1-phase"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoIdeal1ph;
 
 record TrafoStray1ph
@@ -735,15 +692,7 @@ record TrafoStray1ph
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoStray1ph;
 
 record TrafoMag1ph "Parameters for magnetic coupling transformer, 1-phase"
@@ -754,15 +703,7 @@ record TrafoMag1ph "Parameters for magnetic coupling transformer, 1-phase"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoMag1ph;
 
 record TrafoSat1ph "Parameters for saturation transformer, 1-phase"
@@ -773,15 +714,7 @@ record TrafoSat1ph "Parameters for saturation transformer, 1-phase"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoSat1ph;
 
 record Trafo3Ideal1ph "Parameters for ideal transformer, 1-phase"
@@ -797,15 +730,7 @@ record Trafo3Ideal1ph "Parameters for ideal transformer, 1-phase"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end Trafo3Ideal1ph;
 
 record Trafo3Stray1ph
@@ -817,33 +742,17 @@ record Trafo3Stray1ph
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end Trafo3Stray1ph;
 
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
 annotation (preferredView="info",
     Documentation(info="<html>
 <p>One-phase transformer models in different abstraction levels.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Transformers;

@@ -14,11 +14,6 @@ package Thermal "Thermal boundary and adaptors"
   equation
     heat.T = T_amb;
     annotation (defaultComponentName="bdCond",
-      Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}), graphics),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-              100,100}}),
-              graphics),
       Documentation(info="<html>
 <p>Deault thermal boundary condition for applications where the thermal output of heat-producing components is not needed.<br>
 Boundary has fixed temperature T = 0.</p>
@@ -41,11 +36,6 @@ Boundary has fixed temperature T = 0.</p>
   equation
     heat.ports.T = fill(T_amb, heat.m);
     annotation (defaultComponentName="bdCond",
-      Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}), graphics),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-              100,100}}),
-              graphics),
       Documentation(info="<html>
 <p>Deault thermal boundary condition for applications where the thermal output of heat-producing components is not needed.<br>
 Boundary has fixed temperature T = 0.</p>
@@ -83,11 +73,6 @@ Boundary has fixed temperature T = 0.</p>
       q = 0;
     end if;
     annotation (defaultComponentName="boundary",
-      Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}), graphics),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-              100,100}}),
-              graphics),
       Documentation(info="<html>
 <p>Ideal cooling (ideal=true):<br>
 Boundary has fixed temperature T_amb.</p>
@@ -144,11 +129,6 @@ at constant ambient temperature. The correspondence is
       q = zeros(if add_up then 1 else m);
     end if;
     annotation (defaultComponentName="boundary",
-      Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}), graphics),
-      Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-              100,100}}),
-                      graphics),
       Documentation(info="<html>
 <p>Ideal cooling (ideal=true):<br>
 Boundary has fixed temperature T_amb.</p>
@@ -418,9 +398,6 @@ at constant ambient temperature. The correspondence is
     port_a.ports.T = fill( port_b.T, port_a.m);
     sum(port_a.ports.Q_flow) + port_b.Q_flow = 0;
     annotation (defaultComponentName="heat_collect",
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-              100,100}}),
-              graphics),
       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
               100}}), graphics={
           Rectangle(
@@ -460,8 +437,6 @@ model BdCondBase "Default (Neumann) boundary condition base"
               fillColor={192,192,192},
               fillPattern=FillPattern.Backward),
             Line(points={{-80,-50},{80,-50}}, color={255,255,255})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-                100,100}}), graphics),
     Documentation(info="<html>
 <p>Deault thermal boundary condition for applications where the thermal output of heat-producing components is not needed.<br>
 Boundary has fixed temperature T = 0.</p>
@@ -515,17 +490,11 @@ initial equation
               extent={{-100,0},{100,-40}},
               lineColor={0,0,0},
               textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-                100,100}}), graphics),
     Documentation(info="<html>
 </html>
 "));
 end BoundaryBase;
   annotation (
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Documentation(
             info="<html>
 </html>

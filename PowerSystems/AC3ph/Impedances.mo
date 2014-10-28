@@ -971,11 +971,7 @@ a time dependent transform of the coefficient matrix.</p>
         Documentation(
       info="<html>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
+"),        Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
@@ -1000,15 +996,7 @@ a time dependent transform of the coefficient matrix.</p>
 <p>Same as ImpedBase, but contains additionally a Park-transform which is needed for
 transformation of general impedance matrices from abc rest to general dq0-system.
 (for example when coefficients of non symmetric systems are defined in abc representation.)</p>
-</html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end ImpedNonSymBase;
 
     partial model ImpedHeat "Impedance base with heat port, 3-phase dq0"
@@ -1023,14 +1011,7 @@ transformation of general impedance matrices from abc rest to general dq0-system
 <p>Same as ImpedBase, but contains an additional heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connector is given by the total dissipated electric energy of all conductors.</p>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
     end ImpedHeat;
 
     partial model ImpedNonSymHeat
@@ -1050,14 +1031,7 @@ transformation of general impedance matrices from abc rest to general dq0-system
 <p>Same as ImpedNonSymBase, but contains an additional vector heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connectors is given by the dissipated electric power per conductor.</p>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
     end ImpedNonSymHeat;
 
   end Partials;
@@ -1156,9 +1130,5 @@ annotation (preferredView="info",
   b_dq0 = P*b_abc*transpose(P)
   g_dq0 = P*g_abc*transpose(P)
 </pre>
-</html>"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Impedances;

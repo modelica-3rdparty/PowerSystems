@@ -242,7 +242,7 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
       SI.Voltage v(start = v_start);
       SI.Current i(start = i_start);
 
-    protected 
+    protected
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
 
     equation
@@ -253,11 +253,7 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
       Documentation(
             info="<html>
 </html>
-"),   Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-      Diagram(coordinateSystem(
+"),      Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={Line(points={{-80,20},{-60,20},{-60,80},{0,
@@ -275,14 +271,7 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
 <p>Same as ImpedBase, but contains an additional heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connector is given by the total dissipated electric power.</p>
 </html>
-"), Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
     end ImpedBaseHeat;
 
   end Partials;
@@ -292,8 +281,5 @@ Documentation(info="<html>
 <p>Contains lumped impedance models with one terminal.</p>
 <p>General relations see AC1ph_DC.Impedances.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end ImpedancesOneTerm;

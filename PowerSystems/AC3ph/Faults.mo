@@ -42,11 +42,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             extent={{-40,-70},{0,-80}},
             lineColor={0,0,0},
             fillColor={255,0,0},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end Short_ABC;
 
                 model Fault_bc "b to c fault, 3-phase dq0"
@@ -145,7 +141,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             "short with small resistance"),
          choice(redeclare PowerSystems.Common.Switching.Fault fault_pp1
             "fault with arc-model")), Placement(transformation(extent={{-60,-20},
-              {-20,20}}, rotation=0)));
+              {-20,20}})));
     replaceable Common.Switching.Short fault_pp2(
       final on=on,
       final epsR=epsR,
@@ -154,7 +150,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             "short with small resistance"),
          choice(redeclare PowerSystems.Common.Switching.Fault fault_pp2
             "fault with arc-model")), Placement(transformation(extent={{20,-20},
-              {60,20}}, rotation=0)));
+              {60,20}})));
   protected
     final parameter Integer[2] m_ph=pair[n_ph, :];
 
@@ -195,11 +191,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             extent={{-40,-70},{0,-80}},
             lineColor={0,0,0},
             fillColor={0,255,128},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end Fault_abc;
 
   model Fault_A "a to ground fault, 3-phase dq0"
@@ -384,10 +376,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Fault_Abc;
 
   model Fault_aBc "a to b, c to b, b to ground fault, 3-phase dq0"
@@ -398,10 +387,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Fault_aBc;
 
   model Fault_abC "a to c, b to c, c to ground fault, 3-phase dq0"
@@ -412,10 +398,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               info="<html>
 <p>Connect to 'fault'-terminal of faulted line.</p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Fault_abC;
 
   package Partials "Partial models"
@@ -471,11 +454,7 @@ The transformation to inertial abc is only needed to determine the correct phase
 - lower case a, b, c:     shorted phase to phase<br>
 - upper case A, B, C:     shorted phase to ground</p>
 </html>
-"),     Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Icon(coordinateSystem(
+"),        Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={Rectangle(
@@ -498,7 +477,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pp
               "fault with arc-model")), Placement(transformation(extent={{-20,
-                -20},{20,20}}, rotation=0)));
+                -20},{20,20}})));
       replaceable Common.Switching.Short fault_pp(
         final on=on,
         final epsR=epsR,
@@ -507,7 +486,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pp
               "fault with arc-model")), Placement(transformation(extent={{-20,
-                -20},{20,20}}, rotation=0)));
+                -20},{20,20}})));
     //extends Common.Switching.Partials.FaultBase
     protected
       final parameter Integer[2] m_ph=pair[n_ph, :];
@@ -537,7 +516,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pg
               "fault with arc-model")), Placement(transformation(extent={{-20,
-                -20},{20,20}}, rotation=0)));
+                -20},{20,20}})));
     //  extends Common.Switching.Partials.FaultBase
     protected
       final parameter Integer[2] m_ph=pair[n_ph, :];
@@ -576,7 +555,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pp
               "fault with arc-model")), Placement(transformation(extent={{-60,
-                -20},{-20,20}}, rotation=0)));
+                -20},{-20,20}})));
     //  extends Common.Switching.Partials.FaultBase
       replaceable Common.Switching.Short fault_pg(
         final on=on,
@@ -586,7 +565,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pg
               "fault with arc-model")), Placement(transformation(extent={{20,
-                -20},{60,20}}, rotation=0)));
+                -20},{60,20}})));
     //  extends Common.Switching.Partials.FaultBase
     protected
       final parameter Integer[2] m_ph=pair[n_ph, :];
@@ -628,7 +607,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pp1
               "fault with arc-model")), Placement(transformation(extent={{-80,
-                -20},{-40,20}}, rotation=0)));
+                -20},{-40,20}})));
     //  extends Common.Switching.Partials.FaultBase
       replaceable Common.Switching.Short fault_pp2(
         final on=on,
@@ -638,7 +617,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pp2
               "fault with arc-model")), Placement(transformation(extent={{-20,
-                -20},{20,20}}, rotation=0)));
+                -20},{20,20}})));
     //  extends Common.Switching.Partials.FaultBase
       replaceable Common.Switching.Short fault_pg(
         final on=on,
@@ -648,7 +627,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pg
               "fault with arc-model")), Placement(transformation(extent={{40,
-                -20},{80,20}}, rotation=0)));
+                -20},{80,20}})));
     //  extends Common.Switching.Partials.FaultBase
     protected
       final parameter Integer[2] m_ph=pair[n_ph, :];
@@ -701,9 +680,5 @@ Documentation(info="<html>
 <p><tt><b>Fault_*</b></tt>, example: <tt><b>Fault_abC</b></tt>:</p>
 <p><tt>A B C </tt> denote a phase with (additional) fault to ground,<br>
 <tt>a b c </tt> denote a phase with no fault to ground</p>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Faults;

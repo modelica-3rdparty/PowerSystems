@@ -61,11 +61,7 @@ and
   R(theta) = [s_0,  c_0, 0]
              [  0,  0,   1]
 </pre></p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end Park;
 
   block Rotation_dq "Rotation of input signal-vector"
@@ -118,10 +114,7 @@ are invariant under transformations R_dq0</p>
 <pre>  R_dq0 = P0*R_abc*P0'.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Rotation_dq;
 
   block Rotation_abc "Rotation of input signal-vector"
@@ -213,11 +206,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
   y[1] = u[1]            absolute value
   y[2] = u[2] + theta    argument, phase
 </pre></p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end RotationPhasor;
 
   block PhasorToAlphaBeta "Rotation of input signal-vector"
@@ -265,17 +254,9 @@ i.e. rotates phasor in polar representation by angle theta and transforms to Euc
 <pre>
   y = sqrt(2/3)*u[1]*{cos(u[2] + theta), sin(u[2] + theta)}    amplitudes alpha, beta
 </pre></p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end PhasorToAlphaBeta;
   annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Transforms;

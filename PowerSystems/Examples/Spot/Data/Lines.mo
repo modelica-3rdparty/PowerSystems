@@ -107,10 +107,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="C132kVDC",
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
         info="<html>
 </html>"));
@@ -243,10 +239,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="C132kV",
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
         info="<html>
 </html>"));
@@ -291,10 +283,6 @@ end OHline_132kV1ph;
     parameter SI.ApparentPower f_nom=50 "nom frequency";
 
   annotation (defaultComponentName="C400kV",
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
         info="<html>
 </html>"));

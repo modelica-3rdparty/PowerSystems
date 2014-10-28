@@ -508,7 +508,7 @@ end FaultPIline;
       parameter Integer ne(min=1)=1 "number of pi-elements";
       replaceable parameter Parameters.RXline par "line parameter"
                                            annotation (Placement(transformation(
-              extent={{-80,60},{-60,80}}, rotation=0)));
+              extent={{-80,60},{-60,80}})));
 
       parameter Boolean stIni_en=true "enable steady-state initialization"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
@@ -529,14 +529,7 @@ end FaultPIline;
               info="<html>
 <p>Precalculation of coefficient matrices.</p>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
     end RXlineBase;
 
     partial model PIlineBase "PI-line base, 1-phase"
@@ -553,8 +546,7 @@ end FaultPIline;
               info="<html>
 <p>Precalculation of coefficient matrices.</p>
 </html>
-"),     Icon(graphics),
-        Diagram(graphics));
+"));
     end PIlineBase;
 
   end Partials;
@@ -584,15 +576,7 @@ package Parameters "Parameter data for interactive use"
   uncoupled limit:      x0 = x
 </pre>
 <p>More info see package AC1ph_DC.Impedances.</p>
-</html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
   end RXline;
 
   record PIline "PI-line parameters, 1-phase"
@@ -615,21 +599,13 @@ package Parameters "Parameter data for interactive use"
 <p>where <tt>_pg</tt> denotes phase-to-ground, and <tt>_pp</tt> phase-to-phase.</p>
 <p>More info see package AC1ph_DC.Impedances.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
   end PIline;
  annotation (preferredView="info",
     Documentation(info=
                   "<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
   annotation (preferredView="info",
 Documentation(info="<html>
@@ -646,8 +622,5 @@ Faulted transmission lines contain a third terminal for connection to a fault-co
 <pre>  cpl = x_m/x_s &gt  0,        positive for lines</pre>
 <p>More info see package AC1ph_DC.Impedances.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Lines;

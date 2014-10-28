@@ -7,9 +7,9 @@ package Partials "Partial models"
     SI.Voltage v "voltage";
     SI.Current i "current";
     Interfaces.Electric_p term_p "positive terminal"
-  annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Interfaces.Electric_n term_n "negative terminal"
-  annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     Interfaces.Thermal_n heat "source dissipated heat power"
       annotation (Placement(transformation(
           origin={0,100},
@@ -29,11 +29,7 @@ package Partials "Partial models"
       Documentation(
             info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
+"),      Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Text(
@@ -47,11 +43,9 @@ package Partials "Partial models"
     extends PowerSystems.Basic.Icons.Inverter;
 
     Interfaces.Electric_n AC "AC scalar connection"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     AC1ph_DC.Ports.TwoPin_p DC "DC connection"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Interfaces.Thermal_n heat      annotation (Placement(transformation(
           origin={0,100},
           extent={{-10,-10},{10,10}},
@@ -60,11 +54,7 @@ package Partials "Partial models"
       Documentation(
             info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
+"),      Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Text(

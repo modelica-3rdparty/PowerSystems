@@ -6,26 +6,26 @@ model Vsource "Power transfer from voltage source to slack bus"
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
   PowerSystems.AC3ph.Sources.VsourceRX Vsource(
     V_nom=20e3,
     v_ini=1.02,
     S_nom=500e6,
     pq_ini={1,0.428},
       alpha_ini=0.037545522868902)
-    annotation (Placement(transformation(extent={{-70,0},{-50,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor
-    annotation (Placement(transformation(extent={{-30,0},{-10,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
   PowerSystems.AC3ph.Lines.RXline line(
     len=40e3, par(V_nom=20e3, S_nom=500e6),
       stIni_en=false)
-    annotation (Placement(transformation(extent={{10,0},{30,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{10,0},{30,20}})));
   PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
-    annotation (Placement(transformation(extent={{70,0},{50,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{70,0},{50,20}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{-70,0},{-90,20}}, rotation=0)));
+            extent={{-70,0},{-90,20}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{70,0},{90,20}}, rotation=0)));
+            extent={{70,0},{90,20}})));
 
 equation
   connect(Vsource.term, sensor.term_p)   annotation (Line(points={{-50,10},{-30,
@@ -49,41 +49,33 @@ The powerflow depends essentially on the phase difference between the nodes and 
 </pre></p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=1));
+"),      experiment(StopTime=1));
 end Vsource;
 
 model PVsource "Power transfer from power-voltage source to slack bus"
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
   PowerSystems.AC3ph.Sources.PVsource PVsource(
     V_nom=20e3,
     S_nom=500e6,
     v0=1.02,
     p0=1)
-    annotation (Placement(transformation(extent={{-70,0},{-50,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
   PowerSystems.AC3ph.Lines.RXline line(par(
     V_nom=20e3,
     S_nom=500e6),
     len=40e3)
-    annotation (Placement(transformation(extent={{10,0},{30,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{10,0},{30,20}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor
-    annotation (Placement(transformation(extent={{-30,0},{-10,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
   PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
-    annotation (Placement(transformation(extent={{70,0},{50,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{70,0},{50,20}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{-70,0},{-90,20}}, rotation=0)));
+            extent={{-70,0},{-90,20}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{70,0},{90,20}}, rotation=0)));
+            extent={{70,0},{90,20}})));
 
 equation
   connect(PVsource.term, sensor.term_p)   annotation (Line(points={{-50,10},{
@@ -107,14 +99,6 @@ The active powerflow is now directly determined through a parameter instead of i
 </pre></p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       experiment(StopTime=1));
 end PVsource;
 
@@ -122,25 +106,25 @@ model PQsource "Power transfer from power source to slack bus"
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
   PowerSystems.AC3ph.Sources.PQsource PQsource(
     S_nom=500e6,
     V_nom=20e3,
     pq0={1,0.428})
-    annotation (Placement(transformation(extent={{-70,0},{-50,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor
-    annotation (Placement(transformation(extent={{-30,0},{-10,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
   PowerSystems.AC3ph.Lines.RXline line(par(
     V_nom=20e3,
     S_nom=500e6),
     len=40e3)
-    annotation (Placement(transformation(extent={{10,0},{30,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{10,0},{30,20}})));
   PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
-    annotation (Placement(transformation(extent={{70,0},{50,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{70,0},{50,20}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{-70,0},{-90,20}}, rotation=0)));
+            extent={{-70,0},{-90,20}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{70,0},{90,20}}, rotation=0)));
+            extent={{70,0},{90,20}})));
 
 equation
   connect(PQsource.term, sensor.term_p)   annotation (Line(points={{-50,10},{
@@ -164,14 +148,6 @@ Both active and reactive powerflow are now directly determined through a paramet
 </pre></p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       experiment(StopTime=1));
 end PQsource;
 
@@ -179,57 +155,49 @@ end PQsource;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}}, rotation=0)));
+              {-80,100}})));
     PowerSystems.AC3ph.Machines.Control.PowerAngle powerAngle(delta=
           0.78539816339745)
-          annotation (Placement(transformation(extent={{-80,0},{-60,20}},
-            rotation=0)));
+          annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
     PowerSystems.Control.Exciters.ExciterSimple exciter(v_f=2.258)
-               annotation (Placement(transformation(extent={{-30,70},{-50,90}},
-            rotation=0)));
+               annotation (Placement(transformation(extent={{-30,70},{-50,90}})));
     PowerSystems.AC3ph.Machines.Control.Excitation excitation(V_nom=20e3, Vf_nom=20e3)
                                             annotation (Placement(
-          transformation(extent={{-30,40},{-50,60}}, rotation=0)));
+          transformation(extent={{-30,40},{-50,60}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(par=synData)
-         annotation (Placement(transformation(extent={{-30,0},{-50,20}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
     PowerSystems.AC3ph.Sensors.Psensor sensor
-      annotation (Placement(transformation(extent={{0,0},{20,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,0},{20,20}})));
     PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
-      annotation (Placement(transformation(extent={{90,0},{70,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{90,0},{70,20}})));
     PowerSystems.AC3ph.Sources.Voltage Vgen1(
       V_nom=20e3,
       v0=2.258,
       alpha0=0.78539816339745)
-      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     PowerSystems.AC3ph.Impedances.Inductor RLgen1(
       V_nom=20e3,
       S_nom=500e6,
       r=0.01,
       x_m=-0.5,
       x_s=1.1)
-         annotation (Placement(transformation(extent={{-50,-80},{-30,-60}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
     PowerSystems.AC3ph.Sensors.Psensor sensor1
-      annotation (Placement(transformation(extent={{0,-80},{20,-60}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
     PowerSystems.AC3ph.Sources.Voltage Vbus1(V_nom=20e3)
-      annotation (Placement(transformation(extent={{90,-80},{70,-60}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-80},{70,-60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{-80,-80},{-100,-60}}, rotation=0)));
+            extent={{-80,-80},{-100,-60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{90,-80},{110,-60}}, rotation=0)));
+            extent={{90,-80},{110,-60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd3
                                    annotation (Placement(transformation(extent=
-              {{90,0},{110,20}}, rotation=0)));
+              {{90,0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
-      annotation (Placement(transformation(extent={{-50,20},{-30,40}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
     PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
                                           annotation (Placement(transformation(
-            extent={{40,80},{80,100}}, rotation=0)));
+            extent={{40,80},{80,100}})));
 
   equation
     connect(Vgen1.term, RLgen1.term_p) annotation (Line(points={{-60,-70},{-50,
@@ -267,10 +235,6 @@ end PQsource;
     connect(generator.heat, bdCond.heat)   annotation (Line(points={{-40,20},{
             -40,20}}, color={176,0,0}));
     annotation (
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
 <p>This example is a first step on the way 'from voltage source to generator model'.</p>
@@ -289,17 +253,14 @@ The power-angle is artificially fixed. The correspondence is:
 </pre></p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end PowerAngle;
 
   model TurbineGenerator "Turbine with generator"
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}}, rotation=0)));
+              {-80,100}})));
     parameter SIpu.AngularVelocity speed_ini(unit="1")=1 "initial speed";
     PowerSystems.Mechanics.TurboGroups.SingleMassTG turboGrp(
       final w_ini=speed_ini*2*pi*generator.par.f_nom/generator.par.pp,
@@ -307,56 +268,48 @@ The power-angle is artificially fixed. The correspondence is:
       w_nom=2*pi*generator.par.f_nom,
       P_nom=generator.par.S_nom)
                          annotation (Placement(transformation(extent={{-80,0},{
-              -60,20}}, rotation=0)));
+              -60,20}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(par=synData)
-      annotation (Placement(transformation(extent={{-30,0},{-50,20}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0116)
-      annotation (Placement(transformation(extent={{-80,30},{-60,50}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
     PowerSystems.Control.Exciters.ExciterSimple exciter(v_f=2.258)
-      annotation (Placement(transformation(extent={{-30,70},{-50,90}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-30,70},{-50,90}})));
     PowerSystems.AC3ph.Machines.Control.Excitation excitation(V_nom=20e3, Vf_nom=20e3)
                                             annotation (Placement(
-          transformation(extent={{-30,40},{-50,60}}, rotation=0)));
+          transformation(extent={{-30,40},{-50,60}})));
     PowerSystems.AC3ph.Sensors.Psensor sensor
-      annotation (Placement(transformation(extent={{0,0},{20,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,0},{20,20}})));
     PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
-      annotation (Placement(transformation(extent={{90,0},{70,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{90,0},{70,20}})));
     PowerSystems.AC3ph.Sources.Voltage Vgen1(
       V_nom=20e3,
       v0=2.258,
       alpha0=0.78539816339745)
-      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     PowerSystems.AC3ph.Impedances.Inductor RLgen1(
       V_nom=20e3,
       S_nom=500e6,
       x_s=1.1,
       x_m=-0.5,
       r=0.01)
-         annotation (Placement(transformation(extent={{-50,-80},{-30,-60}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
     PowerSystems.AC3ph.Sensors.Psensor sensor1
-      annotation (Placement(transformation(extent={{0,-80},{20,-60}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
     PowerSystems.AC3ph.Sources.Voltage VBus1(V_nom=20e3)
-      annotation (Placement(transformation(extent={{90,-80},{70,-60}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-80},{70,-60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{-80,-80},{-100,-60}}, rotation=0)));
+            extent={{-80,-80},{-100,-60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{90,-80},{110,-60}}, rotation=0)));
+            extent={{90,-80},{110,-60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd3
                                    annotation (Placement(transformation(extent=
-              {{90,0},{110,20}}, rotation=0)));
+              {{90,0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
-      annotation (Placement(transformation(extent={{-50,20},{-30,40}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
     PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
                                           annotation (Placement(transformation(
-            extent={{40,80},{80,100}}, rotation=0)));
+            extent={{40,80},{80,100}})));
 
   equation
     connect(Vgen1.term, RLgen1.term_p) annotation (Line(points={{-60,-70},{-50,
@@ -414,22 +367,14 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
 </pre></p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=1));
+"),      experiment(StopTime=1));
   end TurbineGenerator;
 
   model TurbineGeneratorLine "Turbine with generator and line"
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}}, rotation=0)));
+              {-80,100}})));
     parameter SIpu.AngularVelocity speed_ini(unit="1")=1 "initial speed";
     PowerSystems.Mechanics.TurboGroups.SingleMassTG turboGrp(
       final w_ini=speed_ini*2*pi*generator.par.f_nom/generator.par.pp,
@@ -437,23 +382,20 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
       w_nom=2*pi*generator.par.f_nom,
       P_nom=generator.par.S_nom)
                          annotation (Placement(transformation(extent={{-80,0},{
-              -60,20}}, rotation=0)));
+              -60,20}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(par=synData)
-      annotation (Placement(transformation(extent={{-30,0},{-50,20}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0094)
-      annotation (Placement(transformation(extent={{-80,30},{-60,50}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
     PowerSystems.Control.Exciters.ExciterSimple exciter(v_f=2.245)
-      annotation (Placement(transformation(extent={{-30,80},{-50,100}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-30,80},{-50,100}})));
     PowerSystems.AC3ph.Machines.Control.Excitation excitation(V_nom=20e3, Vf_nom=20e3)
                                             annotation (Placement(
-          transformation(extent={{-30,50},{-50,70}}, rotation=0)));
+          transformation(extent={{-30,50},{-50,70}})));
     PowerSystems.AC3ph.Nodes.BusBar busbar        annotation (Placement(
-          transformation(extent={{-20,0},{0,20}}, rotation=0)));
+          transformation(extent={{-20,0},{0,20}})));
     PowerSystems.AC3ph.Sensors.Psensor sensor
-      annotation (Placement(transformation(extent={{0,0},{20,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,0},{20,20}})));
     PowerSystems.AC3ph.Lines.RXline line(
               par(
         V_nom=20e3,
@@ -461,28 +403,25 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
         x=0.2e-3),
       stIni_en=false,
       len=400e3)
-      annotation (Placement(transformation(extent={{30,0},{50,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{30,0},{50,20}})));
     PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
-      annotation (Placement(transformation(extent={{90,0},{70,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{90,0},{70,20}})));
     PowerSystems.AC3ph.Sources.Voltage Vgen1(
       V_nom=20e3,
       v0=2.245,
       alpha0=1.0285225282003)
-      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     PowerSystems.AC3ph.Impedances.Inductor RLgen1(
       V_nom=20e3,
       S_nom=500e6,
       x_s=1.1,
       x_m=-0.5,
       r=0.01)
-         annotation (Placement(transformation(extent={{-50,-80},{-30,-60}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
     PowerSystems.AC3ph.Nodes.BusBar busbar1        annotation (Placement(
-          transformation(extent={{-20,-80},{0,-60}}, rotation=0)));
+          transformation(extent={{-20,-80},{0,-60}})));
     PowerSystems.AC3ph.Sensors.Psensor sensor1
-      annotation (Placement(transformation(extent={{0,-80},{20,-60}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
     PowerSystems.AC3ph.Lines.RXline line1(
               par(
         V_nom=20e3,
@@ -490,23 +429,21 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
         x=0.2e-3),
       stIni_en=false,
       len=400e3)                            annotation (Placement(transformation(
-            extent={{30,-80},{50,-60}}, rotation=0)));
+            extent={{30,-80},{50,-60}})));
     PowerSystems.AC3ph.Sources.Voltage VBus1(V_nom=20e3)
-      annotation (Placement(transformation(extent={{90,-80},{70,-60}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-80},{70,-60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{-80,-80},{-100,-60}}, rotation=0)));
+            extent={{-80,-80},{-100,-60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{90,-80},{110,-60}}, rotation=0)));
+            extent={{90,-80},{110,-60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd3
                                    annotation (Placement(transformation(extent=
-              {{90,0},{110,20}}, rotation=0)));
+              {{90,0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
-      annotation (Placement(transformation(extent={{-50,20},{-30,40}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
     PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
                                           annotation (Placement(transformation(
-            extent={{40,80},{80,100}}, rotation=0)));
+            extent={{40,80},{80,100}})));
 
   equation
     connect(Vgen1.term, RLgen1.term_p) annotation (Line(points={{-60,-70},{-50,
@@ -571,22 +508,14 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
 </pre></p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=1));
+"),      experiment(StopTime=1));
   end TurbineGeneratorLine;
 
 model TurboGeneratorLine "Turbo-generator with line to infinite bus"
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen(
     H=20,
       generator(par=synData),
@@ -595,11 +524,11 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
       q_ini=0.42729,
       alpha_ini=0.346481,
       redeclare Control.Exciters.ExciterConst exciter "constant")
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   PowerSystems.AC3ph.Nodes.BusBar busbar        annotation (Placement(
-          transformation(extent={{-20,0},{0,20}}, rotation=0)));
+          transformation(extent={{-20,0},{0,20}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor
-    annotation (Placement(transformation(extent={{0,0},{20,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
   PowerSystems.AC3ph.Lines.RXline line(
             par(
       V_nom=20e3,
@@ -607,30 +536,28 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
       x=0.2e-3),
       stIni_en=false,
       len=400e3)
-    annotation (Placement(transformation(extent={{30,0},{50,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{30,0},{50,20}})));
   PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
-    annotation (Placement(transformation(extent={{90,0},{70,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{90,0},{70,20}})));
   PowerSystems.Control.Setpoints.Set_w_p_v setpts
                                      annotation (Placement(transformation(
-            extent={{-80,0},{-60,20}}, rotation=0)));
+            extent={{-80,0},{-60,20}})));
   PowerSystems.AC3ph.Sources.Voltage Vgen1(
     V_nom=20e3,
     v0=2.245,
       alpha0=1.0285225282003)
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   PowerSystems.AC3ph.Impedances.Inductor RLgen1(
     V_nom=20e3,
     S_nom=500e6,
     x_s=1.1,
     x_m=-0.5,
     r=0.01)
-       annotation (Placement(transformation(extent={{-50,-60},{-30,-40}},
-            rotation=0)));
+       annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
   PowerSystems.AC3ph.Nodes.BusBar busbar1        annotation (Placement(
-          transformation(extent={{-20,-60},{0,-40}}, rotation=0)));
+          transformation(extent={{-20,-60},{0,-40}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor1
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   PowerSystems.AC3ph.Lines.RXline line1(
             par(
       V_nom=20e3,
@@ -638,21 +565,20 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
       x=0.2e-3),
       stIni_en=false,
       len=400e3)                          annotation (Placement(transformation(
-            extent={{30,-60},{50,-40}}, rotation=0)));
+            extent={{30,-60},{50,-40}})));
   PowerSystems.AC3ph.Sources.Voltage VBus1(V_nom=20e3)
-    annotation (Placement(transformation(extent={{90,-60},{70,-40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{90,-60},{70,-40}})));
   PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
                                           annotation (Placement(transformation(
-            extent={{40,80},{80,100}}, rotation=0)));
+            extent={{40,80},{80,100}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{-80,-60},{-100,-40}}, rotation=0)));
+            extent={{-80,-60},{-100,-40}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{90,-60},{110,-40}}, rotation=0)));
+            extent={{90,-60},{110,-40}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{90,0},{110,20}}, rotation=0)));
+            extent={{90,0},{110,20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
-      annotation (Placement(transformation(extent={{-60,20},{-40,40}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
 equation
   connect(setpts.setpts, turboGen.setpts)   annotation (Line(points={{-60,10},{
@@ -699,22 +625,14 @@ equation
 </pre></p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=1));
+"),      experiment(StopTime=1));
 end TurboGeneratorLine;
 
 model GenOrder3and7 "Generator-models of different order"
 
   inner PowerSystems.System system(f_nom=60)
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen1(
     dispPA=true,
     v_ini=1.03,
@@ -724,20 +642,19 @@ model GenOrder3and7 "Generator-models of different order"
       redeclare PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(par=
             syn3rd60Hz26k_720M) "3rd order",
       alpha_ini=0.5235987755983)
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   PowerSystems.AC3ph.Breakers.Switch switchGrd1(V_nom=26e3,I_nom=30e6)
-    annotation (Placement(transformation(extent={{-20,30},{0,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,30},{0,10}})));
   PowerSystems.AC3ph.Nodes.Ground grd1f
-    annotation (Placement(transformation(extent={{20,10},{40,30}}, rotation=0)));
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
   PowerSystems.AC3ph.Lines.RXline line1(par(
     V_nom=26e3,
     f_nom=60,
     r=0.02e-3,
     x=0.3e-3), len=250e3)
-            annotation (Placement(transformation(extent={{20,40},{40,60}},
-            rotation=0)));
+            annotation (Placement(transformation(extent={{20,40},{40,60}})));
   PowerSystems.AC3ph.Sources.InfBus infBus1(V_nom=26e3)
-    annotation (Placement(transformation(extent={{80,40},{60,60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{80,40},{60,60}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen2(
     dispPA=true,
     v_ini=1.03,
@@ -747,48 +664,41 @@ model GenOrder3and7 "Generator-models of different order"
       redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(par=syn60Hz26k_720M)
         "nth order",
       alpha_ini=0.5235987755983)
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   PowerSystems.AC3ph.Breakers.Switch switchGrd2(V_nom=26e3,I_nom=30e6)
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   PowerSystems.AC3ph.Nodes.Ground grd2f
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   PowerSystems.AC3ph.Lines.RXline line2(par(
     V_nom=26e3,
     f_nom=60,
     r=0.02e-3,
     x=0.3e-3), len=250e3)
-            annotation (Placement(transformation(extent={{20,-60},{40,-40}},
-            rotation=0)));
+            annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   PowerSystems.AC3ph.Sources.InfBus infBus2(V_nom=26e3)
-    annotation (Placement(transformation(extent={{80,-60},{60,-40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
   PowerSystems.Control.Relays.SwitchRelay relayGrd(
     ini_state=false,
     t_switch={0.1,0.3})
-              annotation (Placement(transformation(extent={{20,-20},{0,0}},
-            rotation=0)));
+              annotation (Placement(transformation(extent={{20,-20},{0,0}})));
   PowerSystems.Control.Setpoints.Set_w_p_v setpts1
                                      annotation (Placement(transformation(
-            extent={{-100,40},{-80,60}}, rotation=0)));
+            extent={{-100,40},{-80,60}})));
   PowerSystems.Control.Setpoints.Set_w_p_v setpts2
                                      annotation (Placement(transformation(
-            extent={{-100,-60},{-80,-40}}, rotation=0)));
+            extent={{-100,-60},{-80,-40}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{80,-60},{100,-40}}, rotation=0)));
+            extent={{80,-60},{100,-40}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{80,40},{100,60}}, rotation=0)));
+            extent={{80,40},{100,60}})));
   PowerSystems.Common.Thermal.BdCondV bdCond1(m=2)
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   PowerSystems.Common.Thermal.BdCondV bdCond2(m=2)
-      annotation (Placement(transformation(extent={{-80,-40},{-60,-20}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_ee60Hz_26kV_720MVA syn3rd60Hz26k_720M
-      annotation (Placement(transformation(extent={{-40,80},{0,100}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{-40,80},{0,100}})));
   PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA syn60Hz26k_720M
-      annotation (Placement(transformation(extent={{20,80},{60,100}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{20,80},{60,100}})));
 
 equation
   connect(setpts1.setpts, turboGen1.setpts)   annotation (Line(points={{-80,50},
@@ -837,14 +747,6 @@ of <tt>turbGen1</tt> and <tt>turbGen2</tt>.<br>
 The high order model exhibits fast damping of torque-oscillations due to the damper windings. See also damper currents i_rd, i_rq (protected).</p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       experiment(StopTime=0.5, Interval=0.5e-3));
 end GenOrder3and7;
 
@@ -853,46 +755,41 @@ model TurboGroupGenerator
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
   PowerSystems.Control.Setpoints.Set_w_p_v setpts
                                      annotation (Placement(transformation(
-            extent={{-100,0},{-80,20}}, rotation=0)));
+            extent={{-100,0},{-80,20}})));
   PowerSystems.AC3ph.Generation.TurboGrpGenerator turboGrpGen(
     v_ini=1.0156,
     redeclare PowerSystems.Control.Exciters.Exciter1st exciter "1st order",
       turboGroup(par=turboGrp1200M),
       redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(par=syn20k_1200M)
         "nth order")
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   PowerSystems.AC3ph.Lines.RXline line(
     len=40e3, par(
       V_nom=20e3,
       r=0.02e-3,
       x=0.2e-3))
-            annotation (Placement(transformation(extent={{20,0},{40,20}},
-            rotation=0)));
+            annotation (Placement(transformation(extent={{20,0},{40,20}})));
   PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
-    annotation (Placement(transformation(extent={{80,0},{60,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{80,0},{60,20}})));
   PowerSystems.AC3ph.Breakers.ForcedSwitch switchGrd(V_nom=20e3,I_nom=60e3)
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   PowerSystems.AC3ph.Nodes.Ground grdf
-    annotation (Placement(transformation(extent={{20,-30},{40,-10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   PowerSystems.Control.Relays.SwitchRelay relayGrd(
     ini_state=false,
     t_switch={0.1,0.3},
-    n=1)      annotation (Placement(transformation(extent={{40,40},{20,60}},
-            rotation=0)));
+    n=1)      annotation (Placement(transformation(extent={{40,40},{20,60}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{80,0},{100,20}}, rotation=0)));
+            extent={{80,0},{100,20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
-      annotation (Placement(transformation(extent={{-80,20},{-60,40}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   PowerSystems.Examples.Spot.Data.Machines.Synchron_ee20kV_1200MVA syn20k_1200M
-      annotation (Placement(transformation(extent={{20,80},{60,100}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{20,80},{60,100}})));
   PowerSystems.Examples.Spot.Data.Turbines.SteamTurboGroup1200MW turboGrp1200M
-      annotation (Placement(transformation(extent={{-40,80},{0,100}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{-40,80},{0,100}})));
 
 equation
   connect(setpts.setpts, turboGrpGen.setpts) annotation (Line(points={{-80,10},
@@ -923,14 +820,6 @@ A common 3-phase short circuit occurs at 0.1 sec, cleared after 200 ms.</p>
 </pre></p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       experiment(
         StopTime=0.5,
         Interval=0.5e-3));
@@ -940,8 +829,7 @@ model TieLine "Generators and power-oscillations"
 
   inner PowerSystems.System system(f_nom=60, fType_par=false,
       f_lim={55,65})
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen1(
     dispPA=true,
     alpha_ini=0.316177 + system.alpha0,
@@ -954,20 +842,18 @@ model TieLine "Generators and power-oscillations"
       p_ini=0.9,
       q_ini=0.24022361,
       iniType=PowerSystems.Basic.Types.IniType.p_q)
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   PowerSystems.AC3ph.Nodes.BusBar bus1           annotation (Placement(
-          transformation(extent={{-80,-20},{-60,0}}, rotation=0)));
+          transformation(extent={{-80,-20},{-60,0}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor1(term_p(v(start={20e3,0,0})))
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   PowerSystems.AC3ph.Lines.RXline line1(par(
     V_nom=26e3,
     f_nom=60,
     r=0.02e-3,
     x=0.3e-3), len=200e3,
     stIni_en=false)
-            annotation (Placement(transformation(extent={{-30,-20},{-10,0}},
-            rotation=0)));
+            annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen2(
     dispPA=true,
     alpha_ini=0.0144536 + system.alpha0,
@@ -980,19 +866,18 @@ model TieLine "Generators and power-oscillations"
       p_ini=0.9,
       q_ini=0.5092972,
       iniType=PowerSystems.Basic.Types.IniType.p_q)
-    annotation (Placement(transformation(extent={{100,-20},{80,0}}, rotation=0)));
+    annotation (Placement(transformation(extent={{100,-20},{80,0}})));
   PowerSystems.AC3ph.Nodes.BusBar bus2           annotation (Placement(
-          transformation(extent={{60,-20},{80,0}}, rotation=0)));
+          transformation(extent={{60,-20},{80,0}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor2(term_p(v(start={20e3,0,0})))
-    annotation (Placement(transformation(extent={{60,-20},{40,0}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   PowerSystems.AC3ph.Lines.RXline line2(par(
     V_nom=26e3,
     f_nom=60,
     r=0.02e-3,
     x=0.3e-3), len=40e3,
     stIni_en=false)
-            annotation (Placement(transformation(extent={{10,-20},{30,0}},
-            rotation=0)));
+            annotation (Placement(transformation(extent={{10,-20},{30,0}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen3(
     dispPA=true,
     v_ini=1.03,
@@ -1041,32 +926,29 @@ model TieLine "Generators and power-oscillations"
     s_ini={0.95,0.2},
     s_fin={0.2,0.1},
     each t_change=2)
-               annotation (Placement(transformation(extent={{-40,-100},{-20,-80}},
-            rotation=0)));
+               annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   PowerSystems.Control.Setpoints.Set_w_p_v setpts1
                                      annotation (Placement(transformation(
-            extent={{-120,-20},{-100,0}}, rotation=0)));
+            extent={{-120,-20},{-100,0}})));
   PowerSystems.Control.Setpoints.Set_w_p_v setpts2
                                      annotation (Placement(transformation(
-            extent={{120,-20},{100,0}}, rotation=0)));
+            extent={{120,-20},{100,0}})));
   PowerSystems.Control.Setpoints.Set_w_p_v setpts3
                                      annotation (Placement(transformation(
           origin={0,90},
           extent={{-10,10},{10,-10}},
           rotation=270)));
   PowerSystems.Common.Thermal.BdCondV bdCond1(m=2)
-      annotation (Placement(transformation(extent={{-100,0},{-80,20}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond2(m=2)
-      annotation (Placement(transformation(extent={{80,0},{100,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{80,0},{100,20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond3(m=2)
       annotation (Placement(transformation(
           origin={-20,70},
           extent={{-10,-10},{10,10}},
           rotation=90)));
   PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA syn60Hz26k_720M
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
 equation
   connect(pq_change.y,load. p_set)   annotation (Line(points={{-20,-90},{-10,
@@ -1114,10 +996,6 @@ equation
   connect(turboGen3.heat, bdCond3.heat)   annotation (Line(points={{-10,70},{
             -10,70}}, color={176,0,0}));
   annotation (
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Documentation(
             info="<html>
 <p>Tie line with three generators (third as infinite slack bus), feeding a variable load. The load changes abruptly at <tt>t=2</tt> and induces power oscillations between the nodes.<br>
@@ -1130,50 +1008,44 @@ After the load decreases, system frequency starts to increase from 60 to 62 Hz w
 </pre></p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=30));
+"),      experiment(StopTime=30));
 end TieLine;
 
 model WindGeneratorLine "Asynchronous generator"
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
-              -80,100}}, rotation=0)));
+              -80,100}})));
   PowerSystems.AC3ph.Generation.WindGenerator windGen(
     WT(par=windTurb), generator(par=asyn400_30k))
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   PowerSystems.AC3ph.Nodes.BusBar busbar        annotation (Placement(
-          transformation(extent={{-30,0},{-10,20}}, rotation=0)));
+          transformation(extent={{-30,0},{-10,20}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor
-    annotation (Placement(transformation(extent={{-10,0},{10,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   PowerSystems.AC3ph.Lines.RXline line(par(
     V_nom=400,
     S_nom=30e3,
     r=0.05), len=1.5e3,
       stIni_en=false)
-    annotation (Placement(transformation(extent={{30,0},{50,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{30,0},{50,20}})));
   PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=400)
-    annotation (Placement(transformation(extent={{90,0},{70,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{90,0},{70,20}})));
   PowerSystems.Blocks.Signals.Transient trsSignal1(
     t_change=25,
     t_duration=50,
       s_ini=5,
       s_fin=15)     annotation (Placement(transformation(extent={{-100,0},{-80,
-              20}}, rotation=0)));
+              20}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{90,0},{110,20}}, rotation=0)));
+            extent={{90,0},{110,20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
-      annotation (Placement(transformation(extent={{-60,20},{-40,40}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   PowerSystems.Examples.Spot.Data.Turbines.WindTurbineGear windTurb
                                            annotation (Placement(transformation(
-            extent={{-40,80},{0,100}}, rotation=0)));
+            extent={{-40,80},{0,100}})));
   PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
-      annotation (Placement(transformation(extent={{20,80},{60,100}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{20,80},{60,100}})));
 
 equation
   connect(windGen.term, busbar.term)  annotation (Line(points={{-40,10},{-20,10}},
@@ -1203,59 +1075,48 @@ The wind-speed is increased from 5 to 15 m/s. The machine remains stable.</p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>
 
-"), Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=60, Interval=60e-3));
+"),      experiment(StopTime=60, Interval=60e-3));
 end WindGeneratorLine;
 
 model Islanding "AC synchronous generator in islanding configuration"
 
   inner PowerSystems.System system
-annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=0)));
+annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter SI.Voltage vAC_nom=560 "AC nominal voltage";
   parameter SI.Voltage vDC_nom=750 "DC nominal voltage";
   PowerSystems.Control.Setpoints.Set_w_p setpts   annotation (Placement(
-          transformation(extent={{-100,-60},{-80,-40}}, rotation=0)));
+          transformation(extent={{-100,-60},{-80,-40}})));
   PowerSystems.AC3ph.Generation.TurboPMgenerator turboGen(
                    redeclare PowerSystems.Control.Governors.Governor1st governor
         "1st order",
                    redeclare PowerSystems.AC3ph.Machines.Synchron_pm generator(
       par=synpm560_100k) "nth order")
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   PowerSystems.AC3ph.Nodes.DefReference reference
-      annotation (Placement(transformation(extent={{-60,-60},{-40,-40}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   PowerSystems.AC3ph.Sensors.Psensor ACpower  annotation (Placement(transformation(
-            extent={{-40,-60},{-20,-40}}, rotation=0)));
+            extent={{-40,-60},{-20,-40}})));
   PowerSystems.AC3ph.Inverters.RectifierAverage rectifier(par=idealSC1k_100)
                                           annotation (Placement(transformation(
-            extent={{10,-60},{-10,-40}}, rotation=0)));
+            extent={{10,-60},{-10,-40}})));
   PowerSystems.AC1ph_DC.Impedances.CapacitorSym capSym(
     G=1e-4,
     C=0.020,
       Vstart=vDC_nom)                   annotation (Placement(transformation(
-            extent={{20,-60},{40,-40}}, rotation=0)));
+            extent={{20,-60},{40,-40}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd    annotation (Placement(transformation(
           origin={30,-80},
           extent={{-10,10},{10,-10}},
           rotation=270)));
   PowerSystems.AC1ph_DC.Sensors.VdiffSensor DCvoltage
                                     annotation (Placement(transformation(extent=
-             {{20,-20},{40,0}}, rotation=0)));
+             {{20,-20},{40,0}})));
   PowerSystems.AC1ph_DC.Sensors.Psensor DCpower  annotation (Placement(transformation(
-            extent={{50,-60},{70,-40}}, rotation=0)));
+            extent={{50,-60},{70,-40}})));
   PowerSystems.AC1ph_DC.Loads.ZloadDC zLoadDC(S_nom=100e3,
       scType_par=false,
     V_nom=vDC_nom)
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   PowerSystems.Blocks.Signals.Transient transSig(
     t_duration=2.5,
     s_ini=1,
@@ -1272,21 +1133,17 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=0)))
     Ti=0.5,
     k=1/vDC_nom,
     initType=Modelica.Blocks.Types.InitPID.SteadyState)
-         annotation (Placement(transformation(extent={{40,20},{20,40}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{40,20},{20,40}})));
   Modelica.Blocks.Sources.Constant set_vDC(k=vDC_nom)
-      annotation (Placement(transformation(extent={{70,20},{50,40}}, rotation=0)));
+      annotation (Placement(transformation(extent={{70,20},{50,40}})));
   PowerSystems.Common.Thermal.BdCondV bdCond1(m=2)
-      annotation (Placement(transformation(extent={{-80,-40},{-60,-20}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond2(m=1)
-      annotation (Placement(transformation(extent={{-10,-40},{10,-20}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   PowerSystems.Examples.Spot.Data.Machines.Synchron_pm560V_100kVA synpm560_100k
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
   PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
-    annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
 equation
   connect(ACpower.term_n, rectifier.AC) annotation (Line(points={{-20,-50},{-10,
@@ -1335,14 +1192,6 @@ integration in inertial abc-system.</p>
 </pre>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
 experiment(StopTime=30));
 end Islanding;
 
@@ -1351,7 +1200,7 @@ model LocalGeneration
     "AC torque controlled synchronous machine as local generator"
 
   inner PowerSystems.System system(f_nom=60)
-annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=0)));
+annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter SI.Voltage vDC_nom=780 "DC nominal voltage";
   final parameter SI.Current I_nom=syn3rdpm560_100k.S_nom/syn3rdpm560_100k.V_nom
       "generator nominal current";
@@ -1360,35 +1209,33 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=0)))
     t_change=20,
       s_ini=2*pi*180,
       s_fin=2*pi*150)
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}},
-            rotation=0)));
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   PowerSystems.Mechanics.Rotation.Speed speed(scType_par=false, w0=2*pi*
           180)                        annotation (Placement(transformation(
-            extent={{-70,-60},{-50,-40}}, rotation=0)));
+            extent={{-70,-60},{-50,-40}})));
   PowerSystems.AC3ph.Generation.PMgenerator PMgen(generator(par=syn3rdpm560_100k),
     inverter(par=idealSC1k_100),
       w_ini=1130.9733552923)
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   PowerSystems.AC1ph_DC.Impedances.CapacitorSym capSym(
     G=1e-4,
       Vstart=vDC_nom,
     C=0.020)                            annotation (Placement(transformation(
-            extent={{0,-60},{20,-40}}, rotation=0)));
+            extent={{0,-60},{20,-40}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd    annotation (Placement(transformation(
           origin={10,-80},
           extent={{-10,10},{10,-10}},
           rotation=270)));
   PowerSystems.AC1ph_DC.Sensors.VdiffSensor DCvoltage
                                     annotation (Placement(transformation(extent=
-             {{0,-30},{20,-10}}, rotation=0)));
+             {{0,-30},{20,-10}})));
   PowerSystems.AC1ph_DC.Sensors.Psensor DCpower  annotation (Placement(transformation(
-            extent={{30,-60},{50,-40}}, rotation=0)));
+            extent={{30,-60},{50,-40}})));
   PowerSystems.AC1ph_DC.Loads.ZloadDC zLoadDC(
       scType_par=false,
     V_nom=vDC_nom,
     S_nom=100e3)
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   PowerSystems.Blocks.Signals.Transient transSig(
     t_duration=2.5,
       t_change=10,
@@ -1398,18 +1245,15 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=0)))
           extent={{-10,10},{10,-10}},
           rotation=270)));
   PowerSystems.Common.Thermal.BdCondV bdCond(m=3)
-      annotation (Placement(transformation(extent={{-40,-40},{-20,-20}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   PowerSystems.Blocks.Signals.Transient i_d(
     t_duration=5,
     s_fin=0,
     t_change=20,
       s_ini=-0.1)
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Modelica.Blocks.Sources.Constant vDC_set(k=vDC_nom)
-      annotation (Placement(transformation(extent={{-100,20},{-80,40}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Continuous.LimPID PI_vDC(
       Td=0.05,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -1417,18 +1261,16 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=0)))
     Ti=0.1,
       k=0.3*I_nom/vDC_nom,
       yMax=1.4*I_nom)
-         annotation (Placement(transformation(extent={{-70,20},{-50,40}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
   Modelica.Blocks.Math.Gain gain(k=-1) "generator: negative torque tau_act"
                                        annotation (Placement(transformation(
-            extent={{-40,20},{-20,40}}, rotation=0)));
+            extent={{-40,20},{-20,40}})));
   parameter PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm560V_100kVA syn3rdpm560_100k(
                                                            neu_iso=true)
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
   parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100(
                                                     Vf=0)
-    annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
 equation
   connect(PMgen.heat, bdCond.heat) annotation (Line(points={{-30,-40},{-30,-40}},
@@ -1471,14 +1313,6 @@ The generator is directly coupled to a (passive) rectifier. If an average-versio
 </pre>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>"),
-Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
 experiment(StopTime=30));
 end LocalGeneration;
 
@@ -1487,8 +1321,5 @@ Documentation(info="<html>
 <p>Power sources and generation, a set of examples mainly for understanding the synchronous machine.</p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end GenerationAC3ph;

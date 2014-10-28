@@ -20,15 +20,7 @@ package Transformers "Transformers 3-phase"
           info="<html>
 <p>Ideal magnetic coupling, no stray-impedance, zero magnetisation current.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end TrafoIdeal;
 
   model TrafoStray "Ideal magnetic coupling transformer, 3-phase dq0"
@@ -67,15 +59,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end TrafoStray;
 
   model TrafoMag "Magnetic coupling transformer, 3-phase dq0"
@@ -133,15 +117,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end TrafoMag;
 
   model TrafoSatEff "Averaged saturation transformer, 3-phase dq0"
@@ -212,15 +188,7 @@ The factor <tt>0.66</tt> in the expression of the effective pu flux is an estima
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
 <p>Saturation needs high-precision integration!</p>
 </html>
-"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end TrafoSatEff;
 
   model TrafoSat "Saturation transformer, 3-phase dq0"
@@ -285,10 +253,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 <p>Saturation needs high-precision integration!</p>
 </html>
 "),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
   Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -321,10 +285,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
       omega[2]*L[2]*j_dq0(i2a) + R[2]*i2a = v2a - v0;
       omega[2]*L[3]*j_dq0(i2b) + R[3]*i2b = v2b - v0;
     end if;
-        annotation (Diagram(graphics),
-                             Icon(coordinateSystem(preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}}),
-                                  graphics));
   end Trafo3Stray;
 
   package Partials "Partial models"
@@ -378,7 +338,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         replaceable parameter Parameters.TrafoIdeal par
                 constrainedby Parameters.TrafoIdeal "trafo parameter"
                                   annotation (Placement(transformation(extent={
-                {-80,60},{-60,80}}, rotation=0)));
+                {-80,60},{-60,80}})));
     protected
         Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
@@ -676,7 +636,7 @@ For variable transformer ratio tap changer input needed.</p>
 
     replaceable parameter Parameters.Trafo3Ideal par "trafo parameter"
                               annotation (Placement(transformation(extent={{-80,
-                60},{-60,80}}, rotation=0)));
+                60},{-60,80}})));
     protected
     Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
@@ -902,15 +862,7 @@ record TrafoIdeal "Parameters for ideal transformer, 3-phase"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoIdeal;
 
 record TrafoStray "Parameters for ideal magnetic coupling transformer, 3-phase"
@@ -922,15 +874,7 @@ record TrafoStray "Parameters for ideal magnetic coupling transformer, 3-phase"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoStray;
 
 record TrafoMag "Parameters for magnetic coupling transformer, 3-phase"
@@ -942,15 +886,7 @@ record TrafoMag "Parameters for magnetic coupling transformer, 3-phase"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoMag;
 
 record TrafoSat "Parameters for saturation transformer, 3-phase"
@@ -961,15 +897,7 @@ record TrafoSat "Parameters for saturation transformer, 3-phase"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoSat;
 
 record Trafo3Ideal "Parameters for ideal 3-winding transformer, 3-phase"
@@ -989,15 +917,7 @@ record Trafo3Ideal "Parameters for ideal 3-winding transformer, 3-phase"
     Documentation(
     info="<html>
 <p>Nominal voltage with 3 components: {prim, sec_a, sec_b}.</p>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end Trafo3Ideal;
 
 record Trafo3Stray
@@ -1012,25 +932,13 @@ record Trafo3Stray
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end Trafo3Stray;
 
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
 
 annotation (preferredView="info",
@@ -1067,9 +975,5 @@ compared to the terminal voltage and current. Therefore the impedance relating c
 </pre>
 The equations are written in winding-scaled form.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Transformers;

@@ -11,17 +11,15 @@ package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work p
     Components.WindFarm windFarm(redeclare package PhaseSystem =
           PowerSystems.PhaseSystems.DirectCurrent)
                                  annotation (Placement(transformation(extent={{-50,60},
-                {-30,80}},           rotation=0)));
+                {-30,80}})));
     Components.City city annotation (                      Placement(
-            transformation(extent={{60,-50},{80,-30}},
-                                                    rotation=0)));
+            transformation(extent={{60,-50},{80,-30}})));
     Components.LoadDispatcher dispatcher
       annotation (                           Placement(transformation(extent={{-90,-60},
-                {-70,-40}}, rotation=0)));
+                {-70,-40}})));
     Components.PowerPlant powerPlant(primaryControlMax=40)
                                      annotation (
-          Placement(transformation(extent={{-62,-10},{-40,12}},
-                                                              rotation=0)));
+          Placement(transformation(extent={{-62,-10},{-40,12}})));
     PowerSystems.Generic.VoltageConverter trafoPlant(ratio=10/380)
       annotation (Placement(transformation(extent={{-36,-6},{-24,6}})));
     PowerSystems.Generic.VoltageConverter distribution(ratio=380/50)
@@ -115,8 +113,7 @@ package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work p
                  file(ensureSimulated=true)="Examples/PowerWorld/Resources/plot hydroPlant.mos"
         "plot hydroPlant"),
         preferredView="diagram",
-        Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}), graphics), Documentation(info="<html>
+ Documentation(info="<html>
 <p>
 This example models a control area for power distribution in island mode, i.e. without connection to a larger net.
 It contains the following consumers and producers:
@@ -166,34 +163,34 @@ The following switches/features are provided:
 
     PowerSystems.Generic.Generator generator(redeclare package PhaseSystem =
           PhaseSystem, definiteReference=definiteReference) annotation (
-        Placement(transformation(extent={{60,-20},{80,0}}, rotation=0)));
+        Placement(transformation(extent={{60,-20},{80,0}})));
       Modelica.Mechanics.Rotational.Components.Inertia rotor(
                        J=10e6,
       a(start=0),
         w(fixed=false, start=system.w_nom/generator.pp))
         annotation (                        Placement(transformation(extent={{30,-20},
-                {50,0}},  rotation=0)));
+                {50,0}})));
       Modelica.Mechanics.Rotational.Sources.Torque turbine
         annotation (                       Placement(transformation(extent={{0,-20},
-                {20,0}},  rotation=0)));
+                {20,0}})));
       Modelica.Mechanics.Rotational.Sensors.SpeedSensor angularVelocity
         annotation (                         Placement(transformation(extent={{46,4},{
-                34,16}},  rotation=0)));
+                34,16}})));
       Modelica.Blocks.Sources.Constant reference(k=system.f_nom)
         annotation (                         Placement(transformation(extent={{46,24},
-                {34,36}},  rotation=0)));
+                {34,36}})));
       Modelica.Blocks.Continuous.LimPID primaryControl(
                                                k=0.05*800/0.2,
         controllerType=Modelica.Blocks.Types.SimpleController.P,
         yMax=primaryControlMax) "UCTE: df of 200 mHz corresponds to 5% of load"
         annotation (                         Placement(transformation(extent={{20,20},
-                {0,40}},  rotation=0)));
+                {0,40}})));
       Modelica.Blocks.Interfaces.RealInput[3] plantDispatch(each unit="MW")
         annotation (                            Placement(transformation(extent={{-130,
-                -70},{-110,-50}}, rotation=0)));
+                -70},{-110,-50}})));
       Modelica.Blocks.Math.Add loadControl(k1=1e6/50/2/pi, k2=1e6/50/2/pi)
         annotation (                          Placement(transformation(extent={{-30,-20},
-                {-10,0}},  rotation=0)));
+                {-10,0}})));
       Modelica.Blocks.Continuous.FirstOrder evaporator(T=60, y_start=490,
       initType=Modelica.Blocks.Types.Init.InitialState)
         annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -250,7 +247,7 @@ The following switches/features are provided:
       Modelica.Blocks.Sources.Constant throttleReserve(k=if Modakond then 0 else
                   5)
         annotation (                         Placement(transformation(extent={{-12,88},
-                {0,100}},  rotation=0)));
+                {0,100}})));
       Modelica.Blocks.Math.Add pressureLoss
         annotation (Placement(transformation(extent={{20,70},{40,90}})));
       Modelica.Blocks.Continuous.Integrator throttleCosts(k=1/365)
@@ -463,36 +460,36 @@ The following switches/features are provided:
 
       Modelica.Blocks.Interfaces.RealInput[3] hydroDispatch(each unit="MW")
         annotation (                            Placement(transformation(extent={{-110,
-                -10},{-90,10}},   rotation=0)));
+                -10},{-90,10}})));
       Modelica.Blocks.Continuous.Integrator reservoirLevel(y_start=10, k=-1/5e4,
         y(unit="m"))
         annotation (Placement(transformation(extent={{-30,40},{-10,20}})));
       Modelica.Mechanics.Rotational.Sources.Torque reservoirTurbine
         annotation (                       Placement(transformation(extent={{-10,-10},
-                {10,10}}, rotation=0)));
+                {10,10}})));
       Modelica.Mechanics.Rotational.Components.Inertia rotor(J=1e6,
       a(start=0),
         w(fixed=false, start=system.w_nom/generator.pp))
         annotation (                        Placement(transformation(extent={{20,-10},
-                {40,10}}, rotation=0)));
+                {40,10}})));
     PowerSystems.Generic.Generator generator(redeclare package PhaseSystem =
           PhaseSystem, definiteReference=definiteReference) annotation (
-        Placement(transformation(extent={{60,-10},{80,10}}, rotation=0)));
+        Placement(transformation(extent={{60,-10},{80,10}})));
       Modelica.Mechanics.Rotational.Sensors.SpeedSensor angularVelocity
         annotation (                         Placement(transformation(extent={{36,34},
-                {24,46}}, rotation=0)));
+                {24,46}})));
       Modelica.Blocks.Sources.Constant reference(k=system.f_nom)
         annotation (                         Placement(transformation(extent={{36,64},
-                {24,76}},  rotation=0)));
+                {24,76}})));
       Modelica.Blocks.Continuous.LimPID primaryControl(
         k=50/0.2,
         controllerType=Modelica.Blocks.Types.SimpleController.P,
         yMax=primaryControlMax) "200 mHz corresponds to 50 MW"
         annotation (                         Placement(transformation(extent={{10,60},
-                {-10,80}},rotation=0)));
+                {-10,80}})));
       Modelica.Blocks.Math.Gain powerControl(k=1e6/50/2/pi)
         annotation (                         Placement(transformation(extent={{-36,-6},
-                {-24,6}}, rotation=0)));
+                {-24,6}})));
       Modelica.Blocks.Continuous.TransferFunction controlDynamics(a={1,1}, b={1},
         initType=Modelica.Blocks.Types.Init.InitialState)
         annotation (Placement(transformation(extent={{-56,-6},{-44,6}})));
@@ -500,17 +497,16 @@ The following switches/features are provided:
         annotation (Placement(transformation(extent={{-76,-6},{-64,6}})));
       Modelica.Blocks.Math.Gain riverControl(k=1e6/50/2/pi)
         annotation (                         Placement(transformation(extent={{-36,-46},
-                {-24,-34}},
-                          rotation=0)));
+                {-24,-34}})));
       Modelica.Mechanics.Rotational.Sources.Torque riverTurbine
         annotation (                       Placement(transformation(extent={{-10,-50},
-                {10,-30}},rotation=0)));
+                {10,-30}})));
       Modelica.Mechanics.Rotational.Components.Inertia rotorRiver(
                        J=0.5e6,
       a(start=0),
         w(fixed=false, start=system.w_nom/generator.pp))
         annotation (                        Placement(transformation(extent={{20,-50},
-                {40,-30}},rotation=0)));
+                {40,-30}})));
       Modelica.Blocks.Math.Gain frequency(k=1/(2*pi))
         annotation (Placement(transformation(extent={{14,36},{6,44}})));
   protected
@@ -635,9 +631,7 @@ The following switches/features are provided:
               points={{56,-30},{74,50}},
               color={0,128,255},
               smooth=Smooth.Bezier,
-              thickness=1)}),  Diagram(coordinateSystem(preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}}),
-                                       graphics));
+              thickness=1)}));
     end HydroPlant;
 
     model WindFarm
@@ -655,12 +649,11 @@ The following switches/features are provided:
                 0.0,
                 0,
                 10)) annotation (Placement(transformation(extent={{-80,-10},{
-                -60,10}}, rotation=0)));
+                -60,10}})));
       PowerSystems.Generic.PrescribedPowerSource mills(
         redeclare package PhaseSystem = PhaseSystem,
         definiteReference = definiteReference)
-          annotation (Placement(transformation(extent={{40,-10},{60,10}},
-                                   rotation=0)));
+          annotation (Placement(transformation(extent={{40,-10},{60,10}})));
       Modelica.Blocks.Sources.Trapezoid disturbance(
         rising=120,
         period=86400,
@@ -727,10 +720,7 @@ The following switches/features are provided:
               lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid,
-              textString="%name%")}),
-                               Diagram(coordinateSystem(preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}}),
-                                       graphics));
+              textString="%name%")}));
     end WindFarm;
 
     model LoadDispatcher
@@ -742,25 +732,19 @@ The following switches/features are provided:
         table=fill(
             0.0,
             0,
-            10)) annotation (Placement(transformation(extent={{-80,0},{-60,20}},
-              rotation=0)));
+            10)) annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
       Modelica.Blocks.Interfaces.RealOutput[3] plantDispatch(each unit="MW")
-        annotation (Placement(transformation(extent={{60,30},{80,50}}, rotation=
-               0)));
+        annotation (Placement(transformation(extent={{60,30},{80,50}})));
       Modelica.Blocks.Interfaces.RealOutput loadForcast(unit="MW")
-        annotation (Placement(transformation(extent={{-80,30},{-60,50}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
       Modelica.Blocks.Interfaces.RealOutput windForcast(unit="MW")
-        annotation (Placement(transformation(extent={{-80,-30},{-60,-10}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
       Modelica.Blocks.Sources.Constant hydroBase(k=25)
         annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
       Modelica.Blocks.Sources.Constant primaryControl(k=40)
         annotation (Placement(transformation(extent={{20,70},{40,90}})));
       Modelica.Blocks.Interfaces.RealOutput[3] hydroDispatch(each unit="MW")
-        annotation (Placement(transformation(extent={{60,-30},{80,-10}},
-                                                                       rotation=
-               0)));
+        annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
       Modelica.Blocks.Sources.Constant controlHydro(k=200)
         annotation (Placement(transformation(extent={{80,0},{60,20}})));
       Modelica.Blocks.Interfaces.RealInput frequency(unit="Hz")
@@ -774,7 +758,7 @@ The following switches/features are provided:
         annotation (Placement(transformation(extent={{20,50},{40,30}})));
       Modelica.Blocks.Sources.Constant reference(k=system.f_nom)
         annotation (                         Placement(transformation(extent={{-6,34},
-                {6,46}},   rotation=0)));
+                {6,46}})));
       Modelica.Blocks.Math.Add3 plantSchedule(k2=-1, k3=-1,
         y(unit="MW"))
         annotation (Placement(transformation(extent={{10,-10},{30,10}})));
@@ -787,14 +771,12 @@ The following switches/features are provided:
         amplitude=50,
         offset=-25,
         y(unit="MW"))
-        annotation (Placement(transformation(extent={{-80,-60},{-60,-40}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
       Modelica.Blocks.Math.Add add
         annotation (Placement(transformation(extent={{-16,-36},{-4,-24}})));
       Modelica.Blocks.Math.Gain distributionLoss(k=1)      annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
-            rotation=0,
             origin={-16,16})));
   protected
       outer System system;
@@ -901,9 +883,7 @@ The following switches/features are provided:
               lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid,
-              textString="%name%")}),
-                                Diagram(coordinateSystem(preserveAspectRatio=true,
-                      extent={{-100,-100},{100,100}}), graphics));
+              textString="%name%")}));
     end LoadDispatcher;
 
     model City
@@ -916,10 +896,10 @@ The following switches/features are provided:
                 0.0,
                 0,
                 10)) annotation (Placement(transformation(extent={{-60,40},{-40,
-                60}}, rotation=0)));
+                60}})));
       PowerSystems.Generic.PrescribedPowerLoad load(phi=0.34906585039887)
                                   annotation (Placement(transformation(extent={
-                {-60,-10},{-40,10}}, rotation=0)));
+                {-60,-10},{-40,10}})));
     Modelica.Blocks.Math.Gain MW2W(k=1e6)
       annotation (Placement(transformation(extent={{-14,-6},{-26,6}})));
     equation
@@ -935,10 +915,7 @@ The following switches/features are provided:
         points={{-26.6,0},{-39,0}},
         color={0,0,127},
         smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                          graphics),
-                           Icon(coordinateSystem(preserveAspectRatio=false,
+      annotation (                           Icon(coordinateSystem(preserveAspectRatio=false,
               extent={{-100,-100},{100,100}}), graphics={
             Polygon(
               points={{-100,-100},{-100,100},{-66,100},{-66,0},{-40,0},{-40,40},
@@ -1024,21 +1001,19 @@ The following switches/features are provided:
     model PowerPlantTest1 "Test primary control"
     import PowerSystems;
       Components.PowerPlant powerPlant
-        annotation (Placement(transformation(extent={{-20,0},{2,22}}, rotation=0)));
+        annotation (Placement(transformation(extent={{-20,0},{2,22}})));
       Modelica.Blocks.Sources.Constant schedule(k=450)
-        annotation (Placement(transformation(extent={{-80,-40},{-60,-20}},
-                                             rotation=0)));
+        annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
       PowerSystems.Generic.PrescribedPowerLoad prescribedLoad(phi=
-                                                              0.34906585039887)               annotation (Placement(transformation(extent={{20,0},{40,20}}, rotation=0)));
+                                                              0.34906585039887)               annotation (Placement(transformation(extent={{20,0},{40,20}})));
       Modelica.Blocks.Sources.Step step(startTime=10,
                                         height=-40,
                                         offset=490)
-        annotation (Placement(transformation(extent={{40,40},{60,60}},
-                                             rotation=0)));
+        annotation (Placement(transformation(extent={{40,40},{60,60}})));
       Modelica.Blocks.Sources.Constant secondary(k=40)
-        annotation (                       Placement(transformation(extent={{-80,0},{-60,20}},    rotation=0)));
+        annotation (                       Placement(transformation(extent={{-80,0},{-60,20}})));
       Modelica.Blocks.Sources.Constant primary(k=40)
-        annotation (                       Placement(transformation(extent={{-80,40},{-60,60}},   rotation=0)));
+        annotation (                       Placement(transformation(extent={{-80,40},{-60,60}})));
     Modelica.Blocks.Math.Gain MW2W(k=1e6)
       annotation (Placement(transformation(extent={{66,4},{54,16}})));
     inner PowerSystems.System system
@@ -1067,31 +1042,26 @@ The following switches/features are provided:
         points={{53.4,10},{41,10}},
         color={0,0,127},
         smooth=Smooth.None));
-      annotation (experiment(StopTime=30),
-                  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                          graphics));
+      annotation (experiment(StopTime=30));
     end PowerPlantTest1;
 
     model PowerPlantTest2 "Test secondary control"
     import PowerSystems;
       Components.PowerPlant powerPlant
-        annotation (Placement(transformation(extent={{-20,0},{2,22}}, rotation=0)));
+        annotation (Placement(transformation(extent={{-20,0},{2,22}})));
       Modelica.Blocks.Sources.Constant schedule(k=490)
-        annotation (Placement(transformation(extent={{-80,-40},{-60,-20}},
-                                             rotation=0)));
+        annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
       PowerSystems.Generic.PrescribedPowerLoad prescribedLoad(phi=
-                                                              0.34906585039887)               annotation (Placement(transformation(extent={{20,0},{40,20}}, rotation=0)));
+                                                              0.34906585039887)               annotation (Placement(transformation(extent={{20,0},{40,20}})));
       Modelica.Blocks.Sources.Ramp ramp(offset=490,
                                         height=48,
                                         duration=180,
                                         startTime=100)
-        annotation (Placement(transformation(extent={{40,40},{60,60}},
-                                             rotation=0)));
+        annotation (Placement(transformation(extent={{40,40},{60,60}})));
       Modelica.Blocks.Sources.Step secondary(height=48, startTime=100)
-        annotation (                       Placement(transformation(extent={{-80,0},{-60,20}},    rotation=0)));
+        annotation (                       Placement(transformation(extent={{-80,0},{-60,20}})));
       Modelica.Blocks.Sources.Constant primary(k=40)
-        annotation (                       Placement(transformation(extent={{-80,40},{-60,60}},   rotation=0)));
+        annotation (                       Placement(transformation(extent={{-80,40},{-60,60}})));
     Modelica.Blocks.Math.Gain MW2W(k=1e6)
       annotation (Placement(transformation(extent={{66,4},{54,16}})));
     inner PowerSystems.System system
@@ -1120,30 +1090,26 @@ The following switches/features are provided:
         points={{53.4,10},{41,10}},
         color={0,0,127},
         smooth=Smooth.None));
-      annotation (experiment(StopTime=600),
-                  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                          graphics));
+      annotation (experiment(StopTime=600));
     end PowerPlantTest2;
 
     model PowerPlantTest3 "Test connection to a large net"
     import PowerSystems;
       Components.PowerPlant powerPlant
-        annotation (Placement(transformation(extent={{-20,0},{2,22}}, rotation=0)));
+        annotation (Placement(transformation(extent={{-20,0},{2,22}})));
       Modelica.Blocks.Sources.Constant schedule(k=490)
-        annotation (Placement(transformation(extent={{-80,-40},{-60,-20}},
-                                             rotation=0)));
+        annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
       PowerSystems.Generic.FixedVoltageSource largeGrid annotation (Placement(
-          transformation(extent={{80,0},{60,20}}, rotation=0)));
+          transformation(extent={{80,0},{60,20}})));
       Modelica.Blocks.Sources.Ramp secondary(startTime=100,
                                              height=300,
                                              duration=0)
-        annotation (                       Placement(transformation(extent={{-80,0},{-60,20}},    rotation=0)));
+        annotation (                       Placement(transformation(extent={{-80,0},{-60,20}})));
       PowerSystems.Generic.Impedance
         line(R=1, L=1/314)
         annotation (Placement(transformation(extent={{20,0},{40,20}})));
       Modelica.Blocks.Sources.Constant primary(k=40)
-        annotation (                       Placement(transformation(extent={{-80,40},{-60,60}},   rotation=0)));
+        annotation (                       Placement(transformation(extent={{-80,40},{-60,60}})));
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
@@ -1165,21 +1131,17 @@ The following switches/features are provided:
       connect(primary.y, powerPlant.plantDispatch[3]) annotation (Line(points={{-59,50},
             {-30,50},{-30,4.66667},{-20,4.66667}},                     color={0,0,127},
                                                                        smooth=Smooth.None));
-      annotation (experiment(StopTime=600),
-                  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                                                                               -100},{100,100}}),
-                          graphics));
+      annotation (experiment(StopTime=600));
     end PowerPlantTest3;
 
     model HydroPlantTest1 "Test primary control"
     import PowerSystems;
       Components.HydroPlant hydroPlant(primaryControlMax=310)
-        annotation (Placement(transformation(extent={{-20,0},{0,20}}, rotation=0)));
+        annotation (Placement(transformation(extent={{-20,0},{0,20}})));
       Modelica.Blocks.Sources.Constant schedule(k=50)
-        annotation (Placement(transformation(extent={{-80,-40},{-60,-20}},
-                                             rotation=0)));
+        annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
       PowerSystems.Generic.PrescribedPowerLoad prescribedLoad
-        annotation (Placement(transformation(extent={{20,0},{40,20}}, rotation=0)));
+        annotation (Placement(transformation(extent={{20,0},{40,20}})));
       Modelica.Blocks.Sources.Trapezoid trapezoid(startTime=100,
                                                   offset=50,
                                                   amplitude=300,
@@ -1189,14 +1151,11 @@ The following switches/features are provided:
                                                   rising=60,
                                                   period=900)
         annotation (Placement(transformation(extent={{40,40},{60,
-                                                              60}},
-                                             rotation=0)));
+                                                              60}})));
       Modelica.Blocks.Sources.Constant primary(k=400)
-        annotation (Placement(transformation(extent={{-80,40},{-60,60}},
-                                             rotation=0)));
+        annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
       Modelica.Blocks.Sources.Constant secondary(k=0)
-        annotation (Placement(transformation(extent={{-80,0},{-60,20}},
-                                             rotation=0)));
+        annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
     Modelica.Blocks.Math.Gain MW2W(k=1e6)
       annotation (Placement(transformation(extent={{66,4},{54,16}})));
     inner PowerSystems.System system
@@ -1224,22 +1183,17 @@ The following switches/features are provided:
         points={{53.4,10},{41,10}},
         color={0,0,127},
         smooth=Smooth.None));
-      annotation (experiment(StopTime=900),
-                  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                          graphics));
+      annotation (experiment(StopTime=900));
     end HydroPlantTest1;
 
     model HydroPlantTest2 "Test secondary control"
     import PowerSystems;
       Components.HydroPlant hydroPlant
-        annotation (Placement(transformation(extent={{-20,0},{0,20}}, rotation=0)));
+        annotation (Placement(transformation(extent={{-20,0},{0,20}})));
       Modelica.Blocks.Sources.Constant schedule(k=50)
-        annotation (Placement(transformation(extent={{-80,-40},{-60,-20}},
-                                             rotation=0)));
+        annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
       Modelica.Blocks.Sources.Constant primary(k=400)
-        annotation (Placement(transformation(extent={{-80,40},{-60,60}},
-                                             rotation=0)));
+        annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
       Modelica.Blocks.Sources.Trapezoid secondary(amplitude=100,
                                                   offset=-50,
                                                   rising=86400/4,
@@ -1247,10 +1201,9 @@ The following switches/features are provided:
                                                   falling=86400/4,
                                                   period=86400,
                                                   startTime=86400/8)
-        annotation (Placement(transformation(extent={{-80,0},{-60,20}},
-                                             rotation=0)));
+        annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
       PowerSystems.Generic.FixedVoltageSource largeGrid annotation (Placement(
-          transformation(extent={{80,0},{60,20}}, rotation=0)));
+          transformation(extent={{80,0},{60,20}})));
       PowerSystems.Generic.Impedance
         line(R=1, L=1/314)
         annotation (Placement(transformation(extent={{20,0},{40,20}})));
@@ -1275,23 +1228,20 @@ The following switches/features are provided:
       connect(hydroPlant.terminal, line.terminal_p) annotation (Line(points={{0,10},{20,10}},
                                                                      color={0,0,0},
                                                                      smooth=Smooth.None));
-      annotation (experiment(StopTime=86400),
-                  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                                                                               -100},{100,100}}),
-                          graphics));
+      annotation (experiment(StopTime=86400));
     end HydroPlantTest2;
 
     model WindFarmLoadTest "WindFarm connected to a load"
     import PowerSystems;
       Components.WindFarm windFarm
         annotation (Placement(transformation(extent=
-                                             {{-60,0},{-40,20}}, rotation=0)));
+                                             {{-60,0},{-40,20}})));
       PowerSystems.Generic.Impedance
         load(R=30, L=10/314)
-        annotation (Placement(transformation(extent={{-20,0},{0,20}}, rotation=0)));
+        annotation (Placement(transformation(extent={{-20,0},{0,20}})));
       PowerSystems.Generic.Ground
         ground
-        annotation (Placement(transformation(extent={{20,0},{40,20}},        rotation=0)));
+        annotation (Placement(transformation(extent={{20,0},{40,20}})));
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
@@ -1300,17 +1250,14 @@ The following switches/features are provided:
       connect(windFarm.terminal, load.terminal_p) annotation (Line(points={{-40,10},{-20,10}},
                                                                    color={0,0,0},
                                                                    smooth=Smooth.None));
-      annotation (experiment(StopTime=86400),
-                  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                                                                               -100},{100,100}}),
-                          graphics));
+      annotation (experiment(StopTime=86400));
     end WindFarmLoadTest;
 
     model WindFarmGridTest "WindFarm connected to a large net"
     import PowerSystems;
       Components.WindFarm windFarm
         annotation (Placement(transformation(extent=
-                                             {{-60,0},{-40,20}}, rotation=0)));
+                                             {{-60,0},{-40,20}})));
       PowerSystems.Generic.FixedVoltageSource largeGrid
       annotation (Placement(transformation(extent={{40,0},{20,20}})));
     inner PowerSystems.System system
@@ -1320,10 +1267,7 @@ The following switches/features are provided:
         points={{-40,10},{20,10}},
         color={0,0,0},
         smooth=Smooth.None));
-      annotation (experiment(StopTime=86400),
-                  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                                                                               -100},{100,100}}),
-                          graphics));
+      annotation (experiment(StopTime=86400));
     end WindFarmGridTest;
 
     model WindFarmHVDCTest "WindFarm connected to a large net via HVDC"
@@ -1331,7 +1275,7 @@ The following switches/features are provided:
       Components.WindFarm windFarm(redeclare package PhaseSystem =
             PowerSystems.PhaseSystems.DirectCurrent)
         annotation (Placement(transformation(extent=
-                                             {{-60,0},{-40,20}}, rotation=0)));
+                                             {{-60,0},{-40,20}})));
 
       PowerSystems.Generic.FixedVoltageSource largeGrid
       annotation (Placement(transformation(extent={{40,0},{20,20}})));
@@ -1348,16 +1292,13 @@ The following switches/features are provided:
         points={{0,10},{20,10}},
         color={0,0,0},
         smooth=Smooth.None));
-      annotation (experiment(StopTime=86400),
-                  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                                                                               -100},{100,100}}),
-                          graphics));
+      annotation (experiment(StopTime=86400));
     end WindFarmHVDCTest;
 
     model CityTest
     import PowerSystems;
       PowerSystems.Generic.FixedVoltageSource largeGrid annotation (Placement(
-          transformation(extent={{-60,0},{-40,20}}, rotation=0)));
+          transformation(extent={{-60,0},{-40,20}})));
       Components.City city
         annotation (Placement(transformation(extent={{20,0},{40,20}})));
     inner PowerSystems.System system
@@ -1367,10 +1308,7 @@ The following switches/features are provided:
         points={{-40,10},{20,10}},
         color={0,0,0},
         smooth=Smooth.None));
-      annotation (experiment(StopTime=86400),
-                  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                                                                               -100},{100,100}}),
-                          graphics));
+      annotation (experiment(StopTime=86400));
     end CityTest;
 
     model LoadDispatcherTest
@@ -1388,8 +1326,6 @@ The following switches/features are provided:
       connect(frequency.y, loadDispatcher.frequency) annotation (Line(points={{-59,30},{-30,30},{-30,17}},
                                                                       color={0,0,127},
                                                                       smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent=
-                                           {{-100,-100},{100,100}}), graphics));
     end LoadDispatcherTest;
   end Test;
 

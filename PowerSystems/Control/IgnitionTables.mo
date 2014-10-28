@@ -18,10 +18,6 @@ record Table_2 "Ignition Table2, 3 pulses/period"
   1.0, 0.86373, 1.5708, 2.2779, 4.0053, 4.7124, 5.4195;
   1.1, 0.86373, 1.5708, 2.2779, 4.0053, 4.7124, 5.4195];
   annotation (defaultComponentName = "table_2",
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Documentation(
             info="<html>
 <p>Ignition Table_mult: (2*mult - 1) pulses/period, equidistant arguments u.<br>
@@ -53,10 +49,6 @@ record Table_3 "Ignition Table3, 5 pulses/period"
   1.0, 0.57739, 0.70275, 1.5708, 2.4388, 2.5642, 3.7190, 3.8443, 4.7124, 5.5804, 5.7058;
   1.1, 0.57739, 0.70275, 1.5708, 2.4388, 2.5642, 3.7190, 3.8443, 4.7124, 5.5804, 5.7058];
   annotation (defaultComponentName = "table_3",
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Documentation(
             info="<html>
 <p>Ignition Table_mult: (2*mult - 1) pulses/period, equidistant arguments u.<br>
@@ -99,10 +91,6 @@ record Table_4 "Ignition Table4, 7 pulses/period"
   1.1, 0.42851, 0.47349, 1.2027, 1.5708, 1.9389, 2.6681, 2.7131,
        3.5701,  3.6151,  4.3443, 4.7124, 5.0804, 5.8097, 5.8547];
   annotation (defaultComponentName = "table_4",
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Documentation(
             info="<html>
 <p>Ignition Table_mult: (2*mult - 1) pulses/period, equidistant arguments u.<br>
@@ -145,10 +133,6 @@ record Table_5 "Ignition Table5, 9 pulses/period"
   1.1, 0.33913, 0.36027, 0.97116, 1.1505, 1.5708, 1.9911, 2.1704, 2.7813, 2.8025,
        3.4807,  3.5019,  4.1128,  4.2921, 4.7124, 5.1327, 5.3120, 5.9229, 5.9441];
   annotation (defaultComponentName = "table_5",
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Documentation(
             info="<html>
 <p>Ignition Table_mult: (2*mult - 1) pulses/period, equidistant arguments u.<br>
@@ -167,9 +151,5 @@ annotation (preferredView="info",
     Documentation(info="<html>
 <p>Ignition tables for synchronous PWM gate-control.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end IgnitionTables;

@@ -18,10 +18,7 @@ package Generic "Simple components for basic investigations"
     if true or PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
-                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
             extent={{-70,30},{70,-30}},
@@ -61,10 +58,7 @@ package Generic "Simple components for basic investigations"
     if true or PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}}),
-                        graphics),
-                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
             extent={{-70,30},{70,-30}},
@@ -102,10 +96,7 @@ package Generic "Simple components for basic investigations"
     if true or PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
-                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={
           Line(points={{-100,0},{-70,0}}, color={0,0,0}),
           Line(points={{70,0},{100,0}}, color={0,0,0}),
@@ -140,8 +131,7 @@ package Generic "Simple components for basic investigations"
           Line(points={{-80,-60},{80,-60}}, color={0,120,120}),
           Line(points={{-50,-80},{50,-80}}, color={0,120,120}),
           Line(points={{-20,-100},{20,-100}}, color={0,120,120}),
-          Line(points={{-100,0},{0,0}}, color={0,120,120})}),
-                               Diagram(graphics));
+          Line(points={{-100,0},{0,0}}, color={0,120,120})}));
   end Ground;
 
   model Generator "Basic transformation of rotational to electrical power"
@@ -154,8 +144,7 @@ package Generic "Simple components for basic investigations"
     parameter SI.Voltage V_nom = 10e3 "nominal value of voltage"
       annotation (Dialog(group="Reference Parameters"));
     Modelica.Mechanics.Rotational.Interfaces.Flange_a flange
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     SI.AngularVelocity w = pp*der(flange.phi);
     SI.Voltage V(start = V_nom);
     SI.Angle thetaRel;
@@ -182,10 +171,7 @@ package Generic "Simple components for basic investigations"
     end if;
     0 = PhaseSystem.activePower(terminal.v, terminal.i) + w*flange.tau;
     terminal.v = PhaseSystem.phaseVoltages(V, thetaRel);
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
-                         Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+    annotation (                         Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
               -100},{100,100}}), graphics={
           Line(points={{-100,0},{-50,0}}, color={0,120,120}),
           Line(points={{50,0},{100,0}}, color={0,120,120}),
@@ -229,7 +215,7 @@ package Generic "Simple components for basic investigations"
     package PhaseSystem_dc = PowerSystems.PhaseSystems.DirectCurrent;
     PowerSystems.Generic.Ports.Terminal_p terminal_dc(
       redeclare package PhaseSystem = PhaseSystem_dc)
-        annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+        annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     parameter SI.Voltage V_dc = 150e3 "voltage of dc system";
     SI.Current I "value of current";
     SI.Angle thetaRel;
@@ -255,10 +241,7 @@ package Generic "Simple components for basic investigations"
     terminal.i = PhaseSystem.phaseCurrents(I, thetaRel);
     0 = PhaseSystem_dc.activePower(terminal_dc.v, terminal_dc.i)
       + PhaseSystem.activePower(terminal.v, terminal.i);
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
-                         Icon(coordinateSystem(preserveAspectRatio=true,
+    annotation (                         Icon(coordinateSystem(preserveAspectRatio=true,
             extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
             extent={{-90,90},{90,-90}},
@@ -327,10 +310,7 @@ package Generic "Simple components for basic investigations"
           Text(
             extent={{-142,98},{146,158}},
             lineColor={0,0,0},
-            textString="%name")}),
-                               Diagram(coordinateSystem(preserveAspectRatio=false,
-                     extent={{-100,-100},{100,100}}),
-                                       graphics));
+            textString="%name")}));
   end FixedVoltageSource;
 
   model FixedLoad
@@ -339,10 +319,7 @@ package Generic "Simple components for basic investigations"
     parameter Modelica.SIunits.Angle phi = 0 "phase angle";
   equation
     PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, phi);
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
-                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={Rectangle(
             extent={{-90,90},{90,-90}},
             lineColor={0,120,120},
@@ -362,8 +339,7 @@ package Generic "Simple components for basic investigations"
     annotation (Dialog(group="Reference Parameters", enable = definiteReference));
   equation
     terminal.i = PhaseSystem.phaseCurrents(I, phi);
-    annotation (Diagram(graphics),
-                        Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (                        Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
             extent={{-90,90},{90,-90}},
@@ -388,7 +364,7 @@ package Generic "Simple components for basic investigations"
     extends PowerSystems.Generic.Ports.PartialSource(
       final potentialReference=true);
     Modelica.Blocks.Interfaces.RealInput P(unit="W") annotation (Placement(
-          transformation(extent={{-130,-20},{-90,20}}, rotation=0)));
+          transformation(extent={{-130,-20},{-90,20}})));
     SI.Current I "value of current";
     SI.Angle thetaRel;
   protected
@@ -407,10 +383,7 @@ package Generic "Simple components for basic investigations"
     end if;
     terminal.i = PhaseSystem.phaseCurrents(I, thetaRel);
     0 = PhaseSystem.activePower(terminal.v, terminal.i) + P;
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
-                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={Rectangle(
             extent={{-90,90},{90,-90}},
             lineColor={0,120,120},
@@ -427,13 +400,10 @@ package Generic "Simple components for basic investigations"
     extends PowerSystems.Generic.Ports.PartialLoad;
     parameter Modelica.SIunits.Angle phi = 0 "phase angle";
     Modelica.Blocks.Interfaces.RealInput P(unit="W") annotation (Placement(
-          transformation(extent={{130,-20},{90,20}}, rotation=0)));
+          transformation(extent={{130,-20},{90,20}})));
   equation
     PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, phi);
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
-                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={Rectangle(
             extent={{-90,90},{90,-90}},
             lineColor={0,120,120},
@@ -507,11 +477,11 @@ package Generic "Simple components for basic investigations"
       PowerSystems.Generic.Ports.Terminal_p terminal_p(
         redeclare package PhaseSystem = PhaseSystem)
         annotation (Placement(
-          transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+          transformation(extent={{-110,-10},{-90,10}})));
       PowerSystems.Generic.Ports.Terminal_n terminal_n(
         redeclare package PhaseSystem = PhaseSystem)
         annotation (Placement(
-          transformation(extent={{90,-10},{110,10}}, rotation=0)));
+          transformation(extent={{90,-10},{110,10}})));
       SI.Voltage[PhaseSystem.n] v(start = v_start);
       SI.Current[PhaseSystem.n] i(start = i_start);
       SI.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i);
@@ -535,8 +505,7 @@ package Generic "Simple components for basic investigations"
                                          terminal(
                                       redeclare package PhaseSystem =
             PhaseSystem)
-        annotation (Placement(transformation(extent={{90,-10},{110,10}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{90,-10},{110,10}})));
       SI.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(terminal.v, terminal.i);
       SI.Angle phi = PhaseSystem.phase(terminal.v) - PhaseSystem.phase(-terminal.i);
       parameter Boolean potentialReference = true "serve as potential root"
@@ -564,8 +533,7 @@ package Generic "Simple components for basic investigations"
                                          terminal(
                                       redeclare package PhaseSystem =
             PhaseSystem)
-        annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
       SI.Voltage v[:] = terminal.v;
       SI.Current i[:] = terminal.i;
       SI.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i);
@@ -632,8 +600,7 @@ package Generic "Simple components for basic investigations"
             Text(
               extent={{162,120},{2,90}},
               lineColor={0,0,0},
-              textString="P")}), Diagram(coordinateSystem(preserveAspectRatio=
-                false, extent={{-100,-100},{100,100}}), graphics));
+              textString="P")}));
     end PMeter;
   end Sensors;
 end Generic;

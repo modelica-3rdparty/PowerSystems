@@ -46,7 +46,7 @@ model Breaker "Breaker kernel, no terminals"
   parameter SI.ElectricFieldStrength Earc=50e3 "electric field arc";
   parameter SI.Resistance R0=1 "small signal resistance arc";
   replaceable Plasma.ArcBreaker arcBreaker(E=Earc, r=R0/(D*Earc))
-    annotation (Placement(transformation(extent={{-30,-20},{30,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-30,-20},{30,20}})));
   protected
   SI.Voltage v_arc;
   SI.Current i_arc;
@@ -90,11 +90,7 @@ When closing: <tt>arc</tt> becomes false (<tt>open</tt> changes from true to fal
             points={{-40,0},{-30,-4},{-24,0},{-14,-2},{-4,4},{2,0},{10,-2},{18,
                 2},{26,-2},{30,-2},{34,2},{40,0}},
             color={255,255,0},
-            thickness=0.5)}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+            thickness=0.5)}));
 end Breaker;
 
 model Short "Short kernel optionally with exponential relaxation, no terminals"
@@ -132,10 +128,6 @@ with
   p           power of exponent
 </pre></p>
 </html>"),
-Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
 Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
@@ -168,8 +160,7 @@ model Fault "Line fault kernel, no terminals"
   replaceable Plasma.ArcFault arcFault(
     V=Varc,
     r=R0/Varc)
-     annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=
-            0)));
+     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 
 equation
   arcFault.v = v_arc;
@@ -198,10 +189,6 @@ annotation (defaultComponentName = "fault_",
 Clearing criterion: balance heating-cooling.</p>
 <p>Contains replaceable model of plasma-arc.</p>
 </html>"),
-  Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
   Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
@@ -297,10 +284,6 @@ partial model FaultBase "Fault kernel base"
 Documentation(
       info="<html>
 </html>"),
-Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
 Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
@@ -315,10 +298,6 @@ Icon(coordinateSystem(
 
 end FaultBase;
   annotation (
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Documentation(
             info="<html>
 </html>

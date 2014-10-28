@@ -150,10 +150,6 @@ package Icons "Icons"
               extent={{-100,-90},{100,-130}},
               lineColor={0,0,0},
               textString="%name")}),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Documentation(info=""));
 
   end Adaptor_abc;
@@ -222,10 +218,6 @@ package Icons "Icons"
               extent={{-100,-90},{100,-130}},
               lineColor={0,0,0},
               textString="%name")}),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Documentation(info=""));
 
   end Adaptor_dq0;
@@ -251,10 +243,6 @@ package Icons "Icons"
               extent={{-100,-90},{100,-130}},
               lineColor={0,0,0},
               textString="%name")}),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Documentation(info=""));
 
   end Inverter;
@@ -295,10 +283,6 @@ package Icons "Icons"
               lineColor={0,130,175},
               textString="~"),
             Text(extent={{-80,40},{0,0}}, textString="=")}),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Documentation(info=""));
 
   end Inverter_abc;
@@ -335,10 +319,6 @@ package Icons "Icons"
               lineColor={0,0,0},
               textString="%name"),
             Text(extent={{-80,40},{0,0}}, textString="=")}),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Documentation(info=""));
 
   end Inverter_dq0;
@@ -384,11 +364,7 @@ package Icons "Icons"
               textString="%name")}),
       Documentation(
               info="
-"),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
   end Function;
 
   partial class Enumeration "Enumeration icon"
@@ -443,11 +419,7 @@ package Icons "Icons"
               fillColor={255,255,170},
               fillPattern=FillPattern.Solid,
               textString="Library")}),
-        Documentation(info=""),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+        Documentation(info=""));
     end Library;
 
     partial class SpecialLibrary "Package icon 'Special Library'"
@@ -482,11 +454,7 @@ package Icons "Icons"
               extent={{-120,125},{120,70}},
               lineColor={255,0,0},
               textString="%name")}),
-    Documentation(info=""),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+    Documentation(info=""));
     end SpecialLibrary;
 
     partial class Base "Package icon 'Base'"
@@ -517,11 +485,7 @@ package Icons "Icons"
               fillColor={255,255,170},
               fillPattern=FillPattern.Solid,
               textString="Base")}),
-    Documentation(info=""),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+    Documentation(info=""));
     end Base;
 
     partial class Partials "Package icon 'Partials'"
@@ -552,11 +516,7 @@ package Icons "Icons"
               fillColor={255,255,170},
               fillPattern=FillPattern.Solid,
               textString="Partials")}),
-    Documentation(info=""),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+    Documentation(info=""));
     end Partials;
 
     partial class Examples "Package icon 'Examples'"
@@ -585,11 +545,7 @@ package Icons "Icons"
               extent={{-85,41},{65,-79}},
               lineColor={95,95,95},
               textString="Examples")}),
-    Documentation(info=""),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+    Documentation(info=""));
     end Examples;
   annotation (preferredView="info",
     Documentation(info="<html>

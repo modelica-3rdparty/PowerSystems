@@ -112,7 +112,7 @@ package Nodes "Nodes "
   model GroundOne "Ground, one conductor"
 
     Interfaces.Electric_p term annotation (Placement(transformation(extent={{
-              -110,-10},{-90,10}}, rotation=0)));
+              -110,-10},{-90,10}})));
 
   equation
     term.v = 0;
@@ -155,7 +155,7 @@ package Nodes "Nodes "
 
     output SI.Voltage v(stateSelect=StateSelect.never);
     Ports.TwoPin_p term
-      annotation (Placement(transformation(extent={{-7,-60},{7,60}}, rotation=0)));
+      annotation (Placement(transformation(extent={{-7,-60},{7,60}})));
 
   equation
     term.i = zeros(2);
@@ -174,10 +174,6 @@ package Nodes "Nodes "
             pattern=LinePattern.None,
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
 <p>Calculates difference voltage conductor 1 - conductor 2.</p>
@@ -188,14 +184,11 @@ package Nodes "Nodes "
   model Electric_pn_p_n "Adaptor ElectricV[2] (vector) to Electric (scalar)."
 
     Ports.TwoPin_p term_pn "vector pin {p,n}"
-      annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     Interfaces.Electric_p term_p "scalar p"
-        annotation (Placement(transformation(extent={{70,30},{50,50}}, rotation=
-             0)));
+        annotation (Placement(transformation(extent={{70,30},{50,50}})));
     Interfaces.Electric_n term_n "scalar n"
-        annotation (Placement(transformation(extent={{50,-50},{70,-30}},
-            rotation=0)));
+        annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 
   equation
     term_pn.v = {term_p.v, term_n.v};
@@ -233,17 +226,13 @@ package Nodes "Nodes "
 
     Basic.Interfaces.ElectricV_p term_abc(
                                          final m=3) "vector {a,b,c}"
-      annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     Interfaces.Electric_n term_a "scalar a"
-        annotation (Placement(transformation(extent={{50,30},{70,50}}, rotation=
-             0)));
+        annotation (Placement(transformation(extent={{50,30},{70,50}})));
     Interfaces.Electric_n term_b "scalar b"
-        annotation (Placement(transformation(extent={{50,-10},{70,10}},
-            rotation=0)));
+        annotation (Placement(transformation(extent={{50,-10},{70,10}})));
     Interfaces.Electric_n term_c "scalar c"
-        annotation (Placement(transformation(extent={{50,-50},{70,-30}},
-            rotation=0)));
+        annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 
   equation
     {term_a.v,term_b.v,term_c.v} = term_abc.v;
@@ -279,9 +268,5 @@ package Nodes "Nodes "
 */
   annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Nodes;

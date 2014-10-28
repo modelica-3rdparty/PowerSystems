@@ -25,11 +25,7 @@ package Sensors "Sensors n-phase or DC"
             fillPattern=FillPattern.Solid)}),
       Documentation(
               info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end VdiffSensor;
 
   model IdiffSensor "Current difference sensor, 1-phase"
@@ -52,11 +48,7 @@ package Sensors "Sensors n-phase or DC"
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Ellipse(extent={{-20,20},{20,-20}}, lineColor=
-                {135,135,135}), Line(points={{0,20},{0,90}}, color={135,135,135})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                {135,135,135}), Line(points={{0,20},{0,90}}, color={135,135,135})}));
   end IdiffSensor;
 
   model Vsensor "Voltage sensor, 1-phase"
@@ -85,11 +77,7 @@ package Sensors "Sensors n-phase or DC"
           Line(points={{-20,40},{20,60}}, color={135,135,135})}),
       Documentation(
               info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end Vsensor;
 
   model Isensor "Current sensor, 1-phase"
@@ -115,11 +103,7 @@ package Sensors "Sensors n-phase or DC"
           Ellipse(extent={{-20,20},{20,-20}}, lineColor={135,135,135}),
           Line(points={{0,20},{0,90}}, color={135,135,135}),
           Line(points={{-20,50},{20,70}}, color={135,135,135}),
-          Line(points={{-20,40},{20,60}}, color={135,135,135})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-20,40},{20,60}}, color={135,135,135})}));
   end Isensor;
 
   model Psensor "Power sensor, 1-phase"
@@ -145,11 +129,7 @@ package Sensors "Sensors n-phase or DC"
             lineColor={135,135,135},
             fillColor={175,175,175},
             fillPattern=FillPattern.Solid), Line(points={{0,0},{20,0}}, color={
-                0,0,255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                0,0,255})}));
   end Psensor;
 
   model Vmeter "Voltage meter, 1-phase"
@@ -188,10 +168,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
   v0     average voltage ('plus' + 'minus')/2
 </pre>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Vmeter;
 
   model Imeter "Current meter, 1-phase"
@@ -416,11 +393,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
             lineColor={176,0,0},
             fillColor={176,0,0},
             fillPattern=FillPattern.Solid), Line(points={{0,0},{20,0}}, color={
-                0,0,255})}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                0,0,255})}));
   end Efficiency;
 
   package Partials "Partial models"
@@ -484,11 +457,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={Ellipse(extent={{-70,70},{70,-70}},
-                lineColor={135,135,135})}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+                lineColor={135,135,135})}));
     end Meter1Base;
 
     partial model Meter2Base "Meter base 2 terminal, 1-phase"
@@ -506,8 +475,5 @@ Documentation(info="<html>
 <p>Sensors directly output terminal signals (voltage, current, power).</p>
 <p>Meters allow choosing base-units for output variables.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Sensors;
