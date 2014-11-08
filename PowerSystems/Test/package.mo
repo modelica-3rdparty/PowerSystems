@@ -1,5 +1,5 @@
 within PowerSystems;
-package Test
+package Test 
 
 
   package SimpleComponentsTest
@@ -112,7 +112,9 @@ package Test
 
       PowerSystems.Generic.Generator generator annotation (Placement(
           transformation(extent={{-20,0},{0,20}})));
-      Modelica.Mechanics.Rotational.Components.Inertia inertia(J=1e3, w(start=2*pi*50))
+      Modelica.Mechanics.Rotational.Components.Inertia inertia(J=1e3,
+      phi(start=0, fixed=true),
+      w(start=2*pi*50, fixed=true))
         annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
       Modelica.Mechanics.Rotational.Sources.ConstantTorque constantTorque(useSupport=false, tau_constant=3e6/50/2/pi)
         annotation (Placement(transformation(extent={{-90,0},{-70,
@@ -136,7 +138,9 @@ package Test
 
       PowerSystems.Generic.Generator generator annotation (Placement(
           transformation(extent={{-20,0},{0,20}})));
-      Modelica.Mechanics.Rotational.Components.Inertia inertia(J=1e3, w(start=50*2*pi))
+      Modelica.Mechanics.Rotational.Components.Inertia inertia(J=1e3,
+      phi(start=0, fixed=true),
+      w(start=50*2*pi, fixed=true))
         annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
       Modelica.Mechanics.Rotational.Sources.ConstantTorque constantTorque(useSupport=false, tau_constant=3e6/50/2/2/pi)
         annotation (Placement(transformation(extent={{-90,0},{-70,
@@ -147,7 +151,9 @@ package Test
         annotation (Placement(transformation(extent={{60,-20},{80,0}})));
       PowerSystems.Generic.Generator generator1(synchronous=false) annotation (
         Placement(transformation(extent={{-20,-40},{0,-20}})));
-      Modelica.Mechanics.Rotational.Components.Inertia inertia1(J=1e3, w(start=50*2*pi))
+      Modelica.Mechanics.Rotational.Components.Inertia inertia1(J=1e3,
+      phi(start=0, fixed=true),
+      w(start=50*2*pi, fixed=true))
         annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
       Modelica.Mechanics.Rotational.Sources.ConstantTorque constantTorque1(useSupport=false, tau_constant=3e6/50/2/pi)
         annotation (Placement(transformation(extent={{-90,-40},{-70,
