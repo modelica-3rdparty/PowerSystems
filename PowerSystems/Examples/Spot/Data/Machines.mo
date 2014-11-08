@@ -71,14 +71,7 @@ record BLDC100V_1kVA
 Note that V_nom is only used, if impedance values x and r are given in pu.<br>
 f_nom is needed to relate impedance x and inductance L values.</p>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end BLDC100V_1kVA;
 
 record BLDC100V_1kVA_SI
@@ -112,14 +105,7 @@ record BLDC100V_1kVA_SI
 Note that V_nom is only used, if impedance values x and r are given in pu.<br>
 f_nom is needed to relate impedance x and inductance L values.</p>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end BLDC100V_1kVA_SI;
 
   record Asynchron400V_30kVA "Asynchronous machine, example"

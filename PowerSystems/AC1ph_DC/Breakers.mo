@@ -102,14 +102,11 @@ with
     SI.Current[2] i_f;
 
     Ports.TwoPin_p term_p "positive terminal"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Ports.TwoPin_n term_nt "negative terminal"
-      annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,30},{110,50}})));
     Ports.TwoPin_n term_nf "negative terminal"
-      annotation (Placement(transformation(extent={{90,-50},{110,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
     Modelica.Blocks.Interfaces.BooleanInput control
       "true: p - nt closed, false: p - nf closed"
     annotation (Placement(transformation(
@@ -260,7 +257,7 @@ with
     Common.Switching.Switch switch_1(
       epsR=epsR,
       epsG=epsG)                        annotation (Placement(transformation(extent={{
-              -40,0},{40,60}}, rotation=0)));
+              -40,0},{40,60}})));
 
   equation
     switch_1.v = v;
@@ -281,11 +278,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
           grid={2,2}), graphics={Line(
             points={{-40,0},{40,0}},
             color={0,0,255},
-            pattern=LinePattern.Dot)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            pattern=LinePattern.Dot)}));
   end Switch;
 
   model Breaker "Breaker, 1-phase"
@@ -293,7 +286,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
 
     replaceable Parameters.BreakerArc par "breaker parameter"
                                              annotation (Placement(
-          transformation(extent={{60,70},{80,90}}, rotation=0)));
+          transformation(extent={{60,70},{80,90}})));
   protected
     Common.Switching.Breaker breaker_1(
       D=par.D,
@@ -302,8 +295,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       R0=par.R0,
       epsR=epsR,
       epsG=epsG)
-           annotation (Placement(transformation(extent={{-20,10},{20,50}},
-            rotation=0)));
+           annotation (Placement(transformation(extent={{-20,10},{20,50}})));
 
   equation
     breaker_1.v = v;
@@ -325,11 +317,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
           grid={2,2}), graphics={Line(
             points={{-40,0},{-22,-6},{-10,-4},{2,4},{16,-4},{30,2},{40,0}},
             color={255,255,0},
-            thickness=0.5)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
   end Breaker;
 
   model ForcedDoubleSwitch "Forced double switch, 1-phase"
@@ -448,11 +436,11 @@ with
     Common.Switching.Switch switch_1(
       epsR=epsR,
       epsG=epsG)                  annotation (Placement(transformation(extent={
-              {-60,0},{20,60}}, rotation=0)));
+              {-60,0},{20,60}})));
     Common.Switching.Switch switch_2(
       epsR=epsR,
       epsG=epsG)                  annotation (Placement(transformation(extent={
-              {-20,-60},{60,0}}, rotation=0)));
+              {-20,-60},{60,0}})));
 
   equation
     switch_1.v = v[1];
@@ -478,11 +466,7 @@ if it is mechanically 'open' and the corresponding phase-current crosses zero.</
           grid={2,2}), graphics={Line(
             points={{-40,0},{40,0}},
             color={0,0,255},
-            pattern=LinePattern.Dot)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            pattern=LinePattern.Dot)}));
   end DoubleSwitch;
 
   model DoubleBreaker "Double breaker, 1-phase"
@@ -490,7 +474,7 @@ if it is mechanically 'open' and the corresponding phase-current crosses zero.</
 
     replaceable Parameters.BreakerArc par "breaker parameter"
                                              annotation (Placement(
-          transformation(extent={{60,70},{80,90}}, rotation=0)));
+          transformation(extent={{60,70},{80,90}})));
   protected
     replaceable Common.Switching.Breaker breaker_1(
       D=par.D,
@@ -499,7 +483,7 @@ if it is mechanically 'open' and the corresponding phase-current crosses zero.</
       R0=par.R0,
       epsR=epsR,
       epsG=epsG)                  annotation (Placement(transformation(extent={
-              {-60,0},{20,60}}, rotation=0)));
+              {-60,0},{20,60}})));
     replaceable Common.Switching.Breaker breaker_2(
       D=par.D,
       t_opening=par.t_opening,
@@ -507,7 +491,7 @@ if it is mechanically 'open' and the corresponding phase-current crosses zero.</
       R0=par.R0,
       epsR=epsR,
       epsG=epsG)                  annotation (Placement(transformation(extent={
-              {-20,-60},{60,0}}, rotation=0)));
+              {-20,-60},{60,0}})));
 
   equation
     breaker_1.v = v[1];
@@ -533,11 +517,7 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
           grid={2,2}), graphics={Line(
             points={{-40,0},{-22,-6},{-10,-4},{2,4},{16,-4},{30,2},{40,0}},
             color={255,255,0},
-            thickness=0.5)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
   end DoubleBreaker;
 
   package Partials "Partial models"
@@ -570,11 +550,7 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
             Line(
               points={{0,90},{0,34}},
               color={255,0,255},
-              pattern=LinePattern.Dot)}),
-          Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              pattern=LinePattern.Dot)}));
      end SwitchBase0;
 
     partial model SwitchBase "Switch base, 1-phase"
@@ -597,11 +573,7 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
               info="<html>
 <p>Allows one or two conductors. The first is switched.</p>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
+"),        Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
@@ -661,23 +633,12 @@ record BreakerArc "Breaker parameters, 3-phase"
     Documentation(
             info="<html>
 </html>
-"), Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
 end BreakerArc;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
   annotation (preferredView="info",
 Documentation(info="<html>
@@ -687,8 +648,5 @@ Documentation(info="<html>
 <tt><b>Switch</b></tt> is used for a component, that breaks the current during zero-crossing but does not contain any additional physical properties like arc-voltage etc.<br>
 <tt><b>Breaker</b></tt> is used for a component that acts basically like a 'Switch' but contains additionally physical properties of plasma-arcs, opening duration etc.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Breakers;

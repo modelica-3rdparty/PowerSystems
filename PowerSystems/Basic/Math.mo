@@ -564,9 +564,6 @@ i.e. for negative t y takes its asymptotic values.</p>
     annotation (preferredView="info",
   Documentation(info="<html>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Math;
 

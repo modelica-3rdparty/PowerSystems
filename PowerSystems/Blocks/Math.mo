@@ -34,11 +34,7 @@ equation
           Line(
             points={{-61,31},{-61,-31}},
             color={135,135,135},
-            thickness=0.5)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
 end Integrator;
 
   block TimeAverage "Time average of input signal"
@@ -69,11 +65,7 @@ end Integrator;
             extent={{-80,80},{80,40}},
             lineColor={128,128,128},
             textString=
-                 "_____")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "_____")}));
   end TimeAverage;
 
   block TimeAvInterval "Time average over interval of input signal"
@@ -104,11 +96,7 @@ end Integrator;
             extent={{-80,40},{80,-40}},
             lineColor={128,128,128},
             textString=
-                 "[...]")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "[...]")}));
   end TimeAvInterval;
 
   block ComponentAverage "Component average of input signal"
@@ -128,11 +116,7 @@ end Integrator;
       Documentation(
               info="<html>
 <p>Calculates the average over the components of the input-signal u.</p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end ComponentAverage;
 
   block Norm "Norm of input signal"
@@ -156,11 +140,7 @@ end Integrator;
             extent={{-80,40},{80,-40}},
             lineColor={128,128,128},
             textString=
-           "|u|")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "|u|")}));
   end Norm;
 
   block ToPolar "Rotation of input signal-vector"
@@ -191,11 +171,7 @@ end Integrator;
 </pre></p>
 <p>The phase <tt>y[2]</tt> is continuous in the interval
 <pre>  -pi &lt  phi &lt = +pi</pre></p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end ToPolar;
 
   block ToPolarR "Rotation of input signal-vector"
@@ -235,11 +211,7 @@ end Integrator;
 </pre></p>
 <p>The phase <tt>y[2]</tt> is continuous on the whole real axis
 <pre>  -inf &lt  phi &lt  +inf</pre></p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end ToPolarR;
 
   block FromPolar "Rotation of input signal-vector"
@@ -263,16 +235,9 @@ end Integrator;
   u[2]     argument, phase
 </pre></p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end FromPolar;
   annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Math;

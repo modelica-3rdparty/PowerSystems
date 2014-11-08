@@ -22,14 +22,7 @@ record TrafoIdeal1ph "Ideal trafo, 1-phase, example"
     Documentation(
     info="<html>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end TrafoIdeal1ph;
 
 record TrafoStray1ph "Trafo with ideal magnetic coupling, 1-phase, example"
@@ -54,11 +47,7 @@ record TrafoStray1ph "Trafo with ideal magnetic coupling, 1-phase, example"
     Documentation(
     info="<html>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
+"),    Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Rectangle(
@@ -96,11 +85,7 @@ record TrafoMag1ph "Trafo with magnetic coupling, 1-phase, example"
     Documentation(
     info="<html>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
+"),    Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Line(
@@ -138,11 +123,7 @@ record TrafoSat1ph "Trafo with saturation, 1-phase, example"
     Documentation(
     info="<html>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
+"),    Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Line(
@@ -174,14 +155,7 @@ record TrafoIdeal "Ideal trafo, 3-phase, example"
     Documentation(
     info="<html>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end TrafoIdeal;
 
 record TrafoStray "Trafo with ideal magnetic coupling, 3-phase, example"
@@ -209,14 +183,7 @@ record TrafoStray "Trafo with ideal magnetic coupling, 3-phase, example"
     Documentation(
     info="<html>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end TrafoStray;
 
 record TrafoMag "Trafo with magnetic coupling, 3-phase, example"
@@ -247,14 +214,7 @@ record TrafoMag "Trafo with magnetic coupling, 3-phase, example"
     Documentation(
     info="<html>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end TrafoMag;
 
 record TrafoSat "Trafo with saturation, 3-phase, example"
@@ -287,14 +247,7 @@ record TrafoSat "Trafo with saturation, 3-phase, example"
     Documentation(
     info="<html>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end TrafoSat;
   annotation (preferredView="info",
 Documentation(info="<html>

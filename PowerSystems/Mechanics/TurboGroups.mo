@@ -8,7 +8,7 @@ package TurboGroups "Turbines including generator-rotor"
     parameter SI.AngularVelocity w_nom=1 "nom ang velocity";
     Interfaces.Rotation_n airgap "to airgap electric machine"
                                            annotation (Placement(transformation(
-            extent={{90,50},{110,70}}, rotation=0)));
+            extent={{90,50},{110,70}})));
     Modelica.Blocks.Interfaces.RealInput power(
                      final unit="1") "turbine power pu"
       annotation (Placement(transformation(
@@ -82,11 +82,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
             extent={{0,-50},{100,-70}},
             lineColor={255,170,85},
             fillColor={255,170,85},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end FixedSpeedTG;
 
   model SingleMassTG "Single mass turbo-generator rotor"
@@ -99,7 +95,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     parameter SI.Power P_nom=1 "nom power turbine";
     Interfaces.Rotation_n airgap "to airgap electric machine"
                                            annotation (Placement(transformation(
-            extent={{90,50},{110,70}}, rotation=0)));
+            extent={{90,50},{110,70}})));
     Modelica.Blocks.Interfaces.RealInput power(
                      final unit="1") "turbine power pu"
       annotation (Placement(transformation(
@@ -176,11 +172,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
             extent={{0,-50},{100,-70}},
             lineColor={255,170,85},
             fillColor={255,170,85},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end SingleMassTG;
 
   model SteamTurboGroup "Steam turbo-group with generator-rotor"
@@ -188,48 +180,38 @@ Therefore phi and w represent the mechanical angle and angular velocity.
 
     replaceable parameter Parameters.SteamTurboGroup par "turbo-group par"
                                  annotation (Placement(transformation(extent={{
-              -80,80},{-60,100}}, rotation=0)));
+              -80,80},{-60,100}})));
     Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini), a(start=0))
-      annotation (Placement(transformation(extent={{50,-10},{70,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{50,-10},{70,10}})));
     SI.Angle[n] delta "difference angles";
   protected
     Rotation.Rotor aux1(J=par.J_aux[1])
-      annotation (Placement(transformation(extent={{-100,-10},{-80,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
     Rotation.ShaftNoMass shaft1(stiff=par.stiff[1])
-      annotation (Placement(transformation(extent={{-80,-10},{-70,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-80,-10},{-70,10}})));
     Rotation.ThermalTurbineRotor turbine1(J=par.J_turb[1])
                   annotation (Placement(transformation(extent={{-70,-10},{-50,
-              10}}, rotation=0)));
+              10}})));
     Rotation.ShaftNoMass shaft2(stiff=par.stiff[2])
-      annotation (Placement(transformation(extent={{-50,-10},{-40,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-50,-10},{-40,10}})));
     Rotation.ThermalTurbineRotor turbine2(J=par.J_turb[2])
                   annotation (Placement(transformation(extent={{-40,-10},{-20,
-              10}}, rotation=0)));
+              10}})));
     Rotation.ShaftNoMass shaft3(stiff=par.stiff[3])
-      annotation (Placement(transformation(extent={{-20,-10},{-10,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-20,-10},{-10,10}})));
     Rotation.ThermalTurbineRotor turbine3(J=par.J_turb[3])
-                  annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-            rotation=0)));
+                  annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Rotation.ShaftNoMass shaft4(stiff=par.stiff[4])
                                        annotation (Placement(transformation(
-            extent={{10,-10},{20,10}}, rotation=0)));
+            extent={{10,-10},{20,10}})));
     Rotation.ThermalTurbineRotor turbine4(J=par.J_turb[4])
-                  annotation (Placement(transformation(extent={{20,-10},{40,10}},
-            rotation=0)));
+                  annotation (Placement(transformation(extent={{20,-10},{40,10}})));
     Rotation.ShaftNoMass shaft5(stiff=par.stiff[5])
-      annotation (Placement(transformation(extent={{40,-10},{50,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{40,-10},{50,10}})));
     Rotation.ShaftNoMass shaft6(stiff=par.stiff[6])
-      annotation (Placement(transformation(extent={{70,-10},{80,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{70,-10},{80,10}})));
     Rotation.Rotor aux2(J=par.J_aux[2])
-      annotation (Placement(transformation(extent={{80,-10},{100,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   initial equation
     aux1.w = turbine1.w;
@@ -342,46 +324,36 @@ Therefore phi and w represent the mechanical angle and angular velocity.
 
     replaceable parameter Parameters.GasTurbineGear par "turbo-group par"
                                  annotation (Placement(transformation(extent={{
-              -80,80},{-60,100}}, rotation=0)));
+              -80,80},{-60,100}})));
     Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini*par.ratio[end]/par.ratio[1]), a(start=0))
-      annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   protected
     Rotation.ThermalTurbineRotor turbine(J=par.J_turb)
-               annotation (Placement(transformation(extent={{-90,-10},{-70,10}},
-            rotation=0)));
+               annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
     Rotation.ShaftNoMass shaft1(stiff=par.stiff_sh[1])
-      annotation (Placement(transformation(extent={{-70,-10},{-60,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-70,-10},{-60,10}})));
     Rotation.ThermalTurbineRotor compressor(J=par.J_comp)
-             annotation (Placement(transformation(extent={{-40,-10},{-60,10}},
-            rotation=0)));
+             annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
     Rotation.ShaftNoMass shaft2(stiff=par.stiff_sh[2])
                                       annotation (Placement(transformation(
-            extent={{-40,-10},{-30,10}}, rotation=0)));
+            extent={{-40,-10},{-30,10}})));
     Rotation.Gear gear1(ratio=par.ratio[1:2], J=par.J_gear1)
-      annotation (Placement(transformation(extent={{-30,-10},{-10,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
     Rotation.ShaftNoMass shaft3(stiff=par.stiff_sh[3])
                                       annotation (Placement(transformation(
-            extent={{-10,-10},{0,10}}, rotation=0)));
+            extent={{-10,-10},{0,10}})));
     Rotation.Gear gear2(ratio=par.ratio[2:3], J=par.J_gear2)
-      annotation (Placement(transformation(extent={{0,-10},{20,10}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,-10},{20,10}})));
     Rotation.ShaftNoMass shaft4(stiff=par.stiff_sh[4])
-      annotation (Placement(transformation(extent={{20,-10},{30,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{20,-10},{30,10}})));
     Rotation.Rotor accessory(J=par.J_acc)
-      annotation (Placement(transformation(extent={{30,-10},{40,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{30,-10},{40,10}})));
     Rotation.ShaftNoMass shaft5(stiff=par.stiff_sh[5])
-      annotation (Placement(transformation(extent={{40,-10},{50,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{40,-10},{50,10}})));
     Rotation.Shaft coupling(J=par.J_cpl, stiff=par.stiff_cpl)
-             annotation (Placement(transformation(extent={{50,-40},{60,40}},
-            rotation=0)));
+             annotation (Placement(transformation(extent={{50,-40},{60,40}})));
     Rotation.ShaftNoMass shaft6(stiff=par.stiff_sh[6])
-      annotation (Placement(transformation(extent={{60,-10},{70,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{60,-10},{70,10}})));
 
   initial equation
     turbine.w = compressor.w;
@@ -492,15 +464,14 @@ Therefore phi and w represent the mechanical angle and angular velocity.
 
     replaceable parameter Parameters.HydroTurbine par "hydro-turbine par"
                                      annotation (Placement(transformation(
-            extent={{-80,80},{-60,100}}, rotation=0)));
+            extent={{-80,80},{-60,100}})));
     Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini), a(start=0))
-      annotation (Placement(transformation(extent={{5,-10},{25,10}}, rotation=0)));
+      annotation (Placement(transformation(extent={{5,-10},{25,10}})));
   protected
     Rotation.HydroTurbineRotor turbine(J=par.J_turb)
-                  annotation (Placement(transformation(extent={{-25,-10},{-5,10}},
-            rotation=0)));
+                  annotation (Placement(transformation(extent={{-25,-10},{-5,10}})));
     Rotation.Shaft shaft(J=par.J_shaft, stiff=par.stiff)
-      annotation (Placement(transformation(extent={{-5,-10},{5,10}}, rotation=0)));
+      annotation (Placement(transformation(extent={{-5,-10},{5,10}})));
 
   initial equation
     turbine.w = shaft.w;
@@ -571,15 +542,14 @@ Therefore phi and w represent the mechanical angle and angular velocity.
 
     replaceable parameter Parameters.Diesel par "Diesel par"
                                 annotation (Placement(transformation(extent={{
-              -80,80},{-60,100}}, rotation=0)));
+              -80,80},{-60,100}})));
     Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini), a(start=0))
-      annotation (Placement(transformation(extent={{5,-10},{25,10}}, rotation=0)));
+      annotation (Placement(transformation(extent={{5,-10},{25,10}})));
   protected
     Rotation.DieselRotor diesel(J=par.J_turb)
-                  annotation (Placement(transformation(extent={{-25,-10},{-5,10}},
-            rotation=0)));
+                  annotation (Placement(transformation(extent={{-25,-10},{-5,10}})));
     Rotation.ShaftNoMass shaft(stiff=par.stiff)
-      annotation (Placement(transformation(extent={{-5,-10},{5,10}}, rotation=0)));
+      annotation (Placement(transformation(extent={{-5,-10},{5,10}})));
 
   initial equation
     diesel.w = genRotor.w;
@@ -644,26 +614,23 @@ Therefore phi and w represent the mechanical angle and angular velocity.
 
     replaceable parameter Parameters.WindTurbineGear par "turbine par"
                                          annotation (Placement(transformation(
-            extent={{-80,80},{-60,100}}, rotation=0)));
+            extent={{-80,80},{-60,100}})));
     Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini*par.ratio[end]/par.ratio[1]), a(start=0))
-      annotation (Placement(transformation(extent={{20,-10},{40,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   protected
     final parameter Real[3] gr2=diagonal(par.ratio)*par.ratio/par.ratio[end]^2;
     final parameter SI.Inertia J_red=par.J_turb*gr2[1] + par.J_gear*gr2 + par.J_gen
       "gear reduced inertia";
     Rotation.WindTurbineRotor turbine(J=par.J_turb)
-             annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
-            rotation=0)));
+             annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     Rotation.ShaftNoMass shaft1(stiff=par.stiff_sh[1])
                                       annotation (Placement(transformation(
-            extent={{-20,-10},{-10,10}}, rotation=0)));
+            extent={{-20,-10},{-10,10}})));
     Rotation.Gear gear(J=par.J_gear, ratio=par.ratio)
-      annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Rotation.ShaftNoMass shaft2(stiff=par.stiff_sh[2])
                                       annotation (Placement(transformation(
-            extent={{10,-10},{20,10}}, rotation=0)));
+            extent={{10,-10},{20,10}})));
 
   initial equation
     turbine.w = (par.ratio[1]/par.ratio[end])*gear.w;
@@ -805,11 +772,7 @@ torque control for speed &lt  speed_thr (speed threshold)
             points={{-10,10},{0,-10},{10,10},{-10,10}},
             lineColor={176,0,0},
             fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end PcontrolTorque;
 
   model WindTabTorque "Turbine torque, table {speed, torque pu}"
@@ -829,16 +792,14 @@ torque control for speed &lt  speed_thr (speed threshold)
       final fileName=fileName,
       columns={2},
       final tableOnFile=true) "{wind speed m/s, torque pu}"
-      annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
     Interfaces.Rotation_n blades "to turbine model"
       annotation (Placement(transformation(
           origin={100,60},
           extent={{10,10},{-10,-10}},
           rotation=180)));
     Modelica.Blocks.Interfaces.RealInput windSpeed "wind speed"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   protected
     final parameter SI.Torque tau_nom=P_nom/w_nom "nom torque"
     annotation(Evaluate=true);
@@ -886,11 +847,7 @@ torque control for speed &lt  speed_thr (speed threshold)
             points={{-10,10},{0,-10},{10,10},{-10,10}},
             lineColor={0,0,127},
             fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end WindTabTorque;
 
 package Parameters "Parameter data for interactive use"
@@ -915,15 +872,7 @@ record SteamTurboGroup "Steam turbo-group parameters"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end SteamTurboGroup;
 
 record GasTurbineGear "Turbo-group parameters"
@@ -950,15 +899,7 @@ record GasTurbineGear "Turbo-group parameters"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end GasTurbineGear;
 
 record HydroTurbine "Turbo-group parameters"
@@ -978,15 +919,7 @@ record HydroTurbine "Turbo-group parameters"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end HydroTurbine;
 
 record Diesel "Turbo-group parameters"
@@ -1003,15 +936,7 @@ record Diesel "Turbo-group parameters"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end Diesel;
 
 record WindTurbineGear "Turbo-group parameters"
@@ -1031,24 +956,12 @@ record WindTurbineGear "Turbo-group parameters"
   annotation (defaultComponentName="data",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end WindTurbineGear;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
 
   package Partials "Partial models"
@@ -1060,10 +973,10 @@ end Parameters;
       parameter Integer n=1 "number of turbines";
       Interfaces.Rotation_p[     n] blades "to turbine torque model"
                                                 annotation (Placement(
-            transformation(extent={{-110,50},{-90,70}}, rotation=0)));
+            transformation(extent={{-110,50},{-90,70}})));
       Interfaces.Rotation_n airgap "to airgap electric machine"
                                              annotation (Placement(
-            transformation(extent={{90,50},{110,70}}, rotation=0)));
+            transformation(extent={{90,50},{110,70}})));
     protected
       outer System system;
           annotation (
@@ -1117,11 +1030,7 @@ end Parameters;
               extent={{10,70},{100,50}},
               lineColor={255,170,85},
               fillColor={255,170,85},
-              fillPattern=FillPattern.Solid)}),
-            Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
     end TurboBase;
 
     partial model TurboBase1 "Turbine-generator rotor base "
@@ -1147,11 +1056,7 @@ end Parameters;
               points={{-100,-70},{-100,-40},{-20,-70},{-100,-70}},
               lineColor={176,0,0},
               fillColor={176,0,0},
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
     end TurboBase1;
 
     partial model TurboBase2 "Turbine-generator rotor base "
@@ -1167,11 +1072,7 @@ end Parameters;
               extent={{-100,70},{-10,-70}},
               lineColor={170,213,255},
               fillColor={170,213,255},
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
     end TurboBase2;
 
     partial model TurboBase3 "Turbine-generator rotor base "
@@ -1187,11 +1088,7 @@ end Parameters;
               extent={{-100,70},{-10,-70}},
               lineColor={255,128,0},
               fillColor={255,128,0},
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
     end TurboBase3;
 
     partial model TurboBase4 "Turbine-generator rotor base "
@@ -1211,11 +1108,7 @@ end Parameters;
               extent={{-100,14},{-10,-14}},
               lineColor={175,175,175},
               fillColor={175,175,175},
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
     end TurboBase4;
 
   end Partials;
@@ -1225,8 +1118,5 @@ Documentation(info="<html>
 <p>Contains a single mass and examples of multi-mass models of turbo groups.</p>
 <li>Default torque models</li>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end TurboGroups;

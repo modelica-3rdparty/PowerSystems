@@ -40,11 +40,7 @@ The transformation to inertial abc is only needed to determine the correct phase
             extent={{-40,-70},{0,-80}},
             lineColor={0,0,0},
             fillColor={255,0,0},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end Short_ABC;
 
   model Fault_ab "a to b fault, 1-phase"
@@ -196,10 +192,6 @@ The transformation to inertial abc is only needed to determine the correct phase
 - lower case p, n:     shorted conductor to conductor<br>
 - upper case P, N:     shorted conductor to ground</p>
 </html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -224,7 +216,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pp
               "fault with arc-model")), Placement(transformation(extent={{-20,
-                -20},{20,20}}, rotation=0)));
+                -20},{20,20}})));
     //  extends Common.Switching.Partials.FaultBase
 
     equation
@@ -259,7 +251,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pg
               "fault with arc-model")), Placement(transformation(extent={{-20,
-                -20},{20,20}}, rotation=0)));
+                -20},{20,20}})));
     //  extends Common.Switching.Partials.FaultBase
 
     protected
@@ -296,7 +288,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pp
               "fault with arc-model")), Placement(transformation(extent={{-60,
-                -20},{-20,20}}, rotation=0)));
+                -20},{-20,20}})));
     //  extends Common.Switching.Partials.FaultBase
       replaceable Common.Switching.Short fault_pg(
         final on=on,
@@ -306,7 +298,7 @@ The transformation to inertial abc is only needed to determine the correct phase
               "short with small resistance"),
            choice(redeclare PowerSystems.Common.Switching.Fault fault_pg
               "fault with arc-model")), Placement(transformation(extent={{20,
-                -20},{60,20}}, rotation=0)));
+                -20},{60,20}})));
     //  extends Common.Switching.Partials.FaultBase
     protected
       final parameter Integer m_ph=pair[n_ph];
@@ -340,8 +332,5 @@ Documentation(info="<html>
 <tt>a b</tt> denote a conductor with no fault to ground</p>
 <p>(The notation <tt>_pp</tt> ('phase-to-phase'), <tt>_pg</tt> ('phase-to-ground') etc is chosen in analogy to three-phase faults.)</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Faults;

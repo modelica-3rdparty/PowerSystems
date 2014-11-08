@@ -2734,9 +2734,5 @@ remain the same for d- and q-axis. This facilitates checking.</p>
 whereas for machines <b>without</b> field-winding (asynchronous), the q-axis diagram is valid for both axes d and q.</p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Precalculation;

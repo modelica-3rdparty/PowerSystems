@@ -21,10 +21,6 @@ package Machines "DC-machines, electric part"
     k*w = term.v[1] - term.v[2];
     airgap.tau = -k*term.i[1];
     annotation (defaultComponentName = "emf",
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -120,11 +116,7 @@ L_md depends on the winding ratio between armature and field winding</p>
             extent={{-100,10},{100,-10}},
             lineColor={255,255,255},
             textString=
-                 "ser")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "ser")}));
   end DCser;
 
   model DCpar "DC machine parallel excited"
@@ -190,11 +182,7 @@ It can be determined in several ways,<br>
             extent={{-100,10},{100,-10}},
             lineColor={255,255,255},
             textString=
-                 "par")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "par")}));
   end DCpar;
 
   model DCpm "DC machine permanent magnet excited"
@@ -236,11 +224,7 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
             extent={{-100,10},{100,-10}},
             lineColor={255,255,255},
             textString=
-                 "pm")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "pm")}));
   end DCpm;
 
   package Partials "Partial models"
@@ -376,8 +360,7 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
       extends DCBase(final pp=par.pp);
 
       parameter Parameters.DCser par "machine parameter"
-        annotation (Placement(transformation(extent={{-80,60},{-60,80}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
       final parameter Coefficients.DCser c = Basic.Precalculation.machineDCser(
                                                                               par);
@@ -385,10 +368,6 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
         Documentation(
               info="<html>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -416,13 +395,11 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
       extends DCBase(final pp=par.pp);
 
       parameter Parameters.DCpar par "machine parameter"
-        annotation (Placement(transformation(extent={{-80,60},{-60,80}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
       SI.Voltage v_f;
       SI.Current i_f;
       Ports.TwoPin_p field
-        annotation (Placement(transformation(extent={{-110,-50},{-90,-30}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
     protected
       final parameter Coefficients.DCpar c = Basic.Precalculation.machineDCpar(
                                                                               par);
@@ -435,10 +412,6 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
         Documentation(
               info="<html>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -468,8 +441,7 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
       extends DCBase(final pp=par.pp);
 
       parameter Parameters.DCpm par "machine parameter"
-        annotation (Placement(transformation(extent={{-80,60},{-60,80}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
       final parameter Coefficients.DCpm c = Basic.Precalculation.machineDCpm(
                                                                             par);
@@ -479,10 +451,6 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
 <p>Magnetic flux base for pu-choice is
 <pre>  Psi_base = (1 - r_aq)*V_nom/omega_nom = (1 - r_aq)*V_nom/(pp*w_nom)</pre></p>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -515,15 +483,7 @@ record DCser "DC machine parameters series excited"
   annotation (defaultComponentName="dc_serPar",
     Documentation(
           info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end DCser;
 
 record DCpar "DC machine parameters parallel excited"
@@ -540,15 +500,7 @@ record DCpar "DC machine parameters parallel excited"
   annotation (defaultComponentName="dc_parPar",
     Documentation(
           info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end DCpar;
 
 record DCpm "DC machine parameters permanent magnet excited"
@@ -561,25 +513,13 @@ record DCpm "DC machine parameters permanent magnet excited"
   annotation (defaultComponentName="dc_pmPar",
     Documentation(
           info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end DCpm;
 
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
 
 package Coefficients "Coefficient matrices of machine equations"
@@ -596,15 +536,7 @@ record DCser "Coefficients of DC machine series excited"
   annotation (defaultComponentName="data",
     Documentation(
           info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end DCser;
 
 record DCpar "Coefficients of DC machine parallel excited"
@@ -619,15 +551,7 @@ record DCpar "Coefficients of DC machine parallel excited"
   annotation (defaultComponentName="data",
     Documentation(
           info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end DCpar;
 
 record DCpm "Coefficients of DC machine permanent magnet excited"
@@ -640,36 +564,21 @@ record DCpm "Coefficients of DC machine permanent magnet excited"
   annotation (defaultComponentName="data",
     Documentation(
           info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end DCpm;
 
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing the result of precalculation, and used in the dynamical equations of the corresponding components.</p>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Coefficients;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>This package contains the <b>electrical part</b> (electrical equations) of DC machines.<br>
 Complete drives are found in package Drives.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
-    Diagram(coordinateSystem(
+"),    Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={Line(

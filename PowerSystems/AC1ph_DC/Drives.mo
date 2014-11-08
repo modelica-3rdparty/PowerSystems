@@ -7,7 +7,7 @@ package Drives "DC-drives"
 
     replaceable PowerSystems.AC1ph_DC.Machines.DCser motor(w_el_ini=w_ini*motor.par.pp)
       "DC motor series"                   annotation (Placement(transformation(
-            extent={{-40,-10},{-20,10}}, rotation=0)));
+            extent={{-40,-10},{-20,10}})));
 
   equation
     connect(motor.heat, heat) annotation (Line(points={{-30,10},{-30,40},{0,40},
@@ -34,11 +34,7 @@ package Drives "DC-drives"
           Line(points={{-90,-10},{-60,-10}}, color={0,0,255}),
           Line(points={{-90,10},{-80,10},{-80,50},{-60,50}}, color={0,0,255}),
           Line(points={{-60,10},{-70,10},{-70,-6}}, color={0,0,255}),
-          Line(points={{-70,-14},{-70,-50},{-60,-50}}, color={0,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-70,-14},{-70,-50},{-60,-50}}, color={0,0,255})}));
   end DCMser;
 
   model DCMpar "DC machine, parallel connected"
@@ -46,10 +42,9 @@ package Drives "DC-drives"
 
     replaceable PowerSystems.AC1ph_DC.Machines.DCpar motor(w_el_ini=w_ini*motor.par.pp)
       "DC motor parallel"                 annotation (Placement(transformation(
-            extent={{-40,-10},{-20,10}}, rotation=0)));
+            extent={{-40,-10},{-20,10}})));
     AC1ph_DC.Ports.TwoPin_p field
-      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
 
   equation
     connect(motor.heat, heat) annotation (Line(points={{-30,10},{-30,40},{0,40},
@@ -79,11 +74,7 @@ package Drives "DC-drives"
                "DC par"),
           Line(points={{-90,-50},{-60,-50}}, color={0,0,255}),
           Line(points={{-60,50},{-68,50},{-68,14}}, color={0,0,255}),
-          Line(points={{-68,-14},{-68,-30},{-90,-30}}, color={0,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-68,-14},{-68,-30},{-90,-30}}, color={0,0,255})}));
   end DCMpar;
 
   model DCMpm "DC machine, permanent magnet"
@@ -91,7 +82,7 @@ package Drives "DC-drives"
 
     replaceable PowerSystems.AC1ph_DC.Machines.DCpm motor(w_el_ini=w_ini*motor.par.pp)
       "DC motor magnet"               annotation (Placement(transformation(
-            extent={{-40,-10},{-20,10}}, rotation=0)));
+            extent={{-40,-10},{-20,10}})));
 
   equation
     connect(motor.heat, heat) annotation (Line(points={{-30,10},{-30,40},{0,40},
@@ -126,11 +117,7 @@ package Drives "DC-drives"
             extent={{-60,-40},{80,-44}},
             lineColor={176,0,0},
             fillColor={176,0,0},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end DCMpm;
 
   model BLDC "BLDC machine"
@@ -144,16 +131,15 @@ package Drives "DC-drives"
       choice(redeclare PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare final
               Control.Modulation.BlockM       modulator
               "block modulation (no PWM)") "inverter with modulator")),
-        Placement(transformation(extent={{-80,-10},{-60,10}}, rotation=0)));
+        Placement(transformation(extent={{-80,-10},{-60,10}})));
     replaceable Partials.Synchron3rd_bldc motor(
       w_el_ini=w_ini*motor.par.pp) "BLDC motor (syn pm machine)"
       annotation (                         choices(
       choice(redeclare PowerSystems.AC3ph.Machines.Synchron3rd_bldc motor
             "synchron 3rd order")), Placement(transformation(extent={{-40,-10},
-              {-20,10}}, rotation=0)));
+              {-20,10}})));
     Common.Thermal.HeatV_a_b_ab heat_adapt(final m={2,inverter.heat.m})
-      annotation (Placement(transformation(extent={{10,60},{-10,80}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{10,60},{-10,80}})));
 
   equation
     connect(motor.heat, heat_adapt.port_a) annotation (Line(points={{-30,10},{
@@ -202,11 +188,7 @@ where 0 &lt  uPhasor[1] &lt  1.</p>
             extent={{-60,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "BLDC")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "BLDC")}));
   end BLDC;
 
   package Partials "Partial models"
@@ -218,14 +200,13 @@ where 0 &lt  uPhasor[1] &lt  1.</p>
         "initial rpm (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
     AC1ph_DC.Ports.TwoPin_p term "electric terminal"
-  annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Interfaces.Rotation_n flange "mechanical flange"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-               0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     replaceable PowerSystems.Mechanics.Rotation.ElectricRotor rotor(w(start=w_ini))
         "machine rotor"
                       annotation (Placement(transformation(extent={{0,-10},{20,
-                10}}, rotation=0)));
+                10}})));
     replaceable PowerSystems.Mechanics.Rotation.NoGear gear "type of gear"
       annotation (                                                                                                    choices(
         choice(redeclare PowerSystems.Mechanics.Rotation.Joint gear "no gear"),
@@ -233,7 +214,7 @@ where 0 &lt  uPhasor[1] &lt  1.</p>
               "massless gear"),
         choice(redeclare PowerSystems.Mechanics.Rotation.Gear gear
               "massive gear")),
-          Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
+          Placement(transformation(extent={{40,-10},{60,10}})));
     Interfaces.ThermalV_n heat(     m=2) "heat source port {stator, rotor}"
       annotation (Placement(transformation(
             origin={0,100},
@@ -361,8 +342,5 @@ Documentation(info="<html>
 <p>Contains both electrical and mechanical parts of DC-drives.</p>
 <p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"PowerSystems.UsersGuide.Overview\">up users guide</a></p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Drives;

@@ -108,11 +108,7 @@ The component is not needed, if specific control components are available.</p>
             extent={{-80,-80},{-40,-120}},
             lineColor={213,170,255},
             fillColor={213,170,255},
-            fillPattern=FillPattern.Solid)}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
 end Select;
 
 model Rectifier "Rectifier, 1-phase"
@@ -126,7 +122,7 @@ model Rectifier "Rectifier, 1-phase"
     choice(redeclare
             PowerSystems.AC1ph_DC.Inverters.Components.RectifierModular
             rectifier "modular, with losses")), Placement(transformation(extent=
-             {{-10,-10},{10,10}}, rotation=0)));
+             {{-10,-10},{10,10}})));
 
 equation
   connect(AC, rectifier.AC)
@@ -140,15 +136,7 @@ annotation (defaultComponentName="rectifier",
           info="<html>
 <p>Passive rectifier, allows choosing between equation-based and modular version.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Rectifier;
 
 model Inverter "Complete modulator and inverter, 1-phase"
@@ -173,7 +161,7 @@ model Inverter "Complete modulator and inverter, 1-phase"
             "sine PWM syn tabulated"),
     choice(redeclare Control.Modulation.BlockM1ph modulator
             "block modulation (no PWM)")), Placement(transformation(extent={{
-              -10,40},{10,60}}, rotation=0)));
+              -10,40},{10,60}})));
 
   replaceable Components.InverterSwitch inverter "inverter model"
     annotation (                         choices(
@@ -184,7 +172,7 @@ model Inverter "Complete modulator and inverter, 1-phase"
             inverter "equation, with losses"),
     choice(redeclare PowerSystems.AC1ph_DC.Inverters.Components.InverterModular
             inverter "modular, with losses")), Placement(transformation(extent=
-              {{-10,-10},{10,10}}, rotation=0)));
+              {{-10,-10},{10,10}})));
   protected
   outer System system;
 
@@ -230,19 +218,14 @@ For block modulation:
             extent={{-80,120},{-40,80}},
             lineColor={213,170,255},
             fillColor={213,170,255},
-            fillPattern=FillPattern.Solid)}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
 end Inverter;
 
 model InverterAverage "Inverter time-average, 1-phase"
   extends Partials.SwitchEquation(heat(final m=1));
 
   replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   parameter Integer modulation=1 "equivalent modulation :"
     annotation(Evaluate=true, choices(
     choice=1 "1: sine PWM",
@@ -382,9 +365,9 @@ model Chopper "DC-DC converter"
           rotation=270)));
   replaceable Control.Modulation.ChopperPWM modulator
     constrainedby PowerSystems.Basic.Icons.BlockS "modulator type"
-    annotation (Placement(transformation(extent={{-10,40},{10,60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   replaceable Components.ChopperModular chopper "chopper model"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
   connect(uDC, modulator.uDC)   annotation (Line(points={{60,100},{60,70},{6,70},
@@ -407,23 +390,14 @@ annotation (defaultComponentName="chopper",
   v_DCout = u_DC*v_DCin
   u_DC &le  1
 </pre></p>
-</html>"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Chopper;
 
 model ChopperAverage "DC-DC converter time-average"
   extends Partials.DC_DC_base(heat(final m=1));
 
   replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   parameter SI.Frequency f_carr=1e3 "carrier frequency"
     annotation(Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput uDC "desired uDC"
@@ -585,8 +559,7 @@ model RectifierEquation "Rectifier equation, 1-phase"
 
   parameter Semiconductors.Ideal.SCparameter par(final Hsw_nom=0)
         "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     protected
   SI.Voltage[2] V;
   SI.Voltage[2] i_sc "current scaled to voltage in inertial abc representation";
@@ -656,20 +629,18 @@ model RectifierModular "Rectifier modular, 1-phase"
   package SCpackage=Semiconductors.Ideal "SC package";
   replaceable parameter SCpackage.SCparameter par(final Hsw_nom=0)
         "SC parameters"
-  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   AC1ph_DC.Nodes.Electric_pn_p_n pn_p_n
                                annotation (Placement(transformation(extent={{80,
-                -10},{60,10}}, rotation=0)));
+                -10},{60,10}})));
   Common.Thermal.Heat_a_b_ab heat_adapt annotation (Placement(transformation(
-              extent={{-10,60},{10,80}}, rotation=0)));
+              extent={{-10,60},{10,80}})));
   Semiconductors.PhaseModules.DiodeModule diodeMod_a1(par=par)
         "diode module AC_a1"
-      annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=
-                0)));
+      annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Semiconductors.PhaseModules.DiodeModule diodeMod_a2(par=par)
         "diode module AC_a2"
-      annotation (Placement(transformation(extent={{-10,-40},{10,-20}},
-              rotation=0)));
+      annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
 equation
   connect(AC, pn_p_n.term_pn)
@@ -701,11 +672,7 @@ annotation (defaultComponentName="rectifier",
               extent={{-100,-70},{100,-90}},
               lineColor={176,0,0},
               textString=
-               "modular")}),
-  Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+               "modular")}));
 end RectifierModular;
 
 model InverterSwitch "Inverter equation, 1-phase"
@@ -786,8 +753,7 @@ model InverterEquation "Inverter equation, 1-phase"
   extends Partials.SwitchEquation(heat(final m=2));
 
   parameter Semiconductors.Ideal.SCparameter par "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput[4] gates
         "gates pairs {a1_p, a1_n, a2_p, a2_n}"
   annotation (Placement(transformation(
@@ -926,7 +892,7 @@ model InverterModular "Inverter modular, 1-phase"
 
   package SCpackage=Semiconductors.Ideal "SC package";
   replaceable parameter SCpackage.SCparameter par "SC parameters"
-  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput[4] gates
         "gates pairs {a1_p, a1_n, a2_p, a2_n}"
   annotation (Placement(transformation(
@@ -934,19 +900,17 @@ model InverterModular "Inverter modular, 1-phase"
             extent={{-10,-10},{10,10}},
             rotation=270)));
   Nodes.Electric_pn_p_n pn_p_n annotation (Placement(transformation(extent={{80,
-                -10},{60,10}}, rotation=0)));
+                -10},{60,10}})));
   Common.Thermal.Heat_a_b_ab heat_adapt annotation (Placement(transformation(
-              extent={{-10,60},{10,80}}, rotation=0)));
+              extent={{-10,60},{10,80}})));
   Blocks.Multiplex.Gate2demux gate2demux1(final n=2)
-    annotation (Placement(transformation(extent={{-50,60},{-30,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
   Semiconductors.PhaseModules.SwitchModule switchMod_a1(par=par)
         "switch + reverse diode module AC_a1"
-      annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=
-                0)));
+      annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Semiconductors.PhaseModules.SwitchModule switchMod_a2(par=par)
         "switch + reverse diode module AC_a2"
-      annotation (Placement(transformation(extent={{-10,-40},{10,-20}},
-              rotation=0)));
+      annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
 equation
   connect(gate2demux1.gates_1, switchMod_a1.gates) annotation (Line(points={{
@@ -981,11 +945,7 @@ annotation (defaultComponentName="inverter",
               extent={{-100,-70},{100,-90}},
               lineColor={176,0,0},
               textString=
-               "modular")}),
-  Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+               "modular")}));
 end InverterModular;
 
 model ChopperModular "DC_DC converter modular"
@@ -993,19 +953,19 @@ model ChopperModular "DC_DC converter modular"
 
   package SCpackage=Semiconductors.Ideal "SC package";
   replaceable parameter SCpackage.SCparameter par "SC parameters"
-  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput gate "gate"
     annotation (Placement(transformation(
             origin={-60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
   AC1ph_DC.Nodes.Electric_pn_p_n pn_p_n      annotation (Placement(transformation(
-              extent={{-80,-10},{-60,10}}, rotation=0)));
+              extent={{-80,-10},{-60,10}})));
   AC1ph_DC.Nodes.Electric_pn_p_n p_n_pn      annotation (Placement(transformation(
-              extent={{80,-10},{60,10}}, rotation=0)));
+              extent={{80,-10},{60,10}})));
   SCpackage.SCswitch_Diode switch_D(par=par) "switch + reverse diode"
                                           annotation (Placement(transformation(
-              extent={{-10,20},{10,40}}, rotation=0)));
+              extent={{-10,20},{10,40}})));
   SCpackage.Diode diode(par=par) "diode"
     annotation (Placement(transformation(
             origin={30,-10},
@@ -1013,8 +973,7 @@ model ChopperModular "DC_DC converter modular"
             rotation=90)));
 
       Common.Thermal.Heat_a_b_ab heat_adapt
-        annotation (Placement(transformation(extent={{-10,60},{10,80}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-10,60},{10,80}})));
 equation
   connect(gate, switch_D.gate)
                               annotation (Line(points={{-60,100},{-60,50},{6,50},
@@ -1052,11 +1011,7 @@ equation
             grid={2,2}), graphics={Text(
               extent={{-100,-70},{100,-90}},
               lineColor={176,0,0},
-              textString="modular")}),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              textString="modular")}));
 end ChopperModular;
 
   annotation (preferredView="info",
@@ -1066,11 +1021,7 @@ Documentation(info="<html>
 <li>Equation-based: faster code, restricted to ideal V-I characteristic, but including forward threshold voltage, needed for calculation of thermal losses.</li>
 <li>Modular: composed from semiconductor-switches and diodes. These components with ideal V-I characteristic can be replaced by custom-specified semiconductor models.</li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Components;
 
 package Partials "Partial models"
@@ -1080,11 +1031,9 @@ partial model AC_DC_base "AC-DC base, 1-phase"
   extends Basic.Icons.Inverter;
 
   Ports.TwoPin_n AC "AC connection"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-               0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Ports.TwoPin_p DC "DC connection"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-              rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.ThermalV_n heat(     m=2) "vector heat port"
     annotation (Placement(transformation(
             origin={0,100},
@@ -1101,10 +1050,6 @@ partial model AC_DC_base "AC-DC base, 1-phase"
               textString="="),
             Line(points={{-80,-60},{80,60}}, color={0,0,255}),
             Text(extent={{0,-6},{80,-36}}, textString="~")}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
       Documentation(info="<html>
 </html>"));
 
@@ -1114,10 +1059,9 @@ partial model DC_DC_base "DC-DC base"
   extends Basic.Icons.Inverter;
 
   Ports.TwoPin_p DCin "DC in connection"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Ports.TwoPin_n DCout "DC out connection"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Interfaces.ThermalV_n heat(     m=2) "vector heat port"
     annotation (Placement(transformation(
             origin={0,100},
@@ -1127,11 +1071,7 @@ partial model DC_DC_base "DC-DC base"
     Documentation(
           info="<html>
 </html>
-"), Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Icon(coordinateSystem(
+"),    Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
@@ -1175,10 +1115,6 @@ equation
   T = heat.ports.T;
   heat.ports.Q_flow = -Q_flow;
   annotation (
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
     Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -1271,8 +1207,5 @@ where <tt>Vf</tt> denotes the parameter value. With input <tt>cT</tt> empty, no 
 where <tt>Hsw_nom</tt> denotes the dissipated heat per switching operation at nominal voltage and current, averaged over 'on' and 'off'. The same temperature dependence is assumed as for Vf. A generalisation to powers of i and v is straightforward.</p>
 <p>NOTE: actually the switching losses are only implemented for time-averaged components!</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Inverters;

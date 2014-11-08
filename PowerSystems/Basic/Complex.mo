@@ -319,8 +319,5 @@ with complex i and v, if for simplicity only one frequency term is assumed. Usin
 the equation finally becomes
 <pre>  Z*i = v</pre></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Complex;

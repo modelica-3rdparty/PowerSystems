@@ -483,9 +483,6 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
   Documentation(info="<html>
 <p><a href=\"PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Transforms;
 

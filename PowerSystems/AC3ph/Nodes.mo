@@ -42,7 +42,7 @@ package Nodes "Nodes and adaptors"
 
     Interfaces.Electric_p term "positive scalar terminal"
                                annotation (Placement(transformation(extent={{
-              -110,-10},{-90,10}}, rotation=0)));
+              -110,-10},{-90,10}})));
 
   equation
     term.v = 0;
@@ -85,7 +85,7 @@ package Nodes "Nodes and adaptors"
     output SI.Voltage v_norm(stateSelect=StateSelect.never);
     output SI.Angle alpha_v(stateSelect=StateSelect.never);
     Ports.ACdq0_p term "bus bar"
-  annotation (Placement(transformation(extent={{-8,-66},{8,66}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-8,-66},{8,66}})));
   protected
     Real[2,2] R = Basic.Transforms.rotation_dq(
                                               term.theta[1]);
@@ -110,10 +110,6 @@ package Nodes "Nodes and adaptors"
             lineThickness=0.5,
             fillColor={0,120,120},
             fillPattern=FillPattern.Solid)}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
   Documentation(
           info="<html>
 <p>Calculates norm and phase-angle of voltage.</p>
@@ -127,22 +123,21 @@ package Nodes "Nodes and adaptors"
 
     Ports.ACdq0_p term_p
       "connect to non source side of windings"
-  annotation (Placement(transformation(extent={{110,-70},{90,-50}}, rotation=0)));
+  annotation (Placement(transformation(extent={{110,-70},{90,-50}})));
     Ports.ACdq0_n term_n
       "connect to source side of windings"
-  annotation (Placement(transformation(extent={{-90,-70},{-110,-50}}, rotation=
-              0)));
+  annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
     Interfaces.ElectricV_n switchY_D(     final m=3)
       "connect to switch 'commute' position"
                                         annotation (Placement(transformation(
-            extent={{-90,10},{-110,30}}, rotation=0)));
+            extent={{-90,10},{-110,30}})));
     Interfaces.ElectricV_p switchD(     final m=3)
       "connect to switch 'Delta' position"
                                         annotation (Placement(transformation(
-            extent={{110,-10},{90,10}}, rotation=0)));
+            extent={{110,-10},{90,10}})));
     Interfaces.ElectricV_p switchY(     final m=3)
       "connect to switch 'Y' position"  annotation (Placement(transformation(
-            extent={{108,30},{88,50}}, rotation=0)));
+            extent={{108,30},{88,50}})));
     Interfaces.Electric_n neutral "neutral Y"
                                   annotation (Placement(transformation(
           origin={0,-60},
@@ -271,8 +266,7 @@ package Nodes "Nodes and adaptors"
     extends Ports.Port_p;
 
     Interfaces.Electric_n neutral "neutral Y"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   equation
     term.v[3] = sqrt(3)*neutral.v;
@@ -584,13 +578,13 @@ model Y_OnePhase "Terminator, ACdq0 to an, bn, cn"
           rotation=90)));
   AC1ph_DC.Ports.TwoPin_n plug_a "phase a and neutral"
                                                  annotation (Placement(
-          transformation(extent={{90,30},{110,50}}, rotation=0)));
+          transformation(extent={{90,30},{110,50}})));
   AC1ph_DC.Ports.TwoPin_n plug_b "phase b and neutral"
                                                  annotation (Placement(
-          transformation(extent={{90,-10},{110,10}}, rotation=0)));
+          transformation(extent={{90,-10},{110,10}})));
   AC1ph_DC.Ports.TwoPin_n plug_c "phase c and neutral"
                                                  annotation (Placement(
-          transformation(extent={{90,-50},{110,-30}}, rotation=0)));
+          transformation(extent={{90,-50},{110,-30}})));
   protected
   Real[3,3] P = Basic.Transforms.park(
                                      term.theta[2]);
@@ -611,10 +605,7 @@ annotation (defaultComponentName = "Y_abcn",
                  "> 1-phase")}),
       Documentation(info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Y_OnePhase;
 
 model ACdq0_a_b_c "Adaptor ACdq0 to pins a, b, c"
@@ -622,14 +613,11 @@ model ACdq0_a_b_c "Adaptor ACdq0 to pins a, b, c"
   extends PowerSystems.Basic.Icons.Adaptor_dq0;
 
   Interfaces.Electric_n term_a "phase a"
-      annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,30},{110,50}})));
   Interfaces.Electric_n term_b "phase b"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Interfaces.Electric_n term_c "phase c"
-      annotation (Placement(transformation(extent={{90,-50},{110,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   protected
   Real[3,3] P = Basic.Transforms.park(
                                      term.theta[2]);
@@ -638,16 +626,9 @@ equation
   {term_a.v,term_b.v,term_c.v} = transpose(P)*term.v;
   term.i + P*{term_a.i,term_b.i,term_c.i} = zeros(3);
   annotation (defaultComponentName = "acdq0_a_b_c",
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end ACdq0_a_b_c;
 
 /*
@@ -657,7 +638,7 @@ model ACdq0_abc "Adaptor ACdq0 to 3-vector abc"
 
   Interfaces.ElectricV_n term_abc(     final m=3) "phase abc vector-pin"
                                                       annotation (Placement(
-          transformation(extent={{90,-10},{110,10}}, rotation=0)));
+          transformation(extent={{90,-10},{110,10}})));
   protected
   Real[3,3] P = Basic.Transforms.park(
                                      term.theta[2]);
@@ -666,16 +647,9 @@ equation
   term_abc.pin.v = transpose(P)*term.v;
   term.i + P*term_abc.pin.i = zeros(3);
   annotation (defaultComponentName = "acdq0_abc",
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end ACdq0_abc;
 */
 
@@ -684,7 +658,7 @@ end ACdq0_abc;
     outer System system;
 
     Ports.ACdq0_p term "bus bar"
-  annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Blocks.Interfaces.RealInput theta "absolute angle"
       annotation (Placement(transformation(
           origin={0,100},
@@ -720,20 +694,16 @@ end ACdq0_abc;
       Documentation(info="<html>
 <p>Explicit definition of relative-angle term.theta[1] and reference-angle term.theta[2]<br>
 (only for advanced use needed).</p>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end DefReference;
 
   model Break "Breaks transmission of term.theta, 3phase dq0"
     extends Ports.PortBase;
 
     Ports.ACdq0_p term_p "positive terminal"
-  annotation (Placement(transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     Ports.ACdq0_n term_n "negative terminal"
-  annotation (Placement(transformation(extent={{20,-10},{40,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   equation
     term_p.v = term_n.v;
@@ -781,9 +751,5 @@ end ACdq0_abc;
 annotation (preferredView="info",
     Documentation(info="<html>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Nodes;

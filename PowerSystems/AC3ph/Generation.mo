@@ -10,8 +10,7 @@ package Generation "Turbo generator groups dq0"
       final H=H,
       final P_nom=generator.par.S_nom,
       final w_nom=w_nom) "single-mass rotor (turbine-rotor + generator-rotor)"
-     annotation (Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=
-             0)));
+     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   equation
     connect(rotor.airgap, generator.airgap)
@@ -38,11 +37,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
             points={{-20,70},{-94,30},{-94,-30},{-20,-70},{-20,70}},
             lineColor={95,95,95},
             fillColor={215,215,215},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end TurboGenerator;
 
   model TurboGrpGenerator "Example turbogroup generator"
@@ -51,11 +46,11 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
     replaceable PowerSystems.Mechanics.TurboGroups.PcontrolTorque turbTorq(final
         w_nom=turboGroup.par.w_nom, final P_nom=turboGroup.par.P_nom)
       "torque-model"                 annotation (Placement(transformation(
-            extent={{-60,-10},{-40,10}}, rotation=0)));
+            extent={{-60,-10},{-40,10}})));
     replaceable PowerSystems.Mechanics.TurboGroups.SteamTurboGroup turboGroup(final
         w_ini=w_ini) "steam turbo-goup with generator-rotor"
                                             annotation (Placement(
-          transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+          transformation(extent={{-10,-10},{10,10}})));
   protected
     final parameter Modelica.SIunits.Time h=(sum(turboGroup.par.J_turb) +
         turboGroup.par.J_gen + sum(turboGroup.par.J_aux))*w_nom^2/(2
@@ -91,11 +86,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
             points={{-61,48},{-61,-48},{-57,-50},{-57,50},{-61,48}},
             lineColor={135,135,135},
             fillColor={135,135,135},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end TurboGrpGenerator;
 
   model GTGenerator "Example gas turbine generator"
@@ -104,11 +95,11 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
     replaceable PowerSystems.Mechanics.TurboGroups.PcontrolTorque turbTorq(final
         w_nom=GT.par.w_nom, final P_nom=GT.par.P_nom) "torque-model"
                                      annotation (Placement(transformation(
-            extent={{-60,-10},{-40,10}}, rotation=0)));
+            extent={{-60,-10},{-40,10}})));
     replaceable PowerSystems.Mechanics.TurboGroups.GasTurbineGear GT(final w_ini=w_ini)
       "gas turbine with gear and generator-rotor"
                                                 annotation (Placement(
-          transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+          transformation(extent={{-10,-10},{10,10}})));
   protected
     final parameter Real[3] gr2=diagonal(GT.par.ratio)*GT.par.ratio/GT.par.ratio[end]^2;
     final parameter Modelica.SIunits.Inertia J_red=(GT.par.J_turb + GT.par.J_comp)
@@ -163,11 +154,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
           Line(
             points={{-48,10},{-26,10}},
             color={0,0,0},
-            thickness=0.5)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
   end GTGenerator;
 
   model HydroGenerator "Hydro generator"
@@ -176,10 +163,10 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
     replaceable PowerSystems.Mechanics.TurboGroups.PcontrolTorque turbTorq(final
         w_nom=hydro.par.w_nom, final P_nom={hydro.par.P_nom}) "torque-model"
                                      annotation (Placement(transformation(
-            extent={{-60,-10},{-40,10}}, rotation=0)));
+            extent={{-60,-10},{-40,10}})));
     replaceable PowerSystems.Mechanics.TurboGroups.HydroTurbine hydro(final w_ini=w_ini)
       "hydro turbine with generator-rotor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
     final parameter Modelica.SIunits.Time h=(hydro.par.J_turb + hydro.par.J_gen)
         *w_nom^2/(2*generator.par.S_nom);
@@ -223,11 +210,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
             extent={{-70,-30},{-30,-70}},
             lineColor={95,95,95},
             fillColor={175,175,175},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end HydroGenerator;
 
   model DieselGenerator "Diesel generator"
@@ -236,10 +219,10 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
     replaceable PowerSystems.Mechanics.TurboGroups.PcontrolTorque turbTorq(final
         w_nom=diesel.par.w_nom, final P_nom={diesel.par.P_nom}) "torque-model"
                                      annotation (Placement(transformation(
-            extent={{-60,-10},{-40,10}}, rotation=0)));
+            extent={{-60,-10},{-40,10}})));
     replaceable PowerSystems.Mechanics.TurboGroups.Diesel diesel(final w_ini=w_ini)
       "Diesel engine with generator-rotor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
     final parameter Modelica.SIunits.Time h=(diesel.par.J_turb + diesel.par.J_gen)
         *w_nom^2/(2*generator.par.S_nom);
@@ -283,23 +266,17 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
             extent={{-80,70},{-30,50}},
             lineColor={95,95,95},
             fillColor={175,175,175},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end DieselGenerator;
 
   model TurboPMgenerator "Turbo generator single mass, permanent magnet"
     extends Partials.GenBase;
 
     AC3ph.Ports.ACdq0_n term "negative terminal"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     Modelica.Blocks.Interfaces.RealInput[2] setpts
       "setpoints {speed, power} pu"
-    annotation (Placement(transformation(extent={{-110,10},{-90,-10}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-110,10},{-90,-10}})));
     Modelica.Blocks.Interfaces.RealOutput phiRotor "rotor angle el"
       annotation (Placement(transformation(
           origin={100,100},
@@ -311,22 +288,19 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
       choice(redeclare PowerSystems.AC3ph.Machines.Synchron3rd_pm generator
             "3rd order"),
       choice(redeclare PowerSystems.AC3ph.Machines.Synchron_pm generator
-            "nth order")), Placement(transformation(extent={{60,-10},{40,10}},
-            rotation=0)));
+            "nth order")), Placement(transformation(extent={{60,-10},{40,10}})));
     replaceable Control.Governors.GovernorConst governor "governor (control)"
     annotation (                         choices(
     choice(redeclare Control.Governors.GovernorConst governor "constant"),
     choice(redeclare Control.Governors.Governor1st governor "1st order")),
-                           Placement(transformation(extent={{-60,30},{-40,50}},
-            rotation=0)));
+                           Placement(transformation(extent={{-60,30},{-40,50}})));
     parameter Modelica.SIunits.Time H=10 "inertia cst turb + gen";
     replaceable PowerSystems.Mechanics.TurboGroups.SingleMassTG rotor(
       final w_ini=w_ini,
       final H=H,
       final P_nom=generator.par.S_nom,
       final w_nom=w_nom) "single-mass rotor (turbine-rotor + generator-rotor)"
-     annotation (Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=
-             0)));
+     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   protected
     final parameter SI.AngularVelocity w_nom=2*pi*generator.par.f_nom/generator.par.pp
       "nominal angular velocity";
@@ -368,11 +342,7 @@ The machine inertia is determined by the inertia time constant H.</p>
             points={{-90,10},{-20,30},{-20,-32},{-90,-10},{-90,10}},
             lineColor={95,95,95},
             fillColor={175,175,175},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end TurboPMgenerator;
 
   model PMgenerator "Generator inverter time-average"
@@ -386,8 +356,7 @@ The machine inertia is determined by the inertia time constant H.</p>
             "3rd order"),
       choice(redeclare PowerSystems.AC3ph.Machines.Synchron_pm_ctrl
                                                                  generator
-            "nth order")), Placement(transformation(extent={{40,-10},{20,10}},
-            rotation=0)));
+            "nth order")), Placement(transformation(extent={{40,-10},{20,10}})));
     replaceable AC3ph.Inverters.InverterAverage inverter
       constrainedby AC3ph.Inverters.Partials.AC_DC_base
       "inverter (average or modulated)"
@@ -396,7 +365,7 @@ The machine inertia is determined by the inertia time constant H.</p>
             "inverter time-average"),
       choice(redeclare PowerSystems.AC3ph.Inverters.Inverter inverter
             "inverter with modulator")), Placement(transformation(extent={{80,
-              -10},{60,10}}, rotation=0)));
+              -10},{60,10}})));
 
   equation
     connect(rotor.flange_n, generator.airgap) annotation (Line(points={{0,0},{
@@ -419,7 +388,6 @@ The machine inertia is determined by the inertia time constant H.</p>
             -60,40},{24,40},{24,10}}, color={0,0,127}));
     annotation (
       defaultComponentName="pmGen_ctrl",
-      Diagram(graphics),
       Documentation(info="<html>
 <p>Generator with pm excitation and inverter for current-control. To be coupled to a mechanical engine. May contain a gear.</p>
 <p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
@@ -467,22 +435,20 @@ The machine inertia is determined by the inertia time constant H.</p>
     extends Partials.GenBase;
 
     AC3ph.Ports.ACdq0_n term "negative terminal"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     replaceable PowerSystems.AC3ph.Machines.Asynchron generator(w_el_ini=w_ini*generator.par.pp)
       "asynchron generator"             annotation (Placement(transformation(
-            extent={{60,-10},{40,10}}, rotation=0)));
+            extent={{60,-10},{40,10}})));
     replaceable PowerSystems.Mechanics.TurboGroups.WindTabTorque turbTorq(final
         w_nom=WT.par.w_nom, final P_nom=WT.par.P_nom)
       "table: wind speed, torque"
                        annotation (Placement(transformation(extent={{-60,-10},{
-              -40,10}}, rotation=0)));
+              -40,10}})));
     replaceable PowerSystems.Mechanics.TurboGroups.WindTurbineGear WT(final w_ini=
           w_ini) "wind turbine with generator-rotor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Blocks.Interfaces.RealInput windSpeed "wind speed m/s"
-    annotation (Placement(transformation(extent={{-110,10},{-90,-10}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-110,10},{-90,-10}})));
   protected
     final parameter SI.AngularVelocity w_ini=speed_ini*2*pi*generator.par.f_nom/generator.par.pp
       "initial angular velocity";
@@ -513,11 +479,7 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
                 0},{-67,-6},{-71,-20},{-71,-40},{-65,-80},{-55,-120}},
             lineColor={0,0,0},
             fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end WindGenerator;
 
   package Partials "Partial models"
@@ -563,11 +525,7 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
             Text(
               extent={{-100,-90},{100,-130}},
               lineColor={0,0,0},
-              textString="%name")}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              textString="%name")}));
     end GenBase0;
     extends Modelica.Icons.BasesPackage;
 
@@ -578,20 +536,11 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
         "initial speed (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
       AC3ph.Ports.ACdq0_n term "negative terminal"
-        annotation (Placement(transformation(extent={{90,-10},{110,10}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     annotation (
         Documentation(
         info="<html>
-</html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end GenBase;
 
     partial model GenBase_el "Generation base el, synchron machines"
@@ -610,12 +559,10 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
       parameter Boolean dispPA=false "display power angle"
         annotation(Evaluate=true);
       AC3ph.Ports.ACdq0_n term "negative terminal"
-        annotation (Placement(transformation(extent={{90,-10},{110,10}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{90,-10},{110,10}})));
       Modelica.Blocks.Interfaces.RealInput[3] setpts
         "setpoints {speed, power, voltage} pu"
-        annotation (Placement(transformation(extent={{-110,10},{-90,-10}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-110,10},{-90,-10}})));
       replaceable PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(final
           w_el_ini =                                                              w_ini*generator.par.pp)
         "synchron generator"
@@ -623,24 +570,21 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
         choice(redeclare PowerSystems.AC3ph.Machines.Synchron3rd_ee generator
               "3rd order"),
         choice(redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator
-              "nth order")), Placement(transformation(extent={{60,-10},{40,10}},
-              rotation=0)));
+              "nth order")), Placement(transformation(extent={{60,-10},{40,10}})));
       replaceable Control.Exciters.ExciterConst exciter "exciter (control)"
         annotation (                       choices(
         choice(redeclare Control.Exciters.ExciterConst exciter "constant"),
         choice(redeclare Control.Exciters.Exciter1st exciter "1st order")),
-                             Placement(transformation(extent={{60,50},{40,70}},
-              rotation=0)));
+                             Placement(transformation(extent={{60,50},{40,70}})));
       replaceable PowerSystems.AC3ph.Machines.Control.Excitation excitation(V_nom=generator.par.V_nom,
           Vf_nom=generator.Vf_nom) "exciter (electric)"
                                                      annotation (Placement(
-            transformation(extent={{60,20},{40,40}}, rotation=0)));
+            transformation(extent={{60,20},{40,40}})));
       replaceable Control.Governors.GovernorConst governor "governor (control)"
         annotation (                         choices(
         choice(redeclare Control.Governors.GovernorConst governor "constant"),
         choice(redeclare Control.Governors.Governor1st governor "1st order")),
-                             Placement(transformation(extent={{-60,50},{-40,70}},
-              rotation=0)));
+                             Placement(transformation(extent={{-60,50},{-40,70}})));
       parameter Modelica.SIunits.Time H=10 "inertia cst turb + gen";
     protected
       final parameter SI.AngularVelocity w_nom=2*pi*generator.par.f_nom/generator.par.pp
@@ -649,8 +593,7 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
         "initial angular velocity";
       Interfaces.Sender sender(w=generator.w_el, H=H)
         "sends weighted frequency"
-        annotation (Placement(transformation(extent={{80,80},{100,100}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{80,80},{100,100}})));
       function atan2 = Modelica.Math.atan2;
 
     initial equation
@@ -711,15 +654,7 @@ Setpoint values for turbine-speed, -power and terminal-voltage are determined th
 </pre>
 <p>
 Constant setpoint values can be obtained at (steady-state) initialisation when using Control.CstSetpointsGen.</p>
-</html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end GenBase_el;
 
     partial model GenBase_ctrl "Generation base pm, synchronous machines"
@@ -729,22 +664,21 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
         "initial rpm (start-value if ini='st')"
         annotation(Dialog(enable=not system.steadyIni));
       Interfaces.Rotation_p flange    annotation (Placement(transformation(
-              extent={{-110,-10},{-90,10}}, rotation=0)));
+              extent={{-110,-10},{-90,10}})));
       AC1ph_DC.Ports.TwoPin_n term "negative terminal"
-        annotation (Placement(transformation(extent={{90,-10},{110,10}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{90,-10},{110,10}})));
       Common.Thermal.HeatV_a_b_ab heat_adapt annotation (Placement(
-            transformation(extent={{-10,60},{10,80}}, rotation=0)));
+            transformation(extent={{-10,60},{10,80}})));
       replaceable Mechanics.Rotation.NoGear gear "type of gear"
       annotation (                          choices(
       choice(redeclare PowerSystems.Mechanics.Rotation.Joint gear "no gear"),
       choice(redeclare PowerSystems.Mechanics.Rotation.GearNoMass gear
               "massless gear"),
       choice(redeclare PowerSystems.Mechanics.Rotation.Gear gear "massive gear")),
-          Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=0)));
+          Placement(transformation(extent={{-60,-10},{-40,10}})));
       replaceable Mechanics.Rotation.Rotor rotor(w(start=w_ini))
         "rotor generator"          annotation (Placement(transformation(extent=
-                {{-20,-10},{0,10}}, rotation=0)));
+                {{-20,-10},{0,10}})));
       Modelica.Blocks.Interfaces.RealOutput[2] i_meas(
                                each final unit="1")
         "measured current {i_d, i_q} pu"
@@ -778,11 +712,7 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
               extent={{-90,112},{90,88}},
               lineColor={0,0,127},
               fillColor={170,213,255},
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
     end GenBase_ctrl;
 
   end Partials;
@@ -792,8 +722,5 @@ Documentation(info="<html>
 <p>Combined turbine-generator systems with governor and exciter, both electrical and mechanical model.</p>
 <p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"PowerSystems.UsersGuide.Overview\">up users guide</a></p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Generation;

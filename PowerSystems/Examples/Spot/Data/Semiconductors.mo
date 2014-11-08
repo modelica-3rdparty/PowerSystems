@@ -21,15 +21,7 @@ package Semiconductors "Breaker example data"
     annotation (defaultComponentName="idealSC100_10",
       Documentation(
             info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end IdealSC100V_10A;
 
   record IdealSC1kV_100A "Ideal semiconductor parameters, example"
@@ -51,15 +43,7 @@ package Semiconductors "Breaker example data"
     annotation (defaultComponentName="idealSC1k_100",
       Documentation(
             info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end IdealSC1kV_100A;
 
   record IdealSC3kV_500A "Ideal semiconductor parameters, example"
@@ -81,15 +65,7 @@ package Semiconductors "Breaker example data"
     annotation (defaultComponentName="idealSC3k_500",
       Documentation(
             info="<html>
-</html>"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end IdealSC3kV_500A;
 
   annotation (preferredView="info",

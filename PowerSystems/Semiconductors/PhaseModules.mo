@@ -11,11 +11,10 @@ model DiodeModule "Diode module"
   choice(redeclare package SCpackage=Semiconductors.Custom "custom")));*/
   package SCpackage=Semiconductors.Ideal "SC package";
   parameter SCpackage.SCparameter par "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   PowerSystems.AC1ph_DC.Nodes.Electric_pn_p_n pn_p_n
                              annotation (Placement(transformation(extent={{-60,
-              -10},{-40,10}}, rotation=0)));
+              -10},{-40,10}})));
   SCpackage.Diode diode1(final par=par) "diode DC_p"
     annotation (Placement(transformation(
           origin={0,30},
@@ -68,11 +67,7 @@ equation
           Line(points={{-80,10},{-60,10},{-60,50},{0,50},{0,38}}, color={0,0,
                 255}),
           Line(points={{-80,-10},{-60,-10},{-60,-50},{0,-50},{0,-40}}, color={0,
-                0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                0,255})}));
 end DiodeModule;
 
 model SwitchModule "Switch module"
@@ -84,18 +79,16 @@ model SwitchModule "Switch module"
   choice(redeclare package SCpackage=PowerSystems.Semiconductors.Custom "custom")));*/
   package SCpackage=Semiconductors.Ideal "SC package";
   parameter SCpackage.SCparameter par "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput[2] gates "gate-pair p and n"
     annotation (Placement(transformation(
           origin={-60,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
   Blocks.Multiplex.Gate2demux gate2demux(final n=1)
-    annotation (Placement(transformation(extent={{-70,60},{-50,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-70,60},{-50,80}})));
   PowerSystems.AC1ph_DC.Nodes.Electric_pn_p_n pn_p_n
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   SCpackage.SCswitch_Diode switch_D1(final par=par)
       "switch + reverse diode DC_p"
     annotation (Placement(transformation(
@@ -178,19 +171,11 @@ for all times.</p>
             fillPattern=FillPattern.Solid),
           Line(points={{30,14},{16,2}}, color={255,0,255}),
           Line(points={{-80,10},{-60,10},{-60,46},{30,46}}, color={0,0,255}),
-          Line(points={{-80,-10},{-60,-10},{-60,-48},{30,-48}}, color={0,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-80,-10},{-60,-10},{-60,-48},{30,-48}}, color={0,0,255})}));
 end SwitchModule;
 annotation (preferredView="info",
     Documentation(info="<html>
 <p>Phase modules for passive and active devices.<br>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end PhaseModules;

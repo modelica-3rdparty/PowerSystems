@@ -12,8 +12,7 @@ package Relays "Relays"
     parameter SI.Time t_switch[:]={1} "switching time vector";
     Modelica.Blocks.Interfaces.BooleanOutput[n] y(start=fill(ini_state, n), each fixed=true)
       "boolean state of switch (closed:true, open:false)"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   protected
     Integer cnt(start=1,fixed=true);
 
@@ -41,11 +40,7 @@ package Relays "Relays"
             extent={{-80,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "switch")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "switch")}));
   end SwitchRelay;
 
   block TapChangerRelay "Relay for setting tap-changer "
@@ -59,12 +54,10 @@ package Relays "Relays"
     parameter SI.Time t_switch_2[:]={1} "2:switching times";
     Modelica.Blocks.Interfaces.IntegerOutput tap_p
       "index of voltage level of tap changer 1"
-      annotation (Placement(transformation(extent={{90,-50},{110,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
     Modelica.Blocks.Interfaces.IntegerOutput tap_n
       "index of voltage level of tap changer 2"
-      annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,30},{110,50}})));
   protected
     Integer cnt_1(start=1,fixed=true);
     Integer cnt_2(start=1,fixed=true);
@@ -103,11 +96,7 @@ of the transformer model. Level 0 is nominal voltage.</p>
             extent={{-80,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "tap")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "tap")}));
   end TapChangerRelay;
 
   block TapChanger3Relay "Relay for setting tap-changer 3-winding transformer"
@@ -124,12 +113,10 @@ of the transformer model. Level 0 is nominal voltage.</p>
     parameter SI.Time t_switch_2b[:]={1} "2b: switching times";
     Modelica.Blocks.Interfaces.IntegerOutput tap_p
       "1: index of voltage level of tap changer"
-      annotation (Placement(transformation(extent={{90,-50},{110,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
     Modelica.Blocks.Interfaces.IntegerOutput[2] tap_n
       "2: indices of voltage level of tap changers {2a,2b}"
-      annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,30},{110,50}})));
   protected
     Integer cnt_1(start=1,fixed=true);
     Integer cnt_2a(start=1,fixed=true);
@@ -173,11 +160,7 @@ of the transformer model. Level 0 is nominal voltage.</p>
             extent={{-80,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "tap")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "tap")}));
   end TapChanger3Relay;
 
   block Y_DeltaControl "Relay for Y-Delta topology switching "
@@ -188,8 +171,7 @@ of the transformer model. Level 0 is nominal voltage.</p>
     parameter SI.Time t_switch[:]={1} "switching time vector";
     Modelica.Blocks.Interfaces.BooleanOutput y(start=ini_state, fixed=true)
       "boolean state (Y-top: true, Delta-top: false)"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   protected
     Integer cnt(start=1,fixed=true);
 
@@ -215,17 +197,9 @@ of the transformer model. Level 0 is nominal voltage.</p>
             extent={{-80,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "Y - D")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "Y - D")}));
   end Y_DeltaControl;
   annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Relays;

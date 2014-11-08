@@ -6,47 +6,44 @@ package InvertersAC3ph "Inverters dq0"
 
     inner PowerSystems.System system(ini="tr", ref="inertial")
                         annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}}, rotation=0)));
+              {-80,100}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
       t_change=0.1,
       t_duration=0.1,
       a_ini=2,
       a_fin=1)
-         annotation (Placement(transformation(extent={{-100,20},{-80,40}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
     PowerSystems.AC3ph.Sources.Voltage vAC(scType_par=false, V_nom=100)
-          annotation (Placement(transformation(extent={{-80,0},{-60,20}},
-            rotation=0)));
+          annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
     PowerSystems.AC3ph.Impedances.Inductor ind(r=0.05,
       V_nom=100,
       S_nom=1e3)
-      annotation (Placement(transformation(extent={{-50,0},{-30,20}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
     PowerSystems.AC3ph.Sensors.PVImeter meterAC(abc=true,
       av=true,
       tcst=0.1,
       V_nom=100,
       S_nom=1e3,
       phasor=true)
-      annotation (Placement(transformation(extent={{-20,0},{0,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{-20,0},{0,20}})));
     PowerSystems.AC3ph.Inverters.Rectifier rectifier(rectifier(par=idealSC100V_10A))
-      annotation (Placement(transformation(extent={{30,0},{10,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{30,0},{10,20}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1,
       V_nom=100,
       S_nom=1e3)
-      annotation (Placement(transformation(extent={{40,0},{60,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{40,0},{60,20}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0, V_nom=100)
-      annotation (Placement(transformation(extent={{90,0},{70,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{90,0},{70,20}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd1
                                annotation (Placement(transformation(extent={{
-              -80,0},{-100,20}}, rotation=0)));
+              -80,0},{-100,20}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2
                                annotation (Placement(transformation(extent={{90,
-              0},{110,20}}, rotation=0)));
+              0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
-          transformation(extent={{10,20},{30,40}}, rotation=0)));
+          transformation(extent={{10,20},{30,40}})));
     parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vAC.term, ind.term_p) annotation (Line(points={{-60,10},{-50,10}},
@@ -69,14 +66,6 @@ package InvertersAC3ph "Inverters dq0"
     connect(rectifier.heat, bdCond.heat)
       annotation (Line(points={{20,20},{20,20}}, color={176,0,0}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
 <p>3-phase rectifier. Compare 'equation' and 'modular' version.</p>
@@ -92,25 +81,23 @@ package InvertersAC3ph "Inverters dq0"
 
     inner PowerSystems.System system(          ref="inertial")
                         annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}}, rotation=0)));
+              {-80,100}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd
                               annotation (Placement(transformation(extent={{-80,
-              -20},{-100,0}}, rotation=0)));
+              -20},{-100,0}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0, V_nom=100)
-      annotation (Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1,
       V_nom=100,
       S_nom=1e3)
-      annotation (Placement(transformation(extent={{-50,-20},{-30,0}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
     PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare
         PowerSystems.AC3ph.Inverters.Components.InverterEquation inverter(par=
             idealSC100V_10A) "equation, with losses")
-      annotation (Placement(transformation(extent={{-20,-20},{0,0}}, rotation=0)));
+      annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC3ph.Inverters.Select select(fType_sys=false, fType_par=true, f=100,
       uType_par=false)  annotation (Placement(transformation(extent={{-20,20},{
-              0,40}}, rotation=0)));
+              0,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meterAC(
       abc=true,
       av=true,
@@ -118,22 +105,21 @@ package InvertersAC3ph "Inverters dq0"
       phasor=true,
       V_nom=100,
       S_nom=1e3)
-      annotation (Placement(transformation(extent={{10,-20},{30,0}}, rotation=0)));
+      annotation (Placement(transformation(extent={{10,-20},{30,0}})));
     PowerSystems.Blocks.Signals.TransientPhasor vCtrl(
       t_change=0.05,
       t_duration=0.05,
       a_ini=0)
-         annotation (Placement(transformation(extent={{-50,40},{-30,60}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
     PowerSystems.AC3ph.Loads.PQindLoad pqLoad(
       tcst=0.01, imax=1,
       V_nom=100,
       S_nom=1e3)                                 annotation (Placement(
-          transformation(extent={{40,-20},{60,0}}, rotation=0)));
+          transformation(extent={{40,-20},{60,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
-          transformation(extent={{-20,0},{0,20}}, rotation=0)));
+          transformation(extent={{-20,0},{0,20}})));
     PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vDC.term, meterDC.term_p)
@@ -155,14 +141,6 @@ package InvertersAC3ph "Inverters dq0"
     connect(inverter.heat, bdCond.heat)
       annotation (Line(points={{-10,0},{-10,0}}, color={176,0,0}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
 <p>3-phase inverter, feeding load at constant 100Hz with increasing amplitude.</p>
@@ -178,26 +156,23 @@ package InvertersAC3ph "Inverters dq0"
 
     inner PowerSystems.System system(          ref="synchron")
                         annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}}, rotation=0)));
+              {-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0,
       V_nom=100,
       v0=2)
-      annotation (Placement(transformation(extent={{-90,-20},{-70,0}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(tcst=0.1,
       V_nom=100,
       S_nom=1e3,
       av=true)
-      annotation (Placement(transformation(extent={{-60,-20},{-40,0}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare
         PowerSystems.AC3ph.Inverters.Components.InverterEquation inverter(par=
             idealSC100V_10A) "equation, with losses")
-      annotation (Placement(transformation(extent={{-30,-20},{-10,0}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC3ph.Inverters.Select select(uType_par=false)
                                   annotation (Placement(transformation(extent={
-              {-30,20},{-10,40}}, rotation=0)));
+              {-30,20},{-10,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meterAC(
       phasor=true,
       V_nom=100,
@@ -205,27 +180,25 @@ package InvertersAC3ph "Inverters dq0"
       av=true,
       tcst=0.1,
       abc=true)
-      annotation (Placement(transformation(extent={{0,-20},{20,0}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,-20},{20,0}})));
     PowerSystems.AC3ph.Impedances.Inductor ind(r=0.05,
       V_nom=100,
       S_nom=1e3)
-      annotation (Placement(transformation(extent={{50,-20},{30,0}}, rotation=0)));
+      annotation (Placement(transformation(extent={{50,-20},{30,0}})));
     PowerSystems.AC3ph.Sources.Voltage vAC(V_nom=100)
-          annotation (Placement(transformation(extent={{80,-20},{60,0}},
-            rotation=0)));
+          annotation (Placement(transformation(extent={{80,-20},{60,0}})));
     PowerSystems.Blocks.Signals.TransientPhasor vCtrl(
       t_change=0.1,
       t_duration=0.1,
       ph_fin=0.5235987755983)
-         annotation (Placement(transformation(extent={{-60,40},{-40,60}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd
                                annotation (Placement(transformation(extent={{80,
-              -20},{100,0}}, rotation=0)));
+              -20},{100,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
-          transformation(extent={{-30,0},{-10,20}}, rotation=0)));
+          transformation(extent={{-30,0},{-10,20}})));
     PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vAC.term, ind.term_p) annotation (Line(points={{60,-10},{50,-10}},
@@ -249,14 +222,6 @@ package InvertersAC3ph "Inverters dq0"
     connect(inverter.heat, bdCond.heat)
       annotation (Line(points={{-20,0},{-20,0}}, color={176,0,0}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
 <p>3-phase inverter, feeding into grid with increasing phase. Compare 'switch', 'equation' and 'modular' version.</p>
@@ -272,24 +237,21 @@ package InvertersAC3ph "Inverters dq0"
 
     inner PowerSystems.System system(ini="tr")
                         annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}}, rotation=0)));
+              {-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0,
       V_nom=100,
       v0=2)
-      annotation (Placement(transformation(extent={{-90,-20},{-70,0}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1,
       V_nom=100,
       S_nom=1e3)
-      annotation (Placement(transformation(extent={{-60,-20},{-40,0}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Inverters.InverterAverage inverter(
             par=idealSC100V_10A)
-      annotation (Placement(transformation(extent={{-30,-20},{-10,0}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC3ph.Inverters.Select select(uType_par=false)
                                   annotation (Placement(transformation(extent={
-              {-30,20},{-10,40}}, rotation=0)));
+              {-30,20},{-10,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meterAC(
       abc=true,
       av=true,
@@ -297,27 +259,25 @@ package InvertersAC3ph "Inverters dq0"
       phasor=true,
       V_nom=100,
       S_nom=1e3)
-      annotation (Placement(transformation(extent={{0,-20},{20,0}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,-20},{20,0}})));
     PowerSystems.AC3ph.Impedances.Inductor ind(r=0.05,
       V_nom=100,
       S_nom=1e3)
-      annotation (Placement(transformation(extent={{50,-20},{30,0}}, rotation=0)));
+      annotation (Placement(transformation(extent={{50,-20},{30,0}})));
     PowerSystems.AC3ph.Sources.Voltage vAC(V_nom=100)
-          annotation (Placement(transformation(extent={{80,-20},{60,0}},
-            rotation=0)));
+          annotation (Placement(transformation(extent={{80,-20},{60,0}})));
     PowerSystems.Blocks.Signals.TransientPhasor vCtrl(
       t_change=0.1,
       t_duration=0.1,
       ph_fin=0.5235987755983)
-         annotation (Placement(transformation(extent={{-60,40},{-40,60}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd
                                annotation (Placement(transformation(extent={{80,
-              -20},{100,0}}, rotation=0)));
+              -20},{100,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=1) annotation (Placement(
-          transformation(extent={{-30,0},{-10,20}}, rotation=0)));
+          transformation(extent={{-30,0},{-10,20}})));
     PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vAC.term, ind.term_p) annotation (Line(points={{60,-10},{50,-10}},
@@ -341,14 +301,6 @@ package InvertersAC3ph "Inverters dq0"
     connect(inverter.heat, bdCond.heat)
       annotation (Line(points={{-20,0},{-20,0}}, color={176,0,0}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
 <p>3-phase inverter based on AVERAGED switch-equation, feeding into grid with increasing phase.</p>
@@ -364,8 +316,5 @@ Documentation(info="<html>
 <p>Comparison of different three-phase rectifier and inverter models.</p>
 <p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end InvertersAC3ph;

@@ -13,8 +13,7 @@ model NetworkControlled "Dynamic power flow calculation with two generators"
         extent={{-10,-10},{10,10}},
         rotation=270)));
   PowerSystems.Generic.Impedance impedance3(R=2, L=0)
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   PowerSystems.Generic.Impedance impedance4(L=0, R=1)
     annotation (Placement(transformation(
         origin={50,-50},
@@ -27,17 +26,16 @@ model NetworkControlled "Dynamic power flow calculation with two generators"
         rotation=270)));
   PowerSystems.Generic.FixedCurrent
                        fixedCurrent3(I=50) annotation (Placement(
-        transformation(extent={{70,-90},{90,-70}}, rotation=0)));
+        transformation(extent={{70,-90},{90,-70}})));
   PowerSystems.Generic.FixedCurrent
                        fixedCurrent1(I=55) annotation (Placement(
-        transformation(extent={{-70,-40},{-90,-20}}, rotation=0)));
+        transformation(extent={{-70,-40},{-90,-20}})));
   PowerSystems.Generic.FixedCurrent
                        fixedCurrent2(I=45)
-    annotation (Placement(transformation(extent={{-70,-90},{-90,-70}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-70,-90},{-90,-70}})));
   PowerSystems.Generic.FixedCurrent
                        fixedCurrent4(I=60) annotation (Placement(
-        transformation(extent={{70,-40},{90,-20}}, rotation=0)));
+        transformation(extent={{70,-40},{90,-20}})));
   PowerSystems.Generic.VoltageConverter transformer1(ratio=10/10.4156)
     annotation (Placement(transformation(
         origin={-50,30},
@@ -49,27 +47,25 @@ model NetworkControlled "Dynamic power flow calculation with two generators"
         extent={{-10,-10},{10,10}},
         rotation=270)));
   PowerSystems.Generic.Generator generator1 annotation (Placement(
-        transformation(extent={{-30,70},{-10,90}}, rotation=0)));
+        transformation(extent={{-30,70},{-10,90}})));
   Modelica.Mechanics.Rotational.Components.Inertia inertia1(
     J=1e3,
     w(start=system.w_nom/generator1.pp),
     a(start=0))               annotation (Placement(transformation(extent={{-60,
-            70},{-40,90}}, rotation=0)));
+            70},{-40,90}})));
   PowerSystems.Generic.Generator generator2(pp=8) annotation (Placement(
-        transformation(extent={{70,70},{90,90}}, rotation=0)));
+        transformation(extent={{70,70},{90,90}})));
   Modelica.Mechanics.Rotational.Components.Inertia inertia2(
                                                  J=1e3,
     w(start=system.w_nom/generator2.pp),
     a(start=0))
-    annotation (Placement(transformation(extent={{40,70},{60,90}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Modelica.Mechanics.Rotational.Sources.Torque turbine1(useSupport=false)
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Modelica.Mechanics.Rotational.Sensors.SpeedSensor angularVelocity
-    annotation (Placement(transformation(extent={{-50,110},{-70,130}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-50,110},{-70,130}})));
   Modelica.Mechanics.Rotational.Sources.Torque turbine2(useSupport=false)
-    annotation (Placement(transformation(extent={{10,70},{30,90}}, rotation=0)));
+    annotation (Placement(transformation(extent={{10,70},{30,90}})));
   Modelica.Blocks.Sources.Trapezoid disturbance(
     width=30,
     rising=0,
@@ -78,18 +74,16 @@ model NetworkControlled "Dynamic power flow calculation with two generators"
     amplitude=2e3,
     offset=2e3)
                annotation (Placement(transformation(extent={{30,110},{10,
-            130}}, rotation=0)));
+            130}})));
   Modelica.Blocks.Sources.Constant const(k=system.f_nom)
-    annotation (Placement(transformation(extent={{-160,70},{-140,90}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
   Modelica.Blocks.Continuous.LimPID frequencyPowerControl(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=0,
     yMax=1e5,
     k=1e6/50,
     Ti=10)
-    annotation (Placement(transformation(extent={{-120,90},{-100,70}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,90},{-100,70}})));
   Modelica.Blocks.Math.Gain frequency(k=1/(2*pi))
     annotation (Placement(transformation(extent={{-80,110},{-100,130}})));
   inner System system(          fType_par=false)
@@ -166,15 +160,14 @@ equation
       color={120,0,120},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
-  <p>The fixed voltage sources of NetworkOpened have been replaced with generators. 
+  <p>The fixed voltage sources of NetworkOpened have been replaced with generators.
   Generator1 provides for primary frequency control, while generator2 introduces fluctuations.</p>
-  <p>Note the computation of the average sytem frequency in the global system model, basing on senders for 
-  each generator. This is needed for initialization (see initial equations in 
+  <p>Note the computation of the average sytem frequency in the global system model, basing on senders for
+  each generator. This is needed for initialization (see initial equations in
   the text view). The initialization of the simulation corresponds to a black start in the real world.</p>
   <p>The remainder of the PowerFlow library hides this mechanism in the composed generator or plant models.</p>
 </html>"), Diagram(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-180,-100},{100,140}},
-        initialScale=0.1), graphics),
+        extent={{-180,-100},{100,140}}), graphics),
     experiment(StopTime=120));
 end NetworkControlled;

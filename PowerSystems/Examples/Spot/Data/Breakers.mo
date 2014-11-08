@@ -13,14 +13,7 @@ package Breakers "Breaker example data"
       Documentation(
               info="<html>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end BreakerArc;
   annotation (preferredView="info",
 Documentation(info="<html>

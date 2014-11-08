@@ -24,9 +24,7 @@ The 'arc voltage vs current' characteristic is a hyperbolic tangent.
                 {-8,-4},{-2,0},{-2,0},{2,4},{10,6},{10,6},{16,2},{22,6},{30,4},
                 {40,-2},{56,2},{76,-4},{100,0}},
             color={255,255,0},
-            thickness=1)}),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-              100,100}}), graphics));
+            thickness=1)}));
   end ArcBreaker;
 
   model ArcFault "Arc voltage for faults"
@@ -104,17 +102,10 @@ The 'arc voltage vs current' characteristic is a hyperbolic tangent.
         Documentation(
               info="<html>
 </html>
-"),     Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
 
     end ArcBase;
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
 </html>
@@ -125,8 +116,5 @@ The 'arc voltage vs current' characteristic is a hyperbolic tangent.
 Documentation(info="<html>
 <p>Properties of plasma arcs for breakers and faults.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Plasma;
