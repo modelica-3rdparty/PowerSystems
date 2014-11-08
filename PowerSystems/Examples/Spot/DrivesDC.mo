@@ -232,7 +232,7 @@ package DrivesDC "DC drives"
     parameter PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA bldc100_1k
                                            annotation (Placement(transformation(
             extent={{-60,80},{-20,100}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
@@ -294,7 +294,7 @@ package DrivesDC "DC drives"
       w0=100,
       scType_par=false)
       annotation (Placement(transformation(extent={{60,-20},{40,0}})));
-    PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA DCpm100_1k
+    parameter PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA DCpm100_1k
                                            annotation (Placement(transformation(
             extent={{-60,80},{-20,100}})));
 
@@ -353,10 +353,10 @@ package DrivesDC "DC drives"
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
     PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01, scType_par=false)
       annotation (Placement(transformation(extent={{60,-20},{40,0}})));
-    PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA bldc100_1k
+    parameter PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA bldc100_1k
                                            annotation (Placement(transformation(
             extent={{-60,80},{-20,100}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation

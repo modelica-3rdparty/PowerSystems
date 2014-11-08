@@ -1244,15 +1244,16 @@ package Parameters "Parameter data for interactive use"
   record Asynchron3rd "Asynchronous machine 3rd order parameters"
     extends PowerSystems.Basic.Nominal.NominalDataAC;
 
-    parameter Boolean neu_iso "isolated neutral if Y";
-    parameter Integer pp "pole-pair number";
+    Boolean neu_iso "isolated neutral if Y" annotation(Dialog);
+    Integer pp "pole-pair number" annotation(Dialog);
 
-    parameter SIpu.Reactance x "total reactance d- and q-axis";
-    parameter SIpu.Reactance x_o "reactance o-axis";
-    parameter SIpu.Resistance r_s "resistance stator";
-    parameter SIpu.Resistance r_n "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
+    SIpu.Reactance x "total reactance d- and q-axis" annotation(Dialog);
+    SIpu.Reactance x_o "reactance o-axis" annotation(Dialog);
+    SIpu.Resistance r_s "resistance stator" annotation(Dialog);
+    SIpu.Resistance r_n "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
 
     annotation (defaultComponentName="asyn3rdPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -1359,27 +1360,28 @@ package Parameters "Parameter data for interactive use"
     extends Asynchron3rd;
 
     parameter Integer n_r(min=0) "# rotor circuits d- and q-axis";
-    parameter Boolean transDat "use transient data"  annotation(choices(
+    Boolean transDat "use transient data"  annotation(Dialog, choices(
       choice=true "transient data",
       choice=false "equivalent circuit data"));
-    parameter Boolean use_xtr "use x_transient and t_closed"
+    Boolean use_xtr "use x_transient and t_closed"
       annotation(Dialog(enable=transDat), choices(
       choice=true "x_tr and t_closed",
       choice=false "t_closed and t_open"));
-    parameter SIpu.Reactance[n_r] xtr "transient reactance {xtr', xtr'', ..}"
+    SIpu.Reactance[n_r] xtr "transient reactance {xtr', xtr'', ..}"
       annotation(Dialog(enable=transDat and use_xtr));
-    parameter SI.Time[n_r] tc "time constant closed-loop {tc', tc'', ..}"
+    SI.Time[n_r] tc "time constant closed-loop {tc', tc'', ..}"
       annotation(Dialog(enable=transDat));
-    parameter SI.Time[n_r] to "time constant open-loop {to', to'', ..}"
+    SI.Time[n_r] to "time constant open-loop {to', to'', ..}"
       annotation(Dialog(enable=transDat and not use_xtr));
 
-    parameter SIpu.Reactance xsig_s "leakage reactance stator";
-    parameter SIpu.Reactance[n_r] xsig_r "leakage reactance rotor"
+    SIpu.Reactance xsig_s "leakage reactance stator" annotation(Dialog);
+    SIpu.Reactance[n_r] xsig_r "leakage reactance rotor"
       annotation(Dialog(enable=not transDat));
-    parameter SIpu.Resistance[n_r] r_r "resistance rotor"
+    SIpu.Resistance[n_r] r_r "resistance rotor"
       annotation(Dialog(enable=not transDat));
 
     annotation (defaultComponentName="asynPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -1520,6 +1522,7 @@ package Parameters "Parameter data for interactive use"
       r_n=1);
 
     annotation (defaultComponentName="asyn3rdPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -1545,6 +1548,7 @@ package Parameters "Parameter data for interactive use"
       r_r={0.04});
 
     annotation (defaultComponentName="asynPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -1570,25 +1574,26 @@ package Parameters "Parameter data for interactive use"
   record Synchron3rd "Synchronous machine 3rd order parameters"
     extends PowerSystems.Basic.Nominal.NominalDataAC;
 
-    parameter Boolean neu_iso "isolated neutral if Y";
-    parameter Integer pp "pole-pair number";
-    parameter Integer excite(min=0,max=3)
+    Boolean neu_iso "isolated neutral if Y" annotation(Dialog);
+    Integer pp "pole-pair number" annotation(Dialog);
+    Integer excite(min=0,max=3)
         "excitation (1:el, 2:pm, 3:reluctance)"
-      annotation(Evaluate=true, choices(
+      annotation(Evaluate=true, Dialog, choices(
       choice=1 "electric excitation",
       choice=2 "permanent magnet",
       choice=3 "reluctance machine"));
-    parameter SIpu.MagneticFlux psi_pm
+    SIpu.MagneticFlux psi_pm
         "magnetisation (V/V_nom at open term at omega_nom)"
       annotation(Dialog(enable=excite==2));
 
-    parameter SIpu.Reactance x_d "syn reactance d-axis";
-    parameter SIpu.Reactance x_q "syn reactance q-axis";
-    parameter SIpu.Reactance x_o "reactance o-axis";
-    parameter SIpu.Resistance r_s "resistance armature";
-    parameter SIpu.Resistance r_n "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
+    SIpu.Reactance x_d "syn reactance d-axis" annotation(Dialog);
+    SIpu.Reactance x_q "syn reactance q-axis" annotation(Dialog);
+    SIpu.Reactance x_o "reactance o-axis" annotation(Dialog);
+    SIpu.Resistance r_s "resistance armature" annotation(Dialog);
+    SIpu.Resistance r_n "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
 
     annotation (defaultComponentName="syn3rdPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -1698,61 +1703,62 @@ package Parameters "Parameter data for interactive use"
     parameter Integer n_d(min=1) "# rotor circuits d-axis";
     parameter Integer n_q(min=0) "# rotor circuits q-axis";
 
-    parameter Boolean transDat "use transient data?" annotation(choices(
+    Boolean transDat "use transient data?" annotation(Dialog, choices(
       choice=true "transient data",
       choice=false "equivalent circuit data"));
-    parameter Boolean use_xtr "use x_transient and t_closed?"
+    Boolean use_xtr "use x_transient and t_closed?"
       annotation(Dialog(enable=transDat), choices(
       choice=true "x_tr and t_closed",
       choice=false "t_closed and t_open"));
-    parameter SIpu.Reactance[n_d] xtr_d
+    SIpu.Reactance[n_d] xtr_d
         "trans reactance d-axis {xtr_d', xtr_d'', ..}"
       annotation(Dialog(enable=transDat and use_xtr));
-    parameter SIpu.Reactance[n_q] xtr_q
+    SIpu.Reactance[n_q] xtr_q
         "trans reactance q-axis {xtr_q', xtr_q'', ..}"
       annotation(Dialog(enable=transDat and use_xtr));
-    parameter SI.Time[n_d] tc_d
+    SI.Time[n_d] tc_d
         "time constant closed-loop d-axis {tc_d', tc_d'', ..}"
       annotation(Dialog(enable=transDat));
-    parameter SI.Time[n_q] tc_q
+    SI.Time[n_q] tc_q
         "time constant closed-loop q-axis {tc_q', tc_q'', ..}"
       annotation(Dialog(enable=transDat));
-    parameter SI.Time[n_d] to_d
+    SI.Time[n_d] to_d
         "time constant open-loop d-axis {to_d', to_d'', ..}"
       annotation(Dialog(enable=transDat and not use_xtr));
-    parameter SI.Time[n_q] to_q
+    SI.Time[n_q] to_q
         "time constant open-loop q-axis {to_q', to_q'', ..}"
       annotation(Dialog(enable=transDat and not use_xtr));
-    parameter Boolean use_if0 "induced field current and phase available?"
+    Boolean use_if0 "induced field current and phase available?"
       annotation(Dialog(enable=transDat and size(tc_d,1)>1 and not pm_exc), choices(
       choice=true "d-axis with xm_d",
       choice=false "d-axis omitting xm_d"));
-    parameter SIpu.Current if0 "induced field current at v_s=Vnom/0deg"
+    SIpu.Current if0 "induced field current at v_s=Vnom/0deg"
      annotation(Dialog(enable=transDat and size(tc_d,1)>1 and use_if0 and not pm_exc));
-    parameter SI.Angle alpha_if0
+    SI.Angle alpha_if0
         "angle(if0) at v_s=Vnom/0deg (sign: i_f behind v_s)"
       annotation(Dialog(enable=transDat and size(tc_d,1)>1 and use_if0 and not pm_exc));
-    parameter Real tol "tolerance precalculation"
+    Real tol "tolerance precalculation"
       annotation(Dialog(enable=transDat and size(tc_d,1)>1 and use_if0 and not pm_exc));
 
-    parameter SIpu.Reactance xsig_s "leakage reactance armature";
-    parameter SIpu.Reactance[n_d] xsig_rd
+    SIpu.Reactance xsig_s "leakage reactance armature" annotation(Dialog);
+    SIpu.Reactance[n_d] xsig_rd
         "leakage reactance rotor d-axis {f, D, ..}"
       annotation(Dialog(enable=not transDat));
-    parameter SIpu.Reactance[n_q] xsig_rq
+    SIpu.Reactance[n_q] xsig_rq
         "leakage reactance rotor q-axis {Q1, ..}"
       annotation(Dialog(enable=not transDat));
-    parameter SIpu.Reactance[n_d-1] xm_d "coupling-reactance d-axis {xm1, ..}"
+    SIpu.Reactance[n_d-1] xm_d "coupling-reactance d-axis {xm1, ..}"
       annotation(Dialog(enable=not transDat));
-    parameter SIpu.Resistance[n_d] r_rd "resistance rotor d-axis {f, D, ..}"
+    SIpu.Resistance[n_d] r_rd "resistance rotor d-axis {f, D, ..}"
       annotation(Dialog(enable=not transDat));
-    parameter SIpu.Resistance[n_q] r_rq "resistance rotor q-axis {Q1, ..}"
+    SIpu.Resistance[n_q] r_rq "resistance rotor q-axis {Q1, ..}"
       annotation(Dialog(enable=not transDat));
 
-    parameter SI.Current If_nom "nom field current (V=V_nom at open term)"
+    SI.Current If_nom "nom field current (V=V_nom at open term)"
       annotation(Dialog(group="Nominal", enable=not pm_exc));
 
     annotation (defaultComponentName="synPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -1995,6 +2001,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       r_n=1);
 
     annotation (defaultComponentName="syn3rd_elPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -2037,6 +2044,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
 
   //  example: V_nom=20e3, S_nom=500e6, If_nom=1500.
     annotation (defaultComponentName="syn_elPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -2088,6 +2096,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       r_s=0.05,
       r_n=1);
     annotation (defaultComponentName="syn3rd_pmPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -2134,6 +2143,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       If_nom=0);
 
     annotation (defaultComponentName="syn_pmPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -2182,15 +2192,14 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       r_s=0.05,
       r_n=1);
     annotation (defaultComponentName="syn_reluctPar",
-      Documentation(
-            info="<html>
+      defaultComponentPrefixes="parameter",
+      Documentation(info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
-</html>
-"));
+</html>"));
   end Synchron3rd_reluctance;
 
   annotation (preferredView="info",
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
 </html>"));
 end Parameters;
@@ -2202,28 +2211,30 @@ record Asynchron "Coefficient matrices of asynchronous machine"
   extends Modelica.Icons.Record;
 
   parameter Integer n_r "number of rotor circuits";
-  final parameter SI.Inductance[3] L_s "L matrix stator dq0, d=q";
-  final parameter SI.Inductance[n_r, n_r] L_r "L matrix rotor";
-  final parameter SI.Inductance[n_r] L_m "L matrix mutual";
-  final parameter SI.Resistance R_s "R matrix stator";
-  final parameter SI.Resistance[n_r] R_r "R matrix rotor";
-  final parameter SI.Resistance R_n "resistance neutral to grd (if Y)";
-  final parameter SI.Resistance[n_r] R_m "= diagonal(R_r)*inv(L_r)*L_m";
+  SI.Inductance[3] L_s "L matrix stator dq0, d=q";
+  SI.Inductance[n_r, n_r] L_r "L matrix rotor";
+  SI.Inductance[n_r] L_m "L matrix mutual";
+  SI.Resistance R_s "R matrix stator";
+  SI.Resistance[n_r] R_r "R matrix rotor";
+  SI.Resistance R_n "resistance neutral to grd (if Y)";
+  SI.Resistance[n_r] R_m "= diagonal(R_r)*inv(L_r)*L_m";
 
-annotation(Documentation(info="<html>
+  annotation (defaultComponentPrefixes="final parameter",
+    Documentation(info="<html>
 </html>"));
 end Asynchron;
 
 record Synchron3rd "Coefficient matrices of synchronous machine, 3rd order"
   extends Modelica.Icons.Record;
 
-  final parameter SI.Inductance[3] L_s "L matrix stator dq0";
-  final parameter SI.Resistance R_s "R stator (armature)";
-  final parameter SI.Resistance R_n "resistance neutral to grd (if Y)";
-  final parameter SI.MagneticFlux Psi_pm "flux permanent magnet";
-  final parameter SI.AngularFrequency omega_nom;
+  SI.Inductance[3] L_s "L matrix stator dq0";
+  SI.Resistance R_s "R stator (armature)";
+  SI.Resistance R_n "resistance neutral to grd (if Y)";
+  SI.MagneticFlux Psi_pm "flux permanent magnet";
+  SI.AngularFrequency omega_nom;
 
-annotation( Documentation(info="<html>
+  annotation (defaultComponentPrefixes="final parameter",
+    Documentation(info="<html>
 </html>"));
 end Synchron3rd;
 
@@ -2232,39 +2243,38 @@ record Synchron "Coefficient matrices of synchronous machine"
 
   parameter Integer n_d "number of rotor circuits d-axis";
   parameter Integer n_q "number of rotor circuits q-axis";
-  final parameter SI.Inductance[3] L_s "L matrix stator dq0";
-  final parameter SI.Inductance[n_d, n_d] L_rd "L matrix rotor";
-  final parameter SI.Inductance[n_q, n_q] L_rq "L matrix rotor";
-  final parameter SI.Inductance[n_d] L_md "L matrix mutual d-axis";
-  final parameter SI.Inductance[n_q] L_mq "L matrix mutual q-axis";
-  final parameter SI.Resistance R_s "R stator (armature)";
-  final parameter SI.Resistance[n_d] R_rd "R matrix rotor";
-  final parameter SI.Resistance[n_q] R_rq "R matrix rotor";
-  final parameter SI.Resistance R_n "resistance neutral to grd (if Y)";
-  final parameter SI.MagneticFlux Psi_pm "flux permanent magnet";
-  final parameter Real wf "ratio field winding";
-  final parameter SI.Voltage Vf_nom "nom voltage field winding";
-  final parameter SI.AngularFrequency omega_nom;
+  SI.Inductance[3] L_s "L matrix stator dq0";
+  SI.Inductance[n_d, n_d] L_rd "L matrix rotor";
+  SI.Inductance[n_q, n_q] L_rq "L matrix rotor";
+  SI.Inductance[n_d] L_md "L matrix mutual d-axis";
+  SI.Inductance[n_q] L_mq "L matrix mutual q-axis";
+  SI.Resistance R_s "R stator (armature)";
+  SI.Resistance[n_d] R_rd "R matrix rotor";
+  SI.Resistance[n_q] R_rq "R matrix rotor";
+  SI.Resistance R_n "resistance neutral to grd (if Y)";
+  SI.MagneticFlux Psi_pm "flux permanent magnet";
+  Real wf "ratio field winding";
+  SI.Voltage Vf_nom "nom voltage field winding";
+  SI.AngularFrequency omega_nom;
 
-annotation( Documentation(info="<html>
+  annotation (defaultComponentPrefixes="final parameter",
+    Documentation(info="<html>
 </html>"));
 end Synchron;
 
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing the result of precalculation, and used in the dynamical equations of the corresponding components.</p>
-</html>
-"));
+</html>"));
 end Coefficients;
 
-  annotation (preferredView="info",
-Documentation(info="<html>
+annotation (preferredView="info",
+  Documentation(info="<html>
 <p> This package contains the <b>electrical part</b> (electrical equations) of AC synchronous and asynchronous machines (generators or motors).<br>
 Complete drives or generators are found in package Drives or Generation.</p>
 <p>The models in this package can be used both for Y- and for Delta-topology, if the impedance parameters are defined 'as seen from the terminals', directly relating terminal voltage and terminal current.</p>
 <p>
 
 .</p>
-</html>
-"));
+</html>"));
 end Machines;

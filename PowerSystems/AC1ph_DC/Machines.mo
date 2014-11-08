@@ -474,13 +474,14 @@ package Parameters "Parameter data for interactive use"
 record DCser "DC machine parameters series excited"
   extends Basic.Nominal.NominalDataDC(w_nom=157.079632679489661923);
 
-  parameter Integer pp=2 "pole-pair nb";
-  parameter SIpu.Inductance l_fd=0.15 "inductance field (d-axis)";
-  parameter SIpu.Resistance r_fd=0.01 "resistance field (d-axis)";
-  parameter SIpu.Inductance l_q=0.5 "inductance armature+ (q-axis)";
-  parameter SIpu.Resistance r_q=0.05 "resistance armature+ (q-axis)";
+  Integer pp=2 "pole-pair nb" annotation(Dialog);
+  SIpu.Inductance l_fd=0.15 "inductance field (d-axis)" annotation(Dialog);
+  SIpu.Resistance r_fd=0.01 "resistance field (d-axis)" annotation(Dialog);
+  SIpu.Inductance l_q=0.5 "inductance armature+ (q-axis)" annotation(Dialog);
+  SIpu.Resistance r_q=0.05 "resistance armature+ (q-axis)" annotation(Dialog);
 
   annotation (defaultComponentName="dc_serPar",
+    defaultComponentPrefixes="parameter",
     Documentation(
           info="<html>
 </html>"));
@@ -489,15 +490,16 @@ end DCser;
 record DCpar "DC machine parameters parallel excited"
   extends Basic.Nominal.NominalDataDC(w_nom=157.079632679489661923);
 
-  parameter SI.Voltage Vf_nom=1 "nom field voltage"
+  SI.Voltage Vf_nom=1 "nom field voltage"
     annotation(Evaluate=true, Dialog(group="Nominal"));
-  parameter Integer pp=2 "pole-pair nb";
-  parameter SIpu.Inductance l_fd=100*pi "inductance field (d-axis)";
-  parameter SIpu.Resistance r_fd=100 "resistance field (d-axis)";
-  parameter SIpu.Inductance l_q=0.5 "inductance armature+ (q-axis)";
-  parameter SIpu.Resistance r_q=0.05 "resistance armature+ (q-axis)";
+  Integer pp=2 "pole-pair nb" annotation(Dialog);
+  SIpu.Inductance l_fd=100*pi "inductance field (d-axis)" annotation(Dialog);
+  SIpu.Resistance r_fd=100 "resistance field (d-axis)" annotation(Dialog);
+  SIpu.Inductance l_q=0.5 "inductance armature+ (q-axis)" annotation(Dialog);
+  SIpu.Resistance r_q=0.05 "resistance armature+ (q-axis)" annotation(Dialog);
 
   annotation (defaultComponentName="dc_parPar",
+    defaultComponentPrefixes="parameter",
     Documentation(
           info="<html>
 </html>"));
@@ -506,11 +508,12 @@ end DCpar;
 record DCpm "DC machine parameters permanent magnet excited"
   extends Basic.Nominal.NominalDataDC(w_nom=157.079632679489661923);
 
-  parameter Integer pp=2 "pole-pair nb";
-  parameter SIpu.Inductance l_aq=0.5 "inductance armature (q-axis)";
-  parameter SIpu.Resistance r_aq=0.05 "resistance armature (q-axis)";
+  Integer pp=2 "pole-pair nb" annotation(Dialog);
+  SIpu.Inductance l_aq=0.5 "inductance armature (q-axis)" annotation(Dialog);
+  SIpu.Resistance r_aq=0.05 "resistance armature (q-axis)" annotation(Dialog);
 
   annotation (defaultComponentName="dc_pmPar",
+    defaultComponentPrefixes="parameter",
     Documentation(
           info="<html>
 </html>"));
@@ -528,12 +531,12 @@ package Coefficients "Coefficient matrices of machine equations"
 record DCser "Coefficients of DC machine series excited"
   extends Modelica.Icons.Record;
 
-  final parameter SI.Inductance L "series inductance";
-  final parameter SI.Resistance[2] R
-        "resistance {d (field), q (armature)} axis";
-  final parameter SI.Inductance L_md "mutual inductance";
+  SI.Inductance L "series inductance";
+  SI.Resistance[2] R "resistance {d (field), q (armature)} axis";
+  SI.Inductance L_md "mutual inductance";
 
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="final parameter",
     Documentation(
           info="<html>
 </html>"));
@@ -542,13 +545,12 @@ end DCser;
 record DCpar "Coefficients of DC machine parallel excited"
   extends Modelica.Icons.Record;
 
-  final parameter SI.Inductance[2] L
-        "inductance {d (field), q (armature)} axis";
-  final parameter SI.Resistance[2] R
-        "resistance {d (field), q (armature)} axis";
-  final parameter SI.Inductance L_md "mutual inductance";
+  SI.Inductance[2] L "inductance {d (field), q (armature)} axis";
+  SI.Resistance[2] R "resistance {d (field), q (armature)} axis";
+  SI.Inductance L_md "mutual inductance";
 
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="final parameter",
     Documentation(
           info="<html>
 </html>"));
@@ -557,28 +559,31 @@ end DCpar;
 record DCpm "Coefficients of DC machine permanent magnet excited"
   extends Modelica.Icons.Record;
 
-  final parameter SI.Resistance R "resistance";
-  final parameter SI.Inductance L "inductance";
-  final parameter SI.MagneticFlux Psi_pm "flux permanent magnet";
+  SI.Resistance R "resistance";
+  SI.Inductance L "inductance";
+  SI.MagneticFlux Psi_pm "flux permanent magnet";
 
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="final parameter",
     Documentation(
           info="<html>
 </html>"));
 end DCpm;
 
   annotation (preferredView="info",
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>Records containing the result of precalculation, and used in the dynamical equations of the corresponding components.</p>
 </html>
 "));
 end Coefficients;
+
   annotation (preferredView="info",
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>This package contains the <b>electrical part</b> (electrical equations) of DC machines.<br>
 Complete drives are found in package Drives.</p>
 </html>
-"),    Diagram(coordinateSystem(
+"),
+    Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={Line(

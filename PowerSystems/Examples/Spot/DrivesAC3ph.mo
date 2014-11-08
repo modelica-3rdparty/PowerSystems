@@ -29,7 +29,7 @@ package DrivesAC3ph "AC drives, dq0"
       s_fin=2*system.omega_nom/asm.motor.pp,
       s_ini=-system.omega_nom/asm.motor.pp)
       annotation (Placement(transformation(extent={{78,-20},{58,0}})));
-    PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
+    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
   equation
@@ -85,7 +85,7 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
       annotation (Placement(transformation(extent={{70,-20},{90,0}})));
     PowerSystems.Control.Relays.Y_DeltaControl relay1(t_switch={1.5})
       annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-    PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
+    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
   equation
@@ -161,9 +161,9 @@ Compare 'transient' and 'steady-state' mode.</p>
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
       annotation (Placement(transformation(extent={{70,-20},{90,0}})));
-    PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA asyn3k_1p5M
+    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA asyn3k_1p5M
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A idealSC3kV_500A
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A idealSC3kV_500A
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
@@ -253,9 +253,9 @@ Compare 'transient' and 'steady-state' mode.</p>
       initType=Modelica.Blocks.Types.InitPID.SteadyState,
       gainPID(y(start=0.1)))
            annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
-    PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA asyn3k_1p5M
+    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA asyn3k_1p5M
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A idealSC3kV_500A
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A idealSC3kV_500A
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
@@ -335,9 +335,9 @@ Compare 'transient' and 'steady-state' mode.</p>
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
       annotation (Placement(transformation(extent={{70,-20},{90,0}})));
-    PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA asyn3k_1p5M
+    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA asyn3k_1p5M
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A idealSC3kV_500A(
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A idealSC3kV_500A(
                                                         Vf=0, Hsw_nom=0)
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
@@ -421,9 +421,9 @@ The machine defines the reference-system independent of the system choice (as ne
       yMax=1,
       gainPID(y(start=0.1)))
            annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-    PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA syn3rdpm400_30k
+    parameter PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA syn3rdpm400_30k
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
@@ -510,10 +510,10 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
       s_ini=0,
       s_fin=0) "phase of modulation signal" annotation (Placement(
           transformation(extent={{-80,40},{-60,60}})));
-    PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA syn3rdpm400_30k(
+    parameter PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA syn3rdpm400_30k(
                                                            r_n=0)
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
@@ -605,9 +605,9 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
       gainPID(y(start=0.1)),
       initType=Modelica.Blocks.Types.InitPID.SteadyState)
            annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-    PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
+    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
@@ -697,10 +697,10 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
       s_ini=0.35) "phase of modulation signal"
                                             annotation (Placement(
           transformation(extent={{-80,40},{-60,60}})));
-    PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k(
+    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k(
                                                   r_n=0)
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation

@@ -482,7 +482,7 @@ Compare with FaultRXline.</p>
     parameter PowerSystems.Examples.Spot.Data.Lines.OHline400kV OH400kV
                                    annotation (Placement(transformation(extent=
               {{0,80},{40,100}})));
-    PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
+    parameter PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
   equation
@@ -575,7 +575,7 @@ Compare with DoublePIline.</p>
             extent={{-90,-20},{-110,0}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
             extent={{90,-20},{110,0}})));
-    PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
+    parameter PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
   equation
@@ -675,10 +675,10 @@ Compare with DoublePIline.</p>
             extent={{-110,-20},{-90,0}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
             extent={{90,-20},{110,0}})));
-    PowerSystems.Examples.Spot.Data.Lines.OHline400kV OH400kV
+    parameter PowerSystems.Examples.Spot.Data.Lines.OHline400kV OH400kV
                                    annotation (Placement(transformation(extent=
               {{0,80},{40,100}})));
-    PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
+    parameter PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
     PowerSystems.Common.Thermal.BoundaryV boundary(m=2)
@@ -777,10 +777,10 @@ Compare with DoublePIline.</p>
             extent={{-110,-20},{-90,0}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
             extent={{90,-20},{110,0}})));
-    PowerSystems.Examples.Spot.Data.Lines.OHline_400kV OH_400kV
+    parameter PowerSystems.Examples.Spot.Data.Lines.OHline_400kV OH_400kV
                                      annotation (Placement(transformation(
             extent={{0,80},{40,100}})));
-    PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
+    parameter PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
     PowerSystems.Common.Thermal.BoundaryV boundary(m=2)

@@ -557,14 +557,13 @@ package Parameters "Parameter data for interactive use"
   record RXline "RX-line parameters, 1-phase"
     extends Basic.Nominal.NominalDataAC(
                                      S_nom=100e6);
-    parameter SIpu.Resistance[2] r={0.1,0.1}*1e-3 "resistance/km";
-    parameter SIpu.Reactance_km x=1e-3 "reactance/km";
-    parameter SIpu.Reactance_km x0(min=x)=3*x "reactance/km zero-comp";
+    SIpu.Resistance[2] r={0.1,0.1}*1e-3 "resistance/km";
+    SIpu.Reactance_km x=1e-3 "reactance/km";
+    SIpu.Reactance_km x0=3*x "reactance/km zero-comp";
 
-      annotation (
-        defaultComponentName="data",
-        Documentation(info=
-     "<html>
+    annotation (defaultComponentName="data",
+      defaultComponentPrefixes="parameter",
+      Documentation(info="<html>
 <p>Relations.</p>
 <pre>
   x = 2*pi*f_nom*L/R_base     reactance
@@ -572,7 +571,7 @@ package Parameters "Parameter data for interactive use"
 </pre>
 <p>Coupling.</p>
 <pre>
-  positive coupled:     x0 &gt  x
+  positive coupled:     x0 > x
   uncoupled limit:      x0 = x
 </pre>
 <p>More info see package AC1ph_DC.Impedances.</p>
@@ -581,15 +580,15 @@ package Parameters "Parameter data for interactive use"
 
   record PIline "PI-line parameters, 1-phase"
     extends RXline;
-    parameter SIpu.Conductance g_pg=0 "shunt conductance/km ph-grd";
-    parameter SIpu.Conductance g_pp=0 "shunt conductance/km ph_ph";
-    parameter SIpu.Susceptance_km b_pg=0.025e-3 "susceptance/km ph-grd";
-    parameter SIpu.Susceptance_km b_pp=0.025e-3 "susceptance/km ph-ph";
 
-      annotation (
-        defaultComponentName="data",
-  Documentation(
-  info="<html>
+    SIpu.Conductance g_pg=0 "shunt conductance/km ph-grd";
+    SIpu.Conductance g_pp=0 "shunt conductance/km ph_ph";
+    SIpu.Susceptance_km b_pg=0.025e-3 "susceptance/km ph-grd";
+    SIpu.Susceptance_km b_pp=0.025e-3 "susceptance/km ph-ph";
+
+    annotation (defaultComponentName="data",
+      defaultComponentPrefixes="parameter",
+      Documentation(info="<html>
 <p>Relations.</p>
 <pre>
   g = G/G_base                  conductance

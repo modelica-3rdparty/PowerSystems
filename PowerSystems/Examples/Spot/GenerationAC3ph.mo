@@ -195,7 +195,7 @@ end PQsource;
               {{90,0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
       annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-    PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
+    parameter PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
                                           annotation (Placement(transformation(
             extent={{40,80},{80,100}})));
 
@@ -307,7 +307,7 @@ The power-angle is artificially fixed. The correspondence is:
               {{90,0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
       annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-    PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
+    parameter PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
                                           annotation (Placement(transformation(
             extent={{40,80},{80,100}})));
 
@@ -441,7 +441,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
               {{90,0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
       annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-    PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
+    parameter PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
                                           annotation (Placement(transformation(
             extent={{40,80},{80,100}})));
 
@@ -568,7 +568,7 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
             extent={{30,-60},{50,-40}})));
   PowerSystems.AC3ph.Sources.Voltage VBus1(V_nom=20e3)
     annotation (Placement(transformation(extent={{90,-60},{70,-40}})));
-  PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
+  parameter PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
                                           annotation (Placement(transformation(
             extent={{40,80},{80,100}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
@@ -695,9 +695,9 @@ model GenOrder3and7 "Generator-models of different order"
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   PowerSystems.Common.Thermal.BdCondV bdCond2(m=2)
       annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_ee60Hz_26kV_720MVA syn3rd60Hz26k_720M
+  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_ee60Hz_26kV_720MVA syn3rd60Hz26k_720M
       annotation (Placement(transformation(extent={{-40,80},{0,100}})));
-  PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA syn60Hz26k_720M
+  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA syn60Hz26k_720M
       annotation (Placement(transformation(extent={{20,80},{60,100}})));
 
 equation
@@ -786,9 +786,9 @@ model TurboGroupGenerator
             extent={{80,0},{100,20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
       annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  PowerSystems.Examples.Spot.Data.Machines.Synchron_ee20kV_1200MVA syn20k_1200M
+  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron_ee20kV_1200MVA syn20k_1200M
       annotation (Placement(transformation(extent={{20,80},{60,100}})));
-  PowerSystems.Examples.Spot.Data.Turbines.SteamTurboGroup1200MW turboGrp1200M
+  parameter PowerSystems.Examples.Spot.Data.Turbines.SteamTurboGroup1200MW turboGrp1200M
       annotation (Placement(transformation(extent={{-40,80},{0,100}})));
 
 equation
@@ -947,7 +947,7 @@ model TieLine "Generators and power-oscillations"
           origin={-20,70},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-  PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA syn60Hz26k_720M
+  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA syn60Hz26k_720M
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
 equation
@@ -1041,10 +1041,10 @@ model WindGeneratorLine "Asynchronous generator"
             extent={{90,0},{110,20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
       annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  PowerSystems.Examples.Spot.Data.Turbines.WindTurbineGear windTurb
+  parameter PowerSystems.Examples.Spot.Data.Turbines.WindTurbineGear windTurb
                                            annotation (Placement(transformation(
             extent={{-40,80},{0,100}})));
-  PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
+  parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
       annotation (Placement(transformation(extent={{20,80},{60,100}})));
 
 equation
@@ -1140,9 +1140,9 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
       annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond2(m=1)
       annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  PowerSystems.Examples.Spot.Data.Machines.Synchron_pm560V_100kVA synpm560_100k
+  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron_pm560V_100kVA synpm560_100k
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
-  PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
+  parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
     annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
 equation

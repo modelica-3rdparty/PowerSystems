@@ -900,14 +900,13 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
    record RXline "RX-line parameters, 3-phase"
      extends Basic.Nominal.NominalDataAC(
                                       S_nom=100e6);
-     parameter SIpu.Resistance_km r=0.1e-3 "resistance/km";
-     parameter SIpu.Reactance_km x=1e-3 "reactance/km";
-     parameter SIpu.Reactance_km x0=3*x "reactance/km zero-comp";
+     SIpu.Resistance_km r=0.1e-3 "resistance/km" annotation(Dialog);
+     SIpu.Reactance_km x=1e-3 "reactance/km" annotation(Dialog);
+     SIpu.Reactance_km x0=3*x "reactance/km zero-comp" annotation(Dialog);
 
-       annotation (
-         defaultComponentName="data",
-         Documentation(info=
-      "<html>
+     annotation (defaultComponentName="data",
+         defaultComponentPrefixes="parameter",
+         Documentation(info="<html>
 <p>Relations.</p>
 <pre>
   x = 2*pi*f_nom*L/R_base     reactance
@@ -915,7 +914,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
 </pre>
 <p>Coupling.</p>
 <pre>
-  positive coupled     x0 &gt  x
+  positive coupled     x0 > x
   uncoupled limit      x0 = x
 </pre>
 <p>More info see package ACabc.Impedances.</p>
@@ -925,15 +924,15 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
 
    record PIline "PI-line parameters, 3-phase"
      extends RXline;
-     parameter SIpu.Conductance_km g_pg=0 "shunt conductance/km ph-grd";
-     parameter SIpu.Conductance_km g_pp=0 "shunt conductance/km ph_ph";
-     parameter SIpu.Susceptance_km b_pg=0.025e-3 "susceptance/km ph-grd";
-     parameter SIpu.Susceptance_km b_pp=0.025e-3 "susceptance/km ph-ph";
 
-       annotation (
-         defaultComponentName="data",
-   Documentation(
-   info="<html>
+     SIpu.Conductance_km g_pg=0 "shunt conductance/km ph-grd" annotation(Dialog);
+     SIpu.Conductance_km g_pp=0 "shunt conductance/km ph_ph" annotation(Dialog);
+     SIpu.Susceptance_km b_pg=0.025e-3 "susceptance/km ph-grd" annotation(Dialog);
+     SIpu.Susceptance_km b_pp=0.025e-3 "susceptance/km ph-ph" annotation(Dialog);
+
+     annotation (defaultComponentName="data",
+       defaultComponentPrefixes="parameter",
+       Documentation(info="<html>
 <p>Relations.</p>
 <pre>
   g = G/G_base                  conductance

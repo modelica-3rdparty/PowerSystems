@@ -852,70 +852,76 @@ package Parameters "Parameter data for interactive use"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 record TrafoIdeal "Parameters for ideal transformer, 3-phase"
-  parameter SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2=fill(1, 0) "2: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
   extends Basic.Nominal.NominalDataTrafo;
-  parameter SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)";
-  parameter SIpu.Resistance r_n2=1 "2: resistance neutral to grd (if Y)";
+
+  SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Voltage[:] v_tc2=fill(1, 0) "2: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)" annotation(Dialog);
+  SIpu.Resistance r_n2=1 "2: resistance neutral to grd (if Y)" annotation(Dialog);
+
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
 </html>"));
 end TrafoIdeal;
 
 record TrafoStray "Parameters for ideal magnetic coupling transformer, 3-phase"
   extends TrafoIdeal;
-  parameter SIpu.Resistance[2] r={0.05,0.05} "{1,2}: resistance";
-  parameter SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance";
-  parameter SIpu.Reactance[2] x0={x[1],x[2]} "{1,2}: stray reactance zero-comp";
+
+  SIpu.Resistance[2] r={0.05,0.05} "{1,2}: resistance" annotation(Dialog);
+  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance" annotation(Dialog);
+  SIpu.Reactance[2] x0={x[1],x[2]} "{1,2}: stray reactance zero-comp" annotation(Dialog);
 
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
 </html>"));
 end TrafoStray;
 
 record TrafoMag "Parameters for magnetic coupling transformer, 3-phase"
   extends TrafoStray;
-  parameter SIpu.Resistance redc=500 "resistance eddy current";
-  parameter SIpu.Reactance xm=500 "mutual reactance";
-  parameter SIpu.Reactance xm0=1 "mutual reactance zero";
+
+  SIpu.Resistance redc=500 "resistance eddy current" annotation(Dialog);
+  SIpu.Reactance xm=500 "mutual reactance" annotation(Dialog);
+  SIpu.Reactance xm0=1 "mutual reactance zero" annotation(Dialog);
 
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
 </html>"));
 end TrafoMag;
 
 record TrafoSat "Parameters for saturation transformer, 3-phase"
   extends TrafoMag;
-  parameter Real psi_sat(unit="1")=1.5 "saturation flux";
-  parameter SIpu.Reactance xm_sat=1 "mutual reactance saturated";
+
+  Real psi_sat(unit="1")=1.5 "saturation flux" annotation(Dialog);
+  SIpu.Reactance xm_sat=1 "mutual reactance saturated" annotation(Dialog);
 
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
 </html>"));
 end TrafoSat;
 
 record Trafo3Ideal "Parameters for ideal 3-winding transformer, 3-phase"
-  parameter SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2a=fill(1, 0) "2a: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2b=fill(1, 0) "2b: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  extends Basic.Nominal.NominalDataTrafo(
-                                      V_nom={1,1,1}
+  extends Basic.Nominal.NominalDataTrafo(V_nom={1,1,1}
           "{prim,sec_a,sec_b} nom Voltage (= base if pu)");
-  parameter SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)";
-  parameter SIpu.Resistance r_n2a=1 "2a: resistance neutral to grd (if Y)";
-  parameter SIpu.Resistance r_n2b=1 "2b: resistance neutral to grd (if Y)";
+
+  SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Voltage[:] v_tc2a=fill(1, 0) "2a: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Voltage[:] v_tc2b=fill(1, 0) "2b: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)" annotation(Dialog);
+  SIpu.Resistance r_n2a=1 "2a: resistance neutral to grd (if Y)" annotation(Dialog);
+  SIpu.Resistance r_n2b=1 "2b: resistance neutral to grd (if Y)" annotation(Dialog);
+
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
 <p>Nominal voltage with 3 components: {prim, sec_a, sec_b}.</p>
 </html>"));
 end Trafo3Ideal;
@@ -924,14 +930,13 @@ record Trafo3Stray
       "Parameters for ideal magnetic coupling 3-winding transformer, 3-phase"
   extends Trafo3Ideal;
 
-  parameter SIpu.Resistance[3] r={0.05,0.05,0.05} "{1,2a,2b}: resistance";
-  parameter SIpu.Reactance[3] x={0.05,0.05,0.05} "{1,2a,2b}: stray reactance";
-  parameter SIpu.Reactance[3] x0={x[1],x[2],x[3]}
-        "{1,2a,2b}: stray reactance zero-comp";
+  SIpu.Resistance[3] r={0.05,0.05,0.05} "{1,2a,2b}: resistance" annotation(Dialog);
+  SIpu.Reactance[3] x={0.05,0.05,0.05} "{1,2a,2b}: stray reactance" annotation(Dialog);
+  SIpu.Reactance[3] x0={x[1],x[2],x[3]} "{1,2a,2b}: stray reactance zero-comp" annotation(Dialog);
 
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
 </html>"));
 end Trafo3Stray;
 
@@ -974,6 +979,5 @@ compared to the terminal voltage and current. Therefore the impedance relating c
   i = i_cond*w
 </pre>
 The equations are written in winding-scaled form.</p>
-</html>
-"));
+</html>"));
 end Transformers;

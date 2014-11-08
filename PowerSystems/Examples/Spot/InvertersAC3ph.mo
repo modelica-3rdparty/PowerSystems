@@ -118,7 +118,7 @@ package InvertersAC3ph "Inverters dq0"
           transformation(extent={{40,-20},{60,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{-20,0},{0,20}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
@@ -197,7 +197,7 @@ package InvertersAC3ph "Inverters dq0"
               -20},{100,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{-30,0},{-10,20}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
@@ -276,7 +276,7 @@ package InvertersAC3ph "Inverters dq0"
               -20},{100,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=1) annotation (Placement(
           transformation(extent={{-30,0},{-10,20}})));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation

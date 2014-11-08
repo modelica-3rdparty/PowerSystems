@@ -672,12 +672,13 @@ package Parameters "Parameter data for interactive use"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 record TrafoIdeal1ph "Parameters for ideal transformer, 1-phase"
-  parameter SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2=fill(1, 0) "2: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
   extends Basic.Nominal.NominalDataTrafo;
+  SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Voltage[:] v_tc2=fill(1, 0) "2: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
 </html>"));
@@ -686,10 +687,11 @@ end TrafoIdeal1ph;
 record TrafoStray1ph
       "Parameters for ideal magnetic coupling transformer, 1-phase"
   extends TrafoIdeal1ph;
-  parameter SIpu.Resistance[2] r={0.05,0.05} "{1,2}: resistance";
-  parameter SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance";
+  SIpu.Resistance[2] r={0.05,0.05} "{1,2}: resistance";
+  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance";
 
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
 </html>"));
@@ -697,10 +699,11 @@ end TrafoStray1ph;
 
 record TrafoMag1ph "Parameters for magnetic coupling transformer, 1-phase"
   extends TrafoStray1ph;
-  parameter SIpu.Resistance redc=500 "resistance eddy current";
-  parameter SIpu.Reactance xm=500 "mutual reactance";
+  SIpu.Resistance redc=500 "resistance eddy current";
+  SIpu.Reactance xm=500 "mutual reactance";
 
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
 </html>"));
@@ -708,26 +711,28 @@ end TrafoMag1ph;
 
 record TrafoSat1ph "Parameters for saturation transformer, 1-phase"
   extends TrafoMag1ph;
-  parameter Real psi_sat(unit="1")=1.5 "saturation flux";
-  parameter SIpu.Reactance xm_sat=1 "mutual reactance saturated";
+  Real psi_sat(unit="1")=1.5 "saturation flux";
+  SIpu.Reactance xm_sat=1 "mutual reactance saturated";
 
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
 </html>"));
 end TrafoSat1ph;
 
 record Trafo3Ideal1ph "Parameters for ideal transformer, 1-phase"
-  parameter SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
+  SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
                               annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2a=fill(1, 0) "2a: v-levels tap-changer"
+  SIpu.Voltage[:] v_tc2a=fill(1, 0) "2a: v-levels tap-changer"
                               annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2b=fill(1, 0) "2b: v-levels tap-changer"
+  SIpu.Voltage[:] v_tc2b=fill(1, 0) "2b: v-levels tap-changer"
                               annotation(Dialog(group="Options"));
   extends Basic.Nominal.NominalDataTrafo(
                                       V_nom={1,1,1}
           "{prim,sec_a,sec_b} nom Voltage (= base if pu)");
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
 </html>"));
@@ -736,10 +741,11 @@ end Trafo3Ideal1ph;
 record Trafo3Stray1ph
       "Parameters for ideal magnetic coupling transformer, 1-phase"
   extends Trafo3Ideal1ph;
-  parameter SIpu.Resistance[3] r={0.05,0.05,0.05} "{1,2a,2b}: resistance";
-  parameter SIpu.Reactance[3] x={0.05,0.05,0.05} "{1,2a,2b}: stray reactance";
+  SIpu.Resistance[3] r={0.05,0.05,0.05} "{1,2a,2b}: resistance";
+  SIpu.Reactance[3] x={0.05,0.05,0.05} "{1,2a,2b}: stray reactance";
 
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
 </html>"));
@@ -750,6 +756,7 @@ Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
 </html>"));
 end Parameters;
+
 annotation (preferredView="info",
     Documentation(info="<html>
 <p>One-phase transformer models in different abstraction levels.</p>

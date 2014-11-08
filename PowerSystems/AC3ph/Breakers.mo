@@ -324,7 +324,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
   model Breaker "Breaker, 3-phase dq0"
     extends Partials.SwitchTrsfBase;
 
-    replaceable Parameters.BreakerArc par "breaker parameter"
+    replaceable parameter Parameters.BreakerArc par "breaker parameter"
                                              annotation (Placement(
           transformation(extent={{60,70},{80,90}})));
   protected
@@ -495,19 +495,21 @@ package Parameters "Parameter data for interactive use"
 
 record BreakerArc "Breaker parameters, 3-phase"
   extends Modelica.Icons.Record;
-  parameter SI.Distance D=50e-3 "contact distance open";
-  parameter SI.Time t_opening=30e-3 "opening duration";
-  parameter SI.ElectricFieldStrength Earc=50e3 "electric field arc";
-  parameter Real R0=1 "small signal resistance arc";
+
+  SI.Distance D=50e-3 "contact distance open" annotation(Dialog);
+  SI.Time t_opening=30e-3 "opening duration" annotation(Dialog);
+  SI.ElectricFieldStrength Earc=50e3 "electric field arc" annotation(Dialog);
+  Real R0=1 "small signal resistance arc" annotation(Dialog);
 
   annotation (defaultComponentName = "data",
+    defaultComponentPrefixes="parameter",
     Documentation(
             info="<html>
-</html>
-"));
+</html>"));
 end BreakerArc;
+
   annotation (preferredView="info",
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
 </html>"));
 end Parameters;
