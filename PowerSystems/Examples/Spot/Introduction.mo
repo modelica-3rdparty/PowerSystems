@@ -94,7 +94,7 @@ Quantities in 'meter_pu' are displayed in pu.</p>
   meter_pu.p[1] = 0.83232 pu (active power in pu)
 </pre>
 and other meter-signals.</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
 </html>"),
     experiment(StopTime=0.1));
   end Units;
@@ -159,7 +159,7 @@ and other meter-signals.</p>
   meter1     v and i-signal, system frequency (60 Hz)
   meter2     v and i-signal, variable frequency (10 to 50 Hz)
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
 </html>"),
     experiment(StopTime=1, Interval=1e-3));
   end Frequency;
@@ -210,7 +210,7 @@ and other meter-signals.</p>
 </pre>
 and other meter-signals.<br>
 Compare with the signals of the identical system in the example below.</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
 </html>"),
     experiment(StopTime=0.1, Interval=0.1e-3));
   end ReferenceInertial;
@@ -262,7 +262,7 @@ Compare with the signals of the identical system in the example below.</p>
 </pre>
 and other meter-signals.<br>
 Compare with the signals of the identical system in the example above.</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
 </html>"),
     experiment(StopTime=0.1, Interval=0.1e-3));
   end ReferenceSynchron;
@@ -312,7 +312,7 @@ Compare with the signals of the identical system in the example above.</p>
   meter_abc.i_abc
   meter_dq0.i_abc
 </pre>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
 </html>"),
     experiment(StopTime=0.1, Interval=0.1e-3));
   end InitialSteadyState;
@@ -417,7 +417,7 @@ Compare with the signals of the identical system in the example above.</p>
   meter.p[2]  reactive power in pu, from 0.25 (500 MW) to 0.125 (250 MW)
 </pre>
 and other meter-signals.</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
 </html>
 "),    experiment(StopTime=1, Interval=1e-3));
   end SimulationTransient;
@@ -523,7 +523,7 @@ This approximation corresponds to an infinitely fast response of the system.</p>
   meter.p[2]  reactive power in pu, from 0.25 (500 MW) to 0.125 (250 MW)
 </pre>
 and other meter-signals.</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
 </html>
 "),    experiment(StopTime=1, Interval=1e-3));
   end SimulationSteadyState;
@@ -615,7 +615,7 @@ Select Experiment Setup/Compiler/'MS Visual C++ with DDE'<br>
 Check Experiment Setup/Realtime/'Synchronize with realtime'<br>
 Select Experiment Setup/Realtime/'Load result interval' = 0.1 s<br>
 Select 'Diagram' in the Simulation layer</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
 </html>"),
     experiment(StopTime=30, Interval=0.02));
   end Display;
@@ -655,7 +655,7 @@ Interpolates table-values.</p>
   y[2] against u     quadratic curve
 </pre>
 (choose  u as 'independent variable', right mouse)</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
 </html>"),
     experiment(StopTime=1));
   end Tables;
@@ -665,7 +665,7 @@ Documentation(info="<html>
 <p>Each of the introductory examples points out one specific aspect of specifying and simulating a model.
 The examples are based on most elementary configurations. A meter is added for convenience, displaying signals both in abc- and dq0-representation. </p>
 <p>The component PowerSystems.System is needed in all models, except in Introduction.Tables.</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
 </html>
 "));
 end Introduction;

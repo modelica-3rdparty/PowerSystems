@@ -740,7 +740,7 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
 <p>The stator contains one winding each in d-axis, q-axis, o-axis.<br>
 The rotor contains n_r windings each in d-axis and q-axis (at least one).<br>
 See also equivalent circuit on 'Diagram layer' of
-<a href=\"Parameters.Asynchron\">Parameters.Asynchron</a> !</p>
+<a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Asynchron\">Parameters.Asynchron</a> !</p>
 <pre>
   v, i:                  stator-voltage and -current dq0
   v_rd[n_r], i_rd[n_r]:  rotor-voltage and -current d-axis
@@ -917,7 +917,7 @@ The transformation angle is the (electric) rotor-angle relative to the reference
 <p>'Voltage behind synchronous reactance', simplified model of synchronous machine.<br>
 One winding in d-axis, q-axis, o-axis.<br>
 See also equivalent circuit on 'Diagram layer' of
-<a href=\"Parameters.Synchron3rd\">Parameters.Synchron3rd</a> !</p>
+<a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Synchron3rd\">Parameters.Synchron3rd</a> !</p>
 <pre>
   v, i:          stator-voltage and -current dq0 reference-system
   v_s, i_s:      stator-voltage and -current dq0 rotor-system<br>
@@ -1030,7 +1030,7 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
 Stator: one winding each in d-axis, q-axis, o-axis.<br>
 Rotor: n_d windings in d-axis (field f, (n_d-1) damper D1, ..), n_q windings in q-axis (damper Q1, ..).<br>
 See also equivalent circuit on 'Diagram layer' of
-<a href=\"Parameters.Synchron\">Parameters.Synchron</a> !</p>
+<a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Synchron\">Parameters.Synchron</a> !</p>
 <pre>
   v, i:          stator-voltage and -current dq0 reference-system
   v_s, i_s:      stator-voltage and -current dq0 rotor-system

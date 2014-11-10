@@ -720,7 +720,7 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Combined turbine-generator systems with governor and exciter, both electrical and mechanical model.</p>
-<p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"PowerSystems.UsersGuide.Overview\">up users guide</a></p>
+<p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"modelica://PowerSystems.UsersGuide.Overview\">up users guide</a></p>
 </html>
 "));
 end Generation;

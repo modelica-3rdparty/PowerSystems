@@ -389,7 +389,7 @@ The secondary side is winding-reduced to the primary, as the equations are writt
     end if;
   annotation(Documentation(info="<html>
 See also equivalent circuit on 'Diagram layer' of
-<a href=\"Data.Parameters.Asynchron\">Data.Parameters.Asynchron</a> !</p>
+<a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Asynchron\">AC3ph.Machines.Parameters.Asynchron</a> !</p>
 </html>
 "));
   end machineAsyn;
@@ -417,7 +417,7 @@ See also equivalent circuit on 'Diagram layer' of
     c.omega_nom := omega_nom;
   annotation (Documentation(info="<html>
 See also equivalent circuit on 'Diagram layer' of
-<a href=\"Data.Parameters.Synchron3rd\">Data.Parameters.Synchron3rd</a> !</p>
+<a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Synchron3rd\">AC3ph.Machines.Parameters.Synchron3rd</a> !</p>
 </html>"));
   end machineSyn3rd;
 
@@ -494,7 +494,7 @@ See also equivalent circuit on 'Diagram layer' of
     c.omega_nom := omega_nom;
   annotation (Documentation(info="<html>
 See also equivalent circuit on 'Diagram layer' of
-<a href=\"Data.Parameters.Synchron\">Data.Parameters.Synchron</a> !</p>
+<a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Synchron\">AC3ph.Machines.Parameters.Synchron</a> !</p>
 </html>"));
   end machineSyn;
 
@@ -511,11 +511,11 @@ See also equivalent circuit on 'Diagram layer' of
       a[1:k] := cat(1, {a[1] + T[k]}, a[2:k] + a[1:k-1]*T[k]);
     end for;
   annotation (Documentation(info="<html>
-<p>This function is related to <a href=\"PowerSystems.Basic.Math.polyCoefReal\">Math.polyCoefReal</a>, but modified for polynomes of the form
+<p>This function is related to <a href=\"modelica://PowerSystems.Basic.Math.polyCoefReal\">Math.polyCoefReal</a>, but modified for polynomes of the form
 <pre>  product(1 + p*T[k]), k in 1:n</pre>
 with real time constants <tt>T</tt>. It calculates the <tt>n</tt> coefficients of the powers 1:n of <tt>p</tt>
 <pre>  a[k] for k in 1:n</pre>i.e. the constant factor 1 is omitted.</p>
-<p>See also <a href=\"PowerSystems.Basic.Precalculation.polyTime\">polyTime</a></p>
+<p>See also <a href=\"modelica://PowerSystems.Basic.Precalculation.polyTime\">polyTime</a></p>
 </html>"));
   end polyCoef;
 
@@ -543,11 +543,11 @@ with real time constants <tt>T</tt>. It calculates the <tt>n</tt> coefficients o
     T := -ones(n)./lam[n:-1:1,1];
     T := sortDown(T);
   annotation(Documentation(info="<html>
-<p>This function is related to <a href=\"PowerSystems.Basic.Math.polyRoots\">Math.polyRoots</a>, but modified for polynomes of the form
+<p>This function is related to <a href=\"modelica://PowerSystems.Basic.Math.polyRoots\">Math.polyRoots</a>, but modified for polynomes of the form
 <pre>  product(1 + p*T[k]), k in 1:n</pre>
 It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and herefrom <tt>T</tt>. The time constants are sorted in descending order.</p>
 <p>A boolean variable <tt>Tisreal</tt> indicates whether all time constants are real or not.</p>
-<p>See also <a href=\"PowerSystems.Basic.Precalculation.polyCoef\">polyCoef</a></p>
+<p>See also <a href=\"modelica://PowerSystems.Basic.Precalculation.polyCoef\">polyCoef</a></p>
 </html>
 "));
   end polyTime;
@@ -994,7 +994,7 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     annotation (preferredView="info",
       Documentation(info="<html>
 <p>Functions needed for the determination of coefficient-matrices from a set of phenomenological input parameters.</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Precalculation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.UsersGuide.Introduction.Precalculation\">up users guide</a></p>
 <p>The second part of this package has been written in honour of <b>I. M. Canay</b>, one of the important electrical engeneers of the 20th century. He understood, what he wrote, and his results were exact. The package is based on his ideas and formulated in full mathematical generality.</p>
 <p>Literature:
 <ul>

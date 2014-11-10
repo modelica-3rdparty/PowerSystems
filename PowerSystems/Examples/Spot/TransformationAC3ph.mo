@@ -75,7 +75,7 @@ Delta_Y configuration:<br>
   meter12.alpha_v     voltage phase secondary Y-Y topology
   meter22.alpha_v     voltage phase secondary Y_Delta topology
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransformationAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1));
   end PhaseShifts;
@@ -177,7 +177,7 @@ if primary side is changed at fixed source.
 <pre>  meter 22.v_norm     voltage norm secondary</pre>
 </pre>
 if secondary side is changed at fixed source.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransformationAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=4));
   end TapChanger;
@@ -245,13 +245,13 @@ Delta_Y configuration:<br>
   meter12.alpha_v     voltage phase secondary Y-Y topology
   meter22.alpha_v     voltage phase secondary Y_Delta topology
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransformationAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1));
   end TreeWinding;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transformers three-phase and tap changer control.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
 </html>"));
 end TransformationAC3ph;

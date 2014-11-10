@@ -11,8 +11,10 @@ package PowerSystems "Library for electrical power systems"
   package UsersGuide "User's Guide"
     extends Modelica.Icons.Information;
 
-    annotation(__Dymola_DocumentationClass=true, preferredView="info", Documentation(info="<html>
-<p><b><font style=\"font-size: 10pt; color: #008000; \">Overview</font></b></p>
+    package Overview "Overview"
+      extends Modelica.Icons.Information;
+      annotation (
+        Documentation(info="<html>
 <p>PowerSystems combines a generic concept for the modeling of electrical power systems at different levels of detail with the extensive component models of the former SPOT library. </p>
 <p>PowerSystems uses replaceable PhaseSystems to define the voltage and current variables as well as optional supporting reference angles in the connectors. The aim is to have different single and polyphase systems and different mathematical formulations in one framework. In particular this shall cover systems like: </p>
 <p><ul>
@@ -53,12 +55,24 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 </tr>
 </table>
 <p/>
+</html>"));
+    end Overview;
 
-<p><b><font style=\"font-size: 10pt; color: #008000; \">Examples</font></b></p>
-<p>The examples NetworkLoop and NetworkOpened are taken from the textbook Oeding, Oswald: Elektrische Kraftwerke und Netze, section 14.2.5: Leistungsfluss in Ringnetzen. The example NetworkControlled additionally investigates frequency/power control in conjunction with the Modelica.Rotational library and a basic EMF (Electro-Motoric Force). </p>
-<p>The PowerWorld example models a control area for power distribution in island mode. It was used to demonstrate &QUOT;Stabilization of wind power&QUOT; in the Eurosyslib work package 5.3. See <a href=\"modelica://PowerSystems.Examples.PowerWorld\">Examples.PowerWorld</a>. </p>
-
-<p><b><font style=\"font-size: 10pt; color: #008000; \">Contributors</font></b></p>
+    package Examples "Examples"
+      extends Modelica.Icons.Information;
+      annotation (
+        Documentation(info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Network\">Examples.Network</a>: The examples NetworkLoop and NetworkOpened are taken from the textbook Oeding, Oswald: Elektrische Kraftwerke und Netze, section 14.2.5: Leistungsfluss in Ringnetzen. The example NetworkControlled additionally investigates frequency/power control in conjunction with the Modelica.Rotational library and a basic EMF (Electro-Motoric Force). </p>
+<p><a href=\"modelica://PowerSystems.Examples.PowerWorld\">Examples.PowerWorld</a> models a control area for power distribution in island mode. It was used to demonstrate &QUOT;Stabilization of wind power&QUOT; in the Eurosyslib work package 5.3. See . </p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot\">Examples.Spot</a> serve as tutorial and interactive documentation for the detailed component models in AC1ph_DC and AC3ph. </p>
+</html>"));
+    end Examples;
+    
+    package ReleaseNotes "Release notes"
+      extends Modelica.Icons.ReleaseNotes;
+      annotation (
+        Documentation(info="<html>
+<p><b>Contributors</b></p>
 <ul>
 <li><a href=\"mailto:hj.wiesmann@bluewin.ch\">Hansj&uuml;rg Wiesmann</a>:<br>
    Wrote the original Spot library and supported the creation of the PowerSystems library.
@@ -132,6 +146,13 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 </li>
 </ul>
 </html>"));
+    end ReleaseNotes;
+
+    annotation(DocumentationClass=true, preferredView="info",
+      Documentation(info="<html>
+<p>See the subsections below and the linked examples.</p>
+<p>See also the publication <a href=\"https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf\">Franke, Wiesmann: Flexible modeling of electrical power systems -- the Modelica PowerSystems library, Modelica conference 2014</a>.</p>
+</html>"));
   end UsersGuide;
 
 
@@ -147,9 +168,8 @@ The following table summerizes the PhaseSystems that are predefined in the Power
   version="0.3",
   versionDate="2014-10-20",
   Documentation(info="<html>
-<h3><font color=\"#000080\" size=5>Modelica PowerSystems library</font></h3>
-<p>The library is intended to model electrical <b>power systems</b> at different <b>levels of detail</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
-<p>The Users Guide to the library is <a href=\"PowerSystems.UsersGuide\"><b>here</b></a>.</p>
+<p>The Modelica PowerSystems library is intended for the modeling of electrical <b>power systems</b> at different <b>levels of detail</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
+<p>The Users Guide to the library is <a href=\"modelica://PowerSystems.UsersGuide\"><b>here</b></a>.</p>
 <p><br/>Copyright &copy; 2007-2014, Modelica Association. </p>
 <p><i>This Modelica package is <b>Open Source</b> software; it can be redistributed and/or modified
 under the terms of the <b>Modelica license, version 2.0, see the license conditions and

@@ -65,7 +65,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       Documentation(
               info="<html>
 <p>1-phase rectifier. Compare 'equation' and 'modular' version.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.InvertersAC1ph_DC\">up users guide</a></p>
 </html>
 "),   experiment(
         StopTime=0.2,
@@ -135,7 +135,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       Documentation(
               info="<html>
 <p>1-phase inverter, feeding load at constant 100Hz with increasing amplitude.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.InvertersAC1ph_DC\">up users guide</a></p>
 </html>
 "),   experiment(
         StopTime=0.2,
@@ -211,7 +211,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       Documentation(
               info="<html>
 <p>3-phase inverter, feeding into grid with increasing phase. Compare 'switch', 'equation' and 'modular' version.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.InvertersAC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(
         StopTime=0.2,
@@ -283,7 +283,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       Documentation(
               info="<html>
 <p>1-phase inverter based on AVERAGED switch-equation, feeding into grid with increasing phase.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.InvertersAC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(
         StopTime=0.2,
@@ -343,7 +343,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       Documentation(
               info="<html>
 <p>One quadrant chopper.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.InvertersAC1ph_DC\">up users guide</a></p>
 </html>
 "),   experiment(
         StopTime=0.2,
@@ -353,7 +353,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Comparison of different one-phase rectifier and inverter models.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
 </html>
 "));
 end InvertersAC1ph_DC;

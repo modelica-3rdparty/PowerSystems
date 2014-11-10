@@ -51,6 +51,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=1e-4));
   end Breaker;
@@ -116,6 +117,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=0.2, Interval=1e-4));
   end Fault;
@@ -153,6 +155,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=2.7e-4));
   end Impedance;
@@ -184,6 +187,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=2.7e-4));
   end ImpedanceOneTerm;
@@ -231,6 +235,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=1e-4));
   end Line;
@@ -270,6 +275,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1, Interval=1e-4));
   end LoadAC;
@@ -310,6 +316,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1, Interval=2.7e-4));
   end LoadDC;
@@ -363,6 +370,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=1));
   end Machines;
@@ -396,6 +404,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=0.2, Interval=2.7e-4));
   end Sensor;
@@ -423,6 +432,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=0.2, Interval=2.7e-4));
   end Source;
@@ -483,6 +493,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=3, Interval=4e-4));
   end Transformer;
@@ -535,6 +546,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=0.2, Interval=0.2e-3));
   end Rectifier;
@@ -595,6 +607,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=0.2, Interval=0.2e-3));
   end Inverter;
@@ -603,6 +616,6 @@ package AC1ph_DC "AC 1-phase and DC components"
 Documentation(info="<html>
 <p>This package contains small models for testing single components from AC1ph_DC.
 The replaceable component can be replaced by a user defined component of similar type.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
 </html>"));
 end AC1ph_DC;

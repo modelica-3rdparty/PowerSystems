@@ -54,7 +54,7 @@ Alternatively one can look at a variation of amplitude ratios.</p>
   sensor1.p[1]     active power
   sensor1.p[2]     reactive power.
 </pre>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=60));
 end PowerTransfer;
@@ -155,7 +155,7 @@ equation
   meter1/2/3.v_norm and plot it against
   meter1/2/3.p[1] as independent variable.
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>"),
       experiment(StopTime=180, Interval=180e-3));
 end VoltageStability;
@@ -220,7 +220,7 @@ end VoltageStability;
 Compare with PIline.</p>
 <p><i>See for example:</i>
 <pre>  meter.p[1:2]     active and reactive power</pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1));
   end RXline;
@@ -288,7 +288,7 @@ Compare with RXline.</p>
   meter.p[1:2]     active and reactive power
   line.v           line voltage, oscillations due to switching
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1, Interval=2.5e-5));
   end PIline;
@@ -360,7 +360,7 @@ Compare with FaultPIline.</p>
   meter.p[1:2]     active and reactive power
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1));
   end FaultRXline;
@@ -433,7 +433,7 @@ Compare with FaultRXline.</p>
   line.v           line voltage, oscillations due to switching
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1, Interval=2.5e-5));
   end FaultPIline;
@@ -526,7 +526,7 @@ Compare with DoublePIline.</p>
   meter.p[1:2]     active and reactive power
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=0.5, Interval=2.5e-5));
   end DoubleRXline;
@@ -621,7 +621,7 @@ Compare with DoublePIline.</p>
   lineF.v          fault line voltage
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, Interval=2.5e-5));
   end DoublePIline;
@@ -724,7 +724,7 @@ Compare with DoublePIline.</p>
   meter.p[1:2]     active and reactive power
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=0.5));
   end DoubleRXlineTG;
@@ -828,13 +828,13 @@ Compare with DoublePIline.</p>
   lineF.v          fault line voltage
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, Interval=1.5e-4));
   end DoublePIlineTG;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transmission line models and faults.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
 </html>"));
 end TransmissionAC3ph;

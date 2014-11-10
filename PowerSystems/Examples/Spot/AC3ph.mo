@@ -45,7 +45,11 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{60,0},{90,0}}, color={0,110,110}));
     connect(grd1.term, voltage.neutral)
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,255}));
-    annotation (      experiment(StopTime=0.2, Interval=1e-4));
+    annotation (
+      Documentation(info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=0.2, Interval=1e-4));
   end Breaker;
 
   model Fault "Fault"
@@ -105,8 +109,9 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-</html>
-"),   experiment(StopTime=0.2, Interval=1e-4));
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=0.2, Interval=1e-4));
   end Fault;
 
   model Impedance "Impedance"
@@ -141,8 +146,9 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-</html>
-"),      experiment(StopTime=0.2));
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=0.2));
   end Impedance;
 
   model ImpedanceYD "Impedance Y-Delta"
@@ -173,8 +179,9 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-</html>
-"),      experiment(StopTime=0.2));
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=0.2));
   end ImpedanceYD;
 
   model Line "Line"
@@ -220,8 +227,9 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-</html>
-"),      experiment(StopTime=1));
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=1));
   end Line;
 
   model Load "Load"
@@ -259,6 +267,7 @@ package AC3ph "AC 3-phase components dq0"
   annotation (
     Documentation(
             info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
 </html>"),
     experiment(StopTime=1));
   end Load;
@@ -309,13 +318,18 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{0,10},{0,10}}, color={176,0,0}));
     connect(trsSignal.y, torq.tau)
       annotation (Line(points={{80,0},{80,0}}, color={0,0,127}));
+    annotation (
+      Documentation(info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=1));
   end Machines;
 
   model Sensor "Sensor and meter"
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-    PowerSystems.AC3ph.Sources.Vspectrum voltage
+    PowerSystems.AC3ph.Sources.Vspectrum voltage(scType_par=false)
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res      annotation (Placement(
           transformation(extent={{80,-10},{100,10}})));
@@ -336,6 +350,11 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{20,0},{80,0}}, color={0,110,110}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,255}));
+    annotation (
+      Documentation(info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=1));
   end Sensor;
 
   model Source "Source"
@@ -360,6 +379,11 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{60,0},{70,0}}, color={0,110,110}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-40,0},{-40,0}}, color={0,0,255}));
+    annotation (
+      Documentation(info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=1));
   end Source;
 
   model Transformer "Transformer"
@@ -378,8 +402,9 @@ package AC3ph "AC 3-phase components dq0"
       v_tc2={1,1.2},
       V_nom={1,10}),
       redeclare PowerSystems.AC3ph.Ports.Topology.Y top_p "Y",
-      redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_n "Delta")
-                           annotation (Placement(transformation(extent={{0,-10},
+      redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_n "Delta",
+      use_tap_p=true,
+      use_tap_n=true)      annotation (Placement(transformation(extent={{0,-10},
               {20,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter2(V_nom=10)
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
@@ -419,8 +444,9 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-</html>
-"),      experiment(StopTime=3));
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=3));
   end Transformer;
 
   model Rectifier "Rectifier"
@@ -472,8 +498,9 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-</html>
-"),   experiment(StopTime=1, Interval=0.2e-3));
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=1, Interval=0.2e-3));
   end Rectifier;
 
   model Inverter "Inverter, controlled rectifier"
@@ -533,14 +560,15 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-</html>
-"),   experiment(StopTime=1, Interval=0.2e-3));
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=1, Interval=0.2e-3));
   end Inverter;
 
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>This package contains small models for testing single components from AC3ph.
 The replaceable component can be replaced by a user defined component of similar type.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
 </html>"));
 end AC3ph;

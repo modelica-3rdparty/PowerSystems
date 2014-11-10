@@ -4,6 +4,6 @@ package Blocks "Blocks"
 
 annotation (preferredView="info",
 Documentation(info="<html>
-<p><a href=\"PowerSystems.UsersGuide.Overview\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.UsersGuide.Overview\">up users guide</a></p>
 </html>"));
 end Blocks;
