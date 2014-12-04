@@ -8,14 +8,14 @@ package Generic "Simple components for basic investigations"
     parameter SI.Inductance L = 1/314 "reactive component";
     SI.AngularFrequency omegaRef;
   equation
-    if true or PhaseSystem.m > 0 then
+    if PhaseSystem.m > 0 then
       omegaRef = der(PhaseSystem.thetaRef(terminal_p.theta));
     else
       omegaRef = 0;
     end if;
     v = R*i + omegaRef*L*j(i);
     zeros(PhaseSystem.n) = terminal_p.i + terminal_n.i;
-    if true or PhaseSystem.m > 0 then
+    if PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
     annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
@@ -48,14 +48,14 @@ package Generic "Simple components for basic investigations"
     parameter Modelica.SIunits.Capacitance C = 1/314 "reactive component";
     SI.AngularFrequency omegaRef;
   equation
-    if true or PhaseSystem.m > 0 then
+    if PhaseSystem.m > 0 then
       omegaRef = der(PhaseSystem.thetaRef(terminal_p.theta));
     else
       omegaRef = 0;
     end if;
     i = G*v + omegaRef*C*j(v);
     zeros(PhaseSystem.n) = terminal_p.i + terminal_n.i;
-    if true or PhaseSystem.m > 0 then
+    if PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
     annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
@@ -93,7 +93,7 @@ package Generic "Simple components for basic investigations"
   equation
     terminal_p.v = ratio*terminal_n.v;
     zeros(PhaseSystem.n) = ratio*terminal_p.i + terminal_n.i;
-    if true or PhaseSystem.m > 0 then
+    if PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
     annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
@@ -152,7 +152,7 @@ package Generic "Simple components for basic investigations"
     outer System system;
 
   equation
-    if true or PhaseSystem.m > 0 then
+    if PhaseSystem.m > 0 then
       if synchronous then
         pp*flange.phi = PhaseSystem.thetaRef(terminal.theta);
         if Connections.isRoot(terminal.theta) then
@@ -222,7 +222,7 @@ package Generic "Simple components for basic investigations"
   protected
     outer System system;
   equation
-    if true or PhaseSystem.m > 0 then
+    if PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
         PhaseSystem.thetaRef(terminal.theta) = system.theta;
         if PhaseSystem.m > 1 then
@@ -289,7 +289,7 @@ package Generic "Simple components for basic investigations"
   protected
     outer System system;
   equation
-    if true or PhaseSystem.m > 0 then
+    if PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
         PhaseSystem.thetaRef(terminal.theta) = system.theta;
         if PhaseSystem.m > 1 then
@@ -370,7 +370,7 @@ package Generic "Simple components for basic investigations"
   protected
     outer System system;
   equation
-    if true or PhaseSystem.m > 0 then
+    if PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
         PhaseSystem.thetaRef(terminal.theta) = system.theta;
         if PhaseSystem.m > 1 then
@@ -545,7 +545,7 @@ package Generic "Simple components for basic investigations"
     model PMeter "measure power flow"
       extends Ports.PartialTwoTerminal;
       Modelica.Blocks.Interfaces.RealOutput P(quantity="Power",
-                                                   final unit="MW")
+                                              unit="W")
         "Active power flow from terminal_p to terminal_n"
                                                annotation (Placement(
             transformation(
@@ -553,10 +553,10 @@ package Generic "Simple components for basic investigations"
             extent={{10,-10},{-10,10}},
             rotation=270)));
     equation
-      P = S[1];
+      P = (PhaseSystem.phasePowers_vi(terminal_p.v, i))[1];
       v = zeros(PhaseSystem.n);
       zeros(PhaseSystem.n) = terminal_p.i + terminal_n.i;
-      if true or PhaseSystem.m > 0 then
+      if PhaseSystem.m > 0 then
         terminal_p.theta = terminal_n.theta;
       end if;
       annotation(Icon(coordinateSystem(
@@ -584,7 +584,7 @@ package Generic "Simple components for basic investigations"
             Ellipse(extent={{-20,20},{20,-20}}, lineColor={135,135,135}),
             Text(
               extent={{-149,-114},{151,-154}},
-              lineColor={0,0,255},
+              lineColor={0,0,0},
               textString="%name"),
             Ellipse(
               extent={{-20,20},{20,-20}},

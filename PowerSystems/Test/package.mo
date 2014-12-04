@@ -2,7 +2,7 @@ within PowerSystems;
 package Test 
 
 
-  package SimpleComponentsTest
+  package GenericComponentsTest
   "See: Oeding, Oswald: Elektrische Kraftwerke und Netze, section 14: Leistungsfluss im Drehstromnetz."
     model ImpedanceTest
     import PowerSystems;
@@ -107,6 +107,25 @@ package Test
       annotation (                  experiment(StopTime=1));
     end FixedLoadTest;
 
+    model PMeterTest
+    import PowerSystems;
+
+      PowerSystems.Generic.FixedVoltageSource
+                                 source
+        annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+      PowerSystems.Generic.Sensors.PMeter pMeter
+      annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+      PowerSystems.Generic.FixedLoad
+                        load(                       P=2.7076e6, phi=atan(1000/
+          3000))                                                                                                     annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    equation
+    connect(source.terminal, pMeter.terminal_p)
+      annotation (Line(points={{-60,10},{-40,10}}, color={0,120,120}));
+    connect(pMeter.terminal_n, load.terminal)
+      annotation (Line(points={{-20,10},{0,10}}, color={0,120,120}));
+      annotation (                  experiment(StopTime=1));
+    end PMeterTest;
+
     model GeneratorTest
     import PowerSystems;
 
@@ -184,6 +203,6 @@ package Test
       annotation (                  experiment(StopTime=1));
     end GeneratorTest2;
 
-  end SimpleComponentsTest;
+  end GenericComponentsTest;
 
 end Test;
