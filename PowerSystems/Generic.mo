@@ -544,6 +544,7 @@ package Generic "Simple components for basic investigations"
     extends Modelica.Icons.SensorsPackage;
     model PMeter "measure power flow"
       extends Ports.PartialTwoTerminal;
+      SI.Power P_arr[PhaseSystem.n];
       Modelica.Blocks.Interfaces.RealOutput P(quantity="Power",
                                               unit="W")
         "Active power flow from terminal_p to terminal_n"
@@ -553,7 +554,8 @@ package Generic "Simple components for basic investigations"
             extent={{10,-10},{-10,10}},
             rotation=270)));
     equation
-      P = (PhaseSystem.phasePowers_vi(terminal_p.v, i))[1];
+      P_arr = PhaseSystem.phasePowers_vi(terminal_p.v, i);
+      P = P_arr[1];
       v = zeros(PhaseSystem.n);
       zeros(PhaseSystem.n) = terminal_p.i + terminal_n.i;
       if PhaseSystem.m > 0 then
