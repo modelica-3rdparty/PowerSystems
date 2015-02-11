@@ -16,6 +16,8 @@ package Test
       PowerSystems.Generic.Ground
         ground
         annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    inner PowerSystems.System system
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
       connect(source.terminal, load.terminal_p)
         annotation (Line(points={{-60,10},{-20,10}}, color={0,120,120}));
@@ -35,6 +37,8 @@ package Test
       PowerSystems.Generic.Ground
         ground
         annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    inner PowerSystems.System system
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
       connect(source.terminal, load.terminal_p)
         annotation (Line(points={{-60,10},{-20,10}}, color={0,120,120}));
@@ -59,6 +63,8 @@ package Test
         ground
         annotation (Placement(transformation(extent={{40,
                                                       0},{60,20}})));
+    inner PowerSystems.System system
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
       connect(source.terminal, line.terminal_p)
         annotation (Line(points={{-60,10},{-40,10}}, color={0,120,120}));
@@ -79,6 +85,8 @@ package Test
         annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
       PowerSystems.Generic.FixedCurrent
                            load(I=173.448, phi=-0.356)                                         annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    inner PowerSystems.System system
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
       connect(line.terminal_n, load.terminal)
         annotation (Line(points={{-20,10},{0,10}}, color={0,120,120}));
@@ -99,6 +107,8 @@ package Test
       PowerSystems.Generic.FixedLoad
                         load(                       P=2.7076e6, phi=atan(1000/
           3000))                                                                                                     annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    inner PowerSystems.System system
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
       connect(source.terminal, line.terminal_p)
         annotation (Line(points={{-60,10},{-40,10}}, color={0,120,120}));
@@ -118,6 +128,8 @@ package Test
       PowerSystems.Generic.FixedLoad
                         load(                       P=2.7076e6, phi=atan(1000/
           3000))                                                                                                     annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    inner PowerSystems.System system
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
     connect(source.terminal, pMeter.terminal_p)
       annotation (Line(points={{-60,10},{-40,10}}, color={0,120,120}));
@@ -142,6 +154,8 @@ package Test
                         fixedLoad(P=3e6,
                                   phi=0.3)
         annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    inner PowerSystems.System system
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
     connect(inertia.flange_b, generator.flange)
       annotation (Line(points={{-30,10},{-20,10}}, color={0,0,0}));
@@ -183,6 +197,8 @@ package Test
       PowerSystems.Generic.Impedance
         impedance1
         annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    inner PowerSystems.System system
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
     connect(inertia.flange_b, generator.flange)
       annotation (Line(points={{-30,10},{-20,10}}, color={0,0,0}));
