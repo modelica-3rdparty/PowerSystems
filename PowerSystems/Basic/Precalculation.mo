@@ -346,11 +346,11 @@ The secondary side is winding-reduced to the primary, as the equations are writt
 
     input AC3ph.Machines.Parameters.Asynchron p
       "parameters asynchronous machine";
-    input Integer n_r "number of rotor circuits";
     input Integer scale=1 "scaling factor topology (Y:1, Delta:3)";
-    output AC3ph.Machines.Coefficients.Asynchron c(n_r=n_r)
+    output AC3ph.Machines.Coefficients.Asynchron c(n_r=p.n_r)
       "coefficient matrices asynchronous machine";
   protected
+    final parameter Integer n_r=p.n_r "number of rotor circuits";
     final parameter SI.AngularFrequency omega_nom=2*pi*p.f_nom;
     final parameter Real[2] RL_base=Basic.Precalculation.baseRL(
                                            p.puUnits, p.V_nom, p.S_nom, omega_nom, scale)
@@ -425,13 +425,13 @@ See also equivalent circuit on 'Diagram layer' of
     extends PowerSystems.Basic.Icons.Function;
 
     input AC3ph.Machines.Parameters.Synchron p "parameters synchronous machine";
-    input Integer n_d "number of rotor circuits d-axis";
-    input Integer n_q "number of rotor circuits q-axis";
     input Integer scale=1 "scaling factor topology (Y:1, Delta:3)";
-    output AC3ph.Machines.Coefficients.Synchron c(n_d=n_d, n_q=n_q)
+    output AC3ph.Machines.Coefficients.Synchron c(n_d=p.n_d, n_q=p.n_q)
       "coefficient matrices synchronous machine";
 
   protected
+    final parameter Integer n_d=p.n_d "number of rotor circuits d-axis";
+    final parameter Integer n_q=p.n_q "number of rotor circuits q-axis";
     final parameter SI.AngularFrequency omega_nom=2*pi*p.f_nom;
     final parameter Real[2] RL_base=Basic.Precalculation.baseRL(
                                            p.puUnits, p.V_nom, p.S_nom, omega_nom, scale)
@@ -567,7 +567,7 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
 
   algorithm
     if n==0 then
-      xtr:=fill(0, 0);
+      xtr := fill(0, n);
     elseif n==1 then
       y[1] := -(Tc[1] - To[1])/Tc[1];
       xtr[1] := x/(1 + y[1]);
@@ -622,8 +622,8 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
     Boolean Treal;
 
   algorithm
-    if n ==0 then
-    To := fill(0,0);
+    if n == 0 then
+      To := fill(0, n);
     else
     y := x./xtr;
     y := y - cat(1, {1}, y[1:end-1]);
@@ -908,8 +908,8 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
   algorithm
     xm := cat(1, zeros(n), {x - xsig_s});
     if n==0 then
-      r_r := fill(0,0);
-      xsig_r := fill(0,0);
+      r_r := fill(0, n);
+      xsig_r := fill(0, n);
     else
       ac := polyCoef(Tc);
       ao := polyCoef(To);
