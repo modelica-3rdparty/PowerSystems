@@ -145,9 +145,6 @@ package Exciters "Generator Exciters "
 
     parameter SIpu.Voltage[2] v_f_minmax(each unit="1")={0, 3}
         "{min,max} exciter voltage";
-    protected
-    outer System system;
-    public
     Modelica.Blocks.Interfaces.RealInput setptVoltage(
                              final unit="1")
         "setpoint norm of terminal voltage pu"

@@ -154,9 +154,6 @@ package Governors "Turbine Governors "
 
     parameter SIpu.Power[2] p_minmax(each unit="1")={0,2}
         "{min,max} turbine power";
-    protected
-    outer System system;
-    public
     Modelica.Blocks.Interfaces.RealInput setptPower(
                            final unit="1") "setpoint power pu"
       annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));

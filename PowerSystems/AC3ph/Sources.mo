@@ -194,7 +194,6 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
     parameter SIpu.Reactance x=1 "reactance d- and q-axis";
     parameter SIpu.Reactance x_o=0.1 "reactance 0-axis";
   protected
-    outer System system;
     final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
     final parameter SIpu.Voltage v0(final fixed=false, start=1)
       "voltage behind reactance";
