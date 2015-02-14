@@ -93,20 +93,21 @@ Delta_Y configuration:<br>
     PowerSystems.AC3ph.Transformers.TrafoStray trafo1(par(
       V_nom={1,10},
       v_tc1={0.9,1.0,1.1},
-      v_tc2={0.9,1.0,1.1}))
-                           annotation (Placement(transformation(extent={{0,20},
-              {20,40}})));
+      v_tc2={0.9,1.0,1.1}),
+      use_tap_p=true,
+      use_tap_n=true)
+      annotation (Placement(transformation(extent={{0,20},{20,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter12(V_nom=10, phasor=true)
       annotation (Placement(transformation(extent={{40,20},{60,40}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res12(V_nom=10, r=1000)
-                                           annotation (Placement(transformation(
-            extent={{80,20},{100,40}})));
+      annotation (Placement(transformation(extent={{80,20},{100,40}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo2(par(
       V_nom={1,10},
       v_tc1={0.9,1.0,1.1},
-      v_tc2={0.9,1.0,1.1}))
-                           annotation (Placement(transformation(extent={{0,-20},
-              {20,-40}})));
+      v_tc2={0.9,1.0,1.1}),
+      use_tap_p=true,
+      use_tap_n=true)
+      annotation (Placement(transformation(extent={{0,-20},{20,-40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter22(phasor=true, V_nom=10)
       annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res22(V_nom=10, r=1000)
