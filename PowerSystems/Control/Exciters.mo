@@ -8,14 +8,14 @@ package Exciters "Generator Exciters "
       choices(choice=true "parameter", choice=false "initialised"));
     parameter SIpu.Voltage v_f(unit="1", fixed=par)=1 "exciter voltage"
                                                               annotation(Dialog(enable=par));
-    Modelica.Blocks.Interfaces.RealInput termVoltage[3](
-                             final unit="1") "terminal voltage pu"
+    Modelica.Blocks.Interfaces.RealInput termVoltage[3](each final unit="1")
+      "terminal voltage pu"
       annotation (Placement(transformation(
           origin={-60,-100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-    Modelica.Blocks.Interfaces.RealOutput fieldVoltage(
-                             final unit="1") "field voltage pu"
+    Modelica.Blocks.Interfaces.RealOutput fieldVoltage(final unit="1")
+      "field voltage pu"
       annotation (Placement(transformation(
           origin={60,-100},
           extent={{-10,-10},{10,10}},

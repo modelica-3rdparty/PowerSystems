@@ -61,14 +61,14 @@ package Machines "AC machines, electric part "
     parameter SI.Current[n_r] i_q_start = zeros(n_r) "start value of current q_axis"
       annotation(Dialog(tab="Initialization"));
 
-    Modelica.Blocks.Interfaces.RealOutput[2] i_meas(
-                             final unit="1") "measured current {i_d, i_q} pu"
+    Modelica.Blocks.Interfaces.RealOutput[2] i_meas(each final unit="1")
+      "measured current {i_d, i_q} pu"
       annotation (Placement(transformation(
           origin={-60,100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-    Modelica.Blocks.Interfaces.RealInput[2] i_act(
-                             final unit="1") "actuated current {i_d, i_q} pu"
+    Modelica.Blocks.Interfaces.RealInput[2] i_act(each final unit="1")
+      "actuated current {i_d, i_q} pu"
       annotation (Placement(transformation(
           origin={60,100},
           extent={{10,-10},{-10,10}},
@@ -342,22 +342,19 @@ The mapping from current demand to voltage demand is based on the steady-state e
     extends Partials.Synchron3rdBase(redeclare replaceable parameter
         PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_pm par);
 
-    Modelica.Blocks.Interfaces.RealOutput[2] i_meas(
-                             each final unit="1")
+    Modelica.Blocks.Interfaces.RealOutput[2] i_meas(each final unit="1")
       "measured current {i_d, i_q} pu"
       annotation (Placement(transformation(
           origin={-60,100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-    Modelica.Blocks.Interfaces.RealInput[2] i_act(
-                             each final unit="1")
+    Modelica.Blocks.Interfaces.RealInput[2] i_act(each final unit="1")
       "actuated current {i_d, i_q} pu"
       annotation (Placement(transformation(
           origin={60,100},
           extent={{10,-10},{-10,10}},
           rotation=90)));
-    Modelica.Blocks.Interfaces.RealOutput phiRotor=
-                      phi_el "rotor angle el"
+    Modelica.Blocks.Interfaces.RealOutput phiRotor=phi_el "rotor angle el"
       annotation (Placement(transformation(
           origin={100,100},
           extent={{10,-10},{-10,10}},
@@ -1124,16 +1121,14 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
     parameter SI.Voltage Vf_nom=1 "nom voltage field-winding"
       annotation(Evaluate=true, Dialog(group="Nominal"));
 
-    Modelica.Blocks.Interfaces.RealOutput[3] termVoltage(
-                                        final unit="1")
-        "terminal voltage pu to exciter control"
+    Modelica.Blocks.Interfaces.RealOutput[3] termVoltage(each final unit="1")
+      "terminal voltage pu to exciter control"
       annotation (Placement(transformation(
             origin={-60,100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
-    Modelica.Blocks.Interfaces.RealInput fieldVoltage(
-                             final unit="1")
-        "field voltage pu from exciter control"
+    Modelica.Blocks.Interfaces.RealInput fieldVoltage(final unit="1")
+      "field voltage pu from exciter control"
       annotation (Placement(transformation(
             origin={60,100},
             extent={{-10,-10},{10,10}},

@@ -142,7 +142,7 @@ record NominalDataTrafo "Units and nominal data transformer"
   Boolean puUnits = true
       "= true, if scaled with nom. values (pu), else scaled with 1 (SI)"
     annotation(Evaluate=true, Dialog(group="Parameter Scaling"));
-  SI.Voltage[:] V_nom(final min={0,0})={1,1}
+  SI.Voltage[:] V_nom(each final min=0)={1,1}
       "{prim,sec} nom Voltage (= base of pu)"
     annotation(Evaluate=true, Dialog(group="Nominal"));
   SI.ApparentPower S_nom(final min=0)=1
