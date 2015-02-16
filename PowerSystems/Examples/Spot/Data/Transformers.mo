@@ -3,17 +3,13 @@ package Transformers "Transformer example data"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 record TrafoIdeal1ph "Ideal trafo, 1-phase, example"
-  extends Basic.Nominal.NominalDataTrafo(
+  extends PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoIdeal1ph(
     puUnits=true,
     V_nom={15000,1400},
     S_nom=5e6,
-    f_nom=50/3);
-
-  SIpu.Voltage[:] v_tc1={-5, -2.5, 0, 2.5, 5}
-      "1: v-levels tap-changer" annotation(Dialog);
-  SIpu.Voltage[:] v_tc2={-5, -2.5, 0, 2.5, 5}
-      "2: v-levels tap-changer" annotation(Dialog);
-
+    f_nom=50/3,
+    v_tc1={-5, -2.5, 0, 2.5, 5},
+    v_tc2={-5, -2.5, 0, 2.5, 5});
   annotation (defaultComponentName="trafo15k_1400",
     defaultComponentPrefixes="parameter",
     Documentation(
@@ -22,19 +18,15 @@ record TrafoIdeal1ph "Ideal trafo, 1-phase, example"
 end TrafoIdeal1ph;
 
 record TrafoStray1ph "Trafo with ideal magnetic coupling, 1-phase, example"
-  extends Basic.Nominal.NominalDataTrafo(
+  extends PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph(
     puUnits=true,
     V_nom={15000,1400},
     S_nom=5e6,
-    f_nom=50/3);
-
-  SIpu.Voltage[:] v_tc1={-5, -2.5, 0, 2.5, 5}
-      "1: v-levels tap-changer" annotation(Dialog);
-  SIpu.Voltage[:] v_tc2={-5, -2.5, 0, 2.5, 5}
-      "2: v-levels tap-changer" annotation(Dialog);
-  SIpu.Resistance[2] r={0.03,0.03} "{1,2}: resistance" annotation(Dialog);
-  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance" annotation(Dialog);
-
+    f_nom=50/3,
+    v_tc1={-5, -2.5, 0, 2.5, 5},
+    v_tc2={-5, -2.5, 0, 2.5, 5},
+    r={0.03,0.03},
+    x={0.05,0.05});
   annotation (defaultComponentName="trafo15k_1400",
     defaultComponentPrefixes="parameter",
     Documentation(
@@ -55,21 +47,17 @@ record TrafoStray1ph "Trafo with ideal magnetic coupling, 1-phase, example"
 end TrafoStray1ph;
 
 record TrafoMag1ph "Trafo with magnetic coupling, 1-phase, example"
-  extends Basic.Nominal.NominalDataTrafo(
+  extends PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoMag1ph(
     puUnits=true,
     V_nom={15000,1400},
     S_nom=5e6,
-    f_nom=50/3);
-
-  SIpu.Voltage[:] v_tc1={-5, -2.5, 0, 2.5, 5}
-      "1: v-levels tap-changer" annotation(Dialog);
-  SIpu.Voltage[:] v_tc2={-5, -2.5, 0, 2.5, 5}
-      "2: v-levels tap-changer" annotation(Dialog);
-  SIpu.Resistance[2] r={0.03,0.03} "{1,2}: resistance" annotation(Dialog);
-  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance" annotation(Dialog);
-  SIpu.Resistance redc=500 "resistance eddy current" annotation(Dialog);
-  SIpu.Reactance xm=500 "mutual reactance" annotation(Dialog);
-
+    f_nom=50/3,
+    v_tc1={-5, -2.5, 0, 2.5, 5},
+    v_tc2={-5, -2.5, 0, 2.5, 5},
+    r={0.03,0.03},
+    x={0.05,0.05},
+    redc=500,
+    xm=500);
   annotation (defaultComponentName="trafo15k_1400",
     defaultComponentPrefixes="parameter",
     Documentation(
@@ -88,23 +76,19 @@ record TrafoMag1ph "Trafo with magnetic coupling, 1-phase, example"
 end TrafoMag1ph;
 
 record TrafoSat1ph "Trafo with saturation, 1-phase, example"
-  extends Basic.Nominal.NominalDataTrafo(
+  extends PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoSat1ph(
     puUnits=true,
     V_nom={15000,1400},
     S_nom=5e6,
-    f_nom=50/3);
-
-  SIpu.Voltage[:] v_tc1={-5, -2.5, 0, 2.5, 5}
-      "1: v-levels tap-changer" annotation(Dialog);
-  SIpu.Voltage[:] v_tc2={-5, -2.5, 0, 2.5, 5}
-      "2: v-levels tap-changer" annotation(Dialog);
-  SIpu.Resistance[2] r={0.03,0.03} "{1,2}: resistance" annotation(Dialog);
-  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance" annotation(Dialog);
-  SIpu.Resistance redc=500 "resistance eddy current" annotation(Dialog);
-  SIpu.Reactance xm=500 "mutual reactance" annotation(Dialog);
-  Real psi_sat(unit="1")=1.5 "saturation flux" annotation(Dialog);
-  SIpu.Reactance xm_sat=1 "mutual reactance saturated" annotation(Dialog);
-
+    f_nom=50/3,
+    v_tc1={-5, -2.5, 0, 2.5, 5},
+    v_tc2={-5, -2.5, 0, 2.5, 5},
+    r={0.03,0.03},
+    x={0.05,0.05},
+    redc=500,
+    xm=500,
+    psi_sat(unit="1")=1.5,
+    xm_sat=1);
   annotation (defaultComponentName="trafo15k_1400",
     defaultComponentPrefixes="parameter",
     Documentation(
@@ -121,19 +105,15 @@ record TrafoSat1ph "Trafo with saturation, 1-phase, example"
 end TrafoSat1ph;
 
 record TrafoIdeal "Ideal trafo, 3-phase, example"
-  extends Basic.Nominal.NominalDataTrafo(
+  extends PowerSystems.AC3ph.Transformers.Parameters.TrafoIdeal(
     puUnits=true,
     V_nom={20,400}*1e3,
     S_nom=1000e6,
-    f_nom=50);
-
-  SIpu.Voltage[:] v_tc1={-5, -2.5, 0, 2.5, 5}
-      "1: v-levels tap-changer" annotation(Dialog);
-  SIpu.Voltage[:] v_tc2={-5, -2.5, 0, 2.5, 5}
-      "2: v-levels tap-changer" annotation(Dialog);
-  SIpu.Resistance r_n1=1 "1: resistance neutral to grd" annotation(Dialog);
-  SIpu.Resistance r_n2=1 "2: resistance neutral to grd" annotation(Dialog);
-
+    f_nom=50,
+    v_tc1={-5, -2.5, 0, 2.5, 5},
+    v_tc2={-5, -2.5, 0, 2.5, 5},
+    r_n1=1,
+    r_n2=1);
   annotation (defaultComponentName="trafo20k_400k",
     defaultComponentPrefixes="parameter",
     Documentation(
@@ -142,22 +122,18 @@ record TrafoIdeal "Ideal trafo, 3-phase, example"
 end TrafoIdeal;
 
 record TrafoStray "Trafo with ideal magnetic coupling, 3-phase, example"
-  extends Basic.Nominal.NominalDataTrafo(
+  extends PowerSystems.AC3ph.Transformers.Parameters.TrafoStray(
     puUnits=true,
     V_nom={20,400}*1e3,
     S_nom=1000e6,
-    f_nom=50);
-
-  SIpu.Voltage[:] v_tc1={-5, -2.5, 0, 2.5, 5}
-      "1: v-levels tap-changer" annotation(Dialog);
-  SIpu.Voltage[:] v_tc2={-5, -2.5, 0, 2.5, 5}
-      "2: v-levels tap-changer" annotation(Dialog);
-  SIpu.Resistance r_n1=1 "1: resistance neutral to grd" annotation(Dialog);
-  SIpu.Resistance r_n2=1 "2: resistance neutral to grd" annotation(Dialog);
-  SIpu.Resistance[2] r={0.005,0.005} "{1,2}: resistance" annotation(Dialog);
-  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance" annotation(Dialog);
-  SIpu.Reactance[2] x0={x[1],x[2]} "{1,2}: stray reactance zero-comp" annotation(Dialog);
-
+    f_nom=50,
+    v_tc1={-5, -2.5, 0, 2.5, 5},
+    v_tc2={-5, -2.5, 0, 2.5, 5},
+    r_n1=1,
+    r_n2=1,
+    r={0.005,0.005},
+    x={0.05,0.05},
+    x0={x[1],x[2]});
   annotation (defaultComponentName="trafo20k_400k",
     defaultComponentPrefixes="parameter",
     Documentation(
@@ -166,25 +142,21 @@ record TrafoStray "Trafo with ideal magnetic coupling, 3-phase, example"
 end TrafoStray;
 
 record TrafoMag "Trafo with magnetic coupling, 3-phase, example"
-  extends Basic.Nominal.NominalDataTrafo(
+  extends PowerSystems.AC3ph.Transformers.Parameters.TrafoMag(
     puUnits=true,
     V_nom={20,400}*1e3,
     S_nom=1000e6,
-    f_nom=50);
-
-  SIpu.Voltage[:] v_tc1={-5, -2.5, 0, 2.5, 5}
-      "1: v-levels tap-changer" annotation(Dialog);
-  SIpu.Voltage[:] v_tc2={-5, -2.5, 0, 2.5, 5}
-      "2: v-levels tap-changer" annotation(Dialog);
-  SIpu.Resistance r_n1=1 "1: resistance neutral to grd" annotation(Dialog);
-  SIpu.Resistance r_n2=1 "2: resistance neutral to grd" annotation(Dialog);
-  SIpu.Resistance[2] r={0.005,0.005} "{1,2}: resistance" annotation(Dialog);
-  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance" annotation(Dialog);
-  SIpu.Reactance[2] x0={x[1],x[2]} "{1,2}: stray reactance zero-comp" annotation(Dialog);
-  SIpu.Resistance redc=500 "resistance eddy current" annotation(Dialog);
-  SIpu.Reactance xm=500 "mutual reactance" annotation(Dialog);
-  SIpu.Reactance xm0=50 "mutual reactance zero" annotation(Dialog);
-
+    f_nom=50,
+    v_tc1={-5, -2.5, 0, 2.5, 5},
+    v_tc2={-5, -2.5, 0, 2.5, 5},
+    r_n1=1,
+    r_n2=1,
+    r={0.005,0.005},
+    x={0.05,0.05},
+    x0={x[1],x[2]},
+    redc=500,
+    xm=500,
+    xm0=50);
   annotation (defaultComponentName="trafo20k_400k",
     defaultComponentPrefixes="parameter",
     Documentation(
@@ -193,27 +165,23 @@ record TrafoMag "Trafo with magnetic coupling, 3-phase, example"
 end TrafoMag;
 
 record TrafoSat "Trafo with saturation, 3-phase, example"
-  extends Basic.Nominal.NominalDataTrafo(
+  extends PowerSystems.AC3ph.Transformers.Parameters.TrafoSat(
     puUnits=true,
     V_nom={20,400}*1e3,
     S_nom=1000e6,
-    f_nom=50);
-
-  SIpu.Voltage[:] v_tc1={-5, -2.5, 0, 2.5, 5}
-      "1: v-levels tap-changer" annotation(Dialog);
-  SIpu.Voltage[:] v_tc2={-5, -2.5, 0, 2.5, 5}
-      "2: v-levels tap-changer" annotation(Dialog);
-  SIpu.Resistance r_n1=1 "1: resistance neutral to grd" annotation(Dialog);
-  SIpu.Resistance r_n2=1 "2: resistance neutral to grd" annotation(Dialog);
-  SIpu.Resistance[2] r={0.005,0.005} "{1,2}: resistance" annotation(Dialog);
-  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance" annotation(Dialog);
-  SIpu.Reactance[2] x0={x[1],x[2]} "{1,2}: stray reactance zero-comp" annotation(Dialog);
-  SIpu.Resistance redc=500 "resistance eddy current" annotation(Dialog);
-  SIpu.Reactance xm=500 "mutual reactance" annotation(Dialog);
-  SIpu.Reactance xm0=50 "mutual reactance zero" annotation(Dialog);
-  Real psi_sat(unit="1")=1.5 "saturation flux" annotation(Dialog);
-  SIpu.Reactance xm_sat=1 "mutual reactance saturated" annotation(Dialog);
-
+    f_nom=50,
+    v_tc1={-5, -2.5, 0, 2.5, 5},
+    v_tc2={-5, -2.5, 0, 2.5, 5},
+    r_n1=1,
+    r_n2=1,
+    r={0.005,0.005},
+    x={0.05,0.05},
+    x0={x[1],x[2]},
+    redc=500,
+    xm=500,
+    xm0=50,
+    psi_sat(unit="1")=1.5,
+    xm_sat=1);
   annotation (defaultComponentName="trafo20k_400k",
     defaultComponentPrefixes="parameter",
     Documentation(

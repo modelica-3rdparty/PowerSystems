@@ -45,23 +45,20 @@ end DCpm100V_1kVA;
 
 record BLDC100V_1kVA
     "BLDC machine (= synchronous pm, 3rd order model), example pu-units"
-  extends Basic.Nominal.NominalDataAC(
+  extends PowerSystems.AC3ph.Machines.Parameters.Synchron3rd(
     puUnits=true,
     V_nom=100*sqrt(3/2)/2,
     S_nom=1e3,
-    f_nom=60);
-
-  Boolean neu_iso=false "isolated neutral if Y" annotation(Dialog);
-  Integer pp=2 "pole-pair number" annotation(Dialog);
-  final Integer excite=2 "excitation (2:pm)" annotation(Evaluate=true);
-  SIpu.MagneticFlux psi_pm(unit="1")=1.2
-      "magnetisation (V/V_nom at open term at omega_nom)" annotation(Dialog);
-  SIpu.Reactance x_d=0.4 "syn reactance d-axis" annotation(Dialog);
-  SIpu.Reactance x_q=0.4 "syn reactance q-axis" annotation(Dialog);
-  SIpu.Reactance x_o=0.1 "reactance 0-axis" annotation(Dialog);
-  SIpu.Resistance r_s=0.05 "resistance armature" annotation(Dialog);
-  SIpu.Resistance r_n=1 "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
-
+    f_nom=60,
+    neu_iso=false,
+    pp=2,
+    final excite=2,
+    psi_pm(unit="1")=1.2,
+    x_d=0.4,
+    x_q=0.4,
+    x_o=0.1,
+    r_s=0.05,
+    r_n=1);
   annotation (defaultComponentName="bldc100_1k",
     defaultComponentPrefixes="parameter",
     Documentation(
@@ -76,23 +73,20 @@ end BLDC100V_1kVA;
 
 record BLDC100V_1kVA_SI
     "BLDC machine (= synchronous pm, 3rd order model), example SI-units"
-  extends Basic.Nominal.NominalDataAC(
-    puUnits=true,
+  extends PowerSystems.AC3ph.Machines.Parameters.Synchron3rd(
+    puUnits=false,
     V_nom=100*sqrt(3/2)/2,
     S_nom=1e3,
-    f_nom=60);
-
-  Boolean neu_iso=false "isolated neutral if Y" annotation(Dialog);
-  Integer pp=2 "pole-pair number" annotation(Dialog);
-  final Integer excite=2 "excitation (2:pm)" annotation(Evaluate=true);
-  SIpu.MagneticFlux psi_pm(unit="1")=1.2
-      "magnetisation (V/V_nom at open term at omega_nom)" annotation(Dialog);
-  SIpu.Reactance x_d=1.5 "syn reactance d-axis" annotation(Dialog);
-  SIpu.Reactance x_q=1.5 "syn reactance q-axis" annotation(Dialog);
-  SIpu.Reactance x_o=0.375 "reactance 0-axis" annotation(Dialog);
-  SIpu.Resistance r_s=0.1875 "resistance armature" annotation(Dialog);
-  SIpu.Resistance r_n=1 "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
-
+    f_nom=60,
+    neu_iso=false,
+    pp=2,
+    final excite=2,
+    psi_pm(unit="1")=1.2,
+    x_d=1.5,
+    x_q=1.5,
+    x_o=0.375,
+    r_s=0.1875,
+    r_n=1);
   annotation (defaultComponentName="bldc100_1k_SI",
     defaultComponentPrefixes="parameter",
     Documentation(
