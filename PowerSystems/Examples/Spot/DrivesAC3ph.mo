@@ -390,8 +390,7 @@ The machine defines the reference-system independent of the system choice (as ne
     PowerSystems.AC3ph.Drives.SM_ctrl sm_ctrl(
       rotor(J=0.3),
       inverter(par=idealSC1k_100),
-      motor(par=syn3rdpm400_30k),
-      w_ini=0.05235987755983)
+      motor(par=syn3rdpm400_30k))
                 annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
@@ -571,8 +570,7 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
     PowerSystems.AC3ph.Drives.ASM_ctrl asm_ctrl(
       rotor(J=0.3),
       inverter(par=idealSC1k_100),
-      motor(par=asyn400_30k),
-      w_ini(displayUnit="rpm") = 31.415926535898)
+      motor(par=asyn400_30k))
                 annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
@@ -667,11 +665,12 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
       redeclare PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare
           PowerSystems.AC3ph.Inverters.Components.InverterSwitch inverter
           "switch, no diode, no losses") "inverter with modulator",
-      w_ini=20.943951023932)
+      w_ini=0.10471975511966)
                 annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=5) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
-    PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.5, w_start=1)
+    PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.5, w_start(
+          displayUnit="rpm") = 0.10471975511966)
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
     PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={5,0.5})
       annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
