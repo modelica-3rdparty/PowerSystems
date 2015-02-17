@@ -95,7 +95,7 @@ package Rotation "Rotating parts "
       "(signal ang-velocity)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   protected
-    SI.AngularVelocity phi_dot(start=w0);
+    SI.AngularVelocity phi_dot;
     Modelica.Blocks.Interfaces.RealInput w_internal
       "Needed to connect to conditional connector";
 

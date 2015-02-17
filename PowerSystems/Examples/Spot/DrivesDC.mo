@@ -291,7 +291,6 @@ package DrivesDC "DC drives"
       s_ini=0, s_fin=160)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
     PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01,
-      w0=100,
       scType_par=false)
       annotation (Placement(transformation(extent={{60,-20},{40,0}})));
     parameter PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA DCpm100_1k
