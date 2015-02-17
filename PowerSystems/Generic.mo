@@ -419,9 +419,7 @@ package Generic "Simple components for basic investigations"
   package Ports "Interfaces for generic components"
     extends Modelica.Icons.InterfacesPackage;
     connector Terminal_p "Positive terminal"
-      extends PowerSystems.Interfaces.Terminal(
-        v(each start=1e3, each nominal=1e3),
-        i(each start=1e3, each nominal=1e3));
+      extends PowerSystems.Interfaces.Terminal;
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                     -100},{100,100}}), graphics={Polygon(
                   points={{60,60},{-60,60},{-60,-60},{60,-60},{60,60}},
@@ -442,9 +440,7 @@ package Generic "Simple components for basic investigations"
     end Terminal_p;
 
     connector Terminal_n "Negative terminal"
-      extends PowerSystems.Interfaces.Terminal(
-        v(each start=1e3, each nominal=1e3),
-        i(each start=-1e3, each nominal=1e3));
+      extends PowerSystems.Interfaces.Terminal;
       annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                 -100},{100,100}}),     graphics={
                 Text(
