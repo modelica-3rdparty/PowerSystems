@@ -944,7 +944,7 @@ annotation (Placement(transformation(
   Documentation(
           info="<html>
 <p><b>Structurally incomplete model</b>. Use only as component within appropriate complete model.<br>
-Regularised version of Y_Delta. To be used, if device is fed accross an inductive component implying a differentiable current.</p>
+Regularised version of Y_Delta. To be used, if device is fed across an inductive component implying a differentiable current.</p>
 <p>More info see Topology.Y and Topology.Delta.</p>
 </html>
   "),

@@ -459,7 +459,7 @@ Should be modified (domains with boundaries).</p>
       extends PowerSystems.Basic.Icons.Function;
 
       input Real t "relative time";
-      input Real t_char "charcteristic time";
+      input Real t_char "characteristic time";
       input Real beta(min=2) "power of exponent";
       output Real[2] y "relaxation function {decreasing, increasing}";
   protected
@@ -508,7 +508,7 @@ i.e. for negative t y takes its asymptotic values.</p>
 </html>"));
     end taylor;
 
-    function sign_gtlt "Charcteristic function abs(x)>b"
+    function sign_gtlt "Characteristic function abs(x)>b"
       extends PowerSystems.Basic.Icons.Function;
 
       input Real[:] x "argument";

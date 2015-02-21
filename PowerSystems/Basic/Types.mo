@@ -166,7 +166,7 @@ package Types
                    "<html>
 <p><pre>
   sys:  source has system frequency
-  par:  system or source has paramter frequency
+  par:  system or source has parameter frequency
   sig:  system or source has signal frequency
   ave:  system has averaged frequency (over involved generators)
 </pre></p>
