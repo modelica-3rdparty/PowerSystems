@@ -18,7 +18,7 @@ package Generic "Simple components for basic investigations"
     if PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
-    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
             extent={{-70,30},{70,-30}},
@@ -28,11 +28,11 @@ package Generic "Simple components for basic investigations"
           Line(points={{-100,0},{-70,0}}, color={0,120,120}),
           Line(points={{70,0},{100,0}}, color={0,120,120}),
           Text(
-            extent={{-144,-60},{144,-100}},
+            extent={{-150,-60},{150,-100}},
             lineColor={0,0,0},
-            textString="R=%R%, L=%L%"),
+            textString="R=%R, L=%L"),
           Text(
-            extent={{-144,40},{144,100}},
+            extent={{-150,60},{150,100}},
             lineColor={0,0,0},
             textString="%name"),
           Rectangle(
@@ -58,7 +58,7 @@ package Generic "Simple components for basic investigations"
     if PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
-    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
             extent={{-70,30},{70,-30}},
@@ -68,11 +68,11 @@ package Generic "Simple components for basic investigations"
           Line(points={{-100,0},{-70,0}}, color={0,120,120}),
           Line(points={{70,0},{100,0}}, color={0,120,120}),
           Text(
-            extent={{-144,-60},{144,-100}},
+            extent={{-150,-60},{150,-100}},
             lineColor={0,0,0},
-            textString="G=%G%, C=%C%"),
+            textString="G=%G, C=%C"),
           Text(
-            extent={{-144,40},{144,100}},
+            extent={{-150,60},{150,100}},
             lineColor={0,0,0},
             textString="%name"),
           Rectangle(
@@ -96,16 +96,16 @@ package Generic "Simple components for basic investigations"
     if PhaseSystem.m > 0 then
       terminal_p.theta = terminal_n.theta;
     end if;
-    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={
           Line(points={{-100,0},{-70,0}}, color={0,0,0}),
           Line(points={{70,0},{100,0}}, color={0,0,0}),
           Text(
-            extent={{-144,-60},{144,-100}},
+            extent={{-150,-60},{150,-100}},
             lineColor={0,0,0},
-            textString="%ratio%"),
+            textString="%ratio"),
           Text(
-            extent={{-144,60},{144,120}},
+            extent={{-150,60},{150,100}},
             lineColor={0,0,0},
             textString="%name"),
           Ellipse(
@@ -131,7 +131,11 @@ package Generic "Simple components for basic investigations"
           Line(points={{-80,-60},{80,-60}}, color={0,120,120}),
           Line(points={{-50,-80},{50,-80}}, color={0,120,120}),
           Line(points={{-20,-100},{20,-100}}, color={0,120,120}),
-          Line(points={{-100,0},{0,0}}, color={0,120,120})}));
+          Line(points={{-100,0},{0,0}}, color={0,120,120}),
+          Text(
+            extent={{-150,60},{150,100}},
+            lineColor={0,0,0},
+            textString="%name")}));
   end Ground;
 
   model Generator "Basic transformation of rotational to electrical power"
@@ -171,16 +175,16 @@ package Generic "Simple components for basic investigations"
     end if;
     0 = PhaseSystem.activePower(terminal.v, terminal.i) + w*flange.tau;
     terminal.v = PhaseSystem.phaseVoltages(V, thetaRel);
-    annotation (                         Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
               -100},{100,100}}), graphics={
           Line(points={{-100,0},{-50,0}}, color={0,120,120}),
           Line(points={{50,0},{100,0}}, color={0,120,120}),
           Text(
-            extent={{-144,-60},{144,-100}},
+            extent={{-150,-60},{150,-100}},
             lineColor={0,0,0},
             textString="V=%V_ref V"),
           Text(
-            extent={{-144,40},{144,100}},
+            extent={{-150,60},{150,100}},
             lineColor={0,0,0},
             textString="%name"),
           Ellipse(
@@ -241,7 +245,7 @@ package Generic "Simple components for basic investigations"
     terminal.i = PhaseSystem.phaseCurrents(I, thetaRel);
     0 = PhaseSystem_dc.activePower(terminal_dc.v, terminal_dc.i)
       + PhaseSystem.activePower(terminal.v, terminal.i);
-    annotation (                         Icon(coordinateSystem(preserveAspectRatio=true,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=true,
             extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
             extent={{-90,90},{90,-90}},
@@ -277,7 +281,7 @@ package Generic "Simple components for basic investigations"
             fillPattern=FillPattern.Solid,
             textString="~"),
           Text(
-            extent={{-142,98},{146,158}},
+            extent={{-150,100},{150,140}},
             lineColor={0,0,0},
             textString="%name")}));
   end Inverter;
@@ -308,7 +312,7 @@ package Generic "Simple components for basic investigations"
             fillColor={255,255,255},
             fillPattern=FillPattern.CrossDiag),
           Text(
-            extent={{-142,98},{146,158}},
+            extent={{-150,100},{150,140}},
             lineColor={0,0,0},
             textString="%name")}));
   end FixedVoltageSource;
@@ -319,7 +323,7 @@ package Generic "Simple components for basic investigations"
     parameter Modelica.SIunits.Angle phi = 0 "phase angle";
   equation
     PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, phi);
-    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={Rectangle(
             extent={{-90,90},{90,-90}},
             lineColor={0,120,120},
@@ -329,7 +333,10 @@ package Generic "Simple components for basic investigations"
             lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
-            textString="VA")}));
+            textString="VA"), Text(
+            extent={{-150,100},{150,140}},
+            lineColor={0,0,0},
+            textString="%name")}));
   end FixedLoad;
 
   model FixedCurrent
@@ -339,7 +346,7 @@ package Generic "Simple components for basic investigations"
     annotation (Dialog(group="Reference Parameters", enable = definiteReference));
   equation
     terminal.i = PhaseSystem.phaseCurrents(I, phi);
-    annotation (                        Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
             extent={{-90,90},{90,-90}},
@@ -351,13 +358,17 @@ package Generic "Simple components for basic investigations"
             lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
-            textString="%I% A"),
+            textString="%I A"),
           Text(
             extent={{-38,-74},{38,-32}},
             lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
-            textString="%phi%")}));
+            textString="%phi"),
+          Text(
+            extent={{-150,100},{150,140}},
+            lineColor={0,0,0},
+            textString="%name")}));
   end FixedCurrent;
 
   model PrescribedPowerSource "Prescribed power source"
@@ -383,17 +394,15 @@ package Generic "Simple components for basic investigations"
     end if;
     terminal.i = PhaseSystem.phaseCurrents(I, thetaRel);
     0 = PhaseSystem.activePower(terminal.v, terminal.i) + P;
-    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={Rectangle(
             extent={{-90,90},{90,-90}},
             lineColor={0,120,120},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid), Text(
-            extent={{-90,-132},{90,-90}},
+            extent={{-150,100},{150,140}},
             lineColor={0,0,0},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
-            textString="%name%")}));
+            textString="%name")}));
   end PrescribedPowerSource;
 
   model PrescribedPowerLoad "Prescribed power load"
@@ -403,17 +412,15 @@ package Generic "Simple components for basic investigations"
           transformation(extent={{130,-20},{90,20}})));
   equation
     PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, phi);
-    annotation (                         Icon(coordinateSystem(preserveAspectRatio=false,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={Rectangle(
             extent={{-90,90},{90,-90}},
             lineColor={0,120,120},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid), Text(
-            extent={{-90,-132},{90,-90}},
+            extent={{-150,100},{150,140}},
             lineColor={0,0,0},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
-            textString="%name%")}));
+            textString="%name")}));
   end PrescribedPowerLoad;
 
   package Ports "Interfaces for generic components"
@@ -426,10 +433,8 @@ package Generic "Simple components for basic investigations"
                   lineColor={0,120,120},
                   fillColor={0,120,120},
                   fillPattern=FillPattern.Solid), Text(
-                  extent={{-150,110},{150,50}},
+                  extent={{-150,60},{150,100}},
                   lineColor={0,0,0},
-                  fillColor={0,0,0},
-                  fillPattern=FillPattern.Solid,
                   textString="%name")}),     Icon(coordinateSystem(
                   preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                 graphics={Polygon(
@@ -444,10 +449,8 @@ package Generic "Simple components for basic investigations"
       annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                 -100},{100,100}}),     graphics={
                 Text(
-                  extent={{-150,110},{150,50}},
+                  extent={{-150,60},{150,100}},
                   lineColor={0,0,0},
-                  fillColor={0,0,0},
-                  fillPattern=FillPattern.Solid,
                   textString="%name"), Rectangle(
               extent={{-60,60},{60,-60}},
               lineColor={0,120,120},
@@ -581,7 +584,7 @@ package Generic "Simple components for basic investigations"
               thickness=0.5),
             Ellipse(extent={{-20,20},{20,-20}}, lineColor={135,135,135}),
             Text(
-              extent={{-149,-114},{151,-154}},
+              extent={{-150,-130},{150,-90}},
               lineColor={0,0,0},
               textString="%name"),
             Ellipse(
