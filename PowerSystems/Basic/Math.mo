@@ -254,9 +254,9 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   protected
       replaceable function fcn = PowerSystems.Basic.Precalculation.i_field
       "function to be minimised around x0";
-      constant Integer n=size(x,1);
-      constant Integer max_fun = 200*n;
-      constant Integer max_iter = 200*n;
+      Integer n = size(x,1);
+      Integer max_fun = 200*n;
+      Integer max_iter = 200*n;
       constant Real tol_x = 1e-4;
       constant Real tol_f = 1e-4;
       constant Real rho = 1;
@@ -399,10 +399,10 @@ Should be modified (domains with boundaries).</p>
       extends PowerSystems.Basic.Icons.Function;
 
       input Real[:] x "x unsorted";
-      output Real[n] y "x sorted increasing";
-      output Integer[n] i "indizes of sorted x";
-  protected
-      Integer n=size(x,1);
+      output Real[size(x,1)] y "x sorted increasing";
+      output Integer[size(x,1)] i "indizes of sorted x";
+    protected
+      Integer n = size(x,1);
       Integer itemp;
       Real ytemp;
 
@@ -429,10 +429,10 @@ Should be modified (domains with boundaries).</p>
       extends PowerSystems.Basic.Icons.Function;
 
       input Real[:] x "x unsorted";
-      output Real[n] y "x sorted decreasing";
-      output Integer[n] i "indizes of sorted x";
-  protected
-      Integer n=size(x,1);
+      output Real[size(x,1)] y "x sorted decreasing";
+      output Integer[size(x,1)] i "indizes of sorted x";
+    protected
+      Integer n = size(x,1);
       Integer itemp;
       Real ytemp;
 
