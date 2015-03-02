@@ -360,6 +360,7 @@ The secondary side is winding-reduced to the primary, as the equations are writt
     SI.Angle[n_r] To "time constant open-loop";
     SI.Resistance[n_r+1] zr;
     SI.Reactance[n_r+1,n_r+1] zx;
+    import Modelica.Math.Matrices.solve;
 
   algorithm
     if p.transDat then
@@ -383,9 +384,9 @@ The secondary side is winding-reduced to the primary, as the equations are writt
     c.R_r := zr[1:end-1]*RL_base[1];
     c.R_n := p.r_n*RL_base[1];
     if n_r == 1 then
-      c.R_m := diagonal(c.R_r)*[1/c.L_r[1,1]]*c.L_m;
+      c.R_m := c.R_r[1] / c.L_r[1,1] * c.L_m;
     else
-      c.R_m := diagonal(c.R_r)*Modelica.Math.Matrices.inv(c.L_r)*c.L_m;
+      c.R_m := c.R_r .* solve(c.L_r, c.L_m);
     end if;
   annotation(Documentation(info="<html>
 See also equivalent circuit on 'Diagram layer' of
