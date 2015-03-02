@@ -12,7 +12,7 @@ package Math "Mathematical functions"
   protected
       Real c;
       Real s;
-      function atan2=Modelica.Math.atan2;
+      import Modelica.Math.atan2;
 
     algorithm
       c := cos(-alpha);
@@ -34,7 +34,7 @@ for arbitrary (time-dependent) input argument alpha.</p>
       input Real[2] x_dot "time-derivative of x";
       output Real omega "angular velocity of x";
   protected
-      constant Real eps =  Modelica.Constants.eps;
+      import Modelica.Constants.eps;
 
     algorithm
       omega :=(x[1]*x_dot[2] - x_dot[1]*x[2])/(x*x + eps);
@@ -191,7 +191,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
       Integer n0;
       Real[N, N] A;
       Real[N+1] C;
-      function eigenval = Modelica.Math.Matrices.eigenValues;
+      import Modelica.Math.Matrices.eigenValues;
 
     algorithm
       N0 := N "determine true degree of polymomial";
@@ -214,7 +214,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
         A[2:n,1:n-1] := diagonal(ones(n-1));
         A[2:n,n] := zeros(n-1);
         r[1:n0,:] := zeros(n0,2);
-        r[n0+1:n0+n,:] := eigenval(A[1:n, 1:n]);
+        r[n0+1:n0+n,:] := eigenValues(A[1:n, 1:n]);
       end if;
     annotation (Documentation(info="<html>
 <p>The function determines the root vector r of a polynomial of degree N with coefficient vector c.</p>

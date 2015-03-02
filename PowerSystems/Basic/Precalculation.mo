@@ -527,12 +527,12 @@ with real time constants <tt>T</tt>. It calculates the <tt>n</tt> coefficients o
     output SI.Angle[size(a,1)] T "time constant";
     output Boolean Tisreal "true if all time constants real";
   protected
-    constant Real eps=Modelica.Constants.eps;
+    import Modelica.Constants.eps;
     parameter Integer n=size(a,1);
     Real[n, n] A;
     Real[n,2] lam "2nd index=1:2, real and imaginary part";
-    function eigenValues = Modelica.Math.Matrices.eigenValues;
-    function sortDown = PowerSystems.Basic.Math.sortDown;
+    import Modelica.Math.Matrices.eigenValues;
+    import PowerSystems.Basic.Math.sortDown;
 
   algorithm
     A[1, 1:n] := -cat(1, a[n-1:-1:1], {1})/a[n];
@@ -728,7 +728,7 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
     Real[n] gsig_prx;
     Real dasig;
     Real dgsig;
-    function inv = Modelica.Math.Matrices.inv;
+    import Modelica.Math.Matrices.inv;
 
   algorithm
     iter := 0;
@@ -817,7 +817,7 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     Real[n] Tsig;
     Real[n] xsig;
     Boolean result;
-    function fminSearch = PowerSystems.Basic.Math.fminSearch;
+    import PowerSystems.Basic.Math.fminSearch;
 
   algorithm
     if n==0 then
@@ -903,7 +903,7 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     Real[n] Tsig;
     Real dif;
     Boolean result;
-    function fminSearch = PowerSystems.Basic.Math.fminSearch;
+    import PowerSystems.Basic.Math.fminSearch;
 
   algorithm
     xm := cat(1, zeros(n), {x - xsig_s});
@@ -952,15 +952,15 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     output SI.Angle[n] To "time constant open-loop";
     output SIpu.Reactance[n] xtr(each unit="1") "transient reactance";
   protected
-    constant Real eps=Modelica.Constants.eps;
+    import Modelica.Constants.eps;
     Real[n+1] xm;
     Real[n+1,n+1] X;
     Real[n,n] X11;
     Real[n,n] X11ac;
     Real[n] sRinv;
     Real[n,2] lam "2nd index=1:2, real and imaginary part";
-    function eigenValues = Modelica.Math.Matrices.eigenValues;
-    function sortDown = PowerSystems.Basic.Math.sortDown;
+    import Modelica.Math.Matrices.eigenValues;
+    import PowerSystems.Basic.Math.sortDown;
 
   algorithm
     xm := cat(1, {0}, xm2_n, {x - xsig_s});
