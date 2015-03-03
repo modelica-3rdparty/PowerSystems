@@ -324,7 +324,7 @@ package DrivesDC "DC drives"
 (right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
 </html>"),
-    experiment(Tolerance=1e-005));
+    experiment(StopTime=1, Tolerance=1e-005));
   end DCcharSpeed;
 
   model BLDCcharSpeed "BLDC: torque - speed characteristic"
@@ -386,7 +386,7 @@ package DrivesDC "DC drives"
 (right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
 </html>"),
-    experiment(Tolerance=1e-005));
+    experiment(StopTime=1, Tolerance=1e-005));
   end BLDCcharSpeed;
 
   annotation (preferredView="info",

@@ -252,8 +252,8 @@ The power-angle is artificially fixed. The correspondence is:
  sensor.p[1:2]    active and reactive power
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
-</html>
-"));
+</html>"),
+        experiment(StopTime=1));
   end PowerAngle;
 
   model TurbineGenerator "Turbine with generator"
