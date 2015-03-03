@@ -626,7 +626,6 @@ Select 'Diagram' in the Simulation layer</p>
     Real u "1st column";
     Real y[size(icol, 1)] "values of chosen columns";
     Modelica.Blocks.Tables.CombiTable1Ds table(
-      table=fill(0.0, 0, 0),
       columns=icol,
       tableOnFile=true,
       tableName="values",
