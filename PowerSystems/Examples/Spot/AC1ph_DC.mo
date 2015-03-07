@@ -462,7 +462,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     replaceable PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(par(
       v_tc1 = {1,1.1},
       v_tc2 = {1,1.2},
-      V_nom = {1,10}))
+      V_nom = {1,10}),
+      use_tap_p=true,
+      use_tap_n=true)
                     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Resistor res(V_nom=10, r=100)
       annotation (Placement(transformation(extent={{80,-10},{100,10}})));
