@@ -268,7 +268,8 @@ and eddy current losses.</p>
         annotation(Evaluate=true, Dialog(tab="Initialization"));
       parameter SI.Current i1_start = 0 "start value of primary current"
         annotation(Dialog(tab="Initialization"));
-      parameter SI.Current i2_start = i1_start "start value of secondary current"
+      parameter SI.Current i2_start = i1_start
+        "start value of secondary current"
         annotation(Dialog(tab="Initialization"));
 
       parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
@@ -308,9 +309,9 @@ and eddy current losses.</p>
         annotation(Evaluate=true);
       final parameter Real[:] W1=cat(1, {1}, par.v_tc1*V_base[1]/par.V_nom[1])   annotation(Evaluate=true);
       final parameter Real[:] W2=cat(1, {1}, par.v_tc2*V_base[2]/par.V_nom[2])*W_nom   annotation(Evaluate=true);
-      Real w1_set=if not use_tap_p then W1[1] else W1[1 + tap_p_internal]
+      Real w1_set=W1[1 + tap_p_internal]
         "1: set voltage ratio to nominal primary";
-      Real w2_set=if not use_tap_n then W2[1] else W2[1 + tap_n_internal]
+      Real w2_set=W2[1 + tap_n_internal]
         "2: set voltage ratio to nominal primary";
 
     initial equation
@@ -355,12 +356,11 @@ and eddy current losses.</p>
             Text(
               extent={{-120,80},{-80,40}},
               lineColor={0,0,0},
-              textString=
-             "1"),
+              textString="1"),
             Text(
               extent={{80,80},{120,40}},
               lineColor={0,0,0},
-              textString=           "2"),
+              textString="2"),
             Line(
               points={{-80,0},{-40,0}},
               color={176,0,0},
@@ -531,11 +531,11 @@ For variable transformer ratio tap changer input needed.</p>
       final parameter Real[:] W2a=cat(1, {1}, par.v_tc2a*V_base[2]/par.V_nom[2])*Wa_nom
                                                                                        annotation(Evaluate=true);
       final parameter Real[:] W2b=cat(1, {1}, par.v_tc2b*V_base[3]/par.V_nom[3])*Wb_nom annotation(Evaluate=true);
-      Real w1_set=if not use_tap_p then W1[1] else W1[1 + tap_p_internal]
+      Real w1_set=W1[1 + tap_p_internal]
         "1: set voltage ratio to nominal primary";
-      Real w2a_set=if not use_tap_n then W2a[1] else W2a[1 + tap_n_internal[1]]
+      Real w2a_set=W2a[1 + tap_n_internal[1]]
         "2a: set voltage ratio to nominal primary";
-      Real w2b_set=if not use_tap_n then W2b[1] else W2b[1 + tap_n_internal[2]]
+      Real w2b_set=W2b[1 + tap_n_internal[2]]
         "2b: set voltage ratio to nominal primary";
 
     initial equation
@@ -583,12 +583,11 @@ For variable transformer ratio tap changer input needed.</p>
             Text(
               extent={{-120,80},{-80,40}},
               lineColor={0,0,0},
-              textString=
-             "1"),
+              textString="1"),
             Text(
               extent={{80,20},{120,-20}},
               lineColor={0,0,0},
-              textString=           "2"),
+              textString="2"),
             Line(
               points={{-80,0},{-40,0}},
               color={176,0,0},

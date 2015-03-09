@@ -310,9 +310,11 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 
         parameter Boolean stIni_en=true "enable steady-state initial equation"
           annotation(Evaluate=true, Dialog(tab="Initialization"));
-        parameter SI.Current[3] i1_start = zeros(3) "start value of primary current"
+        parameter SI.Current[3] i1_start = zeros(3)
+        "start value of primary current"
           annotation(Dialog(tab="Initialization"));
-        parameter SI.Current[3] i2_start = i1_start "start value of secondary current"
+        parameter SI.Current[3] i2_start = i1_start
+        "start value of secondary current"
           annotation(Dialog(tab="Initialization"));
 
         parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
@@ -359,9 +361,9 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         final parameter SI.Resistance R_n1=par.r_n1*RL_base[1,1];
         final parameter SI.Resistance R_n2=par.r_n2*RL_base[2,1];
         SI.AngularFrequency[2] omega;
-        Real w1_set=if not use_tap_p then W1[1] else W1[1 + tap_p_internal]
+        Real w1_set=W1[1 + tap_p_internal]
         "1: set voltage ratio to nominal primary";
-        Real w2_set=if not use_tap_n then W2[1] else W2[1 + tap_n_internal]
+        Real w2_set=W2[1 + tap_n_internal]
         "2: set voltage ratio to nominal secondary";
 
       initial equation
@@ -662,11 +664,11 @@ For variable transformer ratio tap changer input needed.</p>
     final parameter SI.Resistance R_n2a=par.r_n2a*RL_base[2,1];
     final parameter SI.Resistance R_n2b=par.r_n2b*RL_base[3,1];
     SI.AngularFrequency omega[2];
-    Real w1_set=if not use_tap_p then W1[1] else W1[1 + tap_p_internal]
+    Real w1_set=W1[1 + tap_p_internal]
         "1: set voltage ratio to nominal primary";
-    Real w2a_set=if not use_tap_n then W2a[1] else W2a[1 + tap_n_internal[1]]
+    Real w2a_set=W2a[1 + tap_n_internal[1]]
         "2a: set voltage ratio to nominal secondary";
-    Real w2b_set=if not use_tap_n then W2b[1] else W2b[1 + tap_n_internal[2]]
+    Real w2b_set=W2b[1 + tap_n_internal[2]]
         "2b: set voltage ratio to nominal secondary";
 
   initial equation
