@@ -672,8 +672,7 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
                 -40,80}})));
     protected
       final parameter Integer n_r = par.n_r "number of rotor circuits d- and q-axis";
-      record CAsynchron = Coefficients.Asynchron(n_r = n_r);
-      final parameter CAsynchron c = Basic.Precalculation.machineAsyn(par, top.scale);
+      final parameter Coefficients.Asynchron c = Basic.Precalculation.machineAsyn(par, top.scale);
       parameter SI.Inductance L_m[n_r] = c.L_m;
       parameter SI.Resistance R_r[n_r] = c.R_r;
       parameter SI.Resistance R_m[n_r] = c.R_m;
@@ -955,8 +954,7 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
     protected
       final parameter Integer n_d = par.n_d "number of rotor circuits d-axis";
       final parameter Integer n_q = par.n_q "number of rotor circuits q-axis";
-      record CSynchron = Coefficients.Synchron(n_d = n_d, n_q = n_q);
-      final parameter CSynchron c = Basic.Precalculation.machineSyn(par, top.scale);
+      final parameter Coefficients.Synchron c = Basic.Precalculation.machineSyn(par, top.scale);
       parameter SI.Inductance[n_d, n_d] L_rd = c.L_rd "L matrix rotor";
       parameter SI.Inductance[n_q, n_q] L_rq = c.L_rq "L matrix rotor";
       parameter SI.Inductance[n_d] L_md = c.L_md "L matrix mutual d-axis";
