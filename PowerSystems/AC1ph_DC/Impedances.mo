@@ -492,12 +492,11 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
           extent={{-10,-10},{10,10}},
           rotation=270)));
     Nodes.Electric_pn_p_n pn_p_n annotation (Placement(transformation(extent={{
-              -80,-10},{-60,10}}, rotation=0)));
+              -80,-10},{-60,10}})));
     Nodes.Electric_pn_p_n p_n_pn annotation (Placement(transformation(extent={{
-              80,-10},{60,10}}, rotation=0)));
+              80,-10},{60,10}})));
     ImpedancesSingle.ResistorSym resSym(final R=R)
       annotation (Placement(transformation(
-          origin={0,0},
           extent={{-20,-20},{20,20}},
           rotation=270)));
 
@@ -533,11 +532,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
               color={0,0,255}),
           Line(points={{0,70},{0,60}}, color={0,0,255}),
           Line(points={{0,-60},{0,-70}}, color={0,0,255}),
-          Line(points={{0,0},{20,0},{20,-100},{10,-100}}, color={0,0,255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{0,0},{20,0},{20,-100},{10,-100}}, color={0,0,255})}));
   end ResistorSym;
 
   model CapacitorSym "Symmetrical capacitor with neutral access"
@@ -552,12 +547,11 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
           extent={{-10,-10},{10,10}},
           rotation=270)));
     Nodes.Electric_pn_p_n pn_p_n annotation (Placement(transformation(extent={{
-              -80,-10},{-60,10}}, rotation=0)));
+              -80,-10},{-60,10}})));
     Nodes.Electric_pn_p_n p_n_pn annotation (Placement(transformation(extent={{
-              80,-10},{60,10}}, rotation=0)));
+              80,-10},{60,10}})));
     ImpedancesSingle.CapacitorSym capSym(final G=G, final C=C, final Vstart=Vstart)
       annotation (Placement(transformation(
-          origin={0,0},
           extent={{-20,-20},{20,20}},
           rotation=270)));
   protected
@@ -630,11 +624,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
               color={0,0,255}),
           Line(points={{20,-54},{20,-100},{10,-100}}, color={0,0,255}),
           Line(points={{0,70},{0,48}}, color={0,0,255}),
-          Line(points={{0,-48},{0,-70}}, color={0,0,255})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{0,-48},{0,-70}}, color={0,0,255})}));
   end CapacitorSym;
 
   model DClink "DC-link with filter circuit"
@@ -671,9 +661,9 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
           extent={{-10,-10},{10,10}},
           rotation=270)));
     Nodes.Electric_pn_p_n pn_p_n annotation (Placement(transformation(extent={{
-              -80,-10},{-60,10}}, rotation=0)));
+              -80,-10},{-60,10}})));
     Nodes.Electric_pn_p_n p_n_pn annotation (Placement(transformation(extent={{
-              80,-10},{60,10}}, rotation=0)));
+              80,-10},{60,10}})));
   protected
     outer System system;
 
@@ -721,11 +711,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
             extent={{-80,20},{80,-20}},
             lineColor={0,0,255},
             textString=
-                 "DClink")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "DClink")}));
   end DClink;
 
   model DClinkSym "Symmetrical DC-link with filter circuit and neutral access"
@@ -762,9 +748,9 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
           extent={{-10,-10},{10,10}},
           rotation=270)));
     Nodes.Electric_pn_p_n pn_p_n annotation (Placement(transformation(extent={{
-              -80,-10},{-60,10}}, rotation=0)));
+              -80,-10},{-60,10}})));
     Nodes.Electric_pn_p_n p_n_pn annotation (Placement(transformation(extent={{
-              80,-10},{60,10}}, rotation=0)));
+              80,-10},{60,10}})));
   protected
     outer System system;
 
@@ -819,21 +805,16 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
             extent={{-80,0},{80,-40}},
             lineColor={0,0,255},
             textString=
-                 "sym")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "sym")}));
   end DClinkSym;
 
   package Partials "Partial models"
     partial model ImpedBase0 "Impedance base 0, 1-phase"
 
       Ports.TwoPin_p term_p "positive terminal"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
       Ports.TwoPin_n term_n "negative terminal"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
     annotation (
       Documentation(
@@ -846,11 +827,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
               extent={{-100,130},{100,90}},
               lineColor={0,0,0},
               textString=
-               "%name")}),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+               "%name")}));
     end ImpedBase0;
     extends Modelica.Icons.BasesPackage;
 
@@ -878,11 +855,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
       Documentation(
             info="<html>
 </html>
-"),   Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-      Diagram(coordinateSystem(
+"),      Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
@@ -900,15 +873,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
           info="<html>
 <p>Same as ImpedBase, but contains an additional heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connector is given by the total dissipated electric power of both conductors.</p>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end ImpedBaseHeat;
 
   partial model ImpedNonSymHeat
@@ -924,14 +889,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
 <p>Same as ImpedBase, but contains an additional vector heat port.</p>
 <p>Does not contain mass and specific heat. These parameters are expected to belong to the corresponding thermal model. The heat-flow at the connectors is given by the total dissipated electric power per conductor.</p>
 </html>
-"),   Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
   end ImpedNonSymHeat;
 
   end Partials;
@@ -982,9 +940,5 @@ Documentation(info="<html>
   g = [g_pg + g_pp, -g_pp
       -g_pp,         g_pg + g_pp]
 </pre>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Impedances;

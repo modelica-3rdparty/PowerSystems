@@ -7,54 +7,68 @@ package Network "Network flow calculations"
   "Simple textbook example for a steady-state power flow calculation"
     extends Modelica.Icons.Example;
 
+    replaceable package PhaseSystem =
+        PackagePhaseSystem "Default phase system"
+      annotation (choicesAllMatching=true);
+
     PowerSystems.Generic.FixedVoltageSource
-                               fixedVoltageSource1(V=10e3)
+                               fixedVoltageSource1(V=10e3, redeclare package
+      PhaseSystem = PhaseSystem)
       annotation (Placement(transformation(
           origin={0,70},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.Generic.Impedance impedance1(R=2, L=0)
+    PowerSystems.Generic.Impedance impedance1(R=2, L=0,
+    redeclare package PhaseSystem = PhaseSystem)
       annotation (Placement(transformation(
           origin={-50,-10},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.Generic.Impedance impedance2(R=4, L=0)
+    PowerSystems.Generic.Impedance impedance2(R=4, L=0,
+    redeclare package PhaseSystem = PhaseSystem)
       annotation (Placement(transformation(
           origin={-50,-50},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.Generic.Impedance impedance3(R=2, L=0)
-      annotation (Placement(transformation(extent={{-10,-90},{10,-70}},
-            rotation=0)));
-    PowerSystems.Generic.Impedance impedance4(L=0, R=1)
+    PowerSystems.Generic.Impedance impedance3(R=2, L=0,
+    redeclare package PhaseSystem = PhaseSystem)
+      annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+    PowerSystems.Generic.Impedance impedance4(L=0, R=1,
+    redeclare package PhaseSystem = PhaseSystem)
       annotation (Placement(transformation(
           origin={50,-50},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.Generic.Impedance impedance5(L=0, R=3)
+    PowerSystems.Generic.Impedance impedance5(L=0, R=3,
+    redeclare package PhaseSystem = PhaseSystem)
       annotation (Placement(transformation(
           origin={50,-10},
           extent={{-10,-10},{10,10}},
           rotation=270)));
     PowerSystems.Generic.FixedCurrent
-                         fixedCurrent3(I=50) annotation (Placement(
-          transformation(extent={{70,-90},{90,-70}}, rotation=0)));
+                         fixedCurrent3(I=50, redeclare package PhaseSystem =
+        PhaseSystem)                         annotation (Placement(
+          transformation(extent={{70,-90},{90,-70}})));
     PowerSystems.Generic.FixedCurrent
-                         fixedCurrent1(I=55) annotation (Placement(
-          transformation(extent={{-70,-40},{-90,-20}}, rotation=0)));
+                         fixedCurrent1(I=55, redeclare package PhaseSystem =
+        PhaseSystem)                         annotation (Placement(
+          transformation(extent={{-70,-40},{-90,-20}})));
     PowerSystems.Generic.FixedCurrent
-                         fixedCurrent2(I=45)
-      annotation (Placement(transformation(extent={{-70,-90},{-90,-70}},
-            rotation=0)));
+                         fixedCurrent2(I=45, redeclare package PhaseSystem =
+        PhaseSystem)
+      annotation (Placement(transformation(extent={{-70,-90},{-90,-70}})));
     PowerSystems.Generic.FixedCurrent
-                         fixedCurrent4(I=60) annotation (Placement(
-          transformation(extent={{70,-40},{90,-20}}, rotation=0)));
-    PowerSystems.Generic.VoltageConverter transformer1(ratio=10/10.4156)
+                         fixedCurrent4(I=60, redeclare package PhaseSystem =
+        PhaseSystem)                         annotation (Placement(
+          transformation(extent={{70,-40},{90,-20}})));
+    PowerSystems.Generic.VoltageConverter transformer1(ratio=10/10.4156,
+      redeclare package PhaseSystem = PhaseSystem)
       annotation (Placement(transformation(
           origin={-50,30},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.Generic.VoltageConverter transformer2(ratio=10/10)
+    PowerSystems.Generic.VoltageConverter transformer2(ratio=10/10, redeclare
+      package PhaseSystem = PhaseSystem)
       annotation (Placement(transformation(
           origin={50,30},
           extent={{-10,-10},{10,10}},
@@ -96,10 +110,7 @@ package Network "Network flow calculations"
     annotation (Documentation(info="<html>
   <p>This textbook example demonstrates a basic power flow calculation.</p>
   <p>See Oeding, Oswald: Elektrische Kraftwerke und Netze, section 14.2.6: Leistungsfluss in Ringnetzen.</p>
-</html>"),   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
-                         experiment(StopTime=1));
+</html>"),                         experiment(StopTime=1));
   end NetworkLoop;
 
 
@@ -130,8 +141,7 @@ package Network "Network flow calculations"
             extent={{-10,-10},{10,10}},
             rotation=270)));
       PowerSystems.Generic.Impedance impedance3(R=2, L=0)
-        annotation (Placement(transformation(extent={{-10,-90},{10,-70}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
       PowerSystems.Generic.Impedance impedance4(L=0, R=1)
         annotation (Placement(transformation(
             origin={50,-50},
@@ -144,17 +154,16 @@ package Network "Network flow calculations"
             rotation=270)));
       PowerSystems.Generic.FixedCurrent
                            fixedCurrent3(I=50) annotation (Placement(
-            transformation(extent={{70,-90},{90,-70}}, rotation=0)));
+            transformation(extent={{70,-90},{90,-70}})));
       PowerSystems.Generic.FixedCurrent
                            fixedCurrent1(I=55) annotation (Placement(
-            transformation(extent={{-70,-40},{-90,-20}}, rotation=0)));
+            transformation(extent={{-70,-40},{-90,-20}})));
       PowerSystems.Generic.FixedCurrent
                            fixedCurrent2(I=45)
-        annotation (Placement(transformation(extent={{-70,-90},{-90,-70}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-70,-90},{-90,-70}})));
       PowerSystems.Generic.FixedCurrent
                            fixedCurrent4(I=60) annotation (Placement(
-            transformation(extent={{70,-40},{90,-20}}, rotation=0)));
+            transformation(extent={{70,-40},{90,-20}})));
       PowerSystems.Generic.VoltageConverter transformer1(ratio=10/10.4156)
         annotation (Placement(transformation(
             origin={-50,30},
@@ -194,14 +203,11 @@ package Network "Network flow calculations"
         annotation (Line(points={{50,20},{50,0}}, color={0,120,120}));
       annotation (Documentation(info="<html>
   <p>The loop of the NetworkLoop example has been opened and a second voltage source was added.</p>
-</html>"),     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}),
-                          graphics),
-                           experiment(StopTime=1));
+</html>"),                           experiment(StopTime=1));
     end NetworkOpened;
 
 
-  annotation(Documentation(info="<html><p>The Network examples demonstrate the evolution of 
+  annotation(Documentation(info="<html><p>The Network examples demonstrate the evolution of
   a simple powerflow calculation from a textbook to a dynamic simulation model with power/frequency control.
   </p></html>"));
 end Network;

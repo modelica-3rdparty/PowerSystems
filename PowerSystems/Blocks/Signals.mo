@@ -21,10 +21,7 @@ package Signals "Special signals"
       Documentation(
               info="<html>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Constant;
 
   block Transient "Transient vector"
@@ -62,11 +59,7 @@ The transition function is a hyperbolic tangent.</p>
             extent={{-10,50},{110,10}},
             lineColor={160,160,164},
             textString=
-                 "fin")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "fin")}));
   end Transient;
 
   block ConstantPhasor "Constant {norm, phase} of vector"
@@ -92,11 +85,7 @@ The transition function is a hyperbolic tangent.</p>
             extent={{-100,20},{100,-20}},
             lineColor={160,160,164},
             textString=
-                 "{%a,%ph}")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "{%a,%ph}")}));
   end ConstantPhasor;
 
   block TransientPhasor "Transient {norm, phase} of vector"
@@ -142,11 +131,7 @@ The transition function is a hyperbolic tangent for both norm and phase.</p>
                  "fin"),
           Line(points={{-80,-60},{-64,-60},{-44,-58},{-34,-54},{-26,-48},{-20,
                 -40},{-14,-30},{-8,-18},{-2,-6},{2,4},{8,18},{14,30},{20,40},{
-                26,48},{34,54},{44,58},{64,60},{80,60}}, color={95,0,191})}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                26,48},{34,54},{44,58},{64,60},{80,60}}, color={95,0,191})}));
   end TransientPhasor;
 
   block ConstantFreq "Constant frequency"
@@ -166,11 +151,7 @@ The transition function is a hyperbolic tangent for both norm and phase.</p>
             extent={{-100,100},{100,60}},
             lineColor={175,175,175},
             textString=
-                 "omega")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "omega")}));
   end ConstantFreq;
 
   block TransientFreq "Transient frequency"
@@ -199,11 +180,7 @@ The transition function is a hyperbolic tangent.</p>
             extent={{-100,100},{100,60}},
             lineColor={175,175,175},
             textString=
-                 "omega")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "omega")}));
   end TransientFreq;
 
   block Sin "Sine of n phases"
@@ -233,11 +210,7 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
             extent={{-60,40},{60,-40}},
             lineColor={160,160,164},
             textString=
-                 "~")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "~")}));
   end Sin;
 
   block VarSin "Sine of n phases with variable amplitude and frequency"
@@ -246,11 +219,9 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
     parameter SI.Angle phComm=0 "common phase angle";
     parameter SI.Angle[n] phShift=(0:n-1)*2*pi/n "phase shift";
     Modelica.Blocks.Interfaces.RealInput amplitude "signal amplitude"
-      annotation (Placement(transformation(extent={{-110,30},{-90,50}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
     Modelica.Blocks.Interfaces.RealInput omega "angular frequency"
-      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   protected
     final parameter SI.Angle[n] ph=fill(phComm, n) - phShift;
     SI.Angle theta(start=0, fixed=true, stateSelect=StateSelect.always);
@@ -271,11 +242,7 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
             extent={{-60,40},{60,-40}},
             lineColor={160,160,164},
             textString=
-           "~")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "~")}));
   end VarSin;
 
   block VarSinSpec
@@ -283,11 +250,9 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
     extends Partials.MO;
 
     Modelica.Blocks.Interfaces.RealInput amplitude "common signal amplitude"
-      annotation (Placement(transformation(extent={{-110,30},{-90,50}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
     Modelica.Blocks.Interfaces.RealInput omega "common angular frequency"
-      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
     parameter SI.Angle phComm=0 "common phase angle";
     parameter SI.Angle phShift[n]=(0:n-1)*2*pi/n "phase shift";
     parameter Integer N=3 "1 + number of harmonics";
@@ -320,17 +285,9 @@ The relative angle of the phases can be chosen arbitrarily (for non-symmetric si
             extent={{-60,40},{60,0}},
             lineColor={160,160,164},
             textString=
-           "~~~")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "~~~")}));
   end VarSinSpec;
   annotation (preferredView="info",
 Documentation(info="<html>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Signals;

@@ -71,7 +71,7 @@ package Visualise "Elementary visualisers"
     end DoubleNeedle;
     annotation (preferredView="info",
   Documentation(info="<html>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Visualisation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.UsersGuide.Introduction.Visualisation\">up users guide</a></p>
 </html>
 "));
 end Visualise;

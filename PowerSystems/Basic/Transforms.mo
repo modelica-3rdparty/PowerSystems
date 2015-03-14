@@ -38,7 +38,7 @@ used in complex plane with
 <pre>  j*u</pre>
 is
 <pre>  J_abc*u = ([0,-1,1; 1,0,-1; -1,1,0]/sqrt(3))*u</pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
     end j_abc;
 
@@ -55,7 +55,7 @@ is
       y := 0.577350269189626*{u[3,:]-u[2,:], u[1,:]-u[3,:], u[2,:]-u[1,:]};
       annotation (smoothOrder=2,
     Documentation(info="<html>
-<p>The function <tt>jj_abc(u)</tt> corresponds to <a href=\"PowerSystems.Basic.Transforms.j_abc\">j_abc</a> but has a matrix argument u.<br>
+<p>The function <tt>jj_abc(u)</tt> corresponds to <a href=\"modelica://PowerSystems.Basic.Transforms.j_abc\">j_abc</a> but has a matrix argument u.<br>
 It acts on the first index in the same way as j_abc for all values of the second index.
 </html>"));
     end jj_abc;
@@ -85,7 +85,7 @@ used in complex 2-dimensional notation with
 is
 <pre>  J_dq0*u = [0,-1,0; 1,0,0; 0,0,0]*u</pre></p>
 <p>Note: If the argument u is 2-dimensional, then <tt>j_dq0(u)</tt> is the restriction of <tt>j_dq0(u)</tt> to the dq-plane.</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
     end j_dq0;
 
@@ -102,7 +102,7 @@ is
     //  y := cat(1, {-u[2,1:size(u,2)], u[1,1:size(u,2)]}, zeros(size(u,1)-2, size(u,2))); // preliminary until bug removed
       annotation (smoothOrder=2,
     Documentation(info="<html>
-<p>The function <tt>jj_dq0(u)</tt> corresponds to <a href=\"PowerSystems.Basic.Transforms.j_dq0\">j_dq0</a> but has a matrix argument u.<br>
+<p>The function <tt>jj_dq0(u)</tt> corresponds to <a href=\"modelica://PowerSystems.Basic.Transforms.j_dq0\">j_dq0</a> but has a matrix argument u.<br>
 It acts on the first index in the same way as j_dq0 for all values of the second index.
 </html>"));
     end jj_dq0;
@@ -156,7 +156,7 @@ and
   R(theta) = [s_0,  c_0, 0]
              [  0,  0,   1]
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
     end park;
 
@@ -252,7 +252,7 @@ are invariant under transformations R_dq0</p>
 <p>The connection between R_dq0 and R_abc is the following
 <pre>  R_dq0 = P0*R_abc*P0'.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>
 "));
     end rotation_dq;
@@ -348,7 +348,7 @@ are invariant under transformations R_abc</p>
 <p>The connection between R_abc and R_dq0 is the following
 <pre>  R_abc = P0'*R_dq0*P0.</pre>
 with P0 the orthogonal transform 'Transforms.P0'.</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
     end rotation_abc;
 
@@ -430,7 +430,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
       annotation (smoothOrder=2,
     Documentation(info="<html>
 <p>Positive permutation of 3-vector.</p>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
     end permutation;
 
@@ -481,11 +481,8 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
 
     annotation (preferredView="info",
   Documentation(info="<html>
-<p><a href=\"PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Transforms;
 

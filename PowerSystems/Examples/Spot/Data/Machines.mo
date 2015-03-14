@@ -13,6 +13,7 @@ record DCser1500V_1p5MVA "DC machine series excited, example"
     V_nom=1500,
     S_nom=1.5e6,
     w_nom=157.079632679489661923);
+  annotation (defaultComponentPrefixes="parameter");
 end DCser1500V_1p5MVA;
 
 record DCpar1500V_1p5MVA "DC machine parallel excited, example"
@@ -27,6 +28,7 @@ record DCpar1500V_1p5MVA "DC machine parallel excited, example"
     S_nom=1.5e6,
     w_nom=157.079632679489661923,
     Vf_nom=1500);
+  annotation (defaultComponentPrefixes="parameter");
 end DCpar1500V_1p5MVA;
 
 record DCpm100V_1kVA "DC machine permanent magnet excited, example"
@@ -38,32 +40,27 @@ record DCpm100V_1kVA "DC machine permanent magnet excited, example"
     V_nom=100,
     S_nom=1e3,
     w_nom=157.079632679489661923);
+  annotation (defaultComponentPrefixes="parameter");
 end DCpm100V_1kVA;
 
 record BLDC100V_1kVA
     "BLDC machine (= synchronous pm, 3rd order model), example pu-units"
-  extends Modelica.Icons.Record;
-
-  parameter Boolean neu_iso=false "isolated neutral if Y";
-  parameter Integer pp=2 "pole-pair number";
-  final parameter Integer excite=2 "excitation (2:pm)"
-    annotation(Evaluate=true);
-  parameter SIpu.MagneticFlux psi_pm(unit="1")=1.2
-      "magnetisation (V/V_nom at open term at omega_nom)";
-  parameter SIpu.Reactance x_d=0.4 "syn reactance d-axis";
-  parameter SIpu.Reactance x_q=0.4 "syn reactance q-axis";
-  parameter SIpu.Reactance x_o=0.1 "reactance 0-axis";
-  parameter SIpu.Resistance r_s=0.05 "resistance armature";
-  parameter SIpu.Resistance r_n=1 "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
-
-  parameter Boolean puUnits=true
-      "= true, if parameters in pu (= scaled with nom. values), else in SI units"
-                                                                                                          annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-  parameter SI.Voltage V_nom=100*sqrt(3/2)/2 "nom Voltage (= base if pu)";
-  parameter SI.ApparentPower S_nom=1e3 "nom Power (= base if pu)";
-  parameter SI.Frequency f_nom=60 "nom frequency";
-
+  extends PowerSystems.AC3ph.Machines.Parameters.Synchron3rd(
+    puUnits=true,
+    V_nom=100*sqrt(3/2)/2,
+    S_nom=1e3,
+    f_nom=60,
+    neu_iso=false,
+    pp=2,
+    final excite=2,
+    psi_pm(unit="1")=1.2,
+    x_d=0.4,
+    x_q=0.4,
+    x_o=0.1,
+    r_s=0.05,
+    r_n=1);
   annotation (defaultComponentName="bldc100_1k",
+    defaultComponentPrefixes="parameter",
     Documentation(
           info="<html>
 <p>The relation between source DC voltage V_dc and nominal 3-phase voltage of the synchronous machine V_nom is given by
@@ -71,40 +68,27 @@ record BLDC100V_1kVA
 Note that V_nom is only used, if impedance values x and r are given in pu.<br>
 f_nom is needed to relate impedance x and inductance L values.</p>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end BLDC100V_1kVA;
 
 record BLDC100V_1kVA_SI
     "BLDC machine (= synchronous pm, 3rd order model), example SI-units"
-  extends Modelica.Icons.Record;
-
-  parameter Boolean neu_iso=false "isolated neutral if Y";
-  parameter Integer pp=2 "pole-pair number";
-  final parameter Integer excite=2 "excitation (2:pm)"
-    annotation(Evaluate=true);
-  parameter SIpu.MagneticFlux psi_pm(unit="1")=1.2
-      "magnetisation (V/V_nom at open term at omega_nom)";
-  parameter SIpu.Reactance x_d=1.5 "syn reactance d-axis";
-  parameter SIpu.Reactance x_q=1.5 "syn reactance q-axis";
-  parameter SIpu.Reactance x_o=0.375 "reactance 0-axis";
-  parameter SIpu.Resistance r_s=0.1875 "resistance armature";
-  parameter SIpu.Resistance r_n=1 "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
-
-  parameter Boolean puUnits=true
-      "= true, if parameters in pu (= scaled with nom. values), else in SI units"
-                                                                                                          annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-  parameter SI.Voltage V_nom=100*sqrt(3/2)/2 "nom Voltage (= base if pu)";
-  parameter SI.ApparentPower S_nom=1e3 "nom Power (= base if pu)";
-  parameter SI.Frequency f_nom=60 "nom frequency";
-
+  extends PowerSystems.AC3ph.Machines.Parameters.Synchron3rd(
+    puUnits=false,
+    V_nom=100*sqrt(3/2)/2,
+    S_nom=1e3,
+    f_nom=60,
+    neu_iso=false,
+    pp=2,
+    final excite=2,
+    psi_pm(unit="1")=1.2,
+    x_d=1.5,
+    x_q=1.5,
+    x_o=0.375,
+    r_s=0.1875,
+    r_n=1);
   annotation (defaultComponentName="bldc100_1k_SI",
+    defaultComponentPrefixes="parameter",
     Documentation(
           info="<html>
 <p>The relation between source DC voltage V_dc and nominal 3-phase voltage of the synchronous machine V_nom is given by
@@ -112,14 +96,7 @@ record BLDC100V_1kVA_SI
 Note that V_nom is only used, if impedance values x and r are given in pu.<br>
 f_nom is needed to relate impedance x and inductance L values.</p>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end BLDC100V_1kVA_SI;
 
   record Asynchron400V_30kVA "Asynchronous machine, example"
@@ -143,6 +120,7 @@ end BLDC100V_1kVA_SI;
       V_nom=400,
       S_nom=30e3,
       f_nom=50);
+    annotation (defaultComponentPrefixes="parameter");
   end Asynchron400V_30kVA;
 
   record Asynchron3kV_1p5MVA "Asynchronous machine, example"
@@ -166,6 +144,7 @@ end BLDC100V_1kVA_SI;
       V_nom=3000,
       S_nom=1.5e6,
       f_nom=50);
+    annotation (defaultComponentPrefixes="parameter");
   end Asynchron3kV_1p5MVA;
 
   record Synchron3rd_pm400V_30kVA
@@ -183,6 +162,7 @@ end BLDC100V_1kVA_SI;
       V_nom=400,
       S_nom=30e3,
       f_nom=50);
+    annotation (defaultComponentPrefixes="parameter");
   end Synchron3rd_pm400V_30kVA;
 
   record Synchron_pm400V_30kVA "Synchronous machine pm, example"
@@ -218,6 +198,7 @@ end BLDC100V_1kVA_SI;
       S_nom=30e3,
       f_nom=50,
       If_nom=0);
+    annotation (defaultComponentPrefixes="parameter");
   end Synchron_pm400V_30kVA;
 
   record Synchron3rd_pm560V_100kVA "Synchronous machine 3rd order pm, example"
@@ -234,6 +215,7 @@ end BLDC100V_1kVA_SI;
       V_nom=560,
       S_nom=100e3,
       f_nom=400);
+    annotation (defaultComponentPrefixes="parameter");
   end Synchron3rd_pm560V_100kVA;
 
   record Synchron_pm560V_100kVA "Synchronous machine pm, example"
@@ -269,6 +251,7 @@ end BLDC100V_1kVA_SI;
       S_nom=100e3,
       f_nom=400,
       If_nom=0);
+    annotation (defaultComponentPrefixes="parameter");
   end Synchron_pm560V_100kVA;
 
   record Synchron3rd_ee20kV_1200MVA
@@ -285,6 +268,7 @@ end BLDC100V_1kVA_SI;
       V_nom=20e3,
       S_nom=1200e6,
       f_nom=50);
+    annotation (defaultComponentPrefixes="parameter");
   end Synchron3rd_ee20kV_1200MVA;
 
   record Synchron_ee20kV_1200MVA "Synchronous machine, example"
@@ -319,6 +303,7 @@ end BLDC100V_1kVA_SI;
       S_nom=1200e6,
       f_nom=50,
       If_nom=8000);
+    annotation (defaultComponentPrefixes="parameter");
   end Synchron_ee20kV_1200MVA;
 
   record Synchron3rd_ee60Hz_26kV_720MVA
@@ -335,6 +320,7 @@ end BLDC100V_1kVA_SI;
       V_nom=26e3,
       S_nom=720e6,
       f_nom=60);
+    annotation (defaultComponentPrefixes="parameter");
   end Synchron3rd_ee60Hz_26kV_720MVA;
 
   record Synchron_ee60Hz_26kV_720MVA "Synchronous machine, example"
@@ -369,6 +355,7 @@ end BLDC100V_1kVA_SI;
       S_nom=720e6,
       f_nom=60,
       If_nom=1800);
+    annotation (defaultComponentPrefixes="parameter");
   end Synchron_ee60Hz_26kV_720MVA;
 
   record SynchronIso20kV_500MVA
@@ -385,6 +372,7 @@ end BLDC100V_1kVA_SI;
       V_nom=20e3,
       S_nom=500e6,
       f_nom=50);
+    annotation (defaultComponentPrefixes="parameter");
   end SynchronIso20kV_500MVA;
 
   annotation (preferredView="info",

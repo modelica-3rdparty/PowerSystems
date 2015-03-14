@@ -6,7 +6,7 @@ block Set_w_p_v "Constant setpoints w, p, v for generation"
 
   Modelica.Blocks.Interfaces.RealOutput[3] setpts
       "setpoints {speed, power, voltage} pu"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   protected
   parameter SIpu.AngularVelocity w_set(unit="1", fixed=false, start=1)
       "setpt turbine speed pu";
@@ -63,26 +63,20 @@ The setpoints are kept constant during simulation.</p>
             lineColor={95,95,95},
             lineThickness=0.5,
             textString=
-               "v")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+               "v")}));
 end Set_w_p_v;
 
 block SetVariable_w_p_v "Variable setpoints w, p, v for generation"
 
   Modelica.Blocks.Interfaces.RealInput setpt_w "setpoint turbine speed pu"
-    annotation (Placement(transformation(extent={{-30,50},{-10,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
   Modelica.Blocks.Interfaces.RealInput setpt_p "setpoint turbine power pu"
-    annotation (Placement(transformation(extent={{-30,-10},{-10,10}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Modelica.Blocks.Interfaces.RealInput setpt_v "setpoint exciter voltage pu"
-    annotation (Placement(transformation(extent={{-30,-70},{-10,-50}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
   Modelica.Blocks.Interfaces.RealOutput[3] setpts
       "setpoints {speed, power, voltage} pu"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   protected
   parameter SIpu.AngularVelocity w_set(unit="1", fixed=false, start=1)
       "setpt turbine speed pu";
@@ -138,11 +132,7 @@ They depend on the chosen (initial) system-frequency f0, the initial terminal vo
             lineColor={95,95,95},
             lineThickness=0.5,
             textString=
-               "v")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+               "v")}));
 end SetVariable_w_p_v;
 
 block Set_w_p "Set-points for generation"
@@ -150,10 +140,9 @@ block Set_w_p "Set-points for generation"
   parameter SIpu.AngularVelocity w_set(unit="1", fixed=true)=1
       "setpoint turbine speed pu";
   Modelica.Blocks.Interfaces.RealInput setpt_p "setpoint turbine power pu"
-    annotation (Placement(transformation(extent={{-30,-10},{-10,10}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Modelica.Blocks.Interfaces.RealOutput[2] setpts "setpoints {speed, power} pu"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 equation
   setpts[1] = w_set;
@@ -187,11 +176,7 @@ The power setpoint setpts[2] is taken from input setpt_p.</p>
             extent={{0,20},{80,-20}},
             lineColor={95,95,95},
             textString=
-               "p")}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+               "p")}));
 end Set_w_p;
   annotation (Documentation(info="<html>
 </html>"));

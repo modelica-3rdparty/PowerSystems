@@ -5,11 +5,9 @@ package AC1ph_DC "AC 1-phase and DC components"
   model Breaker "Breaker"
 
     inner PowerSystems.System system(ref="inertial", ini="tr")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.Control.Relays.SwitchRelay relay(
       n=1,
       ini_state=true,
@@ -19,23 +17,21 @@ package AC1ph_DC "AC 1-phase and DC components"
           extent={{-10,-10},{10,10}},
           rotation=270)));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(V_nom=10e3, scType_par=false)
-      annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Impedances.Inductor ind(r={0.1,0.1},
       V_nom=10e3,
       S_nom=1e6)
-      annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter(V_nom=10e3, S_nom=1e6)
                                            annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}}, rotation=0)));
+            extent={{-10,-10},{10,10}})));
     replaceable PowerSystems.AC1ph_DC.Breakers.Breaker breaker(V_nom=10e3, I_nom=100)
                                             annotation (Placement(
-          transformation(extent={{40,-10},{60,10}}, rotation=0)));
+          transformation(extent={{40,-10},{60,10}})));
     PowerSystems.AC1ph_DC.Nodes.Ground grd      annotation (Placement(transformation(
-            extent={{90,-10},{110,10}}, rotation=0)));
+            extent={{90,-10},{110,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{-70,-10},{-90,10}}, rotation=0)));
+            extent={{-70,-10},{-90,10}})));
 
   equation
     connect(transPh.y, voltage.vPhasor)
@@ -53,16 +49,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(grd1.term, voltage.neutral)
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,255}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=1e-4));
   end Breaker;
@@ -70,44 +59,38 @@ package AC1ph_DC "AC 1-phase and DC components"
   model Fault "Fault"
 
     inner PowerSystems.System system(ref="inertial", ini="tr")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Control.Relays.SwitchRelay relay1(                       n=2, t_switch=
          {3.5,29.5}/50)
-      annotation (Placement(transformation(extent={{-80,0},{-60,20}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
     PowerSystems.Control.Relays.SwitchRelay relay2(                       n=2, t_switch=
          {3.6,29.4}/50)
-      annotation (Placement(transformation(extent={{80,0},{60,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{80,0},{60,20}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(V_nom=10e3, alpha0=
           0.17453292519943)
-      annotation (Placement(transformation(extent={{-90,-40},{-70,-20}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage2(V_nom=10e3)
-      annotation (Placement(transformation(extent={{90,-40},{70,-20}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{90,-40},{70,-20}})));
     PowerSystems.AC1ph_DC.Breakers.DoubleSwitch switch1(V_nom=10e3,I_nom=100)
-      annotation (Placement(transformation(extent={{-60,-40},{-40,-20}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
     PowerSystems.AC1ph_DC.Breakers.DoubleSwitch switch2(V_nom=10e3, I_nom=100)
                                             annotation (Placement(
-          transformation(extent={{40,-40},{60,-20}}, rotation=0)));
+          transformation(extent={{40,-40},{60,-20}})));
     PowerSystems.AC1ph_DC.Lines.FaultRXline line(par(V_nom = 10e3, S_nom=1e6))
                                            annotation (Placement(transformation(
-            extent={{-10,-40},{10,-20}}, rotation=0)));
+            extent={{-10,-40},{10,-20}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter(V_nom=10e3, S_nom=1e6)
                                             annotation (Placement(
           transformation(
-          origin={0,0},
           extent={{-10,-10},{10,10}},
           rotation=90)));
     replaceable PowerSystems.AC1ph_DC.Faults.Fault_Ab fault_Ab
                                               annotation (Placement(
-          transformation(extent={{-10,40},{10,60}}, rotation=0)));
+          transformation(extent={{-10,40},{10,60}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{-90,-40},{-110,-20}}, rotation=0)));
+            extent={{-90,-40},{-110,-20}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{90,-40},{110,-20}}, rotation=0)));
+            extent={{90,-40},{110,-20}})));
 
   equation
     connect(voltage1.term, switch1.term_p)
@@ -132,16 +115,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(voltage2.neutral, grd2.term)
       annotation (Line(points={{90,-30},{90,-30}}, color={0,0,255}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=0.2, Interval=1e-4));
   end Fault;
@@ -149,24 +125,21 @@ package AC1ph_DC "AC 1-phase and DC components"
   model Impedance "Impedance"
 
     inner PowerSystems.System system(ref="inertial", ini="tr")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(scType_par=false)
-      annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter      annotation (Placement(
-          transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
+          transformation(extent={{-40,-10},{-20,10}})));
     replaceable PowerSystems.AC1ph_DC.Impedances.Inductor ind(r={0.1,0.1})
                                             annotation (Placement(
-          transformation(extent={{20,-10},{40,10}}, rotation=0)));
+          transformation(extent={{20,-10},{40,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd1
                                 annotation (Placement(transformation(extent={{
-              -70,-10},{-90,10}}, rotation=0)));
+              -70,-10},{-90,10}})));
     PowerSystems.AC1ph_DC.Nodes.Ground grd2     annotation (Placement(transformation(
-            extent={{80,-10},{100,10}}, rotation=0)));
+            extent={{80,-10},{100,10}})));
 
   equation
     connect(transPh.y, voltage.vPhasor)
@@ -180,16 +153,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(grd1.term, voltage.neutral)
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,255}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=2.7e-4));
   end Impedance;
@@ -197,21 +163,17 @@ package AC1ph_DC "AC 1-phase and DC components"
   model ImpedanceOneTerm "Impedance One-terminal"
 
     inner PowerSystems.System system(ref="inertial", ini="tr")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(scType_par=false)
-      annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter      annotation (Placement(
-          transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
+          transformation(extent={{-40,-10},{-20,10}})));
     replaceable PowerSystems.AC1ph_DC.ImpedancesOneTerm.Inductor ind(r=0.1)
-      annotation (Placement(transformation(extent={{30,-10},{50,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{30,-10},{50,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-70,-10},{-90,10}}, rotation=0)));
+            extent={{-70,-10},{-90,10}})));
 
   equation
     connect(transPh.y, voltage.vPhasor)
@@ -223,16 +185,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,255}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=2.7e-4));
   end ImpedanceOneTerm;
@@ -240,33 +195,29 @@ package AC1ph_DC "AC 1-phase and DC components"
   model Line "Line"
 
     inner PowerSystems.System system(ref="inertial", ini="tr")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(ph_fin=
           0.087266462599716)
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(
       V_nom=132e3,
       scType_par=false,
       alpha0=0.087266462599716)
-      annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage2(V_nom=132e3)
-      annotation (Placement(transformation(extent={{90,-10},{70,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,-10},{70,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter(V_nom=132e3, S_nom=100e6)
                                             annotation (Placement(
-          transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
+          transformation(extent={{-40,-10},{-20,10}})));
     replaceable PowerSystems.AC1ph_DC.Lines.PIline line(redeclare replaceable parameter
         PowerSystems.AC1ph_DC.Lines.Parameters.PIline           par(
                                                  V_nom=132e3))
                                       annotation (Placement(transformation(
-            extent={{20,-10},{40,10}}, rotation=0)));
+            extent={{20,-10},{40,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{-70,-10},{-90,10}}, rotation=0)));
+            extent={{-70,-10},{-90,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{90,-10},{110,10}}, rotation=0)));
+            extent={{90,-10},{110,10}})));
 
   equation
     connect(transPh.y, voltage1.vPhasor)
@@ -282,16 +233,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(voltage2.neutral, grd2.term)
       annotation (Line(points={{90,0},{90,0}}, color={0,0,255}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=1e-4));
   end Line;
@@ -299,26 +243,23 @@ package AC1ph_DC "AC 1-phase and DC components"
   model LoadAC "AC load"
 
     inner PowerSystems.System system(ref="inertial", ini="tr")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.Transient[2] trsSignal(s_ini={1,2}, s_fin={2,3})
       annotation (Placement(transformation(
           origin={40,60},
           extent={{-10,-10},{10,10}},
           rotation=270)));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(a_fin=0.9)
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(scType_par=false)
-      annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter      annotation (Placement(
-          transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
+          transformation(extent={{-40,-10},{-20,10}})));
     replaceable PowerSystems.AC1ph_DC.Loads.ZloadAC zLoadAC
                                            annotation (Placement(transformation(
-            extent={{30,-10},{50,10}}, rotation=0)));
+            extent={{30,-10},{50,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-70,-10},{-90,10}}, rotation=0)));
+            extent={{-70,-10},{-90,10}})));
 
   equation
     connect(transPh.y, voltage.vPhasor)
@@ -332,16 +273,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(trsSignal.y, zLoadAC.p_set)
       annotation (Line(points={{40,50},{40,10}}, color={0,0,127}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1, Interval=1e-4));
   end LoadAC;
@@ -349,26 +283,24 @@ package AC1ph_DC "AC 1-phase and DC components"
   model LoadDC "AC load"
 
     inner PowerSystems.System system(ref="inertial")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.Transient trsSignalL(s_ini=0.5, s_fin=1)
       annotation (Placement(transformation(
           origin={40,60},
           extent={{-10,-10},{10,10}},
           rotation=270)));
     PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(scType_par=false)
-      annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter      annotation (Placement(
-          transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
+          transformation(extent={{-40,-10},{-20,10}})));
     replaceable PowerSystems.AC1ph_DC.Loads.PindLoadDC pLoadDC
                                               annotation (Placement(
-          transformation(extent={{30,-10},{50,10}}, rotation=0)));
+          transformation(extent={{30,-10},{50,10}})));
     PowerSystems.Blocks.Signals.Transient transV(s_fin=0.9)
                                         annotation (Placement(transformation(
-            extent={{-100,10},{-80,30}}, rotation=0)));
+            extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-70,-10},{-90,10}}, rotation=0)));
+            extent={{-70,-10},{-90,10}})));
 
   equation
     connect(voltage.term, meter.term_p)
@@ -382,16 +314,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(trsSignalL.y, pLoadDC.p_set)
       annotation (Line(points={{40,50},{40,10}}, color={0,0,127}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1, Interval=2.7e-4));
   end LoadDC;
@@ -399,35 +324,31 @@ package AC1ph_DC "AC 1-phase and DC components"
   model Machines "Machines"
 
     inner PowerSystems.System system(ref="inertial")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Mechanics.Rotation.Rotor rotor
-      annotation (Placement(transformation(extent={{28,-10},{48,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{28,-10},{48,10}})));
     PowerSystems.Mechanics.Rotation.Torque torq(tau0=-1)
                                               annotation (Placement(
-          transformation(extent={{80,-10},{60,10}}, rotation=0)));
+          transformation(extent={{80,-10},{60,10}})));
     PowerSystems.Blocks.Signals.Transient transTau(s_ini=0, s_fin=-1)
                                        annotation (Placement(transformation(
-            extent={{100,-10},{80,10}}, rotation=0)));
+            extent={{100,-10},{80,10}})));
 
     PowerSystems.AC1ph_DC.Sources.DCvoltage voltage1(scType_par=false, V_nom=
           100)                        annotation (Placement(transformation(
-            extent={{-80,-10},{-60,10}}, rotation=0)));
+            extent={{-80,-10},{-60,10}})));
     PowerSystems.Blocks.Signals.Transient transV(s_ini=0, s_fin=1)
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Sensors.Psensor power
                                  annotation (Placement(transformation(extent={{
-              -50,-10},{-30,10}}, rotation=0)));
+              -50,-10},{-30,10}})));
     replaceable PowerSystems.AC1ph_DC.Machines.DCser motor(par(V_nom=100, S_nom=1e3))
       "DC machine series"                   annotation (Placement(
-          transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+          transformation(extent={{-10,-10},{10,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-80,-10},{-100,10}}, rotation=0)));
+            extent={{-80,-10},{-100,10}})));
     PowerSystems.Common.Thermal.BoundaryV boundary(m=2)
-      annotation (Placement(transformation(extent={{-10,10},{10,30}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
   equation
     connect(voltage1.term, power.term_p)
@@ -447,16 +368,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(transTau.y, torq.tau)
       annotation (Line(points={{80,0},{80,0}}, color={0,0,127}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=1));
   end Machines;
@@ -464,22 +378,18 @@ package AC1ph_DC "AC 1-phase and DC components"
   model Sensor "Sensor and meter"
 
     inner PowerSystems.System system(ref="inertial", ini="tr")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}}, rotation=
-              0)));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Resistor res
-      annotation (Placement(transformation(extent={{80,-10},{100,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{80,-10},{100,10}})));
     replaceable PowerSystems.AC1ph_DC.Sensors.PVImeter meter
                                             annotation (Placement(
-          transformation(extent={{0,-10},{20,10}}, rotation=0)));
+          transformation(extent={{0,-10},{20,10}})));
     PowerSystems.AC1ph_DC.Sources.Vspectrum voltage
-      annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-70,-10},{-90,10}}, rotation=0)));
+            extent={{-70,-10},{-90,10}})));
 
   equation
     connect(transPh.y, voltage.vPhasor)
@@ -492,35 +402,25 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,255}));
     annotation (
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=0.2, Interval=2.7e-4));
+"),      experiment(StopTime=0.2, Interval=2.7e-4));
   end Sensor;
 
   model Source "Source"
 
     inner PowerSystems.System system(ref="inertial", ini="tr")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     replaceable PowerSystems.AC1ph_DC.Sources.ACvoltage voltage
-      annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter      annotation (Placement(
-          transformation(extent={{40,-10},{60,10}}, rotation=0)));
+          transformation(extent={{40,-10},{60,10}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Inductor ind
-      annotation (Placement(transformation(extent={{70,-10},{90,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{70,-10},{90,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-40,-10},{-60,10}}, rotation=0)));
+            extent={{-40,-10},{-60,10}})));
 
   equation
     connect(voltage.term, meter.term_p) annotation (Line(points={{-20,0},{40,0}},
@@ -530,28 +430,20 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-40,0},{-40,0}}, color={0,0,255}));
     annotation (
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=0.2, Interval=2.7e-4));
+"),      experiment(StopTime=0.2, Interval=2.7e-4));
   end Source;
 
   model Transformer "Transformer"
 
     inner PowerSystems.System system(ref="inertial", ini="tr")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
                     annotation (Placement(transformation(extent={{-100,10},{-80,
-              30}}, rotation=0)));
+              30}})));
     PowerSystems.Control.Relays.TapChangerRelay TapChanger(
       preset_1={0,1,2},
       preset_2={0,1,2},
@@ -562,28 +454,24 @@ package AC1ph_DC "AC 1-phase and DC components"
           extent={{-10,-10},{10,10}},
           rotation=270)));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(scType_par=false)
-      annotation (Placement(transformation(extent={{-80,-10},{-60,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter1
-      annotation (Placement(transformation(extent={{-50,-10},{-30,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter2(V_nom=10)
-      annotation (Placement(transformation(extent={{50,-10},{70,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{50,-10},{70,10}})));
     replaceable PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(par(
       v_tc1 = {1,1.1},
       v_tc2 = {1,1.2},
-      V_nom = {1,10}))
-                    annotation (Placement(transformation(extent={{0,-10},{20,10}},
-            rotation=0)));
+      V_nom = {1,10}),
+      use_tap_p=true,
+      use_tap_n=true)
+                    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Resistor res(V_nom=10, r=100)
-      annotation (Placement(transformation(extent={{80,-10},{100,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{80,-10},{100,10}})));
     PowerSystems.AC1ph_DC.Nodes.PolarityGround polGrd1(pol=0)
-      annotation (Placement(transformation(extent={{80,-40},{100,-20}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-80,-10},{-100,10}}, rotation=0)));
+            extent={{-80,-10},{-100,10}})));
 
   equation
     connect(transPh.y, voltage.vPhasor)
@@ -607,50 +495,36 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=3, Interval=4e-4));
+"),      experiment(StopTime=3, Interval=4e-4));
   end Transformer;
 
   model Rectifier "Rectifier"
 
     inner PowerSystems.System system(ref="inertial", ini="tr")
                         annotation (Placement(transformation(extent={{-80,60},{
-              -60,80}}, rotation=0)));
+              -60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
-         annotation (Placement(transformation(extent={{-100,10},{-80,30}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage vAC(V_nom=2, scType_par=false)
-          annotation (Placement(transformation(extent={{-80,-10},{-60,10}},
-            rotation=0)));
+          annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     PowerSystems.AC1ph_DC.Impedances.Inductor ind
-      annotation (Placement(transformation(extent={{-50,-10},{-30,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterAC(av=true, tcst=0.1)
-      annotation (Placement(transformation(extent={{-20,-10},{0,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
     replaceable PowerSystems.AC1ph_DC.Inverters.Rectifier rectifier
-      annotation (Placement(transformation(extent={{30,-10},{10,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{30,-10},{10,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1)
-      annotation (Placement(transformation(extent={{40,-10},{60,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{40,-10},{60,10}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0)
-      annotation (Placement(transformation(extent={{90,-10},{70,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,-10},{70,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{-80,-10},{-100,10}}, rotation=0)));
+            extent={{-80,-10},{-100,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{90,-10},{110,10}}, rotation=0)));
+            extent={{90,-10},{110,10}})));
     PowerSystems.Common.Thermal.BoundaryV boundary(m=2)
-      annotation (Placement(transformation(extent={{10,10},{30,30}}, rotation=0)));
+      annotation (Placement(transformation(extent={{10,10},{30,30}})));
 
   equation
     connect(transPh.y, vAC.vPhasor)
@@ -672,16 +546,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(rectifier.heat, boundary.heat)
       annotation (Line(points={{20,10},{20,10}}, color={176,0,0}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=0.2, Interval=0.2e-3));
   end Rectifier;
@@ -690,37 +557,31 @@ package AC1ph_DC "AC 1-phase and DC components"
 
     inner PowerSystems.System system(ref="inertial", ini="tr")
                         annotation (Placement(transformation(extent={{-80,60},{
-              -60,80}}, rotation=0)));
+              -60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
-         annotation (Placement(transformation(extent={{-100,10},{-80,30}},
-            rotation=0)));
+         annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage vAC(         scType_par=false)
-          annotation (Placement(transformation(extent={{-80,-10},{-60,10}},
-            rotation=0)));
+          annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     PowerSystems.AC1ph_DC.Impedances.Inductor ind
-      annotation (Placement(transformation(extent={{-50,-10},{-30,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterAC(av=true, tcst=0.1)
-      annotation (Placement(transformation(extent={{0,-10},{-20,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
     replaceable PowerSystems.AC1ph_DC.Inverters.Inverter dc_ac
                                              annotation (Placement(
-          transformation(extent={{30,-10},{10,10}}, rotation=0)));
+          transformation(extent={{30,-10},{10,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1)
-      annotation (Placement(transformation(extent={{60,-10},{40,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{60,-10},{40,10}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0, V_nom=2)
-      annotation (Placement(transformation(extent={{90,-10},{70,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,-10},{70,10}})));
     PowerSystems.AC1ph_DC.Inverters.Select select(alpha0=0.5235987755983)
                                    annotation (Placement(transformation(extent=
-              {{30,40},{10,60}}, rotation=0)));
+              {{30,40},{10,60}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd1 annotation (Placement(transformation(
-            extent={{90,-10},{110,10}}, rotation=0)));
+            extent={{90,-10},{110,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd2 annotation (Placement(transformation(
-            extent={{-80,-10},{-100,10}}, rotation=0)));
+            extent={{-80,-10},{-100,10}})));
     PowerSystems.Common.Thermal.BoundaryV boundary(m=2)
-      annotation (Placement(transformation(extent={{10,10},{30,30}}, rotation=0)));
+      annotation (Placement(transformation(extent={{10,10},{30,30}})));
 
   equation
     connect(transPh.y, vAC.vPhasor) annotation (Line(points={{-80,20},{-64,20},
@@ -746,16 +607,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     connect(dc_ac.heat, boundary.heat)
       annotation (Line(points={{20,10},{20,10}}, color={176,0,0}));
     annotation (
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=0.2, Interval=0.2e-3));
   end Inverter;
@@ -764,14 +618,6 @@ package AC1ph_DC "AC 1-phase and DC components"
 Documentation(info="<html>
 <p>This package contains small models for testing single components from AC1ph_DC.
 The replaceable component can be replaced by a user defined component of similar type.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+</html>"));
 end AC1ph_DC;

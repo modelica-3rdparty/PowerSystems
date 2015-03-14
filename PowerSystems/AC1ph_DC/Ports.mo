@@ -86,29 +86,27 @@ package Ports "Strandard electric ports"
   partial model Port_p "One port, 'positive'"
 
     Ports.TwoPin_p term "positive terminal"
-  annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     annotation (
             Icon(graphics={Text(
             extent={{-100,-90},{100,-130}},
             lineColor={0,0,0},
             textString=
              "%name")}),
-      Documentation(info="<html></html>"),
-                  Diagram(graphics));
+      Documentation(info="<html></html>"));
   end Port_p;
 
   partial model Port_n "One port, 'negative'"
 
     Ports.TwoPin_n term "negative terminal"
-  annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     annotation (
             Icon(graphics={Text(
             extent={{-100,-90},{100,-130}},
             lineColor={0,0,0},
             textString=
              "%name")}),
-      Documentation(info="<html></html>"),
-                  Diagram(graphics));
+      Documentation(info="<html></html>"));
   end Port_n;
 
   partial model Port_f "One port, 'fault'"
@@ -124,16 +122,15 @@ package Ports "Strandard electric ports"
             lineColor={0,0,0},
             textString=
              "%name")}),
-      Documentation(info="<html></html>"),
-                  Diagram(graphics));
+      Documentation(info="<html></html>"));
   end Port_f;
 
   partial model Port_p_n "Two port"
 
     Ports.TwoPin_p term_p "positive terminal"
-  annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Ports.TwoPin_n term_n "negative terminal"
-  annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     annotation (
   Icon(graphics={Text(
             extent={{-100,-90},{100,-130}},
@@ -141,8 +138,7 @@ package Ports "Strandard electric ports"
             textString=
              "%name")}),
   Documentation(info="<html>
-</html>"),
-  Diagram(graphics));
+</html>"));
 
   end Port_p_n;
 
@@ -152,10 +148,8 @@ package Ports "Strandard electric ports"
   equation
     term_p.i + term_n.i = zeros(2);
     annotation (
-  Icon(graphics),
   Documentation(info="<html>
-</html>"),
-  Diagram(graphics));
+</html>"));
   end Port_pn;
 
   partial model Port_p_n_f "Three port"
@@ -167,10 +161,8 @@ package Ports "Strandard electric ports"
           extent={{-10,-10},{10,10}},
           rotation=90)));
     annotation (
-  Icon(graphics),
   Documentation(info="<html>
-</html>"),
-  Diagram(graphics));
+</html>"));
   end Port_p_n_f;
 
   partial model PortTrafo_p_n "Two port for transformers"
@@ -194,7 +186,6 @@ package Ports "Strandard electric ports"
     v2 = (term_n.v[1] - term_n.v[2])/w2;
     term_n.i[1] = i2/w2;
     annotation (
-  Icon(graphics),
   Documentation(info="<html>
 <p>Contains voltage and current scaling.</p>
 <p>Below</p>
@@ -216,18 +207,17 @@ package Ports "Strandard electric ports"
   term.i[1] = i/w;
 </pre>
 </html>
-"),
-  Diagram(graphics));
+"));
   end PortTrafo_p_n;
 
   partial model PortTrafo_p_n_n "Three port for 3-winding transformers"
 
     Ports.TwoPin_p term_p "positive terminal"
-  annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Ports.TwoPin_n term_na "negative terminal a"
-  annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=0)));
+  annotation (Placement(transformation(extent={{90,30},{110,50}})));
     Ports.TwoPin_n term_nb "negative terminal b"
-  annotation (Placement(transformation(extent={{90,-50},{110,-30}}, rotation=0)));
+  annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
 
     SI.Voltage v1 "voltage 1";
     SI.Current i1 "current 1";
@@ -283,8 +273,7 @@ package Ports "Strandard electric ports"
   term.i[1] = i/w;
 </pre>
 </html>
-"),
-  Diagram(graphics));
+"));
   end PortTrafo_p_n_n;
 
     annotation (preferredView="info",

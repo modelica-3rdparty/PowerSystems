@@ -108,11 +108,7 @@ The component is not needed, if specific control components are available.</p>
             extent={{-80,-80},{-40,-120}},
             lineColor={213,170,255},
             fillColor={213,170,255},
-            fillPattern=FillPattern.Solid)}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
 end Select;
 
 model Rectifier "Rectifier, 3-phase dq0"
@@ -124,7 +120,7 @@ model Rectifier "Rectifier, 3-phase dq0"
             rectifier "equation, with losses"),
     choice(redeclare PowerSystems.AC3ph.Inverters.Components.RectifierModular
             rectifier "modular, with losses")), Placement(transformation(extent=
-             {{-10,-10},{10,10}}, rotation=0)));
+             {{-10,-10},{10,10}})));
 
 equation
   connect(AC, rectifier.AC) annotation (Line(points={{100,0},{10,0}}, color={0,
@@ -138,15 +134,7 @@ annotation (defaultComponentName="rectifier",
           info="<html>
 <p>Passive rectifier, allows choosing between equation-based and modular version.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Rectifier;
 
 model RectifierAverage "Rectifier time-average, 3-phase dq0"
@@ -154,8 +142,7 @@ model RectifierAverage "Rectifier time-average, 3-phase dq0"
 
   replaceable parameter Semiconductors.Ideal.SCparameter par(final Hsw_nom=0)
       "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   parameter Real sigma=1 "power correction" annotation(choices(
     choice=1.0966227 "Sigma",
     choice=1.0 "1"));
@@ -259,7 +246,7 @@ model Inverter "Complete modulator and inverter, 3-phase dq0"
             "SV PWM (using control blocks)"),
     choice(redeclare PowerSystems.Control.Modulation.BlockM modulator
             "block modulation (no PWM)")), Placement(transformation(extent={{
-              -10,40},{10,60}}, rotation=0)));
+              -10,40},{10,60}})));
   replaceable Components.InverterSwitch inverter "inverter model"
     annotation (                         choices(
     choice(redeclare PowerSystems.AC3ph.Inverters.Components.InverterSwitch
@@ -268,7 +255,7 @@ model Inverter "Complete modulator and inverter, 3-phase dq0"
             inverter "equation, with losses"),
     choice(redeclare PowerSystems.AC3ph.Inverters.Components.InverterModular
             inverter "modular, with losses")), Placement(transformation(extent=
-              {{-10,-10},{10,10}}, rotation=0)));
+              {{-10,-10},{10,10}})));
   protected
   outer System system;
 
@@ -328,19 +315,14 @@ For block modulation:
             extent={{-80,120},{-40,80}},
             lineColor={213,170,255},
             fillColor={213,170,255},
-            fillPattern=FillPattern.Solid)}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
 end Inverter;
 
 model InverterAverage "Inverter time-average, 3-phase dq0"
   extends Partials.SwitchEquation(heat(final m=1));
 
   replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   parameter Integer modulation=1 "equivalent modulation :"
     annotation(Evaluate=true, choices(
     choice=1 "1: sine PWM, equivalent: v_DC(sine) = 4/3*v_DC(SV)",
@@ -493,8 +475,7 @@ end InverterAverage;
 
     replaceable parameter Semiconductors.Ideal.SCparameter par(final Hsw_nom=0)
         "SC parameters"
-      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}},
-              rotation=0)));
+      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     protected
     SI.Voltage[3] V;
     SI.Voltage[3] v "voltage in inertial abc representation";
@@ -570,24 +551,20 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
     package SCpackage=Semiconductors.Ideal "SC package";
     replaceable parameter SCpackage.SCparameter par(final Hsw_nom=0)
         "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     Nodes.ACdq0_a_b_c acdq0_a_b_c annotation (Placement(transformation(extent={
-                {80,-10},{60,10}}, rotation=0)));
+                {80,-10},{60,10}})));
     Common.Thermal.Heat_a_b_c_abc heat_adapt annotation (Placement(
-            transformation(extent={{-10,70},{10,90}}, rotation=0)));
+            transformation(extent={{-10,70},{10,90}})));
     Semiconductors.PhaseModules.DiodeModule diodeMod_a(final par=par)
         "diode module AC_a"
-        annotation (Placement(transformation(extent={{-10,30},{10,50}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-10,30},{10,50}})));
     Semiconductors.PhaseModules.DiodeModule diodeMod_b(final par=par)
         "diode module AC_b"
-        annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Semiconductors.PhaseModules.DiodeModule diodeMod_c(final par=par)
         "diode module AC_c"
-        annotation (Placement(transformation(extent={{-10,-50},{10,-30}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
   equation
     connect(AC, acdq0_a_b_c.term) annotation (Line(points={{100,0},{80,0}},
@@ -624,11 +601,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
               extent={{-100,-70},{100,-90}},
               lineColor={176,0,0},
               textString=
-                 "modular")}),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+                 "modular")}));
   end RectifierModular;
 
   model InverterSwitch "Inverter switch, 3-phase dq0"
@@ -713,8 +686,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
     extends Partials.SwitchEquation(heat(final m=3));
 
     replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
-      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}},
-              rotation=0)));
+      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     Modelica.Blocks.Interfaces.BooleanInput[6] gates
         "gates pairs {a_p, a_n, b_p, b_n, c_p, c_n}"
     annotation (Placement(transformation(
@@ -860,8 +832,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
 
     package SCpackage=Semiconductors.Ideal "SC package";
     replaceable parameter SCpackage.SCparameter par "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     Modelica.Blocks.Interfaces.BooleanInput[6] gates
         "gates pairs {a_p, a_n, b_p, b_n, c_p, c_n}"
     annotation (Placement(transformation(
@@ -869,24 +840,20 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
             extent={{-10,-10},{10,10}},
             rotation=270)));
     Nodes.ACdq0_a_b_c acdq0_a_b_c annotation (Placement(transformation(extent={
-                {80,-10},{60,10}}, rotation=0)));
+                {80,-10},{60,10}})));
     Common.Thermal.Heat_a_b_c_abc heat_adapt annotation (Placement(
-            transformation(extent={{-10,70},{10,90}}, rotation=0)));
+            transformation(extent={{-10,70},{10,90}})));
     Blocks.Multiplex.Gate3demux gate3demux1(final n=2)
-      annotation (Placement(transformation(extent={{-50,60},{-30,80}}, rotation=
-               0)));
+      annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
     Semiconductors.PhaseModules.SwitchModule switchMod_a(final par=par)
         "switch + reverse diode module AC_a"
-        annotation (Placement(transformation(extent={{-10,30},{10,50}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-10,30},{10,50}})));
     Semiconductors.PhaseModules.SwitchModule switchMod_b(final par=par)
         "switch + reverse diode module AC_b"
-        annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Semiconductors.PhaseModules.SwitchModule switchMod_c(final par=par)
         "switch + reverse diode module AC_c"
-        annotation (Placement(transformation(extent={{-10,-50},{10,-30}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
   equation
     connect(AC, acdq0_a_b_c.term)   annotation (Line(points={{100,0},{80,0}},
@@ -934,11 +901,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
               extent={{-100,-70},{100,-90}},
               lineColor={176,0,0},
               textString=
-                 "modular")}),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+                 "modular")}));
   end InverterModular;
 
     annotation (preferredView="info",
@@ -959,20 +922,17 @@ partial model AC_DC_base "AC-DC base, 3-phase dq0"
   extends Ports.PortBase;
 
   Ports.ACdq0_n AC "AC 3-phase connection"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   AC1ph_DC.Ports.TwoPin_p DC "DC connection"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.ThermalV_n heat(     m=3) "vector heat port"
     annotation (Placement(transformation(
             origin={0,100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
 
-      annotation (Diagram(graphics),
-                           Documentation(info="<html>
-</html>"),
-        Icon(graphics));
+      annotation (                           Documentation(info="<html>
+</html>"));
 
 end AC_DC_base;
 
@@ -999,10 +959,6 @@ equation
   T = heat.ports.T;
   heat.ports.Q_flow = -Q_flow;
   annotation (
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
     Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -1093,8 +1049,5 @@ where <tt>Vf</tt> denotes the parameter value. With input <tt>cT</tt> empty, no 
 where <tt>Hsw_nom</tt> denotes the dissipated heat per switching operation at nominal voltage and current, averaged over 'on' and 'off'. The same temperature dependence is assumed as for Vf. A generalisation to powers of i and v is straightforward.</p>
 <p>NOTE: actually the switching losses are only implemented for time-averaged components!</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Inverters;

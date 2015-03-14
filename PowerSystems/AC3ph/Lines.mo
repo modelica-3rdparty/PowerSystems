@@ -858,8 +858,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
       parameter Integer ne(min=1)=1 "number of pi-elements";
       replaceable parameter Parameters.RXline par
              constrainedby Parameters.RXline "line parameter"
-        annotation (Placement(transformation(extent={{-80,60},{-60,80}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
       outer System system;
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
@@ -873,14 +872,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
         info="<html>
 <p>Precalculation of coefficient matrices.</p>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
 
     end RXlineBase;
 
@@ -897,10 +889,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
         info="<html>
 <p>Precalculation of coefficient matrices.</p>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
     end PIlineBase;
 
   end Partials;
@@ -911,14 +900,13 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
    record RXline "RX-line parameters, 3-phase"
      extends Basic.Nominal.NominalDataAC(
                                       S_nom=100e6);
-     parameter SIpu.Resistance_km r=0.1e-3 "resistance/km";
-     parameter SIpu.Reactance_km x=1e-3 "reactance/km";
-     parameter SIpu.Reactance_km x0=3*x "reactance/km zero-comp";
+     SIpu.Resistance_km r=0.1e-3 "resistance/km" annotation(Dialog);
+     SIpu.Reactance_km x=1e-3 "reactance/km" annotation(Dialog);
+     SIpu.Reactance_km x0=3*x "reactance/km zero-comp" annotation(Dialog);
 
-       annotation (
-         defaultComponentName="data",
-         Documentation(info=
-      "<html>
+     annotation (defaultComponentName="data",
+         defaultComponentPrefixes="parameter",
+         Documentation(info="<html>
 <p>Relations.</p>
 <pre>
   x = 2*pi*f_nom*L/R_base     reactance
@@ -926,32 +914,25 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
 </pre>
 <p>Coupling.</p>
 <pre>
-  positive coupled     x0 &gt  x
+  positive coupled     x0 > x
   uncoupled limit      x0 = x
 </pre>
 <p>More info see package ACabc.Impedances.</p>
 </html>
-"),      Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-         Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
    end RXline;
 
    record PIline "PI-line parameters, 3-phase"
      extends RXline;
-     parameter SIpu.Conductance_km g_pg=0 "shunt conductance/km ph-grd";
-     parameter SIpu.Conductance_km g_pp=0 "shunt conductance/km ph_ph";
-     parameter SIpu.Susceptance_km b_pg=0.025e-3 "susceptance/km ph-grd";
-     parameter SIpu.Susceptance_km b_pp=0.025e-3 "susceptance/km ph-ph";
 
-       annotation (
-         defaultComponentName="data",
-   Documentation(
-   info="<html>
+     SIpu.Conductance_km g_pg=0 "shunt conductance/km ph-grd" annotation(Dialog);
+     SIpu.Conductance_km g_pp=0 "shunt conductance/km ph_ph" annotation(Dialog);
+     SIpu.Susceptance_km b_pg=0.025e-3 "susceptance/km ph-grd" annotation(Dialog);
+     SIpu.Susceptance_km b_pp=0.025e-3 "susceptance/km ph-ph" annotation(Dialog);
+
+     annotation (defaultComponentName="data",
+       defaultComponentPrefixes="parameter",
+       Documentation(info="<html>
 <p>Relations.</p>
 <pre>
   g = G/G_base                  conductance
@@ -961,20 +942,13 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
 <p>where <tt>_pg</tt> denotes phase-to-ground, and <tt>_pp</tt> phase-to-phase.</p>
 <p>More info see package ACabc.Impedances.</p>
 </html>
-"),Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+"));
    end PIline;
   annotation (preferredView="info",
       Documentation(info=
                    "<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
  end Parameters;
 
 annotation (preferredView="info",
@@ -993,13 +967,5 @@ Faulted transmission lines contain a third terminal for connection to a fault-co
   cpl = x_m/x_s &gt  0,        positive for lines
 </pre>
 <p>More info see package ACdq0Impedances.</p>
-</html>"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Lines;

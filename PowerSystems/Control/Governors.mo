@@ -94,11 +94,7 @@ package Governors "Turbine Governors "
               info="<html>
 <p>Constant turbine power (setpoint value).</p>
 </html>
-"),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end GovernorConst;
 
   block Governor1st "Governor first order"
@@ -113,15 +109,14 @@ package Governors "Turbine Governors "
            Modelica.Blocks.Types.Init.NoInit;
     Modelica.Blocks.Math.Add delta_speed(k2=-1)
                                    annotation (Placement(transformation(extent=
-              {{-70,-10},{-50,10}}, rotation=0)));
+              {{-70,-10},{-50,10}})));
     Modelica.Blocks.Continuous.TransferFunction speedReg(
       initType=initType,
       a={t,1},
-      b={k})  annotation (Placement(transformation(extent={{-30,-10},{-10,10}},
-            rotation=0)));
+      b={k})  annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
     Modelica.Blocks.Math.Add delta_power
                             annotation (Placement(transformation(extent={{10,
-              -10},{30,10}}, rotation=0)));
+              -10},{30,10}})));
 
   equation
     connect(setptSpeed, delta_speed.u1)  annotation (Line(points={{-100,40},{
@@ -148,11 +143,7 @@ package Governors "Turbine Governors "
             extent={{-60,34},{60,-26}},
             lineColor={128,128,128},
             textString=
-           "1st")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "1st")}));
   end Governor1st;
 
   package Partials "Partial models"
@@ -163,17 +154,12 @@ package Governors "Turbine Governors "
 
     parameter SIpu.Power[2] p_minmax(each unit="1")={0,2}
         "{min,max} turbine power";
-    protected
-    outer System system;
-    public
     Modelica.Blocks.Interfaces.RealInput setptPower(
                            final unit="1") "setpoint power pu"
-      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}},
-              rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
     Modelica.Blocks.Interfaces.RealInput setptSpeed(
                                      final unit="1") "setpoint speed pu"
-      annotation (Placement(transformation(extent={{-110,30},{-90,50}},
-              rotation=0)));
+      annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
     Modelica.Blocks.Interfaces.RealInput speed(
                                      final unit="1") "turbine speed pu"
       annotation (Placement(transformation(
@@ -187,19 +173,14 @@ package Governors "Turbine Governors "
             extent={{-10,-10},{10,10}},
             rotation=270)));
     Modelica.Blocks.Nonlinear.Limiter limiter(uMin=p_minmax[1], uMax=p_minmax[2])
-      annotation (Placement(transformation(extent={{50,-10},{70,10}}, rotation=
-                0)));
+      annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 
   equation
     connect(limiter.y, power)   annotation (Line(points={{71,0},{80,0},{80,-80},
               {60,-80},{60,-100}}, color={0,0,127}));
     annotation (defaultComponentName = "governor",
       Documentation(info="<html>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
   end GovernorBase;
     annotation (Documentation(info="<html>
 </html>"));
@@ -207,12 +188,5 @@ package Governors "Turbine Governors "
   annotation (preferredView="info",
 Documentation(info="<html>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Governors;

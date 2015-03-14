@@ -211,8 +211,7 @@ package Interfaces
       T = heat.T;
       Q_flow = -heat.Q_flow;
 
-      annotation (Diagram(graphics),
-                           Documentation(info="<html>
+      annotation (                           Documentation(info="<html>
 <p>Adds a heat-port to an electrical component.</p>
 <p>Copper data at 20degC.</p>
 <pre>
@@ -239,8 +238,7 @@ package Interfaces
       T = heat.ports.T;
       Q_flow = -heat.ports.Q_flow;
 
-      annotation (Diagram(graphics),
-                           Documentation(info="<html>
+      annotation (                           Documentation(info="<html>
 <p>Adds a vector heat-port to an electrical component.</p>
 <p>Copper data at 20degC.</p>
 <pre>
@@ -297,7 +295,7 @@ Used in 'System' for sending/receiving weighted frequency-data.</p>
     input SI.Time H "inertia constant" annotation(Dialog);
     input SI.AngularVelocity w "angular velocity" annotation(Dialog);
     Frequency sendFreq annotation (Placement(transformation(extent={{
-              -60,-92},{60,28}}, rotation=0), iconTransformation(extent={{-60,-92},
+              -60,-92},{60,28}}), iconTransformation(extent={{-60,-92},
               {60,28}})));
   equation
     sendFreq.H = -H;
@@ -320,11 +318,7 @@ Needed within certain models to establish the connection to 'system' for sending
             points={{-100,-100},{0,100},{100,-100},{100,-100},{-100,-100}},
             lineColor={120,0,120},
             fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end Sender;
 
 end Interfaces;

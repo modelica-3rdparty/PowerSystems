@@ -681,11 +681,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
               lineColor={0,120,120},
               lineThickness=0.5,
               fillColor={0,120,120},
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
     end IndLoadBase;
 
     partial model CapLoadBase "Capacitive load base, 3-phase dq0"
@@ -737,11 +733,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
               points={{-20,36},{-20,-36},{-10,-33},{-10,33},{-20,36}},
               lineColor={0,120,120},
               fillColor={0,120,120},
-              fillPattern=FillPattern.Solid)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
     end CapLoadBase;
 
   end Partials;
@@ -751,9 +743,5 @@ annotation (preferredView="info",
 <p>Load models with an optional input (if scType=signal):</p>
 <pre>  p_set:     {active, reactive} power</pre>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Loads;

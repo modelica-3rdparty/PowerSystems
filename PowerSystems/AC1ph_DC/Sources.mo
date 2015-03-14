@@ -36,14 +36,7 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
    vPhasor[2]     in rad
 </pre></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end ACvoltage;
 
   model Vspectrum "Ideal voltage spectrum, 1-phase"
@@ -101,11 +94,7 @@ where
             fillColor={127,0,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "~~~")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "~~~")}));
   end Vspectrum;
 
   model DCvoltage "Ideal DC voltage"
@@ -130,14 +119,7 @@ with variable amplitude when 'vType' is 'signal'.</p>
 <p>Optional input:
 <pre>  vDC     DC voltage in SI or pu, depending on choice of 'units' </pre></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end DCvoltage;
 
   model Battery "Battery"
@@ -191,11 +173,7 @@ To be completed later with charging and discharging characteristic.</p>
           Line(
             points={{20,0},{34,0}},
             color={255,255,255},
-            thickness=0.5)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
   end Battery;
 
   package Partials "Partial models"
@@ -217,8 +195,7 @@ To be completed later with charging and discharging characteristic.</p>
 
                                    Interfaces.Electric_p
         neutral "(use for grounding)"
-        annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     protected
       final parameter Real V_base=Basic.Precalculation.baseV(puUnits, V_nom);
 
@@ -248,11 +225,7 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
               fillPattern=FillPattern.Solid), Line(
               points={{-70,0},{70,0}},
               color={176,0,0},
-              thickness=0.5)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              thickness=0.5)}));
     end VoltageBase;
 
     partial model ACvoltageBase "AC voltage base"
@@ -327,11 +300,7 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
               fillColor={127,0,255},
               fillPattern=FillPattern.Solid,
               textString=
-           "~")}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+           "~")}));
     end ACvoltageBase;
 
     partial model DCvoltageBase "DC voltage base"
@@ -371,11 +340,7 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
               fillColor={127,0,255},
               fillPattern=FillPattern.Solid,
               textString=
-                   "=")}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+                   "=")}));
     end DCvoltageBase;
 
   end Partials;
@@ -390,9 +355,5 @@ Documentation(info="<html>
 <p>DC sources have the optional input:</p>
 <pre>  vDC:       DC voltage</pre>
 <p>To use signal inputs, choose parameters vType=signal and/or fType=signal.</p>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Sources;

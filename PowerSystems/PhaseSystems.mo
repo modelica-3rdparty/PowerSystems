@@ -102,7 +102,6 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.ActivePower P "active system power";
     end activePower;
 
-    annotation (Icon(graphics));
   end PartialPhaseSystem;
 
   package DirectCurrent "DC system"

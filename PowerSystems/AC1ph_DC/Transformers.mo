@@ -14,14 +14,7 @@ package Transformers "Transformers 1-phase "
         info="<html>
 <p>Ideal magnetic coupling, no stray-impedance, zero magnetisation current.</p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end TrafoIdeal;
 
   model TrafoStray "Ideal magnetic coupling transformer, 1-phase"
@@ -62,11 +55,7 @@ package Transformers "Transformers 1-phase "
             extent={{-10,62},{10,-62}},
             lineColor={215,215,215},
             fillColor={215,215,215},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end TrafoStray;
 
   model TrafoMag "Magnetic coupling transformer, 1-phase"
@@ -133,11 +122,7 @@ and eddy current losses.</p>
             extent={{18,-58},{22,-62}},
             lineColor={0,128,255},
             fillColor={0,128,255},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end TrafoMag;
 
   model TrafoSat "Saturation transformer, 1-phase"
@@ -262,11 +247,7 @@ and eddy current losses.</p>
             extent={{-10,62},{10,-62}},
             lineColor={215,215,215},
             fillColor={215,215,215},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end Trafo3Stray;
 
   package Partials "Partial models"
@@ -287,7 +268,8 @@ and eddy current losses.</p>
         annotation(Evaluate=true, Dialog(tab="Initialization"));
       parameter SI.Current i1_start = 0 "start value of primary current"
         annotation(Dialog(tab="Initialization"));
-      parameter SI.Current i2_start = i1_start "start value of secondary current"
+      parameter SI.Current i2_start = i1_start
+        "start value of secondary current"
         annotation(Dialog(tab="Initialization"));
 
       parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
@@ -311,7 +293,7 @@ and eddy current losses.</p>
 
       replaceable parameter Parameters.TrafoIdeal1ph par "trafo parameter"
                                 annotation (Placement(transformation(extent={{
-                -80,60},{-60,80}}, rotation=0)));
+                -80,60},{-60,80}})));
     protected
       final parameter Boolean steadyIni_t = system.steadyIni_t and stIni_en;
       Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
@@ -327,9 +309,9 @@ and eddy current losses.</p>
         annotation(Evaluate=true);
       final parameter Real[:] W1=cat(1, {1}, par.v_tc1*V_base[1]/par.V_nom[1])   annotation(Evaluate=true);
       final parameter Real[:] W2=cat(1, {1}, par.v_tc2*V_base[2]/par.V_nom[2])*W_nom   annotation(Evaluate=true);
-      Real w1_set=if not use_tap_p then W1[1] else W1[1 + tap_p_internal]
+      Real w1_set=W1[1 + tap_p_internal]
         "1: set voltage ratio to nominal primary";
-      Real w2_set=if not use_tap_n then W2[1] else W2[1 + tap_n_internal]
+      Real w2_set=W2[1 + tap_n_internal]
         "2: set voltage ratio to nominal primary";
 
     initial equation
@@ -374,12 +356,11 @@ and eddy current losses.</p>
             Text(
               extent={{-120,80},{-80,40}},
               lineColor={0,0,0},
-              textString=
-             "1"),
+              textString="1"),
             Text(
               extent={{80,80},{120,40}},
               lineColor={0,0,0},
-              textString=           "2"),
+              textString="2"),
             Line(
               points={{-80,0},{-40,0}},
               color={176,0,0},
@@ -432,10 +413,6 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for ideal magnetic coupling transformer</p>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -463,10 +440,6 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for magnetic coupling trafo transformer</p>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -492,10 +465,6 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for saturation transformer</p>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -543,7 +512,7 @@ For variable transformer ratio tap changer input needed.</p>
 
       replaceable parameter Parameters.Trafo3Ideal1ph par "trafo parameter"
                                 annotation (Placement(transformation(extent={{
-                -80,60},{-60,80}}, rotation=0)));
+                -80,60},{-60,80}})));
     protected
       Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
@@ -562,11 +531,11 @@ For variable transformer ratio tap changer input needed.</p>
       final parameter Real[:] W2a=cat(1, {1}, par.v_tc2a*V_base[2]/par.V_nom[2])*Wa_nom
                                                                                        annotation(Evaluate=true);
       final parameter Real[:] W2b=cat(1, {1}, par.v_tc2b*V_base[3]/par.V_nom[3])*Wb_nom annotation(Evaluate=true);
-      Real w1_set=if not use_tap_p then W1[1] else W1[1 + tap_p_internal]
+      Real w1_set=W1[1 + tap_p_internal]
         "1: set voltage ratio to nominal primary";
-      Real w2a_set=if not use_tap_n then W2a[1] else W2a[1 + tap_n_internal[1]]
+      Real w2a_set=W2a[1 + tap_n_internal[1]]
         "2a: set voltage ratio to nominal primary";
-      Real w2b_set=if not use_tap_n then W2b[1] else W2b[1 + tap_n_internal[2]]
+      Real w2b_set=W2b[1 + tap_n_internal[2]]
         "2b: set voltage ratio to nominal primary";
 
     initial equation
@@ -614,12 +583,11 @@ For variable transformer ratio tap changer input needed.</p>
             Text(
               extent={{-120,80},{-80,40}},
               lineColor={0,0,0},
-              textString=
-             "1"),
+              textString="1"),
             Text(
               extent={{80,20},{120,-20}},
               lineColor={0,0,0},
-              textString=           "2"),
+              textString="2"),
             Line(
               points={{-80,0},{-40,0}},
               color={176,0,0},
@@ -683,10 +651,6 @@ For variable transformer ratio tap changer input needed.</p>
         info="<html>
 <p>Precalculation of coefficients for ideal magnetic coupling 3-winding transformer</p>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -707,143 +671,94 @@ package Parameters "Parameter data for interactive use"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 record TrafoIdeal1ph "Parameters for ideal transformer, 1-phase"
-  parameter SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2=fill(1, 0) "2: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
   extends Basic.Nominal.NominalDataTrafo;
+  SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Voltage[:] v_tc2=fill(1, 0) "2: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoIdeal1ph;
 
 record TrafoStray1ph
       "Parameters for ideal magnetic coupling transformer, 1-phase"
   extends TrafoIdeal1ph;
-  parameter SIpu.Resistance[2] r={0.05,0.05} "{1,2}: resistance";
-  parameter SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance";
+  SIpu.Resistance[2] r={0.05,0.05} "{1,2}: resistance";
+  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance";
 
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoStray1ph;
 
 record TrafoMag1ph "Parameters for magnetic coupling transformer, 1-phase"
   extends TrafoStray1ph;
-  parameter SIpu.Resistance redc=500 "resistance eddy current";
-  parameter SIpu.Reactance xm=500 "mutual reactance";
+  SIpu.Resistance redc=500 "resistance eddy current";
+  SIpu.Reactance xm=500 "mutual reactance";
 
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoMag1ph;
 
 record TrafoSat1ph "Parameters for saturation transformer, 1-phase"
   extends TrafoMag1ph;
-  parameter Real psi_sat(unit="1")=1.5 "saturation flux";
-  parameter SIpu.Reactance xm_sat=1 "mutual reactance saturated";
+  Real psi_sat(unit="1")=1.5 "saturation flux";
+  SIpu.Reactance xm_sat=1 "mutual reactance saturated";
 
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end TrafoSat1ph;
 
 record Trafo3Ideal1ph "Parameters for ideal transformer, 1-phase"
-  parameter SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
+  SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
                               annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2a=fill(1, 0) "2a: v-levels tap-changer"
+  SIpu.Voltage[:] v_tc2a=fill(1, 0) "2a: v-levels tap-changer"
                               annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2b=fill(1, 0) "2b: v-levels tap-changer"
+  SIpu.Voltage[:] v_tc2b=fill(1, 0) "2b: v-levels tap-changer"
                               annotation(Dialog(group="Options"));
   extends Basic.Nominal.NominalDataTrafo(
                                       V_nom={1,1,1}
           "{prim,sec_a,sec_b} nom Voltage (= base if pu)");
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end Trafo3Ideal1ph;
 
 record Trafo3Stray1ph
       "Parameters for ideal magnetic coupling transformer, 1-phase"
   extends Trafo3Ideal1ph;
-  parameter SIpu.Resistance[3] r={0.05,0.05,0.05} "{1,2a,2b}: resistance";
-  parameter SIpu.Reactance[3] x={0.05,0.05,0.05} "{1,2a,2b}: stray reactance";
+  SIpu.Resistance[3] r={0.05,0.05,0.05} "{1,2a,2b}: resistance";
+  SIpu.Reactance[3] x={0.05,0.05,0.05} "{1,2a,2b}: stray reactance";
 
   annotation (defaultComponentName="data",
+    defaultComponentPrefixes="parameter",
     Documentation(
     info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end Trafo3Stray1ph;
 
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
+
 annotation (preferredView="info",
     Documentation(info="<html>
 <p>One-phase transformer models in different abstraction levels.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Transformers;

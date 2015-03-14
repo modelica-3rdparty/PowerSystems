@@ -704,11 +704,7 @@ end CapacitiveShuntNonSym;
               fillPattern=FillPattern.Solid),
             Line(points={{-80,50},{-60,50}}, color={0,0,255}),
             Line(points={{-80,0},{-60,0}}, color={0,0,255}),
-            Line(points={{-80,-50},{-60,-50}}, color={0,0,255})}),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+            Line(points={{-80,-50},{-60,-50}}, color={0,0,255})}));
     end ShuntBase;
 
     partial model ShuntBaseNonSym "Shunt base non symmetric, 3-phase dq0"
@@ -724,15 +720,7 @@ end CapacitiveShuntNonSym;
 transformation of general impedance matrices from abc rest- to general dq0-system.
 (for example when coefficients of non symmetric systems are defined in abc representation.)
 </pre>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
     end ShuntBaseNonSym;
 
   end Partials;
@@ -741,9 +729,5 @@ annotation (preferredView="info",
     Documentation(info="<html>
 <p>Info see package ACdq0.Impedances.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Shunts;

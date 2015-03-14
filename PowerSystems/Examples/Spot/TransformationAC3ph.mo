@@ -5,40 +5,36 @@ package TransformationAC3ph "Transformation dq0"
   model PhaseShifts "Phase shift primary-secondary"
 
     inner PowerSystems.System system
-      annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
 
     PowerSystems.AC3ph.Sources.Voltage voltage
-      annotation (Placement(transformation(extent={{-90,-10},{-70,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter1(phasor=true)
-      annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC3ph.Nodes.BusBar bus      annotation (Placement(transformation(
-            extent={{-30,-10},{-10,10}}, rotation=0)));
+            extent={{-30,-10},{-10,10}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo1(par(
       V_nom={1,10}),
       redeclare PowerSystems.AC3ph.Ports.Topology.Y top_p "Y",
       redeclare PowerSystems.AC3ph.Ports.Topology.Y top_n "Y")
-      annotation (Placement(transformation(extent={{0,20},{20,40}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,20},{20,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter12( V_nom=10, phasor=true)
-      annotation (Placement(transformation(extent={{40,20},{60,40}}, rotation=0)));
+      annotation (Placement(transformation(extent={{40,20},{60,40}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res12(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
-            extent={{80,20},{100,40}}, rotation=0)));
+            extent={{80,20},{100,40}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo2(
       redeclare PowerSystems.AC3ph.Ports.Topology.Y top_p "Y",
       redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_n "Delta",
       par(V_nom={1,10}))                   annotation (Placement(transformation(
-            extent={{0,-40},{20,-20}}, rotation=0)));
+            extent={{0,-40},{20,-20}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter22(phasor=true, V_nom=10)
-      annotation (Placement(transformation(extent={{40,-40},{60,-20}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res22(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
-            extent={{80,-40},{100,-20}}, rotation=0)));
+            extent={{80,-40},{100,-20}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-90,-10},{-110,10}}, rotation=0)));
+            extent={{-90,-10},{-110,10}})));
 
   equation
     connect(voltage.term,meter1. term_p) annotation (Line(points={{-70,0},{-60,
@@ -79,55 +75,44 @@ Delta_Y configuration:<br>
   meter12.alpha_v     voltage phase secondary Y-Y topology
   meter22.alpha_v     voltage phase secondary Y_Delta topology
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransformationAC3ph\">up users guide</a></p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=1));
+"),      experiment(StopTime=1));
   end PhaseShifts;
 
   model TapChanger "Tap changing primary and secondary"
 
     inner PowerSystems.System system
-      annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
     PowerSystems.AC3ph.Sources.Voltage voltage
-      annotation (Placement(transformation(extent={{-90,-10},{-70,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter1(phasor=true)
-      annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC3ph.Nodes.BusBar bus      annotation (Placement(transformation(
-            extent={{-30,-10},{-10,10}}, rotation=0)));
+            extent={{-30,-10},{-10,10}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo1(par(
       V_nom={1,10},
       v_tc1={0.9,1.0,1.1},
-      v_tc2={0.9,1.0,1.1}))
-                           annotation (Placement(transformation(extent={{0,20},
-              {20,40}}, rotation=0)));
+      v_tc2={0.9,1.0,1.1}),
+      use_tap_p=true,
+      use_tap_n=true)
+      annotation (Placement(transformation(extent={{0,20},{20,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter12(V_nom=10, phasor=true)
-      annotation (Placement(transformation(extent={{40,20},{60,40}}, rotation=0)));
+      annotation (Placement(transformation(extent={{40,20},{60,40}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res12(V_nom=10, r=1000)
-                                           annotation (Placement(transformation(
-            extent={{80,20},{100,40}}, rotation=0)));
+      annotation (Placement(transformation(extent={{80,20},{100,40}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo2(par(
       V_nom={1,10},
       v_tc1={0.9,1.0,1.1},
-      v_tc2={0.9,1.0,1.1}))
-                           annotation (Placement(transformation(extent={{0,-20},
-              {20,-40}}, rotation=0)));
+      v_tc2={0.9,1.0,1.1}),
+      use_tap_p=true,
+      use_tap_n=true)
+      annotation (Placement(transformation(extent={{0,-20},{20,-40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter22(phasor=true, V_nom=10)
-      annotation (Placement(transformation(extent={{40,-40},{60,-20}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res22(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
-            extent={{80,-40},{100,-20}}, rotation=0)));
+            extent={{80,-40},{100,-20}})));
     PowerSystems.Control.Relays.TapChangerRelay TapRelay2(
       preset_1={0,0},
       preset_2={0,1,2,3},
@@ -145,7 +130,7 @@ Delta_Y configuration:<br>
           extent={{-10,-10},{10,10}},
           rotation=270)));
     PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-90,-10},{-110,10}}, rotation=0)));
+            extent={{-90,-10},{-110,10}})));
 
   equation
     connect(voltage.term, meter1.term_p) annotation (Line(points={{-70,0},{-60,
@@ -178,10 +163,6 @@ Delta_Y configuration:<br>
     connect(TapRelay2.tap_n, trafo2.tap_n) annotation (Line(points={{14,-60},{
             14,-40}}, color={255,127,0}));
     annotation (
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
 <p>The transformers change either primary or secondary voltage level at times (1,2,3).
@@ -197,44 +178,36 @@ if primary side is changed at fixed source.
 <pre>  meter 22.v_norm     voltage norm secondary</pre>
 </pre>
 if secondary side is changed at fixed source.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransformationAC3ph\">up users guide</a></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=4));
+"),      experiment(StopTime=4));
   end TapChanger;
 
   model TreeWinding "Tree winding transformer"
 
     inner PowerSystems.System system
-      annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
 
     PowerSystems.AC3ph.Sources.Voltage voltage
-      annotation (Placement(transformation(extent={{-90,-10},{-70,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter1(phasor=true)
-      annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC3ph.Nodes.BusBar bus      annotation (Placement(transformation(
-            extent={{-30,-10},{-10,10}}, rotation=0)));
+            extent={{-30,-10},{-10,10}})));
     PowerSystems.AC3ph.Transformers.Trafo3Stray trafo3Stray
-      annotation (Placement(transformation(extent={{0,-10},{20,10}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,-10},{20,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter12( V_nom=10, phasor=true)
-      annotation (Placement(transformation(extent={{40,20},{60,40}}, rotation=0)));
+      annotation (Placement(transformation(extent={{40,20},{60,40}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res12(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
-            extent={{80,20},{100,40}}, rotation=0)));
+            extent={{80,20},{100,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter22(phasor=true, V_nom=10)
-      annotation (Placement(transformation(extent={{40,-40},{60,-20}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res22(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
-            extent={{80,-40},{100,-20}}, rotation=0)));
+            extent={{80,-40},{100,-20}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-90,-10},{-110,10}}, rotation=0)));
+            extent={{-90,-10},{-110,10}})));
 
   equation
     connect(voltage.term,meter1. term_p) annotation (Line(points={{-70,0},{-60,
@@ -273,25 +246,13 @@ Delta_Y configuration:<br>
   meter12.alpha_v     voltage phase secondary Y-Y topology
   meter22.alpha_v     voltage phase secondary Y_Delta topology
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransformationAC3ph\">up users guide</a></p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=1));
+"),      experiment(StopTime=1));
   end TreeWinding;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transformers three-phase and tap changer control.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+</html>"));
 end TransformationAC3ph;

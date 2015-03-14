@@ -8,14 +8,14 @@ package Exciters "Generator Exciters "
       choices(choice=true "parameter", choice=false "initialised"));
     parameter SIpu.Voltage v_f(unit="1", fixed=par)=1 "exciter voltage"
                                                               annotation(Dialog(enable=par));
-    Modelica.Blocks.Interfaces.RealInput termVoltage[3](
-                             final unit="1") "terminal voltage pu"
+    Modelica.Blocks.Interfaces.RealInput termVoltage[3](each final unit="1")
+      "terminal voltage pu"
       annotation (Placement(transformation(
           origin={-60,-100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-    Modelica.Blocks.Interfaces.RealOutput fieldVoltage(
-                             final unit="1") "field voltage pu"
+    Modelica.Blocks.Interfaces.RealOutput fieldVoltage(final unit="1")
+      "field voltage pu"
       annotation (Placement(transformation(
           origin={60,-100},
           extent={{-10,-10},{10,10}},
@@ -83,11 +83,7 @@ package Exciters "Generator Exciters "
             extent={{-60,34},{60,-26}},
             lineColor={128,128,128},
             textString=
-                 "const")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "const")}));
   end ExciterConst;
 
   block Exciter1st "Exciter first order"
@@ -106,15 +102,13 @@ package Exciters "Generator Exciters "
           extent={{-10,-10},{10,10}},
           rotation=90)));
     Modelica.Blocks.Math.Add delta_voltage(k1=+1, k2=-1)
-      annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     Modelica.Blocks.Continuous.TransferFunction voltageReg(
       initType=initType,
       a={t,1},
       b={k},
       y(start=voltageReg.y_start))
-      annotation (Placement(transformation(extent={{-30,-10},{-10,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
   equation
     connect(setptVoltage, delta_voltage.u1)  annotation (Line(points={{-100,0},
@@ -140,11 +134,7 @@ package Exciters "Generator Exciters "
             extent={{-60,34},{60,-26}},
             lineColor={128,128,128},
             textString=
-           "1st")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+           "1st")}));
   end Exciter1st;
 
   package Partials "Partial models"
@@ -155,14 +145,10 @@ package Exciters "Generator Exciters "
 
     parameter SIpu.Voltage[2] v_f_minmax(each unit="1")={0, 3}
         "{min,max} exciter voltage";
-    protected
-    outer System system;
-    public
     Modelica.Blocks.Interfaces.RealInput setptVoltage(
                              final unit="1")
         "setpoint norm of terminal voltage pu"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-              rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Modelica.Blocks.Interfaces.RealInput termVoltage[3](
                              each final unit="1") "terminal voltage pu"
       annotation (Placement(transformation(
@@ -176,8 +162,7 @@ package Exciters "Generator Exciters "
             extent={{-10,-10},{10,10}},
             rotation=270)));
     Modelica.Blocks.Nonlinear.Limiter limiter(uMin=v_f_minmax[1],uMax=v_f_minmax[2])
-      annotation (Placement(transformation(extent={{50,-10},{70,10}}, rotation=
-                0)));
+      annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 
   equation
     connect(limiter.y, fieldVoltage) annotation (Line(points={{71,0},{80,0},{80,
@@ -185,15 +170,7 @@ package Exciters "Generator Exciters "
     annotation (defaultComponentName = "exciter",
       Documentation(
               info="<html>
-</html>"),
-      Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
   end ExciterBase;
     annotation (Documentation(info="<html>
 </html>"));
@@ -201,8 +178,5 @@ package Exciters "Generator Exciters "
   annotation (preferredView="info",
 Documentation(info="<html>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Exciters;

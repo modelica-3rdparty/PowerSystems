@@ -167,18 +167,18 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
 
     parameter SI.Resistance R=1;
     Interfaces.Electric_p term_p annotation (Placement(transformation(extent={{
-              -110,-10},{-90,10}}, rotation=0)));
+              -110,-10},{-90,10}})));
     Interfaces.Electric_n term_n annotation (Placement(transformation(extent={{
-              90,-10},{110,10}}, rotation=0)));
+              90,-10},{110,10}})));
     Interfaces.Electric_n neutral "symmetrical point"
       annotation (Placement(transformation(
           origin={0,-100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
     Resistor res1(final R=R/2)               annotation (Placement(
-          transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
+          transformation(extent={{-40,-10},{-20,10}})));
     Resistor res2(final R=R/2)               annotation (Placement(
-          transformation(extent={{20,-10},{40,10}}, rotation=0)));
+          transformation(extent={{20,-10},{40,10}})));
 
   equation
     connect(term_p, res1.term_p)
@@ -216,11 +216,7 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
             extent={{10,10},{70,-10}},
             lineColor={0,0,255},
             fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end ResistorSym;
 
   model CapacitorSym "Symmetrical capacitor with neutral access, 1-phase"
@@ -229,9 +225,9 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
     parameter SI.Capacitance C=1e-6;
     parameter SI.Voltage Vstart=0 "start voltage";
     Interfaces.Electric_p term_p annotation (Placement(transformation(extent={{
-              -110,-10},{-90,10}}, rotation=0)));
+              -110,-10},{-90,10}})));
     Interfaces.Electric_n term_n annotation (Placement(transformation(extent={{
-              90,-10},{110,10}}, rotation=0)));
+              90,-10},{110,10}})));
     Interfaces.Electric_n neutral "symmetrical point"
       annotation (Placement(transformation(
           origin={0,-100},
@@ -239,10 +235,10 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
           rotation=270)));
     Capacitor cap1(final G=2*G, final C=2*C, v(start=Vstart/2))
                                              annotation (Placement(
-          transformation(extent={{-40,-10},{-20,10}}, rotation=0)));
+          transformation(extent={{-40,-10},{-20,10}})));
     Capacitor cap2(final G=2*G, final C=2*C, v(start=Vstart/2))
                                              annotation (Placement(
-          transformation(extent={{20,-10},{40,10}}, rotation=0)));
+          transformation(extent={{20,-10},{40,10}})));
 
   equation
     connect(term_p, cap1.term_p)
@@ -300,11 +296,7 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
             extent={{-100,130},{100,90}},
             lineColor={0,0,0},
             textString=
-             "%name")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+             "%name")}));
   end CapacitorSym;
 
   package Partials "Partial models"
@@ -318,9 +310,9 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
       SI.Voltage v(start = v_start);
       SI.Current i(start = i_start);
       Interfaces.Electric_p term_p annotation (Placement(transformation(extent=
-                {{-110,-10},{-90,10}}, rotation=0)));
+                {{-110,-10},{-90,10}})));
       Interfaces.Electric_n term_n annotation (Placement(transformation(extent=
-                {{90,-10},{110,10}}, rotation=0)));
+                {{90,-10},{110,10}})));
     equation
       term_p.i + term_n.i = 0;
       v = term_p.v - term_n.v;
@@ -356,9 +348,5 @@ Documentation(info="<html>
   C      capacitance
 </pre>
 <p>in SI-units.</p>
-</html>       "),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>       "));
 end ImpedancesSingle;

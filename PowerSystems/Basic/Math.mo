@@ -12,7 +12,7 @@ package Math "Mathematical functions"
   protected
       Real c;
       Real s;
-      function atan2=Modelica.Math.atan2;
+      import Modelica.Math.atan2;
 
     algorithm
       c := cos(-alpha);
@@ -34,7 +34,7 @@ for arbitrary (time-dependent) input argument alpha.</p>
       input Real[2] x_dot "time-derivative of x";
       output Real omega "angular velocity of x";
   protected
-      constant Real eps =  Modelica.Constants.eps;
+      import Modelica.Constants.eps;
 
     algorithm
       omega :=(x[1]*x_dot[2] - x_dot[1]*x[2])/(x*x + eps);
@@ -131,7 +131,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   c = {-6, 11, -6, 1};
 </blockquote><pre>
 <p>See also
-<a href=\"PowerSystems.Basic.Math.polyCoef\">polyCoef</a>, <a href=\"PowerSystems.Basic.Math.polyRoots\">polyRoots</a></p>
+<a href=\"modelica://PowerSystems.Basic.Math.polyCoef\">polyCoef</a>, <a href=\"modelica://PowerSystems.Basic.Math.polyRoots\">polyRoots</a></p>
 </html>
 "));
     end polyCoefReal;
@@ -172,7 +172,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   c = [-6, 0; 11, 0; -6, 0; 1, 0];
 </blockquote></pre>
 <p>See also
-<a href=\"PowerSystems.Basic.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"PowerSystems.Basic.Math.polyRoots\">polyRoots</a></p>
+<a href=\"modelica://PowerSystems.Basic.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"modelica://PowerSystems.Basic.Math.polyRoots\">polyRoots</a></p>
 </html>
 "));
     end polyCoef;
@@ -191,7 +191,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
       Integer n0;
       Real[N, N] A;
       Real[N+1] C;
-      function eigenval = Modelica.Math.Matrices.eigenValues;
+      import Modelica.Math.Matrices.eigenValues;
 
     algorithm
       N0 := N "determine true degree of polymomial";
@@ -214,7 +214,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
         A[2:n,1:n-1] := diagonal(ones(n-1));
         A[2:n,n] := zeros(n-1);
         r[1:n0,:] := zeros(n0,2);
-        r[n0+1:n0+n,:] := eigenval(A[1:n, 1:n]);
+        r[n0+1:n0+n,:] := eigenValues(A[1:n, 1:n]);
       end if;
     annotation (Documentation(info="<html>
 <p>The function determines the root vector r of a polynomial of degree N with coefficient vector c.</p>
@@ -238,7 +238,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   r[2,:] = {-0.333333 -0.471405};
 </blockquote></pre>
 <p>See also
-<a href=\"PowerSystems.Basic.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"PowerSystems.Basic.Math.polyCoef\">polyCoef</a>, <a href=\"Modelica:Modelica.Math.Matrices.eigenValues\">eigenValues</a></p>
+<a href=\"modelica://PowerSystems.Basic.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"modelica://PowerSystems.Basic.Math.polyCoef\">polyCoef</a>, <a href=\"Modelica:Modelica.Math.Matrices.eigenValues\">eigenValues</a></p>
 </html>
 "));
     end polyRoots;
@@ -254,9 +254,9 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   protected
       replaceable function fcn = PowerSystems.Basic.Precalculation.i_field
       "function to be minimised around x0";
-      constant Integer n=size(x,1);
-      constant Integer max_fun = 200*n;
-      constant Integer max_iter = 200*n;
+      Integer n = size(x,1);
+      Integer max_fun = 200*n;
+      Integer max_iter = 200*n;
       constant Real tol_x = 1e-4;
       constant Real tol_f = 1e-4;
       constant Real rho = 1;
@@ -399,10 +399,10 @@ Should be modified (domains with boundaries).</p>
       extends PowerSystems.Basic.Icons.Function;
 
       input Real[:] x "x unsorted";
-      output Real[n] y "x sorted increasing";
-      output Integer[n] i "indizes of sorted x";
-  protected
-      Integer n=size(x,1);
+      output Real[size(x,1)] y "x sorted increasing";
+      output Integer[size(x,1)] i "indizes of sorted x";
+    protected
+      Integer n = size(x,1);
       Integer itemp;
       Real ytemp;
 
@@ -429,10 +429,10 @@ Should be modified (domains with boundaries).</p>
       extends PowerSystems.Basic.Icons.Function;
 
       input Real[:] x "x unsorted";
-      output Real[n] y "x sorted decreasing";
-      output Integer[n] i "indizes of sorted x";
-  protected
-      Integer n=size(x,1);
+      output Real[size(x,1)] y "x sorted decreasing";
+      output Integer[size(x,1)] i "indizes of sorted x";
+    protected
+      Integer n = size(x,1);
       Integer itemp;
       Real ytemp;
 
@@ -459,7 +459,7 @@ Should be modified (domains with boundaries).</p>
       extends PowerSystems.Basic.Icons.Function;
 
       input Real t "relative time";
-      input Real t_char "charcteristic time";
+      input Real t_char "characteristic time";
       input Real beta(min=2) "power of exponent";
       output Real[2] y "relaxation function {decreasing, increasing}";
   protected
@@ -508,7 +508,7 @@ i.e. for negative t y takes its asymptotic values.</p>
 </html>"));
     end taylor;
 
-    function sign_gtlt "Charcteristic function abs(x)>b"
+    function sign_gtlt "Characteristic function abs(x)>b"
       extends PowerSystems.Basic.Icons.Function;
 
       input Real[:] x "argument";
@@ -564,9 +564,6 @@ i.e. for negative t y takes its asymptotic values.</p>
     annotation (preferredView="info",
   Documentation(info="<html>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
 end Math;
 

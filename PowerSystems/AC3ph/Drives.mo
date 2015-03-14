@@ -11,8 +11,7 @@ package Drives "AC-drives dq0"
                                w(      start=speed_ini*2*pi*motor.par.f_nom/2)));
     replaceable PowerSystems.AC3ph.Machines.Asynchron motor(final w_el_ini=speed_ini*2*pi*motor.par.f_nom)
       "asyn motor"
-      annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   equation
     connect(motor.heat, heat) annotation (Line(points={{-30,10},{-30,40},{0,40},
@@ -34,11 +33,7 @@ package Drives "AC-drives dq0"
             extent={{-60,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "asyn")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "asyn")}));
   end ASM;
 
   model ASM_Y_D "Asynchronous machine with cage rotor, Y-Delta switcheable"
@@ -49,12 +44,10 @@ package Drives "AC-drives dq0"
     extends Partials.DriveBase;
     replaceable PowerSystems.AC3ph.Machines.AsynchronY_D motor(final w_el_ini=speed_ini*2*pi*motor.par.f_nom)
       "asyn motor Y-Delta switcheable"
-      annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     input Modelica.Blocks.Interfaces.BooleanInput YDcontrol
       "true:Y, false:Delta"
-      annotation (Placement(transformation(extent={{-110,30},{-90,50}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
 
   equation
     connect(YDcontrol, motor.YDcontrol) annotation (Line(points={{-100,40},{-60,
@@ -102,7 +95,7 @@ package Drives "AC-drives dq0"
               autosyn=false) "inverter time-average"),
       choice(redeclare PowerSystems.AC3ph.Inverters.Inverter inverter(final autosyn=false)
             "inverter with modulator")), Placement(transformation(extent={{-80,
-              -10},{-60,10}}, rotation=0)));
+              -10},{-60,10}})));
     replaceable AC3ph.Machines.Asynchron_ctrl motor(
       final w_el_ini=w_ini*motor.par.pp) "asyn motor, current controlled"
       annotation (                         choices(
@@ -112,7 +105,7 @@ package Drives "AC-drives dq0"
       choice(redeclare PowerSystems.AC3ph.Machines.Synchron_pm_ctrl
                                                                  motor
             "synchron general")), Placement(transformation(extent={{-40,-10},{
-              -20,10}}, rotation=0)));
+              -20,10}})));
 
   equation
     connect(motor.airgap, rotor.rotor)
@@ -135,7 +128,6 @@ package Drives "AC-drives dq0"
             10},{-16,10},{-16,20},{-84,20},{-84,10},{-76,10}}, color={0,0,127}));
       annotation (
       defaultComponentName="sm_ctrlAv",
-      Diagram(graphics),
       Icon(graphics={Text(
             extent={{-60,20},{80,-20}},
             lineColor={128,128,128},
@@ -155,7 +147,7 @@ package Drives "AC-drives dq0"
     extends Partials.DriveBase;
     replaceable PowerSystems.AC3ph.Machines.Control.Excitation excitation
       "excitation model"                annotation (Placement(transformation(
-            extent={{-70,20},{-50,40}}, rotation=0)));
+            extent={{-70,20},{-50,40}})));
     replaceable PowerSystems.AC3ph.Machines.Synchron3rd_ee motor(final w_el_ini=speed_ini*2*pi*motor.par.f_nom)
       "syn motor"
       annotation (                         choices(
@@ -163,7 +155,7 @@ package Drives "AC-drives dq0"
             "synchron 3rd order"),
       choice(redeclare PowerSystems.AC3ph.Machines.Synchron_ee motor
             "synchron general")), Placement(transformation(extent={{-40,-10},{
-              -20,10}}, rotation=0)));
+              -20,10}})));
     Modelica.Blocks.Interfaces.RealInput fieldVoltage(
                              final unit="1")
       "field voltage pu from exciter control"
@@ -211,11 +203,7 @@ package Drives "AC-drives dq0"
             extent={{-60,20},{80,-20}},
             lineColor={128,128,128},
             textString=
-                 "syn")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                 "syn")}));
   end SM_el;
 
   model SM_ctrl "Synchronous machine, current-control"
@@ -227,7 +215,7 @@ package Drives "AC-drives dq0"
             "inverter time-average"),
       choice(redeclare PowerSystems.AC3ph.Inverters.Inverter inverter
             "inverter with modulator")), Placement(transformation(extent={{-80,
-              -10},{-60,10}}, rotation=0)));
+              -10},{-60,10}})));
     replaceable Machines.Synchron3rd_pm_ctrl    motor(
       final w_el_ini=w_ini*motor.par.pp) "syn motor, current controlled"
       annotation (                         choices(
@@ -237,7 +225,7 @@ package Drives "AC-drives dq0"
       choice(redeclare PowerSystems.AC3ph.Machines.Synchron_pm_ctrl
                                                                  motor
             "synchron general")), Placement(transformation(extent={{-40,-10},{
-              -20,10}}, rotation=0)));
+              -20,10}})));
 
   equation
     connect(motor.airgap, rotor.rotor)
@@ -260,7 +248,6 @@ package Drives "AC-drives dq0"
             {-24,40},{-24,10}}, color={0,0,127}));
       annotation (
       defaultComponentName="sm_ctrl",
-      Diagram(graphics),
       Icon(graphics={
           Text(
             extent={{-60,20},{80,-20}},
@@ -287,11 +274,10 @@ package Drives "AC-drives dq0"
   partial model DriveBase0 "AC drives base mechanical"
 
     Interfaces.Rotation_n flange "mechanical flange"
-      annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
-               0)));
+      annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     replaceable PowerSystems.Mechanics.Rotation.ElectricRotor rotor
         "machine rotor"
-      annotation (Placement(transformation(extent={{0,-10},{20,10}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,-10},{20,10}})));
     replaceable PowerSystems.Mechanics.Rotation.NoGear gear "type of gear"
       annotation (                                                                                                    choices(
         choice(redeclare PowerSystems.Mechanics.Rotation.Joint gear "no gear"),
@@ -299,7 +285,7 @@ package Drives "AC-drives dq0"
               "massless gear"),
         choice(redeclare PowerSystems.Mechanics.Rotation.Gear gear
               "massive gear")),
-          Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
+          Placement(transformation(extent={{40,-10},{60,10}})));
     Interfaces.ThermalV_n heat(              m=2)
         "heat source port {stator, rotor}"
       annotation (Placement(transformation(
@@ -379,7 +365,7 @@ package Drives "AC-drives dq0"
 
     AC3ph.Ports.ACdq0_p term "electric terminal"
                             annotation (Placement(transformation(extent={{-110,
-                -10},{-90,10}}, rotation=0)));
+                -10},{-90,10}})));
 
     annotation (
   Icon(coordinateSystem(
@@ -449,7 +435,7 @@ package Drives "AC-drives dq0"
       annotation(Dialog(enable=not system.steadyIni));
     AC1ph_DC.Ports.TwoPin_p term "electric terminal DC"
                             annotation (Placement(transformation(extent={{-110,
-                -10},{-90,10}}, rotation=0)));
+                -10},{-90,10}})));
     Modelica.Blocks.Interfaces.RealOutput[2] i_meas(
                              each final unit="1")
         "measured current {i_d, i_q} pu"
@@ -466,7 +452,7 @@ package Drives "AC-drives dq0"
             rotation=90)));
     protected
     Common.Thermal.HeatV_a_b_ab heat_adapt annotation (Placement(transformation(
-              extent={{10,60},{-10,80}}, rotation=0)));
+              extent={{10,60},{-10,80}})));
 
   equation
     connect(heat_adapt.port_ab, heat)
@@ -482,11 +468,7 @@ package Drives "AC-drives dq0"
               extent={{-90,112},{90,88}},
               lineColor={0,0,127},
               fillColor={170,213,255},
-              fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              fillPattern=FillPattern.Solid)}));
   end DriveBase_ctrl;
 
   end Partials;
@@ -494,10 +476,7 @@ package Drives "AC-drives dq0"
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Contains both electrical and mechanical parts of AC-drives, dq0-representation.</p>
-<p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"PowerSystems.UsersGuide.Overview\">up users guide</a></p>
+<p>Heat ports must be connected. In cases where they are not needed, use 'Common.Thermal.BdCond(V)'.</p><p><a <p><a href=\"modelica://PowerSystems.UsersGuide.Overview\">up users guide</a></p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Drives;

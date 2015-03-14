@@ -5,29 +5,23 @@ package TransformationAC1ph "Transformation 1 phase"
   model OnePhase "One phase transformer"
 
     inner PowerSystems.System system(ref="inertial")
-      annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(pol=-1)
-      annotation (Placement(transformation(extent={{-90,-10},{-70,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter1
-      annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC1ph_DC.Nodes.BusBar bus   annotation (Placement(transformation(
-            extent={{-30,-10},{-10,10}}, rotation=0)));
+            extent={{-30,-10},{-10,10}})));
     PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(par(V_nom={1,10}))
-      annotation (Placement(transformation(extent={{0,-10},{20,10}}, rotation=0)));
+      annotation (Placement(transformation(extent={{0,-10},{20,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter2(V_nom=10)
-      annotation (Placement(transformation(extent={{40,-10},{60,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{40,-10},{60,10}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Resistor res(V_nom=10, r=1000)
-      annotation (Placement(transformation(extent={{80,-10},{100,10}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{80,-10},{100,10}})));
     PowerSystems.AC1ph_DC.Nodes.PolarityGround polGrd(pol=0)
-      annotation (Placement(transformation(extent={{80,-40},{100,-20}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-90,-10},{-110,10}}, rotation=0)));
+            extent={{-90,-10},{-110,10}})));
 
   equation
     connect(voltage.term, meter1.term_p)
@@ -57,24 +51,15 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
   meter1.v     voltage phase secondary Y-Y topology
   meter2.v     voltage phase secondary Y_Delta topology
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransformationAC1ph\">up users guide</a></p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=1, Interval=1e-3));
+"),      experiment(StopTime=1, Interval=1e-3));
   end OnePhase;
 
   model TapChanger "One phase tap changing primary and secondary"
 
     inner PowerSystems.System system(ref="inertial")
-      annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
     PowerSystems.Control.Relays.TapChangerRelay TapRelay2(
       preset_1={0,0},
       preset_2={0,1,2,3},
@@ -92,26 +77,22 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
           extent={{-10,-10},{10,10}},
           rotation=270)));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(pol=-1)
-      annotation (Placement(transformation(extent={{-90,-10},{-70,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter1
-      annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC1ph_DC.Nodes.BusBar bus   annotation (Placement(transformation(
-            extent={{-30,-10},{-10,10}}, rotation=0)));
+            extent={{-30,-10},{-10,10}})));
     PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo1(par(
       v_tc1={0.9,1.0,1.1},
       v_tc2={0.9,1.0,1.1},
       V_nom={1,10}),
       use_tap_p=true,
       use_tap_n=true)
-                    annotation (Placement(transformation(extent={{0,20},{20,40}},
-            rotation=0)));
+                    annotation (Placement(transformation(extent={{0,20},{20,40}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter12(V_nom=10)
-      annotation (Placement(transformation(extent={{40,20},{60,40}}, rotation=0)));
+      annotation (Placement(transformation(extent={{40,20},{60,40}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Resistor res12(V_nom=10, r=1000)
-      annotation (Placement(transformation(extent={{80,20},{100,40}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{80,20},{100,40}})));
     PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo2(par(
       v_tc1={0.9,1.0,1.1},
       v_tc2={0.9,1.0,1.1},
@@ -119,20 +100,17 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
       use_tap_p=true,
       use_tap_n=true)
                     annotation (Placement(transformation(extent={{0,-20},{20,
-              -40}}, rotation=0)));
+              -40}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter22(V_nom=10)
-      annotation (Placement(transformation(extent={{40,-40},{60,-20}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Resistor res22(V_nom=10, r=1000)
-      annotation (Placement(transformation(extent={{80,-40},{100,-20}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
     PowerSystems.AC1ph_DC.Nodes.PolarityGround polGrd1(pol=0)
-      annotation (Placement(transformation(extent={{80,0},{100,20}}, rotation=0)));
+      annotation (Placement(transformation(extent={{80,0},{100,20}})));
     PowerSystems.AC1ph_DC.Nodes.PolarityGround polGrd2(pol=0)
-      annotation (Placement(transformation(extent={{80,-60},{100,-40}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-90,-10},{-110,10}}, rotation=0)));
+            extent={{-90,-10},{-110,10}})));
 
   equation
     connect(voltage.term, meter1.term_p)
@@ -166,10 +144,6 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
     connect(TapRelay2.tap_n, trafo2.tap_n) annotation (Line(points={{14,-60},{
             14,-40}}, color={255,127,0}));
     annotation (
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
       Documentation(
               info="<html>
 <p>The transformers change either primary or secondary voltage level at times (1,2,3).
@@ -184,21 +158,13 @@ Note that the primary voltage source is fixed.</p>
   meter 12.v     voltage secondary, if primary is changed at fixed source.
   meter 22.v     voltage secondary, if secondary is changed at fixed source.
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransformationAC1ph\">up users guide</a></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      experiment(StopTime=4, Interval=1e-3));
+"),      experiment(StopTime=4, Interval=1e-3));
   end TapChanger;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transformers one-phase and tap changer control.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+</html>"));
 end TransformationAC1ph;

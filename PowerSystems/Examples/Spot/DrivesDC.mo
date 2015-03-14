@@ -5,26 +5,25 @@ package DrivesDC "DC drives"
   model DCmotor_ser "DC motor series excited"
 
     inner PowerSystems.System system(ref="inertial")
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.Blocks.Signals.Transient ramp(
       t_change=0,
       t_duration=10)
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-60,-20},{-80,0}}, rotation=0)));
+            extent={{-60,-20},{-80,0}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(V_nom=1500, scType_par=false)
                                       annotation (Placement(transformation(
-            extent={{-60,-20},{-40,0}}, rotation=0)));
+            extent={{-60,-20},{-40,0}})));
     PowerSystems.AC1ph_DC.Sensors.Psensor power      annotation (Placement(
-          transformation(extent={{-20,-20},{0,0}}, rotation=0)));
+          transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Drives.DCMser dcm_ser(
       rotor(J=6.4),
       motor(par=DCs1500_1p5M),
       w_ini=146.60765716752)              annotation (Placement(transformation(
-            extent={{20,-20},{40,0}}, rotation=0)));
+            extent={{20,-20},{40,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
-          transformation(extent={{20,0},{40,20}}, rotation=0)));
+          transformation(extent={{20,0},{40,20}})));
     PowerSystems.Mechanics.Rotation.TabPosSlopeTorque tabLoad(
       r=0.4,
       gRatio=40/17,
@@ -36,10 +35,9 @@ package DrivesDC "DC drives"
       tableName="height",
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
-    annotation (Placement(transformation(extent={{60,-20},{80,0}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
     parameter PowerSystems.Examples.Spot.Data.Machines.DCser1500V_1p5MVA DCs1500_1p5M
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
   equation
     connect(voltage.term, power.term_p)
@@ -63,40 +61,31 @@ package DrivesDC "DC drives"
   power.p
   tabLoad.vVehicle
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
 </html>
-"), Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    experiment(StopTime=60));
+"),    experiment(StopTime=60));
   end DCmotor_ser;
 
   model DCmotor_par "DC motor parallel excited"
 
     inner PowerSystems.System system(ref="inertial")
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-60,-20},{-80,0}}, rotation=0)));
+            extent={{-60,-20},{-80,0}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage armVoltage(V_nom=1500, scType_par=true)
                                       annotation (Placement(transformation(
-            extent={{-60,-20},{-40,0}}, rotation=0)));
+            extent={{-60,-20},{-40,0}})));
     PowerSystems.AC1ph_DC.Sensors.Psensor power      annotation (Placement(
-          transformation(extent={{-20,-20},{0,0}}, rotation=0)));
+          transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage excVoltage(V_nom=1500, scType_par=true)
                                       annotation (Placement(transformation(
-            extent={{-60,-60},{-40,-40}}, rotation=0)));
+            extent={{-60,-60},{-40,-40}})));
     PowerSystems.AC1ph_DC.Drives.DCMpar dcm_par(
       rotor(J=6.4),
       motor(par=DCp1500_1p5M))             annotation (Placement(transformation(
-            extent={{20,-20},{40,0}}, rotation=0)));
+            extent={{20,-20},{40,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
-          transformation(extent={{20,0},{40,20}}, rotation=0)));
+          transformation(extent={{20,0},{40,20}})));
     PowerSystems.Mechanics.Rotation.TabPosSlopeTorque tabLoad(
       r=0.4,
       gRatio=40/17,
@@ -108,10 +97,9 @@ package DrivesDC "DC drives"
       mass=200e3,
       slope_perc=2.5,
       cFrict={50,15})
-    annotation (Placement(transformation(extent={{60,-20},{80,0}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
     parameter PowerSystems.Examples.Spot.Data.Machines.DCpar1500V_1p5MVA DCp1500_1p5M
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
   equation
     connect(armVoltage.term, power.term_p) annotation (Line(points={{-40,-10},{
@@ -137,50 +125,40 @@ package DrivesDC "DC drives"
   power.p
   tabLoad.vVehicle
 </pre></p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
 </html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     experiment(StopTime=60));
   end DCmotor_par;
 
   model DCmotor_pm "DC motor permanent magnet excited"
 
     inner PowerSystems.System system(ref="inertial")
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-80,-20},{-100,0}}, rotation=0)));
+            extent={{-80,-20},{-100,0}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(V_nom=100)
                                       annotation (Placement(transformation(
-            extent={{-80,-20},{-60,0}}, rotation=0)));
+            extent={{-80,-20},{-60,0}})));
     PowerSystems.AC1ph_DC.Sensors.Psensor power annotation (Placement(transformation(
-            extent={{-50,-20},{-30,0}}, rotation=0)));
+            extent={{-50,-20},{-30,0}})));
     PowerSystems.AC1ph_DC.Sensors.Efficiency efficiency(tcst=0.1, m=2)
-      annotation (Placement(transformation(extent={{-20,-20},{0,0}}, rotation=0)));
+      annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Drives.DCMpm dcm_pm(rotor(J=0.02), motor(par=DCpm100_1k))
                                           annotation (Placement(transformation(
-            extent={{10,-20},{30,0}}, rotation=0)));
+            extent={{10,-20},{30,0}})));
     PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.03)
-    annotation (Placement(transformation(extent={{40,-20},{60,0}}, rotation=0)));
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
     PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={0.01,0.0002})
-      annotation (Placement(transformation(extent={{70,-20},{90,0}}, rotation=0)));
+      annotation (Placement(transformation(extent={{70,-20},{90,0}})));
     Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStep(
       stepTorque=-10,
       startTime=1.5,
       useSupport=false,
       offsetTorque=0)
-                annotation (Placement(transformation(extent={{90,20},{70,40}},
-            rotation=0)));
+                annotation (Placement(transformation(extent={{90,20},{70,40}})));
     parameter PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA DCpm100_1k
                                            annotation (Placement(transformation(
-            extent={{-60,80},{-20,100}}, rotation=0)));
+            extent={{-60,80},{-20,100}})));
 
   equation
     connect(grd.term, voltage.neutral) annotation (Line(points={{-80,-10},{-80,
@@ -211,37 +189,27 @@ package DrivesDC "DC drives"
   efficiency.eta               efficiency
 </pre></p>
 <p>See also example DCcharSpeed.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
 </html>
-"), Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    experiment(StopTime=3));
+"),    experiment(StopTime=3));
   end DCmotor_pm;
 
   model BLDC "Brushless DC motor"
 
     inner PowerSystems.System system(f_nom=60,
       ref="inertial")
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-80,-20},{-100,0}}, rotation=0)));
+            extent={{-80,-20},{-100,0}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(           pol=0, V_nom=100)
                                       annotation (Placement(transformation(
-            extent={{-80,-20},{-60,0}}, rotation=0)));
+            extent={{-80,-20},{-60,0}})));
     PowerSystems.AC1ph_DC.Sensors.Psensor power annotation (Placement(transformation(
-            extent={{-50,-20},{-30,0}}, rotation=0)));
+            extent={{-50,-20},{-30,0}})));
     PowerSystems.AC1ph_DC.Sensors.Efficiency efficiency(
       av=true,
       tcst=0.1,
-      m=5)      annotation (Placement(transformation(extent={{-20,-20},{0,0}},
-            rotation=0)));
+      m=5)      annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Drives.BLDC bldcm(
       motor(par=bldc100_1k),
       rotor(J=0.02),
@@ -251,22 +219,21 @@ package DrivesDC "DC drives"
           redeclare PowerSystems.AC3ph.Inverters.Components.InverterSwitch inverter
           "switch, no diode, no losses") "inverter with modulator")
                              annotation (Placement(transformation(extent={{10,
-              -20},{30,0}}, rotation=0)));
+              -20},{30,0}})));
     PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.03)
-    annotation (Placement(transformation(extent={{40,-20},{60,0}}, rotation=0)));
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
     PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={0.01,0.0002})
-      annotation (Placement(transformation(extent={{70,-20},{90,0}}, rotation=0)));
+      annotation (Placement(transformation(extent={{70,-20},{90,0}})));
     Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStep(
       startTime=1.5, stepTorque=-10,
       useSupport=false,
       offsetTorque=0)
-                annotation (Placement(transformation(extent={{90,20},{70,40}},
-            rotation=0)));
+                annotation (Placement(transformation(extent={{90,20},{70,40}})));
     parameter PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA bldc100_1k
                                            annotation (Placement(transformation(
-            extent={{-60,80},{-20,100}}, rotation=0)));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
+            extent={{-60,80},{-20,100}})));
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
+      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(grd.term, voltage.neutral) annotation (Line(points={{-80,-10},{-80,
@@ -297,17 +264,9 @@ package DrivesDC "DC drives"
   efficiency.eta               efficiency including semiconductor losses
 </pre></p>
 <p>See also example BLDCcharSpeed.</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
 </html>
-"), Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    experiment(
+"),    experiment(
         StopTime=3,
         Tolerance=1e-005));
   end BLDC;
@@ -315,32 +274,28 @@ package DrivesDC "DC drives"
   model DCcharSpeed "DC pm: torque - speed characteristic"
 
     inner PowerSystems.System system(f_nom=60, sim="st")
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-80,-20},{-100,0}}, rotation=0)));
+            extent={{-80,-20},{-100,0}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(           pol=0, V_nom=100)
                                       annotation (Placement(transformation(
-            extent={{-80,-20},{-60,0}}, rotation=0)));
+            extent={{-80,-20},{-60,0}})));
     PowerSystems.AC1ph_DC.Sensors.Efficiency efficiency(
       av=true,
       tcst=0.1,
-      m=2)      annotation (Placement(transformation(extent={{-40,-20},{-20,0}},
-            rotation=0)));
+      m=2)      annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
     PowerSystems.AC1ph_DC.Drives.DCMpm machine(rotor(J=0.02), motor(par=DCpm100_1k))
                                           annotation (Placement(transformation(
-            extent={{0,-20},{20,0}}, rotation=0)));
+            extent={{0,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
       s_ini=0, s_fin=160)
-      annotation (Placement(transformation(extent={{100,-20},{80,0}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{100,-20},{80,0}})));
     PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01,
-      w0=100,
       scType_par=false)
-      annotation (Placement(transformation(extent={{60,-20},{40,0}}, rotation=0)));
-    PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA DCpm100_1k
+      annotation (Placement(transformation(extent={{60,-20},{40,0}})));
+    parameter PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA DCpm100_1k
                                            annotation (Placement(transformation(
-            extent={{-60,80},{-20,100}}, rotation=0)));
+            extent={{-60,80},{-20,100}})));
 
   equation
     connect(grd.term, voltage.neutral) annotation (Line(points={{-80,-10},{-80,
@@ -367,33 +322,23 @@ package DrivesDC "DC drives"
   machine.motor.tau_el     torque (el)
 </pre>
 (right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
 </html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    experiment(Tolerance=1e-005));
+    experiment(StopTime=1, Tolerance=1e-005));
   end DCcharSpeed;
 
   model BLDCcharSpeed "BLDC: torque - speed characteristic"
 
     inner PowerSystems.System system(f_nom=60, sim="st")
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}}, rotation=
-             0)));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
-            extent={{-80,-20},{-100,0}}, rotation=0)));
+            extent={{-80,-20},{-100,0}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(V_nom=100, pol=0)
                                       annotation (Placement(transformation(
-            extent={{-80,-20},{-60,0}}, rotation=0)));
+            extent={{-80,-20},{-60,0}})));
     PowerSystems.AC1ph_DC.Sensors.Efficiency efficiency(
       tcst=0.1, m=3)
-                annotation (Placement(transformation(extent={{-40,-20},{-20,0}},
-            rotation=0)));
+                annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
     PowerSystems.AC1ph_DC.Drives.BLDC machine(
       rotor(J=0.02),
       motor(par=bldc100_1k),
@@ -401,18 +346,17 @@ package DrivesDC "DC drives"
           modulation=
             3, par=idealSC100V_10A) "inverter time-average")
                              annotation (Placement(transformation(extent={{0,
-              -20},{20,0}}, rotation=0)));
+              -20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
       s_ini=0, s_fin=160)
-      annotation (Placement(transformation(extent={{100,-20},{80,0}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{100,-20},{80,0}})));
     PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01, scType_par=false)
-      annotation (Placement(transformation(extent={{60,-20},{40,0}}, rotation=0)));
-    PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA bldc100_1k
+      annotation (Placement(transformation(extent={{60,-20},{40,0}})));
+    parameter PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA bldc100_1k
                                            annotation (Placement(transformation(
-            extent={{-60,80},{-20,100}}, rotation=0)));
-    PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}}, rotation=0)));
+            extent={{-60,80},{-20,100}})));
+    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
+      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(grd.term, voltage.neutral) annotation (Line(points={{-80,-10},{-80,
@@ -440,26 +384,14 @@ package DrivesDC "DC drives"
   machine.motor.tau_el     torque (el)
 </pre>
 (right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
 </html>"),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    experiment(Tolerance=1e-005));
+    experiment(StopTime=1, Tolerance=1e-005));
   end BLDCcharSpeed;
 
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>DC drives (motors electrical and mechanical).</p>
-<p><a href=\"PowerSystems.UsersGuide.Examples\">up users guide</a></p>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+</html>"));
 end DrivesDC;

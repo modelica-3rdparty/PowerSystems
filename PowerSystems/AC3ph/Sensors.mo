@@ -29,11 +29,7 @@ package Sensors "Sensors and meters 3-phase"
             extent={{-20,24},{20,20}},
             lineColor={135,135,135},
             fillColor={175,175,175},
-            fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end VnormSensor;
 
   model InormSensor "Current-norm sensor, 3-phase dq0"
@@ -56,14 +52,7 @@ package Sensors "Sensors and meters 3-phase"
     Documentation(
             info="<html>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end InormSensor;
 
   model Vsensor "Voltage sensor, 3-phase dq0"
@@ -107,11 +96,7 @@ package Sensors "Sensors and meters 3-phase"
             fillPattern=FillPattern.Solid),
           Line(points={{-20,60},{20,80}}, color={135,135,135}),
           Line(points={{-20,50},{20,70}}, color={135,135,135}),
-          Line(points={{-20,40},{20,60}}, color={135,135,135})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-20,40},{20,60}}, color={135,135,135})}));
   end Vsensor;
 
   model Isensor "Current sensor, 3-phase dq0"
@@ -150,11 +135,7 @@ package Sensors "Sensors and meters 3-phase"
           grid={2,2}), graphics={
           Line(points={{-20,60},{20,80}}, color={135,135,135}),
           Line(points={{-20,50},{20,70}}, color={135,135,135}),
-          Line(points={{-20,40},{20,60}}, color={135,135,135})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-20,40},{20,60}}, color={135,135,135})}));
   end Isensor;
 
   model Psensor "Power sensor, 3-phase dq0"
@@ -184,11 +165,7 @@ package Sensors "Sensors and meters 3-phase"
             fillPattern=FillPattern.Solid), Line(
             points={{0,0},{20,0}},
             color={0,100,100},
-            thickness=0.5)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
   end Psensor;
 
   model Vmeter "Voltage meter, 3-phase dq0"
@@ -239,10 +216,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
   alpha_v   phase(v)
 </pre>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Vmeter;
 
   model Imeter "Current meter, 3-phase dq0"
@@ -333,10 +307,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
 <pre>  p_av       power term_p to term_n, time tau average of p</pre>
 <p><i>Comment on the sign-definition of reactive power see</i> ACdq0.Sensors.</p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Pmeter;
 
   model PVImeter "Power-voltage-current meter, 3-phase dq0"
@@ -443,10 +414,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
 </pre>
 <p><i>Comment on the sign-definition of reactive power see</i> ACdq0.Sensors.</p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end PVImeter;
 
   model Efficiency "Power sensor, 3-phase dq0"
@@ -524,11 +492,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
             fillPattern=FillPattern.Solid), Line(
             points={{0,0},{20,0}},
             color={0,100,100},
-            thickness=0.5)}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
   end Efficiency;
 
   model Phasor "Visualiser of voltage and current phasor, 3-phase dq0"
@@ -539,11 +503,11 @@ In problematic cases use power sensors electrical and mechanical.</p>
     Basic.Visualise.Bar     activePower(
                                    color={0,127,127}, x=x_norm*abs(p[1]))
     annotation (Placement(transformation(extent={{-104,-100},{-94,
-              100}}, rotation=0)));
+              100}})));
     Basic.Visualise.Bar     reactivePower(
                                      color={127,0,127}, x=x_norm*abs(p[2]))
     annotation (Placement(transformation(extent={{94,-100},{104,
-              100}}, rotation=0)));
+              100}})));
     Basic.Visualise.DoubleNeedle     voltage_current(
       color1={255,0,0},
       color2={0,0,255},
@@ -552,7 +516,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
       x2=r_norm*i_dq[1],
       y2=r_norm*i_dq[2])
     annotation (Placement(transformation(extent={{-100,-100},{100,
-              100}}, rotation=0)));
+              100}})));
 
   equation
     color_p = if p[1]>0 then {0,127,127} else {215,215,215};
@@ -582,10 +546,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
 <p>(The black marks indicate 1 pu).</p>
 <p><i>Select 'Diagram' in the Simulation layer, when simulating with this component.</i></p>
 </html>
-"),   Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end Phasor;
 
   package Partials "Partial models"
@@ -623,11 +584,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
               points={{-90,0},{40,0}},
               color={0,100,100},
               thickness=0.5),
-            Line(points={{0,20},{0,90}}, color={135,135,135})}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+            Line(points={{0,20},{0,90}}, color={135,135,135})}));
     end Sensor1Base;
 
     partial model Sensor2Base "Sensor 2 terminal base, 3-phase dq0"
@@ -671,11 +628,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
               points={{30,20},{70,0},{30,-20}},
               color={0,100,100},
               thickness=0.5),
-            Ellipse(extent={{-20,20},{20,-20}}, lineColor={135,135,135})}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+            Ellipse(extent={{-20,20},{20,-20}}, lineColor={135,135,135})}));
     end Sensor2Base;
 
     partial model Meter1Base "Meter 1 terminal base, 3-phase dq0"
@@ -709,11 +662,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={Ellipse(extent={{-70,70},{70,-70}},
-                lineColor={135,135,135})}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+                lineColor={135,135,135})}));
     end Meter1Base;
 
     partial model Meter2Base "Meter 2 terminal base, 3-phase dq0"
@@ -747,11 +696,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={Ellipse(extent={{-70,70},{70,-70}},
-                lineColor={135,135,135})}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+                lineColor={135,135,135})}));
     end Meter2Base;
 
   partial model PhasorBase "Phasor base, 3-phase dq0"
@@ -831,11 +776,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
               extent={{-100,-90},{100,-130}},
               lineColor={0,0,0},
               textString=
-             "%name")}),
-      Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+             "%name")}));
   end PhasorBase;
 
   end Partials;
@@ -860,8 +801,5 @@ across an inductive line.
 We adapt the sign-definition to this practical convention:</p>
 <pre>  p_reactive = -(J*v)*i</pre>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Sensors;

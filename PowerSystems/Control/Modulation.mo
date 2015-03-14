@@ -68,11 +68,7 @@ equation
           grid={2,2}), graphics={
           Line(points={{0,-60},{0,-80}}, color={255,0,255}),
           Line(points={{-20,-60},{-20,-80}}, color={255,0,255}),
-          Line(points={{20,-60},{20,-80}}, color={255,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{20,-60},{20,-80}}, color={255,0,255})}));
 end PWMasyn;
 
 block PWMsyn "Sine PWM synchronous mode, 3phase"
@@ -157,11 +153,7 @@ equation
           grid={2,2}), graphics={
           Line(points={{-20,-60},{-20,-80}}, color={255,0,255}),
           Line(points={{0,-60},{0,-80}}, color={255,0,255}),
-          Line(points={{20,-60},{20,-80}}, color={255,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{20,-60},{20,-80}}, color={255,0,255})}));
 end PWMsyn;
 
 block PWMtab "PWM tabulated, synchronous mode, 3phase"
@@ -178,7 +170,7 @@ block PWMtab "PWM tabulated, synchronous mode, 3phase"
             "7 pulses/period"),
     choice(redeclare PowerSystems.Control.IgnitionTables.Table_5 table
             "9 pulses/period")), Placement(transformation(extent={{-20,-20},{20,
-              20}}, rotation=0)));
+              20}})));
   protected
   constant SI.Angle[3] phShift=(0:2)*2*pi/3;
   discrete SI.Angle[m2] phiIgn1;
@@ -280,11 +272,7 @@ equation
           Rectangle(extent={{-40,36},{40,56}}, lineColor={128,128,128}),
           Line(points={{-20,-60},{-20,-80}}, color={255,0,255}),
           Line(points={{0,-60},{0,-80}}, color={255,0,255}),
-          Line(points={{20,-60},{20,-80}}, color={255,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{20,-60},{20,-80}}, color={255,0,255})}));
 end PWMtab;
 
 block SVPWMasyn "Space vector PWM asynchronous mode"
@@ -366,11 +354,7 @@ equation
           Line(points={{-20,-60},{-20,-80}}, color={255,0,255}),
           Line(points={{0,-60},{0,-80}}, color={255,0,255}),
           Line(points={{20,-60},{20,-80}}, color={255,0,255}),
-          Line(points={{-80,60},{80,-60}}, color={255,0,0})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{-80,60},{80,-60}}, color={255,0,0})}));
 end SVPWMasyn;
 
 block SVPWMsyn "Space vector PWM synchronous mode"
@@ -450,11 +434,7 @@ equation
           grid={2,2}), graphics={
           Line(points={{-20,-60},{-20,-80}}, color={255,0,255}),
           Line(points={{0,-60},{0,-80}}, color={255,0,255}),
-          Line(points={{20,-60},{20,-80}}, color={255,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{20,-60},{20,-80}}, color={255,0,255})}));
 end SVPWMsyn;
 
 block SVPWM "Space vector PWM"
@@ -462,14 +442,13 @@ block SVPWM "Space vector PWM"
 
   parameter SI.Frequency f_carr=1e3 "carrier frequency";
   Blocks.Transforms.PhasorToAlphaBeta phToAlphaBeta
-        annotation (Placement(transformation(extent={{-70,-10},{-50,10}},
-            rotation=0)));
+        annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   SpaceVector.SVMlogic logic(T_pwm=1/f_carr)
                      annotation (Placement(transformation(extent={{-40,-20},{0,
-              20}}, rotation=0)));
+              20}})));
   SpaceVector.SVMpwm pwm(T_pwm=1/f_carr)
                                 annotation (Placement(transformation(extent={{
-              20,-20},{60,20}}, rotation=0)));
+              20,-20},{60,20}})));
   Modelica.Blocks.Math.Add phaseCorr
         annotation (Placement(transformation(
           origin={-60,30},
@@ -566,11 +545,7 @@ The input uPhasor[1] has no influence on this model. It is only needed, if addit
           grid={2,2}), graphics={
           Line(points={{0,-60},{0,-80}}, color={255,0,255}),
           Line(points={{-20,-60},{-20,-80}}, color={255,0,255}),
-          Line(points={{20,-60},{20,-80}}, color={255,0,255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+          Line(points={{20,-60},{20,-80}}, color={255,0,255})}));
 end BlockM;
 
  block PWMasyn1ph "Sine PWM asynchronous mode, 1-phase"
@@ -636,11 +611,7 @@ end BlockM;
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Line(points={{0,-60},{0,-80}}, color={255,0,
-                255})}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                255})}));
  end PWMasyn1ph;
 
 block PWMsyn1ph "Sine PWM synchronous mode, 1-phase"
@@ -729,11 +700,7 @@ annotation (defaultComponentName = "pwm",
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Line(points={{0,-60},{0,-80}}, color={255,0,
-                255})}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                255})}));
 end PWMsyn1ph;
 
 block PWMtab1ph "PWM tabulated, synchronous mode, 1-phase"
@@ -750,7 +717,7 @@ block PWMtab1ph "PWM tabulated, synchronous mode, 1-phase"
             "7 pulses/period"),
     choice(redeclare PowerSystems.Control.IgnitionTables.Table_5 table
             "9 pulses/period")), Placement(transformation(extent={{-20,-20},{20,
-              20}}, rotation=0)));
+              20}})));
   protected
   discrete SI.Angle[m2] phiIgn;
   SI.Angle phi;
@@ -835,11 +802,7 @@ The input uPhasor[1] has no influence on this model. It is only needed, if addit
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Line(points={{0,-60},{0,-80}}, color={255,0,
-                255})}),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+                255})}));
 end BlockM1ph;
 
 block ChopperPWM "Chopper PWM (voltage)"
@@ -889,11 +852,7 @@ annotation (defaultComponentName = "chopperMod",
           Text(
             extent={{-100,100},{100,60}},
             lineColor={0,0,0},
-            textString="%name")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            textString="%name")}));
 end ChopperPWM;
 
 block ChopperPWM_I "Chopper PWM (current)"
@@ -906,9 +865,9 @@ block ChopperPWM_I "Chopper PWM (current)"
           extent={{-10,-10},{10,10}},
           rotation=270)));
   Modelica.Blocks.Interfaces.RealInput iSet "desired current"
-  annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Blocks.Interfaces.RealInput iMeas "measured current"
-  annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{110,-10},{90,10}})));
   protected
   SI.Current di;
 
@@ -935,11 +894,7 @@ annotation (defaultComponentName = "chopperMod",
                 20},{42,-20},{60,20}}, color={0,127,127}), Text(
             extent={{-100,100},{100,60}},
             lineColor={0,0,0},
-            textString="%name")}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            textString="%name")}));
 end ChopperPWM_I;
 
 package Partials "Partial models"
@@ -982,11 +937,7 @@ package Partials "Partial models"
               textString="%name")}),
       Documentation(
             info="<html>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
   end ModulatorBase;
 
   partial block SVPWMbase "Space vector PWM base"
@@ -1025,11 +976,7 @@ package Partials "Partial models"
               thickness=0.5)}),
       Documentation(
             info="<html>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
   end SVPWMbase;
 
   partial block SVPWMasynBase "Space vector PWM asynchronous base"
@@ -1106,17 +1053,9 @@ protected
       Dphi[m2] = -dphi[m1];
     end if;
     annotation (
-      Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
       Documentation(
             info="<html>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
   end SVPWMasynBase;
 
   partial block SVPWMsynBase "Space vector PWM synchronous base"
@@ -1169,17 +1108,9 @@ protected
       Dphi[m2] = -dphi[m1];
     end if;
     annotation (
-      Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
       Documentation(
             info="<html>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
   end SVPWMsynBase;
 
   partial block PWMasynBase "Sine PWM asynchronous base"
@@ -1204,11 +1135,7 @@ protected
                   14},{20,12},{30,10},{40,6},{50,0},{60,-8}}, color={0,127,127})}),
       Documentation(
             info="<html>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 
   end PWMasynBase;
 
@@ -1235,11 +1162,7 @@ protected
                   14},{20,12},{30,10},{40,6},{50,0},{60,-8}}, color={0,127,127})}),
       Documentation(
             info="<html>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 
   end PWMsynBase;
 
@@ -1291,11 +1214,7 @@ protected
               textString="%name")}),
       Documentation(
             info="<html>
-</html>"),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 
   end BlockBase;
 
@@ -1308,178 +1227,141 @@ package SpaceVector "Space vector logic and control"
 
     parameter Modelica.SIunits.Time T_pwm "cycle time pwm";
     inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-240,260},{-200,280}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-240,260},{-200,280}})));
     Modelica.StateGraph.Alternative Alternative1
-    annotation (Placement(transformation(extent={{-238,-40},{284,280}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-238,-40},{284,280}})));
     Modelica.Blocks.Interfaces.RealInput u_alpha_beta[2]
-    annotation (Placement(transformation(extent={{-340,-20},{-300,20}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-340,-20},{-300,20}})));
     Modelica.Blocks.Math.Product norm1
-    annotation (Placement(transformation(extent={{-224,-124},{-204,-104}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-224,-124},{-204,-104}})));
     Modelica.Blocks.Sources.Constant n1(k=sqrt(3/2))
     annotation (Placement(transformation(
             origin={-240,-70},
             extent={{-10,-10},{10,10}},
             rotation=270)));
     Modelica.StateGraph.StepWithSignal sector2
-    annotation (Placement(transformation(extent={{118,170},{138,190}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{118,170},{138,190}})));
     Modelica.StateGraph.TransitionWithSignal t1
-    annotation (Placement(transformation(extent={{-124,190},{-104,210}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-124,190},{-104,210}})));
     Modelica.Blocks.Logical.GreaterEqual GreaterEqual1
-    annotation (Placement(transformation(extent={{-148,-160},{-128,-140}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-148,-160},{-128,-140}})));
     Modelica.Blocks.Math.Gain Gain1(k=1/sqrt(3))
-    annotation (Placement(transformation(extent={{-190,-168},{-170,-148}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-190,-168},{-170,-148}})));
     Modelica.Blocks.Logical.GreaterEqualThreshold GreaterEqualThreshold1
-    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
     Modelica.Blocks.Logical.Not Not1
-    annotation (Placement(transformation(extent={{-150,-100},{-130,-80}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-150,-100},{-130,-80}})));
     Modelica.Blocks.Math.Product norm2
-    annotation (Placement(transformation(extent={{-226,-204},{-206,-184}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-226,-204},{-206,-184}})));
     Modelica.Blocks.Logical.GreaterEqual GreaterEqual2
-    annotation (Placement(transformation(extent={{-148,-240},{-128,-220}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-148,-240},{-128,-220}})));
     Modelica.Blocks.Math.Gain Gain3(k=-1/sqrt(3))
-    annotation (Placement(transformation(extent={{-192,-248},{-172,-228}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-192,-248},{-172,-228}})));
     Modelica.StateGraph.TransitionWithSignal t2
-    annotation (Placement(transformation(extent={{-124,30},{-104,50}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-124,30},{-104,50}})));
     Modelica.StateGraph.Alternative Alternative2
-    annotation (Placement(transformation(extent={{-58,124},{218,276}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-58,124},{218,276}})));
     Modelica.StateGraph.Step Step1
                                  annotation (Placement(transformation(extent={{
-                -94,190},{-74,210}}, rotation=0)));
+                -94,190},{-74,210}})));
     Modelica.StateGraph.Step Step2
                                  annotation (Placement(transformation(extent={{
-                -94,30},{-74,50}}, rotation=0)));
+                -94,30},{-74,50}})));
     Modelica.StateGraph.Alternative Alternative3
-    annotation (Placement(transformation(extent={{-58,-36},{218,116}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-58,-36},{218,116}})));
     Modelica.StateGraph.Alternative Alternative5
-    annotation (Placement(transformation(extent={{58,126},{184,198}}, rotation=
-                0)));
+    annotation (Placement(transformation(extent={{58,126},{184,198}})));
     Modelica.StateGraph.Alternative Alternative7
-    annotation (Placement(transformation(extent={{58,42},{184,114}}, rotation=0)));
+    annotation (Placement(transformation(extent={{58,42},{184,114}})));
     Modelica.StateGraph.TransitionWithSignal t3
-    annotation (Placement(transformation(extent={{-4,228},{16,248}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-4,228},{16,248}})));
     Modelica.StateGraph.TransitionWithSignal t4
-    annotation (Placement(transformation(extent={{-2,152},{18,172}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-2,152},{18,172}})));
     Modelica.StateGraph.Step Step3
                                  annotation (Placement(transformation(extent={{
-                28,152},{48,172}}, rotation=0)));
+                28,152},{48,172}})));
     Modelica.StateGraph.Step Step4
                                  annotation (Placement(transformation(extent={{
-                26,68},{46,88}}, rotation=0)));
+                26,68},{46,88}})));
     Modelica.StateGraph.TransitionWithSignal t5
                                               annotation (Placement(
-            transformation(extent={{0,68},{20,88}}, rotation=0)));
+            transformation(extent={{0,68},{20,88}})));
     Modelica.StateGraph.TransitionWithSignal t6
                                               annotation (Placement(
-            transformation(extent={{0,-8},{20,12}}, rotation=0)));
+            transformation(extent={{0,-8},{20,12}})));
     Modelica.Blocks.Logical.Not Not2
-    annotation (Placement(transformation(extent={{-100,-180},{-80,-160}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
     Modelica.Blocks.Logical.Not Not3
-    annotation (Placement(transformation(extent={{-100,-260},{-80,-240}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
     Modelica.StateGraph.TransitionWithSignal t7
-    annotation (Placement(transformation(extent={{88,170},{108,190}}, rotation=
-                0)));
+    annotation (Placement(transformation(extent={{88,170},{108,190}})));
     Modelica.StateGraph.TransitionWithSignal t8
-    annotation (Placement(transformation(extent={{88,134},{108,154}}, rotation=
-                0)));
+    annotation (Placement(transformation(extent={{88,134},{108,154}})));
     Modelica.StateGraph.TransitionWithSignal t9
-    annotation (Placement(transformation(extent={{88,86},{108,106}}, rotation=0)));
+    annotation (Placement(transformation(extent={{88,86},{108,106}})));
     Modelica.StateGraph.TransitionWithSignal t10
-    annotation (Placement(transformation(extent={{88,50},{108,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{88,50},{108,70}})));
     Modelica.StateGraph.StepWithSignal sector3
-    annotation (Placement(transformation(extent={{118,134},{138,154}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{118,134},{138,154}})));
     Modelica.StateGraph.StepWithSignal sector1
-    annotation (Placement(transformation(extent={{118,228},{138,248}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{118,228},{138,248}})));
     Modelica.StateGraph.StepWithSignal sector6
-    annotation (Placement(transformation(extent={{118,-8},{138,12}}, rotation=0)));
+    annotation (Placement(transformation(extent={{118,-8},{138,12}})));
     Modelica.StateGraph.StepWithSignal sector5
-    annotation (Placement(transformation(extent={{118,50},{138,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{118,50},{138,70}})));
     Modelica.StateGraph.StepWithSignal sector4
-    annotation (Placement(transformation(extent={{118,86},{138,106}}, rotation=
-                0)));
+    annotation (Placement(transformation(extent={{118,86},{138,106}})));
     Modelica.StateGraph.Transition t11(enableTimer=true, waitTime=T_pwm)
-    annotation (Placement(transformation(extent={{148,228},{168,248}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{148,228},{168,248}})));
     Modelica.StateGraph.Transition t12(enableTimer=true, waitTime=T_pwm)
-    annotation (Placement(transformation(extent={{148,170},{168,190}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{148,170},{168,190}})));
     Modelica.StateGraph.Transition t13(enableTimer=true, waitTime=T_pwm)
-    annotation (Placement(transformation(extent={{148,134},{168,154}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{148,134},{168,154}})));
     Modelica.StateGraph.Transition t16(enableTimer=true, waitTime=T_pwm)
-    annotation (Placement(transformation(extent={{148,-8},{168,12}}, rotation=0)));
+    annotation (Placement(transformation(extent={{148,-8},{168,12}})));
     Modelica.StateGraph.Transition t15(enableTimer=true, waitTime=T_pwm)
-    annotation (Placement(transformation(extent={{148,50},{168,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{148,50},{168,70}})));
     Modelica.StateGraph.Transition t14(enableTimer=true, waitTime=T_pwm)
-    annotation (Placement(transformation(extent={{148,86},{168,106}}, rotation=
-                0)));
+    annotation (Placement(transformation(extent={{148,86},{168,106}})));
     Modelica.Blocks.Logical.Or s1_4
                                   annotation (Placement(transformation(extent={
-                {120,-120},{140,-100}}, rotation=0)));
+                {120,-120},{140,-100}})));
     Modelica.Blocks.Logical.Or s2_5
                                   annotation (Placement(transformation(extent={
-                {120,-180},{140,-160}}, rotation=0)));
+                {120,-180},{140,-160}})));
     Modelica.Blocks.Logical.Or s3_6
                                   annotation (Placement(transformation(extent={
-                {120,-250},{140,-230}}, rotation=0)));
+                {120,-250},{140,-230}})));
     Modelica.Blocks.Sources.Constant zero[3](each k=0)
-    annotation (Placement(transformation(extent={{180,-280},{200,-260}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{180,-280},{200,-260}})));
     SVMsector1p4 sector1p4      annotation (Placement(transformation(extent={{
-                160,-100},{200,-60}}, rotation=0)));
+                160,-100},{200,-60}})));
     SVMsector2p5 sector2p5      annotation (Placement(transformation(extent={{
-                160,-160},{200,-120}}, rotation=0)));
+                160,-160},{200,-120}})));
     SVMsector3p6 sector3p6      annotation (Placement(transformation(extent={{
-                160,-220},{200,-180}}, rotation=0)));
+                160,-220},{200,-180}})));
     Modelica.Blocks.Nonlinear.Limiter Limiter[3]
-  annotation (Placement(transformation(extent={{260,-120},{280,-100}}, rotation=
-               0)));
+  annotation (Placement(transformation(extent={{260,-120},{280,-100}})));
     Modelica.Blocks.Logical.Switch Switch1[3]
-  annotation (Placement(transformation(extent={{230,-120},{250,-100}}, rotation=
-               0)));
+  annotation (Placement(transformation(extent={{230,-120},{250,-100}})));
     Modelica.Blocks.Logical.Switch Switch2[3]
-  annotation (Placement(transformation(extent={{230,-180},{250,-160}}, rotation=
-               0)));
+  annotation (Placement(transformation(extent={{230,-180},{250,-160}})));
     Modelica.Blocks.Logical.Switch Switch3[3]
-  annotation (Placement(transformation(extent={{230,-250},{250,-230}}, rotation=
-               0)));
+  annotation (Placement(transformation(extent={{230,-250},{250,-230}})));
     Modelica.Blocks.Interfaces.RealOutput dutyRatio[3]
-  annotation (Placement(transformation(extent={{300,-140},{340,-100}}, rotation=
-               0)));
+  annotation (Placement(transformation(extent={{300,-140},{340,-100}})));
     Modelica.Blocks.Routing.DeMultiplex2 alpha_beta
-  annotation (Placement(transformation(extent={{-280,-160},{-260,-140}},
-              rotation=0)));
+  annotation (Placement(transformation(extent={{-280,-160},{-260,-140}})));
     Modelica.Blocks.Interfaces.BooleanOutput trigger
-    annotation (Placement(transformation(extent={{300,100},{340,140}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{300,100},{340,140}})));
     Modelica.StateGraph.InitialStep InitialStep1
-    annotation (Placement(transformation(extent={{-280,110},{-260,130}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-280,110},{-260,130}})));
     Modelica.Blocks.Logical.Or Or1
                                  annotation (Placement(transformation(extent={{
-                222,-72},{242,-52}}, rotation=0)));
+                222,-72},{242,-52}})));
     Modelica.Blocks.Logical.Or Or2
                                  annotation (Placement(transformation(extent={{
-                260,-80},{280,-60}}, rotation=0)));
+                260,-80},{280,-60}})));
     TriggeredPulse TriggeredPulse1(T_pulse=1/10*T_pwm)
     annotation (Placement(transformation(
             origin={290,-10},
@@ -1986,66 +1868,56 @@ model SVMpwm "Block generating the pwm pulses for SVM"
 
   parameter Modelica.SIunits.Time T_pwm;
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-180,160},{-140,180}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-180,160},{-140,180}})));
   Modelica.Blocks.Interfaces.BooleanInput trigger
-    annotation (Placement(transformation(extent={{-240,60},{-200,100}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-240,60},{-200,100}})));
   Modelica.Blocks.Interfaces.RealInput dutyRatio[3]
-    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-240,-100},{-200,-60}})));
   Modelica.Blocks.Interfaces.BooleanOutput switch[6]
-    annotation (Placement(transformation(extent={{200,-20},{240,20}}, rotation=
-                0)));
+    annotation (Placement(transformation(extent={{200,-20},{240,20}})));
   Modelica.Blocks.Routing.DeMultiplex3 DeMultiplex3_1
-    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   Modelica.Blocks.Sources.Constant one annotation (Placement(transformation(
-              extent={{-150,-100},{-130,-80}}, rotation=0)));
+              extent={{-150,-100},{-130,-80}})));
   Modelica.Blocks.Math.Feedback t1     annotation (Placement(transformation(
-              extent={{-110,-100},{-90,-80}}, rotation=0)));
+              extent={{-110,-100},{-90,-80}})));
   Modelica.Blocks.Math.Gain start_100(k=1/2)
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Modelica.Blocks.Logical.GreaterEqual GreaterEqual1
-    annotation (Placement(transformation(extent={{0,160},{20,180}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,160},{20,180}})));
   Modelica.Blocks.Math.Gain start_010(k=1/2)
-    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
   Modelica.Blocks.Math.Feedback t2     annotation (Placement(transformation(
-              extent={{-110,-140},{-90,-120}}, rotation=0)));
+              extent={{-110,-140},{-90,-120}})));
   Modelica.Blocks.Math.Gain start_001(k=1/2)
-    annotation (Placement(transformation(extent={{-80,-180},{-60,-160}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
   Modelica.Blocks.Math.Feedback t3   annotation (Placement(transformation(
-              extent={{-110,-180},{-90,-160}}, rotation=0)));
+              extent={{-110,-180},{-90,-160}})));
   Modelica.Blocks.Logical.GreaterEqual GreaterEqual2
-    annotation (Placement(transformation(extent={{0,80},{20,100}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
   Modelica.Blocks.Logical.GreaterEqual GreaterEqual3
-    annotation (Placement(transformation(extent={{0,0},{20,20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Math.Add stop_100    annotation (Placement(transformation(
-              extent={{20,-106},{40,-86}}, rotation=0)));
+              extent={{20,-106},{40,-86}})));
   Modelica.Blocks.Math.Add stop_010    annotation (Placement(transformation(
-              extent={{20,-146},{40,-126}}, rotation=0)));
+              extent={{20,-146},{40,-126}})));
   Modelica.Blocks.Math.Add stop_001    annotation (Placement(transformation(
-              extent={{20,-186},{40,-166}}, rotation=0)));
+              extent={{20,-186},{40,-166}})));
   Modelica.Blocks.Logical.GreaterEqual GreaterEqual4
-    annotation (Placement(transformation(extent={{80,140},{100,160}}, rotation=
-                0)));
+    annotation (Placement(transformation(extent={{80,140},{100,160}})));
   Modelica.Blocks.Logical.GreaterEqual GreaterEqual5
-    annotation (Placement(transformation(extent={{80,60},{100,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Modelica.Blocks.Logical.GreaterEqual GreaterEqual6
-    annotation (Placement(transformation(extent={{80,-20},{100,0}}, rotation=0)));
+    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   Modelica.Blocks.Discrete.TriggeredSampler load_data[3]
     annotation (Placement(transformation(
             origin={-190,-110},
             extent={{10,-10},{-10,10}},
             rotation=90)));
   Modelica.Blocks.Logical.Timer Timer annotation (Placement(transformation(
-              extent={{-160,-50},{-140,-30}}, rotation=0)));
+              extent={{-160,-50},{-140,-30}})));
   Modelica.Blocks.Math.Gain time_scaling(k=1/T_pwm)
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Modelica.Blocks.Logical.Edge Edge annotation (Placement(transformation(
             origin={-170,50},
             extent={{-10,-10},{10,10}},
@@ -2056,25 +1928,25 @@ model SVMpwm "Block generating the pwm pulses for SVM"
             rotation=270)));
   DutyRatioToCycle dutyRtoC
                          annotation (Placement(transformation(extent={{-190,
-                -160},{-170,-140}}, rotation=0)));
+                -160},{-170,-140}})));
   Modelica.Blocks.Logical.And And1 annotation (Placement(transformation(extent=
-                {{160,160},{180,180}}, rotation=0)));
+                {{160,160},{180,180}})));
   Modelica.Blocks.Logical.Not Not1 annotation (Placement(transformation(extent=
-                {{120,140},{140,160}}, rotation=0)));
+                {{120,140},{140,160}})));
   Modelica.Blocks.Logical.Not Not2 annotation (Placement(transformation(extent=
-                {{120,60},{140,80}}, rotation=0)));
+                {{120,60},{140,80}})));
   Modelica.Blocks.Logical.And And2 annotation (Placement(transformation(extent=
-                {{160,80},{180,100}}, rotation=0)));
+                {{160,80},{180,100}})));
   Modelica.Blocks.Logical.Not Not3 annotation (Placement(transformation(extent=
-                {{120,-20},{140,0}}, rotation=0)));
+                {{120,-20},{140,0}})));
   Modelica.Blocks.Logical.And And3 annotation (Placement(transformation(extent=
-                {{160,0},{180,20}}, rotation=0)));
+                {{160,0},{180,20}})));
   Modelica.Blocks.Logical.Not Not4 annotation (Placement(transformation(extent=
-                {{160,120},{180,140}}, rotation=0)));
+                {{160,120},{180,140}})));
   Modelica.Blocks.Logical.Not Not5 annotation (Placement(transformation(extent=
-                {{160,40},{180,60}}, rotation=0)));
+                {{160,40},{180,60}})));
   Modelica.Blocks.Logical.Not Not6 annotation (Placement(transformation(extent=
-                {{160,-40},{180,-20}}, rotation=0)));
+                {{160,-40},{180,-20}})));
 
 equation
   connect(one.y, t1.u1)     annotation (Line(points={{-129,-90},{-108,-90}},
@@ -2393,28 +2265,27 @@ end SVMpwm;
 model SVMsector1p4 "Sector 1-4"
 
   Modelica.Blocks.Interfaces.RealInput u_alpha
-  annotation (Placement(transformation(extent={{-120,20},{-100,40}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput u_beta
-  annotation (Placement(transformation(extent={{-120,-40},{-100,-20}}, rotation=
-               0)));
+  annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealOutput abc[3]
-  annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Math.Add Add1
                               annotation (Placement(transformation(extent={{0,
-                50},{20,70}}, rotation=0)));
+                50},{20,70}})));
   Modelica.Blocks.Math.Gain Gain1(k=1/(sqrt(3)))
-  annotation (Placement(transformation(extent={{-60,40},{-40,60}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Math.Gain Gain2(k=-1)
                                       annotation (Placement(transformation(
-              extent={{60,-70},{80,-50}}, rotation=0)));
+              extent={{60,-70},{80,-50}})));
   Modelica.Blocks.Math.Gain Gain3(k=-1)
                                       annotation (Placement(transformation(
-              extent={{-40,0},{-20,20}}, rotation=0)));
+              extent={{-40,0},{-20,20}})));
   Modelica.Blocks.Math.Add Add2
                               annotation (Placement(transformation(extent={{0,
-                -10},{20,10}}, rotation=0)));
+                -10},{20,10}})));
   Modelica.Blocks.Math.Gain Gain4(k=3/(sqrt(3)))
-  annotation (Placement(transformation(extent={{-40,-40},{-20,-20}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
 equation
   connect(u_alpha, Add1.u1)
@@ -2447,8 +2318,7 @@ equation
               4.44089e-016},{110,4.44089e-016}}, color={0,0,127}));
   connect(Gain2.y, abc[3]) annotation (Line(points={{81,-60},{90,-60},{90,0},{
               110,0},{110,6.66667}}, color={0,0,127}));
-annotation (Diagram(graphics),
-                     Icon(graphics={
+annotation (                     Icon(graphics={
             Rectangle(
               extent={{-100,100},{100,-100}},
               lineColor={0,0,0},
@@ -2487,21 +2357,19 @@ end SVMsector1p4;
 model SVMsector2p5 "Sector 2-5"
 
   Modelica.Blocks.Interfaces.RealInput u_alpha
-    annotation (Placement(transformation(extent={{-120,20},{-100,40}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput u_beta
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealOutput abc[3]
-  annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Math.Gain Gain1(k=2)
                                      annotation (Placement(transformation(
-              extent={{-40,50},{-20,70}}, rotation=0)));
+              extent={{-40,50},{-20,70}})));
   Modelica.Blocks.Math.Gain Gain2(k=-1)
                                       annotation (Placement(transformation(
-              extent={{60,-70},{80,-50}}, rotation=0)));
+              extent={{60,-70},{80,-50}})));
   Modelica.Blocks.Math.Gain Gain4(k=2/(sqrt(3)))
-  annotation (Placement(transformation(extent={{-40,-40},{-20,-20}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
 equation
   connect(u_beta, Gain4.u)
@@ -2519,8 +2387,7 @@ equation
               4.44089e-016},{110,4.44089e-016}}, color={0,0,127}));
   connect(Gain2.y, abc[3]) annotation (Line(points={{81,-60},{90,-60},{90,0},{
               110,0},{110,6.66667}}, color={0,0,127}));
-annotation (Diagram(graphics),
-                     Icon(graphics={
+annotation (                     Icon(graphics={
             Rectangle(
               extent={{-100,100},{100,-100}},
               lineColor={0,0,0},
@@ -2559,29 +2426,27 @@ end SVMsector2p5;
 model SVMsector3p6 "Sector 3-6"
 
   Modelica.Blocks.Interfaces.RealInput u_alpha
-    annotation (Placement(transformation(extent={{-120,20},{-100,40}}, rotation=
-               0)));
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput u_beta
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealOutput abc[3]
-  annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Math.Add Add1
                               annotation (Placement(transformation(extent={{0,
-                50},{20,70}}, rotation=0)));
+                50},{20,70}})));
   Modelica.Blocks.Math.Gain Gain1(k=-1/(sqrt(3)))
-  annotation (Placement(transformation(extent={{-60,40},{-40,60}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Math.Gain Gain2(k=-1)
                                       annotation (Placement(transformation(
-              extent={{60,-10},{80,10}}, rotation=0)));
+              extent={{60,-10},{80,10}})));
   Modelica.Blocks.Math.Gain Gain3(k=-1)
                                       annotation (Placement(transformation(
-              extent={{-40,-40},{-20,-20}}, rotation=0)));
+              extent={{-40,-40},{-20,-20}})));
   Modelica.Blocks.Math.Add Add2
                               annotation (Placement(transformation(extent={{0,
-                -70},{20,-50}}, rotation=0)));
+                -70},{20,-50}})));
   Modelica.Blocks.Math.Gain Gain4(k=-3/(sqrt(3)))
-  annotation (Placement(transformation(extent={{-40,-80},{-20,-60}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
 equation
   connect(u_alpha, Add1.u1)
@@ -2614,8 +2479,7 @@ equation
               4.44089e-016},{110,4.44089e-016}}, color={0,0,127}));
   connect(Add2.y, abc[3]) annotation (Line(points={{21,-60},{90,-60},{90,0},{
               110,0},{110,6.66667}}, color={0,0,127}));
-annotation (Diagram(graphics),
-                     Icon(graphics={
+annotation (                     Icon(graphics={
             Rectangle(
               extent={{-100,100},{100,-100}},
               lineColor={0,0,0},
@@ -2655,22 +2519,19 @@ model TriggeredPulse "Edge triggered pulse"
 
   parameter Modelica.SIunits.Time T_pulse=1e-3 "width of triggered pulse";
   Modelica.Blocks.Logical.Timer Timer1(y(start=0))
-    annotation (Placement(transformation(extent={{-10,-40},{10,-20}}, rotation=
-                0)));
+    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Modelica.Blocks.Logical.Edge Edge1 annotation (Placement(transformation(
-              extent={{-80,-10},{-60,10}}, rotation=0)));
+              extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Logical.Or Or1 annotation (Placement(transformation(extent={{
-                -40,-10},{-20,10}}, rotation=0)));
+                -40,-10},{-20,10}})));
   Modelica.Blocks.Logical.And And1 annotation (Placement(transformation(extent=
-                {{60,-40},{80,-20}}, rotation=0)));
+                {{60,-40},{80,-20}})));
   Modelica.Blocks.Interfaces.BooleanInput u
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.BooleanOutput y
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-                0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Logical.LessThreshold LessThreshold1(threshold=T_pulse)
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}}, rotation=0)));
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Logical.Pre Pre1
     annotation (Placement(transformation(
             origin={-50,-50},
@@ -2696,8 +2557,7 @@ equation
               {92,-30},{81,-30}}, color={255,0,255}));
   connect(Or1.y, And1.u2) annotation (Line(points={{-19,0},{-16,0},{-16,-60},{
               50,-60},{50,-38},{58,-38}}, color={255,0,255}));
-  annotation (Diagram(graphics),
-                       Icon(graphics={
+  annotation (                       Icon(graphics={
             Rectangle(
               extent={{-100,100},{100,-100}},
               lineColor={0,0,0},
@@ -2772,19 +2632,18 @@ end TriggeredPulse;
 model DutyRatioToCycle "Duty ratio to duty cycle transform"
 
   Modelica.Blocks.Interfaces.RealInput dutyRatio[3]
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-              rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput dutyCycle[3]
-  annotation (Placement(transformation(extent={{100,-20},{140,20}}, rotation=0)));
+  annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Modelica.Blocks.Math.Add Add[3]
                                 annotation (Placement(transformation(extent={{
-                -20,-10},{0,10}}, rotation=0)));
+                -20,-10},{0,10}})));
   Modelica.Blocks.Sources.Constant One[3](each k=1)
-  annotation (Placement(transformation(extent={{-60,0},{-40,20}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Math.Gain Gain[3](each k=1/2)
-  annotation (Placement(transformation(extent={{20,-10},{40,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Math.Gain per_cent[3](each k=1)
-  annotation (Placement(transformation(extent={{60,-10},{80,10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 equation
       connect(dutyRatio, Add.u2)
@@ -2801,8 +2660,7 @@ equation
               127}));
   connect(Add.y, Gain.u)
   annotation (Line(points={{1,0},{18,0}}, color={0,0,127}));
-annotation (Diagram(graphics),
-                     Icon(graphics={
+annotation (                     Icon(graphics={
             Rectangle(
               extent={{-100,100},{100,-100}},
               lineColor={0,0,255},
@@ -2827,9 +2685,5 @@ annotation (preferredView="info",
     Documentation(info="<html>
 <p>Asynchronous and synchronous PWM control of inverter-gates, three- and one-phase.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Modulation;

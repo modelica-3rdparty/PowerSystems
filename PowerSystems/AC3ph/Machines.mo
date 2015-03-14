@@ -19,15 +19,7 @@ package Machines "AC machines, electric part "
           info="<html>
 <p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>More information see Partials.AsynchronBase.</p>
-</html>"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end Asynchron;
 
   model AsynchronY_D "Asynchronous machine Y-Delta, cage-rotor, 3-phase dq0"
@@ -36,7 +28,7 @@ package Machines "AC machines, electric part "
         "Y-Delta", redeclare replaceable parameter Parameters.Asynchron_cage par);
    Modelica.Blocks.Interfaces.BooleanInput YDcontrol "true:Y, false:Delta"
                                               annotation (Placement(
-          transformation(extent={{-110,50},{-90,70}}, rotation=0)));
+          transformation(extent={{-110,50},{-90,70}})));
 
   initial equation
     phi_el = phi_el_ini;
@@ -56,15 +48,7 @@ package Machines "AC machines, electric part "
 <p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>Switcheable topology Y-Delta. The impedance values are defined with respect to the WINDINGS, i.e. they refer to Y-topology. Terminal impedance in Delta-topology is a factor 3 higher.</p>
 <p>More information see Partials.AsynchronBase.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end AsynchronY_D;
 
   model Asynchron_ctrl
@@ -77,14 +61,14 @@ package Machines "AC machines, electric part "
     parameter SI.Current[n_r] i_q_start = zeros(n_r) "start value of current q_axis"
       annotation(Dialog(tab="Initialization"));
 
-    Modelica.Blocks.Interfaces.RealOutput[2] i_meas(
-                             final unit="1") "measured current {i_d, i_q} pu"
+    Modelica.Blocks.Interfaces.RealOutput[2] i_meas(each final unit="1")
+      "measured current {i_d, i_q} pu"
       annotation (Placement(transformation(
           origin={-60,100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-    Modelica.Blocks.Interfaces.RealInput[2] i_act(
-                             final unit="1") "actuated current {i_d, i_q} pu"
+    Modelica.Blocks.Interfaces.RealInput[2] i_act(each final unit="1")
+      "actuated current {i_d, i_q} pu"
       annotation (Placement(transformation(
           origin={60,100},
           extent={{10,-10},{-10,10}},
@@ -151,11 +135,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
             extent={{-90,112},{90,88}},
             lineColor={0,0,127},
             fillColor={170,213,255},
-            fillPattern=FillPattern.Solid)}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            fillPattern=FillPattern.Solid)}));
   end Asynchron_ctrl;
 
   model Synchron3rd_ee
@@ -196,15 +176,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
 <p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>Electric excitation (<tt>excite = 1</tt>).</p>
 <p>More information see Partials.Synchron3rdBase.</p>
-</html>"),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end Synchron3rd_ee;
 
   model Synchron_ee "Synchronous machine electrically excited, 3-phase dq0"
@@ -245,10 +217,6 @@ The mapping from current demand to voltage demand is based on the steady-state e
 <p>Electric excitation (<tt>excite = 1</tt>).</p>
 <p>More information see Partials.SynchronBase.</p>
 </html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
     Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -306,10 +274,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
     elseif par.excite==3 then
       psi_e = 0;
     end if;
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                     graphics),
-                      Documentation(info="<html>
+    annotation (                      Documentation(info="<html>
 <p>Equivalent circuit is on <b>diagram layer</b> of parameter record ACdq0.Machines.Parameters.*</p>
 <p>The model is valid for permanent magnet (<tt>excite = 2</tt>) or reluctance machines (<tt>excite = 3</tt>).</p>
 <p>The relation between 'flux induced by permanent magnet' <tt>Psi_pm [Wb]</tt> and 'magnetisation' <tt>psi_pm [pu]</tt> is given by the following relation;
@@ -318,8 +283,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
   psi_pm = Psi_pm*omega_nom/V_nom
 </pre></p>
 <p>More information see Partials.Synchron3rdBase.</p>
-</html>"),
-      Diagram(graphics));
+</html>"));
   end Synchron3rd_pm;
 
   model Synchron_pm "Synchronous machine pm, 3-phase dq0"
@@ -363,11 +327,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
 </pre></p>
 <p>More information see Partials.SynchronBase.</p>
 </html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-    Diagram(coordinateSystem(
+"),    Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Rectangle(
@@ -382,22 +342,19 @@ The mapping from current demand to voltage demand is based on the steady-state e
     extends Partials.Synchron3rdBase(redeclare replaceable parameter
         PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_pm par);
 
-    Modelica.Blocks.Interfaces.RealOutput[2] i_meas(
-                             each final unit="1")
+    Modelica.Blocks.Interfaces.RealOutput[2] i_meas(each final unit="1")
       "measured current {i_d, i_q} pu"
       annotation (Placement(transformation(
           origin={-60,100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-    Modelica.Blocks.Interfaces.RealInput[2] i_act(
-                             each final unit="1")
+    Modelica.Blocks.Interfaces.RealInput[2] i_act(each final unit="1")
       "actuated current {i_d, i_q} pu"
       annotation (Placement(transformation(
           origin={60,100},
           extent={{10,-10},{-10,10}},
           rotation=90)));
-    Modelica.Blocks.Interfaces.RealOutput phiRotor=
-                      phi_el "rotor angle el"
+    Modelica.Blocks.Interfaces.RealOutput phiRotor=phi_el "rotor angle el"
       annotation (Placement(transformation(
           origin={100,100},
           extent={{10,-10},{-10,10}},
@@ -452,7 +409,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
 <pre>  w_lim = omega_nom/psi_pm</pre></p>
 <p>More information see Partials.Synchron3rdBase.</p>
 </html>
-"),   Diagram(graphics));
+"));
   end Synchron3rd_pm_ctrl;
 
   model Synchron_pm_ctrl
@@ -712,12 +669,10 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
       replaceable parameter Parameters.Asynchron par(f_nom=system.f_nom)
         "machine parameter"
                        annotation (Placement(transformation(extent={{-60,60},{
-                -40,80}}, rotation=0)));
+                -40,80}})));
     protected
-      final parameter Integer n_r=if par.transDat then size(par.tc,1) else size(par.xsig_r,1)
-        "number of rotor circuits d- and q-axis";
-      final parameter Coefficients.Asynchron c=Basic.Precalculation.machineAsyn(
-                                                                               par,n_r,top.scale);
+      final parameter Integer n_r = par.n_r "number of rotor circuits d- and q-axis";
+      final parameter Coefficients.Asynchron c = Basic.Precalculation.machineAsyn(par, top.scale);
       parameter SI.Inductance L_m[n_r] = c.L_m;
       parameter SI.Resistance R_r[n_r] = c.R_r;
       parameter SI.Resistance R_m[n_r] = c.R_m;
@@ -780,7 +735,7 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
 <p>The stator contains one winding each in d-axis, q-axis, o-axis.<br>
 The rotor contains n_r windings each in d-axis and q-axis (at least one).<br>
 See also equivalent circuit on 'Diagram layer' of
-<a href=\"Parameters.Asynchron\">Parameters.Asynchron</a> !</p>
+<a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Asynchron\">Parameters.Asynchron</a> !</p>
 <pre>
   v, i:                  stator-voltage and -current dq0
   v_rd[n_r], i_rd[n_r]:  rotor-voltage and -current d-axis
@@ -906,10 +861,6 @@ The transformation angle is the (electric) rotor-angle relative to the reference
   v_s, i_s:    stator-voltage and -current dq0 in the rotor frame of the machine.
 </pre></p>
 </html>"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
         Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -924,8 +875,7 @@ The transformation angle is the (electric) rotor-angle relative to the reference
 
       replaceable parameter Parameters.Synchron3rd par(f_nom=system.f_nom)
         "machine parameter"
-        annotation (Placement(transformation(extent={{-60,60},{-40,80}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
     protected
       final parameter Coefficients.Synchron3rd c = Basic.Precalculation.machineSyn3rd(
                                                                                      par,top.scale);
@@ -962,7 +912,7 @@ The transformation angle is the (electric) rotor-angle relative to the reference
 <p>'Voltage behind synchronous reactance', simplified model of synchronous machine.<br>
 One winding in d-axis, q-axis, o-axis.<br>
 See also equivalent circuit on 'Diagram layer' of
-<a href=\"Parameters.Synchron3rd\">Parameters.Synchron3rd</a> !</p>
+<a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Synchron3rd\">Parameters.Synchron3rd</a> !</p>
 <pre>
   v, i:          stator-voltage and -current dq0 reference-system
   v_s, i_s:      stator-voltage and -current dq0 rotor-system<br>
@@ -992,11 +942,7 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
             grid={2,2}), graphics={Text(
               extent={{-100,10},{100,-10}},
               lineColor={255,255,255},
-              textString="syn3")}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              textString="syn3")}));
     end Synchron3rdBase;
 
     partial model SynchronBase "Synchronous machine base, 3-phase dq0"
@@ -1004,15 +950,11 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
 
       replaceable parameter Parameters.Synchron par(f_nom=system.f_nom)
         "machine parameter"
-        annotation (Placement(transformation(extent={{-60,60},{-40,80}},
-              rotation=0)));
+        annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
     protected
-      final parameter Integer n_d=if par.transDat then size(par.tc_d,1) else size(par.xsig_rd,1)
-        "number of rotor circuits d-axis";
-      final parameter Integer n_q=if par.transDat then size(par.tc_q,1) else size(par.xsig_rq,1)
-        "number of rotor circuits q-axis";
-      final parameter Coefficients.Synchron c=Basic.Precalculation.machineSyn(
-                                                                             par,n_d,n_q,top.scale);
+      final parameter Integer n_d = par.n_d "number of rotor circuits d-axis";
+      final parameter Integer n_q = par.n_q "number of rotor circuits q-axis";
+      final parameter Coefficients.Synchron c = Basic.Precalculation.machineSyn(par, top.scale);
       parameter SI.Inductance[n_d, n_d] L_rd = c.L_rd "L matrix rotor";
       parameter SI.Inductance[n_q, n_q] L_rq = c.L_rq "L matrix rotor";
       parameter SI.Inductance[n_d] L_md = c.L_md "L matrix mutual d-axis";
@@ -1080,7 +1022,7 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
 Stator: one winding each in d-axis, q-axis, o-axis.<br>
 Rotor: n_d windings in d-axis (field f, (n_d-1) damper D1, ..), n_q windings in q-axis (damper Q1, ..).<br>
 See also equivalent circuit on 'Diagram layer' of
-<a href=\"Parameters.Synchron\">Parameters.Synchron</a> !</p>
+<a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Synchron\">Parameters.Synchron</a> !</p>
 <pre>
   v, i:          stator-voltage and -current dq0 reference-system
   v_s, i_s:      stator-voltage and -current dq0 rotor-system
@@ -1179,23 +1121,20 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
     parameter SI.Voltage Vf_nom=1 "nom voltage field-winding"
       annotation(Evaluate=true, Dialog(group="Nominal"));
 
-    Modelica.Blocks.Interfaces.RealOutput[3] termVoltage(
-                                        final unit="1")
-        "terminal voltage pu to exciter control"
+    Modelica.Blocks.Interfaces.RealOutput[3] termVoltage(each final unit="1")
+      "terminal voltage pu to exciter control"
       annotation (Placement(transformation(
             origin={-60,100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
-    Modelica.Blocks.Interfaces.RealInput fieldVoltage(
-                             final unit="1")
-        "field voltage pu from exciter control"
+    Modelica.Blocks.Interfaces.RealInput fieldVoltage(final unit="1")
+      "field voltage pu from exciter control"
       annotation (Placement(transformation(
             origin={60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
     AC1ph_DC.Ports.TwoPin_n field "to generator field-winding"
-      annotation (Placement(transformation(extent={{-90,-50},{-110,-30}},
-              rotation=0)));
+      annotation (Placement(transformation(extent={{-90,-50},{-110,-30}})));
 
   equation
     term.i = zeros(3);
@@ -1232,11 +1171,7 @@ It does not contain any electronic component.</p>
               extent={{-100,-10},{100,-30}},
               lineColor={0,0,255},
               textString="voltage"),
-            Line(points={{-80,-40},{40,-40}}, color={0,0,255})}),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+            Line(points={{-80,-40},{40,-40}}, color={0,0,255})}));
   end Excitation;
 
   model PowerAngle "Direct determination of generator power angle"
@@ -1249,7 +1184,7 @@ It does not contain any electronic component.</p>
     SI.Angle phi_el(start=delta-pi/2+system.alpha0) "rotor angle";
     Interfaces.Rotation_n airgap(     phi(start=(delta-pi/2+system.alpha0)/pp))
         "to airgap of generator"
-    annotation (Placement(transformation(extent={{90,50},{110,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{90,50},{110,70}})));
     protected
     function atan2 = Modelica.Math.atan2;
 
@@ -1284,11 +1219,7 @@ Connector 'term' to be connected to 'generator.term'.</p>
               pattern=LinePattern.None,
               fillColor={255,170,170},
               fillPattern=FillPattern.Solid),
-            Line(points={{80,0},{-20,0},{60,40}}, color={95,95,95})}),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=true,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+            Line(points={{80,0},{-20,0},{60,40}}, color={95,95,95})}));
   end PowerAngle;
 
     annotation (Documentation(info="<html>
@@ -1303,23 +1234,20 @@ package Parameters "Parameter data for interactive use"
   record Asynchron3rd "Asynchronous machine 3rd order parameters"
     extends PowerSystems.Basic.Nominal.NominalDataAC;
 
-    parameter Boolean neu_iso "isolated neutral if Y";
-    parameter Integer pp "pole-pair number";
+    Boolean neu_iso "isolated neutral if Y" annotation(Dialog);
+    Integer pp "pole-pair number" annotation(Dialog);
 
-    parameter SIpu.Reactance x "total reactance d- and q-axis";
-    parameter SIpu.Reactance x_o "reactance o-axis";
-    parameter SIpu.Resistance r_s "resistance stator";
-    parameter SIpu.Resistance r_n "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
+    SIpu.Reactance x "total reactance d- and q-axis" annotation(Dialog);
+    SIpu.Reactance x_o "reactance o-axis" annotation(Dialog);
+    SIpu.Resistance r_s "resistance stator" annotation(Dialog);
+    SIpu.Resistance r_n "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
 
     annotation (defaultComponentName="asyn3rdPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
 </html>"),
-      Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
       Diagram(coordinateSystem(
               preserveAspectRatio=false,
               extent={{-100,-100},{100,100}},
@@ -1422,27 +1350,28 @@ package Parameters "Parameter data for interactive use"
     extends Asynchron3rd;
 
     parameter Integer n_r(min=0) "# rotor circuits d- and q-axis";
-    parameter Boolean transDat "use transient data"  annotation(choices(
+    Boolean transDat "use transient data"  annotation(Dialog, choices(
       choice=true "transient data",
       choice=false "equivalent circuit data"));
-    parameter Boolean use_xtr "use x_transient and t_closed"
+    Boolean use_xtr "use x_transient and t_closed"
       annotation(Dialog(enable=transDat), choices(
       choice=true "x_tr and t_closed",
       choice=false "t_closed and t_open"));
-    parameter SIpu.Reactance[n_r] xtr "transient reactance {xtr', xtr'', ..}"
+    SIpu.Reactance[n_r] xtr "transient reactance {xtr', xtr'', ..}"
       annotation(Dialog(enable=transDat and use_xtr));
-    parameter SI.Time[n_r] tc "time constant closed-loop {tc', tc'', ..}"
+    SI.Time[n_r] tc "time constant closed-loop {tc', tc'', ..}"
       annotation(Dialog(enable=transDat));
-    parameter SI.Time[n_r] to "time constant open-loop {to', to'', ..}"
+    SI.Time[n_r] to "time constant open-loop {to', to'', ..}"
       annotation(Dialog(enable=transDat and not use_xtr));
 
-    parameter SIpu.Reactance xsig_s "leakage reactance stator";
-    parameter SIpu.Reactance[n_r] xsig_r "leakage reactance rotor"
+    SIpu.Reactance xsig_s "leakage reactance stator" annotation(Dialog);
+    SIpu.Reactance[n_r] xsig_r "leakage reactance rotor"
       annotation(Dialog(enable=not transDat));
-    parameter SIpu.Resistance[n_r] r_r "resistance rotor"
+    SIpu.Resistance[n_r] r_r "resistance rotor"
       annotation(Dialog(enable=not transDat));
 
     annotation (defaultComponentName="asynPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -1463,10 +1392,6 @@ package Parameters "Parameter data for interactive use"
 &nbsp; &nbsp; The number of components of <tt>xsig_r, r_r</tt> depends on the order of the model.<br>
 &nbsp; &nbsp; For pu-input refer to stator base value <tt>R_base</tt>.</p>
 </html>"),
-      Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
       Diagram(coordinateSystem(
               preserveAspectRatio=false,
               extent={{-100,-100},{100,100}},
@@ -1587,18 +1512,11 @@ package Parameters "Parameter data for interactive use"
       r_n=1);
 
     annotation (defaultComponentName="asyn3rdPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
-</html>"),
-      Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
+</html>"));
   end Asynchron3rd_cage;
 
   record Asynchron_cage "Asynchronous machine parameters"
@@ -1620,6 +1538,7 @@ package Parameters "Parameter data for interactive use"
       r_r={0.04});
 
     annotation (defaultComponentName="asynPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -1639,43 +1558,32 @@ package Parameters "Parameter data for interactive use"
 <p>&nbsp; &nbsp; <tt>xsig_r, r_r</tt> correspond to a stator-based equivalent circuit.<br>
 &nbsp; &nbsp; The number of components of <tt>xsig_r, r_r</tt> depends on the order of the model.<br>
 &nbsp; &nbsp; For pu-input refer to stator base value <tt>R_base</tt>.</p>
-</html>"),
-      Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
+</html>"));
   end Asynchron_cage;
 
   record Synchron3rd "Synchronous machine 3rd order parameters"
     extends PowerSystems.Basic.Nominal.NominalDataAC;
 
-    parameter Boolean neu_iso "isolated neutral if Y";
-    parameter Integer pp "pole-pair number";
-    parameter Integer excite(min=0,max=3)
+    Boolean neu_iso "isolated neutral if Y" annotation(Dialog);
+    Integer pp "pole-pair number" annotation(Dialog);
+    Integer excite(min=0,max=3)
         "excitation (1:el, 2:pm, 3:reluctance)"
-      annotation(Evaluate=true, choices(
+      annotation(Evaluate=true, Dialog, choices(
       choice=1 "electric excitation",
       choice=2 "permanent magnet",
       choice=3 "reluctance machine"));
-    parameter SIpu.MagneticFlux psi_pm
+    SIpu.MagneticFlux psi_pm
         "magnetisation (V/V_nom at open term at omega_nom)"
       annotation(Dialog(enable=excite==2));
 
-    parameter SIpu.Reactance x_d "syn reactance d-axis";
-    parameter SIpu.Reactance x_q "syn reactance q-axis";
-    parameter SIpu.Reactance x_o "reactance o-axis";
-    parameter SIpu.Resistance r_s "resistance armature";
-    parameter SIpu.Resistance r_n "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
+    SIpu.Reactance x_d "syn reactance d-axis" annotation(Dialog);
+    SIpu.Reactance x_q "syn reactance q-axis" annotation(Dialog);
+    SIpu.Reactance x_o "reactance o-axis" annotation(Dialog);
+    SIpu.Resistance r_s "resistance armature" annotation(Dialog);
+    SIpu.Resistance r_n "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
 
     annotation (defaultComponentName="syn3rdPar",
-      Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -1785,65 +1693,62 @@ package Parameters "Parameter data for interactive use"
     parameter Integer n_d(min=1) "# rotor circuits d-axis";
     parameter Integer n_q(min=0) "# rotor circuits q-axis";
 
-    parameter Boolean transDat "use transient data?" annotation(choices(
+    Boolean transDat "use transient data?" annotation(Dialog, choices(
       choice=true "transient data",
       choice=false "equivalent circuit data"));
-    parameter Boolean use_xtr "use x_transient and t_closed?"
+    Boolean use_xtr "use x_transient and t_closed?"
       annotation(Dialog(enable=transDat), choices(
       choice=true "x_tr and t_closed",
       choice=false "t_closed and t_open"));
-    parameter SIpu.Reactance[n_d] xtr_d
+    SIpu.Reactance[n_d] xtr_d
         "trans reactance d-axis {xtr_d', xtr_d'', ..}"
       annotation(Dialog(enable=transDat and use_xtr));
-    parameter SIpu.Reactance[n_q] xtr_q
+    SIpu.Reactance[n_q] xtr_q
         "trans reactance q-axis {xtr_q', xtr_q'', ..}"
       annotation(Dialog(enable=transDat and use_xtr));
-    parameter SI.Time[n_d] tc_d
+    SI.Time[n_d] tc_d
         "time constant closed-loop d-axis {tc_d', tc_d'', ..}"
       annotation(Dialog(enable=transDat));
-    parameter SI.Time[n_q] tc_q
+    SI.Time[n_q] tc_q
         "time constant closed-loop q-axis {tc_q', tc_q'', ..}"
       annotation(Dialog(enable=transDat));
-    parameter SI.Time[n_d] to_d
+    SI.Time[n_d] to_d
         "time constant open-loop d-axis {to_d', to_d'', ..}"
       annotation(Dialog(enable=transDat and not use_xtr));
-    parameter SI.Time[n_q] to_q
+    SI.Time[n_q] to_q
         "time constant open-loop q-axis {to_q', to_q'', ..}"
       annotation(Dialog(enable=transDat and not use_xtr));
-    parameter Boolean use_if0 "induced field current and phase available?"
+    Boolean use_if0 "induced field current and phase available?"
       annotation(Dialog(enable=transDat and size(tc_d,1)>1 and not pm_exc), choices(
       choice=true "d-axis with xm_d",
       choice=false "d-axis omitting xm_d"));
-    parameter SIpu.Current if0 "induced field current at v_s=Vnom/0deg"
+    SIpu.Current if0 "induced field current at v_s=Vnom/0deg"
      annotation(Dialog(enable=transDat and size(tc_d,1)>1 and use_if0 and not pm_exc));
-    parameter SI.Angle alpha_if0
+    SI.Angle alpha_if0
         "angle(if0) at v_s=Vnom/0deg (sign: i_f behind v_s)"
       annotation(Dialog(enable=transDat and size(tc_d,1)>1 and use_if0 and not pm_exc));
-    parameter Real tol "tolerance precalculation"
+    Real tol "tolerance precalculation"
       annotation(Dialog(enable=transDat and size(tc_d,1)>1 and use_if0 and not pm_exc));
 
-    parameter SIpu.Reactance xsig_s "leakage reactance armature";
-    parameter SIpu.Reactance[n_d] xsig_rd
+    SIpu.Reactance xsig_s "leakage reactance armature" annotation(Dialog);
+    SIpu.Reactance[n_d] xsig_rd
         "leakage reactance rotor d-axis {f, D, ..}"
       annotation(Dialog(enable=not transDat));
-    parameter SIpu.Reactance[n_q] xsig_rq
+    SIpu.Reactance[n_q] xsig_rq
         "leakage reactance rotor q-axis {Q1, ..}"
       annotation(Dialog(enable=not transDat));
-    parameter SIpu.Reactance[n_d-1] xm_d "coupling-reactance d-axis {xm1, ..}"
+    SIpu.Reactance[n_d-1] xm_d "coupling-reactance d-axis {xm1, ..}"
       annotation(Dialog(enable=not transDat));
-    parameter SIpu.Resistance[n_d] r_rd "resistance rotor d-axis {f, D, ..}"
+    SIpu.Resistance[n_d] r_rd "resistance rotor d-axis {f, D, ..}"
       annotation(Dialog(enable=not transDat));
-    parameter SIpu.Resistance[n_q] r_rq "resistance rotor q-axis {Q1, ..}"
+    SIpu.Resistance[n_q] r_rq "resistance rotor q-axis {Q1, ..}"
       annotation(Dialog(enable=not transDat));
 
-    parameter SI.Current If_nom "nom field current (V=V_nom at open term)"
+    SI.Current If_nom "nom field current (V=V_nom at open term)"
       annotation(Dialog(group="Nominal", enable=not pm_exc));
 
     annotation (defaultComponentName="synPar",
-      Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -2086,19 +1991,12 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       r_n=1);
 
     annotation (defaultComponentName="syn3rd_elPar",
-      Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
 <p>This simplified model uses only main but no transient reactances.</p>
-</html>"),
-      Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
+</html>"));
   end Synchron3rd_ee;
 
   record Synchron_ee "Synchronous machine parameters"
@@ -2136,10 +2034,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
 
   //  example: V_nom=20e3, S_nom=500e6, If_nom=1500.
     annotation (defaultComponentName="syn_elPar",
-      Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -2176,11 +2071,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
   rf = (Rf/Rf_base)*R_base        (in SI, stator-based).
   Rf = resistance field winding   (in Ohm, true value, not scaled)
 </pre>
-</html>"),
-      Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
+</html>"));
   end Synchron_ee;
 
   record Synchron3rd_pm "Synchronous machine pm 3rd order parameters"
@@ -2195,6 +2086,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       r_s=0.05,
       r_n=1);
     annotation (defaultComponentName="syn3rd_pmPar",
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -2204,14 +2096,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
   psi_pm = Psi_pm*omega_nom/V_nom
 </pre></p>
 </html>
-"),   Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
+"));
   end Synchron3rd_pm;
 
   record Synchron_pm "Synchronous machine pm parameters"
@@ -2248,10 +2133,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       If_nom=0);
 
     annotation (defaultComponentName="syn_pmPar",
-      Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
+      defaultComponentPrefixes="parameter",
       Documentation(
             info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
@@ -2285,11 +2167,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
   Psi_pm = psi_pm*V_nom/omega_nom
   psi_pm = Psi_pm*omega_nom/V_nom
 </pre></p>
-</html>"),
-      Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
+</html>"));
   end Synchron_pm;
 
   record Synchron3rd_reluctance "Synchronous machine pm 3rd order parameters"
@@ -2304,28 +2182,16 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       r_s=0.05,
       r_n=1);
     annotation (defaultComponentName="syn_reluctPar",
-      Documentation(
-            info="<html>
+      defaultComponentPrefixes="parameter",
+      Documentation(info="<html>
 <p>Equivalent circuit on <b>diagram layer</b>!</p>
-</html>
-"),   Icon(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics),
-      Diagram(coordinateSystem(
-              preserveAspectRatio=false,
-              extent={{-100,-100},{100,100}},
-              grid={2,2}), graphics));
+</html>"));
   end Synchron3rd_reluctance;
 
   annotation (preferredView="info",
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
 
 package Coefficients "Coefficient matrices of machine equations"
@@ -2335,28 +2201,30 @@ record Asynchron "Coefficient matrices of asynchronous machine"
   extends Modelica.Icons.Record;
 
   parameter Integer n_r "number of rotor circuits";
-  final parameter SI.Inductance[3] L_s "L matrix stator dq0, d=q";
-  final parameter SI.Inductance[n_r, n_r] L_r "L matrix rotor";
-  final parameter SI.Inductance[n_r] L_m "L matrix mutual";
-  final parameter SI.Resistance R_s "R matrix stator";
-  final parameter SI.Resistance[n_r] R_r "R matrix rotor";
-  final parameter SI.Resistance R_n "resistance neutral to grd (if Y)";
-  final parameter SI.Resistance[n_r] R_m "= diagonal(R_r)*inv(L_r)*L_m";
+  SI.Inductance[3] L_s "L matrix stator dq0, d=q";
+  SI.Inductance[n_r, n_r] L_r "L matrix rotor";
+  SI.Inductance[n_r] L_m "L matrix mutual";
+  SI.Resistance R_s "R matrix stator";
+  SI.Resistance[n_r] R_r "R matrix rotor";
+  SI.Resistance R_n "resistance neutral to grd (if Y)";
+  SI.Resistance[n_r] R_m "= diagonal(R_r)*inv(L_r)*L_m";
 
-annotation(Diagram(graphics),Documentation(info="<html>
+  annotation (defaultComponentPrefixes="final parameter",
+    Documentation(info="<html>
 </html>"));
 end Asynchron;
 
 record Synchron3rd "Coefficient matrices of synchronous machine, 3rd order"
   extends Modelica.Icons.Record;
 
-  final parameter SI.Inductance[3] L_s "L matrix stator dq0";
-  final parameter SI.Resistance R_s "R stator (armature)";
-  final parameter SI.Resistance R_n "resistance neutral to grd (if Y)";
-  final parameter SI.MagneticFlux Psi_pm "flux permanent magnet";
-  final parameter SI.AngularFrequency omega_nom;
+  SI.Inductance[3] L_s "L matrix stator dq0";
+  SI.Resistance R_s "R stator (armature)";
+  SI.Resistance R_n "resistance neutral to grd (if Y)";
+  SI.MagneticFlux Psi_pm "flux permanent magnet";
+  SI.AngularFrequency omega_nom;
 
-annotation(Diagram(graphics), Documentation(info="<html>
+  annotation (defaultComponentPrefixes="final parameter",
+    Documentation(info="<html>
 </html>"));
 end Synchron3rd;
 
@@ -2365,45 +2233,38 @@ record Synchron "Coefficient matrices of synchronous machine"
 
   parameter Integer n_d "number of rotor circuits d-axis";
   parameter Integer n_q "number of rotor circuits q-axis";
-  final parameter SI.Inductance[3] L_s "L matrix stator dq0";
-  final parameter SI.Inductance[n_d, n_d] L_rd "L matrix rotor";
-  final parameter SI.Inductance[n_q, n_q] L_rq "L matrix rotor";
-  final parameter SI.Inductance[n_d] L_md "L matrix mutual d-axis";
-  final parameter SI.Inductance[n_q] L_mq "L matrix mutual q-axis";
-  final parameter SI.Resistance R_s "R stator (armature)";
-  final parameter SI.Resistance[n_d] R_rd "R matrix rotor";
-  final parameter SI.Resistance[n_q] R_rq "R matrix rotor";
-  final parameter SI.Resistance R_n "resistance neutral to grd (if Y)";
-  final parameter SI.MagneticFlux Psi_pm "flux permanent magnet";
-  final parameter Real wf "ratio field winding";
-  final parameter SI.Voltage Vf_nom "nom voltage field winding";
-  final parameter SI.AngularFrequency omega_nom;
+  SI.Inductance[3] L_s "L matrix stator dq0";
+  SI.Inductance[n_d, n_d] L_rd "L matrix rotor";
+  SI.Inductance[n_q, n_q] L_rq "L matrix rotor";
+  SI.Inductance[n_d] L_md "L matrix mutual d-axis";
+  SI.Inductance[n_q] L_mq "L matrix mutual q-axis";
+  SI.Resistance R_s "R stator (armature)";
+  SI.Resistance[n_d] R_rd "R matrix rotor";
+  SI.Resistance[n_q] R_rq "R matrix rotor";
+  SI.Resistance R_n "resistance neutral to grd (if Y)";
+  SI.MagneticFlux Psi_pm "flux permanent magnet";
+  Real wf "ratio field winding";
+  SI.Voltage Vf_nom "nom voltage field winding";
+  SI.AngularFrequency omega_nom;
 
-annotation(Diagram(graphics), Documentation(info="<html>
+  annotation (defaultComponentPrefixes="final parameter",
+    Documentation(info="<html>
 </html>"));
 end Synchron;
 
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing the result of precalculation, and used in the dynamical equations of the corresponding components.</p>
-</html>
-"), Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Coefficients;
 
-  annotation (preferredView="info",
-Documentation(info="<html>
+annotation (preferredView="info",
+  Documentation(info="<html>
 <p> This package contains the <b>electrical part</b> (electrical equations) of AC synchronous and asynchronous machines (generators or motors).<br>
 Complete drives or generators are found in package Drives or Generation.</p>
 <p>The models in this package can be used both for Y- and for Delta-topology, if the impedance parameters are defined 'as seen from the terminals', directly relating terminal voltage and terminal current.</p>
 <p>
 
 .</p>
-</html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Machines;

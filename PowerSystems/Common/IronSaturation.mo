@@ -37,10 +37,7 @@ in the following way
   c[3] = xratio
 </pre></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end saturationAnalytic;
 
   function der_saturationAnalytic
@@ -78,11 +75,7 @@ in the following way
   c[2] = (1-xratio)/(psi_sat-xratio)
   c[3] = xratio
 </pre></p>
-</html>"),
-      Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end der_saturationAnalytic;
 
   record SaturationTab "Saturating flux table"
@@ -208,17 +201,11 @@ in the following way
   der_psi = y[2]
 </pre></p>
 </html>
-"),   Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end SaturationTab;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Iron saturation function and table.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end IronSaturation;

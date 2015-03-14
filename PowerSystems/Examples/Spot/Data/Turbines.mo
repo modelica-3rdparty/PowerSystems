@@ -10,6 +10,7 @@ package Turbines "Turbine example data"
      J_gen=62000,
      J_aux={460,830},
      stiff={260,355,750,750,750,220}*1e6);
+    annotation (defaultComponentPrefixes="parameter");
   end SteamTurboGroup1200MW;
 
   record GasTurbineGear "Small GT with gear, example"
@@ -26,6 +27,7 @@ package Turbines "Turbine example data"
       ratio={15057,5067,1500},
       stiff_sh={3,5.5,100,2500,250,200}*1e6,
       stiff_cpl=130*1e6);
+    annotation (defaultComponentPrefixes="parameter");
   end GasTurbineGear;
 
   record HydroTurbine "Hydro turbine, example"
@@ -36,6 +38,7 @@ package Turbines "Turbine example data"
       J_shaft=5,
       J_gen=500,
       stiff=300e6);
+    annotation (defaultComponentPrefixes="parameter");
   end HydroTurbine;
 
   record Diesel "Diesel, example"
@@ -45,6 +48,7 @@ package Turbines "Turbine example data"
       J_turb=20,
       J_gen=20,
       stiff=1e6);
+    annotation (defaultComponentPrefixes="parameter");
   end Diesel;
 
   record WindTurbineGear "Wind turbine with gear, example"
@@ -56,6 +60,7 @@ package Turbines "Turbine example data"
       J_gen=0.5,
       ratio={1,6,42},
       stiff_sh={16,1}*1e4);
+    annotation (defaultComponentPrefixes="parameter");
   end WindTurbineGear;
    annotation (preferredView="info",
  Documentation(info="<html>

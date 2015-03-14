@@ -4,9 +4,7 @@ The library is intended to model electrical power systems at different levels of
 
 ## Library description
 
-`PowerSystems` combines a generic concept for the modeling of electrical power systems at different levels of detail with the extensive component models of the former [SPOT](https://github.com/modelica-3rdparty/SPOT) library.
-
-`PowerSystems` uses replaceable PhaseSystems to define the voltage and current variables as well as optional supporting reference angles in the connectors. The aim is to have different single and polyphase systems and different mathematical formulations in one framework.
+`PowerSystems` provides a framework and examples for the flexible modeling of electical power systems. Generic component models adapt to different application needs by using a replaceable `PhaseSystem`. Moreover the library contains the extensive sets of detailed one phase and transient three phase component models of the former [SPOT](https://github.com/modelica-3rdparty/SPOT) library.
 
 In particular this shall cover systems like:
 
@@ -21,10 +19,15 @@ See also the publication [Franke, Wiesmann: Flexible modeling of electrical powe
 
 ## Current release
 
-Download [PowerSystems v0.3 (2014-10-20)](../../archive/v0.3.zip)
+Download [PowerSystems v0.4.0 (2015-03-14)](../../archive/v0.4.0.zip)
 
 #### Revisions
 
+ * [Version v0.4.0  (2015-03-14)](../../archive/v0.4.0.zip)
+   * fix Generic components to work with simple ThreePhase_d again (was broken in v0.3)
+   * rework parameter records (move parameter qualifiers from record members to whole records to permit their construction with functions)
+   * remove ambiguous start values
+   * lot of clean-up
  * [Version v0.3  (2014-10-20)](../../archive/v0.3.zip)
    * add initial equations to Generic models and related examples
    * add start parameters to AC1phDC and extend transient initialization
@@ -50,7 +53,7 @@ Download [PowerSystems v0.3 (2014-10-20)](../../archive/v0.3.zip)
 
 ## License
 
-Copyright &copy; 2007-2014, Modelica Association.
+Copyright &copy; 2007-2015, Modelica Association.
 
 This Modelica package is free software and the use is completely at your own risk;
 it can be redistributed and/or modified under the terms of the [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2).

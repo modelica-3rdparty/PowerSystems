@@ -89,34 +89,28 @@ partial model Port_p "AC one port 'positive', 3-phase"
 
   Ports.ACdq0_p term "positive terminal"
                           annotation (Placement(transformation(extent={{-110,
-              -10},{-90,10}}, rotation=0)));
+              -10},{-90,10}})));
   annotation (
           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics={Text(
             extent={{-100,-90},{100,-130}},
             lineColor={0,0,0},
             textString="%name")}),
-    Documentation(info="<html></html>"),
-                Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics));
+    Documentation(info="<html></html>"));
 end Port_p;
 
 partial model Port_n "AC one port 'negative', 3-phase"
   extends PortBase;
 
   Ports.ACdq0_n term "negative terminal"
-annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   annotation (
           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics={Text(
             extent={{-100,-90},{100,-130}},
             lineColor={0,0,0},
             textString="%name")}),
-    Documentation(info="<html></html>"),
-               Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                       graphics));
+    Documentation(info="<html></html>"));
 end Port_n;
 
 partial model Port_f "AC one port 'fault', 3-phase"
@@ -133,17 +127,16 @@ annotation (Placement(transformation(
             extent={{-100,130},{100,90}},
             lineColor={0,0,0},
             textString="%name")}),
-    Documentation(info="<html></html>"),
-                Diagram(graphics));
+    Documentation(info="<html></html>"));
 end Port_f;
 
 partial model Port_p_n "AC two port, 3-phase"
   extends PortBase;
 
   Ports.ACdq0_p term_p "positive terminal"
-annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
+annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Ports.ACdq0_n term_n "negative terminal"
-annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
   Connections.branch(term_p.theta, term_n.theta);
   term_n.theta = term_p.theta;
@@ -154,10 +147,7 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
             lineColor={0,0,0},
             textString="%name")}),
 Documentation(info="<html>
-</html>"),
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}),
-        graphics));
+</html>"));
 end Port_p_n;
 
 partial model Port_pn "AC two port 'current_in = current_out', 3-phase"
@@ -166,11 +156,8 @@ partial model Port_pn "AC two port 'current_in = current_out', 3-phase"
 equation
   term_p.i + term_n.i = zeros(3);
   annotation (
-Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-     graphics),
 Documentation(info="<html>
-</html>"),
-Diagram(graphics));
+</html>"));
 end Port_pn;
 
 partial model Port_p_n_f "AC three port, 3-phase"
@@ -186,11 +173,8 @@ equation
   Connections.branch(term_p.theta, term_f.theta);
   term_f.theta = term_p.theta;
   annotation (
-Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-     graphics),
 Documentation(info="<html>
-</html>"),
-Diagram(graphics));
+</html>"));
 end Port_p_n_f;
 
 partial model Yport_p "AC one port Y topology 'positive'"
@@ -206,9 +190,6 @@ equation
   term.i = i;
   i_n = sqrt(3)*term.i[3];
   annotation (
-          Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}),
-               graphics),
                 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
               -100,-100},{100,100}}), graphics={Line(points={{30,-16},{52,-16},
                 {62,0},{52,16},{30,16}}, color={0,0,255}), Line(points={{30,0},
@@ -244,9 +225,6 @@ equation
   term.i = i;
   i_n = sqrt(3)*term.i[3];
   annotation (
-          Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}),
-               graphics),
                 Diagram(graphics={Line(points={{-30,-16},{-52,-16},{-62,0},{-52,
                 16},{-30,16}}, color={0,0,255}), Line(points={{-70,0},{-30,0}},
               color={0,0,255})}),
@@ -276,7 +254,7 @@ partial model YDport_p "AC one port Y or Delta topology 'positive'"
     annotation (                        choices(
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top "Y"),
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top "Delta")),
-        Placement(transformation(extent={{30,-20},{70,20}}, rotation=0)));
+        Placement(transformation(extent={{30,-20},{70,20}})));
 */
 
   replaceable Topology.Y top(v_cond=v, i_cond=i, v_n=v_n)
@@ -284,7 +262,7 @@ partial model YDport_p "AC one port Y or Delta topology 'positive'"
     annotation (                        choices(
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top "Y"),
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top "Delta")),
-        Placement(transformation(extent={{30,-20},{70,20}}, rotation=0)));
+        Placement(transformation(extent={{30,-20},{70,20}})));
 
   SI.Voltage[3] v "voltage conductor";
   SI.Current[3] i "current conductor";
@@ -298,12 +276,6 @@ equation
   term.v = top.v_term;
   term.i = top.i_term;
   annotation (
-          Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}),
-               graphics),
-                Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
     Documentation(info="<html>
 <p>Defines Y- and Delta-topology transform of voltage and current variables.</p>
 <p>Definitions</p>
@@ -340,7 +312,7 @@ partial model YDport_n "AC one port Y or Delta topology 'positive'"
     annotation (                          choices(
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top "Y"),
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top "Delta")),
-        Placement(transformation(extent={{-30,-20},{-70,20}}, rotation=0)));
+        Placement(transformation(extent={{-30,-20},{-70,20}})));
   SI.Voltage[3] v "voltage conductor";
   SI.Current[3] i "current conductor";
   SI.Voltage[n_n] v_n "voltage neutral";
@@ -353,12 +325,6 @@ equation
   term.v = top.v_term;
   term.i = top.i_term;
   annotation (
-          Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}),
-               graphics),
-                Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
     Documentation(info="<html>
 <p>Defines Y- and Delta-topology transform of voltage and current variables.</p>
 <p>Definitions</p>
@@ -391,12 +357,12 @@ partial model Y_Dport_p "AC two port, switcheable Y-Delta topology"
 
   replaceable Topology.Y_Delta top(v_cond=v, i_cond=i, control=YDcontrol)
       "Y-Delta switcheable"                           annotation (Placement(
-          transformation(extent={{30,-20},{70,20}}, rotation=0)));
+          transformation(extent={{30,-20},{70,20}})));
   SI.Voltage[3] v "voltage conductor";
   SI.Current[3] i "current conductor";
   Modelica.Blocks.Interfaces.BooleanInput YDcontrol "true:Y, false:Delta"
                                             annotation (Placement(
-          transformation(extent={{-110,30},{-90,50}}, rotation=0)));
+          transformation(extent={{-110,30},{-90,50}})));
 
 equation
   term.v = top.v_term;
@@ -406,12 +372,6 @@ equation
             40,20}}, color={255,0,255}));
 */
   annotation (
-          Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}),
-               graphics),
-                Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
     Documentation(info="<html>
 <p>Modification of YDport_p for switcheable Y-Delta transform.<br>
 Defines Y- and Delta-topology transform of voltage and current variables.<br>
@@ -451,7 +411,7 @@ partial model YDportTrafo_p_n
     annotation (                         choices(
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top_p "Y"),
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_p "Delta")),
-        Placement(transformation(extent={{-80,-20},{-40,20}}, rotation=0)));
+        Placement(transformation(extent={{-80,-20},{-40,20}})));
 
   replaceable Topology.Y top_n(v_cond=v2*w2, i_cond=i2/w2, v_n=v_n2)
         constrainedby Topology.TopologyBase(v_cond=v2*w2, i_cond=i2/w2, v_n=v_n2)
@@ -459,7 +419,7 @@ partial model YDportTrafo_p_n
     annotation (                        choices(
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top_n "Y"),
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_n "Delta")),
-        Placement(transformation(extent={{80,-20},{40,20}}, rotation=0)));
+        Placement(transformation(extent={{80,-20},{40,20}})));
 
   SI.Voltage[3] v1 "voltage conductor";
   SI.Current[3] i1 "current conductor";
@@ -486,8 +446,6 @@ equation
   term_n.v = top_n.v_term;
   term_n.i = top_n.i_term;
   annotation (
-Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-     graphics),
 Documentation(info="<html>
 <p>Defines Y- and Delta-topology transform of voltage and current variables and contains additionally voltage and current scaling.</p>
 <p>Below</p>
@@ -520,10 +478,7 @@ Documentation(info="<html>
   with Rot = rotation_30deg
 </pre>
 </html>
-"),
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}),
-        graphics));
+"));
 end YDportTrafo_p_n;
 
 partial model YDportTrafo_p_n_n
@@ -532,13 +487,13 @@ partial model YDportTrafo_p_n_n
 
   Ports.ACdq0_p term_p "positive terminal"
                                       annotation (Placement(transformation(
-            extent={{-110,-10},{-90,10}}, rotation=0)));
+            extent={{-110,-10},{-90,10}})));
   Ports.ACdq0_n term_na "negative terminal a"
                                        annotation (Placement(transformation(
-            extent={{90,30},{110,50}}, rotation=0)));
+            extent={{90,30},{110,50}})));
   Ports.ACdq0_n term_nb "negative terminal b"
                                        annotation (Placement(transformation(
-            extent={{90,-50},{110,-30}}, rotation=0)));
+            extent={{90,-50},{110,-30}})));
 
   replaceable Topology.Y top_p(v_cond=v1*w1, i_cond=i1/w1, v_n=v_n1)
         constrainedby Topology.TopologyBase(v_cond=v1*w1, i_cond=i1/w1, v_n=v_n1)
@@ -546,7 +501,7 @@ partial model YDportTrafo_p_n_n
     annotation (                         choices(
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top_p "Y"),
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_p "Delta")),
-        Placement(transformation(extent={{-80,-20},{-40,20}}, rotation=0)));
+        Placement(transformation(extent={{-80,-20},{-40,20}})));
 
   replaceable Topology.Y top_na(v_cond=v2a*w2a, i_cond=i2a/w2a, v_n=v_n2a)
         constrainedby Topology.TopologyBase(v_cond=v2a*w2a, i_cond=i2a/w2a, v_n=v_n2a)
@@ -554,7 +509,7 @@ partial model YDportTrafo_p_n_n
     annotation (                        choices(
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top_na "Y"),
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_na "Delta")),
-        Placement(transformation(extent={{80,20},{40,60}}, rotation=0)));
+        Placement(transformation(extent={{80,20},{40,60}})));
 
   replaceable Topology.Y top_nb(v_cond=v2b*w2b, i_cond=i2b/w2b, v_n=v_n2b)
         constrainedby Topology.TopologyBase(v_cond=v2b*w2b, i_cond=i2b/w2b, v_n=v_n2b)
@@ -562,7 +517,7 @@ partial model YDportTrafo_p_n_n
     annotation (                        choices(
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top_nb "Y"),
     choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_nb "Delta")),
-        Placement(transformation(extent={{80,-60},{40,-20}}, rotation=0)));
+        Placement(transformation(extent={{80,-60},{40,-20}})));
 
   SI.Voltage[3] v1 "voltage conductor";
   SI.Current[3] i1 "current conductor";
@@ -642,10 +597,7 @@ Documentation(info="<html>
   with Rot = rotation_30deg
 </pre>
 </html>
-"),
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}),
-        graphics));
+"));
 end YDportTrafo_p_n_n;
 
 package Topology "Topology transforms "
@@ -680,11 +632,7 @@ package Topology "Topology transforms "
               fillPattern=FillPattern.Solid), Text(
               extent={{-100,-90},{100,-130}},
               lineColor={0,0,0},
-              textString="%name")}),
-  Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              textString="%name")}));
   end TopologyBase;
 
   model Y "Y transform"
@@ -996,7 +944,7 @@ annotation (Placement(transformation(
   Documentation(
           info="<html>
 <p><b>Structurally incomplete model</b>. Use only as component within appropriate complete model.<br>
-Regularised version of Y_Delta. To be used, if device is fed accross an inductive component implying a differentiable current.</p>
+Regularised version of Y_Delta. To be used, if device is fed across an inductive component implying a differentiable current.</p>
 <p>More info see Topology.Y and Topology.Delta.</p>
 </html>
   "),
@@ -1113,11 +1061,7 @@ Regularised version of Y_Delta. To be used, if device is fed accross an inductiv
 <p>
 Contains transforms for Y and Delta topology dq0.
 </p>
-</HTML>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</HTML>"));
 end Topology;
 
   annotation (preferredView="info",
@@ -1129,9 +1073,5 @@ Documentation(info="<html>
   _pn:      with conservation of current
 </pre>
 </html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Ports;

@@ -20,15 +20,7 @@ package Transformers "Transformers 3-phase"
           info="<html>
 <p>Ideal magnetic coupling, no stray-impedance, zero magnetisation current.</p>
 </html>
-"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end TrafoIdeal;
 
   model TrafoStray "Ideal magnetic coupling transformer, 3-phase dq0"
@@ -67,15 +59,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end TrafoStray;
 
   model TrafoMag "Magnetic coupling transformer, 3-phase dq0"
@@ -133,15 +117,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 </pre>
 <p>with</p>
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
-</html>"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
   end TrafoMag;
 
   model TrafoSatEff "Averaged saturation transformer, 3-phase dq0"
@@ -212,15 +188,7 @@ The factor <tt>0.66</tt> in the expression of the effective pu flux is an estima
 <pre>  R_nom[k] = V_nom[k]^2/S_nom,  k = 1(primary), 2(secondary)</pre>
 <p>Saturation needs high-precision integration!</p>
 </html>
-"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+"));
   end TrafoSatEff;
 
   model TrafoSat "Saturation transformer, 3-phase dq0"
@@ -285,10 +253,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 <p>Saturation needs high-precision integration!</p>
 </html>
 "),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics),
   Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -321,10 +285,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
       omega[2]*L[2]*j_dq0(i2a) + R[2]*i2a = v2a - v0;
       omega[2]*L[3]*j_dq0(i2b) + R[3]*i2b = v2b - v0;
     end if;
-        annotation (Diagram(graphics),
-                             Icon(coordinateSystem(preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}}),
-                                  graphics));
   end Trafo3Stray;
 
   package Partials "Partial models"
@@ -350,9 +310,11 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 
         parameter Boolean stIni_en=true "enable steady-state initial equation"
           annotation(Evaluate=true, Dialog(tab="Initialization"));
-        parameter SI.Current[3] i1_start = zeros(3) "start value of primary current"
+        parameter SI.Current[3] i1_start = zeros(3)
+        "start value of primary current"
           annotation(Dialog(tab="Initialization"));
-        parameter SI.Current[3] i2_start = i1_start "start value of secondary current"
+        parameter SI.Current[3] i2_start = i1_start
+        "start value of secondary current"
           annotation(Dialog(tab="Initialization"));
 
         parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
@@ -378,7 +340,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         replaceable parameter Parameters.TrafoIdeal par
                 constrainedby Parameters.TrafoIdeal "trafo parameter"
                                   annotation (Placement(transformation(extent={
-                {-80,60},{-60,80}}, rotation=0)));
+                {-80,60},{-60,80}})));
     protected
         Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
@@ -399,9 +361,9 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         final parameter SI.Resistance R_n1=par.r_n1*RL_base[1,1];
         final parameter SI.Resistance R_n2=par.r_n2*RL_base[2,1];
         SI.AngularFrequency[2] omega;
-        Real w1_set=if not use_tap_p then W1[1] else W1[1 + tap_p_internal]
+        Real w1_set=W1[1 + tap_p_internal]
         "1: set voltage ratio to nominal primary";
-        Real w2_set=if not use_tap_n then W2[1] else W2[1 + tap_n_internal]
+        Real w2_set=W2[1 + tap_n_internal]
         "2: set voltage ratio to nominal secondary";
 
       initial equation
@@ -676,7 +638,7 @@ For variable transformer ratio tap changer input needed.</p>
 
     replaceable parameter Parameters.Trafo3Ideal par "trafo parameter"
                               annotation (Placement(transformation(extent={{-80,
-                60},{-60,80}}, rotation=0)));
+                60},{-60,80}})));
     protected
     Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
@@ -702,11 +664,11 @@ For variable transformer ratio tap changer input needed.</p>
     final parameter SI.Resistance R_n2a=par.r_n2a*RL_base[2,1];
     final parameter SI.Resistance R_n2b=par.r_n2b*RL_base[3,1];
     SI.AngularFrequency omega[2];
-    Real w1_set=if not use_tap_p then W1[1] else W1[1 + tap_p_internal]
+    Real w1_set=W1[1 + tap_p_internal]
         "1: set voltage ratio to nominal primary";
-    Real w2a_set=if not use_tap_n then W2a[1] else W2a[1 + tap_n_internal[1]]
+    Real w2a_set=W2a[1 + tap_n_internal[1]]
         "2a: set voltage ratio to nominal secondary";
-    Real w2b_set=if not use_tap_n then W2b[1] else W2b[1 + tap_n_internal[2]]
+    Real w2b_set=W2b[1 + tap_n_internal[2]]
         "2b: set voltage ratio to nominal secondary";
 
   initial equation
@@ -892,145 +854,98 @@ package Parameters "Parameter data for interactive use"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 record TrafoIdeal "Parameters for ideal transformer, 3-phase"
-  parameter SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2=fill(1, 0) "2: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
   extends Basic.Nominal.NominalDataTrafo;
-  parameter SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)";
-  parameter SIpu.Resistance r_n2=1 "2: resistance neutral to grd (if Y)";
+
+  SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Voltage[:] v_tc2=fill(1, 0) "2: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)" annotation(Dialog);
+  SIpu.Resistance r_n2=1 "2: resistance neutral to grd (if Y)" annotation(Dialog);
+
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
+</html>"));
 end TrafoIdeal;
 
 record TrafoStray "Parameters for ideal magnetic coupling transformer, 3-phase"
   extends TrafoIdeal;
-  parameter SIpu.Resistance[2] r={0.05,0.05} "{1,2}: resistance";
-  parameter SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance";
-  parameter SIpu.Reactance[2] x0={x[1],x[2]} "{1,2}: stray reactance zero-comp";
+
+  SIpu.Resistance[2] r={0.05,0.05} "{1,2}: resistance" annotation(Dialog);
+  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance" annotation(Dialog);
+  SIpu.Reactance[2] x0={x[1],x[2]} "{1,2}: stray reactance zero-comp" annotation(Dialog);
 
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
+</html>"));
 end TrafoStray;
 
 record TrafoMag "Parameters for magnetic coupling transformer, 3-phase"
   extends TrafoStray;
-  parameter SIpu.Resistance redc=500 "resistance eddy current";
-  parameter SIpu.Reactance xm=500 "mutual reactance";
-  parameter SIpu.Reactance xm0=1 "mutual reactance zero";
+
+  SIpu.Resistance redc=500 "resistance eddy current" annotation(Dialog);
+  SIpu.Reactance xm=500 "mutual reactance" annotation(Dialog);
+  SIpu.Reactance xm0=1 "mutual reactance zero" annotation(Dialog);
 
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
+</html>"));
 end TrafoMag;
 
 record TrafoSat "Parameters for saturation transformer, 3-phase"
   extends TrafoMag;
-  parameter Real psi_sat(unit="1")=1.5 "saturation flux";
-  parameter SIpu.Reactance xm_sat=1 "mutual reactance saturated";
+
+  Real psi_sat(unit="1")=1.5 "saturation flux" annotation(Dialog);
+  SIpu.Reactance xm_sat=1 "mutual reactance saturated" annotation(Dialog);
 
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
+</html>"));
 end TrafoSat;
 
 record Trafo3Ideal "Parameters for ideal 3-winding transformer, 3-phase"
-  parameter SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2a=fill(1, 0) "2a: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  parameter SIpu.Voltage[:] v_tc2b=fill(1, 0) "2b: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  extends Basic.Nominal.NominalDataTrafo(
-                                      V_nom={1,1,1}
+  extends Basic.Nominal.NominalDataTrafo(V_nom={1,1,1}
           "{prim,sec_a,sec_b} nom Voltage (= base if pu)");
-  parameter SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)";
-  parameter SIpu.Resistance r_n2a=1 "2a: resistance neutral to grd (if Y)";
-  parameter SIpu.Resistance r_n2b=1 "2b: resistance neutral to grd (if Y)";
+
+  SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Voltage[:] v_tc2a=fill(1, 0) "2a: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Voltage[:] v_tc2b=fill(1, 0) "2b: v-levels tap-changer"
+                              annotation(Dialog(group="Options"));
+  SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)" annotation(Dialog);
+  SIpu.Resistance r_n2a=1 "2a: resistance neutral to grd (if Y)" annotation(Dialog);
+  SIpu.Resistance r_n2b=1 "2b: resistance neutral to grd (if Y)" annotation(Dialog);
+
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
 <p>Nominal voltage with 3 components: {prim, sec_a, sec_b}.</p>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end Trafo3Ideal;
 
 record Trafo3Stray
       "Parameters for ideal magnetic coupling 3-winding transformer, 3-phase"
   extends Trafo3Ideal;
 
-  parameter SIpu.Resistance[3] r={0.05,0.05,0.05} "{1,2a,2b}: resistance";
-  parameter SIpu.Reactance[3] x={0.05,0.05,0.05} "{1,2a,2b}: stray reactance";
-  parameter SIpu.Reactance[3] x0={x[1],x[2],x[3]}
-        "{1,2a,2b}: stray reactance zero-comp";
+  SIpu.Resistance[3] r={0.05,0.05,0.05} "{1,2a,2b}: resistance" annotation(Dialog);
+  SIpu.Reactance[3] x={0.05,0.05,0.05} "{1,2a,2b}: stray reactance" annotation(Dialog);
+  SIpu.Reactance[3] x0={x[1],x[2],x[3]} "{1,2a,2b}: stray reactance zero-comp" annotation(Dialog);
 
   annotation (defaultComponentName="data",
-    Documentation(
-    info="<html>
-</html>"),
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+    defaultComponentPrefixes="parameter",
+    Documentation(info="<html>
+</html>"));
 end Trafo3Stray;
 
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
 
 annotation (preferredView="info",
@@ -1066,10 +981,5 @@ compared to the terminal voltage and current. Therefore the impedance relating c
   i = i_cond*w
 </pre>
 The equations are written in winding-scaled form.</p>
-</html>
-"),
-  Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+</html>"));
 end Transformers;

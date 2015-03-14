@@ -113,14 +113,11 @@ with
     SI.Current[3] i_f;
 
     Ports.ACdq0_p term_p "positive terminal"
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Ports.ACdq0_n term_nt "negative terminal 'true'"
-      annotation (Placement(transformation(extent={{90,30},{110,50}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{90,30},{110,50}})));
     Ports.ACdq0_n term_nf "negative terminal 'false'"
-      annotation (Placement(transformation(extent={{90,-50},{110,-30}},
-            rotation=0)));
+      annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
     Modelica.Blocks.Interfaces.BooleanInput control
       "true: p - nt closed, false: p - nf closed"
       annotation (Placement(transformation(
@@ -282,15 +279,15 @@ with
     Common.Switching.Switch switch_a(
       epsR=epsR,
       epsG=epsG)                  annotation (Placement(transformation(extent={
-              {-70,30},{10,90}}, rotation=0)));
+              {-70,30},{10,90}})));
     Common.Switching.Switch switch_b(
       epsR=epsR,
       epsG=epsG)                  annotation (Placement(transformation(extent={
-              {-40,-30},{40,30}}, rotation=0)));
+              {-40,-30},{40,30}})));
     Common.Switching.Switch switch_c(
       epsR=epsR,
       epsG=epsG)                  annotation (Placement(transformation(extent={
-              {-10,-90},{70,-30}}, rotation=0)));
+              {-10,-90},{70,-30}})));
 
   equation
     switch_a.v=v_abc[1];
@@ -321,19 +318,15 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
           grid={2,2}), graphics={Line(
             points={{-50,0},{50,0}},
             color={0,100,100},
-            pattern=LinePattern.Dot)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            pattern=LinePattern.Dot)}));
   end Switch;
 
   model Breaker "Breaker, 3-phase dq0"
     extends Partials.SwitchTrsfBase;
 
-    replaceable Parameters.BreakerArc par "breaker parameter"
+    replaceable parameter Parameters.BreakerArc par "breaker parameter"
                                              annotation (Placement(
-          transformation(extent={{60,70},{80,90}}, rotation=0)));
+          transformation(extent={{60,70},{80,90}})));
   protected
     replaceable Common.Switching.Breaker breaker_a(
       D=par.D,
@@ -342,7 +335,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       R0=par.R0,
       epsR=epsR,
       epsG=epsG)                  annotation (Placement(transformation(extent={
-              {-70,30},{10,90}}, rotation=0)));
+              {-70,30},{10,90}})));
     replaceable Common.Switching.Breaker breaker_b(
       D=par.D,
       t_opening=par.t_opening,
@@ -350,7 +343,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       R0=par.R0,
       epsR=epsR,
       epsG=epsG)                  annotation (Placement(transformation(extent={
-              {-40,-30},{40,30}}, rotation=0)));
+              {-40,-30},{40,30}})));
     replaceable Common.Switching.Breaker breaker_c(
       D=par.D,
       t_opening=par.t_opening,
@@ -358,7 +351,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       R0=par.R0,
       epsR=epsR,
       epsG=epsG)                  annotation (Placement(transformation(extent={
-              {-10,-90},{70,-30}}, rotation=0)));
+              {-10,-90},{70,-30}})));
 
   equation
     breaker_a.v=v_abc[1];
@@ -390,11 +383,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
             points={{-50,0},{-34,-4},{-24,0},{-14,-2},{-4,4},{2,0},{12,-4},{22,
                 2},{30,-2},{38,-4},{42,2},{50,0}},
             color={255,255,0},
-            thickness=0.5)}),
-      Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+            thickness=0.5)}));
   end Breaker;
 
   package Partials "Partial models"
@@ -446,11 +435,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
             Line(
               points={{0,90},{0,40}},
               color={255,0,255},
-              pattern=LinePattern.Dot)}),
-        Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+              pattern=LinePattern.Dot)}));
     end SwitchBase;
 
     partial model SwitchTrsfBase
@@ -491,11 +476,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
         Documentation(
               info="<html>
 </html>
-"),     Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-        Diagram(coordinateSystem(
+"),        Diagram(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
@@ -514,32 +495,23 @@ package Parameters "Parameter data for interactive use"
 
 record BreakerArc "Breaker parameters, 3-phase"
   extends Modelica.Icons.Record;
-  parameter SI.Distance D=50e-3 "contact distance open";
-  parameter SI.Time t_opening=30e-3 "opening duration";
-  parameter SI.ElectricFieldStrength Earc=50e3 "electric field arc";
-  parameter Real R0=1 "small signal resistance arc";
+
+  SI.Distance D=50e-3 "contact distance open" annotation(Dialog);
+  SI.Time t_opening=30e-3 "opening duration" annotation(Dialog);
+  SI.ElectricFieldStrength Earc=50e3 "electric field arc" annotation(Dialog);
+  Real R0=1 "small signal resistance arc" annotation(Dialog);
 
   annotation (defaultComponentName = "data",
+    defaultComponentPrefixes="parameter",
     Documentation(
             info="<html>
-</html>
-"), Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics),
-    Diagram(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics));
+</html>"));
 end BreakerArc;
+
   annotation (preferredView="info",
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>Records containing parameters of the corresponding components.</p>
-</html>"),
-    Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics));
+</html>"));
 end Parameters;
 
   annotation (preferredView="info",
@@ -549,8 +521,5 @@ Documentation(info="<html>
 <tt><b>Switch</b></tt> is used for a component, that breaks the current during zero-crossing but does not contain any additional physical properties like arc-voltage etc.<br>
 <tt><b>Breaker</b></tt> is used for a component that acts basically like a 'Switch' but contains additionally physical properties of plasma-arcs, opening duration etc.</p>
 </html>
-"), Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+"));
 end Breakers;
