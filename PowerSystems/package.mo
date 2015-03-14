@@ -87,6 +87,16 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 </html>",
   revisions="<html>
 <ul>
+<li><i>14 Mar 2015</i>
+    by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
+     Version 0.4.0
+  <ul>
+  <li>fix Generic components to work with simple ThreePhase_d again (was broken in v0.3)</li>
+  <li>rework parameter records (move parameter qualifiers from record members to whole records to permit their construction with functions)</li>
+  <li>remove ambiguous start values</li>
+  <li>lot of clean-up</li>
+  </ul>
+</li>
 <li><i>20 Oct 2014</i>
     by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
      Version 0.3
@@ -165,8 +175,8 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 
 
   annotation (preferredView="info",
-  version="0.3",
-  versionDate="2014-10-20",
+  version="0.4.0",
+  versionDate="2015-03-14",
   Documentation(info="<html>
 <p>The Modelica PowerSystems library is intended for the modeling of electrical <b>power systems</b> at different <b>levels of detail</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
 <p>The Users Guide to the library is <a href=\"modelica://PowerSystems.UsersGuide\"><b>here</b></a>.</p>
