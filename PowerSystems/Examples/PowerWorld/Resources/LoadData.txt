@@ -1,5 +1,5 @@
 #1
-double tab(97,10) #Sekunden PrognoseVerbrauch Verbrauch PrognoseWind Wind Fahrplan Sekund‰rregelung Sollwert Prim‰rregelung Thermisch
+double tab(97,10) #Sekunden PrognoseVerbrauch Verbrauch PrognoseWind Wind Fahrplan Sekund√§rregelung Sollwert Prim√§rregelung Thermisch
 0  720  711.6  210  238.7285143  510  -36  474  -1.12851426  472.8714857
 900  700  705.5  180  180.2451017  520  4  524  1.254898271  525.2548983
 1800  700  709.6  150  138.9311451  550  20  570  0.668854886  570.6688549
