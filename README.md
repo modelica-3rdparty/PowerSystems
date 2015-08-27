@@ -62,7 +62,7 @@ it can be redistributed and/or modified under the terms of the [Modelica License
 
 Contributors:
 
- * [Hansj&uuml;rg Wiesmann](mailto:hj.wiesmann@bluewin.ch): Wrote the original [SPOT](https://github.com/modelica-3rdparty/SPOT) library and supported the creation of the `PowerSystems` library.
+ * Hansj&uuml;rg Wiesmann (&dagger; 2015): Wrote the original [SPOT](https://github.com/modelica-3rdparty/SPOT) library and supported the creation of the `PowerSystems` library.
  * [Martin Otter](http://www.robotic.dlr.de/Martin.Otter): Converted the original Spot library from Modelica 2 to Modelica 3.
  * [R&uuml;diger Franke](mailto:Ruediger.Franke@de.abb.com): Created the `PowerSystems` library out of the `PowerFlow` concept library and the [SPOT](https://github.com/modelica-3rdparty/SPOT) library.
 

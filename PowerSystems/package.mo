@@ -74,7 +74,7 @@ The following table summerizes the PhaseSystems that are predefined in the Power
         Documentation(info="<html>
 <p><b>Contributors</b></p>
 <ul>
-<li><a href=\"mailto:hj.wiesmann@bluewin.ch\">Hansj&uuml;rg Wiesmann</a>:<br>
+<li>Hansj&uuml;rg Wiesmann (&dagger; 2015):<br>
    Wrote the original Spot library and supported the creation of the PowerSystems library.
 </li>
 <li><a href=\"mailto:Martin.Otter@dlr.de\">Martin Otter</a>:<br>
