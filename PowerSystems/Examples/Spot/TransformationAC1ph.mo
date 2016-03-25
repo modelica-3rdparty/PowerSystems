@@ -12,7 +12,9 @@ package TransformationAC1ph "Transformation 1 phase"
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC1ph_DC.Nodes.BusBar bus   annotation (Placement(transformation(
             extent={{-30,-10},{-10,10}})));
-    PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(par(V_nom={1,10}))
+    PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(
+      redeclare record Data =
+        PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph(V_nom={1,10}))
       annotation (Placement(transformation(extent={{0,-10},{20,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter2(V_nom=10)
       annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -82,7 +84,9 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC1ph_DC.Nodes.BusBar bus   annotation (Placement(transformation(
             extent={{-30,-10},{-10,10}})));
-    PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo1(par(
+    PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo1(
+      redeclare record Data =
+      PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph (
       v_tc1={0.9,1.0,1.1},
       v_tc2={0.9,1.0,1.1},
       V_nom={1,10}),
@@ -93,7 +97,9 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
       annotation (Placement(transformation(extent={{40,20},{60,40}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Resistor res12(V_nom=10, r=1000)
       annotation (Placement(transformation(extent={{80,20},{100,40}})));
-    PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo2(par(
+    PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo2(
+      redeclare record Data =
+      PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph (
       v_tc1={0.9,1.0,1.1},
       v_tc2={0.9,1.0,1.1},
       V_nom={1,10}),

@@ -459,7 +459,9 @@ package AC1ph_DC "AC 1-phase and DC components"
       annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter2(V_nom=10)
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-    replaceable PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(par(
+    replaceable PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(
+      redeclare record Data =
+          PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph (
       v_tc1 = {1,1.1},
       v_tc2 = {1,1.2},
       V_nom = {1,10}),

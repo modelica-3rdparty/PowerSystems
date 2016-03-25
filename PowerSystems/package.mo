@@ -87,6 +87,15 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 </html>",
   revisions="<html>
 <ul>
+<li><i>25 Mar 2016</i>
+    by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
+     Version 0.5 dev
+  <ul>
+  <li>Introduce replaceable model and record types, instead of replaceable
+      model and record instances, first for transformers.
+      This shall unify the look and feel with other Modelica libraries.</li>
+  </ul>
+</li>
 <li><i>14 Mar 2015</i>
     by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
      Version 0.4.0
@@ -175,8 +184,8 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 
 
   annotation (preferredView="info",
-  version="0.4.0",
-  versionDate="2015-03-14",
+  version="0.5 dev",
+  versionDate="2016-03-25",
   Documentation(info="<html>
 <p>The Modelica PowerSystems library is intended for the modeling of electrical <b>power systems</b> at different <b>levels of detail</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
 <p>The Users Guide to the library is <a href=\"modelica://PowerSystems.UsersGuide\"><b>here</b></a>.</p>

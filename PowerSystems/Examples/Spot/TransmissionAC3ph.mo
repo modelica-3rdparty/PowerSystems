@@ -447,9 +447,10 @@ Compare with FaultRXline.</p>
           0.5235987755983)
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(
-      par=trafo20k_400k_YD,
-      redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_p "Delta",
-      redeclare PowerSystems.AC3ph.Ports.Topology.Y top_n "Y")
+      redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Transformers.TrafoStray,
+      redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta,
+      redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Lines.RXline line(
       len=480e3, par=OH400kV)
@@ -482,9 +483,6 @@ Compare with FaultRXline.</p>
     parameter PowerSystems.Examples.Spot.Data.Lines.OHline400kV OH400kV
                                    annotation (Placement(transformation(extent=
               {{0,80},{40,100}})));
-    parameter PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
-
   equation
     connect(relay1.y, switch1.control) annotation (Line(points={{-40,50},{-30,
             50},{-30,20}}, color={255,0,255}));
@@ -540,9 +538,10 @@ Compare with DoublePIline.</p>
           0.5235987755983)
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(
-      par=trafo20k_400k_YD,
-      redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_p "Delta",
-      redeclare PowerSystems.AC3ph.Ports.Topology.Y top_n "Y")
+      redeclare record Data =
+        PowerSystems.Examples.Spot.Data.Transformers.TrafoStray,
+      redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta,
+      redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Lines.PIline line(
       len=480e3, par=OH_400kV)
@@ -575,8 +574,6 @@ Compare with DoublePIline.</p>
             extent={{-90,-20},{-110,0}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
             extent={{90,-20},{110,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
   equation
     connect(relay1.y, switch1.control) annotation (Line(points={{-40,50},{-30,
@@ -642,9 +639,10 @@ Compare with DoublePIline.</p>
       alpha_ini=0.5235987755983)
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(
-      par=trafo20k_400k_YD,
-      redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_p "Delta",
-      redeclare PowerSystems.AC3ph.Ports.Topology.Y top_n "Y")
+      redeclare record Data =
+        PowerSystems.Examples.Spot.Data.Transformers.TrafoStray,
+      redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta,
+      redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Lines.RXline line(
       len=480e3, par=OH400kV)
@@ -678,9 +676,6 @@ Compare with DoublePIline.</p>
     parameter PowerSystems.Examples.Spot.Data.Lines.OHline400kV OH400kV
                                    annotation (Placement(transformation(extent=
               {{0,80},{40,100}})));
-    parameter PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
-
     PowerSystems.Common.Thermal.BoundaryV boundary(m=2)
       annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   equation
@@ -744,9 +739,10 @@ Compare with DoublePIline.</p>
       alpha_ini=0.5235987755983)
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(
-      par=trafo20k_400k_YD,
-      redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_p "Delta",
-      redeclare PowerSystems.AC3ph.Ports.Topology.Y top_n "Y")
+      redeclare record Data =
+        PowerSystems.Examples.Spot.Data.Transformers.TrafoStray,
+      redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta,
+      redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Lines.PIline line(
       len=480e3, par=OH_400kV)
@@ -780,9 +776,6 @@ Compare with DoublePIline.</p>
     parameter PowerSystems.Examples.Spot.Data.Lines.OHline_400kV OH_400kV
                                      annotation (Placement(transformation(
             extent={{0,80},{40,100}})));
-    parameter PowerSystems.Examples.Spot.Data.Transformers.TrafoStray trafo20k_400k_YD
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
-
     PowerSystems.Common.Thermal.BoundaryV boundary(m=2)
       annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   equation

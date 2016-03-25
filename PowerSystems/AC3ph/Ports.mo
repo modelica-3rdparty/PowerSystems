@@ -189,8 +189,7 @@ equation
   v = term.v - {0, 0, sqrt(3)*v_n};
   term.i = i;
   i_n = sqrt(3)*term.i[3];
-  annotation (
-                Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
+  annotation (  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
               -100,-100},{100,100}}), graphics={Line(points={{30,-16},{52,-16},
                 {62,0},{52,16},{30,16}}, color={0,0,255}), Line(points={{30,0},
                 {70,0}}, color={0,0,255})}),
@@ -224,8 +223,7 @@ equation
   v = term.v - {0, 0, sqrt(3)*v_n};
   term.i = i;
   i_n = sqrt(3)*term.i[3];
-  annotation (
-                Diagram(graphics={Line(points={{-30,-16},{-52,-16},{-62,0},{-52,
+  annotation (  Diagram(graphics={Line(points={{-30,-16},{-52,-16},{-62,0},{-52,
                 16},{-30,16}}, color={0,0,255}), Line(points={{-70,0},{-30,0}},
               color={0,0,255})}),
     Documentation(info="<html>
@@ -257,12 +255,14 @@ partial model YDport_p "AC one port Y or Delta topology 'positive'"
         Placement(transformation(extent={{30,-20},{70,20}})));
 */
 
-  replaceable Topology.Y top(v_cond=v, i_cond=i, v_n=v_n)
-        constrainedby Topology.TopologyBase(v_cond=v, i_cond=i, v_n=v_n)
-    annotation (                        choices(
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top "Y"),
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top "Delta")),
-        Placement(transformation(extent={{30,-20},{70,20}})));
+  replaceable model Topology_p = Topology.Y constrainedby Topology.TopologyBase
+      "Y or Delta topology"
+    annotation(choices(
+    choice(redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Y "Y"),
+    choice(redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta
+            "Delta")));
+  Topology_p top(v_cond=v, i_cond=i, v_n=v_n)
+    annotation (Placement(transformation(extent={{30,-20},{70,20}})));
 
   SI.Voltage[3] v "voltage conductor";
   SI.Current[3] i "current conductor";
@@ -306,13 +306,14 @@ end YDport_p;
 partial model YDport_n "AC one port Y or Delta topology 'positive'"
   extends Port_n;
 
-  replaceable Topology.Y top(v_cond=v, i_cond=i, v_n=v_n)
-        constrainedby Topology.TopologyBase(v_cond=v, i_cond=i, v_n=v_n)
+  replaceable model Topology_n = Topology.Y constrainedby Topology.TopologyBase
       "Y or Delta topology"
-    annotation (                          choices(
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top "Y"),
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top "Delta")),
-        Placement(transformation(extent={{-30,-20},{-70,20}})));
+    annotation(choices(
+    choice(redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Y "Y"),
+    choice(redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta
+            "Delta")));
+  Topology_n top(v_cond=v, i_cond=i, v_n=v_n) "Y or Delta topology"
+    annotation (Placement(transformation(extent={{-30,-20},{-70,20}})));
   SI.Voltage[3] v "voltage conductor";
   SI.Current[3] i "current conductor";
   SI.Voltage[n_n] v_n "voltage neutral";
@@ -355,9 +356,15 @@ end YDport_n;
 partial model Y_Dport_p "AC two port, switcheable Y-Delta topology"
   extends Port_p;
 
-  replaceable Topology.Y_Delta top(v_cond=v, i_cond=i, control=YDcontrol)
-      "Y-Delta switcheable"                           annotation (Placement(
-          transformation(extent={{30,-20},{70,20}})));
+  replaceable model Topology_p = Topology.Y_Delta constrainedby
+      Topology.TopologyBase "Y-Delta switcheable"
+    annotation(choices(
+      choice(redeclare model Topology_p =
+        PowerSystems.AC3ph.Ports.Topology.Y_Delta "Y_Delta"),
+      choice(redeclare model Topology_p =
+        PowerSystems.AC3ph.Ports.Topology.Y_DeltaRegular "Y_DeltaRegular")));
+  Topology_p top(v_cond=v, i_cond=i, control=YDcontrol) "Y-Delta switcheable"
+    annotation (Placement(transformation(extent={{30,-20},{70,20}})));
   SI.Voltage[3] v "voltage conductor";
   SI.Current[3] i "current conductor";
   Modelica.Blocks.Interfaces.BooleanInput YDcontrol "true:Y, false:Delta"
@@ -405,21 +412,27 @@ partial model YDportTrafo_p_n
     "AC two port with Y or Delta topology for transformers"
   extends Port_p_n;
 
-  replaceable Topology.Y top_p(v_cond=v1*w1, i_cond=i1/w1, v_n=v_n1)
-        constrainedby Topology.TopologyBase(v_cond=v1*w1, i_cond=i1/w1, v_n=v_n1)
+  replaceable model Topology_p = Topology.Y constrainedby Topology.TopologyBase
       "p: Y or Delta topology"
-    annotation (                         choices(
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top_p "Y"),
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_p "Delta")),
-        Placement(transformation(extent={{-80,-20},{-40,20}})));
+    annotation(choices(
+      choice(redeclare model Topology_p =
+        PowerSystems.AC3ph.Ports.Topology.Y "Y"),
+      choice(redeclare model Topology_p =
+        PowerSystems.AC3ph.Ports.Topology.Delta "Delta")));
+  Topology_p top_p(v_cond=v1*w1, i_cond=i1/w1, v_n=v_n1)
+      "p: Y or Delta topology"
+    annotation (Placement(transformation(extent={{-80,-20},{-40,20}})));
 
-  replaceable Topology.Y top_n(v_cond=v2*w2, i_cond=i2/w2, v_n=v_n2)
-        constrainedby Topology.TopologyBase(v_cond=v2*w2, i_cond=i2/w2, v_n=v_n2)
+  replaceable model Topology_n = Topology.Y constrainedby Topology.TopologyBase
       "n: Y or Delta topology"
-    annotation (                        choices(
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top_n "Y"),
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_n "Delta")),
-        Placement(transformation(extent={{80,-20},{40,20}})));
+    annotation(choices(
+      choice(redeclare model Topology_n =
+        PowerSystems.AC3ph.Ports.Topology.Y "Y"),
+      choice(redeclare model Topology_n =
+        PowerSystems.AC3ph.Ports.Topology.Delta "Delta")));
+  Topology_n top_n(v_cond=v2*w2, i_cond=i2/w2, v_n=v_n2)
+      "n: Y or Delta topology"
+    annotation (Placement(transformation(extent={{80,-20},{40,20}})));
 
   SI.Voltage[3] v1 "voltage conductor";
   SI.Current[3] i1 "current conductor";
@@ -495,29 +508,38 @@ partial model YDportTrafo_p_n_n
                                        annotation (Placement(transformation(
             extent={{90,-50},{110,-30}})));
 
-  replaceable Topology.Y top_p(v_cond=v1*w1, i_cond=i1/w1, v_n=v_n1)
-        constrainedby Topology.TopologyBase(v_cond=v1*w1, i_cond=i1/w1, v_n=v_n1)
+  replaceable model Topology_p = Topology.Y constrainedby Topology.TopologyBase
       "p: Y or Delta topology"
-    annotation (                         choices(
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top_p "Y"),
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_p "Delta")),
-        Placement(transformation(extent={{-80,-20},{-40,20}})));
+    annotation(choices(
+      choice(redeclare model Topology_p =
+        PowerSystems.AC3ph.Ports.Topology.Y "Y"),
+      choice(redeclare model Topology_p =
+        PowerSystems.AC3ph.Ports.Topology.Delta "Delta")));
+  Topology_p top_p(v_cond=v1*w1, i_cond=i1/w1, v_n=v_n1)
+      "p: Y or Delta topology"
+    annotation (Placement(transformation(extent={{-80,-20},{-40,20}})));
 
-  replaceable Topology.Y top_na(v_cond=v2a*w2a, i_cond=i2a/w2a, v_n=v_n2a)
-        constrainedby Topology.TopologyBase(v_cond=v2a*w2a, i_cond=i2a/w2a, v_n=v_n2a)
+  replaceable model Topology_na = Topology.Y constrainedby
+      Topology.TopologyBase "na: Y or Delta topology"
+    annotation(choices(
+      choice(redeclare model Topology_na =
+        PowerSystems.AC3ph.Ports.Topology.Y "Y"),
+      choice(redeclare model Topology_na =
+        PowerSystems.AC3ph.Ports.Topology.Delta "Delta")));
+  Topology_na top_na(v_cond=v2a*w2a, i_cond=i2a/w2a, v_n=v_n2a)
       "na: Y or Delta topology"
-    annotation (                        choices(
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top_na "Y"),
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_na "Delta")),
-        Placement(transformation(extent={{80,20},{40,60}})));
+    annotation (Placement(transformation(extent={{80,20},{40,60}})));
 
-  replaceable Topology.Y top_nb(v_cond=v2b*w2b, i_cond=i2b/w2b, v_n=v_n2b)
-        constrainedby Topology.TopologyBase(v_cond=v2b*w2b, i_cond=i2b/w2b, v_n=v_n2b)
+  replaceable model Topology_nb = Topology.Y constrainedby
+      Topology.TopologyBase "nb: Y or Delta topology"
+    annotation(choices(
+      choice(redeclare model Topology_nb =
+        PowerSystems.AC3ph.Ports.Topology.Y "Y"),
+      choice(redeclare model Topology_nb =
+        PowerSystems.AC3ph.Ports.Topology.Delta "Delta")));
+  Topology_nb top_nb(v_cond=v2b*w2b, i_cond=i2b/w2b, v_n=v_n2b)
       "nb: Y or Delta topology"
-    annotation (                        choices(
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Y top_nb "Y"),
-    choice(redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_nb "Delta")),
-        Placement(transformation(extent={{80,-60},{40,-20}})));
+    annotation (Placement(transformation(extent={{80,-60},{40,-20}})));
 
   SI.Voltage[3] v1 "voltage conductor";
   SI.Current[3] i1 "current conductor";

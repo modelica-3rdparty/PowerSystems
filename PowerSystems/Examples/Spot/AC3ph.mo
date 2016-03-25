@@ -397,12 +397,14 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter1
       annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-    replaceable PowerSystems.AC3ph.Transformers.TrafoStray trafo(par(
+    replaceable PowerSystems.AC3ph.Transformers.TrafoStray trafo(
+      redeclare record Data =
+          PowerSystems.AC3ph.Transformers.Parameters.TrafoStray (
       v_tc1={1,1.1},
       v_tc2={1,1.2},
       V_nom={1,10}),
-      redeclare PowerSystems.AC3ph.Ports.Topology.Y top_p "Y",
-      redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_n "Delta",
+      redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Y,
+      redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Delta,
       use_tap_p=true,
       use_tap_n=true)      annotation (Placement(transformation(extent={{0,-10},
               {20,10}})));

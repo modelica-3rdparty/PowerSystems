@@ -23,9 +23,9 @@ package Machines "AC machines, electric part "
   end Asynchron;
 
   model AsynchronY_D "Asynchronous machine Y-Delta, cage-rotor, 3-phase dq0"
-    extends Partials.AsynchronBase(redeclare
-        PowerSystems.AC3ph.Ports.Topology.Y_Delta top(control=YDcontrol)
-        "Y-Delta", redeclare replaceable parameter Parameters.Asynchron_cage par);
+    extends Partials.AsynchronBase(redeclare model Topology_p =
+        PowerSystems.AC3ph.Ports.Topology.Y_Delta(control=YDcontrol) "Y-Delta",
+                   redeclare replaceable parameter Parameters.Asynchron_cage par);
    Modelica.Blocks.Interfaces.BooleanInput YDcontrol "true:Y, false:Delta"
                                               annotation (Placement(
           transformation(extent={{-110,50},{-90,70}})));
@@ -56,9 +56,11 @@ package Machines "AC machines, electric part "
     extends Partials.AsynchronBase(redeclare replaceable parameter
         Parameters.Asynchron_cage                                                            par);
 
-    parameter SI.Current[n_r] i_d_start = zeros(n_r) "start value of current d_axis"
+    parameter SI.Current[n_r] i_d_start = zeros(n_r)
+      "start value of current d_axis"
       annotation(Dialog(tab="Initialization"));
-    parameter SI.Current[n_r] i_q_start = zeros(n_r) "start value of current q_axis"
+    parameter SI.Current[n_r] i_q_start = zeros(n_r)
+      "start value of current q_axis"
       annotation(Dialog(tab="Initialization"));
 
     Modelica.Blocks.Interfaces.RealOutput[2] i_meas(each final unit="1")
@@ -509,7 +511,8 @@ The mapping from current demand to voltage demand is based on the steady-state e
 
       parameter Boolean stIni_en=true "enable steady-state initialization"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter SI.Current[3] i_start = zeros(3) "start value of current conductor";
+      parameter SI.Current[3] i_start = zeros(3)
+        "start value of current conductor";
       parameter SI.Angle phi_el_ini=0 "initial rotor angle electric";
       parameter SI.AngularVelocity w_el_ini=0
         "initial rotor angular velocity el";
@@ -671,16 +674,19 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
                        annotation (Placement(transformation(extent={{-60,60},{
                 -40,80}})));
     protected
-      final parameter Integer n_r = par.n_r "number of rotor circuits d- and q-axis";
+      final parameter Integer n_r = par.n_r
+        "number of rotor circuits d- and q-axis";
       final parameter Coefficients.Asynchron c = Basic.Precalculation.machineAsyn(par, top.scale);
       parameter SI.Inductance L_m[n_r] = c.L_m;
       parameter SI.Resistance R_r[n_r] = c.R_r;
       parameter SI.Resistance R_m[n_r] = c.R_m;
       parameter SI.Inductance L_r[n_r,n_r] = c.L_r;
 
-      parameter SI.Current[n_r] i_rd_start = zeros(n_r) "start value of rotor current d_axis"
+      parameter SI.Current[n_r] i_rd_start = zeros(n_r)
+        "start value of rotor current d_axis"
         annotation(Dialog(tab="Initialization"));
-      parameter SI.Current[n_r] i_rq_start = zeros(n_r) "start value of rotor current q_axis"
+      parameter SI.Current[n_r] i_rq_start = zeros(n_r)
+        "start value of rotor current q_axis"
         annotation(Dialog(tab="Initialization"));
 
       SI.Voltage[n_r] v_rd=zeros(n_r) "rotor voltage d_axis, cage-rotor = 0";
@@ -837,7 +843,7 @@ Special choices are</p>
 
       parameter SI.Current[3] i_s_start = zeros(3)
         "start value of stator current dq0 in rotor-system"
-	annotation(Dialog(tab="Initialization"));
+        annotation (Dialog(tab="Initialization"));
 
     protected
       SI.MagneticFlux psi_e "excitation flux";
@@ -1122,13 +1128,13 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
       annotation(Evaluate=true, Dialog(group="Nominal"));
 
     Modelica.Blocks.Interfaces.RealOutput[3] termVoltage(each final unit="1")
-      "terminal voltage pu to exciter control"
+        "terminal voltage pu to exciter control"
       annotation (Placement(transformation(
             origin={-60,100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
     Modelica.Blocks.Interfaces.RealInput fieldVoltage(final unit="1")
-      "field voltage pu from exciter control"
+        "field voltage pu from exciter control"
       annotation (Placement(transformation(
             origin={60,100},
             extent={{-10,-10},{10,10}},
@@ -1566,8 +1572,7 @@ package Parameters "Parameter data for interactive use"
 
     Boolean neu_iso "isolated neutral if Y" annotation(Dialog);
     Integer pp "pole-pair number" annotation(Dialog);
-    Integer excite(min=0,max=3)
-        "excitation (1:el, 2:pm, 3:reluctance)"
+    Integer excite(min=0,max=3) "excitation (1:el, 2:pm, 3:reluctance)"
       annotation(Evaluate=true, Dialog, choices(
       choice=1 "electric excitation",
       choice=2 "permanent magnet",
@@ -1700,23 +1705,17 @@ package Parameters "Parameter data for interactive use"
       annotation(Dialog(enable=transDat), choices(
       choice=true "x_tr and t_closed",
       choice=false "t_closed and t_open"));
-    SIpu.Reactance[n_d] xtr_d
-        "trans reactance d-axis {xtr_d', xtr_d'', ..}"
+    SIpu.Reactance[n_d] xtr_d "trans reactance d-axis {xtr_d', xtr_d'', ..}"
       annotation(Dialog(enable=transDat and use_xtr));
-    SIpu.Reactance[n_q] xtr_q
-        "trans reactance q-axis {xtr_q', xtr_q'', ..}"
+    SIpu.Reactance[n_q] xtr_q "trans reactance q-axis {xtr_q', xtr_q'', ..}"
       annotation(Dialog(enable=transDat and use_xtr));
-    SI.Time[n_d] tc_d
-        "time constant closed-loop d-axis {tc_d', tc_d'', ..}"
+    SI.Time[n_d] tc_d "time constant closed-loop d-axis {tc_d', tc_d'', ..}"
       annotation(Dialog(enable=transDat));
-    SI.Time[n_q] tc_q
-        "time constant closed-loop q-axis {tc_q', tc_q'', ..}"
+    SI.Time[n_q] tc_q "time constant closed-loop q-axis {tc_q', tc_q'', ..}"
       annotation(Dialog(enable=transDat));
-    SI.Time[n_d] to_d
-        "time constant open-loop d-axis {to_d', to_d'', ..}"
+    SI.Time[n_d] to_d "time constant open-loop d-axis {to_d', to_d'', ..}"
       annotation(Dialog(enable=transDat and not use_xtr));
-    SI.Time[n_q] to_q
-        "time constant open-loop q-axis {to_q', to_q'', ..}"
+    SI.Time[n_q] to_q "time constant open-loop q-axis {to_q', to_q'', ..}"
       annotation(Dialog(enable=transDat and not use_xtr));
     Boolean use_if0 "induced field current and phase available?"
       annotation(Dialog(enable=transDat and size(tc_d,1)>1 and not pm_exc), choices(
@@ -1724,18 +1723,15 @@ package Parameters "Parameter data for interactive use"
       choice=false "d-axis omitting xm_d"));
     SIpu.Current if0 "induced field current at v_s=Vnom/0deg"
      annotation(Dialog(enable=transDat and size(tc_d,1)>1 and use_if0 and not pm_exc));
-    SI.Angle alpha_if0
-        "angle(if0) at v_s=Vnom/0deg (sign: i_f behind v_s)"
+    SI.Angle alpha_if0 "angle(if0) at v_s=Vnom/0deg (sign: i_f behind v_s)"
       annotation(Dialog(enable=transDat and size(tc_d,1)>1 and use_if0 and not pm_exc));
     Real tol "tolerance precalculation"
       annotation(Dialog(enable=transDat and size(tc_d,1)>1 and use_if0 and not pm_exc));
 
     SIpu.Reactance xsig_s "leakage reactance armature" annotation(Dialog);
-    SIpu.Reactance[n_d] xsig_rd
-        "leakage reactance rotor d-axis {f, D, ..}"
+    SIpu.Reactance[n_d] xsig_rd "leakage reactance rotor d-axis {f, D, ..}"
       annotation(Dialog(enable=not transDat));
-    SIpu.Reactance[n_q] xsig_rq
-        "leakage reactance rotor q-axis {Q1, ..}"
+    SIpu.Reactance[n_q] xsig_rq "leakage reactance rotor q-axis {Q1, ..}"
       annotation(Dialog(enable=not transDat));
     SIpu.Reactance[n_d-1] xm_d "coupling-reactance d-axis {xm1, ..}"
       annotation(Dialog(enable=not transDat));

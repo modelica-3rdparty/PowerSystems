@@ -291,10 +291,12 @@ and eddy current losses.</p>
             extent={{-10,-10},{10,10}},
             rotation=270)));
 
-      replaceable parameter Parameters.TrafoIdeal1ph par "trafo parameter"
-                                annotation (Placement(transformation(extent={{
-                -80,60},{-60,80}})));
+      replaceable record Data =
+        PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoIdeal1ph
+        "trafo parameters" annotation(choicesAllMatching=true);
     protected
+      parameter Data par "trafo parameter record"
+        annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
       final parameter Boolean steadyIni_t = system.steadyIni_t and stIni_en;
       Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
@@ -403,8 +405,8 @@ For variable transformer ratio tap changer input needed.</p>
 
     partial model TrafoStrayBase
       "Base for ideal magnetic coupling transformer, 1-phase"
-      extends TrafoIdealBase(redeclare replaceable parameter
-          PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph par);
+      extends TrafoIdealBase(redeclare replaceable record Data =
+          PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph);
     protected
       final parameter SI.Resistance[2] R=par.r.*RL_base[:, 1];
       final parameter SI.Inductance[2] L=par.x.*RL_base[:, 2];
@@ -429,8 +431,8 @@ For variable transformer ratio tap changer input needed.</p>
 
     partial model TrafoMagBase
       "Base for magnetic coupling transformer, 1-phase"
-      extends TrafoStrayBase(redeclare replaceable parameter
-          PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoMag1ph par);
+      extends TrafoStrayBase(redeclare replaceable record Data =
+          PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoMag1ph);
     protected
       final parameter SI.Resistance[2] RL12_base = sqrt((RL_base[1,:].*RL_base[2,:]));
       final parameter SI.Resistance Redc=par.redc*RL12_base[1];
@@ -453,8 +455,8 @@ For variable transformer ratio tap changer input needed.</p>
     end TrafoMagBase;
 
     partial model TrafoSatBase "Base for saturation transformer, 1-phase"
-      extends TrafoMagBase(redeclare replaceable parameter
-          PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoSat1ph par);
+      extends TrafoMagBase(redeclare replaceable record Data =
+          PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoSat1ph);
     protected
      final parameter Real xratio=par.xm_sat/par.xm;
       final parameter Real[3] c_sat={1-xratio,(1-xratio)/(par.psi_sat-xratio),xratio};
@@ -510,10 +512,12 @@ For variable transformer ratio tap changer input needed.</p>
             extent={{-10,-10},{10,10}},
             rotation=270)));
 
-      replaceable parameter Parameters.Trafo3Ideal1ph par "trafo parameter"
-                                annotation (Placement(transformation(extent={{
-                -80,60},{-60,80}})));
+      replaceable record Data =
+        PowerSystems.AC1ph_DC.Transformers.Parameters.Trafo3Ideal1ph
+        "trafo parameters" annotation(choicesAllMatching=true);
     protected
+      replaceable parameter Data par "trafo parameter"
+        annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
       Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
       Modelica.Blocks.Interfaces.IntegerInput[2] tap_n_internal

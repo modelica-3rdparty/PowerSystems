@@ -13,10 +13,11 @@ package TransformationAC3ph "Transformation dq0"
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC3ph.Nodes.BusBar bus      annotation (Placement(transformation(
             extent={{-30,-10},{-10,10}})));
-    PowerSystems.AC3ph.Transformers.TrafoStray trafo1(par(
-      V_nom={1,10}),
-      redeclare PowerSystems.AC3ph.Ports.Topology.Y top_p "Y",
-      redeclare PowerSystems.AC3ph.Ports.Topology.Y top_n "Y")
+    PowerSystems.AC3ph.Transformers.TrafoStray trafo1(
+      redeclare record Data =
+      PowerSystems.AC3ph.Transformers.Parameters.TrafoStray(V_nom={1,10}),
+      redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Y,
+      redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
       annotation (Placement(transformation(extent={{0,20},{20,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter12( V_nom=10, phasor=true)
       annotation (Placement(transformation(extent={{40,20},{60,40}})));
@@ -24,9 +25,11 @@ package TransformationAC3ph "Transformation dq0"
                                            annotation (Placement(transformation(
             extent={{80,20},{100,40}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo2(
-      redeclare PowerSystems.AC3ph.Ports.Topology.Y top_p "Y",
-      redeclare PowerSystems.AC3ph.Ports.Topology.Delta top_n "Delta",
-      par(V_nom={1,10}))                   annotation (Placement(transformation(
+      redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Y,
+      redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Delta,
+      redeclare record Data =
+        PowerSystems.AC3ph.Transformers.Parameters.TrafoStray(V_nom={1,10}))
+      annotation (Placement(transformation(
             extent={{0,-40},{20,-20}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter22(phasor=true, V_nom=10)
       annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
@@ -90,7 +93,9 @@ Delta_Y configuration:<br>
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC3ph.Nodes.BusBar bus      annotation (Placement(transformation(
             extent={{-30,-10},{-10,10}})));
-    PowerSystems.AC3ph.Transformers.TrafoStray trafo1(par(
+    PowerSystems.AC3ph.Transformers.TrafoStray trafo1(
+      redeclare record Data =
+      PowerSystems.AC3ph.Transformers.Parameters.TrafoStray (
       V_nom={1,10},
       v_tc1={0.9,1.0,1.1},
       v_tc2={0.9,1.0,1.1}),
@@ -101,7 +106,9 @@ Delta_Y configuration:<br>
       annotation (Placement(transformation(extent={{40,20},{60,40}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res12(V_nom=10, r=1000)
       annotation (Placement(transformation(extent={{80,20},{100,40}})));
-    PowerSystems.AC3ph.Transformers.TrafoStray trafo2(par(
+    PowerSystems.AC3ph.Transformers.TrafoStray trafo2(
+      redeclare record Data =
+      PowerSystems.AC3ph.Transformers.Parameters.TrafoStray (
       V_nom={1,10},
       v_tc1={0.9,1.0,1.1},
       v_tc2={0.9,1.0,1.1}),
