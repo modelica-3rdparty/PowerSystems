@@ -404,8 +404,8 @@ See also equivalent circuit on 'Diagram layer' of
     input Integer scale=1 "scaling factor topology (Y:1, Delta:3)";
     output AC3ph.Machines.Coefficients.Synchron3rd c
       "coefficient matrices synchronous machine 3rd order";
-    final parameter SI.AngularFrequency omega_nom=2*pi*p.f_nom;
   protected
+    final parameter SI.AngularFrequency omega_nom=2*pi*p.f_nom;
     final parameter Real[2] RL_base=Basic.Precalculation.baseRL(
                                            p.puUnits, p.V_nom, p.S_nom, omega_nom, scale)
       "base resistance inductance";
