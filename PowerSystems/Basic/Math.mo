@@ -119,7 +119,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
 <pre>  c_0 + c_1*x + c_2*x^2 + ... + c_n*x^n.</pre>
 <p>The resulting <tt>n+1</tt> coefficients are <tt>c[k], k=1 .. n+1</tt>, normalised such that the highest coefficient is one.</p>
 <pre>  c[n+1] = 1</pre>
-<p><h3>Example</h3></p>
+<p><h4>Example</h4></p>
 <pre><blockquote>
   Real[3] r={1,2,3};
   Real[4] c;
@@ -160,7 +160,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   c[k, 1]: real part
   c[k, 2]: imaginary part
 </pre>
-<p><h3>Example</h3></p>
+<p><h4>Example</h4></p>
 <pre><blockquote>
   Real[3,2] r=[1,0;2,0;3,0];
   Real[4,2] c;
@@ -225,7 +225,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   r[k, 2]: imaginary part of kth root
 </pre>
 <p>If <tt>c_N</tt> is different from <tt>0</tt> then <tt>n=N</tt>, otherwise <tt>n&lt N</tt>.</p>
-<p><h3>Example</h3></p>
+<p><h4>Example</h4></p>
 <pre><blockquote>
   Real[3] c = {1,2,3};
   Real[2,2] r;

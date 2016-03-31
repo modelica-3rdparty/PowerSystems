@@ -1842,15 +1842,9 @@ package SpaceVector "Space vector logic and control"
   u_alpha_beta[2] (normalised alpha-beta components)
   abs(u_alpha_beta) = 1 corresponds to modulation index u = 1
 </pre></p>
-<h1>Space Vector Modulation</h1><br>
+<h4>Space Vector Modulation</h4><br>
 This part calculates the duty ratios of the space vector modulation.
-A flowchart of the logic can be seen in the figure.<br>
-<img src=\"../pics/flowchart_svm.png\"><br>
 <br>
-source: <a
-href=\"http://mech2006.vtk.be/downloads_2eIr/Actuatoren/ACPWM_2pp.pdf?PHPSESSID=f9ae6311fa3cf286ff261e796a907f35\">Mech2006</a>
-<br>
-</p><br>
 </html>"),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,-300},{300,
                 300}}), graphics={Text(
