@@ -17,8 +17,9 @@ model Vsource "Power transfer from voltage source to slack bus"
   PowerSystems.AC3ph.Sensors.Psensor sensor
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
   PowerSystems.AC3ph.Lines.RXline line(
-    len=40e3, par(V_nom=20e3, S_nom=500e6),
-      stIni_en=false)
+    len=40e3, redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (V_nom=20e3, S_nom=500e6),
+    stIni_en=false)
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
   PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
     annotation (Placement(transformation(extent={{70,0},{50,20}})));
@@ -63,7 +64,8 @@ model PVsource "Power transfer from power-voltage source to slack bus"
     v0=1.02,
     p0=1)
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
-  PowerSystems.AC3ph.Lines.RXline line(par(
+  PowerSystems.AC3ph.Lines.RXline line(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
     V_nom=20e3,
     S_nom=500e6),
     len=40e3)
@@ -114,7 +116,8 @@ model PQsource "Power transfer from power source to slack bus"
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
-  PowerSystems.AC3ph.Lines.RXline line(par(
+  PowerSystems.AC3ph.Lines.RXline line(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
     V_nom=20e3,
     S_nom=500e6),
     len=40e3)
@@ -397,7 +400,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
     PowerSystems.AC3ph.Sensors.Psensor sensor
       annotation (Placement(transformation(extent={{0,0},{20,20}})));
     PowerSystems.AC3ph.Lines.RXline line(
-              par(
+      redeclare record Data = PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=20e3,
         r=0.02e-3,
         x=0.2e-3),
@@ -423,7 +426,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
     PowerSystems.AC3ph.Sensors.Psensor sensor1
       annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
     PowerSystems.AC3ph.Lines.RXline line1(
-              par(
+      redeclare record Data = PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=20e3,
         r=0.02e-3,
         x=0.2e-3),
@@ -530,7 +533,7 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
   PowerSystems.AC3ph.Sensors.Psensor sensor
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   PowerSystems.AC3ph.Lines.RXline line(
-            par(
+    redeclare record Data = PowerSystems.AC3ph.Lines.Parameters.RXline (
       V_nom=20e3,
       r=0.02e-3,
       x=0.2e-3),
@@ -559,7 +562,7 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
   PowerSystems.AC3ph.Sensors.Psensor sensor1
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   PowerSystems.AC3ph.Lines.RXline line1(
-            par(
+    redeclare record Data = PowerSystems.AC3ph.Lines.Parameters.RXline (
       V_nom=20e3,
       r=0.02e-3,
       x=0.2e-3),
@@ -647,7 +650,8 @@ model GenOrder3and7 "Generator-models of different order"
     annotation (Placement(transformation(extent={{-20,30},{0,10}})));
   PowerSystems.AC3ph.Nodes.Ground grd1f
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  PowerSystems.AC3ph.Lines.RXline line1(par(
+  PowerSystems.AC3ph.Lines.RXline line1(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
     V_nom=26e3,
     f_nom=60,
     r=0.02e-3,
@@ -669,7 +673,8 @@ model GenOrder3and7 "Generator-models of different order"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   PowerSystems.AC3ph.Nodes.Ground grd2f
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  PowerSystems.AC3ph.Lines.RXline line2(par(
+  PowerSystems.AC3ph.Lines.RXline line2(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
     V_nom=26e3,
     f_nom=60,
     r=0.02e-3,
@@ -695,9 +700,11 @@ model GenOrder3and7 "Generator-models of different order"
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   PowerSystems.Common.Thermal.BdCondV bdCond2(m=2)
       annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_ee60Hz_26kV_720MVA syn3rd60Hz26k_720M
+  parameter
+      PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_ee60Hz_26kV_720MVA       syn3rd60Hz26k_720M
       annotation (Placement(transformation(extent={{-40,80},{0,100}})));
-  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA syn60Hz26k_720M
+  parameter
+      PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA       syn60Hz26k_720M
       annotation (Placement(transformation(extent={{20,80},{60,100}})));
 
 equation
@@ -767,7 +774,8 @@ model TurboGroupGenerator
         "nth order")
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   PowerSystems.AC3ph.Lines.RXline line(
-    len=40e3, par(
+    len=40e3, redeclare record Data =
+          PowerSystems.AC3ph.Lines.Parameters.RXline (
       V_nom=20e3,
       r=0.02e-3,
       x=0.2e-3))
@@ -847,7 +855,8 @@ model TieLine "Generators and power-oscillations"
           transformation(extent={{-80,-20},{-60,0}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor1(term_p(v(start={20e3,0,0})))
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  PowerSystems.AC3ph.Lines.RXline line1(par(
+  PowerSystems.AC3ph.Lines.RXline line1(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
     V_nom=26e3,
     f_nom=60,
     r=0.02e-3,
@@ -871,7 +880,8 @@ model TieLine "Generators and power-oscillations"
           transformation(extent={{60,-20},{80,0}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor2(term_p(v(start={20e3,0,0})))
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
-  PowerSystems.AC3ph.Lines.RXline line2(par(
+  PowerSystems.AC3ph.Lines.RXline line2(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
     V_nom=26e3,
     f_nom=60,
     r=0.02e-3,
@@ -897,7 +907,8 @@ model TieLine "Generators and power-oscillations"
           origin={0,40},
           extent={{10,-10},{-10,10}},
           rotation=90)));
-  PowerSystems.AC3ph.Lines.RXline line3(par(
+  PowerSystems.AC3ph.Lines.RXline line3(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
     V_nom=26e3,
     f_nom=60,
     r=0.02e-3,
@@ -947,7 +958,8 @@ model TieLine "Generators and power-oscillations"
           origin={-20,70},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA syn60Hz26k_720M
+  parameter
+      PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA       syn60Hz26k_720M
       annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
 equation
@@ -1023,7 +1035,8 @@ model WindGeneratorLine "Asynchronous generator"
           transformation(extent={{-30,0},{-10,20}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  PowerSystems.AC3ph.Lines.RXline line(par(
+  PowerSystems.AC3ph.Lines.RXline line(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
     V_nom=400,
     S_nom=30e3,
     r=0.05), len=1.5e3,

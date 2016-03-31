@@ -336,12 +336,14 @@ Compare with the signals of the identical system in the example above.</p>
               -80,20},{-100,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-    PowerSystems.AC3ph.Lines.RXline lineR(par(
+    PowerSystems.AC3ph.Lines.RXline lineR(redeclare record Data =
+      PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         r=0.02e-3,
         x=0.25e-3))
      annotation (Placement(transformation(extent={{30,20},{50,40}})));
-    PowerSystems.AC3ph.Lines.RXline lineL(par(
+    PowerSystems.AC3ph.Lines.RXline lineL(redeclare record Data =
+      PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         r=0.02e-3,
         x=0.25e-3))
@@ -360,7 +362,8 @@ Compare with the signals of the identical system in the example above.</p>
       ini_state=true,
       t_switch={0.4,0.6})
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
-    PowerSystems.AC3ph.Lines.RXline lineB(par(
+    PowerSystems.AC3ph.Lines.RXline lineB(redeclare record Data =
+      PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         r=0.02e-3,
         x=0.25e-3), stIni_en=false)
@@ -441,12 +444,14 @@ and other meter-signals.</p>
               -80,20},{-100,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter(V_nom=400e3, S_nom=2000e6)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-    PowerSystems.AC3ph.Lines.RXline lineR(par(
+    PowerSystems.AC3ph.Lines.RXline lineR(redeclare record Data =
+      PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         r=0.02e-3,
         x=0.25e-3))
      annotation (Placement(transformation(extent={{30,20},{50,40}})));
-    PowerSystems.AC3ph.Lines.RXline lineL(par(
+    PowerSystems.AC3ph.Lines.RXline lineL(redeclare record Data =
+      PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         r=0.02e-3,
         x=0.25e-3))
@@ -465,7 +470,8 @@ and other meter-signals.</p>
       ini_state=true,
       t_switch={0.4,0.6})
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
-    PowerSystems.AC3ph.Lines.RXline lineB(par(
+    PowerSystems.AC3ph.Lines.RXline lineB(redeclare record Data =
+      PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         r=0.02e-3,
         x=0.25e-3), stIni_en=false)

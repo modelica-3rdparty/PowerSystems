@@ -15,7 +15,8 @@ model PowerTransfer "Power transfer between two nodes"
                annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   PowerSystems.AC3ph.Sources.InfBus infBus1(V_nom=130e3, scType_par=false)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  PowerSystems.AC3ph.Lines.RXline line(par(
+  PowerSystems.AC3ph.Lines.RXline line(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
     V_nom=130e3,
     S_nom=100e6),
     len=100e3)                            annotation (Placement(transformation(
@@ -73,7 +74,8 @@ model VoltageStability "Voltage stability"
       annotation (Placement(transformation(extent={{40,40},{60,60}})));
   PowerSystems.AC3ph.Sensors.PVImeter meter0(phasor=true, S_nom=100e6)
       annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  PowerSystems.AC3ph.Lines.RXline line0(par(
+  PowerSystems.AC3ph.Lines.RXline line0(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         r=2e-3,
         x=0.25e-3), len=500e3)            annotation (Placement(transformation(
@@ -83,7 +85,8 @@ model VoltageStability "Voltage stability"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   PowerSystems.AC3ph.Sensors.PVImeter meter1(phasor=true, S_nom=100e6)
       annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  PowerSystems.AC3ph.Lines.RXline line1(par(
+  PowerSystems.AC3ph.Lines.RXline line1(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         r=2e-3,
         x=0.25e-3), len=500e3)            annotation (Placement(transformation(
@@ -92,7 +95,8 @@ model VoltageStability "Voltage stability"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   PowerSystems.AC3ph.Sensors.PVImeter meter2(phasor=true, S_nom=100e6)
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  PowerSystems.AC3ph.Lines.RXline line2(par(
+  PowerSystems.AC3ph.Lines.RXline line2(redeclare record Data =
+    PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         r=2e-3,
         x=0.25e-3), len=500e3)            annotation (Placement(transformation(
@@ -171,7 +175,8 @@ end VoltageStability;
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC3ph.Lines.RXline line(par(
+    PowerSystems.AC3ph.Lines.RXline line(redeclare record Data =
+      PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         x=0.25e-3,
         r=0.02e-3), len=400e3)
@@ -236,7 +241,8 @@ Compare with PIline.</p>
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC3ph.Breakers.Breaker breaker1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC3ph.Lines.PIline line(len=400e3, par(
+    PowerSystems.AC3ph.Lines.PIline line(len=400e3, redeclare record Data =
+      PowerSystems.AC3ph.Lines.Parameters.PIline (
         V_nom=400e3,
         x=0.25e-3,
         r=0.02e-3))
@@ -304,7 +310,8 @@ Compare with RXline.</p>
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC3ph.Lines.FaultRXline line(par(
+    PowerSystems.AC3ph.Lines.FaultRXline line(redeclare record Data =
+      PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         x=0.25e-3,
         r=0.02e-3), len=400e3)
@@ -376,7 +383,9 @@ Compare with FaultPIline.</p>
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC3ph.Breakers.Breaker breaker1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC3ph.Lines.FaultPIline line(len=400e3, par(
+    PowerSystems.AC3ph.Lines.FaultPIline line(len=400e3, redeclare record Data
+        =
+      PowerSystems.AC3ph.Lines.Parameters.PIline (
         V_nom=400e3,
         x=0.25e-3,
         r=0.02e-3))
@@ -452,14 +461,15 @@ Compare with FaultRXline.</p>
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-    PowerSystems.AC3ph.Lines.RXline line(
-      len=480e3, par=OH400kV)
+    PowerSystems.AC3ph.Lines.RXline line(len=480000, redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Lines.OHline400kV)
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     PowerSystems.AC3ph.Lines.FaultRXline lineF(
-      len=430e3, par=OH400kV,
-      stIni_en=false)
+      stIni_en=false,
+      len=430000,
+      redeclare record Data = PowerSystems.Examples.Spot.Data.Lines.OHline400kV)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{50,0},{70,20}})));
@@ -480,9 +490,6 @@ Compare with FaultRXline.</p>
             extent={{-90,-20},{-110,0}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
             extent={{90,-20},{110,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Lines.OHline400kV OH400kV
-                                   annotation (Placement(transformation(extent=
-              {{0,80},{40,100}})));
   equation
     connect(relay1.y, switch1.control) annotation (Line(points={{-40,50},{-30,
             50},{-30,20}}, color={255,0,255}));
@@ -543,14 +550,16 @@ Compare with DoublePIline.</p>
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-    PowerSystems.AC3ph.Lines.PIline line(
-      len=480e3, par=OH_400kV)
+    PowerSystems.AC3ph.Lines.PIline line(len=480000, redeclare record Data =
+      PowerSystems.Examples.Spot.Data.Lines.OHline_400kV)
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     PowerSystems.AC3ph.Lines.FaultPIline lineF(
-      len=430e3, par=OH_400kV,
-      stIni_en=false)
+      stIni_en=false,
+      len=430000,
+      redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{50,0},{70,20}})));
@@ -567,9 +576,6 @@ Compare with DoublePIline.</p>
       annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
     PowerSystems.AC3ph.Sensors.PVImeter meterF(S_nom=1000e6, V_nom=400e3)
       annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-    parameter PowerSystems.Examples.Spot.Data.Lines.OHline_400kV OH_400kV
-                                     annotation (Placement(transformation(
-            extent={{0,80},{40,100}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
             extent={{-90,-20},{-110,0}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
@@ -645,13 +651,15 @@ Compare with DoublePIline.</p>
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Lines.RXline line(
-      len=480e3, par=OH400kV)
+      len=480000,
+      redeclare record Data = PowerSystems.Examples.Spot.Data.Lines.OHline400kV)
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     PowerSystems.AC3ph.Lines.FaultRXline lineF(
-      len=430e3, par=OH400kV,
-      stIni_en=false)
+      stIni_en=false,
+      len=430000,
+      redeclare record Data = PowerSystems.Examples.Spot.Data.Lines.OHline400kV)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{50,0},{70,20}})));
@@ -673,9 +681,6 @@ Compare with DoublePIline.</p>
             extent={{-110,-20},{-90,0}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
             extent={{90,-20},{110,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Lines.OHline400kV OH400kV
-                                   annotation (Placement(transformation(extent=
-              {{0,80},{40,100}})));
     PowerSystems.Common.Thermal.BoundaryV boundary(m=2)
       annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   equation
@@ -745,13 +750,17 @@ Compare with DoublePIline.</p>
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Lines.PIline line(
-      len=480e3, par=OH_400kV)
+      len=480e3,
+      redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV)
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     PowerSystems.AC3ph.Lines.FaultPIline lineF(
-      len=430e3, par=OH_400kV,
-      stIni_en=false)
+      len=430e3,
+      stIni_en=false,
+      redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{50,0},{70,20}})));
@@ -773,9 +782,6 @@ Compare with DoublePIline.</p>
             extent={{-110,-20},{-90,0}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
             extent={{90,-20},{110,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Lines.OHline_400kV OH_400kV
-                                     annotation (Placement(transformation(
-            extent={{0,80},{40,100}})));
     PowerSystems.Common.Thermal.BoundaryV boundary(m=2)
       annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   equation

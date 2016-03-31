@@ -76,7 +76,8 @@ package AC1ph_DC "AC 1-phase and DC components"
     PowerSystems.AC1ph_DC.Breakers.DoubleSwitch switch2(V_nom=10e3, I_nom=100)
                                             annotation (Placement(
           transformation(extent={{40,-40},{60,-20}})));
-    PowerSystems.AC1ph_DC.Lines.FaultRXline line(par(V_nom = 10e3, S_nom=1e6))
+    PowerSystems.AC1ph_DC.Lines.FaultRXline line(redeclare record Data =
+      PowerSystems.AC1ph_DC.Lines.Parameters.RXline(V_nom = 10e3, S_nom=1e6))
                                            annotation (Placement(transformation(
             extent={{-10,-40},{10,-20}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter(V_nom=10e3, S_nom=1e6)
@@ -209,9 +210,9 @@ package AC1ph_DC "AC 1-phase and DC components"
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter(V_nom=132e3, S_nom=100e6)
                                             annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
-    replaceable PowerSystems.AC1ph_DC.Lines.PIline line(redeclare replaceable parameter
-        PowerSystems.AC1ph_DC.Lines.Parameters.PIline           par(
-                                                 V_nom=132e3))
+    replaceable PowerSystems.AC1ph_DC.Lines.PIline line(redeclare record Data
+        =
+      PowerSystems.AC1ph_DC.Lines.Parameters.PIline(V_nom=132e3))
                                       annotation (Placement(transformation(
             extent={{20,-10},{40,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd1 annotation (Placement(transformation(

@@ -62,7 +62,8 @@ package AC3ph "AC 3-phase components dq0"
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=10e3, I_nom=100)
                             annotation (Placement(transformation(extent={{-60,
               -40},{-40,-20}})));
-    PowerSystems.AC3ph.Lines.FaultRXline line(par(V_nom=10e3, S_nom=1e6))
+    PowerSystems.AC3ph.Lines.FaultRXline line(redeclare record Data =
+      PowerSystems.AC3ph.Lines.Parameters.RXline(V_nom=10e3, S_nom=1e6))
       annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=10e3, I_nom=100)
                             annotation (Placement(transformation(extent={{40,
@@ -201,9 +202,8 @@ package AC3ph "AC 3-phase components dq0"
             extent={{-40,-10},{-20,10}})));
     PowerSystems.AC3ph.Sources.Voltage voltage2(V_nom=132e3)
            annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-    replaceable PowerSystems.AC3ph.Lines.PIline line(redeclare replaceable parameter
-        PowerSystems.AC3ph.Lines.Parameters.PIline           par(
-                                                   V_nom=132e3))
+    replaceable PowerSystems.AC3ph.Lines.PIline line(redeclare record Data =
+      PowerSystems.AC3ph.Lines.Parameters.PIline(V_nom=132e3))
                                    annotation (Placement(transformation(extent=
               {{20,-10},{40,10}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
