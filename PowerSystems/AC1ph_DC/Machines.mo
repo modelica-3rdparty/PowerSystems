@@ -235,10 +235,10 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
 
       parameter Boolean stIni_en=true "enable steady-state initial equation"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter SI.Voltage v_start = 0
-        "start value of voltage drop" annotation(Dialog(tab="Initialization"));
-      parameter SI.Current i_start = 0
-        "start value of current" annotation(Dialog(tab="Initialization"));
+      parameter SI.Voltage v_start = 0 "start value of voltage drop"
+        annotation(Dialog(tab="Initialization"));
+      parameter SI.Current i_start = 0 "start value of current"
+        annotation(Dialog(tab="Initialization"));
       parameter Integer pp=2 "pole-pair number";
       parameter SI.Angle phi_el_ini=0 "initial rotor angle electric";
       parameter SI.AngularVelocity w_el_ini=0
@@ -359,11 +359,12 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
     partial model DCserBase "DC machine series excited, parameter"
       extends DCBase(final pp=par.pp);
 
-      parameter Parameters.DCser par "machine parameter"
+      replaceable record Data = PowerSystems.AC1ph_DC.Machines.Parameters.DCser
+        "machine parameters" annotation(choicesAllMatching=true);
+      final parameter Data par "machine parameters"
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
-      final parameter Coefficients.DCser c = Basic.Precalculation.machineDCser(
-                                                                              par);
+      final parameter Coefficients.DCser c = Basic.Precalculation.machineDCser(par);
       annotation (
         Documentation(
               info="<html>
@@ -394,16 +395,16 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
     partial model DCparBase "DC machine parallel excited, parameter"
       extends DCBase(final pp=par.pp);
 
-      parameter Parameters.DCpar par "machine parameter"
+      replaceable record Data = PowerSystems.AC1ph_DC.Machines.Parameters.DCpar
+        "machine parameters" annotation(choicesAllMatching=true);
+      final parameter Data par "machine parameters"
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
       SI.Voltage v_f;
       SI.Current i_f;
       Ports.TwoPin_p field
         annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
     protected
-      final parameter Coefficients.DCpar c = Basic.Precalculation.machineDCpar(
-                                                                              par);
-
+      final parameter Coefficients.DCpar c = Basic.Precalculation.machineDCpar(par);
     equation
       sum(field.i) = 0;
       v_f = field.v[1] - field.v[2];
@@ -440,11 +441,12 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
     partial model DCpmBase "DC machine permanent magnet excited, parameter"
       extends DCBase(final pp=par.pp);
 
-      parameter Parameters.DCpm par "machine parameter"
+      replaceable record Data = PowerSystems.AC1ph_DC.Machines.Parameters.DCpm
+        "machine parameters" annotation(choicesAllMatching=true);
+      final parameter Data par "machine parameters"
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
-      final parameter Coefficients.DCpm c = Basic.Precalculation.machineDCpm(
-                                                                            par);
+      final parameter Coefficients.DCpm c = Basic.Precalculation.machineDCpm(par);
       annotation (
         Documentation(
               info="<html>
@@ -582,8 +584,7 @@ end Coefficients;
 <p>This package contains the <b>electrical part</b> (electrical equations) of DC machines.<br>
 Complete drives are found in package Drives.</p>
 </html>
-"),
-    Diagram(coordinateSystem(
+"), Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={Line(

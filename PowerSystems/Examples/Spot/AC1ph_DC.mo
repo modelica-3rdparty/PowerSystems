@@ -343,9 +343,11 @@ package AC1ph_DC "AC 1-phase and DC components"
     PowerSystems.AC1ph_DC.Sensors.Psensor power
                                  annotation (Placement(transformation(extent={{
               -50,-10},{-30,10}})));
-    replaceable PowerSystems.AC1ph_DC.Machines.DCser motor(par(V_nom=100, S_nom=1e3))
-      "DC machine series"                   annotation (Placement(
-          transformation(extent={{-10,-10},{10,10}})));
+    replaceable PowerSystems.AC1ph_DC.Machines.DCser motor(redeclare
+        replaceable record Data =
+        PowerSystems.AC1ph_DC.Machines.Parameters.DCser(V_nom=100, S_nom=1e3))
+      "DC machine series"
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-80,-10},{-100,10}})));
     PowerSystems.Common.Thermal.BoundaryV boundary(m=2)

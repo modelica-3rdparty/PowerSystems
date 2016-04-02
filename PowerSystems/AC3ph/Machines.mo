@@ -3,8 +3,8 @@ package Machines "AC machines, electric part "
   extends Modelica.Icons.VariantsPackage;
 
   model Asynchron "Asynchronous machine, cage-rotor, 3-phase dq0"
-    extends Partials.AsynchronBase(redeclare replaceable parameter
-        Parameters.Asynchron_cage                                                            par);
+    extends Partials.AsynchronBase(redeclare replaceable record Data =
+      PowerSystems.AC3ph.Machines.Parameters.Asynchron_cage);
 
   initial equation
     phi_el = phi_el_ini;
@@ -24,8 +24,9 @@ package Machines "AC machines, electric part "
 
   model AsynchronY_D "Asynchronous machine Y-Delta, cage-rotor, 3-phase dq0"
     extends Partials.AsynchronBase(redeclare model Topology_p =
-        PowerSystems.AC3ph.Ports.Topology.Y_Delta(control=YDcontrol) "Y-Delta",
-                   redeclare replaceable parameter Parameters.Asynchron_cage par);
+      PowerSystems.AC3ph.Ports.Topology.Y_Delta(control=YDcontrol) "Y-Delta",
+      redeclare replaceable record Data =
+          PowerSystems.AC3ph.Machines.Parameters.Asynchron_cage);
    Modelica.Blocks.Interfaces.BooleanInput YDcontrol "true:Y, false:Delta"
                                               annotation (Placement(
           transformation(extent={{-110,50},{-90,70}})));
@@ -53,8 +54,8 @@ package Machines "AC machines, electric part "
 
   model Asynchron_ctrl
     "Asynchronous machine, cage-rotor, for field-oriented control, 3-phase dq0"
-    extends Partials.AsynchronBase(redeclare replaceable parameter
-        Parameters.Asynchron_cage                                                            par);
+    extends Partials.AsynchronBase(redeclare replaceable record Data =
+      PowerSystems.AC3ph.Machines.Parameters.Asynchron_cage);
 
     parameter SI.Current[n_r] i_d_start = zeros(n_r)
       "start value of current d_axis"
@@ -143,8 +144,8 @@ The mapping from current demand to voltage demand is based on the steady-state e
   model Synchron3rd_ee
     "Synchronous machine electrically excited, 3rd order model, 3-phase dq0"
     extends Partials.Synchron3rdBase(final phi_el_ini=-pi/2+system.alpha0,
-      redeclare replaceable parameter
-        PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_ee par);
+      redeclare replaceable record Data =
+        PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_ee);
 
     final parameter SI.Voltage Vf_nom=par.V_nom; // to be accessible from 'excitation'.
     output SI.Angle powerAngle(start=0, stateSelect=StateSelect.never)
@@ -183,8 +184,8 @@ The mapping from current demand to voltage demand is based on the steady-state e
 
   model Synchron_ee "Synchronous machine electrically excited, 3-phase dq0"
     extends Partials.SynchronBase(final phi_el_ini=-pi/2+system.alpha0,
-      redeclare replaceable parameter
-        PowerSystems.AC3ph.Machines.Parameters.Synchron_ee par);
+      redeclare replaceable record Data =
+        PowerSystems.AC3ph.Machines.Parameters.Synchron_ee);
     final parameter SI.Voltage Vf_nom=c.Vf_nom; // to be accessible from 'excitation'.
     output SI.Angle powerAngle(start=0, stateSelect=StateSelect.never)
       "power angle";
@@ -250,8 +251,8 @@ The mapping from current demand to voltage demand is based on the steady-state e
   end Synchron_ee;
 
   model Synchron3rd_pm "Synchronous machine pm, 3rd order model, 3-phase dq0"
-    extends Partials.Synchron3rdBase(redeclare replaceable parameter
-        PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_pm par);
+    extends Partials.Synchron3rdBase(redeclare replaceable record Data =
+        PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_pm);
 
     Modelica.Blocks.Interfaces.RealOutput phiRotor=
                       phi_el "rotor angle el"
@@ -289,8 +290,8 @@ The mapping from current demand to voltage demand is based on the steady-state e
   end Synchron3rd_pm;
 
   model Synchron_pm "Synchronous machine pm, 3-phase dq0"
-    extends Partials.SynchronBase(redeclare replaceable parameter
-        PowerSystems.AC3ph.Machines.Parameters.Synchron_pm par);
+    extends Partials.SynchronBase(redeclare replaceable record Data =
+        PowerSystems.AC3ph.Machines.Parameters.Synchron_pm);
 
     Modelica.Blocks.Interfaces.RealOutput phiRotor=
                       phi_el "rotor angle el"
@@ -341,8 +342,8 @@ The mapping from current demand to voltage demand is based on the steady-state e
 
   model Synchron3rd_pm_ctrl
     "Synchronous machine, for field-oriented control, 3rd order model, 3-phase dq0"
-    extends Partials.Synchron3rdBase(redeclare replaceable parameter
-        PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_pm par);
+    extends Partials.Synchron3rdBase(redeclare replaceable record Data =
+        PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_pm);
 
     Modelica.Blocks.Interfaces.RealOutput[2] i_meas(each final unit="1")
       "measured current {i_d, i_q} pu"
@@ -416,8 +417,8 @@ The mapping from current demand to voltage demand is based on the steady-state e
 
   model Synchron_pm_ctrl
     "Synchronous machine, for field-oriented control, 3-phase dq0"
-    extends Partials.SynchronBase(redeclare replaceable parameter
-        PowerSystems.AC3ph.Machines.Parameters.Synchron_pm par);
+    extends Partials.SynchronBase(redeclare replaceable record Data =
+        PowerSystems.AC3ph.Machines.Parameters.Synchron_pm);
 
     Modelica.Blocks.Interfaces.RealOutput[2] i_meas(
                              final unit="1") "measured current {i_d, i_q} pu"
@@ -669,10 +670,11 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
       extends ACmachine(final pp=par.pp, v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom));
 
       output Real slip "<0: motor, >0: generator";
-      replaceable parameter Parameters.Asynchron par(f_nom=system.f_nom)
-        "machine parameter"
-                       annotation (Placement(transformation(extent={{-60,60},{
-                -40,80}})));
+      replaceable record Data =
+        PowerSystems.AC3ph.Machines.Parameters.Asynchron(f_nom=system.f_nom)
+        "machine parameters" annotation(choicesAllMatching=true);
+      final parameter Data par "machine parameters"
+        annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
     protected
       final parameter Integer n_r = par.n_r
         "number of rotor circuits d- and q-axis";
@@ -879,8 +881,10 @@ The transformation angle is the (electric) rotor-angle relative to the reference
     partial model Synchron3rdBase "Synchronous machine 3rd base, 3-phase dq0"
       extends SynTransform(final pp=par.pp,  v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom));
 
-      replaceable parameter Parameters.Synchron3rd par(f_nom=system.f_nom)
-        "machine parameter"
+      replaceable record Data =
+        PowerSystems.AC3ph.Machines.Parameters.Synchron3rd(f_nom=system.f_nom)
+        "machine parameters" annotation(choicesAllMatching=true);
+      final parameter Data par "machine parameters"
         annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
     protected
       final parameter Coefficients.Synchron3rd c = Basic.Precalculation.machineSyn3rd(
@@ -954,8 +958,10 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
     partial model SynchronBase "Synchronous machine base, 3-phase dq0"
       extends SynTransform(final pp=par.pp,v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom));
 
-      replaceable parameter Parameters.Synchron par(f_nom=system.f_nom)
-        "machine parameter"
+      replaceable record Data =
+        PowerSystems.AC3ph.Machines.Parameters.Synchron(f_nom=system.f_nom)
+        "machine parameters" annotation(choicesAllMatching=true);
+      final parameter Data par "machine parameters"
         annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
     protected
       final parameter Integer n_d = par.n_d "number of rotor circuits d-axis";

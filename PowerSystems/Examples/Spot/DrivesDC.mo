@@ -19,9 +19,10 @@ package DrivesDC "DC drives"
           transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Drives.DCMser dcm_ser(
       rotor(J=6.4),
-      motor(par=DCs1500_1p5M),
-      w_ini=146.60765716752)              annotation (Placement(transformation(
-            extent={{20,-20},{40,0}})));
+      w_ini=146.60765716752,
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.DCser1500V_1p5MVA))
+      annotation (Placement(transformation(extent={{20,-20},{40,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{20,0},{40,20}})));
     PowerSystems.Mechanics.Rotation.TabPosSlopeTorque tabLoad(
@@ -36,8 +37,6 @@ package DrivesDC "DC drives"
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.DCser1500V_1p5MVA DCs1500_1p5M
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
   equation
     connect(voltage.term, power.term_p)
@@ -82,8 +81,9 @@ package DrivesDC "DC drives"
             extent={{-60,-60},{-40,-40}})));
     PowerSystems.AC1ph_DC.Drives.DCMpar dcm_par(
       rotor(J=6.4),
-      motor(par=DCp1500_1p5M))             annotation (Placement(transformation(
-            extent={{20,-20},{40,0}})));
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.DCpar1500V_1p5MVA))
+      annotation (Placement(transformation(extent={{20,-20},{40,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{20,0},{40,20}})));
     PowerSystems.Mechanics.Rotation.TabPosSlopeTorque tabLoad(
@@ -98,8 +98,6 @@ package DrivesDC "DC drives"
       slope_perc=2.5,
       cFrict={50,15})
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.DCpar1500V_1p5MVA DCp1500_1p5M
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
   equation
     connect(armVoltage.term, power.term_p) annotation (Line(points={{-40,-10},{
@@ -143,9 +141,10 @@ package DrivesDC "DC drives"
             extent={{-50,-20},{-30,0}})));
     PowerSystems.AC1ph_DC.Sensors.Efficiency efficiency(tcst=0.1, m=2)
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC1ph_DC.Drives.DCMpm dcm_pm(rotor(J=0.02), motor(par=DCpm100_1k))
-                                          annotation (Placement(transformation(
-            extent={{10,-20},{30,0}})));
+    PowerSystems.AC1ph_DC.Drives.DCMpm dcm_pm(rotor(J=0.02),
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA))
+      annotation (Placement(transformation(extent={{10,-20},{30,0}})));
     PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.03)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
     PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={0.01,0.0002})
@@ -156,9 +155,6 @@ package DrivesDC "DC drives"
       useSupport=false,
       offsetTorque=0)
                 annotation (Placement(transformation(extent={{90,20},{70,40}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA DCpm100_1k
-                                           annotation (Placement(transformation(
-            extent={{-60,80},{-20,100}})));
 
   equation
     connect(grd.term, voltage.neutral) annotation (Line(points={{-80,-10},{-80,
@@ -211,7 +207,8 @@ package DrivesDC "DC drives"
       tcst=0.1,
       m=5)      annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Drives.BLDC bldcm(
-      motor(par=bldc100_1k),
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA),
       rotor(J=0.02),
       redeclare PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare final
           PowerSystems.Control.Modulation.BlockM modulator
@@ -229,9 +226,6 @@ package DrivesDC "DC drives"
       useSupport=false,
       offsetTorque=0)
                 annotation (Placement(transformation(extent={{90,20},{70,40}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA bldc100_1k
-                                           annotation (Placement(transformation(
-            extent={{-60,80},{-20,100}})));
     parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
@@ -284,18 +278,16 @@ package DrivesDC "DC drives"
       av=true,
       tcst=0.1,
       m=2)      annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-    PowerSystems.AC1ph_DC.Drives.DCMpm machine(rotor(J=0.02), motor(par=DCpm100_1k))
-                                          annotation (Placement(transformation(
-            extent={{0,-20},{20,0}})));
+    PowerSystems.AC1ph_DC.Drives.DCMpm machine(rotor(J=0.02),
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA))
+      annotation (Placement(transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
       s_ini=0, s_fin=160)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
     PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01,
       scType_par=false)
       annotation (Placement(transformation(extent={{60,-20},{40,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA DCpm100_1k
-                                           annotation (Placement(transformation(
-            extent={{-60,80},{-20,100}})));
 
   equation
     connect(grd.term, voltage.neutral) annotation (Line(points={{-80,-10},{-80,
@@ -341,20 +333,17 @@ package DrivesDC "DC drives"
                 annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
     PowerSystems.AC1ph_DC.Drives.BLDC machine(
       rotor(J=0.02),
-      motor(par=bldc100_1k),
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA),
       redeclare PowerSystems.AC3ph.Inverters.InverterAverage inverter(final
           modulation=
             3, par=idealSC100V_10A) "inverter time-average")
-                             annotation (Placement(transformation(extent={{0,
-              -20},{20,0}})));
+      annotation (Placement(transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
       s_ini=0, s_fin=160)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
     PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01, scType_par=false)
       annotation (Placement(transformation(extent={{60,-20},{40,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA bldc100_1k
-                                           annotation (Placement(transformation(
-            extent={{-60,80},{-20,100}})));
     parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 

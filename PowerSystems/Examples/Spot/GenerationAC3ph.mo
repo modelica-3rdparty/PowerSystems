@@ -167,8 +167,11 @@ end PQsource;
     PowerSystems.AC3ph.Machines.Control.Excitation excitation(V_nom=20e3, Vf_nom=20e3)
                                             annotation (Placement(
           transformation(extent={{-30,40},{-50,60}})));
-    PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(par=synData)
-         annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
+    PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
+        record Data =
+
+          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
+      annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
     PowerSystems.AC3ph.Sensors.Psensor sensor
       annotation (Placement(transformation(extent={{0,0},{20,20}})));
     PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
@@ -198,9 +201,6 @@ end PQsource;
               {{90,0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
       annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
-                                          annotation (Placement(transformation(
-            extent={{40,80},{80,100}})));
 
   equation
     connect(Vgen1.term, RLgen1.term_p) annotation (Line(points={{-60,-70},{-50,
@@ -272,7 +272,10 @@ The power-angle is artificially fixed. The correspondence is:
       P_nom=generator.par.S_nom)
                          annotation (Placement(transformation(extent={{-80,0},{
               -60,20}})));
-    PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(par=synData)
+    PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
+        record Data =
+
+          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0116)
       annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
@@ -310,9 +313,6 @@ The power-angle is artificially fixed. The correspondence is:
               {{90,0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
       annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
-                                          annotation (Placement(transformation(
-            extent={{40,80},{80,100}})));
 
   equation
     connect(Vgen1.term, RLgen1.term_p) annotation (Line(points={{-60,-70},{-50,
@@ -386,7 +386,10 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
       P_nom=generator.par.S_nom)
                          annotation (Placement(transformation(extent={{-80,0},{
               -60,20}})));
-    PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(par=synData)
+    PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
+        record Data =
+
+          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0094)
       annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
@@ -444,9 +447,6 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
               {{90,0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
       annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
-                                          annotation (Placement(transformation(
-            extent={{40,80},{80,100}})));
 
   equation
     connect(Vgen1.term, RLgen1.term_p) annotation (Line(points={{-60,-70},{-50,
@@ -521,7 +521,8 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
               -80,100}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen(
     H=20,
-      generator(par=synData),
+      generator(redeclare replaceable record Data =
+        PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA),
       v_ini=1.12762,
       p_ini=1,
       q_ini=0.42729,
@@ -571,9 +572,6 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
             extent={{30,-60},{50,-40}})));
   PowerSystems.AC3ph.Sources.Voltage VBus1(V_nom=20e3)
     annotation (Placement(transformation(extent={{90,-60},{70,-40}})));
-  parameter PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA synData
-                                          annotation (Placement(transformation(
-            extent={{40,80},{80,100}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
             extent={{-80,-60},{-100,-40}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd2 annotation (Placement(transformation(
@@ -642,8 +640,10 @@ model GenOrder3and7 "Generator-models of different order"
     p_ini=0.97,
     H=20,
     redeclare PowerSystems.Control.Exciters.Exciter1st exciter "1st order",
-      redeclare PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(par=
-            syn3rd60Hz26k_720M) "3rd order",
+      redeclare PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(
+        redeclare record Data =
+        PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_ee60Hz_26kV_720MVA)
+        "3rd order",
       alpha_ini=0.5235987755983)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   PowerSystems.AC3ph.Breakers.Switch switchGrd1(V_nom=26e3,I_nom=30e6)
@@ -665,7 +665,9 @@ model GenOrder3and7 "Generator-models of different order"
     p_ini=0.97,
     H=20,
     redeclare PowerSystems.Control.Exciters.Exciter1st exciter "1st order",
-      redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(par=syn60Hz26k_720M)
+      redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(
+        redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
         "nth order",
       alpha_ini=0.5235987755983)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
@@ -700,12 +702,6 @@ model GenOrder3and7 "Generator-models of different order"
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   PowerSystems.Common.Thermal.BdCondV bdCond2(m=2)
       annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  parameter
-      PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_ee60Hz_26kV_720MVA       syn3rd60Hz26k_720M
-      annotation (Placement(transformation(extent={{-40,80},{0,100}})));
-  parameter
-      PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA       syn60Hz26k_720M
-      annotation (Placement(transformation(extent={{20,80},{60,100}})));
 
 equation
   connect(setpts1.setpts, turboGen1.setpts)   annotation (Line(points={{-80,50},
@@ -770,7 +766,9 @@ model TurboGroupGenerator
     v_ini=1.0156,
     redeclare PowerSystems.Control.Exciters.Exciter1st exciter "1st order",
       turboGroup(par=turboGrp1200M),
-      redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(par=syn20k_1200M)
+      redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(
+        redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Machines.Synchron_ee20kV_1200MVA)
         "nth order")
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   PowerSystems.AC3ph.Lines.RXline line(
@@ -794,8 +792,6 @@ model TurboGroupGenerator
             extent={{80,0},{100,20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
       annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron_ee20kV_1200MVA syn20k_1200M
-      annotation (Placement(transformation(extent={{20,80},{60,100}})));
   parameter PowerSystems.Examples.Spot.Data.Turbines.SteamTurboGroup1200MW turboGrp1200M
       annotation (Placement(transformation(extent={{-40,80},{0,100}})));
 
@@ -843,7 +839,9 @@ model TieLine "Generators and power-oscillations"
     alpha_ini=0.316177 + system.alpha0,
     v_ini=1.05,
     H=20,
-    redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(par=syn60Hz26k_720M)
+    redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(
+      redeclare record Data =
+        PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
         "nth order",
     redeclare PowerSystems.Control.Exciters.Exciter1st exciter "1st order",
     redeclare PowerSystems.Control.Governors.Governor1st governor "1st order",
@@ -869,7 +867,9 @@ model TieLine "Generators and power-oscillations"
     v_ini=1.04,
     H=20,
     redeclare PowerSystems.Control.Exciters.Exciter1st exciter "1st order",
-    redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(par=syn60Hz26k_720M)
+    redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(
+      redeclare record Data =
+        PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
         "nth order",
     redeclare PowerSystems.Control.Governors.Governor1st governor "1st order",
       p_ini=0.9,
@@ -894,8 +894,10 @@ model TieLine "Generators and power-oscillations"
     H=20,
     redeclare PowerSystems.Control.Exciters.Exciter1st exciter "1st order",
     redeclare PowerSystems.Control.Governors.Governor1st governor "1st order",
-      redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(par=syn60Hz26k_720M,
-          stIni_en=false) "nth order",
+      redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(
+        redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA,
+        stIni_en=false) "nth order",
       q_ini=0.10292306,
       p_ini=0.27353)
     annotation (Placement(transformation(
@@ -958,9 +960,6 @@ model TieLine "Generators and power-oscillations"
           origin={-20,70},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-  parameter
-      PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA       syn60Hz26k_720M
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
 equation
   connect(pq_change.y,load. p_set)   annotation (Line(points={{-20,-90},{-10,
@@ -1029,7 +1028,8 @@ model WindGeneratorLine "Asynchronous generator"
                       annotation (Placement(transformation(extent={{-100,80},{
               -80,100}})));
   PowerSystems.AC3ph.Generation.WindGenerator windGen(
-    WT(par=windTurb), generator(par=asyn400_30k))
+    WT(par=windTurb), generator(redeclare record Data =
+      PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA))
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   PowerSystems.AC3ph.Nodes.BusBar busbar        annotation (Placement(
           transformation(extent={{-30,0},{-10,20}})));
@@ -1057,8 +1057,6 @@ model WindGeneratorLine "Asynchronous generator"
   parameter PowerSystems.Examples.Spot.Data.Turbines.WindTurbineGear windTurb
                                            annotation (Placement(transformation(
             extent={{-40,80},{0,100}})));
-  parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
-      annotation (Placement(transformation(extent={{20,80},{60,100}})));
 
 equation
   connect(windGen.term, busbar.term)  annotation (Line(points={{-40,10},{-20,10}},
@@ -1103,7 +1101,9 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
                    redeclare PowerSystems.Control.Governors.Governor1st governor
         "1st order",
                    redeclare PowerSystems.AC3ph.Machines.Synchron_pm generator(
-      par=synpm560_100k) "nth order")
+      redeclare record Data =
+        PowerSystems.Examples.Spot.Data.Machines.Synchron_pm560V_100kVA)
+        "nth order")
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   PowerSystems.AC3ph.Nodes.DefReference reference
       annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
@@ -1153,8 +1153,6 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
       annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond2(m=1)
       annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron_pm560V_100kVA synpm560_100k
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
   parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
     annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
@@ -1215,7 +1213,7 @@ model LocalGeneration
   inner PowerSystems.System system(f_nom=60)
 annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter SI.Voltage vDC_nom=780 "DC nominal voltage";
-  final parameter SI.Current I_nom=syn3rdpm560_100k.S_nom/syn3rdpm560_100k.V_nom
+  final parameter SI.Current I_nom=PMgen.generator.par.S_nom/PMgen.generator.par.V_nom
       "generator nominal current";
   PowerSystems.Blocks.Signals.Transient speedSignal(
     t_duration=5,
@@ -1226,7 +1224,9 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   PowerSystems.Mechanics.Rotation.Speed speed(scType_par=false, w0=2*pi*
           180)                        annotation (Placement(transformation(
             extent={{-70,-60},{-50,-40}})));
-  PowerSystems.AC3ph.Generation.PMgenerator PMgen(generator(par=syn3rdpm560_100k),
+  PowerSystems.AC3ph.Generation.PMgenerator PMgen(generator(
+    redeclare record Data =
+      PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm560V_100kVA(neu_iso=true)),
     inverter(par=idealSC1k_100),
       w_ini=1130.9733552923)
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
@@ -1278,9 +1278,6 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Math.Gain gain(k=-1) "generator: negative torque tau_act"
                                        annotation (Placement(transformation(
             extent={{-40,20},{-20,40}})));
-  parameter PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm560V_100kVA syn3rdpm560_100k(
-                                                           neu_iso=true)
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
   parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100(
                                                     Vf=0)
     annotation (Placement(transformation(extent={{0,80},{40,100}})));
@@ -1303,7 +1300,7 @@ equation
   connect(PI_vDC.y, gain.u) annotation (Line(points={{-49,30},{-42,30}}, color=
             {0,0,127}));
   connect(gain.y, PMgen.i_act[2]) annotation (Line(points={{-19,30},{-10,30},{-10,
-          10},{-36,10},{-36,-39.5}},       color={0,0,127}));
+          10},{-36,10},{-36,-40.5}},       color={0,0,127}));
   connect(speed.flange, PMgen.flange)
     annotation (Line(points={{-50,-50},{-40,-50}}, color={0,0,0}));
   connect(capSym.term_n, DCpower.term_p)
@@ -1313,7 +1310,7 @@ equation
   connect(speedSignal.y, speed.w) annotation (Line(points={{-80,-50},{-70,-50}},
           color={0,0,127}));
   connect(i_d.y, PMgen.i_act[1]) annotation (Line(points={{-80,-10},{-36,-10},{-36,
-          -40.5}},       color={0,0,127}));
+          -39.5}},       color={0,0,127}));
   annotation (
 Documentation(
         info="<html>

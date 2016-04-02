@@ -285,9 +285,10 @@ package AC3ph "AC 3-phase components dq0"
             extent={{-80,-10},{-60,10}})));
     PowerSystems.AC3ph.Sensors.Psensor power
       annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-    replaceable PowerSystems.AC3ph.Machines.Asynchron asynchron(par(V_nom=400, S_nom=
-        1e3))                                    annotation (Placement(
-          transformation(extent={{-10,-10},{10,10}})));
+    replaceable PowerSystems.AC3ph.Machines.Asynchron asynchron(
+      redeclare record Data =
+        PowerSystems.AC3ph.Machines.Parameters.Asynchron_cage(V_nom=400, S_nom=1e3))
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     PowerSystems.Mechanics.Rotation.Rotor rotor
       annotation (Placement(transformation(extent={{28,-10},{48,10}})));
     PowerSystems.Mechanics.Rotation.Torque torq       annotation (Placement(

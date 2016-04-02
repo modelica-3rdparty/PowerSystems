@@ -15,8 +15,9 @@ package DrivesAC3ph "AC drives, dq0"
             extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Drives.ASM asm(
       rotor(J=0.3),
-      motor(par=asyn400_30k)) annotation (Placement(transformation(extent={{-20,
-              -20},{0,0}})));
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA))
+      annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
                                           annotation (Placement(transformation(
             extent={{-20,0},{0,20}})));
@@ -29,8 +30,6 @@ package DrivesAC3ph "AC drives, dq0"
       s_fin=2*system.omega_nom/asm.motor.pp,
       s_ini=-system.omega_nom/asm.motor.pp)
       annotation (Placement(transformation(extent={{78,-20},{58,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
   equation
     connect(grd.term, voltage.neutral)
@@ -74,7 +73,9 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
     PowerSystems.AC3ph.Sensors.Psensor power
       annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
     PowerSystems.AC3ph.Drives.ASM_Y_D asm_Y_D(
-      rotor(J=0.3), motor(par=asyn400_30k),
+      rotor(J=0.3),
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA),
       speed_ini=0.1)                        annotation (Placement(
           transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
@@ -85,8 +86,6 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
       annotation (Placement(transformation(extent={{70,-20},{90,0}})));
     PowerSystems.Control.Relays.Y_DeltaControl relay1(t_switch={1.5})
       annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
 
   equation
     connect(relay1.y,asm_Y_D. YDcontrol) annotation (Line(points={{-30,30},{-20,
@@ -142,8 +141,9 @@ Compare 'transient' and 'steady-state' mode.</p>
     PowerSystems.AC3ph.Drives.ASM asm(
       rotor(J=6.4),
       speed_ini=1,
-      motor(par=asyn3k_1p5M))               annotation (Placement(
-          transformation(extent={{30,-20},{50,0}})));
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA))
+      annotation (Placement(transformation(extent={{30,-20},{50,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond1(m=2)
                                             annotation (Placement(
           transformation(extent={{30,0},{50,20}})));
@@ -161,8 +161,6 @@ Compare 'transient' and 'steady-state' mode.</p>
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
       annotation (Placement(transformation(extent={{70,-20},{90,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA asyn3k_1p5M
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
     parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A idealSC3kV_500A
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
@@ -217,10 +215,11 @@ Compare 'transient' and 'steady-state' mode.</p>
       annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
     PowerSystems.AC3ph.Drives.ASM_ctrl asm_ctrl(
       rotor(J=0.3),
-      motor(par=asyn3k_1p5M),
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA),
       inverter(par=idealSC3kV_500A),
       w_ini=157.07963267949)
-                annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+      annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Mechanics.Rotation.TabPosSlopeTorque tabLoad(
@@ -253,8 +252,6 @@ Compare 'transient' and 'steady-state' mode.</p>
       initType=Modelica.Blocks.Types.InitPID.SteadyState,
       gainPID(y(start=0.1)))
            annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA asyn3k_1p5M
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
     parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A idealSC3kV_500A
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
@@ -316,8 +313,9 @@ Compare 'transient' and 'steady-state' mode.</p>
     PowerSystems.AC3ph.Drives.ASM asm(
       rotor(J=6.4),
       speed_ini=1,
-      motor(par=asyn3k_1p5M))               annotation (Placement(
-          transformation(extent={{30,-20},{50,0}})));
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA))
+      annotation (Placement(transformation(extent={{30,-20},{50,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond1(m=2)
                                             annotation (Placement(
           transformation(extent={{30,0},{50,20}})));
@@ -335,8 +333,6 @@ Compare 'transient' and 'steady-state' mode.</p>
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
       annotation (Placement(transformation(extent={{70,-20},{90,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA asyn3k_1p5M
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
     parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A idealSC3kV_500A(
                                                         Vf=0, Hsw_nom=0)
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
@@ -390,8 +386,9 @@ The machine defines the reference-system independent of the system choice (as ne
     PowerSystems.AC3ph.Drives.SM_ctrl sm_ctrl(
       rotor(J=0.3),
       inverter(par=idealSC1k_100),
-      motor(par=syn3rdpm400_30k))
-                annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA))
+      annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.5)
@@ -420,8 +417,6 @@ The machine defines the reference-system independent of the system choice (as ne
       yMax=1,
       gainPID(y(start=0.1)))
            annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA syn3rdpm400_30k
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
     parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
@@ -479,8 +474,9 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
       redeclare PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare
           PowerSystems.AC3ph.Inverters.Components.InverterSwitch inverter
           "switch, no diode, no losses") "inverter with modulator",
-      motor(par=syn3rdpm400_30k))
-                annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA(r_n=0)))
+      annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=5) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.5)
@@ -509,9 +505,6 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
       s_ini=0,
       s_fin=0) "phase of modulation signal" annotation (Placement(
           transformation(extent={{-80,40},{-60,60}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA syn3rdpm400_30k(
-                                                           r_n=0)
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
     parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
@@ -570,8 +563,9 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
     PowerSystems.AC3ph.Drives.ASM_ctrl asm_ctrl(
       rotor(J=0.3),
       inverter(par=idealSC1k_100),
-      motor(par=asyn400_30k))
-                annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA))
+      annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.5)
@@ -603,8 +597,6 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
       gainPID(y(start=0.1)),
       initType=Modelica.Blocks.Types.InitPID.SteadyState)
            annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
     parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
@@ -661,7 +653,8 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
             extent={{-40,-40},{-20,-20}})));
     PowerSystems.AC3ph.Drives.ASM_ctrl asm_ctrl(
       rotor(J=0.3),
-      motor(par=asyn400_30k),
+      motor(redeclare record Data =
+            PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA(r_n=0)),
       redeclare PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare
           PowerSystems.AC3ph.Inverters.Components.InverterSwitch inverter
           "switch, no diode, no losses") "inverter with modulator",
@@ -696,9 +689,6 @@ Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
       s_ini=0.35) "phase of modulation signal"
                                             annotation (Placement(
           transformation(extent={{-80,40},{-60,60}})));
-    parameter PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA asyn400_30k(
-                                                  r_n=0)
-      annotation (Placement(transformation(extent={{-60,80},{-20,100}})));
     parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
       annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
