@@ -341,9 +341,9 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
           PowerSystems.AC3ph.Transformers.Parameters.TrafoIdeal
           constrainedby PowerSystems.AC3ph.Transformers.Parameters.TrafoIdeal
         "trafo parameters"   annotation(choicesAllMatching=true);
-    protected
-        parameter Data par
+        final parameter Data par
           annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    protected
         Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
         Modelica.Blocks.Interfaces.IntegerInput tap_n_internal
@@ -646,9 +646,9 @@ For variable transformer ratio tap changer input needed.</p>
       constrainedby PowerSystems.AC3ph.Transformers.Parameters.Trafo3Ideal
         "trafo parameters"
                          annotation(choicesAllMatching=true);
-    protected
-    parameter Data par "trafo parameter record"
+    final parameter Data par "trafo parameter record"
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    protected
     Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
     Modelica.Blocks.Interfaces.IntegerInput[2] tap_n_internal

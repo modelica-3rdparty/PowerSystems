@@ -860,9 +860,9 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
         constrainedby PowerSystems.AC3ph.Lines.Parameters.RXline
         "line parameters"
         annotation (choicesAllMatching=true);
-    protected
-      parameter Data par "line parameters"
+      final parameter Data par "line parameters"
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    protected
       outer System system;
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);

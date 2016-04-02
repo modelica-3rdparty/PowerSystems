@@ -294,9 +294,9 @@ and eddy current losses.</p>
       replaceable record Data =
         PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoIdeal1ph
         "trafo parameters" annotation(choicesAllMatching=true);
-    protected
-      parameter Data par "trafo parameter record"
+      final parameter Data par "trafo parameter record"
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    protected
       final parameter Boolean steadyIni_t = system.steadyIni_t and stIni_en;
       Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
@@ -515,9 +515,9 @@ For variable transformer ratio tap changer input needed.</p>
       replaceable record Data =
         PowerSystems.AC1ph_DC.Transformers.Parameters.Trafo3Ideal1ph
         "trafo parameters" annotation(choicesAllMatching=true);
-    protected
-      replaceable parameter Data par "trafo parameter"
+      final parameter Data par "trafo parameter"
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    protected
       Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
         "Needed to connect to conditional connector";
       Modelica.Blocks.Interfaces.IntegerInput[2] tap_n_internal

@@ -508,6 +508,8 @@ end FaultPIline;
       parameter Integer ne(min=1)=1 "number of pi-elements";
       replaceable record Data = PowerSystems.AC1ph_DC.Lines.Parameters.RXline
         "line parameters" annotation(choicesAllMatching=true);
+      final parameter Data par "line parameters"
+        annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
       parameter Boolean stIni_en=true "enable steady-state initialization"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
@@ -517,8 +519,6 @@ end FaultPIline;
                                   annotation(Dialog(tab="Initialization"));
 
     protected
-      parameter Data par "line parameters"
-        annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
       outer System system;
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       final parameter Real[2] RL_base=Basic.Precalculation.baseRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
