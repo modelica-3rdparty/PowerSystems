@@ -24,7 +24,11 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-    PowerSystems.AC1ph_DC.Inverters.Rectifier rectifier(rectifier(par=idealSC100V_10A))
+    PowerSystems.AC1ph_DC.Inverters.Rectifier rectifier(redeclare model
+        Rectifier =
+          PowerSystems.AC1ph_DC.Inverters.Components.RectifierEquation (
+          redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A))
       annotation (Placement(transformation(extent={{30,0},{10,20}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1,
       V_nom=100,
@@ -38,8 +42,6 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
             extent={{90,0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{10,20},{30,40}})));
-    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vAC.term, ind.term_p)
@@ -83,9 +85,12 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
-    PowerSystems.AC1ph_DC.Inverters.Inverter inverter(redeclare
-        PowerSystems.AC1ph_DC.Inverters.Components.InverterEquation inverter(par=
-            idealSC100V_10A) "equation, with losses")
+    PowerSystems.AC1ph_DC.Inverters.Inverter inverter(redeclare model Inverter
+        =
+        PowerSystems.AC1ph_DC.Inverters.Components.InverterEquation(redeclare
+            record Data =
+            PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
+        "equation, with losses")
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Inverters.Select select(fType_sys=false, fType_par=true, f=100,
       uType_par=false)   annotation (Placement(transformation(extent={{-20,20},
@@ -109,8 +114,6 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
             extent={{-80,-20},{-100,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{-20,0},{0,20}})));
-    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vDC.term, meterDC.term_p)
@@ -155,9 +158,12 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-    PowerSystems.AC1ph_DC.Inverters.Inverter inverter(redeclare
-        PowerSystems.AC1ph_DC.Inverters.Components.InverterEquation inverter(par=
-            idealSC100V_10A) "equation, with losses")
+    PowerSystems.AC1ph_DC.Inverters.Inverter inverter(redeclare model Inverter
+        =
+        PowerSystems.AC1ph_DC.Inverters.Components.InverterEquation (
+          redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
+        "equation, with losses")
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC1ph_DC.Inverters.Select select(uType_par=false)
                                    annotation (Placement(transformation(extent=
@@ -183,8 +189,6 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
             extent={{80,-20},{100,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{-30,0},{-10,20}})));
-    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vAC.term, ind.term_p)
@@ -231,7 +235,8 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-    PowerSystems.AC1ph_DC.Inverters.InverterAverage inverter(par=idealSC100V_10A)
+    PowerSystems.AC1ph_DC.Inverters.InverterAverage inverter(redeclare record
+        Data=PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC1ph_DC.Inverters.Select select(uType_par=false)
                                    annotation (Placement(transformation(extent=
@@ -255,8 +260,6 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
             extent={{80,-20},{100,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=1) annotation (Placement(
           transformation(extent={{-30,0},{-10,20}})));
-    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vAC.term, ind.term_p)
@@ -301,7 +304,10 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-    PowerSystems.AC1ph_DC.Inverters.Chopper chopper(chopper(par=idealSC100V_10A))
+    PowerSystems.AC1ph_DC.Inverters.Chopper chopper(redeclare model Chopper =
+      PowerSystems.AC1ph_DC.Inverters.Components.ChopperModular(redeclare
+            record Data =
+               PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A))
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDCout(av=true, tcst=0.1,
       V_nom=100,
@@ -321,8 +327,6 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
             extent={{-80,-20},{-100,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{-10,0},{10,20}})));
-    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(grd.term, vDC.neutral) annotation (Line(points={{-80,-10},{-80,-10}},

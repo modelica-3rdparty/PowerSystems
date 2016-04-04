@@ -211,9 +211,10 @@ package DrivesDC "DC drives"
             PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA),
       rotor(J=0.02),
       redeclare PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare final
-          PowerSystems.Control.Modulation.BlockM modulator
+          model Modulator = PowerSystems.Control.Modulation.BlockM
           "block modulation (no PWM)",
-          redeclare PowerSystems.AC3ph.Inverters.Components.InverterSwitch inverter
+          redeclare model Inverter =
+            PowerSystems.AC3ph.Inverters.Components.InverterSwitch
           "switch, no diode, no losses") "inverter with modulator")
                              annotation (Placement(transformation(extent={{10,
               -20},{30,0}})));
@@ -226,9 +227,6 @@ package DrivesDC "DC drives"
       useSupport=false,
       offsetTorque=0)
                 annotation (Placement(transformation(extent={{90,20},{70,40}})));
-    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}})));
-
   equation
     connect(grd.term, voltage.neutral) annotation (Line(points={{-80,-10},{-80,
             -10}}, color={0,0,255}));
@@ -336,16 +334,15 @@ package DrivesDC "DC drives"
       motor(redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA),
       redeclare PowerSystems.AC3ph.Inverters.InverterAverage inverter(final
-          modulation=
-            3, par=idealSC100V_10A) "inverter time-average")
+        modulation=3, redeclare record Data =
+        PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
+        "inverter time-average")
       annotation (Placement(transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
       s_ini=0, s_fin=160)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
     PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01, scType_par=false)
       annotation (Placement(transformation(extent={{60,-20},{40,0}})));
-    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(grd.term, voltage.neutral) annotation (Line(points={{-80,-10},{-80,

@@ -114,15 +114,17 @@ end Select;
 model Rectifier "Rectifier, 1-phase"
   extends Partials.AC_DC_base(heat(final m=2));
 
-  replaceable Components.RectifierEquation rectifier "rectifier model"
-    annotation (                         choices(
-    choice(redeclare
-            PowerSystems.AC1ph_DC.Inverters.Components.RectifierEquation
-            rectifier "equation, with losses"),
-    choice(redeclare
-            PowerSystems.AC1ph_DC.Inverters.Components.RectifierModular
-            rectifier "modular, with losses")), Placement(transformation(extent=
-             {{-10,-10},{10,10}})));
+  replaceable model Rectifier =
+    PowerSystems.AC1ph_DC.Inverters.Components.RectifierEquation
+      "rectifier model" annotation (choices(
+      choice(redeclare model Rectifier =
+        PowerSystems.AC1ph_DC.Inverters.Components.RectifierEquation
+            "equation, with losses"),
+      choice(redeclare model Rectifier =
+        PowerSystems.AC1ph_DC.Inverters.Components.RectifierModular
+            "modular, with losses")));
+  Rectifier rectifier "rectifier model"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
   connect(AC, rectifier.AC)
@@ -152,27 +154,34 @@ model Inverter "Complete modulator and inverter, 1-phase"
           origin={60,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-  replaceable Control.Modulation.PWMasyn1ph modulator
+  replaceable model Modulator = PowerSystems.Control.Modulation.PWMasyn1ph
     constrainedby Control.Modulation.Partials.ModulatorBase "modulator type"
-    annotation (                        choices(
-    choice(redeclare Control.Modulation.PWMasyn1ph modulator "sine PWM asyn"),
-    choice(redeclare Control.Modulation.PWMsyn1ph modulator "sine PWM syn"),
-    choice(redeclare Control.Modulation.PWMtab1ph modulator
+    annotation (choices(
+    choice(redeclare model Modulator = Control.Modulation.PWMasyn1ph
+            "sine PWM asyn"),
+    choice(redeclare model Modulator = Control.Modulation.PWMsyn1ph
+            "sine PWM syn"),
+    choice(redeclare model Modulator = Control.Modulation.PWMtab1ph
             "sine PWM syn tabulated"),
-    choice(redeclare Control.Modulation.BlockM1ph modulator
-            "block modulation (no PWM)")), Placement(transformation(extent={{
-              -10,40},{10,60}})));
+    choice(redeclare model Modulator = Control.Modulation.BlockM1ph
+            "block modulation (no PWM)")));
+  Modulator modulator "modulator type"
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
-  replaceable Components.InverterSwitch inverter "inverter model"
-    annotation (                         choices(
-    choice(redeclare PowerSystems.AC1ph_DC.Inverters.Components.InverterSwitch
-            inverter "switch, no diode, no losses"),
-    choice(redeclare
-            PowerSystems.AC1ph_DC.Inverters.Components.InverterEquation
-            inverter "equation, with losses"),
-    choice(redeclare PowerSystems.AC1ph_DC.Inverters.Components.InverterModular
-            inverter "modular, with losses")), Placement(transformation(extent=
-              {{-10,-10},{10,10}})));
+  replaceable model Inverter =
+    PowerSystems.AC1ph_DC.Inverters.Components.InverterSwitch "inverter model"
+    annotation (choices(
+    choice(redeclare model Inverter =
+      PowerSystems.AC1ph_DC.Inverters.Components.InverterSwitch
+            "switch, no diode, no losses"),
+    choice(redeclare model Inverter =
+      PowerSystems.AC1ph_DC.Inverters.Components.InverterEquation
+            "equation, with losses"),
+    choice(redeclare model Inverter =
+      PowerSystems.AC1ph_DC.Inverters.Components.InverterModular
+            "modular, with losses")));
+  Inverter inverter "inverter model"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
   outer System system;
 
@@ -224,8 +233,12 @@ end Inverter;
 model InverterAverage "Inverter time-average, 1-phase"
   extends Partials.SwitchEquation(heat(final m=1));
 
-  replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
+  replaceable record Data = PowerSystems.Semiconductors.Ideal.SCparameter
+      "SC parameters"
+                    annotation (choicesAllMatching=true);
+  final parameter Data par "SC parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
   parameter Integer modulation=1 "equivalent modulation :"
     annotation(Evaluate=true, choices(
     choice=1 "1: sine PWM",
@@ -363,10 +376,16 @@ model Chopper "DC-DC converter"
           origin={60,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-  replaceable Control.Modulation.ChopperPWM modulator
+  replaceable model Modulator = PowerSystems.Control.Modulation.ChopperPWM
     constrainedby PowerSystems.Basic.Icons.BlockS "modulator type"
+    annotation(choicesAllMatching=true);
+  Modulator modulator "modulator type"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  replaceable Components.ChopperModular chopper "chopper model"
+
+  replaceable model Chopper =
+    PowerSystems.AC1ph_DC.Inverters.Components.ChopperModular "chopper model"
+    annotation(choicesAllMatching=true);
+  Chopper chopper "chopper model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
@@ -396,7 +415,10 @@ end Chopper;
 model ChopperAverage "DC-DC converter time-average"
   extends Partials.DC_DC_base(heat(final m=1));
 
-  replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
+  replaceable record Data = PowerSystems.Semiconductors.Ideal.SCparameter
+      "SC parameters"
+                    annotation(choicesAllMatching=true);
+  final parameter Data par "SC parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   parameter SI.Frequency f_carr=1e3 "carrier frequency"
     annotation(Evaluate=true);
@@ -557,8 +579,10 @@ package Components "Equation-based and modular components"
 model RectifierEquation "Rectifier equation, 1-phase"
   extends Partials.SwitchEquation(heat(final m=2));
 
-  parameter Semiconductors.Ideal.SCparameter par(final Hsw_nom=0)
+  replaceable record Data = PowerSystems.Semiconductors.Ideal.SCparameter(final Hsw_nom=0)
         "SC parameters"
+                    annotation(choicesAllMatching=true);
+  final parameter Data par "SC parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     protected
   SI.Voltage[2] V;
@@ -626,10 +650,12 @@ end RectifierEquation;
 model RectifierModular "Rectifier modular, 1-phase"
   extends Partials.AC_DC_base(heat(final m=2));
 
-  package SCpackage=Semiconductors.Ideal "SC package";
-  replaceable parameter SCpackage.SCparameter par(final Hsw_nom=0)
+  package SCpackage = PowerSystems.Semiconductors.Ideal "SC package";
+  replaceable record Data = SCpackage.SCparameter(final Hsw_nom=0)
         "SC parameters"
-  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+                    annotation(choicesAllMatching=true);
+  final parameter Data par "SC parameters"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   AC1ph_DC.Nodes.Electric_pn_p_n pn_p_n
                                annotation (Placement(transformation(extent={{80,
                 -10},{60,10}})));
@@ -752,7 +778,10 @@ end InverterSwitch;
 model InverterEquation "Inverter equation, 1-phase"
   extends Partials.SwitchEquation(heat(final m=2));
 
-  parameter Semiconductors.Ideal.SCparameter par "SC parameters"
+  replaceable record Data = PowerSystems.Semiconductors.Ideal.SCparameter
+        "SC parameters"
+                    annotation(choicesAllMatching=true);
+  final parameter Data par "SC parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput[4] gates
         "gates pairs {a1_p, a1_n, a2_p, a2_n}"
@@ -890,9 +919,11 @@ end InverterEquation;
 model InverterModular "Inverter modular, 1-phase"
   extends Partials.AC_DC_base(heat(final m=2));
 
-  package SCpackage=Semiconductors.Ideal "SC package";
-  replaceable parameter SCpackage.SCparameter par "SC parameters"
-  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  package SCpackage = PowerSystems.Semiconductors.Ideal "SC package";
+  replaceable record Data = SCpackage.SCparameter "SC parameters"
+                    annotation(choicesAllMatching=true);
+  final parameter Data par "SC parameters"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput[4] gates
         "gates pairs {a1_p, a1_n, a2_p, a2_n}"
   annotation (Placement(transformation(
@@ -951,9 +982,11 @@ end InverterModular;
 model ChopperModular "DC_DC converter modular"
   extends Partials.DC_DC_base(heat(final m=2));
 
-  package SCpackage=Semiconductors.Ideal "SC package";
-  replaceable parameter SCpackage.SCparameter par "SC parameters"
-  annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  package SCpackage = PowerSystems.Semiconductors.Ideal "SC package";
+  replaceable record Data = SCpackage.SCparameter "SC parameters"
+                    annotation(choicesAllMatching=true);
+  final parameter Data par "SC parameters"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput gate "gate"
     annotation (Placement(transformation(
             origin={-60,100},

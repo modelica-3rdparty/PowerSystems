@@ -26,7 +26,12 @@ package InvertersAC3ph "Inverters dq0"
       S_nom=1e3,
       phasor=true)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-    PowerSystems.AC3ph.Inverters.Rectifier rectifier(rectifier(par=idealSC100V_10A))
+    PowerSystems.AC3ph.Inverters.Rectifier rectifier(redeclare model Rectifier
+        =
+      PowerSystems.AC3ph.Inverters.Components.RectifierEquation(redeclare
+            record Data =
+
+              PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A))
       annotation (Placement(transformation(extent={{30,0},{10,20}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1,
       V_nom=100,
@@ -42,8 +47,6 @@ package InvertersAC3ph "Inverters dq0"
               0},{110,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{10,20},{30,40}})));
-    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vAC.term, ind.term_p) annotation (Line(points={{-60,10},{-50,10}},
@@ -91,9 +94,11 @@ package InvertersAC3ph "Inverters dq0"
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
-    PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare
-        PowerSystems.AC3ph.Inverters.Components.InverterEquation inverter(par=
-            idealSC100V_10A) "equation, with losses")
+    PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare model Inverter =
+        PowerSystems.AC3ph.Inverters.Components.InverterEquation(redeclare
+            record Data =
+            PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
+        "equation, with losses")
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC3ph.Inverters.Select select(fType_sys=false, fType_par=true, f=100,
       uType_par=false)  annotation (Placement(transformation(extent={{-20,20},{
@@ -118,8 +123,6 @@ package InvertersAC3ph "Inverters dq0"
           transformation(extent={{40,-20},{60,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{-20,0},{0,20}})));
-    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vDC.term, meterDC.term_p)
@@ -166,9 +169,11 @@ package InvertersAC3ph "Inverters dq0"
       S_nom=1e3,
       av=true)
       annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-    PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare
-        PowerSystems.AC3ph.Inverters.Components.InverterEquation inverter(par=
-            idealSC100V_10A) "equation, with losses")
+    PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare model Inverter =
+        PowerSystems.AC3ph.Inverters.Components.InverterEquation(redeclare
+            record Data=
+              PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
+        "equation, with losses")
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC3ph.Inverters.Select select(uType_par=false)
                                   annotation (Placement(transformation(extent={
@@ -197,8 +202,6 @@ package InvertersAC3ph "Inverters dq0"
               -20},{100,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{-30,0},{-10,20}})));
-    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vAC.term, ind.term_p) annotation (Line(points={{60,-10},{50,-10}},
@@ -246,8 +249,9 @@ package InvertersAC3ph "Inverters dq0"
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-    PowerSystems.AC3ph.Inverters.InverterAverage inverter(
-            par=idealSC100V_10A)
+    PowerSystems.AC3ph.Inverters.InverterAverage inverter(redeclare record Data
+        =
+      PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC3ph.Inverters.Select select(uType_par=false)
                                   annotation (Placement(transformation(extent={

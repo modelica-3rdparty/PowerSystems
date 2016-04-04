@@ -645,8 +645,8 @@ For variable transformer ratio tap changer input needed.</p>
 
     partial model Trafo3StrayBase
       "Base for ideal magnetic coupling transformer, 1-phase"
-      extends Trafo3IdealBase(redeclare replaceable parameter
-          PowerSystems.AC1ph_DC.Transformers.Parameters.Trafo3Stray1ph par);
+      extends Trafo3IdealBase(redeclare replaceable record Data =
+          PowerSystems.AC1ph_DC.Transformers.Parameters.Trafo3Stray1ph);
     protected
       final parameter SI.Resistance[3] R=par.r.*RL_base[:, 1];
       final parameter SI.Inductance[3] L=par.x.*RL_base[:, 2];

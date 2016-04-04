@@ -114,13 +114,17 @@ end Select;
 model Rectifier "Rectifier, 3-phase dq0"
   extends Partials.AC_DC_base(heat(final m=3));
 
-  replaceable Components.RectifierEquation rectifier "rectifier model"
-    annotation (                         choices(
-    choice(redeclare PowerSystems.AC3ph.Inverters.Components.RectifierEquation
-            rectifier "equation, with losses"),
-    choice(redeclare PowerSystems.AC3ph.Inverters.Components.RectifierModular
-            rectifier "modular, with losses")), Placement(transformation(extent=
-             {{-10,-10},{10,10}})));
+  replaceable model Rectifier =
+    PowerSystems.AC3ph.Inverters.Components.RectifierEquation "rectifier model"
+                       annotation (choices(
+    choice(redeclare model Rectifier =
+           PowerSystems.AC3ph.Inverters.Components.RectifierEquation
+            "equation, with losses"),
+    choice(redeclare model Rectifier =
+           PowerSystems.AC3ph.Inverters.Components.RectifierModular
+            "modular, with losses")));
+  Rectifier rectifier "rectifier model"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
   connect(AC, rectifier.AC) annotation (Line(points={{100,0},{10,0}}, color={0,
@@ -140,8 +144,10 @@ end Rectifier;
 model RectifierAverage "Rectifier time-average, 3-phase dq0"
   extends Partials.SwitchEquation(heat(final m=1));
 
-  replaceable parameter Semiconductors.Ideal.SCparameter par(final Hsw_nom=0)
+  replaceable record Data = PowerSystems.Semiconductors.Ideal.SCparameter(final Hsw_nom=0)
       "SC parameters"
+                    annotation(choicesAllMatching=true);
+  final parameter Data par "SC parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   parameter Real sigma=1 "power correction" annotation(choices(
     choice=1.0966227 "Sigma",
@@ -229,33 +235,40 @@ model Inverter "Complete modulator and inverter, 3-phase dq0"
           origin={60,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-  replaceable Control.Modulation.PWMasyn modulator
-    constrainedby Control.Modulation.Partials.ModulatorBase "modulator type"
-    annotation (                        choices(
-    choice(redeclare PowerSystems.Control.Modulation.PWMasyn modulator
+  replaceable model Modulator = PowerSystems.Control.Modulation.PWMasyn
+    constrainedby PowerSystems.Control.Modulation.Partials.ModulatorBase
+      "modulator type"
+                      annotation (choices(
+    choice(redeclare model Modulator = PowerSystems.Control.Modulation.PWMasyn
             "sine PWM asyn"),
-    choice(redeclare PowerSystems.Control.Modulation.PWMsyn modulator
+    choice(redeclare model Modulator = PowerSystems.Control.Modulation.PWMsyn
             "sine PWM syn"),
-    choice(redeclare PowerSystems.Control.Modulation.PWMtab modulator
+    choice(redeclare model Modulator = PowerSystems.Control.Modulation.PWMtab
             "sine PWM syn tabulated"),
-    choice(redeclare PowerSystems.Control.Modulation.SVPWMasyn modulator
-            "SV PWM asyn"),
-    choice(redeclare PowerSystems.Control.Modulation.SVPWMsyn modulator
+    choice(redeclare model Modulator =
+              PowerSystems.Control.Modulation.SVPWMasyn "SV PWM asyn"),
+    choice(redeclare model Modulator = PowerSystems.Control.Modulation.SVPWMsyn
             "SV PWM syn"),
-    choice(redeclare PowerSystems.Control.Modulation.SVPWM modulator
+    choice(redeclare model Modulator = PowerSystems.Control.Modulation.SVPWM
             "SV PWM (using control blocks)"),
-    choice(redeclare PowerSystems.Control.Modulation.BlockM modulator
-            "block modulation (no PWM)")), Placement(transformation(extent={{
-              -10,40},{10,60}})));
-  replaceable Components.InverterSwitch inverter "inverter model"
-    annotation (                         choices(
-    choice(redeclare PowerSystems.AC3ph.Inverters.Components.InverterSwitch
-            inverter "switch, no diode, no losses"),
-    choice(redeclare PowerSystems.AC3ph.Inverters.Components.InverterEquation
-            inverter "equation, with losses"),
-    choice(redeclare PowerSystems.AC3ph.Inverters.Components.InverterModular
-            inverter "modular, with losses")), Placement(transformation(extent=
-              {{-10,-10},{10,10}})));
+    choice(redeclare model Modulator = PowerSystems.Control.Modulation.BlockM
+            "block modulation (no PWM)")));
+  Modulator modulator
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+  replaceable model Inverter =
+        PowerSystems.AC3ph.Inverters.Components.InverterSwitch "inverter model"
+                     annotation (choices(
+    choice(redeclare model Inverter =
+              PowerSystems.AC3ph.Inverters.Components.InverterSwitch
+            "switch, no diode, no losses"),
+    choice(redeclare model Inverter =
+              PowerSystems.AC3ph.Inverters.Components.InverterEquation
+            "equation, with losses"),
+    choice(redeclare model Inverter =
+              PowerSystems.AC3ph.Inverters.Components.InverterModular
+            "modular, with losses")));
+  Inverter inverter "inverter model"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
   outer System system;
 
@@ -321,7 +334,10 @@ end Inverter;
 model InverterAverage "Inverter time-average, 3-phase dq0"
   extends Partials.SwitchEquation(heat(final m=1));
 
-  replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
+  replaceable record Data = PowerSystems.Semiconductors.Ideal.SCparameter
+      "SC parameters"
+                    annotation(choicesAllMatching=true);
+  final parameter Data par "SC parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   parameter Integer modulation=1 "equivalent modulation :"
     annotation(Evaluate=true, choices(
@@ -473,8 +489,10 @@ end InverterAverage;
   model RectifierEquation "Rectifier equation, 3-phase dq0"
     extends Partials.SwitchEquation(heat(final m=3));
 
-    replaceable parameter Semiconductors.Ideal.SCparameter par(final Hsw_nom=0)
+    replaceable record Data = PowerSystems.Semiconductors.Ideal.SCparameter(final Hsw_nom=0)
         "SC parameters"
+                      annotation(choicesAllMatching=true);
+    final parameter Data par "SC parameters"
       annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     protected
     SI.Voltage[3] V;
@@ -548,10 +566,12 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
   model RectifierModular "Rectifier modular, 3-phase"
     extends Partials.AC_DC_base(heat(final m=3));
 
-    package SCpackage=Semiconductors.Ideal "SC package";
-    replaceable parameter SCpackage.SCparameter par(final Hsw_nom=0)
+    package SCpackage = PowerSystems.Semiconductors.Ideal "SC package";
+    replaceable record Data = SCpackage.SCparameter(final Hsw_nom=0)
         "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+                      annotation(choicesAllMatching=true);
+    final parameter Data par "SC parameters"
+      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     Nodes.ACdq0_a_b_c acdq0_a_b_c annotation (Placement(transformation(extent={
                 {80,-10},{60,10}})));
     Common.Thermal.Heat_a_b_c_abc heat_adapt annotation (Placement(
@@ -685,7 +705,10 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
   model InverterEquation "Inverter equation, 3-phase dq0"
     extends Partials.SwitchEquation(heat(final m=3));
 
-    replaceable parameter Semiconductors.Ideal.SCparameter par "SC parameters"
+    replaceable record Data = PowerSystems.Semiconductors.Ideal.SCparameter
+        "SC parameters"
+                      annotation(choicesAllMatching=true);
+    final parameter Data par "SC parameters"
       annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     Modelica.Blocks.Interfaces.BooleanInput[6] gates
         "gates pairs {a_p, a_n, b_p, b_n, c_p, c_n}"
@@ -830,9 +853,11 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
   model InverterModular "Inverter modular, 3-phase"
     extends Partials.AC_DC_base(heat(final m=3));
 
-    package SCpackage=Semiconductors.Ideal "SC package";
-    replaceable parameter SCpackage.SCparameter par "SC parameters"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    package SCpackage = PowerSystems.Semiconductors.Ideal "SC package";
+    replaceable record Data = SCpackage.SCparameter "SC parameters"
+      annotation(choicesAllMatching=true);
+    final parameter Data par "SC parameters"
+      annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     Modelica.Blocks.Interfaces.BooleanInput[6] gates
         "gates pairs {a_p, a_n, b_p, b_n, c_p, c_n}"
     annotation (Placement(transformation(

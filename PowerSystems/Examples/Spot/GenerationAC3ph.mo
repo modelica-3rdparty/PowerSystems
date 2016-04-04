@@ -169,9 +169,9 @@ end PQsource;
           transformation(extent={{-30,40},{-50,60}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
-
           PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
+
     PowerSystems.AC3ph.Sensors.Psensor sensor
       annotation (Placement(transformation(extent={{0,0},{20,20}})));
     PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
@@ -274,9 +274,9 @@ The power-angle is artificially fixed. The correspondence is:
               -60,20}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
-
           PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
+
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0116)
       annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
     PowerSystems.Control.Exciters.ExciterSimple exciter(v_f=2.258)
@@ -388,9 +388,9 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
               -60,20}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
-
           PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
+
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0094)
       annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
     PowerSystems.Control.Exciters.ExciterSimple exciter(v_f=2.245)
@@ -1109,7 +1109,8 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
       annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   PowerSystems.AC3ph.Sensors.Psensor ACpower  annotation (Placement(transformation(
             extent={{-40,-60},{-20,-40}})));
-  PowerSystems.AC3ph.Inverters.RectifierAverage rectifier(par=idealSC1k_100)
+  PowerSystems.AC3ph.Inverters.RectifierAverage rectifier(redeclare record Data
+        =  PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A)
                                           annotation (Placement(transformation(
             extent={{10,-60},{-10,-40}})));
   PowerSystems.AC1ph_DC.Impedances.CapacitorSym capSym(
@@ -1153,8 +1154,6 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
       annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   PowerSystems.Common.Thermal.BdCondV bdCond2(m=1)
       annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100
-    annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
 equation
   connect(ACpower.term_n, rectifier.AC) annotation (Line(points={{-20,-50},{-10,
@@ -1227,7 +1226,8 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   PowerSystems.AC3ph.Generation.PMgenerator PMgen(generator(
     redeclare record Data =
       PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm560V_100kVA(neu_iso=true)),
-    inverter(par=idealSC1k_100),
+    inverter(redeclare record Data =
+      PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A(Vf=0)),
       w_ini=1130.9733552923)
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   PowerSystems.AC1ph_DC.Impedances.CapacitorSym capSym(
@@ -1278,9 +1278,6 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Math.Gain gain(k=-1) "generator: negative torque tau_act"
                                        annotation (Placement(transformation(
             extent={{-40,20},{-20,40}})));
-  parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A idealSC1k_100(
-                                                    Vf=0)
-    annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
 equation
   connect(PMgen.heat, bdCond.heat) annotation (Line(points={{-30,-40},{-30,-40}},
