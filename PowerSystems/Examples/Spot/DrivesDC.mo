@@ -18,9 +18,10 @@ package DrivesDC "DC drives"
     PowerSystems.AC1ph_DC.Sensors.Psensor power      annotation (Placement(
           transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Drives.DCMser dcm_ser(
-      rotor(J=6.4),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=6.4),
       w_ini=146.60765716752,
-      motor(redeclare record Data =
+      redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCser (
+        redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.DCser1500V_1p5MVA))
       annotation (Placement(transformation(extent={{20,-20},{40,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
@@ -80,8 +81,9 @@ package DrivesDC "DC drives"
                                       annotation (Placement(transformation(
             extent={{-60,-60},{-40,-40}})));
     PowerSystems.AC1ph_DC.Drives.DCMpar dcm_par(
-      rotor(J=6.4),
-      motor(redeclare record Data =
+      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=6.4),
+      redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCpar (
+        redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.DCpar1500V_1p5MVA))
       annotation (Placement(transformation(extent={{20,-20},{40,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
@@ -141,8 +143,10 @@ package DrivesDC "DC drives"
             extent={{-50,-20},{-30,0}})));
     PowerSystems.AC1ph_DC.Sensors.Efficiency efficiency(tcst=0.1, m=2)
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC1ph_DC.Drives.DCMpm dcm_pm(rotor(J=0.02),
-      motor(redeclare record Data =
+    PowerSystems.AC1ph_DC.Drives.DCMpm dcm_pm(
+      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.02),
+      redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCpm (
+        redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA))
       annotation (Placement(transformation(extent={{10,-20},{30,0}})));
     PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.03)
@@ -207,15 +211,18 @@ package DrivesDC "DC drives"
       tcst=0.1,
       m=5)      annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Drives.BLDC bldcm(
-      motor(redeclare record Data =
+      redeclare model Motor =
+        PowerSystems.AC1ph_DC.Drives.Partials.Synchron3rd_bldc (
+          redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA),
-      rotor(J=0.02),
-      redeclare PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare final
-          model Modulator = PowerSystems.Control.Modulation.BlockM
-          "block modulation (no PWM)",
+      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.02),
+      redeclare model Inverter = PowerSystems.AC3ph.Inverters.Inverter (
+        redeclare final model Modulator =
+              PowerSystems.Control.Modulation.BlockM
+            "block modulation (no PWM)",
           redeclare model Inverter =
             PowerSystems.AC3ph.Inverters.Components.InverterSwitch
-          "switch, no diode, no losses") "inverter with modulator")
+            "switch, no diode, no losses") "inverter with modulator")
                              annotation (Placement(transformation(extent={{10,
               -20},{30,0}})));
     PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.03)
@@ -276,8 +283,10 @@ package DrivesDC "DC drives"
       av=true,
       tcst=0.1,
       m=2)      annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-    PowerSystems.AC1ph_DC.Drives.DCMpm machine(rotor(J=0.02),
-      motor(redeclare record Data =
+    PowerSystems.AC1ph_DC.Drives.DCMpm machine(
+      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.02),
+      redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCpm (
+        redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA))
       annotation (Placement(transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
@@ -330,11 +339,13 @@ package DrivesDC "DC drives"
       tcst=0.1, m=3)
                 annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
     PowerSystems.AC1ph_DC.Drives.BLDC machine(
-      rotor(J=0.02),
-      motor(redeclare record Data =
+      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.02),
+      redeclare model Motor =
+          PowerSystems.AC1ph_DC.Drives.Partials.Synchron3rd_bldc (
+        redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA),
-      redeclare PowerSystems.AC3ph.Inverters.InverterAverage inverter(final
-        modulation=3, redeclare record Data =
+      redeclare model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage (
+        final modulation=3, redeclare record Data =
         PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
         "inverter time-average")
       annotation (Placement(transformation(extent={{0,-20},{20,0}})));

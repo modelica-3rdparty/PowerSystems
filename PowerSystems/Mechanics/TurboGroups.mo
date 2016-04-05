@@ -178,9 +178,11 @@ Therefore phi and w represent the mechanical angle and angular velocity.
   model SteamTurboGroup "Steam turbo-group with generator-rotor"
     extends Partials.TurboBase1(final n=size(par.P_nom,1));
 
-    replaceable parameter Parameters.SteamTurboGroup par "turbo-group par"
-                                 annotation (Placement(transformation(extent={{
-              -80,80},{-60,100}})));
+    replaceable record Data =
+      PowerSystems.Mechanics.TurboGroups.Parameters.SteamTurboGroup
+      "turbo-group par"   annotation(choicesAllMatching=true);
+    final parameter Data par "turbo-group par"
+      annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
     Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini), a(start=0))
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
     SI.Angle[n] delta "difference angles";
@@ -322,9 +324,11 @@ Therefore phi and w represent the mechanical angle and angular velocity.
   model GasTurbineGear "Gas turbine with gear and generator-rotor"
     extends Partials.TurboBase1(final n=size(par.P_nom,1));
 
-    replaceable parameter Parameters.GasTurbineGear par "turbo-group par"
-                                 annotation (Placement(transformation(extent={{
-              -80,80},{-60,100}})));
+    replaceable record Data =
+      PowerSystems.Mechanics.TurboGroups.Parameters.GasTurbineGear
+      "turbo-group par"   annotation(choicesAllMatching=true);
+    final parameter Data par "turbo-group par"
+      annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
     Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini*par.ratio[end]/par.ratio[1]), a(start=0))
       annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   protected
@@ -460,11 +464,13 @@ Therefore phi and w represent the mechanical angle and angular velocity.
   end GasTurbineGear;
 
   model HydroTurbine "Hydro turbine with generator-rotor"
-    extends Partials.TurboBase2(final n=1);                                                                           // annotation 0;
+    extends Partials.TurboBase2(final n=1);
 
-    replaceable parameter Parameters.HydroTurbine par "hydro-turbine par"
-                                     annotation (Placement(transformation(
-            extent={{-80,80},{-60,100}})));
+    replaceable record Data =
+      PowerSystems.Mechanics.TurboGroups.Parameters.HydroTurbine
+      "hydro-turbine par"   annotation(choicesAllMatching=true);
+    final parameter Data par "hydro-turbine par"
+      annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
     Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini), a(start=0))
       annotation (Placement(transformation(extent={{5,-10},{25,10}})));
   protected
@@ -540,9 +546,11 @@ Therefore phi and w represent the mechanical angle and angular velocity.
   model Diesel "Diesel with generator-rotor"
     extends Partials.TurboBase3(final n=1);                                                                                            // annotation 0;
 
-    replaceable parameter Parameters.Diesel par "Diesel par"
-                                annotation (Placement(transformation(extent={{
-              -80,80},{-60,100}})));
+    replaceable record Data =
+      PowerSystems.Mechanics.TurboGroups.Parameters.Diesel "Diesel par"
+      annotation(choicesAllMatching=true);
+    final parameter Data par "Diesel par"
+      annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
     Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini), a(start=0))
       annotation (Placement(transformation(extent={{5,-10},{25,10}})));
   protected
@@ -612,9 +620,12 @@ Therefore phi and w represent the mechanical angle and angular velocity.
   model WindTurbineGear "Wind turbine with gear and generator-rotor"
     extends Partials.TurboBase4(final n=1);
 
-    replaceable parameter Parameters.WindTurbineGear par "turbine par"
-                                         annotation (Placement(transformation(
-            extent={{-80,80},{-60,100}})));
+    replaceable record Data =
+      PowerSystems.Mechanics.TurboGroups.Parameters.WindTurbineGear
+      "turbine par"
+      annotation(choicesAllMatching=true);
+    final parameter Data par "turbine par"
+      annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
     Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini*par.ratio[end]/par.ratio[1]), a(start=0))
       annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   protected

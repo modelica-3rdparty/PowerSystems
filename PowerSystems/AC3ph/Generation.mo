@@ -5,11 +5,13 @@ package Generation "Turbo generator groups dq0"
   model TurboGenerator "Turbo generator single mass"
     extends Partials.GenBase_el;
 
-    replaceable PowerSystems.Mechanics.TurboGroups.SingleMassTG rotor(
+    replaceable model Rotor = PowerSystems.Mechanics.TurboGroups.SingleMassTG (
       final w_ini=w_ini,
       final H=H,
       final P_nom=generator.par.S_nom,
       final w_nom=w_nom) "single-mass rotor (turbine-rotor + generator-rotor)"
+      annotation(choicesAllMatching=true);
+    Rotor rotor "single-mass rotor (turbine-rotor + generator-rotor)"
      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   equation
@@ -43,14 +45,19 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
   model TurboGrpGenerator "Example turbogroup generator"
     extends Partials.GenBase_el(final H=h);
 
-    replaceable PowerSystems.Mechanics.TurboGroups.PcontrolTorque turbTorq(final
-        w_nom=turboGroup.par.w_nom, final P_nom=turboGroup.par.P_nom)
-      "torque-model"                 annotation (Placement(transformation(
-            extent={{-60,-10},{-40,10}})));
-    replaceable PowerSystems.Mechanics.TurboGroups.SteamTurboGroup turboGroup(final
-        w_ini=w_ini) "steam turbo-goup with generator-rotor"
-                                            annotation (Placement(
-          transformation(extent={{-10,-10},{10,10}})));
+    replaceable model Torque =
+      PowerSystems.Mechanics.TurboGroups.PcontrolTorque (
+        final w_nom=turboGroup.par.w_nom, final P_nom=turboGroup.par.P_nom)
+      "torque-model" annotation (choicesAllMatching=true);
+    Torque turbTorq "torque-model"
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
+    replaceable model TurboGroup =
+      PowerSystems.Mechanics.TurboGroups.SteamTurboGroup (
+        final w_ini=w_ini) "steam turbo-goup with generator-rotor"
+      annotation(choicesAllMatching = true);
+    TurboGroup turboGroup "steam turbo-goup with generator-rotor"
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
     final parameter Modelica.SIunits.Time h=(sum(turboGroup.par.J_turb) +
         turboGroup.par.J_gen + sum(turboGroup.par.J_aux))*w_nom^2/(2
@@ -92,14 +99,19 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
   model GTGenerator "Example gas turbine generator"
     extends Partials.GenBase_el(final H=h);
 
-    replaceable PowerSystems.Mechanics.TurboGroups.PcontrolTorque turbTorq(final
-        w_nom=GT.par.w_nom, final P_nom=GT.par.P_nom) "torque-model"
-                                     annotation (Placement(transformation(
-            extent={{-60,-10},{-40,10}})));
-    replaceable PowerSystems.Mechanics.TurboGroups.GasTurbineGear GT(final w_ini=w_ini)
+    replaceable model Torque =
+      PowerSystems.Mechanics.TurboGroups.PcontrolTorque (
+        final w_nom=GT.par.w_nom, final P_nom=GT.par.P_nom) "torque-model"
+      annotation(choicesAllMatching=true);
+    Torque turbTorq "torque-model"
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
+    replaceable model Gear =
+      PowerSystems.Mechanics.TurboGroups.GasTurbineGear(final w_ini=w_ini)
       "gas turbine with gear and generator-rotor"
-                                                annotation (Placement(
-          transformation(extent={{-10,-10},{10,10}})));
+      annotation(choicesAllMatching=true);
+    Gear GT "gas turbine with gear and generator-rotor"
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
     final parameter Real[3] gr2=diagonal(GT.par.ratio)*GT.par.ratio/GT.par.ratio[end]^2;
     final parameter Modelica.SIunits.Inertia J_red=(GT.par.J_turb + GT.par.J_comp)
@@ -160,12 +172,19 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
   model HydroGenerator "Hydro generator"
     extends Partials.GenBase_el(final H=h);
 
-    replaceable PowerSystems.Mechanics.TurboGroups.PcontrolTorque turbTorq(final
-        w_nom=hydro.par.w_nom, final P_nom={hydro.par.P_nom}) "torque-model"
-                                     annotation (Placement(transformation(
-            extent={{-60,-10},{-40,10}})));
-    replaceable PowerSystems.Mechanics.TurboGroups.HydroTurbine hydro(final w_ini=w_ini)
+    replaceable model Torque =
+      PowerSystems.Mechanics.TurboGroups.PcontrolTorque (
+        final w_nom=hydro.par.w_nom, final P_nom={hydro.par.P_nom})
+      "torque-model"
+      annotation(choicesAllMatching=true);
+    Torque turbTorq "torque-model"
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
+    replaceable model HydroTurbine =
+      PowerSystems.Mechanics.TurboGroups.HydroTurbine(final w_ini=w_ini)
       "hydro turbine with generator-rotor"
+      annotation(choicesAllMatching=true);
+    HydroTurbine hydro "hydro turbine with generator-rotor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
     final parameter Modelica.SIunits.Time h=(hydro.par.J_turb + hydro.par.J_gen)
@@ -216,13 +235,18 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
   model DieselGenerator "Diesel generator"
     extends Partials.GenBase_el(final H=h);
 
-    replaceable PowerSystems.Mechanics.TurboGroups.PcontrolTorque turbTorq(final
-        w_nom=diesel.par.w_nom, final P_nom={diesel.par.P_nom}) "torque-model"
-                                     annotation (Placement(transformation(
-            extent={{-60,-10},{-40,10}})));
-    replaceable PowerSystems.Mechanics.TurboGroups.Diesel diesel(final w_ini=w_ini)
-      "Diesel engine with generator-rotor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    replaceable model Torque =
+      PowerSystems.Mechanics.TurboGroups.PcontrolTorque (
+        final w_nom=diesel.par.w_nom, final P_nom={diesel.par.P_nom})
+      "torque-model" annotation(choicesAllMatching=true);
+    Torque turbTorq "torque-model"
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
+    replaceable model Diesel = PowerSystems.Mechanics.TurboGroups.Diesel (
+      final w_ini=w_ini) "Diesel engine with generator-rotor"
+      annotation(choicesAllMatching=true);
+    Diesel diesel "Diesel engine with generator-rotor"
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
     final parameter Modelica.SIunits.Time h=(diesel.par.J_turb + diesel.par.J_gen)
         *w_nom^2/(2*generator.par.S_nom);
@@ -282,25 +306,32 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
           origin={100,100},
           extent={{10,-10},{-10,10}},
           rotation=180)));
-    replaceable PowerSystems.AC3ph.Machines.Synchron3rd_pm generator(
+    replaceable model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_pm (
       final w_el_ini=w_ini*generator.par.pp) "synchron pm generator"
-      annotation (                       choices(
-      choice(redeclare PowerSystems.AC3ph.Machines.Synchron3rd_pm generator
-            "3rd order"),
-      choice(redeclare PowerSystems.AC3ph.Machines.Synchron_pm generator
-            "nth order")), Placement(transformation(extent={{60,-10},{40,10}})));
-    replaceable Control.Governors.GovernorConst governor "governor (control)"
-    annotation (                         choices(
-    choice(redeclare Control.Governors.GovernorConst governor "constant"),
-    choice(redeclare Control.Governors.Governor1st governor "1st order")),
-                           Placement(transformation(extent={{-60,30},{-40,50}})));
+      annotation (choices(
+      choice(redeclare model Generator =
+              PowerSystems.AC3ph.Machines.Synchron3rd_pm "3rd order"),
+      choice(redeclare model Generator =
+              PowerSystems.AC3ph.Machines.Synchron_pm "nth order")));
+    Generator generator "synchron pm generator"
+      annotation (Placement(transformation(extent={{60,-10},{40,10}})));
+    replaceable model Governor = PowerSystems.Control.Governors.GovernorConst
+      "governor (control)" annotation (choices(
+        choice(redeclare model Governor =
+          PowerSystems.Control.Governors.GovernorConst "constant"),
+        choice(redeclare model Governor =
+          PowerSystems.Control.Governors.Governor1st "1st order")));
+    Governor governor "governor (control)"
+      annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
     parameter Modelica.SIunits.Time H=10 "inertia cst turb + gen";
-    replaceable PowerSystems.Mechanics.TurboGroups.SingleMassTG rotor(
+    replaceable model Rotor = PowerSystems.Mechanics.TurboGroups.SingleMassTG (
       final w_ini=w_ini,
       final H=H,
       final P_nom=generator.par.S_nom,
       final w_nom=w_nom) "single-mass rotor (turbine-rotor + generator-rotor)"
-     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+      annotation(choicesAllMatching=true);
+    Rotor rotor "single-mass rotor (turbine-rotor + generator-rotor)"
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   protected
     final parameter SI.AngularVelocity w_nom=2*pi*generator.par.f_nom/generator.par.pp
       "nominal angular velocity";
@@ -348,24 +379,25 @@ The machine inertia is determined by the inertia time constant H.</p>
   model PMgenerator "Generator inverter time-average"
     extends Partials.GenBase_ctrl(heat_adapt(final m={2,inverter.heat.m}));
 
-    replaceable Machines.Synchron3rd_pm_ctrl    generator(final w_el_ini=w_ini*
-          generator.par.pp) "synchron pm generator"
-      annotation (                       choices(
-      choice(redeclare PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
-                                                                    generator
-            "3rd order"),
-      choice(redeclare PowerSystems.AC3ph.Machines.Synchron_pm_ctrl
-                                                                 generator
-            "nth order")), Placement(transformation(extent={{40,-10},{20,10}})));
-    replaceable AC3ph.Inverters.InverterAverage inverter
-      constrainedby AC3ph.Inverters.Partials.AC_DC_base
-      "inverter (average or modulated)"
-      annotation (                        choices(
-      choice(redeclare PowerSystems.AC3ph.Inverters.InverterAverage inverter
-            "inverter time-average"),
-      choice(redeclare PowerSystems.AC3ph.Inverters.Inverter inverter
-            "inverter with modulator")), Placement(transformation(extent={{80,
-              -10},{60,10}})));
+    replaceable model Generator =
+      PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (
+        final w_el_ini=w_ini*generator.par.pp) "synchron pm generator"
+      annotation (choices(
+        choice(redeclare model Generator =
+          PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl "3rd order"),
+        choice(redeclare model Generator =
+          PowerSystems.AC3ph.Machines.Synchron_pm_ctrl "nth order")));
+    Generator generator "synchron pm generator"
+      annotation (Placement(transformation(extent={{40,-10},{20,10}})));
+    replaceable model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage
+      constrainedby PowerSystems.AC3ph.Inverters.Partials.AC_DC_base
+      "inverter (average or modulated)" annotation (choices(
+      choice(redeclare model Invertoer =
+        PowerSystems.AC3ph.Inverters.InverterAverage "inverter time-average"),
+      choice(redeclare model Invertoer = PowerSystems.AC3ph.Inverters.Inverter
+            "inverter with modulator")));
+    Inverter inverter "inverter (average or modulated)"
+      annotation (Placement(transformation(extent={{80,-10},{60,10}})));
 
   equation
     connect(rotor.flange_n, generator.airgap) annotation (Line(points={{0,0},{
@@ -436,17 +468,22 @@ The machine inertia is determined by the inertia time constant H.</p>
 
     AC3ph.Ports.ACdq0_n term "negative terminal"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-    replaceable PowerSystems.AC3ph.Machines.Asynchron generator(w_el_ini=w_ini*generator.par.pp)
-      "asynchron generator"             annotation (Placement(transformation(
-            extent={{60,-10},{40,10}})));
-    replaceable PowerSystems.Mechanics.TurboGroups.WindTabTorque turbTorq(final
-        w_nom=WT.par.w_nom, final P_nom=WT.par.P_nom)
-      "table: wind speed, torque"
-                       annotation (Placement(transformation(extent={{-60,-10},{
-              -40,10}})));
-    replaceable PowerSystems.Mechanics.TurboGroups.WindTurbineGear WT(final w_ini=
-          w_ini) "wind turbine with generator-rotor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    replaceable model Generator = PowerSystems.AC3ph.Machines.Asynchron (
+      w_el_ini=w_ini*generator.par.pp) "asynchron generator"
+      annotation (choicesAllMatching=true);
+    Generator generator "asynchron generator"
+      annotation (Placement(transformation(extent={{60,-10},{40,10}})));
+    replaceable model Torque = PowerSystems.Mechanics.TurboGroups.WindTabTorque
+        (
+      final w_nom=WT.par.w_nom, final P_nom=WT.par.P_nom)
+      "table: wind speed, torque" annotation(choicesAllMatching=true);
+    Torque turbTorq "table: wind speed, torque"
+      annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    replaceable model Gear =
+      PowerSystems.Mechanics.TurboGroups.WindTurbineGear(final w_ini= w_ini)
+      "wind turbine with generator-rotor" annotation(choicesAllMatching=true);
+    Gear WT "wind turbine with generator-rotor"
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Blocks.Interfaces.RealInput windSpeed "wind speed m/s"
     annotation (Placement(transformation(extent={{-110,10},{-90,-10}})));
   protected
@@ -563,28 +600,43 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
       Modelica.Blocks.Interfaces.RealInput[3] setpts
         "setpoints {speed, power, voltage} pu"
         annotation (Placement(transformation(extent={{-110,10},{-90,-10}})));
-      replaceable PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(final
-          w_el_ini =                                                              w_ini*generator.par.pp)
-        "synchron generator"
-        annotation (                       choices(
-        choice(redeclare PowerSystems.AC3ph.Machines.Synchron3rd_ee generator
-              "3rd order"),
-        choice(redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator
-              "nth order")), Placement(transformation(extent={{60,-10},{40,10}})));
-      replaceable Control.Exciters.ExciterConst exciter "exciter (control)"
-        annotation (                       choices(
-        choice(redeclare Control.Exciters.ExciterConst exciter "constant"),
-        choice(redeclare Control.Exciters.Exciter1st exciter "1st order")),
-                             Placement(transformation(extent={{60,50},{40,70}})));
-      replaceable PowerSystems.AC3ph.Machines.Control.Excitation excitation(V_nom=generator.par.V_nom,
-          Vf_nom=generator.Vf_nom) "exciter (electric)"
-                                                     annotation (Placement(
-            transformation(extent={{60,20},{40,40}})));
-      replaceable Control.Governors.GovernorConst governor "governor (control)"
-        annotation (                         choices(
-        choice(redeclare Control.Governors.GovernorConst governor "constant"),
-        choice(redeclare Control.Governors.Governor1st governor "1st order")),
-                             Placement(transformation(extent={{-60,50},{-40,70}})));
+      replaceable model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_ee
+          (
+        final w_el_ini = w_ini*generator.par.pp) "synchron generator"
+        annotation (choices(
+        choice(redeclare model Generator =
+                PowerSystems.AC3ph.Machines.Synchron3rd_ee "3rd order"),
+        choice(redeclare model Generator =
+                PowerSystems.AC3ph.Machines.Synchron_ee "nth order")));
+      Generator generator "synchron generator"
+        annotation (Placement(transformation(extent={{60,-10},{40,10}})));
+
+      replaceable model Exciter = Control.Exciters.ExciterConst
+        "exciter (control)"
+        annotation (choices(
+        choice(redeclare model Exciter = Control.Exciters.ExciterConst
+              "constant"),
+        choice(redeclare model Exciter = Control.Exciters.Exciter1st
+              "1st order")));
+      Exciter exciter "exciter (control)"
+        annotation (Placement(transformation(extent={{60,50},{40,70}})));
+
+      replaceable model Excitation =
+          PowerSystems.AC3ph.Machines.Control.Excitation (
+        V_nom = generator.par.V_nom, Vf_nom = generator.Vf_nom)
+        "exciter (electric)" annotation(choicesAllMatching=true);
+      Excitation excitation "exciter (electric)"
+        annotation (Placement(transformation(extent={{60,20},{40,40}})));
+
+      replaceable model Governor = PowerSystems.Control.Governors.GovernorConst
+        "governor (control)" annotation (choices(
+        choice(redeclare model Governor =
+                PowerSystems.Control.Governors.GovernorConst "constant"),
+        choice(redeclare model Governor =
+                PowerSystems.Control.Governors.Governor1st "1st order")));
+      Governor governor "governor (control)"
+        annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+
       parameter Modelica.SIunits.Time H=10 "inertia cst turb + gen";
     protected
       final parameter SI.AngularVelocity w_nom=2*pi*generator.par.f_nom/generator.par.pp
@@ -669,25 +721,30 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
         annotation (Placement(transformation(extent={{90,-10},{110,10}})));
       Common.Thermal.HeatV_a_b_ab heat_adapt annotation (Placement(
             transformation(extent={{-10,60},{10,80}})));
-      replaceable Mechanics.Rotation.NoGear gear "type of gear"
-      annotation (                          choices(
-      choice(redeclare PowerSystems.Mechanics.Rotation.Joint gear "no gear"),
-      choice(redeclare PowerSystems.Mechanics.Rotation.GearNoMass gear
-              "massless gear"),
-      choice(redeclare PowerSystems.Mechanics.Rotation.Gear gear "massive gear")),
-          Placement(transformation(extent={{-60,-10},{-40,10}})));
-      replaceable Mechanics.Rotation.Rotor rotor(w(start=w_ini))
-        "rotor generator"          annotation (Placement(transformation(extent=
-                {{-20,-10},{0,10}})));
-      Modelica.Blocks.Interfaces.RealOutput[2] i_meas(
-                               each final unit="1")
+      replaceable model Gear = PowerSystems.Mechanics.Rotation.NoGear
+        "type of gear"
+        annotation (choices(
+          choice(redeclare model Gear = PowerSystems.Mechanics.Rotation.Joint
+              "no gear"),
+          choice(redeclare model Gear =
+                PowerSystems.Mechanics.Rotation.GearNoMass "massless gear"),
+          choice(redeclare model Gear = PowerSystems.Mechanics.Rotation.Gear
+              "massive gear")));
+      Gear gear "type of gear"
+        annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
+      replaceable model Rotor = PowerSystems.Mechanics.Rotation.Rotor (
+        w(start=w_ini)) "rotor generator" annotation(choicesAllMatching=true);
+      Rotor rotor "rotor generator"
+        annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+
+      Modelica.Blocks.Interfaces.RealOutput[2] i_meas(each final unit="1")
         "measured current {i_d, i_q} pu"
         annotation (Placement(transformation(
             origin={60,100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
-      Modelica.Blocks.Interfaces.RealInput[2] i_act(
-                               each final unit="1")
+      Modelica.Blocks.Interfaces.RealInput[2] i_act(each final unit="1")
         "actuated current {i_d, i_q} pu"
         annotation (Placement(transformation(
             origin={-60,100},

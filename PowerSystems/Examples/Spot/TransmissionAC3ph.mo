@@ -637,7 +637,7 @@ Compare with DoublePIline.</p>
               {-80,100}})));
     PowerSystems.AC3ph.Generation.TurboGenerator turbGen(
       p_ini=0.762922,
-      redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(
+      redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
         redeclare replaceable record Data =
           PowerSystems.AC3ph.Machines.Parameters.Synchron_ee (
           V_nom=20e3,
@@ -739,7 +739,7 @@ Compare with DoublePIline.</p>
               {-80,100}})));
     PowerSystems.AC3ph.Generation.TurboGenerator turbGen(
       p_ini=0.761825,
-      redeclare PowerSystems.AC3ph.Machines.Synchron_ee generator(
+      redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
         redeclare replaceable record Data =
           PowerSystems.AC3ph.Machines.Parameters.Synchron_ee (
           V_nom=20e3,

@@ -5,9 +5,11 @@ package Drives "DC-drives"
   model DCMser "DC machine, series connected"
     extends Partials.DriveBase(heat(final m=2));
 
-    replaceable PowerSystems.AC1ph_DC.Machines.DCser motor(w_el_ini=w_ini*motor.par.pp)
-      "DC motor series"                   annotation (Placement(transformation(
-            extent={{-40,-10},{-20,10}})));
+    replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCser (
+      w_el_ini=w_ini*motor.par.pp) "DC motor series"
+                        annotation (choicesAllMatching=true);
+    Motor motor "DC motor series"
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   equation
     connect(motor.heat, heat) annotation (Line(points={{-30,10},{-30,40},{0,40},
@@ -40,9 +42,11 @@ package Drives "DC-drives"
   model DCMpar "DC machine, parallel connected"
     extends Partials.DriveBase(heat(final m=2));
 
-    replaceable PowerSystems.AC1ph_DC.Machines.DCpar motor(w_el_ini=w_ini*motor.par.pp)
-      "DC motor parallel"                 annotation (Placement(transformation(
-            extent={{-40,-10},{-20,10}})));
+    replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCpar (
+      w_el_ini = w_ini*motor.par.pp) "DC motor parallel"
+                          annotation (choicesAllMatching=true);
+    Motor motor "DC motor parallel"
+       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     AC1ph_DC.Ports.TwoPin_p field
       annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
 
@@ -80,9 +84,11 @@ package Drives "DC-drives"
   model DCMpm "DC machine, permanent magnet"
     extends Partials.DriveBase(heat(final m=2));
 
-    replaceable PowerSystems.AC1ph_DC.Machines.DCpm motor(w_el_ini=w_ini*motor.par.pp)
-      "DC motor magnet"               annotation (Placement(transformation(
-            extent={{-40,-10},{-20,10}})));
+    replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCpm (
+      w_el_ini = w_ini*motor.par.pp) "DC motor magnet"
+                        annotation (choicesAllMatching=true);
+    Motor motor "DC motor magnet"
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   equation
     connect(motor.heat, heat) annotation (Line(points={{-30,10},{-30,40},{0,40},
@@ -123,21 +129,28 @@ package Drives "DC-drives"
   model BLDC "BLDC machine"
     extends Partials.DriveBase(heat(final m=sum(heat_adapt.m)));
 
-    replaceable AC3ph.Inverters.InverterAverage inverter(modulation=3)
-      constrainedby AC3ph.Inverters.Partials.AC_DC_base
-      "inverter (average or modulated)"           annotation (                          choices(
-      choice(redeclare PowerSystems.AC3ph.Inverters.InverterAverage inverter(final
-              modulation=3) "inverter time-average"),
-      choice(redeclare PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare final
-              Control.Modulation.BlockM       modulator
-              "block modulation (no PWM)") "inverter with modulator")),
-        Placement(transformation(extent={{-80,-10},{-60,10}})));
-    replaceable Partials.Synchron3rd_bldc motor(
-      w_el_ini=w_ini*motor.par.pp) "BLDC motor (syn pm machine)"
-      annotation (                         choices(
-      choice(redeclare PowerSystems.AC3ph.Machines.Synchron3rd_bldc motor
-            "synchron 3rd order")), Placement(transformation(extent={{-40,-10},
-              {-20,10}})));
+    replaceable model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage (
+      modulation=3) constrainedby
+      PowerSystems.AC3ph.Inverters.Partials.AC_DC_base
+      "inverter (average or modulated)" annotation (choices(
+      choice(redeclare model Inverter =
+        PowerSystems.AC3ph.Inverters.InverterAverage(final modulation=3)
+            "inverter time-average"),
+      choice(redeclare model Inverter =
+        PowerSystems.AC3ph.Inverters.Inverter(redeclare final model Modulator
+                =
+          Control.Modulation.BlockM "block modulation (no PWM)")
+            "inverter with modulator")));
+    Inverter inverter "inverter (average or modulated)"
+      annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    replaceable model Motor =
+        PowerSystems.AC1ph_DC.Drives.Partials.Synchron3rd_bldc (
+      w_el_ini = w_ini*motor.par.pp) "BLDC motor (syn pm machine)"
+      annotation (choices(
+      choice(redeclare model Motor =
+              PowerSystems.AC3ph.Machines.Synchron3rd_bldc "synchron 3rd order")));
+    Motor motor "BLDC motor (syn pm machine)"
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     Common.Thermal.HeatV_a_b_ab heat_adapt(final m={2,inverter.heat.m})
       annotation (Placement(transformation(extent={{10,60},{-10,80}})));
 
@@ -200,21 +213,25 @@ where 0 &lt  uPhasor[1] &lt  1.</p>
         "initial rpm (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
     AC1ph_DC.Ports.TwoPin_p term "electric terminal"
-  annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Interfaces.Rotation_n flange "mechanical flange"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-    replaceable PowerSystems.Mechanics.Rotation.ElectricRotor rotor(w(start=w_ini))
+    replaceable model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor
         "machine rotor"
-                      annotation (Placement(transformation(extent={{0,-10},{20,
-                10}})));
-    replaceable PowerSystems.Mechanics.Rotation.NoGear gear "type of gear"
-      annotation (                                                                                                    choices(
-        choice(redeclare PowerSystems.Mechanics.Rotation.Joint gear "no gear"),
-        choice(redeclare PowerSystems.Mechanics.Rotation.GearNoMass gear
-              "massless gear"),
-        choice(redeclare PowerSystems.Mechanics.Rotation.Gear gear
-              "massive gear")),
-          Placement(transformation(extent={{40,-10},{60,10}})));
+                      annotation (choicesAllMatching=true);
+    Rotor rotor(w(start=w_ini)) "machine rotor"
+      annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    replaceable model Gear = PowerSystems.Mechanics.Rotation.NoGear
+        "type of gear"
+                     annotation (                                                                                                    choices(
+        choice(redeclare model Gear = PowerSystems.Mechanics.Rotation.Joint
+              "no gear"),
+        choice(redeclare model Gear =
+                PowerSystems.Mechanics.Rotation.GearNoMass "massless gear"),
+        choice(redeclare model Gear = PowerSystems.Mechanics.Rotation.Gear
+              "massive gear")));
+    Gear gear "type of gear"
+      annotation (Placement(transformation(extent={{40,-10},{60,10}})));
     Interfaces.ThermalV_n heat(     m=2) "heat source port {stator, rotor}"
       annotation (Placement(transformation(
             origin={0,100},

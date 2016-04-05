@@ -4,13 +4,14 @@ package Drives "AC-drives dq0"
 
   model ASM "Asynchronous machine with cage rotor"
 
-    parameter SIpu.AngularVelocity speed_ini(          unit="1")=0
+    parameter SIpu.AngularVelocity speed_ini(unit="1")=0
       "initial speed (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
-    extends Partials.DriveBase(rotor(
-                               w(      start=speed_ini*2*pi*motor.par.f_nom/2)));
-    replaceable PowerSystems.AC3ph.Machines.Asynchron motor(final w_el_ini=speed_ini*2*pi*motor.par.f_nom)
-      "asyn motor"
+    extends Partials.DriveBase(rotor(w(start=speed_ini*2*pi*motor.par.f_nom/2)));
+    replaceable model Motor = PowerSystems.AC3ph.Machines.Asynchron (
+      final w_el_ini = speed_ini*2*pi*motor.par.f_nom) "asyn motor"
+      annotation(choicesAllMatching=true);
+    Motor motor "asyn motor"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   equation
@@ -38,12 +39,14 @@ package Drives "AC-drives dq0"
 
   model ASM_Y_D "Asynchronous machine with cage rotor, Y-Delta switcheable"
 
-    parameter SIpu.AngularVelocity speed_ini(          unit="1")=0
+    parameter SIpu.AngularVelocity speed_ini(unit="1")=0
       "initial speed (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
     extends Partials.DriveBase;
-    replaceable PowerSystems.AC3ph.Machines.AsynchronY_D motor(final w_el_ini=speed_ini*2*pi*motor.par.f_nom)
-      "asyn motor Y-Delta switcheable"
+    replaceable model Motor = PowerSystems.AC3ph.Machines.AsynchronY_D (
+      final w_el_ini = speed_ini*2*pi*motor.par.f_nom)
+      "asyn motor Y-Delta switcheable" annotation (choicesAllMatching=true);
+    Motor motor "asyn motor Y-Delta switcheable"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     input Modelica.Blocks.Interfaces.BooleanInput YDcontrol
       "true:Y, false:Delta"
@@ -88,24 +91,29 @@ package Drives "AC-drives dq0"
 
   model ASM_ctrl "Asynchronous machine, current-control"
     extends Partials.DriveBase_ctrl(heat_adapt(final m={2,inverter.heat.m}));
-    replaceable AC3ph.Inverters.InverterAverage inverter
+
+    replaceable model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage
       constrainedby PowerSystems.AC3ph.Inverters.Partials.AC_DC_base
-      "inverter (average or modulated)"           annotation (                          choices(
-      choice(redeclare PowerSystems.AC3ph.Inverters.InverterAverage inverter(final
-              autosyn=false) "inverter time-average"),
-      choice(redeclare PowerSystems.AC3ph.Inverters.Inverter inverter(final autosyn=false)
-            "inverter with modulator")), Placement(transformation(extent={{-80,
-              -10},{-60,10}})));
-    replaceable AC3ph.Machines.Asynchron_ctrl motor(
-      final w_el_ini=w_ini*motor.par.pp) "asyn motor, current controlled"
-      annotation (                         choices(
-      choice(redeclare PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
-                                                                    motor
+      "inverter (average or modulated)" annotation (choices(
+      choice(redeclare model Inverter =
+        PowerSystems.AC3ph.Inverters.InverterAverage(final autosyn=false)
+            "inverter time-average"),
+      choice(redeclare model Inverter =
+        PowerSystems.AC3ph.Inverters.Inverter(final autosyn=false)
+            "inverter with modulator")));
+    Inverter inverter "inverter (average or modulated)"
+      annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
+    replaceable model Motor = PowerSystems.AC3ph.Machines.Asynchron_ctrl (
+      final w_el_ini = w_ini*motor.par.pp) "asyn motor, current controlled"
+      annotation (choices(
+      choice(redeclare model Motor =
+              PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
             "synchron 3rd order"),
-      choice(redeclare PowerSystems.AC3ph.Machines.Synchron_pm_ctrl
-                                                                 motor
-            "synchron general")), Placement(transformation(extent={{-40,-10},{
-              -20,10}})));
+      choice(redeclare model Motor =
+              PowerSystems.AC3ph.Machines.Synchron_pm_ctrl "synchron general")));
+    Motor motor "asyn motor, current controlled"
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   equation
     connect(motor.airgap, rotor.rotor)
@@ -141,21 +149,27 @@ package Drives "AC-drives dq0"
 
   model SM_el "Synchronous machine, electric excitation"
 
-    parameter SIpu.AngularVelocity speed_ini(          unit="1")=0
+    parameter SIpu.AngularVelocity speed_ini(unit="1")=0
       "initial speed (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
     extends Partials.DriveBase;
-    replaceable PowerSystems.AC3ph.Machines.Control.Excitation excitation
-      "excitation model"                annotation (Placement(transformation(
-            extent={{-70,20},{-50,40}})));
-    replaceable PowerSystems.AC3ph.Machines.Synchron3rd_ee motor(final w_el_ini=speed_ini*2*pi*motor.par.f_nom)
-      "syn motor"
-      annotation (                         choices(
-      choice(redeclare PowerSystems.AC3ph.Machines.Synchron3rd_ee motor
+
+    replaceable model Excitation =
+        PowerSystems.AC3ph.Machines.Control.Excitation "excitation model"
+        annotation (choicesAllMatching=true);
+    Excitation excitation "excitation model"
+      annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
+
+    replaceable model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_ee (
+      final w_el_ini = speed_ini*2*pi*motor.par.f_nom) "syn motor"
+                  annotation (choices(
+      choice(redeclare model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_ee
             "synchron 3rd order"),
-      choice(redeclare PowerSystems.AC3ph.Machines.Synchron_ee motor
-            "synchron general")), Placement(transformation(extent={{-40,-10},{
-              -20,10}})));
+      choice(redeclare model Motor = PowerSystems.AC3ph.Machines.Synchron_ee
+            "synchron general")));
+    Motor motor "syn motor"
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+
     Modelica.Blocks.Interfaces.RealInput fieldVoltage(
                              final unit="1")
       "field voltage pu from exciter control"
@@ -208,24 +222,27 @@ package Drives "AC-drives dq0"
 
   model SM_ctrl "Synchronous machine, current-control"
     extends Partials.DriveBase_ctrl(heat_adapt(final m={2,inverter.heat.m}));
-    replaceable AC3ph.Inverters.InverterAverage inverter
+    replaceable model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage
       constrainedby PowerSystems.AC3ph.Inverters.Partials.AC_DC_base
-      "inverter (average or modulated)" annotation (                          choices(
-      choice(redeclare PowerSystems.AC3ph.Inverters.InverterAverage inverter
+      "inverter (average or modulated)" annotation (choices(
+      choice(redeclare model Inverter =
+              PowerSystems.AC3ph.Inverters.InverterAverage
             "inverter time-average"),
-      choice(redeclare PowerSystems.AC3ph.Inverters.Inverter inverter
-            "inverter with modulator")), Placement(transformation(extent={{-80,
-              -10},{-60,10}})));
-    replaceable Machines.Synchron3rd_pm_ctrl    motor(
-      final w_el_ini=w_ini*motor.par.pp) "syn motor, current controlled"
-      annotation (                         choices(
-      choice(redeclare PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
-                                                                    motor
+      choice(redeclare model Inverter = PowerSystems.AC3ph.Inverters.Inverter
+            "inverter with modulator")));
+    Inverter inverter "inverter (average or modulated)"
+      annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
+    replaceable model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (
+      final w_el_ini = w_ini*motor.par.pp) "syn motor, current controlled"
+      annotation (choices(
+      choice(redeclare model Motor =
+              PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
             "synchron 3rd order"),
-      choice(redeclare PowerSystems.AC3ph.Machines.Synchron_pm_ctrl
-                                                                 motor
-            "synchron general")), Placement(transformation(extent={{-40,-10},{
-              -20,10}})));
+      choice(redeclare model Motor =
+              PowerSystems.AC3ph.Machines.Synchron_pm_ctrl "synchron general")));
+    Motor motor "syn motor, current controlled"
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   equation
     connect(motor.airgap, rotor.rotor)
@@ -275,17 +292,22 @@ package Drives "AC-drives dq0"
 
     Interfaces.Rotation_n flange "mechanical flange"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-    replaceable PowerSystems.Mechanics.Rotation.ElectricRotor rotor
+    replaceable model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor
         "machine rotor"
+                      annotation(choicesAllMatching=true);
+    Rotor rotor "machine rotor"
       annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-    replaceable PowerSystems.Mechanics.Rotation.NoGear gear "type of gear"
-      annotation (                                                                                                    choices(
-        choice(redeclare PowerSystems.Mechanics.Rotation.Joint gear "no gear"),
-        choice(redeclare PowerSystems.Mechanics.Rotation.GearNoMass gear
-              "massless gear"),
-        choice(redeclare PowerSystems.Mechanics.Rotation.Gear gear
-              "massive gear")),
-          Placement(transformation(extent={{40,-10},{60,10}})));
+    replaceable model Gear = PowerSystems.Mechanics.Rotation.NoGear
+        "type of gear"
+      annotation (choices(
+        choice(redeclare model Gear = PowerSystems.Mechanics.Rotation.Joint
+              "no gear"),
+        choice(redeclare model Gear =
+                PowerSystems.Mechanics.Rotation.GearNoMass "massless gear"),
+        choice(redeclare model Gear = PowerSystems.Mechanics.Rotation.Gear
+              "massive gear")));
+    Gear gear "type of gear"
+      annotation (Placement(transformation(extent={{40,-10},{60,10}})));
     Interfaces.ThermalV_n heat(              m=2)
         "heat source port {stator, rotor}"
       annotation (Placement(transformation(
@@ -427,12 +449,13 @@ package Drives "AC-drives dq0"
   end DriveBase;
 
   partial model DriveBase_ctrl "AC drives base control"
-    extends DriveBase0(heat(final m=sum(heat_adapt.m)),
-      rotor(w(start=w_ini)));
-
     parameter Types.AngularVelocity  w_ini=0
         "initial rpm (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
+
+    extends DriveBase0(heat(final m=sum(heat_adapt.m)),
+      rotor(w(start=w_ini)));
+
     AC1ph_DC.Ports.TwoPin_p term "electric terminal DC"
                             annotation (Placement(transformation(extent={{-110,
                 -10},{-90,10}})));
