@@ -264,17 +264,19 @@ The power-angle is artificially fixed. The correspondence is:
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
-    parameter SIpu.AngularVelocity speed_ini(unit="1")=1 "initial speed";
+    parameter SI.AngularVelocity w_ini=2*pi*generator.par.f_nom/generator.par.pp
+      "initial angular velocity (start-value if ini='st')";
     PowerSystems.Mechanics.TurboGroups.SingleMassTG turboGrp(
-      final w_ini=speed_ini*2*pi*generator.par.f_nom/generator.par.pp,
+      w_ini=w_ini,
       H=20,
-      w_nom=2*pi*generator.par.f_nom,
+      w_nom=2*pi*generator.par.f_nom/generator.par.pp,
       P_nom=generator.par.S_nom)
                          annotation (Placement(transformation(extent={{-80,0},{
               -60,20}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
-          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
+          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA,
+        w_ini=w_ini)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
 
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0116)
@@ -378,17 +380,19 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
-    parameter SIpu.AngularVelocity speed_ini(unit="1")=1 "initial speed";
+    parameter SI.AngularVelocity w_ini=2*pi*generator.par.f_nom/generator.par.pp
+      "initial angular velocity (start-value if ini='st')";
     PowerSystems.Mechanics.TurboGroups.SingleMassTG turboGrp(
-      final w_ini=speed_ini*2*pi*generator.par.f_nom/generator.par.pp,
+      final w_ini=w_ini,
       H=20,
-      w_nom=2*pi*generator.par.f_nom,
+      w_nom=2*pi*generator.par.f_nom/generator.par.pp,
       P_nom=generator.par.S_nom)
                          annotation (Placement(transformation(extent={{-80,0},{
               -60,20}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
-          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
+          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA,
+        w_ini=w_ini)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
 
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0094)

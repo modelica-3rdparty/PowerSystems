@@ -296,6 +296,8 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
   model TurboPMgenerator "Turbo generator single mass, permanent magnet"
     extends Partials.GenBase;
 
+    parameter SI.AngularVelocity w_ini=2*pi*generator.par.f_nom/generator.par.pp
+      "initial angular velocity (start-value if ini='st')";
     AC3ph.Ports.ACdq0_n term "negative terminal"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     Modelica.Blocks.Interfaces.RealInput[2] setpts
@@ -335,8 +337,6 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
   protected
     final parameter SI.AngularVelocity w_nom=2*pi*generator.par.f_nom/generator.par.pp
       "nominal angular velocity";
-    final parameter SI.AngularVelocity w_ini=speed_ini*w_nom
-      "initial angular velocity";
 
   equation
     connect(setpts[1], governor.setptSpeed)
@@ -466,6 +466,8 @@ The machine inertia is determined by the inertia time constant H.</p>
   model WindGenerator "Wind generator"
     extends Partials.GenBase;
 
+    parameter SI.AngularVelocity w_ini=2*pi*generator.par.f_nom/generator.par.pp
+      "initial angular velocity (start-value if ini='st')";
     AC3ph.Ports.ACdq0_n term "negative terminal"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     replaceable model Generator = PowerSystems.AC3ph.Machines.Asynchron (
@@ -486,10 +488,6 @@ The machine inertia is determined by the inertia time constant H.</p>
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Blocks.Interfaces.RealInput windSpeed "wind speed m/s"
     annotation (Placement(transformation(extent={{-110,10},{-90,-10}})));
-  protected
-    final parameter SI.AngularVelocity w_ini=speed_ini*2*pi*generator.par.f_nom/generator.par.pp
-      "initial angular velocity";
-
   equation
     connect(windSpeed, turbTorq.windSpeed)
     annotation (Line(points={{-100,0},{-60,0}}, color={0,0,127}));
@@ -569,8 +567,6 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
     partial model GenBase "Generation base"
       extends GenBase0;
 
-      parameter SIpu.AngularVelocity speed_ini(unit="1")=1
-        "initial speed (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
       AC3ph.Ports.ACdq0_n term "negative terminal"
         annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -583,6 +579,8 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
     partial model GenBase_el "Generation base el, synchron machines"
       extends GenBase;
 
+      parameter SI.AngularVelocity w_ini=2*pi*generator.par.f_nom/generator.par.pp
+        "initial angular velocity (start-value if ini='st')";
       parameter Types.IniType     iniType=PowerSystems.Basic.Types.IniType.v_alpha
         "initialisation type (if system.ini='st')";
       parameter SIpu.Voltage v_ini(unit="1")=1 "initial terminal voltage"
@@ -641,8 +639,6 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
     protected
       final parameter SI.AngularVelocity w_nom=2*pi*generator.par.f_nom/generator.par.pp
         "nominal angular velocity";
-      final parameter SI.AngularVelocity w_ini=speed_ini*w_nom
-        "initial angular velocity";
       Interfaces.Sender sender(w=generator.w_el, H=H)
         "sends weighted frequency"
         annotation (Placement(transformation(extent={{80,80},{100,100}})));
