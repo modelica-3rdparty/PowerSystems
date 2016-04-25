@@ -515,8 +515,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
       parameter SI.Current[3] i_start = zeros(3)
         "start value of current conductor";
       parameter SI.Angle phi_el_ini=0 "initial rotor angle electric";
-      parameter SI.AngularVelocity w_el_ini=0
-        "initial rotor angular velocity el";
+      parameter SI.AngularVelocity w_ini=0 "initial rotor angular velocity";
       parameter Integer pp=1 "pole-pair number";
       SI.Angle phi_el(stateSelect=StateSelect.prefer, start=phi_el_ini)
         "rotor angle electric (syn: +pi/2)";
@@ -537,6 +536,8 @@ The mapping from current demand to voltage demand is based on the steady-state e
     protected
       outer System system;
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
+      final parameter SI.AngularVelocity w_el_ini = w_ini*pp
+        "initial rotor angular velocity electric";
       SI.AngularFrequency[2] omega;
       function atan2 = Modelica.Math.atan2;
 

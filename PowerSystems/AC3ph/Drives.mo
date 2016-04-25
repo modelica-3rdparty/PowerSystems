@@ -4,12 +4,12 @@ package Drives "AC-drives dq0"
 
   model ASM "Asynchronous machine with cage rotor"
 
-    parameter SIpu.AngularVelocity speed_ini(unit="1")=0
-      "initial speed (start-value if ini='st')"
+    parameter Types.AngularVelocity  w_ini=0
+      "initial rpm (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
-    extends Partials.DriveBase(rotor(w(start=speed_ini*2*pi*motor.par.f_nom/2)));
+    extends Partials.DriveBase(rotor(w(start=w_ini)));
     replaceable model Motor = PowerSystems.AC3ph.Machines.Asynchron (
-      final w_el_ini = speed_ini*2*pi*motor.par.f_nom) "asyn motor"
+      final w_ini = w_ini) "asyn motor"
       annotation(choicesAllMatching=true);
     Motor motor "asyn motor"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -39,13 +39,13 @@ package Drives "AC-drives dq0"
 
   model ASM_Y_D "Asynchronous machine with cage rotor, Y-Delta switcheable"
 
-    parameter SIpu.AngularVelocity speed_ini(unit="1")=0
-      "initial speed (start-value if ini='st')"
+    parameter Types.AngularVelocity  w_ini=0
+      "initial rpm (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
     extends Partials.DriveBase;
     replaceable model Motor = PowerSystems.AC3ph.Machines.AsynchronY_D (
-      final w_el_ini = speed_ini*2*pi*motor.par.f_nom)
-      "asyn motor Y-Delta switcheable" annotation (choicesAllMatching=true);
+      final w_ini = w_ini) "asyn motor Y-Delta switcheable"
+                                       annotation (choicesAllMatching=true);
     Motor motor "asyn motor Y-Delta switcheable"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     input Modelica.Blocks.Interfaces.BooleanInput YDcontrol
@@ -105,7 +105,7 @@ package Drives "AC-drives dq0"
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
     replaceable model Motor = PowerSystems.AC3ph.Machines.Asynchron_ctrl (
-      final w_el_ini = w_ini*motor.par.pp) "asyn motor, current controlled"
+      final w_ini = w_ini) "asyn motor, current controlled"
       annotation (choices(
       choice(redeclare model Motor =
               PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
@@ -149,8 +149,8 @@ package Drives "AC-drives dq0"
 
   model SM_el "Synchronous machine, electric excitation"
 
-    parameter SIpu.AngularVelocity speed_ini(unit="1")=0
-      "initial speed (start-value if ini='st')"
+    parameter Types.AngularVelocity  w_ini=0
+      "initial rpm (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
     extends Partials.DriveBase;
 
@@ -161,7 +161,7 @@ package Drives "AC-drives dq0"
       annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 
     replaceable model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_ee (
-      final w_el_ini = speed_ini*2*pi*motor.par.f_nom) "syn motor"
+      final w_ini = w_ini) "syn motor"
                   annotation (choices(
       choice(redeclare model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_ee
             "synchron 3rd order"),
@@ -234,7 +234,7 @@ package Drives "AC-drives dq0"
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
     replaceable model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (
-      final w_el_ini = w_ini*motor.par.pp) "syn motor, current controlled"
+      final w_ini = w_ini) "syn motor, current controlled"
       annotation (choices(
       choice(redeclare model Motor =
               PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl

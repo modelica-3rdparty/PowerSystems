@@ -78,8 +78,8 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
       redeclare model Motor = PowerSystems.AC3ph.Machines.AsynchronY_D (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA),
-      speed_ini=0.1)                        annotation (Placement(
-          transformation(extent={{-10,-20},{10,0}})));
+      w_ini=4.1887902047864)
+      annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{-10,0},{10,20}})));
     PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=40)
@@ -143,10 +143,10 @@ Compare 'transient' and 'steady-state' mode.</p>
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.AC3ph.Drives.ASM asm(
       redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=6.4),
-      speed_ini=1,
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA))
+            PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA),
+      w_ini=157.07963267949)
       annotation (Placement(transformation(extent={{30,-20},{50,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond1(m=2)
                                             annotation (Placement(
@@ -315,10 +315,10 @@ Compare 'transient' and 'steady-state' mode.</p>
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.AC3ph.Drives.ASM asm(
       redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=6.4),
-      speed_ini=1,
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA))
+            PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA),
+      w_ini=157.07963267949)
       annotation (Placement(transformation(extent={{30,-20},{50,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond1(m=2)
                                             annotation (Placement(

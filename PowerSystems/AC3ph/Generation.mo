@@ -307,7 +307,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
           extent={{10,-10},{-10,10}},
           rotation=180)));
     replaceable model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_pm (
-      final w_el_ini=w_ini*generator.par.pp) "synchron pm generator"
+      final w_ini=w_ini) "synchron pm generator"
       annotation (choices(
       choice(redeclare model Generator =
               PowerSystems.AC3ph.Machines.Synchron3rd_pm "3rd order"),
@@ -381,7 +381,7 @@ The machine inertia is determined by the inertia time constant H.</p>
 
     replaceable model Generator =
       PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (
-        final w_el_ini=w_ini*generator.par.pp) "synchron pm generator"
+        final w_ini=w_ini) "synchron pm generator"
       annotation (choices(
         choice(redeclare model Generator =
           PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl "3rd order"),
@@ -469,7 +469,7 @@ The machine inertia is determined by the inertia time constant H.</p>
     AC3ph.Ports.ACdq0_n term "negative terminal"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     replaceable model Generator = PowerSystems.AC3ph.Machines.Asynchron (
-      w_el_ini=w_ini*generator.par.pp) "asynchron generator"
+      w_ini=w_ini) "asynchron generator"
       annotation (choicesAllMatching=true);
     Generator generator "asynchron generator"
       annotation (Placement(transformation(extent={{60,-10},{40,10}})));
@@ -602,7 +602,7 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
         annotation (Placement(transformation(extent={{-110,10},{-90,-10}})));
       replaceable model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_ee
           (
-        final w_el_ini = w_ini*generator.par.pp) "synchron generator"
+        final w_ini = w_ini) "synchron generator"
         annotation (choices(
         choice(redeclare model Generator =
                 PowerSystems.AC3ph.Machines.Synchron3rd_ee "3rd order"),

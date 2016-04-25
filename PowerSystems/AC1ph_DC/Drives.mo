@@ -6,7 +6,7 @@ package Drives "DC-drives"
     extends Partials.DriveBase(heat(final m=2));
 
     replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCser (
-      w_el_ini=w_ini*motor.par.pp) "DC motor series"
+      w_ini=w_ini) "DC motor series"
                         annotation (choicesAllMatching=true);
     Motor motor "DC motor series"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -43,7 +43,7 @@ package Drives "DC-drives"
     extends Partials.DriveBase(heat(final m=2));
 
     replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCpar (
-      w_el_ini = w_ini*motor.par.pp) "DC motor parallel"
+      w_ini = w_ini) "DC motor parallel"
                           annotation (choicesAllMatching=true);
     Motor motor "DC motor parallel"
        annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -85,7 +85,7 @@ package Drives "DC-drives"
     extends Partials.DriveBase(heat(final m=2));
 
     replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCpm (
-      w_el_ini = w_ini*motor.par.pp) "DC motor magnet"
+      w_ini = w_ini) "DC motor magnet"
                         annotation (choicesAllMatching=true);
     Motor motor "DC motor magnet"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -145,7 +145,7 @@ package Drives "DC-drives"
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     replaceable model Motor =
         PowerSystems.AC1ph_DC.Drives.Partials.Synchron3rd_bldc (
-      w_el_ini = w_ini*motor.par.pp) "BLDC motor (syn pm machine)"
+      w_ini = w_ini) "BLDC motor (syn pm machine)"
       annotation (choices(
       choice(redeclare model Motor =
               PowerSystems.AC3ph.Machines.Synchron3rd_bldc "synchron 3rd order")));
