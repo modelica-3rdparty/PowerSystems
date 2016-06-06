@@ -30,9 +30,9 @@ package InvertersAC3ph "Inverters dq0"
         =
       PowerSystems.AC3ph.Inverters.Components.RectifierEquation(redeclare
             record Data =
-
               PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A))
       annotation (Placement(transformation(extent={{30,0},{10,20}})));
+
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1,
       V_nom=100,
       S_nom=1e3)
@@ -171,7 +171,7 @@ package InvertersAC3ph "Inverters dq0"
       annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Inverters.Inverter inverter(redeclare model Inverter =
         PowerSystems.AC3ph.Inverters.Components.InverterEquation(redeclare
-            record Data=
+            record Data =
               PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
         "equation, with losses")
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
@@ -280,8 +280,6 @@ package InvertersAC3ph "Inverters dq0"
               -20},{100,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=1) annotation (Placement(
           transformation(extent={{-30,0},{-10,20}})));
-    parameter PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A idealSC100V_10A
-      annotation (Placement(transformation(extent={{0,80},{40,100}})));
 
   equation
     connect(vAC.term, ind.term_p) annotation (Line(points={{60,-10},{50,-10}},
