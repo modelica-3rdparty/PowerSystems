@@ -21,56 +21,18 @@ package Interfaces
   end TerminalDC;
 
   connector Electric_p "Electric terminal ('positive')"
-    extends Modelica.Electrical.Analog.Interfaces.Pin;
+    extends Modelica.Electrical.Analog.Interfaces.PositivePin;
     annotation (defaultComponentName = "term_p",
   Documentation(info="<html>
 </html>
-"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics={Rectangle(
-            extent={{-100,100},{100,-100}},
-            lineColor={0,0,255},
-            fillColor={0,0,255},
-            fillPattern=FillPattern.Solid)}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics={Rectangle(
-            extent={{0,50},{100,-50}},
-            lineColor={0,0,255},
-            fillColor={0,0,255},
-            fillPattern=FillPattern.Solid), Text(
-            extent={{-120,120},{100,60}},
-            lineColor={0,0,255},
-            textString="%name")}));
+"));
   end Electric_p;
 
   connector Electric_n "Electric terminal ('negative')"
-    extends Modelica.Electrical.Analog.Interfaces.Pin;
+    extends Modelica.Electrical.Analog.Interfaces.NegativePin;
     annotation (defaultComponentName = "term_n",
   Documentation(info="<html>
-</html>"),
-  Icon(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics={Rectangle(
-            extent={{-100,100},{100,-100}},
-            lineColor={0,0,255},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid)}),
-  Diagram(coordinateSystem(
-          preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics={Rectangle(
-            extent={{-100,50},{0,-50}},
-            lineColor={0,0,255},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid), Text(
-            extent={{-100,120},{120,60}},
-            lineColor={0,0,255},
-            textString="%name")}));
+</html>"));
   end Electric_n;
 
   connector Rotation_p = Modelica.Mechanics.Rotational.Interfaces.Flange_a;
