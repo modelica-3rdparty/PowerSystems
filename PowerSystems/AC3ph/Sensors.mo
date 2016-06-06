@@ -498,25 +498,17 @@ In problematic cases use power sensors electrical and mechanical.</p>
   model Phasor "Visualiser of voltage and current phasor, 3-phase dq0"
     extends Partials.PhasorBase;
 
-    Basic.Types.Color     color_p;
-    Basic.Types.Color     color_n;
-    Basic.Visualise.Bar     activePower(
-                                   color={0,127,127}, x=x_norm*abs(p[1]))
-    annotation (Placement(transformation(extent={{-104,-100},{-94,
-              100}})));
-    Basic.Visualise.Bar     reactivePower(
-                                     color={127,0,127}, x=x_norm*abs(p[2]))
-    annotation (Placement(transformation(extent={{94,-100},{104,
-              100}})));
-    Basic.Visualise.DoubleNeedle     voltage_current(
+    Basic.Types.Color color_p;
+    Basic.Types.Color color_n;
+    extends Basic.Visualise.LeftBar(colorL={0,127,127}, xL=x_norm*abs(p[1]));
+    extends Basic.Visualise.RightBar(colorR={127,0,127}, xR=x_norm*abs(p[2]));
+    extends Basic.Visualise.DoubleNeedle(
       color1={255,0,0},
       color2={0,0,255},
       x1=r_norm*v_dq[1],
       y1=r_norm*v_dq[2],
       x2=r_norm*i_dq[1],
-      y2=r_norm*i_dq[2])
-    annotation (Placement(transformation(extent={{-100,-100},{100,
-              100}})));
+      y2=r_norm*i_dq[2]);
 
   equation
     color_p = if p[1]>0 then {0,127,127} else {215,215,215};
@@ -526,9 +518,11 @@ In problematic cases use power sensors electrical and mechanical.</p>
       Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics={Line(points={{4,100},{84,100},{54,88}}, color=
-                {128,128,128}), Line(points={{-4,100},{-84,100},{-54,88}},
-              color={128,128,128})}),
+          grid={2,2}),
+          graphics={Line(points={{4,100},{84,100},{54,88}},
+              color=DynamicSelect({128,128,128}, color_p)),
+            Line(points={{-4,100},{-84,100},{-54,88}},
+              color=DynamicSelect({128,128,128}, color_n))}),
       Documentation(
         info="<html>
 <p>Phase representation of voltage and current in 3-phase networks:</p>
@@ -701,7 +695,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
   partial model PhasorBase "Phasor base, 3-phase dq0"
     extends Ports.Port_pn;
-    extends Basic.Nominal.Nominal;
+    extends Basic.Nominal.Nominal(final puUnits=true);
 
     Real[2] v_dq;
     Real[2] i_dq;
