@@ -884,7 +884,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
           PowerSystems.AC3ph.Lines.Parameters.PIline);
     protected
       final parameter Real[2] GC_base=Basic.Precalculation.baseGC(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
-      final parameter SI.Conductance G=(par.b_pg + 3*par.b_pp)*delta_len_km*GC_base[1];
+      final parameter SI.Conductance G=(par.g_pg + 3*par.g_pp)*delta_len_km*GC_base[1];
       final parameter SI.Capacitance C=(par.b_pg + 3*par.b_pp)*delta_len_km*GC_base[2];
       final parameter SI.Capacitance C0=par.b_pg*delta_len_km*GC_base[2];
       annotation (
