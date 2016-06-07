@@ -567,10 +567,9 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
     partial model GenBase "Generation base"
       extends GenBase0;
 
-      annotation(Dialog(enable=not system.steadyIni));
       AC3ph.Ports.ACdq0_n term "negative terminal"
         annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-    annotation (
+      annotation(Dialog(enable=not system.steadyIni),
         Documentation(
         info="<html>
 </html>"));
