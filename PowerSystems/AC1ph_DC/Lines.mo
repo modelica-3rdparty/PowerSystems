@@ -79,32 +79,34 @@ package Lines "Transmission lines 1-phase"
 
   model PIline "PI transmission line, 1-phase"
     extends Ports.Port_p_n;
-    extends Partials.PIlineBase;
+    extends Partials.LineBase;
 
-    SIpu.Voltage[2,ne] v(start = transpose(fill(v_start/ne, ne)));
-    SIpu.Current[2,ne1] i(start = transpose(fill(i_start, ne1)));
+    SIpu.Voltage[2,ne1] v(start = transpose(fill(v_start, ne1)));
+    SIpu.Current[2,ne] i(start = transpose(fill(i_start, ne)));
   protected
     final parameter Integer ne1=ne + 1;
 
   initial equation
     if steadyIni_t then
-      der(v) = zeros(2,ne);
-      der(i[:,2:ne1]) = zeros(2,ne);
+      der(v) = zeros(2,ne1);
+      der(i) = zeros(2,ne);
     elseif not system.steadyIni then
-      v = transpose(fill(v_start/ne, ne));
-      i[:,1:ne1] = transpose(fill(i_start, ne1));
+      v = transpose(fill(v_start, ne1));
+      i = transpose(fill(i_start, ne));
     end if;
 
   equation
-    i[:, 1] = term_p.i;
-    i[:, ne1] = -term_n.i;
+    v[:, 1] = term_p.v;
+    v[:, ne1] = term_n.v;
 
-    C*der(v) + G*v = i[:, 1:ne] - i[:, 2:ne1];
-    L*der(i) + diagonal(R)*i = [[2*(term_p.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.v)]];
+    C*der(v) + G*v =
+     [[2*(term_p.i - i[:, 1])], i[:, 1:ne - 1] - i[:, 2:ne], [2*(i[:, ne] + term_n.i)]];
+    L*der(i) + diagonal(R)*i =
+     v[:, 1:ne] - v[:, 2:ne1];
     annotation (
       Documentation(
               info="<html>
-<p>Transmission line modelled as discretised telegraph-equation, 'pi-elements'.</p>
+<p>Transmission line modelled as discretised telegraph-equation, '&pi;-elements'.</p>
 <p>The line of total length <tt>len</tt> is divided into elements of length <tt>delta = len/n</tt>.
 It is composed of <tt>n-1</tt> interior elements of length delta and at each end of a half-element of length <tt>delta/2</tt>.
 Therefore it contains <tt>n</tt> interior nodes. Each element corresponds to a series resistor-inductor with values R and L corresponding to its length. A shunt parallel capacitor-conductor is linked to each node.<br>
@@ -128,6 +130,258 @@ The set of equations of two series connected lines of length len1 and len2 is id
             fillPattern=FillPattern.Solid),
           Rectangle(
             extent={{-90,-11},{90,-16}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-80,4},{-40,-2}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{40,4},{80,-2}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid)}),
+      Diagram(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-65,3},{-55,1}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-65,-1},{-55,-3}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-48,6},{-44,-6}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-84,10},{-20,10}},color={0,0,255}),
+          Line(points={{-84,-10},{-20,-10}},color={0,0,255}),
+          Line(points={{-60,10},{-60,3}},
+                                        color={0,0,255}),
+          Line(points={{-60,-3},{-60,-10}},
+                                          color={0,0,255}),
+          Line(points={{-46,10},{-46,6}},
+                                        color={0,0,255}),
+          Line(points={{-46,-6},{-46,-10}},
+                                          color={0,0,255}),
+          Rectangle(
+            extent={{-81,-28},{-71,-30}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-81,-32},{-71,-34}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-76,-48},{-76,-34}},
+                                         color={0,0,255}),
+          Rectangle(
+            extent={{-67,-25},{-63,-37}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-65,-37},{-65,-48}},
+                                           color={0,0,255}),
+          Line(points={{-65,-10},{-65,-25}},
+                                           color={0,0,255}),
+          Line(points={{-76,-10},{-76,-28}}, color={0,0,255}),
+          Rectangle(
+            extent={{-45,-28},{-35,-30}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-45,-32},{-35,-34}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-40,-48},{-40,-33}},
+                                           color={0,0,255}),
+          Rectangle(
+            extent={{-31,-25},{-27,-37}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-29,-37},{-29,-48}},
+                                           color={0,0,255}),
+          Line(points={{-29,10},{-29,-25}},
+                                          color={0,0,255}),
+          Line(points={{-40,10},{-40,-28}},
+                                          color={0,0,255}),
+          Rectangle(
+            extent={{-80,-48},{-26,-50}},
+            lineColor={135,135,135},
+            fillColor={135,135,135},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-10,12},{20,8}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-20,12},{-10,8}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-20,-8},{-10,-12}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-10,-8},{20,-12}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-10,1},{20,-1}},
+            lineColor={175,175,175},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid),
+          Line(points={{20,10},{30,10}}, color={0,0,255}),
+          Line(points={{20,-10},{30,-10}}, color={0,0,255}),
+          Rectangle(
+            extent={{39,3},{49,1}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{39,-1},{49,-3}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{56,6},{60,-6}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{20,10},{84,10}},  color={0,0,255}),
+          Line(points={{20,-10},{84,-10}},  color={0,0,255}),
+          Line(points={{44,10},{44,3}}, color={0,0,255}),
+          Line(points={{44,-3},{44,-10}}, color={0,0,255}),
+          Line(points={{58,10},{58,6}}, color={0,0,255}),
+          Line(points={{58,-6},{58,-10}}, color={0,0,255}),
+          Rectangle(
+            extent={{23,-28},{33,-30}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{23,-32},{33,-34}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{28,-48},{28,-34}},
+                                         color={0,0,255}),
+          Rectangle(
+            extent={{37,-25},{41,-37}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{39,-37},{39,-48}}, color={0,0,255}),
+          Line(points={{39,-10},{39,-25}}, color={0,0,255}),
+          Line(points={{28,-10},{28,-28}},   color={0,0,255}),
+          Rectangle(
+            extent={{59,-28},{69,-30}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{59,-32},{69,-34}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{64,-48},{64,-33}}, color={0,0,255}),
+          Rectangle(
+            extent={{73,-25},{77,-37}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(points={{75,-37},{75,-48}}, color={0,0,255}),
+          Line(points={{75,10},{75,-25}}, color={0,0,255}),
+          Line(points={{64,10},{64,-28}}, color={0,0,255}),
+          Rectangle(
+            extent={{24,-48},{78,-50}},
+            lineColor={135,135,135},
+            fillColor={135,135,135},
+            fillPattern=FillPattern.Solid)}));
+  end PIline;
+
+  model Tline "PI transmission line, 1-phase"
+    extends Ports.Port_p_n;
+    extends Partials.LineBase;
+
+    SIpu.Voltage[2,ne] v(start = transpose(fill(v_start, ne)));
+    SIpu.Current[2,ne1] i(start = transpose(fill(i_start, ne1)));
+  protected
+    final parameter Integer ne1=ne + 1;
+
+  initial equation
+    if steadyIni_t then
+      der(v) = zeros(2,ne);
+      der(i) = zeros(2,ne1);
+    elseif not system.steadyIni then
+      v = transpose(fill(v_start, ne));
+      i = transpose(fill(i_start, ne1));
+    end if;
+
+  equation
+    i[:, 1] = term_p.i;
+    i[:, ne1] = -term_n.i;
+
+    C*der(v) + G*v = i[:, 1:ne] - i[:, 2:ne1];
+    L*der(i) + diagonal(R)*i = [[2*(term_p.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.v)]];
+    annotation (
+      Documentation(
+              info="<html>
+<p>Transmission line modelled as discretised telegraph-equation, 'T-elements'.</p>
+<p>The line of total length <tt>len</tt> is divided into elements of length <tt>delta = len/n</tt>.
+It is composed of <tt>n-1</tt> interior elements of length delta and at each end of a half-element of length <tt>delta/2</tt>.
+Therefore it contains <tt>n</tt> interior nodes. Each element corresponds to a series resistor-inductor with values R and L corresponding to its length. A shunt parallel capacitor-conductor is linked to each node.<br>
+The minimum of <tt>n</tt> is <tt>1</tt>.</p>
+<p>This kind of discretisation is slightly more complicated than the division of the line into n identical elements, but it results in a symmetric model with respect to interchanging positive and negative terminal.
+The set of equations of two series connected lines of length len1 and len2 is identical to the set of equations for one line of length len1 + len2 if delta1 = delta2. Otherwise differences occur from the different discretisation length.</p>
+</html>
+"),   Icon(coordinateSystem(
+          preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={
+          Rectangle(
+            extent={{-80,30},{80,-32}},
+            lineColor={255,255,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-90,16},{90,11}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-90,-11},{90,-16}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-20,4},{20,-2}},
             lineColor={0,0,255},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid)}),
@@ -265,7 +519,7 @@ The set of equations of two series connected lines of length len1 and len2 is id
             fillPattern=FillPattern.Solid),
           Line(points={{76,10},{86,10}}, color={0,0,255}),
           Line(points={{76,-10},{86,-10}}, color={0,0,255})}));
-  end PIline;
+  end Tline;
 
 model FaultRXline "Faulted RX transmission line, 1-phase"
   extends Ports.Port_p_n_f;
@@ -409,13 +663,16 @@ Diagram(coordinateSystem(
             arrow={Arrow.Filled,Arrow.Filled})}));
 end FaultRXline;
 
-model FaultPIline "Faulted PI transmission line, 1-phase"
+model FaultTline "Faulted PI transmission line, 1-phase"
   extends Ports.Port_p_n_f;
   parameter Real p(min=0.5/ne,max=1-0.5/ne)=0.5
       "rel fault-pos (1/2ne <= p < 1 - 1/2ne)";
-  extends Partials.PIlineBase;
+  extends Partials.LineBase;
 
-  SI.Voltage[2,ne] v(start = transpose(fill(v_start/ne, ne)));
+  parameter SI.Current[2] iF_start = zeros(2) "start value of fault current"
+    annotation(Dialog(tab="Initialization"));
+
+  SI.Voltage[2,ne] v(start = transpose(fill(v_start, ne)));
   SI.Current[2,ne1] i(start = transpose(fill(i_start, ne1)));
   SI.Current[2] iF;
   SI.Current[2,2] iF_p(each stateSelect=StateSelect.never);
@@ -428,10 +685,12 @@ model FaultPIline "Faulted PI transmission line, 1-phase"
 initial equation
   if steadyIni_t then
     der(v) = zeros(2,ne);
-    der(i[:,2:ne1]) = zeros(2,ne);
+    der(i) = zeros(2,ne1);
+    der(iF) = zeros(2);
   elseif not system.steadyIni then
-    v = transpose(fill(v_start/ne, ne));
-    i[:,1:ne1] = transpose(fill(i_start, ne1));
+    v = transpose(fill(v_start, ne));
+    i = transpose(fill(i_start, ne1));
+    iF = iF_start;
   end if;
 
 equation
@@ -529,7 +788,7 @@ Diagram(coordinateSystem(
           Line(points={{-80,-10},{-60,-10}}, color={0,0,255}),
           Line(points={{60,10},{80,10}}, color={0,0,255}),
           Line(points={{60,-11},{80,-11}}, color={0,0,255})}));
-end FaultPIline;
+end FaultTline;
 
   package Partials "Partial models"
     extends Modelica.Icons.BasesPackage;
@@ -565,9 +824,9 @@ end FaultPIline;
 "));
     end RXlineBase;
 
-    partial model PIlineBase "PI-line base, 1-phase"
+    partial model LineBase "PI- and T-line base, 1-phase"
       extends RXlineBase(ne=3, redeclare replaceable record Data =
-          PowerSystems.AC1ph_DC.Lines.Parameters.PIline);
+          PowerSystems.AC1ph_DC.Lines.Parameters.Line);
 
     protected
       final parameter Real[2] GC_base=Basic.Precalculation.baseGC(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
@@ -580,7 +839,7 @@ end FaultPIline;
 <p>Precalculation of coefficient matrices.</p>
 </html>
 "));
-    end PIlineBase;
+    end LineBase;
 
   end Partials;
 
@@ -611,7 +870,7 @@ package Parameters "Parameter data for interactive use"
 </html>"));
   end RXline;
 
-  record PIline "PI-line parameters, 1-phase"
+  record Line "Line parameters, 1-phase"
     extends RXline;
 
     SIpu.Conductance g_pg=0 "shunt conductance/km ph-grd";
@@ -632,7 +891,7 @@ package Parameters "Parameter data for interactive use"
 <p>More info see package AC1ph_DC.Impedances.</p>
 </html>
 "));
-  end PIline;
+  end Line;
  annotation (preferredView="info",
     Documentation(info=
                   "<html>
