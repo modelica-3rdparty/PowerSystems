@@ -500,15 +500,15 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     Basic.Types.Color color_p;
     Basic.Types.Color color_n;
-    extends Basic.Visualise.LeftBar(colorL={0,127,127}, xL=x_norm*abs(p[1]));
-    extends Basic.Visualise.RightBar(colorR={127,0,127}, xR=x_norm*abs(p[2]));
+    extends Basic.Visualise.LeftBar(colorL={0,127,127}, xL=x_norm*abs(p[1])/V_base/I_base);
+    extends Basic.Visualise.RightBar(colorR={127,0,127}, xR=x_norm*abs(p[2])/V_base/I_base);
     extends Basic.Visualise.DoubleNeedle(
       color1={255,0,0},
       color2={0,0,255},
-      x1=r_norm*v_dq[1],
-      y1=r_norm*v_dq[2],
-      x2=r_norm*i_dq[1],
-      y2=r_norm*i_dq[2]);
+      x1=r_norm*v_dq[1]/V_base,
+      y1=r_norm*v_dq[2]/V_base,
+      x2=r_norm*i_dq[1]/I_base,
+      y2=r_norm*i_dq[2]/I_base);
 
   equation
     color_p = if p[1]>0 then {0,127,127} else {215,215,215};
@@ -697,21 +697,20 @@ In problematic cases use power sensors electrical and mechanical.</p>
     extends Ports.Port_pn;
     extends Basic.Nominal.Nominal(final puUnits=true);
 
-    Real[2] v_dq;
-    Real[2] i_dq;
-    Real[2] p;
+    SI.Voltage[2] v_dq;
+    SI.Current[2] i_dq;
+    SI.Power[2] p;
     protected
     constant Real r_norm(unit="1")=0.8 "norm radius phasor";
     constant Real x_norm(unit="1")=0.8 "norm amplitude power";
     final parameter SI.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
     final parameter SI.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
-    Real[2,2] Rot_dq = Basic.Transforms.rotation_dq(
-                                                   term_p.theta[1]);
+    Real[2,2] Rot_dq = Basic.Transforms.rotation_dq(term_p.theta[1]);
 
   equation
     term_p.v = term_n.v;
-    v_dq = transpose(Rot_dq)*term_p.v[1:2]/V_base;
-    i_dq = transpose(Rot_dq)*term_p.i[1:2]/I_base;
+    v_dq = transpose(Rot_dq)*term_p.v[1:2];
+    i_dq = transpose(Rot_dq)*term_p.i[1:2];
     p = {v_dq*i_dq, -j_dq0(v_dq)*i_dq};
     annotation (
       Documentation(
