@@ -210,9 +210,8 @@ package AC1ph_DC "AC 1-phase and DC components"
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter(V_nom=132e3, S_nom=100e6)
                                             annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
-    replaceable PowerSystems.AC1ph_DC.Lines.PIline line(redeclare record Data
-        =
-      PowerSystems.AC1ph_DC.Lines.Parameters.PIline(V_nom=132e3))
+    replaceable PowerSystems.AC1ph_DC.Lines.Tline line(redeclare record Data =
+      PowerSystems.AC1ph_DC.Lines.Parameters.Line ( V_nom=132e3))
                                       annotation (Placement(transformation(
             extent={{20,-10},{40,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd1 annotation (Placement(transformation(
@@ -240,6 +239,95 @@ package AC1ph_DC "AC 1-phase and DC components"
 </html>"),
       experiment(StopTime=0.2, Interval=1e-4));
   end Line;
+
+  model DoublelLine "Parallel lines, one faulted"
+    import PowerSystems;
+
+    inner PowerSystems.System system
+                        annotation (Placement(transformation(extent={{-100,80},
+              {-80,100}})));
+    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(V_nom=20e3, alpha0=0.5235987755983)
+      annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
+    PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(redeclare record Data
+        = PowerSystems.Examples.Spot.Data.Transformers.TrafoStray1ph (
+          V_nom={20e3,132e3},
+          S_nom=100e6,
+          f_nom=50))
+              annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    PowerSystems.AC1ph_DC.Lines.Tline line(len=480000, redeclare record Data =
+          PowerSystems.AC1ph_DC.Lines.Parameters.Line(V_nom = 132e3))
+      annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    PowerSystems.AC1ph_DC.Breakers.Switch switch1(V_nom=132e3, I_nom=2500)
+      annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    PowerSystems.AC1ph_DC.Lines.FaultTline lineF(
+      redeclare record Data =
+          PowerSystems.AC1ph_DC.Lines.Parameters.Line(V_nom = 132e3), len=
+          430000)
+      annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    PowerSystems.AC1ph_DC.Breakers.Switch switch2(V_nom=132e3, I_nom=2500)
+      annotation (Placement(transformation(extent={{50,0},{70,20}})));
+    PowerSystems.AC1ph_DC.Faults.Fault_ab ab
+      annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage2(V_nom=132e3, alpha0=0.5235987755983)
+      annotation (Placement(transformation(extent={{90,-20},{70,0}})));
+    PowerSystems.Control.Relays.SwitchRelay relay1(t_switch={0.15,0.2}, n=1)
+      annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    PowerSystems.Control.Relays.SwitchRelay relay2(t_switch={0.153,0.21}, n=1)
+             annotation (Placement(transformation(extent={{90,40},{70,60}})));
+    PowerSystems.AC1ph_DC.Sensors.PVImeter meterL(S_nom=1000e6, V_nom=132e3)
+      annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
+    PowerSystems.AC1ph_DC.Sensors.PVImeter meterF(S_nom=1000e6, V_nom=132e3)
+      annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+    PowerSystems.AC1ph_DC.Nodes.GroundOne grd1 annotation (Placement(transformation(
+            extent={{-90,-20},{-110,0}})));
+    PowerSystems.AC1ph_DC.Nodes.GroundOne grd2 annotation (Placement(transformation(
+            extent={{90,-20},{110,0}})));
+
+  equation
+    connect(trafo.term_n, meterL.term_p) annotation (Line(points={{-40,-10},{
+            -40,-30},{-10,-30}}, color={0,110,110}));
+    connect(meterL.term_n, line.term_p) annotation (Line(points={{10,-30},{20,
+            -30}}, color={0,110,110}));
+    connect(line.term_n, voltage2.term)
+      annotation (Line(points={{40,-30},{70,-30},{70,-10}}, color={0,110,110}));
+    connect(trafo.term_n, switch1.term_p) annotation (Line(points={{-40,-10},{
+            -40,10}}, color={0,110,110}));
+    connect(switch1.term_n, meterF.term_p) annotation (Line(points={{-20,10},{
+            -10,10}}, color={0,110,110}));
+    connect(meterF.term_n, lineF.term_p) annotation (Line(points={{10,10},{20,
+            10}}, color={0,110,110}));
+    connect(lineF.term_n, switch2.term_p) annotation (Line(points={{40,10},{50,
+            10}}, color={0,110,110}));
+    connect(switch2.term_n, voltage2.term)
+      annotation (Line(points={{70,10},{70,-10}}, color={0,110,110}));
+    connect(lineF.term_f, ab.term)
+      annotation (Line(points={{30,20},{30,40}}, color={0,110,110}));
+    connect(voltage1.term, trafo.term_p)
+      annotation (Line(points={{-70,-10},{-60,-10}}, color={0,120,120}));
+    connect(grd1.term, voltage1.neutral)
+      annotation (Line(points={{-90,-10},{-90,-10}}, color={0,0,255}));
+    connect(grd2.term, voltage2.neutral)
+      annotation (Line(points={{90,-10},{90,-10}}, color={0,0,255}));
+    connect(relay1.y[1], switch1.control)
+      annotation (Line(points={{-40,50},{-30,50},{-30,20}}, color={255,0,255}));
+    connect(relay2.y[1], switch2.control) annotation (Line(points={{70,50},{66,50},
+            {60,50},{60,20}}, color={255,0,255}));
+    annotation (
+      Documentation(
+              info="<html>
+<p>Fault clearance by short-time line switched off.<br>
+Compare with DoublePIline.</p>
+<p><i>See for example:</i>
+<pre>
+  meter.p[1:2]     active and reactive power
+  line.v           line voltage, oscillations due to switching
+  lineF.v          fault line voltage
+  abc.i_abc        fault currents
+</pre></p>
+<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
+</html>"),
+      experiment(StopTime=0.5, Interval=2.5e-5));
+  end DoublelLine;
 
   model LoadAC "AC load"
 

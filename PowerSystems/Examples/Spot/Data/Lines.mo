@@ -20,7 +20,7 @@ package Lines "Line example data"
   end OHline15kV1ph;
 
   record OHline_15kV1ph "Overhead PI-line 15kV 1-phase rail, example"
-    extends PowerSystems.AC1ph_DC.Lines.Parameters.PIline(
+    extends PowerSystems.AC1ph_DC.Lines.Parameters.Line(
       puUnits=true,
       V_nom=132e3,
       S_nom=100e6,
@@ -57,7 +57,7 @@ record OHline132kV1ph "Overhead RX-line 132kV 1-phase rail, example"
 end OHline132kV1ph;
 
 record OHline_132kV1ph "Overhead PI-line 132kV 1-phase rail, example"
-  extends PowerSystems.AC1ph_DC.Lines.Parameters.PIline(
+  extends PowerSystems.AC1ph_DC.Lines.Parameters.Line(
     puUnits=true,
     V_nom=132e3,
     S_nom=100e6,
@@ -93,7 +93,7 @@ end OHline_132kV1ph;
   end Cable132kVDC;
 
   record Cable_132kVDC "Cable PI-line 132kV DC, example"
-    extends PowerSystems.AC1ph_DC.Lines.Parameters.PIline(
+    extends PowerSystems.AC1ph_DC.Lines.Parameters.Line(
       puUnits=true,
       V_nom=132e3,
       S_nom=100e6,
@@ -129,7 +129,7 @@ end OHline_132kV1ph;
   end OHline132kV;
 
   record OHline_132kV "Overhead PI-line 132kV 3-phase, example"
-    extends PowerSystems.AC3ph.Lines.Parameters.PIline(
+    extends PowerSystems.AC3ph.Lines.Parameters.Line(
       puUnits=true,
       V_nom=132e3,
       S_nom=100e6,
@@ -165,7 +165,7 @@ end OHline_132kV1ph;
   end OHline400kV;
 
   record OHline_400kV "Overhead PI-line 400kV 3-phase, example"
-    extends PowerSystems.AC3ph.Lines.Parameters.PIline(
+    extends PowerSystems.AC3ph.Lines.Parameters.Line(
       puUnits=true,
       V_nom=400e3,
       S_nom=100e6,
@@ -201,7 +201,7 @@ end OHline_132kV1ph;
   end Cable132kV;
 
   record Cable_132kV "Cable PI-line 132kV 3-phase, example"
-    extends PowerSystems.AC3ph.Lines.Parameters.PIline(
+    extends PowerSystems.AC3ph.Lines.Parameters.Line(
       puUnits=true,
       V_nom=132e3,
       S_nom=100e6,
@@ -237,7 +237,7 @@ end OHline_132kV1ph;
   end Cable400kV;
 
   record Cable_400kV "Cable PI-line 400kV 3-phase, example"
-    extends PowerSystems.AC3ph.Lines.Parameters.PIline(
+    extends PowerSystems.AC3ph.Lines.Parameters.Line(
       puUnits=true,
       V_nom=400e3,
       S_nom=100e6,

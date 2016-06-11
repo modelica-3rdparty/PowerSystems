@@ -230,7 +230,7 @@ Compare with PIline.</p>
 "),      experiment(StopTime=1));
   end RXline;
 
-  model PIline "Single PI-line"
+  model Tline "Single PI-line"
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -241,11 +241,11 @@ Compare with PIline.</p>
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC3ph.Breakers.Breaker breaker1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC3ph.Lines.PIline line(len=400e3, redeclare record Data =
-      PowerSystems.AC3ph.Lines.Parameters.PIline (
-        V_nom=400e3,
-        x=0.25e-3,
-        r=0.02e-3))
+    PowerSystems.AC3ph.Lines.Tline line(len=400e3, redeclare record Data =
+          PowerSystems.AC3ph.Lines.Parameters.Line (
+          V_nom=400e3,
+          x=0.25e-3,
+          r=0.02e-3))
       annotation (Placement(transformation(extent={{10,-20},{30,0}})));
     PowerSystems.AC3ph.Breakers.Breaker breaker2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{40,-20},{60,0}})));
@@ -297,7 +297,7 @@ Compare with RXline.</p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1, Interval=2.5e-5));
-  end PIline;
+  end Tline;
 
   model FaultRXline "Faulted lumped line"
 
@@ -372,7 +372,7 @@ Compare with FaultPIline.</p>
 "),      experiment(StopTime=1));
   end FaultRXline;
 
-  model FaultPIline "Faulted PI-line"
+  model FaultTline "Faulted PI-line"
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -383,12 +383,11 @@ Compare with FaultPIline.</p>
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC3ph.Breakers.Breaker breaker1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC3ph.Lines.FaultPIline line(len=400e3, redeclare record Data
-        =
-      PowerSystems.AC3ph.Lines.Parameters.PIline (
-        V_nom=400e3,
-        x=0.25e-3,
-        r=0.02e-3))
+    PowerSystems.AC3ph.Lines.FaultTline line(len=400e3, redeclare record Data
+        = PowerSystems.AC3ph.Lines.Parameters.Line (
+          V_nom=400e3,
+          x=0.25e-3,
+          r=0.02e-3))
       annotation (Placement(transformation(extent={{10,-20},{30,0}})));
     PowerSystems.AC3ph.Breakers.Breaker breaker2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{40,-20},{60,0}})));
@@ -445,7 +444,7 @@ Compare with FaultRXline.</p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1, Interval=2.5e-5));
-  end FaultPIline;
+  end FaultTline;
 
   model DoubleRXline "Parallel lumped lines, one faulted"
 
@@ -467,9 +466,8 @@ Compare with FaultRXline.</p>
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     PowerSystems.AC3ph.Lines.FaultRXline lineF(
-      stIni_en=false,
-      len=430000,
-      redeclare record Data = PowerSystems.Examples.Spot.Data.Lines.OHline400kV)
+      redeclare record Data = PowerSystems.Examples.Spot.Data.Lines.OHline400kV,
+        len=430000)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{50,0},{70,20}})));
@@ -536,7 +534,8 @@ Compare with DoublePIline.</p>
 "),      experiment(StopTime=0.5, Interval=2.5e-5));
   end DoubleRXline;
 
-  model DoublePIline "Parallel PI-lines, one faulted"
+  model DoublelLine "Parallel lines, one faulted"
+    import PowerSystems;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -550,17 +549,16 @@ Compare with DoublePIline.</p>
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-    PowerSystems.AC3ph.Lines.PIline line(len=480000, redeclare record Data =
-      PowerSystems.Examples.Spot.Data.Lines.OHline_400kV)
+    PowerSystems.AC3ph.Lines.PIline line(
+                                        len=480000, redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV)
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-    PowerSystems.AC3ph.Lines.FaultPIline lineF(
-      stIni_en=false,
-      len=430000,
+    PowerSystems.AC3ph.Lines.FaultTline lineF(
       redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV)
-         annotation (Placement(transformation(extent={{20,0},{40,20}})));
+          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV, len=430000)
+      annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{50,0},{70,20}})));
     PowerSystems.AC3ph.Faults.Fault_abc abc
@@ -627,7 +625,7 @@ Compare with DoublePIline.</p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, Interval=2.5e-5));
-  end DoublePIline;
+  end DoublelLine;
 
   model DoubleRXlineTG
     "Parallel lumped lines with turbo generator, one line faulted"
@@ -659,9 +657,8 @@ Compare with DoublePIline.</p>
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     PowerSystems.AC3ph.Lines.FaultRXline lineF(
-      stIni_en=false,
-      len=430000,
-      redeclare record Data = PowerSystems.Examples.Spot.Data.Lines.OHline400kV)
+      redeclare record Data = PowerSystems.Examples.Spot.Data.Lines.OHline400kV,
+        len=430000)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{50,0},{70,20}})));
@@ -731,8 +728,8 @@ Compare with DoublePIline.</p>
 "),      experiment(StopTime=0.5));
   end DoubleRXlineTG;
 
-  model DoublePIlineTG
-    "Parallel PI-lines with turbo generator, one line faulted"
+  model DoubleLineTG "Parallel lines with turbo generator, one line faulted"
+    import PowerSystems;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -754,18 +751,15 @@ Compare with DoublePIline.</p>
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Lines.PIline line(
-      len=480e3,
-      redeclare record Data =
+                                        len=480e3, redeclare record Data =
           PowerSystems.Examples.Spot.Data.Lines.OHline_400kV)
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-    PowerSystems.AC3ph.Lines.FaultPIline lineF(
-      len=430e3,
-      stIni_en=false,
+    PowerSystems.AC3ph.Lines.FaultTline lineF(
       redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV)
-         annotation (Placement(transformation(extent={{20,0},{40,20}})));
+          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV, len=430000)
+      annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{50,0},{70,20}})));
     PowerSystems.AC3ph.Faults.Fault_abc abc(epsG=1e-5)
@@ -834,7 +828,7 @@ Compare with DoublePIline.</p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, Interval=1.5e-4));
-  end DoublePIlineTG;
+  end DoubleLineTG;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transmission line models and faults.</p>
