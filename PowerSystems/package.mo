@@ -67,7 +67,7 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 <p><a href=\"modelica://PowerSystems.Examples.Spot\">Examples.Spot</a> serve as tutorial and interactive documentation for the detailed component models in AC1ph_DC and AC3ph. </p>
 </html>"));
     end Examples;
-    
+
     package ReleaseNotes "Release notes"
       extends Modelica.Icons.ReleaseNotes;
       annotation (
@@ -84,16 +84,21 @@ The following table summerizes the PhaseSystems that are predefined in the Power
    Created the PowerSystems library out of the PowerFlow concept library and the Spot library.
 </li>
 </ul>
-</html>",
-  revisions="<html>
+</html>", revisions=
+            "<html>
 <ul>
-<li><i>25 Mar 2016</i>
+<li><i>11 Jun 2016</i>
     by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
      Version 0.5 dev
   <ul>
   <li>Introduce replaceable model and record types, instead of replaceable
-      model and record instances, first for transformers.
+      model and record instances.
       This shall unify the look and feel with other Modelica libraries.</li>
+  <li>Rework AC3ph and AC1ph_DC line models
+  <ul><li>Rename PIline to Tline and introduce new PIline.</li>
+      <li>Simplify initialization.</li></ul>
+  <li>Upgrade Phasor model to standard Modelica graphics.</li>
+  <li>Base on Modelica 3.2.2 instead of 3.2.1 (without changing anything).</li>
   </ul>
 </li>
 <li><i>14 Mar 2015</i>
@@ -185,11 +190,11 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 
   annotation (preferredView="info",
   version="0.5 dev",
-  versionDate="2016-03-25",
+  versionDate="2016-06-11",
   Documentation(info="<html>
 <p>The Modelica PowerSystems library is intended for the modeling of electrical <b>power systems</b> at different <b>levels of detail</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
 <p>The Users Guide to the library is <a href=\"modelica://PowerSystems.UsersGuide\"><b>here</b></a>.</p>
-<p><br/>Copyright &copy; 2007-2014, Modelica Association. </p>
+<p><br/>Copyright &copy; 2007-2016, Modelica Association. </p>
 <p><i>This Modelica package is <b>Open Source</b> software; it can be redistributed and/or modified
 under the terms of the <b>Modelica license, version 2.0, see the license conditions and
 the accompanying disclaimer <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">here</a>.</b></i> </p>
@@ -201,7 +206,7 @@ by funding of the IST Programme, Contract No. IST-1999-11979. </i></p>
 <p/>
 </html>
 "),
-  uses(Modelica(version="3.2.1")),
+  uses(Modelica(version="3.2.2")),
   Icon(graphics={
       Line(
         points={{-60,-16},{38,-16}},
