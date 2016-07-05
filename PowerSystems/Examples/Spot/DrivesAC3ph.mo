@@ -133,8 +133,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC3ph.Inverters.Select select
       annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-    PowerSystems.AC3ph.Inverters.InverterAverage inverter(redeclare record Data
-        =
+    PowerSystems.AC3ph.Inverters.InverterAverage inverter(redeclare record Data =
       PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A)
       annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
     PowerSystems.AC3ph.Sensors.PVImeter power(av=true,

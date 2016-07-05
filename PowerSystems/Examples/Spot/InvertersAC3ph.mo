@@ -26,8 +26,7 @@ package InvertersAC3ph "Inverters dq0"
       S_nom=1e3,
       phasor=true)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-    PowerSystems.AC3ph.Inverters.Rectifier rectifier(redeclare model Rectifier
-        =
+    PowerSystems.AC3ph.Inverters.Rectifier rectifier(redeclare model Rectifier =
       PowerSystems.AC3ph.Inverters.Components.RectifierEquation(redeclare
             record Data =
               PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A))
@@ -249,8 +248,7 @@ package InvertersAC3ph "Inverters dq0"
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-    PowerSystems.AC3ph.Inverters.InverterAverage inverter(redeclare record Data
-        =
+    PowerSystems.AC3ph.Inverters.InverterAverage inverter(redeclare record Data =
       PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC3ph.Inverters.Select select(uType_par=false)

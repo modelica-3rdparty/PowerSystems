@@ -85,8 +85,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
-    PowerSystems.AC1ph_DC.Inverters.Inverter inverter(redeclare model Inverter
-        =
+    PowerSystems.AC1ph_DC.Inverters.Inverter inverter(redeclare model Inverter =
         PowerSystems.AC1ph_DC.Inverters.Components.InverterEquation(redeclare
             record Data =
             PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
@@ -158,8 +157,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-    PowerSystems.AC1ph_DC.Inverters.Inverter inverter(redeclare model Inverter
-        =
+    PowerSystems.AC1ph_DC.Inverters.Inverter inverter(redeclare model Inverter =
         PowerSystems.AC1ph_DC.Inverters.Components.InverterEquation (
           redeclare record Data =
           PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)

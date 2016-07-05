@@ -113,7 +113,8 @@ package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work p
                  file(ensureSimulated=true)="Examples/PowerWorld/Resources/plot hydroPlant.mos"
         "plot hydroPlant"),
         preferredView="diagram",
- Documentation(info="<html>
+    Documentation(info=
+                    "<html>
 <p>
 This example models a control area for power distribution in island mode, i.e. without connection to a larger net.
 It contains the following consumers and producers:

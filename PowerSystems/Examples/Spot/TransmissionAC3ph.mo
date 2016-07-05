@@ -383,8 +383,8 @@ Compare with FaultPIline.</p>
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC3ph.Breakers.Breaker breaker1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC3ph.Lines.FaultTline line(len=400e3, redeclare record Data
-        = PowerSystems.AC3ph.Lines.Parameters.Line (
+    PowerSystems.AC3ph.Lines.FaultTline line(len=400e3, redeclare record Data =
+          PowerSystems.AC3ph.Lines.Parameters.Line (
           V_nom=400e3,
           x=0.25e-3,
           r=0.02e-3))

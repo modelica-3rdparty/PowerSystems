@@ -248,8 +248,8 @@ package AC1ph_DC "AC 1-phase and DC components"
               {-80,100}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(V_nom=20e3, alpha0=0.5235987755983)
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-    PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(redeclare record Data
-        = PowerSystems.Examples.Spot.Data.Transformers.TrafoStray1ph (
+    PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Transformers.TrafoStray1ph (
           V_nom={20e3,132e3},
           S_nom=100e6,
           f_nom=50))

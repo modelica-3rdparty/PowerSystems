@@ -1127,8 +1127,8 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
       annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   PowerSystems.AC3ph.Sensors.Psensor ACpower  annotation (Placement(transformation(
             extent={{-40,-60},{-20,-40}})));
-  PowerSystems.AC3ph.Inverters.RectifierAverage rectifier(redeclare record Data
-        =  PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A)
+  PowerSystems.AC3ph.Inverters.RectifierAverage rectifier(redeclare record Data =
+           PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A)
                                           annotation (Placement(transformation(
             extent={{10,-60},{-10,-40}})));
   PowerSystems.AC1ph_DC.Impedances.CapacitorSym capSym(
