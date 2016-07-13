@@ -8,7 +8,9 @@ package Types
     type AngularVelocity = Real(final quantity="AngularVelocity", unit="rad.s/(rad.s)");
     type Voltage = Real (final quantity="Voltage", unit="V/V");
     type Current = Real (final quantity="Current", unit="A/A");
+    type Power = Real (final quantity="Power", unit="W/W");
     type ApparentPower = Real (final quantity="ApparentPower", unit="VA/VA");
+    type ReactivePower = Real (final quantity="ReactivePower", unit="var/var");
     type Resistance = Real (
         final quantity="Resistance",
         unit="Ohm/(V.V/VA)",
@@ -46,7 +48,6 @@ package Types
     type MagneticFlux = Real (final quantity="MagneticFlux", unit="Wb/Wb");
 
     type Energy = Real (final quantity="Energy", unit="J/J");
-    type Power = Real (final quantity="Power", unit="W/W");
     type Torque = Real (final quantity="Torque", unit="N.m/(N.m)");
 
    annotation (
