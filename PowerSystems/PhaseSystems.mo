@@ -31,6 +31,7 @@ package PhaseSystems "Phase systems used in power connectors"
       for k in 1:size(xx,2) loop
         yy[:,k] := j(xx[:,k]);
       end for;
+      annotation(Inline=true);
     end jj;
 
     replaceable partial function thetaRel
@@ -113,6 +114,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output Real y[n];
     algorithm
       y := zeros(n);
+      annotation(Inline=true);
     end j;
 
     redeclare function thetaRel
@@ -121,6 +123,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle thetaRel;
     algorithm
       thetaRel := 0;
+      annotation(Inline=true);
     end thetaRel;
 
     redeclare function thetaRef
@@ -129,6 +132,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle thetaRef;
     algorithm
       thetaRef := 0;
+      annotation(Inline=true);
     end thetaRef;
 
     redeclare function phase "Return phase"
@@ -137,6 +141,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle phase;
     algorithm
       phase := 0;
+      annotation(Inline=true);
     end phase;
 
     redeclare replaceable function phaseVoltages
@@ -147,6 +152,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Voltage v[n] "phase voltages";
     algorithm
       v := {V};
+      annotation(Inline=true);
     end phaseVoltages;
 
     redeclare function phaseCurrents "Return phase currents"
@@ -156,6 +162,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Current i[n] "phase currents";
     algorithm
       i := {I};
+      annotation(Inline=true);
     end phaseCurrents;
 
     redeclare function phasePowers "Return phase powers"
@@ -165,6 +172,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Power p[n] "phase powers";
     algorithm
       p := {P};
+      annotation(Inline=true);
     end phasePowers;
 
     redeclare function phasePowers_vi "Return phase powers"
@@ -174,6 +182,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Power p[n] "phase powers";
     algorithm
       p := {v*i};
+      annotation(Inline=true);
     end phasePowers_vi;
 
     redeclare replaceable function systemVoltage
@@ -183,6 +192,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Voltage V;
     algorithm
       V := v[1];
+      annotation(Inline=true);
     end systemVoltage;
 
     redeclare function systemCurrent
@@ -192,6 +202,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Current I;
     algorithm
       I := i[1];
+      annotation(Inline=true);
     end systemCurrent;
 
     redeclare function activePower
@@ -202,6 +213,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.ActivePower P "active system power";
     algorithm
       P := v*i;
+      annotation(Inline=true);
     end activePower;
 
     annotation (Icon(graphics={Line(
@@ -219,6 +231,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output Real y[n];
     algorithm
       y := zeros(n);
+      annotation(Inline=true);
     end j;
 
     redeclare function thetaRel
@@ -227,6 +240,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle thetaRel;
     algorithm
       thetaRel := 0;
+      annotation(Inline=true);
     end thetaRel;
 
     redeclare function thetaRef
@@ -235,6 +249,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle thetaRef;
     algorithm
       thetaRef := 0;
+      annotation(Inline=true);
     end thetaRef;
 
     redeclare function phase "Return phase"
@@ -243,6 +258,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle phase;
     algorithm
       phase := 0;
+      annotation(Inline=true);
     end phase;
 
     redeclare replaceable function phaseVoltages
@@ -253,6 +269,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Voltage v[n] "phase voltages";
     algorithm
       v := {V, 0};
+      annotation(Inline=true);
     end phaseVoltages;
 
     redeclare function phaseCurrents "Return phase currents"
@@ -262,6 +279,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Current i[n] "phase currents";
     algorithm
       i := {I, -I};
+      annotation(Inline=true);
     end phaseCurrents;
 
     redeclare function phasePowers "Return phase powers"
@@ -271,6 +289,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Power p[n] "phase powers";
     algorithm
       p := {P, 0};
+      annotation(Inline=true);
     end phasePowers;
 
     redeclare function phasePowers_vi "Return phase powers"
@@ -280,6 +299,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Power p[n] "phase powers";
     algorithm
       p := v.*i;
+      annotation(Inline=true);
     end phasePowers_vi;
 
     redeclare replaceable function systemVoltage
@@ -289,6 +309,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Voltage V;
     algorithm
       V := v[1] - v[2];
+      annotation(Inline=true);
     end systemVoltage;
 
     redeclare function systemCurrent
@@ -298,6 +319,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Current I;
     algorithm
       I := (i[1] - i[2])/2;
+      annotation(Inline=true);
     end systemCurrent;
 
     redeclare function activePower
@@ -308,6 +330,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.ActivePower P "active system power";
     algorithm
       P := v*i;
+      annotation(Inline=true);
     end activePower;
 
     annotation (Icon(graphics={Line(
@@ -331,6 +354,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Voltage v[n] "phase voltages";
     algorithm
       v := {V};
+      annotation(Inline=true);
     end phaseVoltages;
 
     redeclare function systemVoltage
@@ -340,6 +364,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Voltage V;
     algorithm
       V := v[1];
+      annotation(Inline=true);
     end systemVoltage;
 
     annotation (Icon(graphics={
@@ -359,6 +384,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output Real y[n];
     algorithm
       y := {-x[2], x[1]};
+      annotation(Inline=true);
     end j;
 
     redeclare function thetaRel
@@ -367,6 +393,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle thetaRel;
     algorithm
       thetaRel := 0;
+      annotation(Inline=true);
     end thetaRel;
 
     redeclare function thetaRef
@@ -375,6 +402,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle thetaRef;
     algorithm
       thetaRef := theta[1];
+      annotation(Inline=true);
     end thetaRef;
 
     redeclare function phase "Return phase"
@@ -383,6 +411,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle phase;
     algorithm
       phase := atan2(x[2], x[1]);
+      annotation(Inline=true);
     end phase;
 
     redeclare function phaseVoltages "Return phase voltages"
@@ -392,6 +421,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Voltage v[n] "phase voltages";
     algorithm
       v := {V*cos(phi), V*sin(phi)};
+      annotation(Inline=true);
     end phaseVoltages;
 
     redeclare function phaseCurrents "Return phase currents"
@@ -401,6 +431,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Current i[n] "phase currents";
     algorithm
       i := {I*cos(phi), I*sin(phi)};
+      annotation(Inline=true);
     end phaseCurrents;
 
     redeclare function phasePowers "Return phase powers"
@@ -410,6 +441,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Power p[n] "phase powers";
     algorithm
       p := {P, P*tan(phi)};
+      annotation(Inline=true);
     end phasePowers;
 
     redeclare function phasePowers_vi "Return phase powers"
@@ -419,6 +451,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Power p[n] "phase powers";
     algorithm
       p := {v*i, -j(v)*i};
+      annotation(Inline=true);
     end phasePowers_vi;
 
     redeclare function systemVoltage
@@ -428,6 +461,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Voltage V;
     algorithm
       V := sqrt(v*v);
+      annotation(Inline=true);
     end systemVoltage;
 
     redeclare function systemCurrent
@@ -437,6 +471,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Current I;
     algorithm
       I := sqrt(i*i);
+      annotation(Inline=true);
     end systemCurrent;
 
     redeclare function activePower
@@ -447,6 +482,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.ActivePower P "active system power";
     algorithm
       P := v*i;
+      annotation(Inline=true);
     end activePower;
 
     annotation (Icon(graphics={
@@ -578,6 +614,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output Real y[size(x,1)];
     algorithm
       y := cat(1, {-x[2], x[1]}, zeros(size(x,1)-2));
+      annotation(Inline=true);
     end j;
 
     redeclare function jj "Vectorized version of j"
@@ -585,6 +622,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output Real[size(xx,1),size(xx,2)] yy "array of rotated vectors";
     algorithm
       yy := cat(1, {-xx[2,:], xx[1,:]}, zeros(size(xx,1)-2, size(xx,2)));
+      annotation(Inline=true);
     end jj;
 
     redeclare function thetaRel
@@ -593,6 +631,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle thetaRel;
     algorithm
       thetaRel := theta[1];
+      annotation(Inline=true);
     end thetaRel;
 
     redeclare function thetaRef
@@ -601,6 +640,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle thetaRef;
     algorithm
       thetaRef := theta[2];
+      annotation(Inline=true);
     end thetaRef;
 
     redeclare function phase "Return phase"
@@ -609,6 +649,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Angle phase;
     algorithm
       phase := atan2(x[2], x[1]);
+      annotation(Inline=true);
     end phase;
 
     redeclare function phaseVoltages "Return phase voltages"
@@ -620,6 +661,7 @@ package PhaseSystems "Phase systems used in power connectors"
       Voltage neutral_v = 0;
     algorithm
       v := {V*cos(phi), V*sin(phi), sqrt(3)*neutral_v};
+      annotation(Inline=true);
     end phaseVoltages;
 
     redeclare function phaseCurrents "Return phase currents"
@@ -629,6 +671,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Current i[n] "phase currents";
     algorithm
       i := {I*cos(phi), I*sin(phi), 0};
+      annotation(Inline=true);
     end phaseCurrents;
 
     redeclare function phasePowers "Return phase powers"
@@ -638,6 +681,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Power p[n] "phase powers";
     algorithm
       p := {P, P*tan(phi), 0};
+      annotation(Inline=true);
     end phasePowers;
 
     redeclare function phasePowers_vi "Return phase powers"
@@ -647,6 +691,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Power p[n] "phase powers";
     algorithm
       p := {v[1:2]*i[1:2], -j(v[1:2])*i[1:2], v[3]*i[3]};
+      annotation(Inline=true);
     end phasePowers_vi;
 
     redeclare function systemVoltage
@@ -656,6 +701,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Voltage V;
     algorithm
       V := sqrt(v*v);
+      annotation(Inline=true);
     end systemVoltage;
 
     redeclare function systemCurrent
@@ -665,6 +711,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.Current I;
     algorithm
       I := sqrt(i*i);
+      annotation(Inline=true);
     end systemCurrent;
 
     redeclare function activePower
@@ -675,6 +722,7 @@ package PhaseSystems "Phase systems used in power connectors"
       output SI.ActivePower P "active system power";
     algorithm
       P := v[1:2]*i[1:2];
+      annotation(Inline=true);
     end activePower;
 
     annotation (Icon(graphics={
