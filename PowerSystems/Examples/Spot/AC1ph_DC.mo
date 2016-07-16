@@ -344,9 +344,8 @@ Compare with DoublePIline.</p>
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter      annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
-    replaceable PowerSystems.AC1ph_DC.Loads.ZloadAC zLoadAC
-                                           annotation (Placement(transformation(
-            extent={{30,-10},{50,10}})));
+    replaceable PowerSystems.AC1ph_DC.Loads.ZloadAC zLoadAC(scType_par=false)
+      annotation (Placement(transformation(extent={{30,-10},{50,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-70,-10},{-90,10}})));
 
@@ -382,9 +381,8 @@ Compare with DoublePIline.</p>
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter      annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
-    replaceable PowerSystems.AC1ph_DC.Loads.PindLoadDC pLoadDC
-                                              annotation (Placement(
-          transformation(extent={{30,-10},{50,10}})));
+    replaceable PowerSystems.AC1ph_DC.Loads.PindLoadDC pLoadDC(scType_par=false)
+      annotation (Placement(transformation(extent={{30,-10},{50,10}})));
     PowerSystems.Blocks.Signals.Transient transV(s_fin=0.9)
                                         annotation (Placement(transformation(
             extent={{-100,10},{-80,30}})));

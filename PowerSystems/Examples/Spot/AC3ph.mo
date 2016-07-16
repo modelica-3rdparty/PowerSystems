@@ -241,9 +241,8 @@ package AC3ph "AC 3-phase components dq0"
            annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter      annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
-    replaceable PowerSystems.AC3ph.Loads.PQindLoad load(tcst=0.01)
-                                              annotation (Placement(
-          transformation(extent={{30,-10},{50,10}})));
+    replaceable PowerSystems.AC3ph.Loads.PQindLoad load(tcst=0.01, scType_par=false)
+      annotation (Placement(transformation(extent={{30,-10},{50,10}})));
     PowerSystems.Blocks.Signals.Transient[2] trsSignal(s_ini={sqrt(3)/2,1/2}, s_fin={1,0.2})
       annotation (Placement(transformation(
           origin={40,60},
