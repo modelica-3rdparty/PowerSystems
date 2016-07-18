@@ -843,21 +843,26 @@ Special choices are</p>
 
     partial model SynTransform "Rotation transform dq"
       extends ACmachine;
+      import Modelica.Math.Matrices.inv;
 
-      parameter SI.Current[3] i_s_start = zeros(3)
-        "start value of stator current dq0 in rotor-system"
-        annotation (Dialog(tab="Initialization"));
-
-    protected
-      SI.MagneticFlux psi_e "excitation flux";
       SI.Voltage[3] v_s "stator voltage dq0 in rotor-system";
       SI.Current[3] i_s(each stateSelect=StateSelect.prefer, start=i_s_start)
         "stator current dq0 in rotor-system";
+
+    protected
+      parameter SI.Current[3] i_s_start = cat(1, inv(Basic.Transforms.rotation_dq(phi_el_ini))*i_start[1:2], {i_start[3]})
+        "start value of stator current dq0 in rotor-system";
+      SI.MagneticFlux psi_e "excitation flux";
       Real[2,2] Rot_dq "Rotation reference-dq0 to rotor-dq0 system";
 
+    initial equation
+      if not system.steadyIni then
+        // initialize i_s from i_start
+        i_start = cat(1, Rot_dq*i_s[1:2], {i_s[3]});
+      end if;
+
     equation
-      Rot_dq = Basic.Transforms.rotation_dq(
-                                           phi_el - term.theta[2]);
+      Rot_dq = Basic.Transforms.rotation_dq(phi_el - term.theta[2]);
       v_s = cat(1, transpose(Rot_dq)*v[1:2], {v[3]});
       i = cat(1, Rot_dq*i_s[1:2], {i_s[3]});
       annotation (
@@ -865,7 +870,6 @@ Special choices are</p>
               info="<html>
 <p>Contains the transformation of stator voltage and current from the dq0 reference-frame to the dq0 rotor-frame.<br>
 The transformation angle is the (electric) rotor-angle relative to the reference frame.</p>
-<p>If 'rotorSys = true', the reference frame is specified by the rotor. This allows to avoid the transformation. In this case, the system choice ('synchronous', 'inertial') has no influence. Note that this choice is not generally possible (for example several machines coupled to one common source).
 <pre>
   v_s, i_s:    stator-voltage and -current dq0 in the rotor frame of the machine.
 </pre></p>
