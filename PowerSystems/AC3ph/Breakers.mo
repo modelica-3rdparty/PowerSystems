@@ -107,10 +107,10 @@ with
       "{resistance 'closed', conductance 'open'}";
     parameter SI.Time t_relax=10e-3 "switch relaxation time";
     parameter Integer p_relax(min=2)=4 "power of relaxation exponent";
-    SI.Voltage[3] v_t;
-    SI.Voltage[3] v_f;
-    SI.Current[3] i_t;
-    SI.Current[3] i_f;
+    PS.Voltage[3] v_t;
+    PS.Voltage[3] v_f;
+    PS.Current[3] i_t;
+    PS.Current[3] i_f;
 
     Ports.ACdq0_p term_p "positive terminal"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -396,8 +396,8 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       parameter Integer n=3 "number of independent switches";
       parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
         "{resistance 'closed', conductance 'open'}";
-      SI.Voltage[3] v;
-      SI.Current[3] i;
+      PS.Voltage[3] v;
+      PS.Current[3] i;
       Modelica.Blocks.Interfaces.BooleanInput[n] control
         "true:closed, false:open"
       annotation (Placement(transformation(
@@ -442,9 +442,9 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       "Switch base, additional abc-variables, 3-phase dq0"
       extends SwitchBase(final n=3);
 
-      SI.Voltage[3] v_abc(each stateSelect=StateSelect.never)
+      PS.Voltage[3] v_abc(each stateSelect=StateSelect.never)
         "voltage switch a, b, c";
-      SI.Current[3] i_abc(each stateSelect=StateSelect.never)
+      PS.Current[3] i_abc(each stateSelect=StateSelect.never)
         "current switch a, b, c";
     protected
       Real[3,3] Park = PowerSystems.Basic.Transforms.park(

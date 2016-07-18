@@ -61,9 +61,9 @@ package Transformers "Transformers 1-phase "
   model TrafoMag "Magnetic coupling transformer, 1-phase"
     extends Partials.TrafoMagBase;
 
-    SI.Voltage v0;
-    SI.Current imag;
-    SI.Current iedc;
+    PS.Voltage v0;
+    PS.Current imag;
+    PS.Current iedc;
   Real psi0 "unsaturated flux";
 
   equation
@@ -128,9 +128,9 @@ and eddy current losses.</p>
   model TrafoSat "Saturation transformer, 1-phase"
     extends Partials.TrafoSatBase;
 
-    SI.Voltage v0;
-    SI.Current imag;
-    SI.Current iedc;
+    PS.Voltage v0;
+    PS.Current imag;
+    PS.Current iedc;
   protected
     Real psi0 "unsaturated flux";
     Real g;
@@ -266,9 +266,9 @@ and eddy current losses.</p>
 
       parameter Boolean stIni_en=true "enable steady-state initial equation"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter SI.Current i1_start = 0 "start value of primary current"
+      parameter PS.Current i1_start = 0 "start value of primary current"
         annotation(Dialog(tab="Initialization"));
-      parameter SI.Current i2_start = i1_start
+      parameter PS.Current i2_start = i1_start
         "start value of secondary current"
         annotation(Dialog(tab="Initialization"));
 
@@ -305,7 +305,7 @@ and eddy current losses.</p>
 
       outer System system;
       constant Real tc=0.01 "time constant tap-chg switching";
-      final parameter SI.Voltage[2] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
+      final parameter PS.Voltage[2] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
       final parameter Real[2, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
       final parameter Real W_nom=par.V_nom[2]/par.V_nom[1]
         annotation(Evaluate=true);
@@ -525,7 +525,7 @@ For variable transformer ratio tap changer input needed.</p>
 
       outer System system;
       constant Real tc=0.01 "time constant tap-chg switching";
-      final parameter SI.Voltage[3] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
+      final parameter PS.Voltage[3] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
       final parameter Real[3, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
       final parameter Real Wa_nom=par.V_nom[2]/par.V_nom[1]
         annotation(Evaluate=true);

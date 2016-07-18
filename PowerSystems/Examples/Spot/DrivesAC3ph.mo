@@ -567,8 +567,9 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
         redeclare record Data =
           PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron_ctrl (
-        redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA))
+            redeclare record Data =
+              PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA,
+            i_start={10,10,0}))
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));

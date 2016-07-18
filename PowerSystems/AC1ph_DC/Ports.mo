@@ -2,6 +2,10 @@ within PowerSystems.AC1ph_DC;
 package Ports "Strandard electric ports"
   extends Modelica.Icons.InterfacesPackage;
 
+  partial model PortBase "base model defining PhaseSystem"
+    package PS = PhaseSystems.TwoConductor;
+  end PortBase;
+
   connector TwoPin_p "AC1/DC terminal ('positive')"
     extends Interfaces.TerminalDC(redeclare package PhaseSystem =
           PhaseSystems.TwoConductor);
@@ -9,8 +13,7 @@ package Ports "Strandard electric ports"
     Documentation(info="<html>
 <p>Electric connector with a vector of 'pin's, positive.</p>
 </html>
-"),
-    Icon(coordinateSystem(
+"), Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Polygon(
@@ -84,6 +87,7 @@ package Ports "Strandard electric ports"
   end TwoPin_n;
 
   partial model Port_p "One port, 'positive'"
+    extends PortBase;
 
     Ports.TwoPin_p term "positive terminal"
   annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -97,6 +101,7 @@ package Ports "Strandard electric ports"
   end Port_p;
 
   partial model Port_n "One port, 'negative'"
+    extends PortBase;
 
     Ports.TwoPin_n term "negative terminal"
   annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -110,6 +115,7 @@ package Ports "Strandard electric ports"
   end Port_n;
 
   partial model Port_f "One port, 'fault'"
+    extends PortBase;
 
     Ports.TwoPin_p term "fault terminal"
   annotation (Placement(transformation(
@@ -126,6 +132,7 @@ package Ports "Strandard electric ports"
   end Port_f;
 
   partial model Port_p_n "Two port"
+    extends PortBase;
 
     Ports.TwoPin_p term_p "positive terminal"
   annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -139,7 +146,6 @@ package Ports "Strandard electric ports"
              "%name")}),
   Documentation(info="<html>
 </html>"));
-
   end Port_p_n;
 
   partial model Port_pn "Two port, 'current_in = current_out'"
@@ -168,11 +174,11 @@ package Ports "Strandard electric ports"
   partial model PortTrafo_p_n "Two port for transformers"
     extends Port_p_n;
 
-    SI.Voltage v1 "voltage 1";
-    SI.Current i1 "current 1";
+    PS.Voltage v1 "voltage 1";
+    PS.Current i1 "current 1";
 
-    SI.Voltage v2 "voltage 2";
-    SI.Current i2 "current 2";
+    PS.Voltage v2 "voltage 2";
+    PS.Current i2 "current 2";
   protected
     Real w1 "1: voltage ratio to nominal";
     Real w2 "2: voltage ratio to nominal";
@@ -211,6 +217,7 @@ package Ports "Strandard electric ports"
   end PortTrafo_p_n;
 
   partial model PortTrafo_p_n_n "Three port for 3-winding transformers"
+    extends PortBase;
 
     Ports.TwoPin_p term_p "positive terminal"
   annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -219,16 +226,16 @@ package Ports "Strandard electric ports"
     Ports.TwoPin_n term_nb "negative terminal b"
   annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
 
-    SI.Voltage v1 "voltage 1";
-    SI.Current i1 "current 1";
+    PS.Voltage v1 "voltage 1";
+    PS.Current i1 "current 1";
 
-    SI.Voltage v2a "voltage 2a";
-    SI.Current i2a "current 2a";
+    PS.Voltage v2a "voltage 2a";
+    PS.Current i2a "current 2a";
 
-    SI.Voltage v2b "voltage 2b";
-    SI.Current i2b "current 2b";
+    PS.Voltage v2b "voltage 2b";
+    PS.Current i2b "current 2b";
 
-    SI.Voltage v0;
+    PS.Voltage v0;
   protected
     Real w1 "1: voltage ratio to nominal";
     Real w2a "2a: voltage ratio to nominal";

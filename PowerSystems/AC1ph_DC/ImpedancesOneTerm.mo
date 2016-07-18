@@ -234,13 +234,13 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
 
       parameter Boolean stIni_en = true "enable steady-state initialization"
         annotation(Evaluate=true);
-      parameter SI.Voltage v_start = 0 "start value of voltage drop"
+      parameter PS.Voltage v_start = 0 "start value of voltage drop"
         annotation(Dialog(tab="Initialization"));
-      parameter SI.Current i_start = 0 "start value of current"
+      parameter PS.Current i_start = 0 "start value of current"
         annotation(Dialog(tab="Initialization"));
 
-      SI.Voltage v(start = v_start);
-      SI.Current i(start = i_start);
+      PS.Voltage v(start = v_start);
+      PS.Current i(start = i_start);
 
     protected
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;

@@ -57,10 +57,10 @@ package Machines "AC machines, electric part "
     extends Partials.AsynchronBase(redeclare replaceable record Data =
       PowerSystems.AC3ph.Machines.Parameters.Asynchron_cage);
 
-    parameter SI.Current[n_r] i_d_start = zeros(n_r)
+    parameter PS.Current[n_r] i_d_start = zeros(n_r)
       "start value of current d_axis"
       annotation(Dialog(tab="Initialization"));
-    parameter SI.Current[n_r] i_q_start = zeros(n_r)
+    parameter PS.Current[n_r] i_q_start = zeros(n_r)
       "start value of current q_axis"
       annotation(Dialog(tab="Initialization"));
 
@@ -89,13 +89,13 @@ package Machines "AC machines, electric part "
           rotation=180)));
   protected
     constant Real eps=Modelica.Constants.eps;
-    final parameter SI.Current I_nom=par.S_nom/par.V_nom;
+    final parameter PS.Current I_nom=par.S_nom/par.V_nom;
     SI.Angle alpha_i;
     SI.Angle alpha_psi;
-    SI.Voltage[2] v_dq "stator voltage demand in rotor flux-system";
-    SI.Current[2] i_dq "stator current demand in rotor flux-system";
-    SI.Current[n_r] i_d(start = i_d_start);
-    SI.Current[n_r] i_q(start = i_q_start);
+    PS.Voltage[2] v_dq "stator voltage demand in rotor flux-system";
+    PS.Current[2] i_dq "stator current demand in rotor flux-system";
+    PS.Current[n_r] i_d(start = i_d_start);
+    PS.Current[n_r] i_q(start = i_q_start);
     function acos=Modelica.Math.acos;
 
   initial equation
@@ -147,7 +147,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
       redeclare replaceable record Data =
         PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_ee);
 
-    final parameter SI.Voltage Vf_nom=par.V_nom; // to be accessible from 'excitation'.
+    final parameter PS.Voltage Vf_nom=par.V_nom; // to be accessible from 'excitation'.
     output SI.Angle powerAngle(start=0, stateSelect=StateSelect.never)
       "power angle";
     AC1ph_DC.Ports.TwoPin_p field "field winding"
@@ -186,7 +186,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
     extends Partials.SynchronBase(final phi_el_ini=-pi/2+system.alpha0,
       redeclare replaceable record Data =
         PowerSystems.AC3ph.Machines.Parameters.Synchron_ee);
-    final parameter SI.Voltage Vf_nom=c.Vf_nom; // to be accessible from 'excitation'.
+    final parameter PS.Voltage Vf_nom=c.Vf_nom; // to be accessible from 'excitation'.
     output SI.Angle powerAngle(start=0, stateSelect=StateSelect.never)
       "power angle";
     AC1ph_DC.Ports.TwoPin_p field "field winding"
@@ -369,9 +369,9 @@ The mapping from current demand to voltage demand is based on the steady-state e
           extent={{-10,-10},{10,10}},
           rotation=180)));
   protected
-    final parameter SI.Current I_nom=par.S_nom/par.V_nom;
-    SI.Voltage[2] v_dq "voltage demand {v_d, v_q} pu";
-    SI.Current[2] i_dq "current demand {i_d, i_q} pu";
+    final parameter PS.Current I_nom=par.S_nom/par.V_nom;
+    PS.Voltage[2] v_dq "voltage demand {v_d, v_q} pu";
+    PS.Current[2] i_dq "current demand {i_d, i_q} pu";
   initial equation
     phi_el = phi_el_ini;
     if system.steadyIni then
@@ -445,9 +445,9 @@ The mapping from current demand to voltage demand is based on the steady-state e
           extent={{-10,-10},{10,10}},
           rotation=180)));
   protected
-    final parameter SI.Current I_nom=par.S_nom/par.V_nom;
-    SI.Voltage[2] v_dq "voltage demand {v_d, v_q} pu";
-    SI.Current[2] i_dq "current demand {i_d, i_q} pu";
+    final parameter PS.Current I_nom=par.S_nom/par.V_nom;
+    PS.Voltage[2] v_dq "voltage demand {v_d, v_q} pu";
+    PS.Current[2] i_dq "current demand {i_d, i_q} pu";
   initial equation
     phi_el = phi_el_ini;
     if system.steadyIni then
@@ -512,7 +512,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
 
       parameter Boolean stIni_en=true "enable steady-state initialization"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter SI.Current[3] i_start = zeros(3)
+      parameter PS.Current[3] i_start = zeros(3)
         "start value of current conductor";
       parameter SI.Angle phi_el_ini=0 "initial rotor angle electric";
       parameter SI.AngularVelocity w_ini=0 "initial rotor angular velocity";
@@ -685,17 +685,17 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
       parameter SI.Resistance R_m[n_r] = c.R_m;
       parameter SI.Inductance L_r[n_r,n_r] = c.L_r;
 
-      parameter SI.Current[n_r] i_rd_start = zeros(n_r)
+      parameter PS.Current[n_r] i_rd_start = zeros(n_r)
         "start value of rotor current d_axis"
         annotation(Dialog(tab="Initialization"));
-      parameter SI.Current[n_r] i_rq_start = zeros(n_r)
+      parameter PS.Current[n_r] i_rq_start = zeros(n_r)
         "start value of rotor current q_axis"
         annotation(Dialog(tab="Initialization"));
 
-      SI.Voltage[n_r] v_rd=zeros(n_r) "rotor voltage d_axis, cage-rotor = 0";
-      SI.Voltage[n_r] v_rq=zeros(n_r) "rotor voltage q_axis, cage-rotor = 0";
-      SI.Current[n_r] i_rd(start = i_rd_start) "rotor current d_axis";
-      SI.Current[n_r] i_rq(start = i_rq_start) "rotor current q_axis";
+      PS.Voltage[n_r] v_rd=zeros(n_r) "rotor voltage d_axis, cage-rotor = 0";
+      PS.Voltage[n_r] v_rq=zeros(n_r) "rotor voltage q_axis, cage-rotor = 0";
+      PS.Current[n_r] i_rd(start = i_rd_start) "rotor current d_axis";
+      PS.Current[n_r] i_rq(start = i_rq_start) "rotor current q_axis";
       SI.MagneticFlux[2] psi_s "magnetic flux stator dq";
       SI.MagneticFlux[n_r] psi_rd "magnetic flux rotor d";
       SI.MagneticFlux[n_r] psi_rq "magnetic fluxrotor q";
@@ -845,12 +845,12 @@ Special choices are</p>
       extends ACmachine;
       import Modelica.Math.Matrices.inv;
 
-      SI.Voltage[3] v_s "stator voltage dq0 in rotor-system";
-      SI.Current[3] i_s(each stateSelect=StateSelect.prefer, start=i_s_start)
+      PS.Voltage[3] v_s "stator voltage dq0 in rotor-system";
+      PS.Current[3] i_s(each stateSelect=StateSelect.prefer, start = i_s_start)
         "stator current dq0 in rotor-system";
 
     protected
-      parameter SI.Current[3] i_s_start = cat(1, inv(Basic.Transforms.rotation_dq(phi_el_ini))*i_start[1:2], {i_start[3]})
+      parameter PS.Current[3] i_s_start = cat(1, inv(Basic.Transforms.rotation_dq(phi_el_ini))*i_start[1:2], {i_start[3]})
         "start value of stator current dq0 in rotor-system";
       SI.MagneticFlux psi_e "excitation flux";
       Real[2,2] Rot_dq "Rotation reference-dq0 to rotor-dq0 system";
@@ -870,6 +870,7 @@ Special choices are</p>
               info="<html>
 <p>Contains the transformation of stator voltage and current from the dq0 reference-frame to the dq0 rotor-frame.<br>
 The transformation angle is the (electric) rotor-angle relative to the reference frame.</p>
+<p>If 'rotorSys = true', the reference frame is specified by the rotor. This allows to avoid the transformation. In this case, the system choice ('synchronous', 'inertial') has no influence. Note that this choice is not generally possible (for example several machines coupled to one common source).
 <pre>
   v_s, i_s:    stator-voltage and -current dq0 in the rotor frame of the machine.
 </pre></p>
@@ -979,18 +980,18 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
       parameter SI.Resistance[n_d] R_rd = c.R_rd "R matrix rotor";
       parameter SI.Resistance[n_q] R_rq = c.R_rq "R matrix rotor";
 
-      SI.Voltage[n_d] v_rd(start=ones(n_d))
+      PS.Voltage[n_d] v_rd(start=ones(n_d))
         "rotor voltage d-axis in rotor-system";
-      SI.Voltage[n_q] v_rq "rotor voltage q-axis in rotor-system";
-      SI.Current[n_d] i_rd(each stateSelect=StateSelect.prefer)
+      PS.Voltage[n_q] v_rq "rotor voltage q-axis in rotor-system";
+      PS.Current[n_d] i_rd(each stateSelect=StateSelect.prefer)
         "rotor current d-axis in rotor-system";
-      SI.Current[n_q] i_rq(each stateSelect=StateSelect.prefer)
+      PS.Current[n_q] i_rq(each stateSelect=StateSelect.prefer)
         "rotor current q-axis in rotor-system";
       SI.MagneticFlux[2] psi_s "magnetic flux stator dq";
       SI.MagneticFlux[n_d] psi_rd "magnetic flux rotor d";
       SI.MagneticFlux[n_q] psi_rq "magnetic fluxrotor q";
-      SI.Voltage v_f "field voltage (not scaled to stator units)";
-      SI.Current i_f "field current (not scaled to stator units)";
+      PS.Voltage v_f "field voltage (not scaled to stator units)";
+      PS.Current i_f "field current (not scaled to stator units)";
 
     initial equation
       if steadyIni_t then
@@ -1133,9 +1134,9 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
   model Excitation "Excitation (electric part)"
     extends Ports.Port_p;
 
-    parameter SI.Voltage V_nom=1 "nom voltage armature"
+    parameter PS.Voltage V_nom=1 "nom voltage armature"
       annotation(Evaluate=true, Dialog(group="Nominal"));
-    parameter SI.Voltage Vf_nom=1 "nom voltage field-winding"
+    parameter PS.Voltage Vf_nom=1 "nom voltage field-winding"
       annotation(Evaluate=true, Dialog(group="Nominal"));
 
     Modelica.Blocks.Interfaces.RealOutput[3] termVoltage(each final unit="1")

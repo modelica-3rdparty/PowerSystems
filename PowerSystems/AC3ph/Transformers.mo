@@ -65,9 +65,9 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
   model TrafoMag "Magnetic coupling transformer, 3-phase dq0"
     extends Partials.TrafoMagBase;
 
-    SI.Voltage[3] v0;
-    SI.Current[3] imag;
-    SI.Current[3] iedc;
+    PS.Voltage[3] v0;
+    PS.Current[3] imag;
+    PS.Current[3] iedc;
 
   initial equation
     if steadyIni_t then
@@ -123,9 +123,9 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
   model TrafoSatEff "Averaged saturation transformer, 3-phase dq0"
     extends Partials.TrafoSatBase;
 
-    SI.Voltage[3] v0;
-    SI.Current[3] imag;
-    SI.Current[3] iedc;
+    PS.Voltage[3] v0;
+    PS.Current[3] imag;
+    PS.Current[3] iedc;
   protected
     Real[3] psi0(each stateSelect=StateSelect.prefer) "unsaturated flux";
     Real gp;
@@ -194,9 +194,9 @@ The factor <tt>0.66</tt> in the expression of the effective pu flux is an estima
   model TrafoSat "Saturation transformer, 3-phase dq0"
     extends Partials.TrafoSatBase;
 
-    SI.Voltage[3] v0;
-    SI.Current[3] imag;
-    SI.Current[3] iedc;
+    PS.Voltage[3] v0;
+    PS.Current[3] imag;
+    PS.Current[3] iedc;
   protected
     Real[3] psi0(each stateSelect=StateSelect.prefer) "unsaturated flux";
     Real[3] gp;
@@ -310,10 +310,10 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 
         parameter Boolean stIni_en=true "enable steady-state initial equation"
           annotation(Evaluate=true, Dialog(tab="Initialization"));
-        parameter SI.Current[3] i1_start = zeros(3)
+        parameter PS.Current[3] i1_start = zeros(3)
         "start value of primary current"
           annotation(Dialog(tab="Initialization"));
-        parameter SI.Current[3] i2_start = i1_start
+        parameter PS.Current[3] i2_start = i1_start
         "start value of secondary current"
           annotation(Dialog(tab="Initialization"));
 
@@ -352,7 +352,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         outer System system;
         constant Real tc=0.01 "time constant tap-chg switching";
         final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
-        final parameter SI.Voltage[2] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
+        final parameter PS.Voltage[2] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
         final parameter SI.Resistance[2, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
         final parameter Real W_nom=par.V_nom[2]/par.V_nom[1]
           annotation(Evaluate=true);
@@ -657,7 +657,7 @@ For variable transformer ratio tap changer input needed.</p>
     outer System system;
     constant Real tc=0.01 "time constant tap-chg switching";
     final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
-    final parameter SI.Voltage[3] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
+    final parameter PS.Voltage[3] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
     final parameter SI.Resistance[3, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
     final parameter Real Wa_nom=par.V_nom[2]/par.V_nom[1]
       annotation(Evaluate=true);

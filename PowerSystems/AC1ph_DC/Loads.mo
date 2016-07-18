@@ -204,13 +204,13 @@ Consumes the desired power independent of voltage.</p>
 
       parameter Boolean stIni_en=true "enable steady-state initialization"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter SI.Voltage v_start = 0
+      parameter PS.Voltage v_start = 0
         "start value of voltage drop" annotation(Dialog(tab="Initialization"));
-      parameter SI.Current i_start = 0
+      parameter PS.Current i_start = 0
         "start value of current" annotation(Dialog(tab="Initialization"));
 
-      SI.Voltage v(start = v_start);
-      SI.Current i(start = i_start);
+      PS.Voltage v(start = v_start);
+      PS.Current i(start = i_start);
 
     protected
       outer System system;
@@ -318,8 +318,8 @@ Consumes the desired power independent of voltage.</p>
     protected
                    final parameter Real V2_nom=V_nom*V_nom;
                    final parameter Real[2] Zstart=(p0_set/(p0_set*p0_set*S_base))*V2_nom;
-                   final parameter SI.Voltage vstart=cos(system.alpha0)*V_nom;
-                   final parameter SI.Current istart=cos(system.alpha0-atan(Zstart[2]/Zstart[1]))*V_nom/sqrt(Zstart*Zstart);
+                   final parameter PS.Voltage vstart=cos(system.alpha0)*V_nom;
+                   final parameter PS.Current istart=cos(system.alpha0-atan(Zstart[2]/Zstart[1]))*V_nom/sqrt(Zstart*Zstart);
                    SI.Impedance[2] Z(start=Zstart);
                    function atan=Modelica.Math.atan;
 
@@ -362,8 +362,8 @@ Consumes the desired power independent of voltage.</p>
     protected
                    final parameter Real I2_nom=(S_nom/V_nom)^2;
                    final parameter SI.Admittance[2] Ystart=(p0_set/(p0_set*p0_set*S_base))*I2_nom;
-                   final parameter SI.Voltage vstart=cos(system.alpha0)*V_nom;
-                   final parameter SI.Current istart=cos(system.alpha0+atan(Ystart[2]/Ystart[1]))*V_nom*sqrt(Ystart*Ystart);
+                   final parameter PS.Voltage vstart=cos(system.alpha0)*V_nom;
+                   final parameter PS.Current istart=cos(system.alpha0+atan(Ystart[2]/Ystart[1]))*V_nom*sqrt(Ystart*Ystart);
                    SI.Admittance[2] Y(start=Ystart);
                    function atan=Modelica.Math.atan;
 

@@ -152,8 +152,9 @@ package Nodes "Nodes "
   end GroundOne;
 
   model BusBar "Busbar, 1-phase"
+    extends Ports.PortBase;
 
-    output SI.Voltage v(stateSelect=StateSelect.never);
+    output PS.Voltage v(stateSelect=StateSelect.never);
     Ports.TwoPin_p term
       annotation (Placement(transformation(extent={{-7,-60},{7,60}})));
 

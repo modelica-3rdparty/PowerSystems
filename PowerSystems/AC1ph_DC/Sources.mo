@@ -8,7 +8,7 @@ package Sources "DC voltage sources"
     parameter SIpu.Voltage veff=1 "eff voltage"   annotation(Dialog(enable=scType_par));
     parameter SI.Angle alpha0=0 "phase angle"   annotation(Dialog(enable=scType_par));
   protected
-    SI.Voltage V;
+    PS.Voltage V;
     SI.Angle alpha;
     SI.Angle phi;
 
@@ -47,7 +47,7 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
     parameter SI.Angle[N] alpha0=zeros(N) "phase angles";
   protected
     final parameter Integer N=size(h, 1) "nb of harmonics";
-    SI.Voltage V;
+    PS.Voltage V;
     SI.Angle alpha;
     SI.Angle[N] phi;
 
@@ -102,7 +102,7 @@ where
 
     parameter SIpu.Voltage v0=1 "DC voltage"   annotation(Dialog(enable=scType_par));
   protected
-    SI.Voltage v;
+    PS.Voltage v;
 
   equation
     if scType_par then
@@ -135,8 +135,8 @@ with variable amplitude when 'vType' is 'signal'.</p>
     parameter Types.Charge_Ah Q_nom=1 "nominal Capacity";
   protected
     final parameter Real V_base=Basic.Precalculation.baseV(      puUnits, V_nom);
-    SI.Voltage v;
-    SI.Current i;
+    PS.Voltage v;
+    PS.Current i;
 
   equation
     v = v0*V_base;

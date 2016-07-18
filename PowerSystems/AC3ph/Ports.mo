@@ -3,8 +3,9 @@ package Ports "AC three-phase ports dq0 representation"
   extends Modelica.Icons.InterfacesPackage;
 
 partial model PortBase "base model adapting Spot to PowerSystems"
-  function j_dq0 = PhaseSystems.ThreePhase_dq0.j;
-  function jj_dq0 = PhaseSystems.ThreePhase_dq0.jj;
+  package PS = PhaseSystems.ThreePhase_dq0;
+  function j_dq0 = PS.j;
+  function jj_dq0 = PS.jj;
 end PortBase;
 
 connector ACdq0_p "AC terminal, 3-phase dq0 ('positive')"
@@ -180,10 +181,10 @@ end Port_p_n_f;
 partial model Yport_p "AC one port Y topology 'positive'"
   extends Port_p;
 
-  SI.Voltage[3] v "voltage terminal to neutral";
-  SI.Current[3] i "current terminal in";
-  SI.Voltage v_n(final start=0) "voltage neutral";
-  SI.Current i_n(final start=0) "current neutral";
+  PS.Voltage[3] v "voltage terminal to neutral";
+  PS.Current[3] i "current terminal in";
+  PS.Voltage v_n(final start=0) "voltage neutral";
+  PS.Current i_n(final start=0) "current neutral";
 
 equation
   v = term.v - {0, 0, sqrt(3)*v_n};
@@ -214,10 +215,10 @@ end Yport_p;
 partial model Yport_n "AC one port Y topology 'negative'"
   extends Port_n;
 
-  SI.Voltage[3] v "voltage terminal to neutral";
-  SI.Current[3] i "current terminal in";
-  SI.Voltage v_n(final start=0) "voltage neutral";
-  SI.Current i_n(final start=0) "current neutral";
+  PS.Voltage[3] v "voltage terminal to neutral";
+  PS.Current[3] i "current terminal in";
+  PS.Voltage v_n(final start=0) "voltage neutral";
+  PS.Current i_n(final start=0) "current neutral";
 
 equation
   v = term.v - {0, 0, sqrt(3)*v_n};
@@ -264,10 +265,10 @@ partial model YDport_p "AC one port Y or Delta topology 'positive'"
   Topology_p top(v_cond=v, i_cond=i, v_n=v_n)
     annotation (Placement(transformation(extent={{30,-20},{70,20}})));
 
-  SI.Voltage[3] v "voltage conductor";
-  SI.Current[3] i "current conductor";
-  SI.Voltage[n_n] v_n "voltage neutral";
-  SI.Current[n_n] i_n=top.i_n "current neutral to ground";
+  PS.Voltage[3] v "voltage conductor";
+  PS.Current[3] i "current conductor";
+  PS.Voltage[n_n] v_n "voltage neutral";
+  PS.Current[n_n] i_n=top.i_n "current neutral to ground";
   protected
   final parameter Integer n_n=top.n_n
                               annotation(Evaluate=true);
@@ -314,10 +315,10 @@ partial model YDport_n "AC one port Y or Delta topology 'positive'"
             "Delta")));
   Topology_n top(v_cond=v, i_cond=i, v_n=v_n) "Y or Delta topology"
     annotation (Placement(transformation(extent={{-30,-20},{-70,20}})));
-  SI.Voltage[3] v "voltage conductor";
-  SI.Current[3] i "current conductor";
-  SI.Voltage[n_n] v_n "voltage neutral";
-  SI.Current[n_n] i_n=top.i_n "current neutral to ground";
+  PS.Voltage[3] v "voltage conductor";
+  PS.Current[3] i "current conductor";
+  PS.Voltage[n_n] v_n "voltage neutral";
+  PS.Current[n_n] i_n=top.i_n "current neutral to ground";
   protected
   final parameter Integer n_n=top.n_n
                               annotation(Evaluate=true);
@@ -365,8 +366,8 @@ partial model Y_Dport_p "AC two port, switcheable Y-Delta topology"
         PowerSystems.AC3ph.Ports.Topology.Y_DeltaRegular "Y_DeltaRegular")));
   Topology_p top(v_cond=v, i_cond=i, control=YDcontrol) "Y-Delta switcheable"
     annotation (Placement(transformation(extent={{30,-20},{70,20}})));
-  SI.Voltage[3] v "voltage conductor";
-  SI.Current[3] i "current conductor";
+  PS.Voltage[3] v "voltage conductor";
+  PS.Current[3] i "current conductor";
   Modelica.Blocks.Interfaces.BooleanInput YDcontrol "true:Y, false:Delta"
                                             annotation (Placement(
           transformation(extent={{-110,30},{-90,50}})));
@@ -434,15 +435,15 @@ partial model YDportTrafo_p_n
       "n: Y or Delta topology"
     annotation (Placement(transformation(extent={{80,-20},{40,20}})));
 
-  SI.Voltage[3] v1 "voltage conductor";
-  SI.Current[3] i1 "current conductor";
-  SI.Voltage[n_n1] v_n1 "voltage neutral";
-  SI.Current[n_n1] i_n1=top_p.i_n "current neutral to ground";
+  PS.Voltage[3] v1 "voltage conductor";
+  PS.Current[3] i1 "current conductor";
+  PS.Voltage[n_n1] v_n1 "voltage neutral";
+  PS.Current[n_n1] i_n1=top_p.i_n "current neutral to ground";
 
-  SI.Voltage[3] v2 "voltage conductor";
-  SI.Current[3] i2 "current conductor";
-  SI.Voltage[n_n2] v_n2 "voltage neutral";
-  SI.Current[n_n2] i_n2=top_n.i_n "current neutral to ground";
+  PS.Voltage[3] v2 "voltage conductor";
+  PS.Current[3] i2 "current conductor";
+  PS.Voltage[n_n2] v_n2 "voltage neutral";
+  PS.Current[n_n2] i_n2=top_n.i_n "current neutral to ground";
 
   protected
   constant Integer[2] scale={top_p.scale, top_n.scale};
@@ -541,22 +542,22 @@ partial model YDportTrafo_p_n_n
       "nb: Y or Delta topology"
     annotation (Placement(transformation(extent={{80,-60},{40,-20}})));
 
-  SI.Voltage[3] v1 "voltage conductor";
-  SI.Current[3] i1 "current conductor";
-  SI.Voltage[n_n1] v_n1 "voltage neutral";
-  SI.Current[n_n1] i_n1=top_p.i_n "current neutral to ground";
+  PS.Voltage[3] v1 "voltage conductor";
+  PS.Current[3] i1 "current conductor";
+  PS.Voltage[n_n1] v_n1 "voltage neutral";
+  PS.Current[n_n1] i_n1=top_p.i_n "current neutral to ground";
 
-  SI.Voltage[3] v2a "voltage conductor";
-  SI.Current[3] i2a "current conductor";
-  SI.Voltage[n_n2a] v_n2a "voltage neutral";
-  SI.Current[n_n2a] i_n2a=top_na.i_n "current neutral to ground";
+  PS.Voltage[3] v2a "voltage conductor";
+  PS.Current[3] i2a "current conductor";
+  PS.Voltage[n_n2a] v_n2a "voltage neutral";
+  PS.Current[n_n2a] i_n2a=top_na.i_n "current neutral to ground";
 
-  SI.Voltage[3] v2b "voltage conductor";
-  SI.Current[3] i2b "current conductor";
-  SI.Voltage[n_n2b] v_n2b "voltage neutral";
-  SI.Current[n_n2b] i_n2b=top_nb.i_n "current neutral to ground";
+  PS.Voltage[3] v2b "voltage conductor";
+  PS.Current[3] i2b "current conductor";
+  PS.Voltage[n_n2b] v_n2b "voltage neutral";
+  PS.Current[n_n2b] i_n2b=top_nb.i_n "current neutral to ground";
 
-  SI.Voltage[3] v0;
+  PS.Voltage[3] v0;
   protected
   constant Integer[3] scale={top_p.scale, top_na.scale, top_nb.scale};
   final parameter Integer n_n1=top_p.n_n annotation(Evaluate=true);
@@ -626,16 +627,16 @@ package Topology "Topology transforms "
   extends Modelica.Icons.BasesPackage;
 
   partial model TopologyBase "Topology transform base"
-
+    extends PortBase;
     parameter Integer n_n(min=0,max=1)=1 "1 for Y, 0 for Delta";
     parameter Integer sh(min=-1,max=1)=0 "(-1,0,+1)*120deg phase shift"
                                                                       annotation(Evaluate=true);
-    SI.Voltage[3] v_term "terminal voltage";
-    SI.Current[3] i_term "terminal current";
-    input SI.Voltage[3] v_cond "conductor voltage";
-    input SI.Current[3] i_cond "conductor current";
-    input SI.Voltage[n_n] v_n(start=fill(0,n_n)) "voltage neutral";
-    SI.Current[n_n] i_n(start=fill(0,n_n)) "current neutral to ground";
+    PS.Voltage[3] v_term "terminal voltage";
+    PS.Current[3] i_term "terminal current";
+    input PS.Voltage[3] v_cond "conductor voltage";
+    input PS.Current[3] i_cond "conductor current";
+    input PS.Voltage[n_n] v_n(start=fill(0,n_n)) "voltage neutral";
+    PS.Current[n_n] i_n(start=fill(0,n_n)) "current neutral to ground";
     protected
     constant Real s3=sqrt(3);
       annotation (

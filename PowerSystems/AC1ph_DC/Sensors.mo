@@ -139,7 +139,7 @@ package Sensors "Sensors n-phase or DC"
     output SIpu.Voltage v0(stateSelect=StateSelect.never);
   protected
     SIpu.Voltage[2] v_ab(each stateSelect=StateSelect.never);
-    final parameter SI.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
+    final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
 
   equation
     v_ab = term.v/V_base;
@@ -178,7 +178,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     output SIpu.Current i0(stateSelect=StateSelect.never);
   protected
     SIpu.Current[2] i_ab(each stateSelect=StateSelect.never);
-    final parameter SI.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
+    final parameter PS.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
 
   equation
     i_ab = term_p.i/I_base;
@@ -265,8 +265,8 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     output SIpu.Current i0(stateSelect=StateSelect.never);
   protected
     outer System system;
-    final parameter SI.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
-    final parameter SI.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
+    final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
+    final parameter PS.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
     SIpu.Power pav;
     SIpu.Voltage[2] v_ab;
     SIpu.Current[2] i_ab;

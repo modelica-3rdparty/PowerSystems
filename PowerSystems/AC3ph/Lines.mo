@@ -108,8 +108,8 @@ package Lines "Transmission lines 3-phase"
     extends Ports.Port_pn;
     extends Partials.RXlineBase(final ne=1);
 
-    SI.Voltage[3] v(start = v_start);
-    SI.Current[3] i(start = i_start);
+    PS.Voltage[3] v(start = v_start);
+    PS.Current[3] i(start = i_start);
   protected
     SI.AngularFrequency[2] omega;
 
@@ -218,8 +218,8 @@ package Lines "Transmission lines 3-phase"
     extends Ports.Port_p_n;
     extends Partials.LineBase;
 
-    SI.Voltage[3,ne1] v(start = transpose(fill(v_start, ne1)));
-    SI.Current[3,ne] i(start = transpose(fill(i_start, ne)));
+    PS.Voltage[3,ne1] v(start = transpose(fill(v_start, ne1)));
+    PS.Current[3,ne] i(start = transpose(fill(i_start, ne)));
   protected
     final parameter Integer ne1=ne + 1;
     SI.AngularFrequency[2] omega;
@@ -643,8 +643,8 @@ The set of equations of two series connected lines of length len1 and len2 is id
     extends Ports.Port_p_n;
     extends Partials.LineBase;
 
-    SI.Voltage[3,ne] v(start = transpose(fill(v_start, ne)));
-    SI.Current[3,ne1] i(start = transpose(fill(i_start, ne1)));
+    PS.Voltage[3,ne] v(start = transpose(fill(v_start, ne)));
+    PS.Current[3,ne1] i(start = transpose(fill(i_start, ne1)));
   protected
     final parameter Integer ne1=ne + 1;
     SI.AngularFrequency[2] omega;
@@ -967,8 +967,8 @@ The set of equations of two series connected lines of length len1 and len2 is id
     parameter Real p(min=0,max=1)=0.5 "rel fault-position (0 < p < 1)";
     extends Partials.RXlineBase(final ne=1);
 
-    SI.Current[3] i1(start = i_start);
-    SI.Current[3] i2(start = i_start);
+    PS.Current[3] i1(start = i_start);
+    PS.Current[3] i2(start = i_start);
   protected
     SI.AngularFrequency[2] omega;
 
@@ -1169,13 +1169,13 @@ The set of equations of two series connected lines of length len1 and len2 is id
       "rel fault-pos (1/2ne <= p < 1 - 1/2ne)";
     extends Partials.LineBase;
 
-    parameter SI.Current[3] iF_start = zeros(3) "start value of fault current"
+    parameter PS.Current[3] iF_start = zeros(3) "start value of fault current"
       annotation(Dialog(tab="Initialization"));
 
-    SI.Voltage[3,ne] v(start = transpose(fill(v_start, ne)));
-    SI.Current[3,ne1] i(start = transpose(fill(i_start, ne1)));
-    SI.Current[3] iF(start = iF_start);
-    SI.Current[3,2] iF_p(each stateSelect=StateSelect.never);
+    PS.Voltage[3,ne] v(start = transpose(fill(v_start, ne)));
+    PS.Current[3,ne1] i(start = transpose(fill(i_start, ne1)));
+    PS.Current[3] iF(start = iF_start);
+    PS.Current[3,2] iF_p(each stateSelect=StateSelect.never);
   protected
     final parameter Integer ne1=ne + 1;
     final parameter Integer nF=integer(ne*p + 1.5);
@@ -1326,12 +1326,13 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
     extends Modelica.Icons.MaterialPropertiesPackage;
 
     partial model RXlineBase "RX-line base, 3-phase dq0"
+      extends Ports.PortBase;
 
       parameter Boolean stIni_en=true "enable steady-state initial equation"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter SI.Voltage[3] v_start = zeros(3) "start value of voltage drop"
+      parameter PS.Voltage[3] v_start = zeros(3) "start value of voltage drop"
         annotation(Dialog(tab="Initialization"));
-      parameter SI.Current[3] i_start = zeros(3) "start value of current"
+      parameter PS.Current[3] i_start = zeros(3) "start value of current"
         annotation(Dialog(tab="Initialization"));
 
       parameter Types.Length len=100e3 "line length";

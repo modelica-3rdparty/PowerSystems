@@ -538,7 +538,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   model CapacitorSym "Symmetrical capacitor with neutral access"
     extends Partials.ImpedBase0;
 
-    parameter SI.Voltage Vstart=0 "start voltage";
+    parameter PS.Voltage Vstart=0 "start voltage";
     parameter SI.Conductance G=1e-6;
     parameter SI.Capacitance C=1e-6;
     Interfaces.Electric_n neutral "symmetrical point"
@@ -630,7 +630,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   model DClink "DC-link with filter circuit"
     extends Partials.ImpedBase0;
 
-    parameter SI.Voltage Vstart=0 "start voltage";
+    parameter PS.Voltage Vstart=0 "start voltage";
     parameter SI.Resistance Rfilter=1e-3;
     parameter SI.Inductance Lfilter=1e-3;
     parameter SI.Capacitance Cfilter=1e-6;
@@ -717,7 +717,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   model DClinkSym "Symmetrical DC-link with filter circuit and neutral access"
     extends Partials.ImpedBase0;
 
-    parameter SI.Voltage Vstart=0 "start voltage";
+    parameter PS.Voltage Vstart=0 "start voltage";
     parameter SI.Resistance Rfilter=1e-3;
     parameter SI.Inductance Lfilter=1e-3;
     parameter SI.Capacitance Cfilter=1e-6;
@@ -810,6 +810,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
 
   package Partials "Partial models"
     partial model ImpedBase0 "Impedance base 0, 1-phase"
+      extends Ports.PortBase;
 
       Ports.TwoPin_p term_p "positive terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -837,13 +838,13 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
 
       parameter Boolean stIni_en=true "enable steady-state initialization"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter SI.Voltage[2] v_start = zeros(2)
+      parameter PS.Voltage[2] v_start = zeros(2)
         "start value of voltage drop" annotation(Dialog(tab="Initialization"));
-      parameter SI.Current[2] i_start = zeros(2)
+      parameter PS.Current[2] i_start = zeros(2)
         "start value of current" annotation(Dialog(tab="Initialization"));
 
-      SI.Voltage[2] v(start = v_start);
-      SI.Current[2] i(start = i_start);
+      PS.Voltage[2] v(start = v_start);
+      PS.Current[2] i(start = i_start);
 
     protected
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;

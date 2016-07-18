@@ -57,7 +57,8 @@ The transformation to inertial abc is only needed to determine the correct phase
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={
-          Ellipse(          extent={{-30,60},{-10,40}},
+          Ellipse(
+            extent={{-30,60},{-10,40}},
                             lineColor={0,0,0},
                             fillColor={0,255,128},
                             fillPattern=FillPattern.Solid),Ellipse(
@@ -417,15 +418,15 @@ The transformation to inertial abc is only needed to determine the correct phase
       parameter SI.Resistance epsR=1e-4 "resistance 'fault'";
       parameter SI.Conductance epsG=1e-4 "conductance 'no fault'";
 
-      parameter SI.Voltage[3] v_abc_start = zeros(3)
+      parameter PS.Voltage[3] v_abc_start = zeros(3)
         "start value of voltage phase a, b, c"
         annotation(Dialog(tab="Initialization"));
 
-      SI.Voltage[3] v "voltage";
-      SI.Current[3] i "current";
-      SI.Voltage[3] v_abc(each stateSelect=StateSelect.never, start = v_abc_start)
+      PS.Voltage[3] v "voltage";
+      PS.Current[3] i "current";
+      PS.Voltage[3] v_abc(each stateSelect=StateSelect.never, start = v_abc_start)
         "voltage phase a, b, c";
-      SI.Current[3] i_abc(each stateSelect=StateSelect.never)
+      PS.Current[3] i_abc(each stateSelect=StateSelect.never)
         "current phase a, b, c";
     protected
       constant Integer[3, 2] pair=[2, 3; 3, 1; 1, 2];

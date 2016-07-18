@@ -145,12 +145,12 @@ package Generic "Simple components for basic investigations"
     parameter Integer pp = 1 "pole-pair number";
     parameter SI.Frequency f_nom = system.f_nom "nominal value of frequency"
       annotation (Dialog(group="Reference Parameters"));
-    parameter SI.Voltage V_nom = 10e3 "nominal value of voltage"
+    parameter PS.Voltage V_nom = 10e3 "nominal value of voltage"
       annotation (Dialog(group="Reference Parameters"));
     Modelica.Mechanics.Rotational.Interfaces.Flange_a flange
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     SI.AngularVelocity w = pp*der(flange.phi);
-    SI.Voltage V(start = V_nom);
+    PS.Voltage V(start = V_nom);
     SI.Angle thetaRel;
   protected
     outer System system;
@@ -220,8 +220,8 @@ package Generic "Simple components for basic investigations"
     PowerSystems.Generic.Ports.Terminal_p terminal_dc(
       redeclare package PhaseSystem = PhaseSystem_dc)
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-    parameter SI.Voltage V_dc = 150e3 "voltage of dc system";
-    SI.Current I "value of current";
+    parameter PhaseSystem_dc.Voltage V_dc = 150e3 "voltage of dc system";
+    PS.Current I "value of current";
     SI.Angle thetaRel;
   protected
     outer System system;
@@ -288,7 +288,7 @@ package Generic "Simple components for basic investigations"
 
   model FixedVoltageSource
     extends PowerSystems.Generic.Ports.PartialSource;
-    parameter SI.Voltage V = 10e3 "value of constant voltage";
+    parameter PS.Voltage V = 10e3 "value of constant voltage";
     SI.Angle thetaRel;
   protected
     outer System system;
@@ -376,7 +376,7 @@ package Generic "Simple components for basic investigations"
       final potentialReference=true);
     Modelica.Blocks.Interfaces.RealInput P(unit="W") annotation (Placement(
           transformation(extent={{-130,-20},{-90,20}})));
-    SI.Current I "value of current";
+    PS.Current I "value of current";
     SI.Angle thetaRel;
   protected
     outer System system;
@@ -468,10 +468,11 @@ package Generic "Simple components for basic investigations"
       replaceable package PhaseSystem = PackagePhaseSystem constrainedby
         PowerSystems.PhaseSystems.PartialPhaseSystem "Phase system"
         annotation (choicesAllMatching=true);
+      package PS = PhaseSystem;
       function j = PhaseSystem.j;
-      parameter SI.Voltage[PhaseSystem.n] v_start = zeros(PhaseSystem.n)
+      parameter PS.Voltage[PhaseSystem.n] v_start = zeros(PhaseSystem.n)
         "Start value for voltage drop" annotation(Dialog(tab="Initialization"));
-      parameter SI.Current[PhaseSystem.n] i_start = zeros(PhaseSystem.n)
+      parameter PS.Current[PhaseSystem.n] i_start = zeros(PhaseSystem.n)
         "Start value for current" annotation(Dialog(tab="Initialization"));
       PowerSystems.Generic.Ports.Terminal_p terminal_p(
         redeclare package PhaseSystem = PhaseSystem)
@@ -481,11 +482,11 @@ package Generic "Simple components for basic investigations"
         redeclare package PhaseSystem = PhaseSystem)
         annotation (Placement(
           transformation(extent={{90,-10},{110,10}})));
-      SI.Voltage[PhaseSystem.n] v(start = v_start);
-      SI.Current[PhaseSystem.n] i(start = i_start);
+      PS.Voltage[PhaseSystem.n] v(start = v_start);
+      PS.Current[PhaseSystem.n] i(start = i_start);
       SI.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i);
-      SI.Voltage V = PhaseSystem.systemVoltage(v);
-      SI.Current I = PhaseSystem.systemCurrent(i);
+      PS.Voltage V = PhaseSystem.systemVoltage(v);
+      PS.Current I = PhaseSystem.systemCurrent(i);
       SI.Angle phi = PhaseSystem.phase(v) - PhaseSystem.phase(i);
     equation
       v = terminal_p.v - terminal_n.v;
@@ -499,6 +500,7 @@ package Generic "Simple components for basic investigations"
       replaceable package PhaseSystem = PackagePhaseSystem constrainedby
         PowerSystems.PhaseSystems.PartialPhaseSystem "Phase system"
         annotation (choicesAllMatching=true);
+      package PS = PhaseSystem;
       function j = PhaseSystem.j;
       PowerSystems.Generic.Ports.Terminal_n
                                          terminal(
@@ -527,14 +529,15 @@ package Generic "Simple components for basic investigations"
       replaceable package PhaseSystem = PackagePhaseSystem constrainedby
         PowerSystems.PhaseSystems.PartialPhaseSystem "Phase system"
         annotation (choicesAllMatching=true);
+      package PS = PhaseSystem;
       function j = PhaseSystem.j;
       PowerSystems.Generic.Ports.Terminal_p
                                          terminal(
                                       redeclare package PhaseSystem =
             PhaseSystem)
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-      SI.Voltage v[:] = terminal.v;
-      SI.Current i[:] = terminal.i;
+      PS.Voltage v[:] = terminal.v;
+      PS.Current i[:] = terminal.i;
       SI.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i);
     end PartialLoad;
   end Ports;

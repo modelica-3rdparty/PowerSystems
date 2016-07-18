@@ -373,7 +373,7 @@ model InverterAverage "Inverter time-average, 3-phase dq0"
     if modulation==3 then (4/pi)*sin(width0*pi/2)*sqrt(3/2) else 0
       annotation(Evaluate=true);
   SI.Angle phi;
-  SI.Voltage Vloss;
+  PS.Voltage Vloss;
   Real iAC2;
   Real cT;
   Real hsw_nom;
@@ -495,9 +495,9 @@ end InverterAverage;
     final parameter Data par "SC parameters"
       annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     protected
-    SI.Voltage[3] V;
-    SI.Voltage[3] v "voltage in inertial abc representation";
-    SI.Voltage[3] i_sc
+    PS.Voltage[3] V;
+    PS.Voltage[3] v "voltage in inertial abc representation";
+    PS.Voltage[3] i_sc
         "current scaled to voltage in inertial abc representation";
     Real[3] s(each start = 0.5) "arc-length on characteristic";
     Real[3] switch "switch function in inertial abc representation";
@@ -636,7 +636,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
     protected
     constant Integer[3] pgt={1,3,5} "positive gates";
     constant Integer[3] ngt={2,4,6} "negative gates";
-    SI.Voltage[3] v "voltage in inertial abc representation";
+    PS.Voltage[3] v "voltage in inertial abc representation";
     Real[3] switch "switch function in inertial abc representation";
     Real[3,3] Park = Basic.Transforms.park(        AC.theta[2]);
 
@@ -719,10 +719,10 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
     protected
     constant Integer[3] pgt={1,3,5} "positive gates";
     constant Integer[3] ngt={2,4,6} "negative gates";
-    SI.Voltage[3] V_s;
-    SI.Voltage[3] V_d;
-    SI.Voltage[3] v "voltage in inertial abc representation";
-    SI.Voltage[3] i_sc
+    PS.Voltage[3] V_s;
+    PS.Voltage[3] V_d;
+    PS.Voltage[3] v "voltage in inertial abc representation";
+    PS.Voltage[3] i_sc
         "current scaled to voltage in inertial abc representation";
     Real[3] s(each start = 0.5) "arc-length on characteristic";
     Real[3] switch "switch function in inertial abc representation";
@@ -965,10 +965,10 @@ partial model SwitchEquation "Switch equation, 3-phase dq0"
   extends AC_DC_base;
 
     protected
-  SI.Voltage vDC1=0.5*(DC.v[1] - DC.v[2]);
-  SI.Voltage vDC0=0.5*(DC.v[1] + DC.v[2]);
-  SI.Current iDC1=(DC.i[1] - DC.i[2]);
-  SI.Current iDC0=(DC.i[1] + DC.i[2]);
+  PS.Voltage vDC1=0.5*(DC.v[1] - DC.v[2]);
+  PS.Voltage vDC0=0.5*(DC.v[1] + DC.v[2]);
+  PS.Current iDC1=(DC.i[1] - DC.i[2]);
+  PS.Current iDC0=(DC.i[1] + DC.i[2]);
   Real[3] v_dq0 "switching function voltage in dq0 representation";
   Real[3] switch_dq0 "switching function in dq0 representation";
 

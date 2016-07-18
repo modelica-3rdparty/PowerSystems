@@ -164,8 +164,8 @@ The transformation to inertial abc is only needed to determine the correct phase
       parameter SI.Angle phi_on(min=0)=0 "voltage phase angle fault on";
       parameter SI.Resistance epsR=1e-4 "resistance 'fault'";
       parameter SI.Conductance epsG=1e-4 "conductance 'no fault'";
-      SI.Voltage[2] v;
-      SI.Current[2] i;
+      PS.Voltage[2] v;
+      PS.Current[2] i;
       Boolean on(final start=false, fixed=true);
     protected
       outer System system;

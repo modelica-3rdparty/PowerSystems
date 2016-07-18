@@ -601,8 +601,8 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
     protected
       outer System system;
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
-      final parameter Real S_base=Basic.Precalculation.baseS(      puUnits, S_nom);
-      final parameter Real R_base=Basic.Precalculation.baseR(      puUnits, V_nom, S_nom);
+      final parameter Real S_base=Basic.Precalculation.baseS(puUnits, S_nom);
+      final parameter Real R_base=Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
       final parameter SI.Resistance R_n=r_n*R_base;
       SI.AngularFrequency[2] omega;
       SI.Power[2] p0(start=p0_set);
@@ -653,8 +653,8 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
       final parameter Real c0=(1 + 2*cpl)/(1 - cpl);
       final parameter Real V2_nom=V_nom*V_nom;
       final parameter Real[2] Zstart=(p0_set/(p0_set*p0_set*S_base))*V2_nom;
-      final parameter SI.Voltage[2] vstart={cos(system.alpha0), sin(system.alpha0)}*V_nom;
-      final parameter SI.Current[2] istart=[Zstart[1],Zstart[2];-Zstart[2],Zstart[1]]*vstart/(Zstart*Zstart);
+      final parameter PS.Voltage[2] vstart={cos(system.alpha0), sin(system.alpha0)}*V_nom;
+      final parameter PS.Current[2] istart=[Zstart[1],Zstart[2];-Zstart[2],Zstart[1]]*vstart/(Zstart*Zstart);
       SI.Impedance[2] Z(start=Zstart);
 
     initial equation
@@ -694,8 +694,8 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
       final parameter Real c0=1/(1+3*beta);
       final parameter Real I2_nom=(S_nom/V_nom)^2;
       final parameter SI.Admittance[2] Ystart=(p0_set/(p0_set*p0_set*S_base))*I2_nom;
-      final parameter SI.Voltage[2] vstart={cos(system.alpha0), sin(system.alpha0)}*V_nom;
-      final parameter SI.Current[2] istart=[Ystart[1],-Ystart[2];Ystart[2],Ystart[1]]*vstart;
+      final parameter PS.Voltage[2] vstart={cos(system.alpha0), sin(system.alpha0)}*V_nom;
+      final parameter PS.Current[2] istart=[Ystart[1],-Ystart[2];Ystart[2],Ystart[1]]*vstart;
       SI.Admittance[2] Y(start=Ystart);
 
     initial equation

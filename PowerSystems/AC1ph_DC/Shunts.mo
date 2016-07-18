@@ -14,7 +14,7 @@ model ReactiveShunt "Shunt reactor with parallel conductor, 1-phase"
   final parameter SI.Conductance G=g/RL_base[1];
   final parameter SI.Resistance R=r*RL_base[1];
   final parameter SI.Inductance[2,2] L=[x_s,x_m;x_m,x_s]*RL_base[2];
-  SI.Current[2] i_x;
+  PS.Current[2] i_x;
 
 equation
   i_x = i - G*v;
@@ -213,8 +213,8 @@ package Partials "Partial models"
     extends Ports.Port_p;
     extends Basic.Nominal.NominalAC;
 
-    SI.Voltage[2] v "voltage";
-    SI.Current[2] i "current";
+    PS.Voltage[2] v "voltage";
+    PS.Current[2] i "current";
 
   equation
     v = term.v;

@@ -164,6 +164,7 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
   end Capacitor;
 
   model ResistorSym "Symmetrical capacitor with neutral access, 1-phase"
+    extends Ports.PortBase;
 
     parameter SI.Resistance R=1;
     Interfaces.Electric_p term_p annotation (Placement(transformation(extent={{
@@ -220,10 +221,11 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
   end ResistorSym;
 
   model CapacitorSym "Symmetrical capacitor with neutral access, 1-phase"
+    extends Ports.PortBase;
 
     parameter SI.Conductance G=0;
     parameter SI.Capacitance C=1e-6;
-    parameter SI.Voltage Vstart=0 "start voltage";
+    parameter PS.Voltage Vstart=0 "start voltage";
     Interfaces.Electric_p term_p annotation (Placement(transformation(extent={{
               -110,-10},{-90,10}})));
     Interfaces.Electric_n term_n annotation (Placement(transformation(extent={{
@@ -303,12 +305,14 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
     extends Modelica.Icons.BasesPackage;
 
     partial model ImpedBase "Impedance base, 1-phase"
-      parameter SI.Voltage v_start = 0 "start value of voltage drop"
+      extends Ports.PortBase;
+
+      parameter PS.Voltage v_start = 0 "start value of voltage drop"
         annotation(Dialog(tab="Initialization"));
-      parameter SI.Current i_start = 0 "start value of current"
+      parameter PS.Current i_start = 0 "start value of current"
         annotation(Dialog(tab="Initialization"));
-      SI.Voltage v(start = v_start);
-      SI.Current i(start = i_start);
+      PS.Voltage v(start = v_start);
+      PS.Current i(start = i_start);
       Interfaces.Electric_p term_p annotation (Placement(transformation(extent=
                 {{-110,-10},{-90,10}})));
       Interfaces.Electric_n term_n annotation (Placement(transformation(extent=

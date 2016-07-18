@@ -235,9 +235,9 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
 
       parameter Boolean stIni_en=true "enable steady-state initial equation"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter SI.Voltage v_start = 0 "start value of voltage drop"
+      parameter PS.Voltage v_start = 0 "start value of voltage drop"
         annotation(Dialog(tab="Initialization"));
-      parameter SI.Current i_start = 0 "start value of current"
+      parameter PS.Current i_start = 0 "start value of current"
         annotation(Dialog(tab="Initialization"));
       parameter Integer pp=2 "pole-pair number";
       parameter SI.Angle phi_el_ini=0 "initial rotor angle electric";
@@ -247,8 +247,8 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
       SI.AngularVelocity w_el(start=w_el_ini, stateSelect=StateSelect.always)
         "rotor angular velocity el";
       SI.Torque tau_el "electromagnetic torque";
-      SI.Voltage v(start = v_start) "voltage";
-      SI.Current i(start = i_start) "current";
+      PS.Voltage v(start = v_start) "voltage";
+      PS.Current i(start = i_start) "current";
 
       Interfaces.Rotation_n airgap "electro-mechanical connection"
         annotation (Placement(transformation(
@@ -400,8 +400,8 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
         "machine parameters" annotation(choicesAllMatching=true);
       final parameter Data par "machine parameters"
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-      SI.Voltage v_f;
-      SI.Current i_f;
+      PS.Voltage v_f;
+      PS.Current i_f;
       Ports.TwoPin_p field
         annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
     protected

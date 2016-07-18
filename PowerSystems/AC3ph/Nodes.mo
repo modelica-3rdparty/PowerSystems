@@ -82,7 +82,7 @@ package Nodes "Nodes and adaptors"
   model BusBar "Busbar, 3-phase dq0"
     extends Ports.PortBase;
 
-    output SI.Voltage v_norm(stateSelect=StateSelect.never);
+    output PS.Voltage v_norm(stateSelect=StateSelect.never);
     output SI.Angle alpha_v(stateSelect=StateSelect.never);
     Ports.ACdq0_p term "bus bar"
   annotation (Placement(transformation(extent={{-8,-66},{8,66}})));

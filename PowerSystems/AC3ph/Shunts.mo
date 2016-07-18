@@ -15,7 +15,7 @@ model ReactiveShunt "Shunt reactor with parallel conductor, 3-phase dq0"
   final parameter SI.Resistance R=r*RL_base[1];
   final parameter SI.Inductance L=(x_s-x_m)*RL_base[2];
   final parameter SI.Inductance L0=(x_s+2*x_m)*RL_base[2];
-  SI.Current[3] i_x;
+  PS.Current[3] i_x;
 
 initial equation
   if system.steadyIni_t then
@@ -333,7 +333,7 @@ model ReactiveShuntNonSym
   SI.Conductance[3, 3] G;
   SI.Resistance[3, 3] R;
   SI.Inductance[3, 3] L;
-  SI.Current[3] i_x;
+  PS.Current[3] i_x;
 
 initial equation
   if system.steadyIni then
@@ -667,8 +667,8 @@ end CapacitiveShuntNonSym;
       extends Ports.Port_p;
       extends Basic.Nominal.NominalAC;
 
-      SI.Voltage[3] v;
-      SI.Current[3] i;
+      PS.Voltage[3] v;
+      PS.Current[3] i;
     protected
       SI.AngularFrequency[2] omega;
 
@@ -711,8 +711,7 @@ end CapacitiveShuntNonSym;
       extends ShuntBase;
 
     protected
-      Real[3,3] Park = Basic.Transforms.park(
-                                            term.theta[2]);
+      Real[3,3] Park = Basic.Transforms.park(term.theta[2]);
       annotation (
         Documentation(
       info="<html>

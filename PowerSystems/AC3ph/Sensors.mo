@@ -181,7 +181,7 @@ package Sensors "Sensors and meters 3-phase"
     output SIpu.Voltage v_norm(stateSelect=StateSelect.never)=sqrt(v*v) if phasor;
     output SI.Angle alpha_v(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*v[1:2], Rot_dq[:,1]*v[1:2]) if phasor;
   protected
-    final parameter SI.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
+    final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
 
   equation
     v = term.v/V_base;
@@ -229,7 +229,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
     output SIpu.Current i_norm(stateSelect=StateSelect.never)=sqrt(i*i) if phasor;
     output SI.Angle alpha_i(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*i[1:2], Rot_dq[:,1]*i[1:2]) if phasor;
   protected
-    final parameter SI.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
+    final parameter PS.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
 
   equation
     i = term_p.i/I_base;
@@ -341,8 +341,8 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     output Real cos_phi(stateSelect=StateSelect.never)=cos(alpha_v - alpha_i) if phasor;
   protected
     outer System system;
-    final parameter SI.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
-    final parameter SI.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
+    final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
+    final parameter PS.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
     SIpu.Power[3] pav;
 
   initial equation
@@ -697,14 +697,14 @@ In problematic cases use power sensors electrical and mechanical.</p>
     extends Ports.Port_pn;
     extends Basic.Nominal.Nominal(final puUnits=true);
 
-    SI.Voltage[2] v_dq;
-    SI.Current[2] i_dq;
+    PS.Voltage[2] v_dq;
+    PS.Current[2] i_dq;
     SI.Power[2] p;
     protected
     constant Real r_norm(unit="1")=0.8 "norm radius phasor";
     constant Real x_norm(unit="1")=0.8 "norm amplitude power";
-    final parameter SI.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
-    final parameter SI.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
+    final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
+    final parameter PS.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
     Real[2,2] Rot_dq = Basic.Transforms.rotation_dq(term_p.theta[1]);
 
   equation

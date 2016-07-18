@@ -887,8 +887,8 @@ a time dependent transform of the coefficient matrix.</p>
 
     parameter SIpu.Resistance r0=100 "small voltage resistance";
     parameter SIpu.Voltage v0=1 "saturation voltage";
-    SI.Voltage[3] v_abc;
-    SI.Current[3] i_abc(start=zeros(3));
+    PS.Voltage[3] v_abc;
+    PS.Current[3] i_abc(start=zeros(3));
   protected
     final parameter Real V0=(v0*Basic.Precalculation.baseV(puUnits, V_nom));
     final parameter Real H0=(r0*Basic.Precalculation.baseR(puUnits, V_nom, S_nom)/V0);
@@ -951,13 +951,13 @@ a time dependent transform of the coefficient matrix.</p>
 
       parameter Boolean stIni_en=true "enable steady-state initial equation"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter SI.Voltage[3] v_start = zeros(3)
+      parameter PS.Voltage[3] v_start = zeros(3)
         "start value of voltage drop" annotation(Dialog(tab="Initialization"));
-      parameter SI.Current[3] i_start = zeros(3)
+      parameter PS.Current[3] i_start = zeros(3)
         "start value of current" annotation(Dialog(tab="Initialization"));
 
-      SI.Voltage[3] v(start = v_start);
-      SI.Current[3] i(start = i_start);
+      PS.Voltage[3] v(start = v_start);
+      PS.Current[3] i(start = i_start);
 
     protected
       final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
@@ -987,8 +987,7 @@ a time dependent transform of the coefficient matrix.</p>
       extends ImpedBase;
 
     protected
-      Real[3,3] Park = Basic.Transforms.park(
-                                        term_p.theta[2]);
+      Real[3,3] Park = Basic.Transforms.park(term_p.theta[2]);
 
       annotation (
         Documentation(
@@ -1017,11 +1016,10 @@ transformation of general impedance matrices from abc rest to general dq0-system
     partial model ImpedNonSymHeat
       "Impedance base non symmetric with heat port, 3-phase dq0"
       extends ImpedNonSymBase;
-      extends PowerSystems.Interfaces.AddHeatV(
-                                       final m_heat=3);
+      extends PowerSystems.Interfaces.AddHeatV(final m_heat=3);
 
-      SI.Voltage[3] v_abc=Park*v;
-      SI.Current[3] i_abc=Park*i;
+      PS.Voltage[3] v_abc=Park*v;
+      PS.Current[3] i_abc=Park*i;
 
     equation
       Q_flow = v_abc.*i_abc;

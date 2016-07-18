@@ -10,10 +10,13 @@ package PhaseSystems "Phase systems used in power connectors"
     constant Integer n "Number of independent voltage and current components";
     constant Integer m "Number of reference angles";
 
-    type Voltage = Real(unit = "V", quantity = "Voltage." + phaseSystemName)
-      "voltage for connector";
-    type Current = Real(unit = "A", quantity = "Current." + phaseSystemName)
-      "current for connector";
+    constant SI.Voltage v_nominal = 1000 "Nominal voltage";
+    constant SI.Current i_nominal = 1 "Nominal current";
+
+    type Voltage = Real(unit = "V", quantity = "Voltage." + phaseSystemName,
+      nominal = v_nominal, displayUnit = "kV") "voltage for connector";
+    type Current = Real(unit = "A", quantity = "Current." + phaseSystemName,
+      nominal = i_nominal) "current for connector";
     type ReferenceAngle = Basic.Types.ReferenceAngle "Reference angle for connector";
 
     replaceable partial function j "Return vector rotated by 90 degrees"
@@ -55,16 +58,16 @@ package PhaseSystems "Phase systems used in power connectors"
     replaceable partial function phaseVoltages
       "Return phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage V "system voltage";
+      input Voltage V "system voltage";
       input SI.Angle phi = 0 "phase angle";
-      output SI.Voltage v[n] "phase voltages";
+      output Voltage v[n] "phase voltages";
     end phaseVoltages;
 
     replaceable partial function phaseCurrents "Return phase currents"
       extends Modelica.Icons.Function;
-      input SI.Current I "system current";
+      input Current I "system current";
       input SI.Angle phi = 0 "phase angle";
-      output SI.Current i[n] "phase currents";
+      output Current i[n] "phase currents";
     end phaseCurrents;
 
     replaceable partial function phasePowers "Return phase powers"
@@ -76,30 +79,30 @@ package PhaseSystems "Phase systems used in power connectors"
 
     replaceable partial function phasePowers_vi "Return phase powers"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n] "phase voltages";
-      input SI.Current i[n] "phase currents";
+      input Voltage v[n] "phase voltages";
+      input Current i[n] "phase currents";
       output SI.Power p[n] "phase powers";
     end phasePowers_vi;
 
     replaceable partial function systemVoltage
       "Return system voltage as function of phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n];
-      output SI.Voltage V;
+      input Voltage v[n];
+      output Voltage V;
     end systemVoltage;
 
     replaceable partial function systemCurrent
       "Return system current as function of phase currents"
       extends Modelica.Icons.Function;
-      input SI.Current i[n];
-      output SI.Current I;
+      input Current i[n];
+      output Current I;
     end systemCurrent;
 
     replaceable partial function activePower
       "Return total power as function of phase voltages and currents"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n] "phase voltages";
-      input SI.Current i[n] "phase currents";
+      input Voltage v[n] "phase voltages";
+      input Current i[n] "phase currents";
       output SI.ActivePower P "active system power";
     end activePower;
 
@@ -147,9 +150,9 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare replaceable function phaseVoltages
       "Return phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage V "system voltage";
+      input Voltage V "system voltage";
       input SI.Angle phi = 0 "phase angle";
-      output SI.Voltage v[n] "phase voltages";
+      output Voltage v[n] "phase voltages";
     algorithm
       v := {V};
       annotation(Inline=true);
@@ -157,9 +160,9 @@ package PhaseSystems "Phase systems used in power connectors"
 
     redeclare function phaseCurrents "Return phase currents"
       extends Modelica.Icons.Function;
-      input SI.Current I "system current";
+      input Current I "system current";
       input SI.Angle phi = 0 "phase angle";
-      output SI.Current i[n] "phase currents";
+      output Current i[n] "phase currents";
     algorithm
       i := {I};
       annotation(Inline=true);
@@ -177,8 +180,8 @@ package PhaseSystems "Phase systems used in power connectors"
 
     redeclare function phasePowers_vi "Return phase powers"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n] "phase voltages";
-      input SI.Current i[n] "phase currents";
+      input Voltage v[n] "phase voltages";
+      input Current i[n] "phase currents";
       output SI.Power p[n] "phase powers";
     algorithm
       p := {v*i};
@@ -188,8 +191,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare replaceable function systemVoltage
       "Return system voltage as function of phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n];
-      output SI.Voltage V;
+      input Voltage v[n];
+      output Voltage V;
     algorithm
       V := v[1];
       annotation(Inline=true);
@@ -198,8 +201,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare function systemCurrent
       "Return system current as function of phase currents"
       extends Modelica.Icons.Function;
-      input SI.Current i[n];
-      output SI.Current I;
+      input Current i[n];
+      output Current I;
     algorithm
       I := i[1];
       annotation(Inline=true);
@@ -208,8 +211,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare function activePower
       "Return total power as function of phase voltages and currents"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n] "phase voltages";
-      input SI.Current i[n] "phase currents";
+      input Voltage v[n] "phase voltages";
+      input Current i[n] "phase currents";
       output SI.ActivePower P "active system power";
     algorithm
       P := v*i;
@@ -264,9 +267,9 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare replaceable function phaseVoltages
       "Return phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage V "system voltage";
+      input Voltage V "system voltage";
       input SI.Angle phi = 0 "phase angle";
-      output SI.Voltage v[n] "phase voltages";
+      output Voltage v[n] "phase voltages";
     algorithm
       v := {V, 0};
       annotation(Inline=true);
@@ -274,9 +277,9 @@ package PhaseSystems "Phase systems used in power connectors"
 
     redeclare function phaseCurrents "Return phase currents"
       extends Modelica.Icons.Function;
-      input SI.Current I "system current";
+      input Current I "system current";
       input SI.Angle phi = 0 "phase angle";
-      output SI.Current i[n] "phase currents";
+      output Current i[n] "phase currents";
     algorithm
       i := {I, -I};
       annotation(Inline=true);
@@ -294,8 +297,8 @@ package PhaseSystems "Phase systems used in power connectors"
 
     redeclare function phasePowers_vi "Return phase powers"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n] "phase voltages";
-      input SI.Current i[n] "phase currents";
+      input Voltage v[n] "phase voltages";
+      input Current i[n] "phase currents";
       output SI.Power p[n] "phase powers";
     algorithm
       p := v.*i;
@@ -305,8 +308,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare replaceable function systemVoltage
       "Return system voltage as function of phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n];
-      output SI.Voltage V;
+      input Voltage v[n];
+      output Voltage V;
     algorithm
       V := v[1] - v[2];
       annotation(Inline=true);
@@ -315,8 +318,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare function systemCurrent
       "Return system current as function of phase currents"
       extends Modelica.Icons.Function;
-      input SI.Current i[n];
-      output SI.Current I;
+      input Current i[n];
+      output Current I;
     algorithm
       I := (i[1] - i[2])/2;
       annotation(Inline=true);
@@ -325,8 +328,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare function activePower
       "Return total power as function of phase voltages and currents"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n] "phase voltages";
-      input SI.Current i[n] "phase currents";
+      input Voltage v[n] "phase voltages";
+      input Current i[n] "phase currents";
       output SI.ActivePower P "active system power";
     algorithm
       P := v*i;
@@ -349,9 +352,9 @@ package PhaseSystems "Phase systems used in power connectors"
 
     redeclare function phaseVoltages "Return phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage V "system voltage";
+      input Voltage V "system voltage";
       input SI.Angle phi = 0 "phase angle";
-      output SI.Voltage v[n] "phase voltages";
+      output Voltage v[n] "phase voltages";
     algorithm
       v := {V};
       annotation(Inline=true);
@@ -360,8 +363,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare function systemVoltage
       "Return system voltage as function of phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n];
-      output SI.Voltage V;
+      input Voltage v[n];
+      output Voltage V;
     algorithm
       V := v[1];
       annotation(Inline=true);
@@ -416,9 +419,9 @@ package PhaseSystems "Phase systems used in power connectors"
 
     redeclare function phaseVoltages "Return phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage V "system voltage";
+      input Voltage V "system voltage";
       input SI.Angle phi = 0 "phase angle";
-      output SI.Voltage v[n] "phase voltages";
+      output Voltage v[n] "phase voltages";
     algorithm
       v := {V*cos(phi), V*sin(phi)};
       annotation(Inline=true);
@@ -426,9 +429,9 @@ package PhaseSystems "Phase systems used in power connectors"
 
     redeclare function phaseCurrents "Return phase currents"
       extends Modelica.Icons.Function;
-      input SI.Current I "system current";
+      input Current I "system current";
       input SI.Angle phi = 0 "phase angle";
-      output SI.Current i[n] "phase currents";
+      output Current i[n] "phase currents";
     algorithm
       i := {I*cos(phi), I*sin(phi)};
       annotation(Inline=true);
@@ -446,8 +449,8 @@ package PhaseSystems "Phase systems used in power connectors"
 
     redeclare function phasePowers_vi "Return phase powers"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n] "phase voltages";
-      input SI.Current i[n] "phase currents";
+      input Voltage v[n] "phase voltages";
+      input Current i[n] "phase currents";
       output SI.Power p[n] "phase powers";
     algorithm
       p := {v*i, -j(v)*i};
@@ -457,8 +460,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare function systemVoltage
       "Return system voltage as function of phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n];
-      output SI.Voltage V;
+      input Voltage v[n];
+      output Voltage V;
     algorithm
       V := sqrt(v*v);
       annotation(Inline=true);
@@ -467,8 +470,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare function systemCurrent
       "Return system current as function of phase currents"
       extends Modelica.Icons.Function;
-      input SI.Current i[n];
-      output SI.Current I;
+      input Current i[n];
+      output Current I;
     algorithm
       I := sqrt(i*i);
       annotation(Inline=true);
@@ -477,8 +480,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare function activePower
       "Return total power as function of phase voltages and currents"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n] "phase voltages";
-      input SI.Current i[n] "phase currents";
+      input Voltage v[n] "phase voltages";
+      input Current i[n] "phase currents";
       output SI.ActivePower P "active system power";
     algorithm
       P := v*i;
@@ -654,9 +657,9 @@ package PhaseSystems "Phase systems used in power connectors"
 
     redeclare function phaseVoltages "Return phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage V "system voltage";
+      input Voltage V "system voltage";
       input SI.Angle phi = 0 "phase angle";
-      output SI.Voltage v[n] "phase voltages";
+      output Voltage v[n] "phase voltages";
     protected
       Voltage neutral_v = 0;
     algorithm
@@ -668,7 +671,7 @@ package PhaseSystems "Phase systems used in power connectors"
       extends Modelica.Icons.Function;
       input Current I "system current";
       input SI.Angle phi = 0 "phase angle";
-      output SI.Current i[n] "phase currents";
+      output Current i[n] "phase currents";
     algorithm
       i := {I*cos(phi), I*sin(phi), 0};
       annotation(Inline=true);
@@ -686,8 +689,8 @@ package PhaseSystems "Phase systems used in power connectors"
 
     redeclare function phasePowers_vi "Return phase powers"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n] "phase voltages";
-      input SI.Current i[n] "phase currents";
+      input Voltage v[n] "phase voltages";
+      input Current i[n] "phase currents";
       output SI.Power p[n] "phase powers";
     algorithm
       p := {v[1:2]*i[1:2], -j(v[1:2])*i[1:2], v[3]*i[3]};
@@ -697,8 +700,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare function systemVoltage
       "Return system voltage as function of phase voltages"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n];
-      output SI.Voltage V;
+      input Voltage v[n];
+      output Voltage V;
     algorithm
       V := sqrt(v*v);
       annotation(Inline=true);
@@ -707,8 +710,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare function systemCurrent
       "Return system current as function of phase currents"
       extends Modelica.Icons.Function;
-      input SI.Current i[n];
-      output SI.Current I;
+      input Current i[n];
+      output Current I;
     algorithm
       I := sqrt(i*i);
       annotation(Inline=true);
@@ -717,8 +720,8 @@ package PhaseSystems "Phase systems used in power connectors"
     redeclare function activePower
       "Return total power as function of phase voltages and currents"
       extends Modelica.Icons.Function;
-      input SI.Voltage v[n] "phase voltages";
-      input SI.Current i[n] "phase currents";
+      input Voltage v[n] "phase voltages";
+      input Current i[n] "phase currents";
       output SI.ActivePower P "active system power";
     algorithm
       P := v[1:2]*i[1:2];

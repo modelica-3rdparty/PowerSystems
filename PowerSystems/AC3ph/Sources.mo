@@ -8,7 +8,7 @@ package Sources "Voltage and Power Sources"
     parameter SIpu.Voltage v0=1 "voltage" annotation(Dialog(enable=scType_par));
     parameter SI.Angle alpha0=0 "phase angle" annotation(Dialog(enable=scType_par));
   protected
-    SI.Voltage V;
+    PS.Voltage V;
     SI.Angle alpha;
     SI.Angle phi;
 
@@ -47,7 +47,7 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
     parameter SI.Angle[N] alpha0=zeros(N) "phase angles";
   protected
     final parameter Integer N=size(h, 1) "nb of harmonics";
-    SI.Voltage V;
+    PS.Voltage V;
     SI.Angle alpha;
     SI.Angle phi;
     Integer[N] h_mod3;
@@ -129,7 +129,7 @@ where
     parameter SI.Angle alpha0=0 "phase angle"  annotation(Dialog(enable=scType_par));
 
   protected
-    SI.Voltage V;
+    PS.Voltage V;
     SI.Angle alpha;
     SI.Angle phi;
     Modelica.Blocks.Interfaces.RealInput[2] vPhasor_internal
@@ -199,13 +199,13 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
       "voltage behind reactance";
     final parameter SI.Angle alpha0(final fixed=false, start=0)
       "phase angle of voltage b r";
-    final parameter SI.Voltage V(start=V_base)=v0*V_base;
-    final parameter Real[2] RL_base=Basic.Precalculation.baseRL(         puUnits, V_nom, S_nom, 2*pi*system.f_nom);
+    final parameter PS.Voltage V(start=V_base)=v0*V_base;
+    final parameter Real[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*system.f_nom);
     final parameter SI.Resistance R=r*RL_base[1];
     final parameter SI.Inductance L = x*RL_base[2];
     final parameter SI.Inductance L0 = x_o*RL_base[2];
-    SI.Voltage[3] v(start={cos(system.alpha0),sin(system.alpha0),0}*V_base);
-    SI.Current[3] i(start={0,0,0});
+    PS.Voltage[3] v(start={cos(system.alpha0),sin(system.alpha0),0}*V_base);
+    PS.Current[3] i(start={0,0,0});
     SI.AngularFrequency[2] omega;
     SI.Angle phi(start=alpha0+system.alpha0);
     function atan2 = Modelica.Math.atan2;
@@ -282,13 +282,13 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
     parameter SIpu.ApparentPower p0=1 "active power"
                                              annotation(Dialog(enable=scType_par));
     parameter SIpu.Voltage v0=1 "voltage" annotation(Dialog(enable=scType_par));
-    parameter SI.Voltage V_start=V_nom "start value terminal voltage";
+    parameter PS.Voltage V_start=V_nom "start value terminal voltage";
 
   protected
     SI.Power P;
-    SI.Voltage V;
-    SI.Voltage[2] v(start={cos(system.alpha0),sin(system.alpha0)}*V_start);
-    SI.Current[2] i(start={0,0});
+    PS.Voltage V;
+    PS.Voltage[2] v(start={cos(system.alpha0),sin(system.alpha0)}*V_start);
+    PS.Current[2] i(start={0,0});
     Modelica.Blocks.Interfaces.RealInput[2] pv_internal
       "Needed to connect to conditional connector";
   equation
@@ -346,12 +346,12 @@ with variable power and voltage when 'pv' connected to a signal-input.</p>
 
     parameter SIpu.ApparentPower pq0[2]={1,0} "{active, reactive} power"
                                                                 annotation(Dialog(enable=scType_par));
-    parameter SI.Voltage V_start=V_nom "start value terminal voltage";
+    parameter PS.Voltage V_start=V_nom "start value terminal voltage";
 
   protected
     SI.Power[2] P;
-    SI.Voltage[2] v(start={cos(system.alpha0),sin(system.alpha0)}*V_start);
-    SI.Current[2] i(start={0,0});
+    PS.Voltage[2] v(start={cos(system.alpha0),sin(system.alpha0)}*V_start);
+    PS.Current[2] i(start={0,0});
     Modelica.Blocks.Interfaces.RealInput[2] pq_internal
       "Needed to connect to conditional connector";
   equation
@@ -401,7 +401,7 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     protected
       outer System system;
-      final parameter Real V_base=Basic.Precalculation.baseV(puUnits, V_nom);
+      final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
       SI.Angle theta(stateSelect=StateSelect.prefer) "absolute angle";
 
     equation

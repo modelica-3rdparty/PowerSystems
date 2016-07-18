@@ -91,15 +91,16 @@ with
 
   model ForcedCommSwitch "Forced commuting switch, 1-phase"
     extends Basic.Nominal.NominalVI;
+    extends Ports.PortBase;
 
     parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
       "{resistance 'closed', conductance 'open'}";
     parameter SI.Time t_relax=10e-3 "switch relaxation time";
     parameter Integer p_relax(min=2)=4 "power of relaxation exponent";
-    SI.Voltage[2] v_t;
-    SI.Voltage[2] v_f;
-    SI.Current[2] i_t;
-    SI.Current[2] i_f;
+    PS.Voltage[2] v_t;
+    PS.Voltage[2] v_f;
+    PS.Current[2] i_t;
+    PS.Current[2] i_f;
 
     Ports.TwoPin_p term_p "positive terminal"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -556,8 +557,8 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
     partial model SwitchBase "Switch base, 1-phase"
       extends SwitchBase0;
 
-      SI.Voltage v;
-      SI.Current i;
+      PS.Voltage v;
+      PS.Current i;
       Modelica.Blocks.Interfaces.BooleanInput control "true:closed, false:open"
       annotation (Placement(transformation(
             origin={0,100},
@@ -585,8 +586,8 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
     partial model DoubleSwitchBase "Double switch base, 1-phase"
       extends SwitchBase0;
 
-      SI.Voltage[2] v;
-      SI.Current[2] i;
+      PS.Voltage[2] v;
+      PS.Current[2] i;
       Modelica.Blocks.Interfaces.BooleanInput[2] control
         "true:closed, false:open"
       annotation (Placement(transformation(

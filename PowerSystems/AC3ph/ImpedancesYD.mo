@@ -622,8 +622,8 @@ Use only if 'non symmetric' is really desired because this component needs a tim
 
     parameter SIpu.Resistance r0=100 "small voltage resistance";
     parameter SIpu.Voltage v0=1 "saturation voltage";
-    SI.Voltage[3] v_abc;
-    SI.Current[3] i_abc(start=zeros(3));
+    PS.Voltage[3] v_abc;
+    PS.Current[3] i_abc(start=zeros(3));
   protected
     final parameter Real V0=(v0*Basic.Precalculation.baseV(puUnits, V_nom));
     final parameter Real H0=(r0*Basic.Precalculation.baseR(puUnits, V_nom, S_nom)/V0);
@@ -726,8 +726,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
       extends ImpedYDBase;
 
     protected
-      Real[3,3] Park = Basic.Transforms.park(
-                                            term.theta[2]);
+      Real[3,3] Park = Basic.Transforms.park(term.theta[2]);
       annotation (
         Documentation(
       info="<html>
@@ -760,8 +759,8 @@ transformation of general impedance matrices from abc rest to general dq0-system
       extends PowerSystems.Interfaces.AddHeatV(
                                        final m_heat=3);
 
-      SI.Voltage[3] v_abc=Park*top.v_cond;
-      SI.Current[3] i_abc=Park*top.i_cond;
+      PS.Voltage[3] v_abc=Park*top.v_cond;
+      PS.Current[3] i_abc=Park*top.i_cond;
 
     equation
       Q_flow = v_abc.*i_abc;

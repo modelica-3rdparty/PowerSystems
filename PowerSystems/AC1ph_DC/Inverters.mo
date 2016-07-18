@@ -271,7 +271,7 @@ model InverterAverage "Inverter time-average, 1-phase"
     if modulation==3 then (4/pi)*sin(width0*pi/2) else 0
                                                      annotation(Evaluate=true);
   SI.Angle phi;
-  SI.Voltage Vloss;
+  PS.Voltage Vloss;
   Real cT;
   Real hsw_nom;
 
@@ -428,8 +428,8 @@ model ChopperAverage "DC-DC converter time-average"
           extent={{-10,-10},{10,10}},
           rotation=270)));
   protected
-  SI.Voltage vDCin=DCin.v[1] - DCin.v[2];
-  SI.Voltage vDCout=DCout.v[1] - DCout.v[2];
+  PS.Voltage vDCin=DCin.v[1] - DCin.v[2];
+  PS.Voltage vDCout=DCout.v[1] - DCout.v[2];
   final parameter SI.Resistance R_nom=par.V_nom/par.I_nom;
   Real hsw_nom;
   Real cT;
@@ -585,8 +585,8 @@ model RectifierEquation "Rectifier equation, 1-phase"
   final parameter Data par "SC parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     protected
-  SI.Voltage[2] V;
-  SI.Voltage[2] i_sc "current scaled to voltage in inertial abc representation";
+  PS.Voltage[2] V;
+  PS.Voltage[2] i_sc "current scaled to voltage in inertial abc representation";
   Real[2] s(each start = 0.5) "arc-length on characteristic";
 
 equation
@@ -792,9 +792,9 @@ model InverterEquation "Inverter equation, 1-phase"
     protected
   constant Integer[2] pgt={1,3} "positive gates";
   constant Integer[2] ngt={2,4} "negative gates";
-  SI.Voltage[2] V_s;
-  SI.Voltage[2] V_d;
-  SI.Voltage[2] i_sc "current scaled to voltage in inertial abc representation";
+  PS.Voltage[2] V_s;
+  PS.Voltage[2] V_d;
+  PS.Voltage[2] i_sc "current scaled to voltage in inertial abc representation";
   Real[2] s(each start = 0.5) "arc-length on characteristic";
 
 equation
@@ -1062,6 +1062,7 @@ package Partials "Partial models"
 
 partial model AC_DC_base "AC-DC base, 1-phase"
   extends Basic.Icons.Inverter;
+  extends Ports.PortBase;
 
   Ports.TwoPin_n AC "AC connection"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -1090,6 +1091,7 @@ end AC_DC_base;
 
 partial model DC_DC_base "DC-DC base"
   extends Basic.Icons.Inverter;
+  extends Ports.PortBase;
 
   Ports.TwoPin_p DCin "DC in connection"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -1129,10 +1131,10 @@ partial model SwitchEquation "Switch equation, 1-phase"
   extends AC_DC_base;
 
     protected
-  SI.Voltage vDC1=0.5*(DC.v[1] - DC.v[2]);
-  SI.Voltage vDC0=0.5*(DC.v[1] + DC.v[2]);
-  SI.Current iDC1=(DC.i[1] - DC.i[2]);
-  SI.Current iDC0=(DC.i[1] + DC.i[2]);
+  PS.Voltage vDC1=0.5*(DC.v[1] - DC.v[2]);
+  PS.Voltage vDC0=0.5*(DC.v[1] + DC.v[2]);
+  PS.Current iDC1=(DC.i[1] - DC.i[2]);
+  PS.Current iDC0=(DC.i[1] + DC.i[2]);
   Real[2] v "switching function voltage";
   Real[2] switch "switching function";
 
