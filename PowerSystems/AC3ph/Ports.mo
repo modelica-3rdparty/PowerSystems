@@ -628,6 +628,7 @@ package Topology "Topology transforms "
 
   partial model TopologyBase "Topology transform base"
     extends PortBase;
+    constant Integer scale "for scaling of impedance values";
     parameter Integer n_n(min=0,max=1)=1 "1 for Y, 0 for Delta";
     parameter Integer sh(min=-1,max=1)=0 "(-1,0,+1)*120deg phase shift"
                                                                       annotation(Evaluate=true);
@@ -659,9 +660,7 @@ package Topology "Topology transforms "
   end TopologyBase;
 
   model Y "Y transform"
-    extends TopologyBase(final n_n=1, final sh=0);
-
-    constant Integer scale=1 "for scaling of impedance values";
+    extends TopologyBase(final scale=1, final n_n=1, final sh=0);
 
   equation
     v_cond = v_term - {0, 0, s3*v_n[1]};
@@ -720,12 +719,10 @@ Defines Y-topology transform of voltage and current variables.</p>
   end Y;
 
   model Delta "Delta transform"
-    extends TopologyBase(final n_n=0);
+    extends TopologyBase(final scale=3, final n_n=0);
 
-    constant Integer scale=3 "for scaling of impedance values";
     protected
-    final parameter Real[2,2] Rot=Basic.Transforms.rotation_dq(
-                                                              (1-4*sh)*pi/6);
+    final parameter Real[2,2] Rot=Basic.Transforms.rotation_dq((1-4*sh)*pi/6);
 
   equation
     v_cond[1:2] = s3*Rot*v_term[1:2];
@@ -777,7 +774,7 @@ Defines Delta-topology transform of voltage and current variables.</p>
   end Delta;
 
   model Y_Delta "Y Delta switcheble transform"
-    extends TopologyBase(final n_n=1, final sh=0);
+    extends TopologyBase(final scale=1, final n_n=1, final sh=0);
 
   /*
   Modelica.Blocks.Interfaces.BooleanInput control "true:Y, false:Delta"
@@ -788,12 +785,10 @@ annotation (Placement(transformation(
 */
     input Boolean control "true:Y, false:Delta";
 
-    constant Integer scale=1 "for scaling of impedance values";
   // in switcheable topology impedance defined as WINDING-impedance (i.e. Y-topology)
     protected
     parameter SI.Conductance epsG=1e-5;
-    constant Real[2,2] Rot=Basic.Transforms.rotation_dq(
-                                                       pi/6);
+    constant Real[2,2] Rot=Basic.Transforms.rotation_dq(pi/6);
 
   equation
     if control then
@@ -927,7 +922,7 @@ The neutral point is isolated.</p>
   end Y_Delta;
 
   model Y_DeltaRegular "Y Delta switcheble transform, eps-regularised"
-    extends TopologyBase(final n_n=1, final sh=0);
+    extends TopologyBase(final scale=1, final n_n=1, final sh=0);
 
   /*
   Modelica.Blocks.Interfaces.BooleanInput control "true:Y, false:Delta"
@@ -938,13 +933,11 @@ annotation (Placement(transformation(
 */
     input Boolean control "true:Y, false:Delta";
 
-    constant Integer scale=1 "for scaling of impedance values";
   // in switcheable topology impedance defined as WINDING-impedance (i.e. Y-topology)
     protected
     parameter SI.Conductance epsG=1e-5;
     parameter SI.Resistance epsR=1e-5;
-    constant Real[2,2] Rot=Basic.Transforms.rotation_dq(
-                                                       pi/6);
+    constant Real[2,2] Rot=Basic.Transforms.rotation_dq(pi/6);
     SI.Current[3] i_neu;
     SI.Current[3] i_del;
 
