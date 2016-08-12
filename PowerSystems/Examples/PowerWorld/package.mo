@@ -159,7 +159,7 @@ The following switches/features are provided:
       "Maximum power for primary frequency control"
         annotation(Dialog(group="Features"));
 
-      Real P_generator(unit="MW") = -generator.S[1]/1e6;
+      Real P_generator(unit="MW") = -generator.p[1]/1e6;
       Real P_control(unit="MW") = -(P_generator - plantDispatch[1]);
 
     PowerSystems.Generic.Generator generator(redeclare package PhaseSystem =
@@ -456,7 +456,7 @@ The following switches/features are provided:
       "Maximum power for primary frequency control"
         annotation(Dialog(group="Features"));
 
-      Real P_generator(unit="MW") = -generator.S[1]/1e6;
+      Real P_generator(unit="MW") = -generator.p[1]/1e6;
       Real P_control(unit="MW") = -(P_generator - hydroDispatch[1]);
 
       Modelica.Blocks.Interfaces.RealInput[3] hydroDispatch(each unit="MW")

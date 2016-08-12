@@ -484,7 +484,7 @@ package Generic "Simple components for basic investigations"
           transformation(extent={{90,-10},{110,10}})));
       PS.Voltage[PhaseSystem.n] v(start = v_start);
       PS.Current[PhaseSystem.n] i(start = i_start);
-      SI.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i);
+      SI.Power p[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i);
       PS.Voltage V = PhaseSystem.systemVoltage(v);
       PS.Current I = PhaseSystem.systemCurrent(i);
       SI.Angle phi = PhaseSystem.phase(v) - PhaseSystem.phase(i);
@@ -507,7 +507,7 @@ package Generic "Simple components for basic investigations"
                                       redeclare package PhaseSystem =
             PhaseSystem)
         annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-      SI.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(terminal.v, terminal.i);
+      SI.Power p[PhaseSystem.n] = PhaseSystem.phasePowers_vi(terminal.v, terminal.i);
       SI.Angle phi = PhaseSystem.phase(terminal.v) - PhaseSystem.phase(-terminal.i);
       parameter Boolean potentialReference = true "serve as potential root"
          annotation (Evaluate=true, Dialog(group="Reference Parameters"));
@@ -531,14 +531,13 @@ package Generic "Simple components for basic investigations"
         annotation (choicesAllMatching=true);
       package PS = PhaseSystem;
       function j = PhaseSystem.j annotation(Inline=true);
-      PowerSystems.Generic.Ports.Terminal_p
-                                         terminal(
-                                      redeclare package PhaseSystem =
-            PhaseSystem)
+      parameter PS.Voltage[PhaseSystem.n] v_start = ones(PhaseSystem.n)
+        "Start value for voltage drop" annotation(Dialog(tab="Initialization"));
+      PowerSystems.Generic.Ports.Terminal_p terminal(
+        redeclare package PhaseSystem = PhaseSystem,
+        v(start = v_start))
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-      PS.Voltage v[:] = terminal.v;
-      PS.Current i[:] = terminal.i;
-      SI.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, i);
+      SI.Power p[PhaseSystem.n] = PhaseSystem.phasePowers_vi(terminal.v, terminal.i);
     end PartialLoad;
   end Ports;
 
@@ -546,7 +545,6 @@ package Generic "Simple components for basic investigations"
     extends Modelica.Icons.SensorsPackage;
     model PMeter "measure power flow"
       extends Ports.PartialTwoTerminal;
-      SI.Power P_arr[PhaseSystem.n];
       Modelica.Blocks.Interfaces.RealOutput P(quantity="Power",
                                               unit="W")
         "Active power flow from terminal_p to terminal_n"
@@ -556,8 +554,7 @@ package Generic "Simple components for basic investigations"
             extent={{10,-10},{-10,10}},
             rotation=270)));
     equation
-      P_arr = PhaseSystem.phasePowers_vi(terminal_p.v, i);
-      P = P_arr[1];
+      P = PhaseSystem.activePower(terminal_p.v, i);
       v = zeros(PhaseSystem.n);
       zeros(PhaseSystem.n) = terminal_p.i + terminal_n.i;
       if PhaseSystem.m > 0 then
