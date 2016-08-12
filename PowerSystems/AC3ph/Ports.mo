@@ -4,8 +4,8 @@ package Ports "AC three-phase ports dq0 representation"
 
 partial model PortBase "base model adapting Spot to PowerSystems"
   package PS = PhaseSystems.ThreePhase_dq0;
-  function j_dq0 = PS.j;
-  function jj_dq0 = PS.jj;
+  function j_dq0 = PS.j annotation(Inline=true);
+  function jj_dq0 = PS.jj annotation(Inline=true);
 end PortBase;
 
 connector ACdq0_p "AC terminal, 3-phase dq0 ('positive')"

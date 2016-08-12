@@ -469,7 +469,7 @@ package Generic "Simple components for basic investigations"
         PowerSystems.PhaseSystems.PartialPhaseSystem "Phase system"
         annotation (choicesAllMatching=true);
       package PS = PhaseSystem;
-      function j = PhaseSystem.j;
+      function j = PhaseSystem.j annotation(Inline=true);
       parameter PS.Voltage[PhaseSystem.n] v_start = zeros(PhaseSystem.n)
         "Start value for voltage drop" annotation(Dialog(tab="Initialization"));
       parameter PS.Current[PhaseSystem.n] i_start = zeros(PhaseSystem.n)
@@ -501,7 +501,7 @@ package Generic "Simple components for basic investigations"
         PowerSystems.PhaseSystems.PartialPhaseSystem "Phase system"
         annotation (choicesAllMatching=true);
       package PS = PhaseSystem;
-      function j = PhaseSystem.j;
+      function j = PhaseSystem.j annotation(Inline=true);
       PowerSystems.Generic.Ports.Terminal_n
                                          terminal(
                                       redeclare package PhaseSystem =
@@ -530,7 +530,7 @@ package Generic "Simple components for basic investigations"
         PowerSystems.PhaseSystems.PartialPhaseSystem "Phase system"
         annotation (choicesAllMatching=true);
       package PS = PhaseSystem;
-      function j = PhaseSystem.j;
+      function j = PhaseSystem.j annotation(Inline=true);
       PowerSystems.Generic.Ports.Terminal_p
                                          terminal(
                                       redeclare package PhaseSystem =
