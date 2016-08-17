@@ -3,6 +3,7 @@ package TransformationAC3ph "Transformation dq0"
   extends Modelica.Icons.ExamplesPackage;
 
   model PhaseShifts "Phase shift primary-secondary"
+    import PowerSystems;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
@@ -18,47 +19,64 @@ package TransformationAC3ph "Transformation dq0"
       PowerSystems.AC3ph.Transformers.Parameters.TrafoStray(V_nom={1,10}),
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Y,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
-      annotation (Placement(transformation(extent={{0,20},{20,40}})));
+      annotation (Placement(transformation(extent={{0,50},{20,70}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter12( V_nom=10, phasor=true)
-      annotation (Placement(transformation(extent={{40,20},{60,40}})));
+      annotation (Placement(transformation(extent={{40,50},{60,70}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res12(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
-            extent={{80,20},{100,40}})));
+            extent={{80,50},{100,70}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo2(
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Y,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Delta,
       redeclare record Data =
         PowerSystems.AC3ph.Transformers.Parameters.TrafoStray(V_nom={1,10}))
       annotation (Placement(transformation(
-            extent={{0,-40},{20,-20}})));
+            extent={{0,-10},{20,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter22(phasor=true, V_nom=10)
-      annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+      annotation (Placement(transformation(extent={{40,-10},{60,10}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res22(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
-            extent={{80,-40},{100,-20}})));
+            extent={{80,-10},{100,10}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-90,-10},{-110,10}})));
 
+    PowerSystems.AC3ph.Transformers.TrafoStray trafo3(
+      redeclare record Data =
+        PowerSystems.AC3ph.Transformers.Parameters.TrafoStray(V_nom={1,10}),
+        redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.PAR (
+            alpha=-0.17453292519943))
+      annotation (Placement(transformation(
+            extent={{0,-70},{20,-50}})));
+    PowerSystems.AC3ph.Sensors.PVImeter meter32(phasor=true, V_nom=10)
+      annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+    PowerSystems.AC3ph.ImpedancesYD.Resistor res32(V_nom=10, r=1000)
+      annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   equation
     connect(voltage.term,meter1. term_p) annotation (Line(points={{-70,0},{-60,
             0}}, color={0,110,110}));
     connect(meter1.term_n,bus. term)
                                     annotation (Line(points={{-40,0},{-20,0}},
           color={0,110,110}));
-    connect(bus.term, trafo1.term_p) annotation (Line(points={{-20,0},{-10,0},{
-            -10,30},{0,30}}, color={0,110,110}));
-    connect(trafo1.term_n, meter12.term_p) annotation (Line(points={{20,30},{40,
-            30}}, color={0,110,110}));
-    connect(meter12.term_n, res12.term) annotation (Line(points={{60,30},{80,30}},
+    connect(bus.term, trafo1.term_p) annotation (Line(points={{-20,0},{-10,0},{-10,
+            60},{0,60}},     color={0,110,110}));
+    connect(trafo1.term_n, meter12.term_p) annotation (Line(points={{20,60},{40,60}},
+                  color={0,110,110}));
+    connect(meter12.term_n, res12.term) annotation (Line(points={{60,60},{80,60}},
           color={0,110,110}));
-    connect(bus.term, trafo2.term_p) annotation (Line(points={{-20,0},{-10,0},{
-            -10,-30},{0,-30}}, color={0,110,110}));
-    connect(trafo2.term_n, meter22.term_p) annotation (Line(points={{20,-30},{
-            40,-30}}, color={0,110,110}));
-    connect(meter22.term_n, res22.term) annotation (Line(points={{60,-30},{80,
-            -30}}, color={0,110,110}));
+    connect(bus.term, trafo2.term_p) annotation (Line(points={{-20,0},{-10,0},{0,0}},
+                               color={0,110,110}));
+    connect(trafo2.term_n, meter22.term_p) annotation (Line(points={{20,0},{40,0}},
+                      color={0,110,110}));
+    connect(meter22.term_n, res22.term) annotation (Line(points={{60,0},{80,0}},
+                   color={0,110,110}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-90,0},{-90,0}}, color={0,0,255}));
+    connect(trafo3.term_n, meter32.term_p)
+      annotation (Line(points={{20,-60},{40,-60}}, color={0,110,110}));
+    connect(meter32.term_n, res32.term)
+      annotation (Line(points={{60,-60},{80,-60}}, color={0,110,110}));
+    connect(trafo3.term_p, bus.term) annotation (Line(points={{0,-60},{-10,-60},{-10,
+            0},{-20,0}}, color={0,120,120}));
     annotation (
       Documentation(
               info="<html>
@@ -67,16 +85,17 @@ package TransformationAC3ph "Transformation dq0"
 Y-Y and Delta-Delta configuration:<br>
 &nbsp; &nbsp;  no phase shift.</p>
 <p>
-Y-Delta configuration:<br>
-&nbsp; &nbsp; shift secondary vs primary voltage is -30deg.</p>
+Y-Delta configuration / Delta-Y configuration:<br>
+&nbsp; &nbsp; shift secondary vs primary voltage is -30deg / +30deg.</p>
 <p>
-Delta_Y configuration:<br>
-&nbsp; &nbsp; shift secondary vs primary voltage is +30deg.</p>
+PAR-Y configuration:<br>
+&nbsp; &nbsp; shift secondary vs primary voltage is adjustable alpha.</p>
 <p>
 <i>Compare:</i>
 <pre>
   meter12.alpha_v     voltage phase secondary Y-Y topology
-  meter22.alpha_v     voltage phase secondary Y_Delta topology
+  meter22.alpha_v     voltage phase secondary Y-Delta topology
+  meter32.alpha_v     voltage phase secondary PAR-Delta topology
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.TransformationAC3ph\">up users guide</a></p>
 </html>

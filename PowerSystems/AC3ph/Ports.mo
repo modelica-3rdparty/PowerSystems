@@ -414,25 +414,29 @@ partial model YDportTrafo_p_n
   extends Port_p_n;
 
   replaceable model Topology_p = Topology.Y constrainedby Topology.TopologyBase
-      "p: Y or Delta topology"
+      "p: Y, Delta or PAR topology"
     annotation(choices(
       choice(redeclare model Topology_p =
         PowerSystems.AC3ph.Ports.Topology.Y "Y"),
       choice(redeclare model Topology_p =
-        PowerSystems.AC3ph.Ports.Topology.Delta "Delta")));
+        PowerSystems.AC3ph.Ports.Topology.Delta "Delta"),
+      choice(redeclare model Topology_p =
+        PowerSystems.AC3ph.Ports.Topology.PAR "PAR")));
   Topology_p top_p(v_cond=v1*w1, i_cond=i1/w1, v_n=v_n1)
-      "p: Y or Delta topology"
+      "p: Y, Delta or PAR topology"
     annotation (Placement(transformation(extent={{-80,-20},{-40,20}})));
 
   replaceable model Topology_n = Topology.Y constrainedby Topology.TopologyBase
-      "n: Y or Delta topology"
+      "n: Y, Delta or PAR topology"
     annotation(choices(
       choice(redeclare model Topology_n =
         PowerSystems.AC3ph.Ports.Topology.Y "Y"),
       choice(redeclare model Topology_n =
-        PowerSystems.AC3ph.Ports.Topology.Delta "Delta")));
+        PowerSystems.AC3ph.Ports.Topology.Delta "Delta"),
+      choice(redeclare model Topology_n =
+        PowerSystems.AC3ph.Ports.Topology.PAR "PAR")));
   Topology_n top_n(v_cond=v2*w2, i_cond=i2/w2, v_n=v_n2)
-      "n: Y or Delta topology"
+      "n: Y, Delta or PAR topology"
     annotation (Placement(transformation(extent={{80,-20},{40,20}})));
 
   PS.Voltage[3] v1 "voltage conductor";
@@ -1072,6 +1076,66 @@ Regularised version of Y_Delta. To be used, if device is fed across an inductive
               color={255,0,255},
               pattern=LinePattern.Dot)}));
   end Y_DeltaRegular;
+
+  model PAR "Phase angle regulating"
+    extends PowerSystems.AC3ph.Ports.Topology.TopologyBase(
+      final scale=1, final n_n=1, final sh=0);
+
+    input SI.Angle alpha=0 "phase shift" annotation(Dialog);
+
+    protected
+    Real[2, 2] Rot = Basic.Transforms.rotation_dq(alpha);
+
+  equation
+    // rotate by alpha
+    v_term[1:2] = Rot*v_cond[1:2];
+    v_term[3] = s3*v_n[1];
+    i_cond[1:2] = i_term[1:2]*Rot;
+    i_cond[3] = i_term[3];
+    i_n[1] = s3*i_term[3];
+    annotation (defaultComponentName="Y",
+  Documentation(
+          info="<html>
+<p><b>Structurally incomplete model</b>. Use only as component within appropriate complete model.<br>
+Defines phase regulating transform of voltage and current variables.</p>
+<p>Definitions</p>
+<pre>
+  v_term, i_term:   terminal voltage and current
+  v_cond, i_cond:   voltage and current across conductor, (terminal to neutral point)
+</pre>
+<p>Relations, zero-component and neutral point (grounding)</p>
+<pre>
+  v_term = cat(1, v_cond[1:2]*(cos(alpha) + j*sin(alpha)), {sqrt(3)*v_n})
+  i_term = cat(1, i_cond[1:2]/conj(cos(alpha) + j*sin(alpha)), {i_cond[3]})
+  i_n = sqrt(3)*i_term[3]
+</pre>
+<p>Note: parameter sh (phase shift) not used.</p>
+</html>"),
+  Icon(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Line(
+              points={{-80,-80},{-20,10},{40,-80},{-80,-80},{-80,-80}},
+              color={255,0,0},
+              thickness=0.5),
+            Line(points={{-100,80},{100,80}},color={0,0,255}),
+            Line(points={{60,-80},{60,10}},color={0,0,255}),
+            Line(points={{-100,50},{100,50}},color={0,0,255}),
+            Line(points={{-100,20},{100,20}},color={0,0,255})}),
+  Diagram(coordinateSystem(
+            preserveAspectRatio=false,
+            extent={{-100,-100},{100,100}},
+            grid={2,2}), graphics={
+            Line(points={{-90,80},{90,80}}, color={0,0,255}),
+            Line(points={{60,-80},{60,10}},color={0,0,255}),
+            Line(
+              points={{-80,-80},{-20,10},{40,-80},{-80,-80},{-80,-80}},
+              color={255,0,0},
+              thickness=0.5),
+            Line(points={{-90,20},{90,20}}, color={0,0,255}),
+            Line(points={{-90,50},{90,50}}, color={0,0,255})}));
+  end PAR;
   annotation (preferredView="info",
     Documentation(info="<HTML>
 <p>
