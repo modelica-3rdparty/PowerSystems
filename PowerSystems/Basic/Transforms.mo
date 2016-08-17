@@ -18,12 +18,12 @@ package Transforms "Transform functions"
 
       input Real[3] u "vector (voltage, current)";
       output Real[3] y "rotated vector (voltage, current)";
-      //constant Real s13=sqrt(1/3);
+  protected
+      constant Real s13=sqrt(1/3);
 
     algorithm
-      //y := s13*{u[3]-u[2], u[1]-u[3], u[2]-u[1]};
-      y := 0.577350269189626*{u[3]-u[2], u[1]-u[3], u[2]-u[1]};
-      annotation (smoothOrder=2,
+      y := s13*{u[3]-u[2], u[1]-u[3], u[2]-u[1]};
+      annotation (Inline=true, smoothOrder=2,
     Documentation(info="<html>
 <p>The function <tt>j_abc(u)</tt> is a rotation of u by +90 degrees around the axis {1,1,1}.</p>
 <p>The notation is chosen in analogy to the expression
@@ -48,12 +48,12 @@ is
 
       input Real[3,:] u "array of 3-vectors (voltage, current)";
       output Real[3,size(u,2)] y "array of rotated vectors (voltage, current)";
-      //constant Real s13=sqrt(1/3);
+  protected
+      constant Real s13=sqrt(1/3);
 
     algorithm
-      //y := s13*{u[3,:]-u[2,:], u[1,:]-u[3,:], u[2,:]-u[1,:]};
-      y := 0.577350269189626*{u[3,:]-u[2,:], u[1,:]-u[3,:], u[2,:]-u[1,:]};
-      annotation (smoothOrder=2,
+      y := s13*{u[3,:]-u[2,:], u[1,:]-u[3,:], u[2,:]-u[1,:]};
+      annotation (Inline=true, smoothOrder=2,
     Documentation(info="<html>
 <p>The function <tt>jj_abc(u)</tt> corresponds to <a href=\"modelica://PowerSystems.Basic.Transforms.j_abc\">j_abc</a> but has a matrix argument u.<br>
 It acts on the first index in the same way as j_abc for all values of the second index.
@@ -69,7 +69,7 @@ It acts on the first index in the same way as j_abc for all values of the second
 
     algorithm
       y := cat(1, {-u[2], u[1]}, zeros(size(u,1)-2));
-      annotation (smoothOrder=2,
+      annotation (Inline=true, smoothOrder=2,
     Documentation(info="<html>
 <p>The function <tt>j_dq0(u)</tt> is a projection of u onto the dq-plane and a rotation by +90 degrees around the axis {0,0,1}.</p>
 <p>The notation is chosen in analogy to the expression
@@ -100,7 +100,7 @@ is
     algorithm
       y := cat(1, {-u[2,:], u[1,:]}, zeros(size(u,1)-2, size(u,2))); // Dymola implementation now ok?
     //  y := cat(1, {-u[2,1:size(u,2)], u[1,1:size(u,2)]}, zeros(size(u,1)-2, size(u,2))); // preliminary until bug removed
-      annotation (smoothOrder=2,
+      annotation (Inline=true, smoothOrder=2,
     Documentation(info="<html>
 <p>The function <tt>jj_dq0(u)</tt> corresponds to <a href=\"modelica://PowerSystems.Basic.Transforms.j_dq0\">j_dq0</a> but has a matrix argument u.<br>
 It acts on the first index in the same way as j_dq0 for all values of the second index.
@@ -115,10 +115,8 @@ It acts on the first index in the same way as j_dq0 for all values of the second
   protected
       constant Real s13=sqrt(1/3);
       constant Real s23=sqrt(2/3);
-      constant Real dph_b=2*Modelica.Constants.pi
-                              /3;
-      constant Real dph_c=4*Modelica.Constants.pi
-                              /3;
+      constant Real dph_b=2*Modelica.Constants.pi/3;
+      constant Real dph_c=4*Modelica.Constants.pi/3;
       Real[3] c;
       Real[3] s;
 
@@ -126,7 +124,7 @@ It acts on the first index in the same way as j_dq0 for all values of the second
       c := cos({theta, theta - dph_b, theta - dph_c});
       s := sin({theta, theta - dph_b, theta - dph_c});
       P := transpose([s23*c, -s23*s, {s13, s13, s13}]);
-      annotation (derivative = PowerSystems.Basic.Transforms.der_park,
+      annotation (Inline=true, derivative = PowerSystems.Basic.Transforms.der_park,
     Documentation(info="<html>
 <p>The function <tt>park</tt> calculates the matrix <tt>P</tt> that transforms abc variables into dq0 variables with arbitrary angular orientation <tt>theta</tt>.<br>
 <tt>P</tt> can be factorised into a constant, angle independent orthogonal matrix <tt>P0</tt> and an angle-dependent rotation <tt>R</tt></p>
@@ -168,10 +166,8 @@ and
       output Real[3, 3] der_P "d/dt park";
   protected
       constant Real s23=sqrt(2/3);
-      constant Real dph_b=2*Modelica.Constants.pi
-                              /3;
-      constant Real dph_c=4*Modelica.Constants.pi
-                              /3;
+      constant Real dph_b=2*Modelica.Constants.pi/3;
+      constant Real dph_c=4*Modelica.Constants.pi/3;
       Real[3] c;
       Real[3] s;
       Real s23omega;
@@ -181,7 +177,7 @@ and
       c := cos({theta, theta - dph_b, theta - dph_c});
       s := sin({theta, theta - dph_b, theta - dph_c});
       der_P := transpose([-s23omega*s, -s23omega*c, {0, 0, 0}]);
-    annotation(derivative(order=2) = PowerSystems.Basic.Transforms.der2_park,
+    annotation(Inline=true, derivative(order=2) = PowerSystems.Basic.Transforms.der2_park,
     Documentation(info="<html>
 <p>First derivative of function park(theta) with respect to time.</p>
 </html>"));
@@ -196,10 +192,8 @@ and
       output Real[3, 3] der2_P "d2/dt2 park";
   protected
       constant Real s23=sqrt(2/3);
-      constant Real dph_b=2*Modelica.Constants.pi
-                              /3;
-      constant Real dph_c=4*Modelica.Constants.pi
-                              /3;
+      constant Real dph_b=2*Modelica.Constants.pi/3;
+      constant Real dph_c=4*Modelica.Constants.pi/3;
       Real[3] c;
       Real[3] s;
       Real s23omega_dot;
@@ -211,7 +205,7 @@ and
       c := cos({theta, theta - dph_b, theta - dph_c});
       s := sin({theta, theta - dph_b, theta - dph_c});
       der2_P := transpose([-s23omega_dot*s - s23omega2*c, -s23omega_dot*c + s23omega2*s, {0, 0, 0}]);
-    annotation(Documentation(info="<html>
+    annotation(Inline=true, Documentation(info="<html>
 <p>Second derivative of function park(theta) with respect to time.</p>
 </html>"));
     end der2_park;
@@ -229,7 +223,7 @@ and
       c :=  cos(theta);
       s :=  sin(theta);
       R_dq :=  [c, -s; s, c];
-      annotation (derivative = PowerSystems.Basic.Transforms.der_rotation_dq,
+      annotation (Inline=true, derivative = PowerSystems.Basic.Transforms.der_rotation_dq,
     Documentation(info="<html>
 <p>The function <tt>rotation_dq</tt> calculates the matrix <tt>R_dq</tt> that is the restriction of <tt>R_dq0</tt> from dq0 to dq.</p>
 <p>The matrix <tt>R_dq0</tt> rotates dq0 variables around the o-axis in dq0-space with arbitrary angle <tt>theta</tt>.
@@ -271,7 +265,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
       dc :=  -omega*sin(theta);
       ds :=   omega*cos(theta);
       der_R_dq :=  [dc, -ds; ds, dc];
-    annotation(derivative(order=2) = PowerSystems.Basic.Transforms.der2_rotation_dq,
+    annotation(Inline=true, derivative(order=2) = PowerSystems.Basic.Transforms.der2_rotation_dq,
     Documentation(info="<html>
 <p>First derivative of function rotation_dq(theta) with respect to time.</p>
 </html>"));
@@ -297,7 +291,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
       d2c := -omega_dot*s - omega2*c;
       d2s :=  omega_dot*c - omega2*s;
       der2_R_dq := [d2c, -d2s; d2s, d2c];
-    annotation(Documentation(info="<html>
+    annotation(Inline=true, Documentation(info="<html>
 <p>Second derivative of function rotation_dq(theta) with respect to time.</p>
 </html>"));
     end der2_rotation_dq;
@@ -322,7 +316,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
 
       g := {ac + c, ac + bs, ac - bs};
       R_abc := [g[{1,2,3}], g[{3,1,2}], g[{2,3,1}]];
-      annotation (derivative = PowerSystems.Basic.Transforms.der_rotation_abc,
+      annotation (Inline=true, derivative = PowerSystems.Basic.Transforms.der_rotation_abc,
     Documentation(info="<html>
 <p>The function <tt>rotation_abc</tt> calculates the matrix <tt>R_abc</tt> that rotates abc variables around the {1,1,1}-axis in abc-space with arbitrary angle <tt>theta</tt>.
 <p>Using the definition
@@ -373,7 +367,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
 
       dg := omega*{as - s, as + bc, as - bc};
       der_R_abc := [dg[{1,2,3}], dg[{3,1,2}], dg[{2,3,1}]];
-    annotation(derivative(order=2) = PowerSystems.Basic.Transforms.der2_rotation_abc,
+    annotation(Inline=true, derivative(order=2) = PowerSystems.Basic.Transforms.der2_rotation_abc,
     Documentation(info="<html>
 <p>First derivative of function rotation_abc(theta) with respect to time.</p>
 </html>"));
@@ -407,7 +401,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
 
       d2g := omega*omega*{ac - c, ac - bs, ac + bs} + omega_dot*{as - s, as + bc, as - bc};
       der2_R_abc := [d2g[{1,2,3}], d2g[{3,1,2}], d2g[{2,3,1}]];
-    annotation(Documentation(info="<html>
+    annotation(Inline=true, Documentation(info="<html>
 <p>Second derivative of function rotation_abc(theta) with respect to time.</p>
 </html>"));
     end der2_rotation_abc;
@@ -422,12 +416,12 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     algorithm
       if s == 1 then
         v := u[{2,3,1}];
-    elseif s == -1 then
+      elseif s == -1 then
         v := u[{3,1,2}];
-    else
+      else
         v := u;
       end if;
-      annotation (smoothOrder=2,
+      annotation (Inline=true, smoothOrder=2,
     Documentation(info="<html>
 <p>Positive permutation of 3-vector.</p>
 <p><a href=\"modelica://PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
@@ -445,12 +439,12 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     algorithm
       if s == 1 then
         der_v := der_u[{2,3,1}];
-    elseif s == -1 then
+      elseif s == -1 then
         der_v := der_u[{3,1,2}];
-    else
+      else
         der_v := der_u;
       end if;
-    annotation(derivative(order2) = PowerSystems.Basic.Transforms.der2_permutation,
+    annotation(Inline=true, derivative(order2) = PowerSystems.Basic.Transforms.der2_permutation,
     Documentation(info="<html>
 <p>First derivative of Transforms.permutation with respect to time.</p>
 </html>"));
@@ -469,12 +463,12 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     algorithm
       if s == 1 then
         der2_v := der2_u[{2,3,1}];
-    elseif s == -1 then
+      elseif s == -1 then
         der2_v := der2_u[{3,1,2}];
-    else
+      else
         der2_v := der2_u;
       end if;
-    annotation(Documentation(info="<html>
+    annotation(Inline=true, Documentation(info="<html>
 <p>Second derivative of Transforms.permutation with respect to time.</p>
 </html>"));
     end der2_permutation;
