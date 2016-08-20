@@ -24,7 +24,7 @@ package DrivesAC3ph "AC drives, dq0"
             extent={{-20,0},{0,20}})));
     PowerSystems.Mechanics.Rotation.Speed speed(
     w0=system.omega_nom/2,
-    scType_par=false,
+    use_w_in=true,
     tcst=0.01) annotation (Placement(transformation(extent={{40,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
     t_duration=0.5,
@@ -43,8 +43,8 @@ package DrivesAC3ph "AC drives, dq0"
     connect(voltage.term, asm.term)
                                   annotation (Line(points={{-40,-10},{-20,-10}},
           color={0,120,120}));
-    connect(speedSignal.y, speed.w)
-    annotation (Line(points={{58,-10},{40,-10}}, color={0,0,127}));
+    connect(speedSignal.y, speed.w_in)
+      annotation (Line(points={{58,-10},{40,-10}}, color={0,0,127}));
   annotation (      experiment(StopTime=1),
       Documentation(info="<html>
 <p>Steady-state simulation to produce motor characteristic 'torque vs slip'.<br>

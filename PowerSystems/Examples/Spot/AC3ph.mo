@@ -10,7 +10,7 @@ package AC3ph "AC 3-phase components dq0"
             extent={{90,-10},{110,10}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-    PowerSystems.AC3ph.Sources.Voltage voltage(V_nom=10e3, scType_par=false)
+    PowerSystems.AC3ph.Sources.Voltage voltage(V_nom=10e3, use_vPhasor_in=true)
            annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC3ph.Impedances.Inductor ind(
       r=0.1,
@@ -31,7 +31,7 @@ package AC3ph "AC 3-phase components dq0"
             extent={{-70,-10},{-90,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
+    connect(transPh.y, voltage.vPhasor_in)
       annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(relay.y, breaker.control)
       annotation (Line(points={{50,60},{50,10}}, color={255,0,255}));
@@ -121,7 +121,7 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-    PowerSystems.AC3ph.Sources.Voltage voltage(scType_par=false)
+    PowerSystems.AC3ph.Sources.Voltage voltage(use_vPhasor_in=true)
            annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter      annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
@@ -134,7 +134,7 @@ package AC3ph "AC 3-phase components dq0"
             extent={{-70,-10},{-90,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
+    connect(transPh.y, voltage.vPhasor_in)
       annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(voltage.term, meter.term_p) annotation (Line(points={{-50,0},{-40,0}},
           color={0,110,110}));
@@ -158,7 +158,7 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-    PowerSystems.AC3ph.Sources.Voltage voltage(scType_par=false)
+    PowerSystems.AC3ph.Sources.Voltage voltage(use_vPhasor_in=true)
            annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter      annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
@@ -169,7 +169,7 @@ package AC3ph "AC 3-phase components dq0"
             extent={{-70,-10},{-90,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
+    connect(transPh.y, voltage.vPhasor_in)
       annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(voltage.term, meter.term_p) annotation (Line(points={{-50,0},{-40,0}},
           color={0,110,110}));
@@ -194,7 +194,7 @@ package AC3ph "AC 3-phase components dq0"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC3ph.Sources.Voltage voltage1(
       V_nom=132e3,
-      scType_par=false,
+      use_vPhasor_in=true,
       alpha0=0.087266462599716)
            annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter(V_nom=132e3, S_nom=100e6)
@@ -211,7 +211,7 @@ package AC3ph "AC 3-phase components dq0"
             extent={{90,-10},{110,10}})));
 
   equation
-    connect(transPh.y, voltage1.vPhasor)
+    connect(transPh.y, voltage1.vPhasor_in)
       annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(voltage1.term, meter.term_p) annotation (Line(points={{-50,0},{-40,
             0}}, color={0,110,110}));
@@ -237,11 +237,11 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-    PowerSystems.AC3ph.Sources.Voltage voltage(scType_par=false)
+    PowerSystems.AC3ph.Sources.Voltage voltage(use_vPhasor_in=true)
            annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter      annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
-    replaceable PowerSystems.AC3ph.Loads.PQindLoad load(tcst=0.01, scType_par=false)
+    replaceable PowerSystems.AC3ph.Loads.PQindLoad load(tcst=0.01, use_pq_in=true)
       annotation (Placement(transformation(extent={{30,-10},{50,10}})));
     PowerSystems.Blocks.Signals.Transient[2] trsSignal(s_ini={sqrt(3)/2,1/2}, s_fin={1,0.2})
       annotation (Placement(transformation(
@@ -252,9 +252,9 @@ package AC3ph "AC 3-phase components dq0"
             extent={{-70,-10},{-90,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
+    connect(transPh.y, voltage.vPhasor_in)
       annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
-    connect(trsSignal.y, load.p_set)
+    connect(trsSignal.y,load.pq_in)
       annotation (Line(points={{40,50},{40,10}}, color={0,0,127}));
     connect(voltage.term, meter.term_p) annotation (Line(points={{-50,0},{-40,0}},
           color={0,110,110}));
@@ -278,9 +278,9 @@ package AC3ph "AC 3-phase components dq0"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC3ph.Sources.Voltage voltage(
       v0=1,
-      scType_par=false,
-  V_nom=400)                            annotation (Placement(transformation(
-            extent={{-80,-10},{-60,10}})));
+      use_vPhasor_in=true,
+      V_nom=400)
+      annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     PowerSystems.AC3ph.Sensors.Psensor power
       annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
     replaceable PowerSystems.AC3ph.Machines.Asynchron asynchron(
@@ -300,9 +300,8 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
-                                    annotation (Line(points={{-80,20},{-64,20},
-            {-64,10}}, color={0,0,127}));
+    connect(transPh.y, voltage.vPhasor_in)
+      annotation (Line(points={{-80,20},{-64,20},{-64,10}}, color={0,0,127}));
     connect(voltage.term, power.term_p) annotation (Line(points={{-60,0},{-50,0}},
           color={0,110,110}));
     connect(power.term_n, asynchron.term) annotation (Line(points={{-30,0},{-10,
@@ -315,7 +314,7 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{-80,0},{-80,0}}, color={0,0,255}));
     connect(asynchron.heat, boundary.heat)
       annotation (Line(points={{0,10},{0,10}}, color={176,0,0}));
-    connect(trsSignal.y, torq.tau)
+    connect(trsSignal.y, torq.tau_in)
       annotation (Line(points={{80,0},{80,0}}, color={0,0,127}));
     annotation (
       Documentation(info="<html>
@@ -328,7 +327,7 @@ package AC3ph "AC 3-phase components dq0"
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-    PowerSystems.AC3ph.Sources.Vspectrum voltage(scType_par=false)
+    PowerSystems.AC3ph.Sources.Vspectrum voltage(use_vPhasor_in=true)
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res      annotation (Placement(
           transformation(extent={{80,-10},{100,10}})));
@@ -341,7 +340,7 @@ package AC3ph "AC 3-phase components dq0"
             extent={{-70,-10},{-90,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
+    connect(transPh.y, voltage.vPhasor_in)
       annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(voltage.term, meter.term_p)
       annotation (Line(points={{-50,0},{0,0}}, color={0,110,110}));
@@ -392,7 +391,7 @@ package AC3ph "AC 3-phase components dq0"
     PowerSystems.Blocks.Signals.TransientPhasor transPh
                     annotation (Placement(transformation(extent={{-100,10},{-80,
               30}})));
-    PowerSystems.AC3ph.Sources.Voltage voltage(scType_par=false)
+    PowerSystems.AC3ph.Sources.Voltage voltage(use_vPhasor_in=true)
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter1
       annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
@@ -403,8 +402,8 @@ package AC3ph "AC 3-phase components dq0"
       V_nom={1,10}),
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Y,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Delta,
-      use_tap_1=true,
-      use_tap_2=true)      annotation (Placement(transformation(extent={{0,-10},
+      use_tap_1_in=true,
+      use_tap_2_in=true)      annotation (Placement(transformation(extent={{0,-10},
               {20,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter2(V_nom=10)
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
@@ -424,9 +423,8 @@ package AC3ph "AC 3-phase components dq0"
             extent={{-80,-10},{-100,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
-                                    annotation (Line(points={{-80,20},{-64,20},
-            {-64,10}}, color={0,0,127}));
+    connect(transPh.y, voltage.vPhasor_in)
+      annotation (Line(points={{-80,20},{-64,20},{-64,10}}, color={0,0,127}));
     connect(voltage.term, meter1.term_p) annotation (Line(points={{-60,0},{-50,
             0}}, color={0,110,110}));
     connect(meter1.term_n, trafo.term_p)
@@ -437,9 +435,9 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{70,0},{80,0}}, color={0,110,110}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-80,0},{-80,0}}, color={0,0,255}));
-    connect(tapChanger.tap_1, trafo.tap_1)
+    connect(tapChanger.tap_1, trafo.tap_1_in)
       annotation (Line(points={{6,50},{6,10}}, color={255,127,0}));
-    connect(tapChanger.tap_2, trafo.tap_2) annotation (Line(points={{14,50},{14,
+    connect(tapChanger.tap_2, trafo.tap_2_in) annotation (Line(points={{14,50},{14,
             10}}, color={255,127,0}));
     annotation (
       Documentation(
@@ -456,7 +454,7 @@ package AC3ph "AC 3-phase components dq0"
               -60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
          annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-    PowerSystems.AC3ph.Sources.Voltage vAC(V_nom=2, scType_par=false)
+    PowerSystems.AC3ph.Sources.Voltage vAC(V_nom=2, use_vPhasor_in=true)
           annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     PowerSystems.AC3ph.Impedances.Inductor ind(r=0.05)
       annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
@@ -477,7 +475,7 @@ package AC3ph "AC 3-phase components dq0"
             extent={{10,10},{30,30}})));
 
   equation
-    connect(transPh.y, vAC.vPhasor)
+    connect(transPh.y, vAC.vPhasor_in)
       annotation (Line(points={{-80,20},{-64,20},{-64,10}}, color={0,0,127}));
     connect(vAC.term, ind.term_p) annotation (Line(points={{-60,0},{-50,0}},
           color={0,110,110}));
@@ -510,7 +508,7 @@ package AC3ph "AC 3-phase components dq0"
               -60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
          annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-    PowerSystems.AC3ph.Sources.Voltage vAC(V_nom=2, scType_par=false)
+    PowerSystems.AC3ph.Sources.Voltage vAC(V_nom=2, use_vPhasor_in=true)
           annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     PowerSystems.AC3ph.Impedances.Inductor ind(r=0.05)
       annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
@@ -535,7 +533,7 @@ package AC3ph "AC 3-phase components dq0"
             extent={{10,10},{30,30}})));
 
   equation
-    connect(transPh.y, vAC.vPhasor)
+    connect(transPh.y, vAC.vPhasor_in)
       annotation (Line(points={{-80,20},{-64,20},{-64,10}}, color={0,0,127}));
     connect(vAC.term, ind.term_p) annotation (Line(points={{-60,0},{-50,0}},
           color={0,110,110}));

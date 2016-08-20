@@ -5,21 +5,19 @@ package Sources "Voltage and Power Sources"
   model Voltage "Ideal voltage, 3-phase dq0"
     extends Partials.VoltageBase;
 
-    parameter SIpu.Voltage v0=1 "voltage" annotation(Dialog(enable=scType_par));
-    parameter SI.Angle alpha0=0 "phase angle" annotation(Dialog(enable=scType_par));
+    parameter SIpu.Voltage v0=1 "fixed voltage" annotation(Dialog(enable=not use_vPhasor_in));
+    parameter SI.Angle alpha0=0 "fixed phase angle" annotation(Dialog(enable=not use_vPhasor_in));
   protected
     PS.Voltage V;
     SI.Angle alpha;
     SI.Angle phi;
 
   equation
-    if scType_par then
-      V = v0*V_base;
-      alpha = alpha0;
-    else
-      V = vPhasor_internal[1]*V_base;
-      alpha = vPhasor_internal[2];
+    if not use_vPhasor_in then
+      vPhasor_internal = {v0, alpha0};
     end if;
+    V = vPhasor_internal[1]*V_base;
+    alpha = vPhasor_internal[2];
     phi = term.theta[1] + alpha + system.alpha0;
     term.v = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v};
     annotation (defaultComponentName = "voltage1",
@@ -29,10 +27,10 @@ package Sources "Voltage and Power Sources"
 with variable amplitude and phase when 'vType' is 'signal'.</p>
 <p>Optional input:
 <pre>
-  omega           angular frequency (choose fType == \"sig\")
-  vPhasor         {norm(v), phase(v)}, amplitude(v_abc)=sqrt(2/3)*vPhasor[1]
-   vPhasor[1]     in SI or pu, depending on choice of 'units'
-   vPhasor[2]     in rad
+  omega_in           angular frequency (choose fType == \"sig\")
+  vPhasor_in         {norm(v), phase(v)}, amplitude(v_abc)=sqrt(2/3)*vPhasor_in[1]
+   vPhasor_in[1]     in SI or pu, depending on choice of 'units'
+   vPhasor_in[2]     in rad
 </pre></p>
 </html>
 "));
@@ -54,13 +52,11 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
     Real[3, N] H;
 
   equation
-    if scType_par then
-      V = V_base;
-      alpha = 0;
-    else
-      V = vPhasor_internal[1]*V_base;
-      alpha = vPhasor_internal[2];
+    if not use_vPhasor_in then
+      vPhasor_internal = {1, 0};
     end if;
+    V = vPhasor_internal[1]*V_base;
+    alpha = vPhasor_internal[2];
 
   algorithm
     h_mod3 := mod(h, 3);
@@ -90,15 +86,15 @@ with
 and
   alpha_tot = alpha + system.alpha0 + alpha0[n]
 where
-  alpha = vPhasor[2] (common phase) for signal input, else 0
+  alpha = vPhasor_in[2] (common phase) for signal input, else 0
 </pre></p>
 <p>Optional input:
 <pre>
-  omega            angular frequency (if fType == \"sig\")
-  vPhasor          {modulation(v), common phase(v)}
-   vPhasor[1] = 1  delivers the values for constant amplitudes v0
-   vPhasor[1]      in SI or pu, depending on choice of 'units'
-   vPhasor[2]      in rad
+  omega_in            angular frequency (if fType == \"sig\")
+  vPhasor_in          {modulation(v), common phase(v)}
+   vPhasor_in[1] = 1  delivers the values for constant amplitudes v0
+   vPhasor_in[1]      in SI or pu, depending on choice of 'units'
+   vPhasor_in[2]      in rad
 </pre></p>
 </html>
 "),   Icon(coordinateSystem(
@@ -116,17 +112,17 @@ where
   model InfBus "Infinite slack bus, 3-phase dq0"
     extends Partials.PowerBase(final S_nom=1);
 
-    Modelica.Blocks.Interfaces.RealInput[2] vPhasor if not scType_par
+    Modelica.Blocks.Interfaces.RealInput[2] vPhasor_in if use_vPhasor_in
       "{abs(voltage), phase}"
       annotation (Placement(transformation(
           origin={60,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    parameter Boolean scType_par = true
-      "= true: voltage defined by parameter otherwise by input signal"
+    parameter Boolean use_vPhasor_in = false
+      "= true to use input signal vPhasor_in, otherwise use {v0, alpha0}"
      annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-    parameter SIpu.Voltage v0=1 "voltage"  annotation(Dialog(enable=scType_par));
-    parameter SI.Angle alpha0=0 "phase angle"  annotation(Dialog(enable=scType_par));
+    parameter SIpu.Voltage v0=1 "fixed voltage" annotation(Dialog(enable=not use_vPhasor_in));
+    parameter SI.Angle alpha0=0 "fixed phase angle" annotation(Dialog(enable=not use_vPhasor_in));
 
   protected
     PS.Voltage V;
@@ -135,28 +131,25 @@ where
     Modelica.Blocks.Interfaces.RealInput[2] vPhasor_internal
       "Needed to connect to conditional connector";
   equation
-    connect(vPhasor, vPhasor_internal);
+    connect(vPhasor_in, vPhasor_internal);
 
-    if scType_par then
-      V = v0*V_base;
-      alpha = alpha0;
-      vPhasor_internal = {0,0};
-    else
-      V = vPhasor_internal[1]*V_base;
-      alpha = vPhasor_internal[2];
+    if not use_vPhasor_in then
+      vPhasor_internal = {v0, alpha0};
     end if;
+    V = vPhasor_internal[1]*V_base;
+    alpha = vPhasor_internal[2];
     phi = term.theta[1] + alpha + system.alpha0;
     term.v = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v};
     annotation(defaultComponentName = "infBus",
       Documentation(
             info="<html>
-<p>Ideal voltage source with constant amplitude and phase when 'vPhasor' unconnected,<br>
-with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p>
+<p>Ideal voltage source with constant amplitude and phase when 'vPhasor_in' unconnected,<br>
+with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.</p>
 <p>Optional input:
 <pre>
-  vPhasor         {norm(v), phase(v)}
-   vPhasor[1]     in SI or pu, depending on choice of 'units'
-   vPhasor[2]     in rad
+  vPhasor_in         {norm(v), phase(v)}
+   vPhasor_in[1]     in SI or pu, depending on choice of 'units'
+   vPhasor_in[2]     in rad
 </pre></p>
 <p>Frequency: the source has always <i>system</i>-frequency.</p>
 </html>"),
@@ -270,19 +263,19 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
   model PVsource "Power-voltage source, 3-phase dq0"
     extends Partials.PowerBase;
 
-    Modelica.Blocks.Interfaces.RealInput[2] pv if not scType_par
-      "{active power, abs(voltage)}"
-      annotation (Placement(transformation(
+    Modelica.Blocks.Interfaces.RealInput[2] pv_in if use_pv_in
+      "{active power, abs(voltage)}" annotation (Placement(transformation(
           origin={60,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    parameter Boolean scType_par = true
-      "= true: active power defined by parameter otherwise by input signal"
+    parameter Boolean use_pv_in = false
+      "= true to use input signal pv_in, otherwise use {p0, v0}"
      annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-    parameter SIpu.ApparentPower p0=1 "active power"
-                                             annotation(Dialog(enable=scType_par));
-    parameter SIpu.Voltage v0=1 "voltage" annotation(Dialog(enable=scType_par));
-    parameter PS.Voltage V_start=V_nom "start value terminal voltage";
+    parameter SIpu.ApparentPower p0=1 "fixed active power"
+     annotation(Dialog(enable=not use_pv_in));
+    parameter SIpu.Voltage v0=1 "fixed voltage" annotation(Dialog(enable=not use_pv_in));
+    parameter PS.Voltage V_start=V_nom "start value terminal voltage"
+     annotation(Dialog(tab="Initialization"));
 
   protected
     SI.Power P;
@@ -292,17 +285,14 @@ with variable amplitude and phase when 'vPhasor' connected to a signal-input.</p
     Modelica.Blocks.Interfaces.RealInput[2] pv_internal
       "Needed to connect to conditional connector";
   equation
-    connect(pv, pv_internal);
+    connect(pv_in, pv_internal);
 
     i = -term.i[1:2];
-    if scType_par then
-      P = p0*S_base;
-      V = v0*V_base;
-      pv_internal={0.0, 0.0};
-    else
-      P = pv_internal[1]*S_base;
-      V = pv_internal[2]*V_base;
+    if not use_pv_in then
+      pv_internal={p0, v0};
     end if;
+    P = pv_internal[1]*S_base;
+    V = pv_internal[2]*V_base;
     v*v = V*V;
     v*i = P;
     term.v = cat(1, v, {sqrt(3)*neutral.v});
@@ -333,20 +323,19 @@ with variable power and voltage when 'pv' connected to a signal-input.</p>
   model PQsource "Power source, 3-phase dq0"
     extends Partials.PowerBase;
 
-    Modelica.Blocks.Interfaces.RealInput[2] pq(
-                           final unit="1") if not scType_par
-      "{active, reactive} power"
-      annotation (Placement(transformation(
+    Modelica.Blocks.Interfaces.RealInput[2] pq_in(final unit="1") if  use_pq_in
+      "{active, reactive} power" annotation (Placement(transformation(
           origin={60,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    parameter Boolean scType_par = true
-      "= true: apparent power defined by parameter otherwise by input signal"
+    parameter Boolean use_pq_in = false
+      "= true to use input signal pq_in, otherwise use pq0"
      annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
-    parameter SIpu.ApparentPower pq0[2]={1,0} "{active, reactive} power"
-                                                                annotation(Dialog(enable=scType_par));
-    parameter PS.Voltage V_start=V_nom "start value terminal voltage";
+    parameter SIpu.ApparentPower pq0[2]={1,0} "fixed {active, reactive} power"
+      annotation(Dialog(enable=not use_pq_in));
+    parameter PS.Voltage V_start=V_nom "start value terminal voltage"
+      annotation(Dialog(tab="Initialization"));
 
   protected
     SI.Power[2] P;
@@ -355,15 +344,13 @@ with variable power and voltage when 'pv' connected to a signal-input.</p>
     Modelica.Blocks.Interfaces.RealInput[2] pq_internal
       "Needed to connect to conditional connector";
   equation
-    connect(pq, pq_internal);
+    connect(pq_in, pq_internal);
 
     i = -term.i[1:2];
-    if scType_par then
-      P = pq0*S_base;
-      pq_internal={0.0, 0.0};
-    else
-      P = pq_internal*S_base;
+    if not use_pq_in then
+      pq_internal = pq0;
     end if;
+    P = pq_internal*S_base;
     {v*i, {v[2],-v[1]}*i} = P;
     term.v = cat(1, v, {sqrt(3)*neutral.v});
     annotation (defaultComponentName = "PQsource1",
@@ -424,24 +411,24 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
       parameter Boolean fType_sys = true
         "= true, if source has system frequency" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
       parameter Boolean fType_par = true
-        "= true, if source has parameter frequency, otherwise defined by input omega"
+        "= true, if source has parameter frequency, otherwise defined by input omega_in"
                                     annotation(Evaluate=true, Dialog(enable=not fType_sys));
       parameter SI.Frequency f=system.f "frequency"
         annotation(Dialog(enable=fType_par));
 
-      parameter Boolean scType_par = true
-        "= true: voltage defined by parameter otherwise by input signal"
+      parameter Boolean use_vPhasor_in = false
+        "= true to use input signal vPhasor_in, otherwise use fixed values"
        annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
-      Modelica.Blocks.Interfaces.RealInput omega(final unit="rad/s") if not fType_par
-        "ang frequency"
-        annotation (Placement(transformation(
+      Modelica.Blocks.Interfaces.RealInput omega_in(final unit="rad/s") if
+                                                                        not fType_par
+        "angular frequency" annotation (Placement(transformation(
             origin={-60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica.Blocks.Interfaces.RealInput[2] vPhasor if not scType_par
-        "({abs(voltage), phase})"
-        annotation (Placement(transformation(
+      Modelica.Blocks.Interfaces.RealInput[2] vPhasor_in if
+                                                         use_vPhasor_in
+        "{abs(voltage), phase}" annotation (Placement(transformation(
             origin={60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
@@ -460,13 +447,10 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
       end if;
 
     equation
-      connect(omega, omega_internal);
-      connect(vPhasor, vPhasor_internal);
+      connect(omega_in, omega_internal);
+      connect(vPhasor_in, vPhasor_internal);
       if fType <> Types.FreqType.sig then
          omega_internal = 0.0;
-      end if;
-      if scType_par then
-         vPhasor_internal = {0,0};
       end if;
 
       if fType == Types.FreqType.sys then
@@ -544,8 +528,8 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
 Documentation(info="<html>
 <p>The sources have optional inputs:</p>
 <pre>
-  vPhasor:   voltage {norm, phase}
-  omega:     angular frequency
+  vPhasor_in:   voltage {norm, phase}
+  omega_in:     angular frequency
   pv:        {active power, abs(voltage)}  (only PVsource)
   p:         {active power, rective power} (only PQsource)
 </pre>

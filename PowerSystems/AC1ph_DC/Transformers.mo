@@ -254,14 +254,7 @@ and eddy current losses.</p>
     extends Modelica.Icons.BasesPackage;
 
     partial model TrafoIdealBase "Base for ideal transformer, 1-phase"
-      /*
-  extends Ports.PortTrafo_p_n(w1(start=w1_set), w2(start=w2_set));
 
-  Start values not correct since no parameter expressions;
-  Can be removed without having an effect on the model since
-  if dynTC=true, w1,w2 are initialized in the initial equation section and
-  otherwise, there is an algebraic equation for w1 and w2.
-  */
       extends Ports.PortTrafo_p_n(i1(start = i1_start), i2(start = i2_start));
 
       parameter Boolean stIni_en=true "enable steady-state initial equation"
@@ -272,19 +265,24 @@ and eddy current losses.</p>
         "start value of secondary current"
         annotation(Dialog(tab="Initialization"));
 
-      parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-      parameter Boolean use_tap_1 = false "= true, if input tap_1 is enabled"
-                          annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-      parameter Boolean use_tap_2 = false "= true, if input tap_2 is enabled"
-                          annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+      parameter Boolean use_tap_1_in = false "= true to enable input tap_1_in"
+        annotation(Evaluate=true, choices(checkBox=true), Dialog(group="Options"));
+      parameter Integer tap_1 = par.tap_neutral[1] "fixed tap_1 position"
+        annotation(Dialog(enable=not use_tap_1_in, group="Options"));
+      parameter Boolean use_tap_2_in = false "= true to enable input tap_2_in"
+        annotation(Evaluate=true, choices(checkBox=true), Dialog(group="Options"));
+      parameter Integer tap_2 = par.tap_neutral[2] "fixed tap_2 position"
+        annotation(Dialog(enable=not use_tap_2_in, group="Options"));
+      parameter Boolean dynTC=false "enable dynamic tap-changing"
+        annotation(Evaluate=true, Dialog(group="Options"));
 
-      Modelica.Blocks.Interfaces.IntegerInput tap_1 if use_tap_1
+      Modelica.Blocks.Interfaces.IntegerInput tap_1_in if use_tap_1_in
         "1: index of voltage level"
         annotation (Placement(transformation(
             origin={-40,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica.Blocks.Interfaces.IntegerInput tap_2 if use_tap_2
+      Modelica.Blocks.Interfaces.IntegerInput tap_2_in if use_tap_2_in
         "2: index of voltage level"
         annotation (Placement(transformation(
             origin={40,100},
@@ -322,13 +320,13 @@ and eddy current losses.</p>
       end if;
 
     equation
-      connect(tap_1, tap_1_internal);
-      connect(tap_2, tap_2_internal);
-      if not use_tap_1 then
-         tap_1_internal = par.tap_neutral[1];
+      connect(tap_1_in, tap_1_internal);
+      connect(tap_2_in, tap_2_internal);
+      if not use_tap_1_in then
+         tap_1_internal = tap_1;
       end if;
-      if not use_tap_2 then
-         tap_2_internal = par.tap_neutral[2];
+      if not use_tap_2_in then
+         tap_2_internal = tap_2;
       end if;
 
       if dynTC then
@@ -478,33 +476,26 @@ For variable transformer ratio tap changer input needed.</p>
 
     partial model Trafo3IdealBase "Base for ideal transformer, 1-phase"
 
-    /*
-  extends Ports.PortTrafo_p_n_n(
-    w1(start=w1_set,fixed=true),
-    w2a(start=w2a_set,fixed=true),
-    w2b(start=w2b_set,fixed=true));
-
-  Start values not correct since no parameter expressions;
-  Can be removed without having an effect on the model since
-  if dynTC=true, w1,w2a,w2b are initialized in the initial equation section and
-  otherwise, there is an algebraic equation for w1 and w2a,w2b.
-*/
       extends Ports.PortTrafo_p_n_n;
 
-      parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+      parameter Boolean use_tap_1_in = false "= true to enable input tap_1_in"
+        annotation(Evaluate=true, choices(checkBox=true), Dialog(group="Options"));
+      parameter Integer tap_1 = par.tap_neutral[1] "fixed tap_1 position"
+        annotation(Dialog(enable=not use_tap_1_in, group="Options"));
+      parameter Boolean use_tap_2_in = false "= true to enable input tap_2_in"
+        annotation(Evaluate=true, choices(checkBox=true), Dialog(group="Options"));
+      parameter Integer[2] tap_2 = par.tap_neutral[2:3] "fixed tap_2 position"
+        annotation(Dialog(enable=not use_tap_2_in, group="Options"));
+      parameter Boolean dynTC=false "enable dynamic tap-changing"
+        annotation(Evaluate=true, Dialog(group="Options"));
 
-      parameter Boolean use_tap_1 = false "= true, if input tap_1 is enabled"
-                          annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-      parameter Boolean use_tap_2 = false "= true, if input tap_2 is enabled"
-                          annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-
-      Modelica.Blocks.Interfaces.IntegerInput tap_1 if use_tap_1
+      Modelica.Blocks.Interfaces.IntegerInput tap_1_in if use_tap_1_in
         "1: index of voltage level"
         annotation (Placement(transformation(
             origin={-40,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica.Blocks.Interfaces.IntegerInput[2] tap_2 if use_tap_2
+      Modelica.Blocks.Interfaces.IntegerInput[2] tap_2_in if use_tap_2_in
         "2: indices of voltage levels"
         annotation (Placement(transformation(
             origin={40,100},
@@ -546,13 +537,13 @@ For variable transformer ratio tap changer input needed.</p>
       end if;
 
     equation
-      connect(tap_1, tap_1_internal);
-      connect(tap_2, tap_2_internal);
-      if not use_tap_1 then
-         tap_1_internal = par.tap_neutral[1];
+      connect(tap_1_in, tap_1_internal);
+      connect(tap_2_in, tap_2_internal);
+      if not use_tap_1_in then
+         tap_1_internal = tap_1;
       end if;
-      if not use_tap_2 then
-         tap_2_internal = par.tap_neutral[2:3];
+      if not use_tap_2_in then
+         tap_2_internal = tap_2;
       end if;
 
       if dynTC then

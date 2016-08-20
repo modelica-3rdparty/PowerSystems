@@ -13,7 +13,7 @@ package InvertersAC3ph "Inverters dq0"
       a_ini=2,
       a_fin=1)
          annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-    PowerSystems.AC3ph.Sources.Voltage vAC(scType_par=false, V_nom=100)
+    PowerSystems.AC3ph.Sources.Voltage vAC(use_vPhasor_in=true, V_nom=100)
           annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
     PowerSystems.AC3ph.Impedances.Inductor ind(r=0.05,
       V_nom=100,
@@ -58,9 +58,8 @@ package InvertersAC3ph "Inverters dq0"
       annotation (Line(points={{30,10},{40,10}}, color={0,0,255}));
     connect(meterDC.term_n, vDC.term)
       annotation (Line(points={{60,10},{70,10}}, color={0,0,255}));
-    connect(transPh.y, vAC.vPhasor)
-                                  annotation (Line(points={{-80,30},{-64,30},{
-            -64,20}}, color={0,0,127}));
+    connect(transPh.y, vAC.vPhasor_in)
+      annotation (Line(points={{-80,30},{-64,30},{-64,20}}, color={0,0,127}));
     connect(grd1.term, vAC.neutral)
       annotation (Line(points={{-80,10},{-80,10}}, color={0,0,255}));
     connect(vDC.neutral, grd2.term)

@@ -13,7 +13,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       a_ini=2,
       a_fin=1)
          annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-    PowerSystems.AC1ph_DC.Sources.ACvoltage vAC(scType_par=false, V_nom=100,
+    PowerSystems.AC1ph_DC.Sources.ACvoltage vAC(use_vPhasor_in=true, V_nom=100,
       pol=0)
           annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
     PowerSystems.AC1ph_DC.Impedances.Inductor ind(r={0.05,0.05},
@@ -54,9 +54,8 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       annotation (Line(points={{0,10},{10,10}}, color={0,0,255}));
     connect(rectifier.DC, meterDC.term_p)
       annotation (Line(points={{30,10},{40,10}}, color={0,0,255}));
-    connect(transPh.y, vAC.vPhasor)
-                                  annotation (Line(points={{-80,30},{-64,30},{
-            -64,20}}, color={0,0,127}));
+    connect(transPh.y, vAC.vPhasor_in)
+      annotation (Line(points={{-80,30},{-64,30},{-64,20}}, color={0,0,127}));
     connect(grd1.term, vAC.neutral)
       annotation (Line(points={{-80,10},{-80,10}}, color={0,0,255}));
     connect(vDC.neutral, grd2.term)

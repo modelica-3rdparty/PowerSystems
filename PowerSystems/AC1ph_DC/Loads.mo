@@ -4,7 +4,7 @@ package Loads "Loads"
     extends Partials.ResLoadBase;
 
   equation
-    R = V2_nom/p0;
+    R = V2_nom/p;
   annotation (
     defaultComponentName="rLoad",
       Documentation(
@@ -29,7 +29,7 @@ Consumes the desired power at <b>nominal</b> voltage.</p>
     extends Partials.IndLoadBaseAC;
 
   equation
-    Z = (p0/(p0*p0))*V2_nom;
+    Z = (pq/(pq*pq))*V2_nom;
   annotation (
     defaultComponentName="zLoadAC",
       Documentation(
@@ -59,7 +59,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     extends Partials.CapLoadBaseAC;
 
   equation
-    Y = (p0/(p0*p0))*I2_nom;
+    Y = (pq/(pq*pq))*I2_nom;
   annotation (
     defaultComponentName="yLoadAC",
       Documentation(
@@ -89,7 +89,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     extends Partials.IndLoadBaseDC;
 
   equation
-    R = V2_nom/p0;
+    R = V2_nom/p;
     L = t_RL*R;
   annotation (
     defaultComponentName="zLoadDC",
@@ -128,8 +128,8 @@ Consumes the desired power at <b>nominal</b> voltage.</p>
     der(R) = 0;
 
   equation
-  //  der(R) = (v2/p0 - R)/tcst;
-    der(R) = ((v2/p0)*tanh(imax)/tanh(imax*v2/V2_nom) - R)/tcst;
+  //  der(R) = (v2/p - R)/tcst;
+    der(R) = ((v2/p)*tanh(imax)/tanh(imax*v2/V2_nom) - R)/tcst;
     L = t_RL*R;
   annotation (
     defaultComponentName="pLoadDC",
@@ -168,8 +168,8 @@ Consumes the desired power independent of voltage.</p>
     der(R) = 0;
 
   equation
-  //  der(R) = (v2/p0 - R)/tcst;
-    der(R) = ((v2/p0)*tanh(imax)/tanh(imax*v2/V2_nom) - R)/tcst;
+  //  der(R) = (v2/p - R)/tcst;
+    der(R) = ((v2/p)*tanh(imax)/tanh(imax*v2/V2_nom) - R)/tcst;
   annotation (
     defaultComponentName="pLoadDC",
       Documentation(
@@ -238,34 +238,32 @@ Consumes the desired power independent of voltage.</p>
     partial model ResLoadBase "Resistive load base, 1-phase"
       extends LoadBase(v(start=V_nom), i(start=V_nom/Rstart));
 
-      parameter Boolean scType_par = true
-        "= true if p0 defined by parameter p0_set otherwise by input signal p_set"
+      parameter Boolean use_p_in = false
+        "= true to use input signal p_in, otherwise use parameter p0"
         annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-      parameter SIpu.Power p0_set(min=0)=1 "power, (start val if signal inp)"    annotation(Dialog(enable=scType_par));
-      Modelica.Blocks.Interfaces.RealInput p_set(min=0) if not scType_par
-        "desired power"                                    annotation (Placement(
-            transformation(
+      parameter SIpu.Power p0(min=0)=1 "fixed power (start value if signal input)"
+        annotation(Dialog(enable=not use_p_in));
+      Modelica.Blocks.Interfaces.RealInput p_in(min=0) if  use_p_in
+        "desired power" annotation (Placement(transformation(
             origin={0,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
 
     protected
-      Modelica.Blocks.Interfaces.RealInput p_set_internal
+      Modelica.Blocks.Interfaces.RealInput p_internal
         "Needed to connect to conditional connector";
 
       final parameter Real V2_nom(unit="V2")=V_nom*V_nom;
-      final parameter Real Rstart=V2_nom/(p0_set*S_base);
-      SI.Power p0;
+      final parameter Real Rstart=V2_nom/(p0*S_base);
+      SI.Power p;
       SI.Resistance R(start=Rstart);
     equation
-      connect(p_set, p_set_internal);
+      connect(p_in, p_internal);
 
-      if scType_par then
-        p0 =  p0_set*S_base;
-        p_set_internal = 0.0;
-      else
-        p0 = p_set_internal*S_base;
+      if not use_p_in then
+        p_internal = p0;
       end if;
+      p = p_internal*S_base;
       R*i = v;
       annotation (
         Documentation(
@@ -276,32 +274,31 @@ Consumes the desired power independent of voltage.</p>
     partial model LoadBaseAC "Load base AC, 1-phase"
       extends LoadBase;
 
-      parameter Boolean scType_par = true
-        "= true if p0 defined by parameter p0_set otherwise by input signal p_set"
+      parameter Boolean use_pq_in = false
+        "= true to use input signal pq_in, otherwise use parameter pq0"
         annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
-      parameter SIpu.Power[2] p0_set(min=0)={1,1}/sqrt(2)
-        "{active, reactive} power, (start val if signal inp)" annotation(Dialog(enable=scType_par));
-      Modelica.Blocks.Interfaces.RealInput[2] p_set(min=0) if not scType_par
+      parameter SIpu.Power[2] pq0(min=0)={1,1}/sqrt(2)
+        "fixed {active, reactive} power (start value if use_pq_in)"
+        annotation(Dialog(enable=not use_pq_in));
+      Modelica.Blocks.Interfaces.RealInput[2] pq_in(min=0) if use_pq_in
         "desired {active, reactive} power" annotation (Placement(transformation(
             origin={0,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
 
     protected
-      Modelica.Blocks.Interfaces.RealInput[2] p_set_internal
+      Modelica.Blocks.Interfaces.RealInput[2] pq_internal
         "Needed to connect to conditional connector";
-      SI.Power[2] p0;
+      SI.Power[2] pq;
 
     equation
-      connect(p_set, p_set_internal);
+      connect(pq_in, pq_internal);
 
-      if scType_par then
-        p0 =  p0_set*S_base;
-        p_set_internal = {0.0, 0.0};
-      else
-        p0 = p_set_internal*S_base;
+      if not use_pq_in then
+        pq_internal = pq0;
       end if;
+      pq = pq_internal*S_base;
       annotation (
         Documentation(
       info="<html>
@@ -312,12 +309,12 @@ Consumes the desired power independent of voltage.</p>
                    extends LoadBaseAC(v(start=vstart), i(start=istart));
 
                    parameter SI.MagneticFlux psi_start=0 "start value for magnetic flux"
-		     annotation(Dialog(tab="Initialization"));
+                     annotation (Dialog(tab="Initialization"));
                    SI.MagneticFlux psi(start=psi_start, stateSelect=StateSelect.prefer)
-        "magnetic flux";
+                     "magnetic flux";
     protected
                    final parameter Real V2_nom=V_nom*V_nom;
-                   final parameter Real[2] Zstart=(p0_set/(p0_set*p0_set*S_base))*V2_nom;
+                   final parameter Real[2] Zstart=(pq0/(pq0*pq0*S_base))*V2_nom;
                    final parameter PS.Voltage vstart=cos(system.alpha0)*V_nom;
                    final parameter PS.Current istart=cos(system.alpha0-atan(Zstart[2]/Zstart[1]))*V_nom/sqrt(Zstart*Zstart);
                    SI.Impedance[2] Z(start=Zstart);
@@ -326,8 +323,8 @@ Consumes the desired power independent of voltage.</p>
                  initial equation
                    if steadyIni_t then
                      der(psi) = 0;
-		   elseif not system.steadyIni then
-		     psi = psi_start;
+                   elseif not system.steadyIni then
+                     psi = psi_start;
                    end if;
 
                  equation
@@ -337,15 +334,13 @@ Consumes the desired power independent of voltage.</p>
                    else
                      Z[1]*i = v;
                    end if;
-      annotation (
-        Documentation(info=
+                   annotation (Documentation(info=
                      "<html>
 </html>
-"),
-        Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics={Polygon(
+"),                  Icon(coordinateSystem(
+                         preserveAspectRatio=false,
+                         extent={{-100,-100},{100,100}},
+                         grid={2,2}), graphics={Polygon(
                                points={{-40,-45},{-40,45},{80,0},{-40,-45}},
                                lineColor={0,0,255},
                                fillColor={0,0,255},
@@ -356,12 +351,12 @@ Consumes the desired power independent of voltage.</p>
                    extends LoadBaseAC(v(start=vstart), i(start=istart));
 
                    parameter SI.ElectricCharge q_start=0 "start value for electric charge"
-		     annotation(Dialog(tab="Initialization"));
+                     annotation (Dialog(tab="Initialization"));
                    SI.ElectricCharge q(start=q_start, stateSelect=StateSelect.prefer)
-        "electric charge";
+                     "electric charge";
     protected
                    final parameter Real I2_nom=(S_nom/V_nom)^2;
-                   final parameter SI.Admittance[2] Ystart=(p0_set/(p0_set*p0_set*S_base))*I2_nom;
+                   final parameter SI.Admittance[2] Ystart=(pq0/(pq0*pq0*S_base))*I2_nom;
                    final parameter PS.Voltage vstart=cos(system.alpha0)*V_nom;
                    final parameter PS.Current istart=cos(system.alpha0+atan(Ystart[2]/Ystart[1]))*V_nom*sqrt(Ystart*Ystart);
                    SI.Admittance[2] Y(start=Ystart);
@@ -370,8 +365,8 @@ Consumes the desired power independent of voltage.</p>
                  initial equation
                    if steadyIni_t then
                      der(q) = 0;
-		   elseif not system.steadyIni then
-		     q = q_start;
+                   elseif not system.steadyIni then
+                     q = q_start;
                    end if;
 
                  equation
@@ -386,20 +381,21 @@ Consumes the desired power independent of voltage.</p>
                      "<html>
 </html>
 "),                  Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics={Polygon(
+                         preserveAspectRatio=false,
+                         extent={{-100,-100},{100,100}},
+                         grid={2,2}), graphics={
+                         Polygon(
                                points={{-40,44},{-40,-44},{-20,-36},{-20,36},{-40,44}},
                                lineColor={0,0,255},
                                pattern=LinePattern.None,
                                fillColor={215,215,215},
                                fillPattern=FillPattern.Solid),Polygon(
                                points={{-50,48},{-50,-48},{-40,-44},{-40,44},{-50,48}},
-              lineColor={0,0,255},
+                           lineColor={0,0,255},
                                fillColor={0,0,255},
                                fillPattern=FillPattern.Solid),Polygon(
                                points={{-20,36},{-20,-36},{-10,-33},{-10,33},{-20,36}},
-              lineColor={0,0,255},
+                           lineColor={0,0,255},
                                fillColor={0,0,255},
                                fillPattern=FillPattern.Solid)}));
                  end CapLoadBaseAC;
@@ -407,31 +403,29 @@ Consumes the desired power independent of voltage.</p>
     partial model LoadBaseDC "Inductive load base DC"
       extends LoadBase;
 
-      parameter Boolean scType_par = true
-        "= true if p0 defined by parameter p0_set otherwise by input signal p_set"
+      parameter Boolean use_p_in = false
+        "= true to use input signal p_in, otherwise use parameter p0"
         annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-      parameter SIpu.Power p0_set(min=0)=1 "power, (start val if signal inp)"    annotation(Dialog(enable=scType_par));
-      Modelica.Blocks.Interfaces.RealInput p_set(min=0) if not scType_par
-        "desired power"                                    annotation (Placement(
-            transformation(
+      parameter SIpu.Power p0(min=0)=1 "fixed power (start value if use_p_in)"
+        annotation(Dialog(enable=not use_p_in));
+      Modelica.Blocks.Interfaces.RealInput p_in(min=0) if  use_p_in
+        "desired power" annotation (Placement(transformation(
             origin={0,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
 
     protected
-      Modelica.Blocks.Interfaces.RealInput p_set_internal
+      Modelica.Blocks.Interfaces.RealInput p_internal
         "Needed to connect to conditional connector";
-      SI.Power p0;
+      SI.Power p;
 
     equation
-      connect(p_set, p_set_internal);
+      connect(p_in, p_internal);
 
-      if scType_par then
-        p0 =  p0_set*S_base;
-        p_set_internal = 0.0;
-      else
-        p0 = p_set_internal*S_base;
+      if not use_p_in then
+        p_internal = p0;
       end if;
+      p = p_internal*S_base;
       annotation (
         Documentation(
       info="<html>
@@ -452,7 +446,7 @@ Consumes the desired power independent of voltage.</p>
       parameter SI.Time t_RL=0.1 "R-L time constant";
     protected
       final parameter Real V2_nom(unit="V2")=V_nom*V_nom;
-      final parameter Real Rstart=V2_nom/(p0_set*S_base);
+      final parameter Real Rstart=V2_nom/(p0*S_base);
       SI.Resistance R(start=Rstart);
       SI.Inductance L(start=t_RL*Rstart);
 
@@ -460,7 +454,7 @@ Consumes the desired power independent of voltage.</p>
       if steadyIni_t then
         der(L*i) = 0;
       elseif not system.steadyIni then
-	i = i_start;
+        i = i_start;
       end if;
 
     equation

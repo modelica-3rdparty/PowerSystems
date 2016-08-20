@@ -16,7 +16,7 @@ package AC1ph_DC "AC 1-phase and DC components"
           origin={50,70},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(V_nom=10e3, scType_par=false)
+    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(V_nom=10e3, use_vPhasor_in=true)
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Impedances.Inductor ind(r={0.1,0.1},
       V_nom=10e3,
@@ -34,7 +34,7 @@ package AC1ph_DC "AC 1-phase and DC components"
             extent={{-70,-10},{-90,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
+    connect(transPh.y, voltage.vPhasor_in)
       annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(voltage.term, ind.term_p)
       annotation (Line(points={{-50,0},{-40,0}}, color={0,0,255}));
@@ -129,7 +129,7 @@ package AC1ph_DC "AC 1-phase and DC components"
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(scType_par=false)
+    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(use_vPhasor_in=true)
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter      annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
@@ -143,7 +143,7 @@ package AC1ph_DC "AC 1-phase and DC components"
             extent={{80,-10},{100,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
+    connect(transPh.y, voltage.vPhasor_in)
       annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(voltage.term, meter.term_p)
       annotation (Line(points={{-50,0},{-40,0}}, color={0,0,255}));
@@ -167,7 +167,7 @@ package AC1ph_DC "AC 1-phase and DC components"
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(scType_par=false)
+    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(use_vPhasor_in=true)
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter      annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
@@ -177,7 +177,7 @@ package AC1ph_DC "AC 1-phase and DC components"
             extent={{-70,-10},{-90,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
+    connect(transPh.y, voltage.vPhasor_in)
       annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(voltage.term, meter.term_p)
       annotation (Line(points={{-50,0},{-40,0}}, color={0,0,255}));
@@ -202,7 +202,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(
       V_nom=132e3,
-      scType_par=false,
+      use_vPhasor_in=true,
       alpha0=0.087266462599716)
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage2(V_nom=132e3)
@@ -220,7 +220,7 @@ package AC1ph_DC "AC 1-phase and DC components"
             extent={{90,-10},{110,10}})));
 
   equation
-    connect(transPh.y, voltage1.vPhasor)
+    connect(transPh.y, voltage1.vPhasor_in)
       annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(voltage1.term, meter.term_p)
       annotation (Line(points={{-50,0},{-40,0}}, color={0,0,255}));
@@ -340,17 +340,17 @@ Compare with DoublePIline.</p>
           rotation=270)));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(a_fin=0.9)
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(scType_par=false)
+    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(use_vPhasor_in=true)
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter      annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
-    replaceable PowerSystems.AC1ph_DC.Loads.ZloadAC zLoadAC(scType_par=false)
+    replaceable PowerSystems.AC1ph_DC.Loads.ZloadAC zLoadAC(use_pq_in=true)
       annotation (Placement(transformation(extent={{30,-10},{50,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-70,-10},{-90,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
+    connect(transPh.y, voltage.vPhasor_in)
       annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(voltage.term, meter.term_p)
       annotation (Line(points={{-50,0},{-40,0}}, color={0,0,255}));
@@ -358,7 +358,7 @@ Compare with DoublePIline.</p>
       annotation (Line(points={{-20,0},{30,0}}, color={0,0,255}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,255}));
-    connect(trsSignal.y, zLoadAC.p_set)
+    connect(trsSignal.y,zLoadAC.pq_in)
       annotation (Line(points={{40,50},{40,10}}, color={0,0,127}));
     annotation (
       Documentation(
@@ -377,11 +377,11 @@ Compare with DoublePIline.</p>
           origin={40,60},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(scType_par=false)
+    PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(use_vDC_in=true)
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter      annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
-    replaceable PowerSystems.AC1ph_DC.Loads.PindLoadDC pLoadDC(scType_par=false)
+    replaceable PowerSystems.AC1ph_DC.Loads.PindLoadDC pLoadDC(use_p_in=true)
       annotation (Placement(transformation(extent={{30,-10},{50,10}})));
     PowerSystems.Blocks.Signals.Transient transV(s_fin=0.9)
                                         annotation (Placement(transformation(
@@ -396,9 +396,9 @@ Compare with DoublePIline.</p>
       annotation (Line(points={{-20,0},{30,0}}, color={0,0,255}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,255}));
-    connect(transV.y, voltage.vDC) annotation (Line(points={{-80,20},{-54,20},{
-            -54,10}}, color={0,0,127}));
-    connect(trsSignalL.y, pLoadDC.p_set)
+    connect(transV.y, voltage.vDC_in)
+      annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
+    connect(trsSignalL.y, pLoadDC.p_in)
       annotation (Line(points={{40,50},{40,10}}, color={0,0,127}));
     annotation (
       Documentation(
@@ -421,7 +421,7 @@ Compare with DoublePIline.</p>
                                        annotation (Placement(transformation(
             extent={{100,-10},{80,10}})));
 
-    PowerSystems.AC1ph_DC.Sources.DCvoltage voltage1(scType_par=false, V_nom=
+    PowerSystems.AC1ph_DC.Sources.DCvoltage voltage1(use_vDC_in=true, V_nom=
           100)                        annotation (Placement(transformation(
             extent={{-80,-10},{-60,10}})));
     PowerSystems.Blocks.Signals.Transient transV(s_ini=0, s_fin=1)
@@ -450,11 +450,11 @@ Compare with DoublePIline.</p>
       annotation (Line(points={{48,0},{60,0}}, color={0,0,0}));
     connect(grd.term, voltage1.neutral)
       annotation (Line(points={{-80,0},{-80,0}}, color={0,0,255}));
-    connect(transV.y, voltage1.vDC) annotation (Line(points={{-80,20},{-64,20},
-            {-64,10}}, color={0,0,127}));
+    connect(transV.y, voltage1.vDC_in)
+      annotation (Line(points={{-80,20},{-64,20},{-64,10}}, color={0,0,127}));
     connect(motor.heat, boundary.heat)
       annotation (Line(points={{0,10},{0,10}}, color={176,0,0}));
-    connect(transTau.y, torq.tau)
+    connect(transTau.y, torq.tau_in)
       annotation (Line(points={{80,0},{80,0}}, color={0,0,127}));
     annotation (
       Documentation(
@@ -475,15 +475,14 @@ Compare with DoublePIline.</p>
     replaceable PowerSystems.AC1ph_DC.Sensors.PVImeter meter
                                             annotation (Placement(
           transformation(extent={{0,-10},{20,10}})));
-    PowerSystems.AC1ph_DC.Sources.Vspectrum voltage
+    PowerSystems.AC1ph_DC.Sources.Vspectrum voltage(use_vPhasor_in=true)
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-70,-10},{-90,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
-                                    annotation (Line(points={{-80,20},{-54,20},
-            {-54,10}}, color={0,0,127}));
+    connect(transPh.y, voltage.vPhasor_in)
+      annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(voltage.term, meter.term_p) annotation (Line(points={{-50,0},{0,0}},
           color={0,0,255}));
     connect(meter.term_n, res.term) annotation (Line(points={{20,0},{80,0}},
@@ -542,7 +541,7 @@ Compare with DoublePIline.</p>
           origin={10,60},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(scType_par=false)
+    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(use_vPhasor_in=true)
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter1
       annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
@@ -553,8 +552,8 @@ Compare with DoublePIline.</p>
           PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph (
       dv_tap = {0.1,0.2},
       V_nom = {1,10}),
-      use_tap_1=true,
-      use_tap_2=true)
+      use_tap_1_in=true,
+      use_tap_2_in=true)
                     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Resistor res(V_nom=10, r=100)
       annotation (Placement(transformation(extent={{80,-10},{100,10}})));
@@ -564,7 +563,7 @@ Compare with DoublePIline.</p>
             extent={{-80,-10},{-100,10}})));
 
   equation
-    connect(transPh.y, voltage.vPhasor)
+    connect(transPh.y, voltage.vPhasor_in)
       annotation (Line(points={{-80,20},{-64,20},{-64,10}}, color={0,0,127}));
     connect(voltage.term, meter1.term_p)
       annotation (Line(points={{-60,0},{-50,0}}, color={0,0,255}));
@@ -578,9 +577,9 @@ Compare with DoublePIline.</p>
       annotation (Line(points={{80,0},{80,-30}}, color={0,0,255}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-80,0},{-80,0}}, color={0,0,255}));
-    connect(tapChanger.tap_1, trafo.tap_1)
+    connect(tapChanger.tap_1, trafo.tap_1_in)
       annotation (Line(points={{6,50},{6,10}}, color={255,127,0}));
-    connect(tapChanger.tap_2, trafo.tap_2) annotation (Line(points={{14,50},{14,
+    connect(tapChanger.tap_2, trafo.tap_2_in) annotation (Line(points={{14,50},{14,
             10}}, color={255,127,0}));
     annotation (
       Documentation(
@@ -597,7 +596,7 @@ Compare with DoublePIline.</p>
               -60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
          annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-    PowerSystems.AC1ph_DC.Sources.ACvoltage vAC(V_nom=2, scType_par=false)
+    PowerSystems.AC1ph_DC.Sources.ACvoltage vAC(V_nom=2, use_vPhasor_in=true)
           annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     PowerSystems.AC1ph_DC.Impedances.Inductor ind
       annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
@@ -617,7 +616,7 @@ Compare with DoublePIline.</p>
       annotation (Placement(transformation(extent={{10,10},{30,30}})));
 
   equation
-    connect(transPh.y, vAC.vPhasor)
+    connect(transPh.y, vAC.vPhasor_in)
       annotation (Line(points={{-80,20},{-64,20},{-64,10}}, color={0,0,127}));
     connect(vAC.term, ind.term_p)
       annotation (Line(points={{-60,0},{-50,0}}, color={0,0,255}));
@@ -650,7 +649,7 @@ Compare with DoublePIline.</p>
               -60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
          annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-    PowerSystems.AC1ph_DC.Sources.ACvoltage vAC(         scType_par=false)
+    PowerSystems.AC1ph_DC.Sources.ACvoltage vAC(use_vPhasor_in=true)
           annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     PowerSystems.AC1ph_DC.Impedances.Inductor ind
       annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
@@ -674,8 +673,8 @@ Compare with DoublePIline.</p>
       annotation (Placement(transformation(extent={{10,10},{30,30}})));
 
   equation
-    connect(transPh.y, vAC.vPhasor) annotation (Line(points={{-80,20},{-64,20},
-            {-64,10}}, color={0,0,127}));
+    connect(transPh.y, vAC.vPhasor_in)
+      annotation (Line(points={{-80,20},{-64,20},{-64,10}}, color={0,0,127}));
     connect(select.theta_out,dc_ac. theta)
       annotation (Line(points={{26,40},{26,10}}, color={0,0,127}));
     connect(select.uPhasor_out,dc_ac. uPhasor)

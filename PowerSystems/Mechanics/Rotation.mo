@@ -85,28 +85,28 @@ package Rotation "Rotating parts "
 
     parameter SI.Time tcst(min=1e-9)=0.1 "time-constant";
 
-    parameter Boolean scType_par = true
-      "= true: speed defined by parameter w0 otherwise by input signal w"
+    parameter Boolean use_w_in = false
+      "= true if speed defined by input w_in, otherwise by parameter w0"
      annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
     parameter SI.AngularVelocity w0=1 "angular velocity"
-     annotation(Dialog(enable=scType_par));
-    Modelica.Blocks.Interfaces.RealInput w(final unit="rad/s") if not scType_par
+     annotation(Dialog(enable=not use_w_in));
+    Modelica.Blocks.Interfaces.RealInput w_in(final unit="rad/s") if use_w_in
       "(signal ang-velocity)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   protected
     SI.AngularVelocity phi_dot;
     Modelica.Blocks.Interfaces.RealInput w_internal
       "Needed to connect to conditional connector";
 
   equation
-    connect(w, w_internal);
-    if scType_par then
-       w_internal = 0;
+    connect(w_in, w_internal);
+    if not use_w_in then
+       w_internal = w0;
     end if;
 
     der(flange.phi) = phi_dot;
-    der(phi_dot) = if scType_par then (w0 - phi_dot)/tcst else (w_internal - phi_dot)/tcst;
+    der(phi_dot) = (w_internal - phi_dot)/tcst;
     annotation(defaultComponentName = "speed1",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
               100}}), graphics={
@@ -159,26 +159,26 @@ The start value is always given by <tt>w0</tt>.</p>
   model Torque "Driving torque"
     extends Ports.Flange_n;
 
-    parameter Boolean scType_par = true
-      "= true: torque defined by parameter tau0 otherwise by input signal tau"
+    parameter Boolean use_tau_in = false
+      "= true if torque defined by input tau_in, otherwise by parameter tau0"
      annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
      parameter SI.Torque tau0=1 "torque"
-     annotation(Dialog(enable=scType_par));
-    Modelica.Blocks.Interfaces.RealInput tau(final unit="N.m") if not scType_par
+     annotation(Dialog(enable=not use_tau_in));
+    Modelica.Blocks.Interfaces.RealInput tau_in(final unit="N.m") if use_tau_in
       "(signal torque)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   protected
     Modelica.Blocks.Interfaces.RealInput tau_internal
       "Needed to connect to conditional connector";
 
   equation
-    connect(tau, tau_internal);
-    if scType_par then
-       tau_internal = 0;
+    connect(tau_in, tau_internal);
+    if not use_tau_in then
+       tau_internal = tau0;
     end if;
 
-    flange.tau = if scType_par then -tau0 else -tau_internal;
+    flange.tau = -tau_internal;
   annotation (defaultComponentName = "torq1",
     Icon(coordinateSystem(
           preserveAspectRatio=false,

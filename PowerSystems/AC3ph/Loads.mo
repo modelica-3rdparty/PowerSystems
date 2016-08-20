@@ -6,7 +6,7 @@ package Loads "Loads"
     extends Partials.IndLoadBase;
 
   equation
-    Z = (p0/(p0*p0))*V2_nom;
+    Z = (pq/(pq*pq))*V2_nom;
     annotation (
       defaultComponentName="zLoad",
   Documentation(
@@ -79,8 +79,8 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     der(Z) = {0, 0};
 
   equation
-  //  der(Z) = ((p0/(p0*p0))*v2 - Z)/tcst;
-    der(Z) = ((p0/(p0*p0))*v2*tanh(imax)/tanh((imax/V2_nom)*v2) - Z)/tcst;
+  //  der(Z) = ((pq/(pq*pq))*v2 - Z)/tcst;
+    der(Z) = ((pq/(pq*pq))*v2*tanh(imax)/tanh((imax/V2_nom)*v2) - Z)/tcst;
     annotation (
       defaultComponentName="pqLoad",
   Documentation(
@@ -145,7 +145,7 @@ Consumes the desired active and reactive power independent of voltage.</p>
     extends Partials.CapLoadBase;
 
   equation
-    Y = (p0/(p0*p0))*I2_nom;
+    Y = (pq/(pq*pq))*I2_nom;
     annotation (
       defaultComponentName="yLoad",
   Documentation(
@@ -241,8 +241,8 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     der(Y) = {0, 0};
 
   equation
-  //  der(Y) = ((p0/(p0*p0))*i2 - Y)/tcst;
-    der(Y) = ((p0/(p0*p0))*i2*tanh(vmax)/tanh((vmax/I2_nom)*i2) - Y)/tcst;
+  //  der(Y) = ((pq/(pq*pq))*i2 - Y)/tcst;
+    der(Y) = ((pq/(pq*pq))*i2*tanh(vmax)/tanh((vmax/I2_nom)*i2) - Y)/tcst;
     annotation (
       defaultComponentName="pqLoad",
   Documentation(
@@ -335,7 +335,7 @@ Consumes the desired active and reactive power independent of voltage.</p>
     parameter Real[2] aP={1,1}-aZ-aI "weight(power) fixed";
     parameter SI.Time tcst=0.01 "time constant Z";
   protected
-    SI.Power[2] p(start=p0_set);
+    SI.Power[2] pq_ZIP(start=pq0);
     Real v2 = v*v;
     Real v2_pu = v2/V2_nom;
 
@@ -343,9 +343,9 @@ Consumes the desired active and reactive power independent of voltage.</p>
     der(Z) = {0, 0};
 
   equation
-    p =  diagonal(aZ*v2_pu + aI*sqrt(v2_pu) + aP)*p0;
-  //  der(Z) = ((p/(p*p))*v2 - Z)/tcst;
-    der(Z) = ((p/(p*p))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
+    pq_ZIP =  diagonal(aZ*v2_pu + aI*sqrt(v2_pu) + aP)*pq;
+  //  der(Z) = ((pq_ZIP/(pq_ZIP*pq_ZIP))*v2 - Z)/tcst;
+    der(Z) = ((pq_ZIP/(pq_ZIP*pq_ZIP))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
     annotation (
       defaultComponentName="zipLoad",
   Documentation(
@@ -414,7 +414,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     parameter SI.Time tcst=0.01 "time constant Z";
   protected
     final parameter Real[2] aw=af/(2*pi);
-    SI.Power[2] p(start=p0_set);
+    SI.Power[2] pq_fV(start=pq0);
     Real v2 = v*v;
     Real v2_pu = v2/V2_nom;
 
@@ -422,9 +422,9 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     der(Z) = {0, 0};
 
   equation
-    p = diagonal({1,1} + aV*(sqrt(v2_pu)-1) + aw*(sum(omega) - system.omega_nom))*p0;
-  //  der(Z) = ((p/(p*p))*v2 - Z)/tcst;
-    der(Z) = ((p/(p*p))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
+    pq_fV = diagonal({1,1} + aV*(sqrt(v2_pu)-1) + aw*(sum(omega) - system.omega_nom))*pq;
+  //  der(Z) = ((pq_fV/(pq_fV*pq_fV))*v2 - Z)/tcst;
+    der(Z) = ((pq_fV/(pq_fV*pq_fV))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
     annotation (
       defaultComponentName="freqLoad",
   Documentation(
@@ -493,7 +493,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     parameter SI.Time[2] t_rec={60,60} "power recovery times";
     parameter SI.Time tcst=0.01 "time constant Z";
   protected
-    SI.Power[2] p(start=p0_set);
+    SI.Power[2] pq_st(start=pq0);
     Real v2 = v*v;
     Real v2_pu = v2/V2_nom;
     Real[2] x;
@@ -511,10 +511,10 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     vs = {v2_pu^(as[1]/2), v2_pu^(as[2]/2)};
     vt = {v2_pu^(at[1]/2), v2_pu^(at[2]/2)};
     xT = {x[1]/t_rec[1], x[2]/t_rec[2]};
-    der(x) = diagonal(vs - vt)*p0 - xT;
-    p =  diagonal(vt)*p0 + xT;
-  //  der(Z) = ((p/(p*p))*v2 - Z)/tcst;
-    der(Z) = ((p/(p*p))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
+    der(x) = diagonal(vs - vt)*pq - xT;
+    pq_st =  diagonal(vt)*pq + xT;
+  //  der(Z) = ((pq_st/(pq_st*pq_st))*v2 - Z)/tcst;
+    der(Z) = ((pq_st/(pq_st*pq_st))*v2*tanh(imax)/tanh(imax*v2_pu) - Z)/tcst;
     annotation (
       defaultComponentName="dynLoad",
   Documentation(
@@ -582,18 +582,18 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
       extends Basic.Nominal.Nominal;
 
       parameter Boolean stIni_en=true "enable steady-state initial equation"
-                annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+        annotation(Evaluate=true, choices(checkBox=true), Dialog(tab="Initialization"));
 
-      parameter Boolean scType_par = true
-        "= true if p0 defined by parameter p0_set otherwise by input signal p_set"
+      parameter Boolean use_pq_in = false
+        "= true to use input signal pq_in, otherwise use parameter pq0"
         annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
-      parameter SIpu.Power[2] p0_set(each min=0)={sqrt(3),1}/2
-        "{active, reactive} power, (start val if signal inp)" annotation(Dialog(enable=scType_par));
+      parameter SIpu.Power[2] pq0(each min=0)={sqrt(3),1}/2
+        "fixed {active, reactive} power (start value if use_pq_in)"
+        annotation(Dialog(enable=not use_pq_in));
       parameter SIpu.Resistance r_n=0 "resistance neutral to grd";
-      Modelica.Blocks.Interfaces.RealInput[2] p_set(each min=0) if not scType_par
-        "desired {active, reactive} power"                 annotation (Placement(
-            transformation(
+      Modelica.Blocks.Interfaces.RealInput[2] pq_in(each min=0) if use_pq_in
+        "desired {active, reactive} power" annotation (Placement(transformation(
             origin={0,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
@@ -605,19 +605,17 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
       final parameter Real R_base=Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
       final parameter SI.Resistance R_n=r_n*R_base;
       SI.AngularFrequency[2] omega;
-      SI.Power[2] p0(start=p0_set);
-      Modelica.Blocks.Interfaces.RealInput[2] p_set_internal
+      SI.Power[2] pq(start=pq0);
+      Modelica.Blocks.Interfaces.RealInput[2] pq_internal
         "Needed to connect to conditional connector";
     equation
-      connect(p_set, p_set_internal);
+      connect(pq_in, pq_internal);
 
       omega = der(term.theta);
-      if scType_par then
-        p0 =  p0_set*S_base;
-        p_set_internal = {0.0, 0.0};
-      else
-        p0 = p_set_internal*S_base;
+      if not use_pq_in then
+        pq_internal = pq0;
       end if;
+      pq = pq_internal*S_base;
       v_n = R_n*i_n "equation neutral to ground";
       annotation (
         Documentation(
@@ -652,7 +650,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
     protected
       final parameter Real c0=(1 + 2*cpl)/(1 - cpl);
       final parameter Real V2_nom=V_nom*V_nom;
-      final parameter Real[2] Zstart=(p0_set/(p0_set*p0_set*S_base))*V2_nom;
+      final parameter Real[2] Zstart=(pq0/(pq0*pq0*S_base))*V2_nom;
       final parameter PS.Voltage[2] vstart={cos(system.alpha0), sin(system.alpha0)}*V_nom;
       final parameter PS.Current[2] istart=[Zstart[1],Zstart[2];-Zstart[2],Zstart[1]]*vstart/(Zstart*Zstart);
       SI.Impedance[2] Z(start=Zstart);
@@ -693,7 +691,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
     protected
       final parameter Real c0=1/(1+3*beta);
       final parameter Real I2_nom=(S_nom/V_nom)^2;
-      final parameter SI.Admittance[2] Ystart=(p0_set/(p0_set*p0_set*S_base))*I2_nom;
+      final parameter SI.Admittance[2] Ystart=(pq0/(pq0*pq0*S_base))*I2_nom;
       final parameter PS.Voltage[2] vstart={cos(system.alpha0), sin(system.alpha0)}*V_nom;
       final parameter PS.Current[2] istart=[Ystart[1],-Ystart[2];Ystart[2],Ystart[1]]*vstart;
       SI.Admittance[2] Y(start=Ystart);
@@ -740,8 +738,8 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
 
 annotation (preferredView="info",
     Documentation(info="<html>
-<p>Load models with an optional input (if scType=signal):</p>
-<pre>  p_set:     {active, reactive} power</pre>
+    <p>Load models with an optional input (if use_pq_in):</p>
+<pre>  pq:     {active, reactive} power</pre>
 </html>
 "));
 end Loads;

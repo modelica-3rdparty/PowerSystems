@@ -5,21 +5,19 @@ package Sources "DC voltage sources"
   model ACvoltage "Ideal AC voltage, 1-phase"
     extends Partials.ACvoltageBase;
 
-    parameter SIpu.Voltage veff=1 "eff voltage"   annotation(Dialog(enable=scType_par));
-    parameter SI.Angle alpha0=0 "phase angle"   annotation(Dialog(enable=scType_par));
+    parameter SIpu.Voltage v0eff=1 "fixed effective voltage" annotation(Dialog(enable=not use_vPhasor_in));
+    parameter SI.Angle alpha0=0 "fixed phase angle" annotation(Dialog(enable=not use_vPhasor_in));
   protected
     PS.Voltage V;
     SI.Angle alpha;
     SI.Angle phi;
 
   equation
-    if scType_par then
-      V = veff*sqrt(2)*V_base;
-      alpha = alpha0;
-    else
-      V = vPhasor_internal[1]*sqrt(2)*V_base;
-      alpha = vPhasor_internal[2];
+    if not use_vPhasor_in then
+      vPhasor_internal = {v0eff, alpha0};
     end if;
+    V = vPhasor_internal[1]*sqrt(2)*V_base;
+    alpha = vPhasor_internal[2];
 
     phi = theta + alpha + system.alpha0;
     term.v[1] - term.v[2] = V*cos(phi);
@@ -30,10 +28,10 @@ package Sources "DC voltage sources"
 with variable amplitude and phase when 'vType' is 'signal'.</p>
 <p>Optional input:
 <pre>
-  omega           angular frequency  (choose fType == \"sig\")
-  vPhasor         {eff(v), phase(v)}
-   vPhasor[1]     in SI or pu, depending on choice of 'units'
-   vPhasor[2]     in rad
+  omega_in           angular frequency  (choose fType == \"sig\")
+  vPhasor_in         {eff(v), phase(v)}
+   vPhasor_in[1]     in SI or pu, depending on choice of 'units'
+   vPhasor_in[2]     in rad
 </pre></p>
 </html>
 "));
@@ -43,7 +41,7 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
     extends Partials.ACvoltageBase;
 
     parameter Integer[:] h={1,3,5} "[1,.. ], which harmonics?";
-    parameter SIpu.Voltage[N] veff={1,0.3,0.1} "eff voltages";
+    parameter SIpu.Voltage[N] v0eff={1,0.3,0.1} "effective voltages";
     parameter SI.Angle[N] alpha0=zeros(N) "phase angles";
   protected
     final parameter Integer N=size(h, 1) "nb of harmonics";
@@ -52,16 +50,14 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
     SI.Angle[N] phi;
 
   equation
-    if scType_par then
-      V = sqrt(2)*V_base;
-      alpha = 0;
-    else
-      V = vPhasor_internal[1]*sqrt(2)*V_base;
-      alpha = vPhasor_internal[2];
+    if not use_vPhasor_in then
+      vPhasor_internal = {1, 0};
     end if;
+    V = vPhasor_internal[1]*sqrt(2)*V_base;
+    alpha = vPhasor_internal[2];
 
     phi = h*(theta + alpha + system.alpha0) + h.*alpha0;
-    term.v[1] - term.v[2] = V*veff*cos(phi);
+    term.v[1] - term.v[2] = V*v0eff*cos(phi);
     annotation (defaultComponentName = "voltage1",
       Documentation(
               info="<html>
@@ -73,15 +69,15 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
 with
   alpha_tot[n] = alpha + system.alpha0 + alpha0[n]
 where
-  alpha = vPhasor[2] (common phase) for signal input, else 0
+  alpha = vPhasor_in[2] (common phase) for signal input, else 0
 </pre></p>
 <p>Optional input:
 <pre>
-  omega            angular frequency (if fType == \"sig\")
-  vPhasor          {modulation(v), common phase(v)}
-   vPhasor[1] = 1  delivers the values for constant amplitudes v0
-   vPhasor[1]      in SI or pu, depending on choice of 'units'
-   vPhasor[2]      in rad
+  omega_in            angular frequency (if fType == \"sig\")
+  vPhasor_in          {modulation(v), common phase(v)}
+   vPhasor_in[1] = 1  delivers the values for constant amplitudes v0
+   vPhasor_in[1]      in SI or pu, depending on choice of 'units'
+   vPhasor_in[2]      in rad
 </pre></p>
 </html>"),
       Icon(coordinateSystem(
@@ -100,16 +96,15 @@ where
   model DCvoltage "Ideal DC voltage"
     extends Partials.DCvoltageBase(pol=-1);
 
-    parameter SIpu.Voltage v0=1 "DC voltage"   annotation(Dialog(enable=scType_par));
+    parameter SIpu.Voltage v0=1 "fixed DC voltage"   annotation(Dialog(enable=not use_vDC_in));
   protected
     PS.Voltage v;
 
   equation
-    if scType_par then
-      v = v0*V_base;
-    else
-      v = vDC_internal*V_base;
+    if not use_vDC_in then
+      vDC_internal = v0;
     end if;
+    v = vDC_internal*V_base;
     term.v[1] - term.v[2] = v;
     annotation (defaultComponentName = "voltage1",
       Documentation(
@@ -117,7 +112,7 @@ where
 <p>DC voltage with constant amplitude when 'vType' is 'parameter',<br>
 with variable amplitude when 'vType' is 'signal'.</p>
 <p>Optional input:
-<pre>  vDC     DC voltage in SI or pu, depending on choice of 'units' </pre></p>
+<pre>  vDC_in     DC voltage in SI or pu, depending on choice of 'units' </pre></p>
 </html>
 "));
   end DCvoltage;
@@ -134,7 +129,7 @@ with variable amplitude when 'vType' is 'signal'.</p>
     parameter SIpu.Voltage v0=1 "battery voltage";
     parameter Types.Charge_Ah Q_nom=1 "nominal Capacity";
   protected
-    final parameter Real V_base=Basic.Precalculation.baseV(      puUnits, V_nom);
+    final parameter Real V_base=Basic.Precalculation.baseV(puUnits, V_nom);
     PS.Voltage v;
     PS.Current i;
 
@@ -189,12 +184,8 @@ To be completed later with charging and discharging characteristic.</p>
         choices(choice=1 "positive",
         choice=0 "symmetrical",
         choice=-1 "negative"));
-      parameter Boolean scType_par = true
-        "= true: voltage defined by parameter otherwise by input signal"
-       annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
-                                   Interfaces.Electric_p
-        neutral "(use for grounding)"
+      Interfaces.Electric_p neutral "(use for grounding)"
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     protected
       final parameter Real V_base=Basic.Precalculation.baseV(puUnits, V_nom);
@@ -233,21 +224,23 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
       parameter Boolean fType_sys = true
         "= true, if source has system frequency" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
       parameter Boolean fType_par = true
-        "= true, if source has parameter frequency, otherwise defined by input omega"
+        "= true, if source has parameter frequency, otherwise defined by input omega_in"
                                     annotation(Evaluate=true, Dialog(enable=not fType_sys));
 
       parameter SI.Frequency f=system.f "source frequency" annotation(Dialog(enable= not fType_sys and fType_par));
       extends VoltageBase;
 
-      Modelica.Blocks.Interfaces.RealInput[2] vPhasor if not scType_par
-        "{abs(voltage), phase(voltage)}"
-        annotation (Placement(transformation(
+      parameter Boolean use_vPhasor_in = false
+        "= true to use input signal vPhasor_in, otherwise use fixed values"
+       annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+      Modelica.Blocks.Interfaces.RealInput[2] vPhasor_in if use_vPhasor_in
+        "{abs(voltage), phase(voltage)}" annotation (Placement(transformation(
             origin={60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica.Blocks.Interfaces.RealInput omega(final unit="rad/s") if not fType_par
-        "Angular frequency of source"
-        annotation (Placement(transformation(
+      Modelica.Blocks.Interfaces.RealInput omega_in(final unit="rad/s") if
+                                                                        not fType_par
+        "Angular frequency of source" annotation (Placement(transformation(
             origin={-60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
@@ -270,13 +263,10 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
       end if;
 
     equation
-      connect(omega, omega_internal);
-      connect(vPhasor, vPhasor_internal);
+      connect(omega_in, omega_internal);
+      connect(vPhasor_in, vPhasor_internal);
       if fType <> Types.FreqType.sig then
          omega_internal = 0.0;
-      end if;
-      if scType_par then
-         vPhasor_internal = {0,0};
       end if;
 
       if fType == Types.FreqType.sys then
@@ -311,9 +301,13 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
         choices(choice=1 "positive",
         choice=0 "symmetrical",
         choice=-1 "negative"));
-      Modelica.Blocks.Interfaces.RealInput vDC if
-                                  not scType_par "DC voltage"
-        annotation (Placement(transformation(
+
+      parameter Boolean use_vDC_in = false
+        "= true to use input signal vDC_in, otherwise use fixed value"
+       annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+      Modelica.Blocks.Interfaces.RealInput vDC_in if
+                                                  use_vDC_in "DC voltage" annotation (
+          Placement(transformation(
             origin={60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
@@ -321,10 +315,7 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
       Modelica.Blocks.Interfaces.RealInput vDC_internal
         "Needed to connect to conditional connector";
     equation
-      connect(vDC, vDC_internal);
-      if scType_par then
-         vDC_internal = 0.0;
-      end if;
+      connect(vDC_in, vDC_internal);
 
       annotation (
         Documentation(
@@ -349,11 +340,11 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
 Documentation(info="<html>
 <p>AC sources have the optional inputs:</p>
 <pre>
-  vPhasor:   voltage {norm, phase}
-  omega:     angular frequency
+  vPhasor_in:   voltage {norm, phase}
+  omega_in:     angular frequency
 </pre>
 <p>DC sources have the optional input:</p>
-<pre>  vDC:       DC voltage</pre>
+<pre>  vDC_in:       DC voltage</pre>
 <p>To use signal inputs, choose parameters vType=signal and/or fType=signal.</p>
 </html>"));
 end Sources;

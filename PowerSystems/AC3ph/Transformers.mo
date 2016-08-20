@@ -306,20 +306,24 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         "start value of secondary current"
           annotation(Dialog(tab="Initialization"));
 
-        parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+        parameter Boolean use_tap_1_in = false "= true to enable input tap_1_in"
+          annotation(Evaluate=true, choices(checkBox=true), Dialog(group="Options"));
+        parameter Integer tap_1 = par.tap_neutral[1] "fixed tap_1 position"
+          annotation(Dialog(enable=not use_tap_1_in, group="Options"));
+        parameter Boolean use_tap_2_in = false "= true to enable input tap_2_in"
+          annotation(Evaluate=true, choices(checkBox=true), Dialog(group="Options"));
+        parameter Integer tap_2 = par.tap_neutral[2] "fixed tap_2 position"
+          annotation(Dialog(enable=not use_tap_2_in, group="Options"));
+        parameter Boolean dynTC=false "enable dynamic tap-changing"
+          annotation(Evaluate=true, Dialog(group="Options"));
 
-        parameter Boolean use_tap_1 = false "= true, if input tap_1 is enabled"
-          annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-        parameter Boolean use_tap_2 = false "= true, if input tap_2 is enabled"
-          annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-
-        Modelica.Blocks.Interfaces.IntegerInput tap_1 if use_tap_1
+        Modelica.Blocks.Interfaces.IntegerInput tap_1_in if use_tap_1_in
         "1: index of voltage level"
           annotation (Placement(transformation(
             origin={-40,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-        Modelica.Blocks.Interfaces.IntegerInput tap_2 if use_tap_2
+        Modelica.Blocks.Interfaces.IntegerInput tap_2_in if use_tap_2_in
         "2: index of voltage level"
           annotation (Placement(transformation(
             origin={40,100},
@@ -361,13 +365,13 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         end if;
 
       equation
-        connect(tap_1, tap_1_internal);
-        connect(tap_2, tap_2_internal);
-        if not use_tap_1 then
-           tap_1_internal = par.tap_neutral[1];
+        connect(tap_1_in, tap_1_internal);
+        connect(tap_2_in, tap_2_internal);
+        if not use_tap_1_in then
+           tap_1_internal = tap_1;
         end if;
-        if not use_tap_2 then
-           tap_2_internal = par.tap_neutral[2];
+        if not use_tap_2_in then
+           tap_2_internal = tap_2;
         end if;
 
         omega = der(term_p.theta);
@@ -595,21 +599,26 @@ For variable transformer ratio tap changer input needed.</p>
       final term_nb(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[3])));
 
     parameter Boolean stIni_en=true "enable steady-state initial equation"
-                                                                         annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-    parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+      annotation(Evaluate=true, choices(checkBox=true), Dialog(tab="Initialization"));
 
-    parameter Boolean use_tap_1 = false "= true, if input tap_1 is enabled"
-                        annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-    parameter Boolean use_tap_2 = false "= true, if input tap_2 is enabled"
-                        annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+    parameter Boolean use_tap_1_in = false "= true to enable input tap_1_in"
+      annotation(Evaluate=true, choices(checkBox=true), Dialog(group="Options"));
+    parameter Integer tap_1 = par.tap_neutral[1] "fixed tap_1 position"
+      annotation(Dialog(enable=not use_tap_1_in, group="Options"));
+    parameter Boolean use_tap_2_in = false "= true to enable input tap_2_in"
+      annotation(Evaluate=true, choices(checkBox=true), Dialog(group="Options"));
+    parameter Integer[2] tap_2 = par.tap_neutral[2:3] "fixed tap_2 position"
+      annotation(Dialog(enable=not use_tap_2_in, group="Options"));
+    parameter Boolean dynTC=false "enable dynamic tap-changing"
+      annotation(Evaluate=true, Dialog(group="Options"));
 
-    Modelica.Blocks.Interfaces.IntegerInput tap_1 if  use_tap_1
+    Modelica.Blocks.Interfaces.IntegerInput tap_1_in if  use_tap_1_in
         "1: index of voltage level"
       annotation (Placement(transformation(
             origin={-40,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-    Modelica.Blocks.Interfaces.IntegerInput[2] tap_2 if  use_tap_2
+    Modelica.Blocks.Interfaces.IntegerInput[2] tap_2_in if  use_tap_2_in
         "2: indices of voltage levels"
       annotation (Placement(transformation(
             origin={40,100},
@@ -658,13 +667,13 @@ For variable transformer ratio tap changer input needed.</p>
     end if;
 
   equation
-    connect(tap_1, tap_1_internal);
-    connect(tap_2, tap_2_internal);
-    if not use_tap_1 then
-       tap_1_internal = par.tap_neutral[1];
+    connect(tap_1_in, tap_1_internal);
+    connect(tap_2_in, tap_2_internal);
+    if not use_tap_1_in then
+       tap_1_internal = tap_1;
     end if;
-    if not use_tap_2 then
-       tap_2_internal = par.tap_neutral[2:3];
+    if not use_tap_2_in then
+       tap_2_internal = tap_2;
     end if;
 
     omega = der(term_p.theta);

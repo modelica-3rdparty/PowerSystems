@@ -8,7 +8,7 @@ package Introduction "Introductory examples"
                       annotation (Placement(transformation(extent={{-100,80},{
               -80,100}})));
     PowerSystems.AC3ph.Sources.Voltage voltage_SI(
-      v0=408, scType_par=true)
+      v0=408)
            annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdV1
                                 annotation (Placement(transformation(extent={{
@@ -106,13 +106,13 @@ and other meter-signals.</p>
               -80,100}})));
     PowerSystems.Blocks.Signals.TransientFreq theta_dq0(f_fin=50, f_ini=10)
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(veff=230)
+    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(v0eff=230)
       annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grdV1
                                  annotation (Placement(transformation(extent={{
               -50,20},{-70,40}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage2(
-      veff=230,
+      v0eff=230,
       fType_sys=false, fType_par=false)
                    annotation (Placement(transformation(extent={{-40,-40},{-20,
               -20}})));
@@ -145,8 +145,8 @@ and other meter-signals.</p>
       annotation (Line(points={{-50,30},{-40,30}}, color={0,0,255}));
     connect(grdV2.term, voltage2.neutral) annotation (Line(points={{-50,-30},{
             -40,-30}}, color={0,0,255}));
-    connect(theta_dq0.y, voltage2.omega) annotation (Line(points={{-60,-10},{
-            -36,-10},{-36,-20}}, color={0,0,127}));
+    connect(theta_dq0.y, voltage2.omega_in) annotation (Line(points={{-60,-10},
+            {-36,-10},{-36,-20}}, color={0,0,127}));
   annotation (
     Documentation(
             info="<html>
@@ -329,7 +329,7 @@ Compare with the signals of the identical system in the example above.</p>
       ph_ini=0.32114058236696,
       ph_fin=0.16667894356546)
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-    PowerSystems.AC3ph.Sources.Voltage voltageL(V_nom=400e3, scType_par=false)
+    PowerSystems.AC3ph.Sources.Voltage voltageL(V_nom=400e3, use_vPhasor_in=true)
            annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdL
                                 annotation (Placement(transformation(extent={{
@@ -399,9 +399,8 @@ Compare with the signals of the identical system in the example above.</p>
             -30}}, color={0,110,110}));
     connect(lineB.term_n, voltageB.term) annotation (Line(points={{20,-50},{20,
             -61}}, color={0,110,110}));
-    connect(transPh.y, voltageL.vPhasor)
-                                        annotation (Line(points={{-80,50},{-54,
-            50},{-54,40}}, color={0,0,127}));
+    connect(transPh.y, voltageL.vPhasor_in)
+      annotation (Line(points={{-80,50},{-54,50},{-54,40}}, color={0,0,127}));
     connect(grdL.term, voltageL.neutral)
       annotation (Line(points={{-80,30},{-70,30}}, color={0,0,255}));
     connect(voltageR.neutral, grdR.term)
@@ -437,7 +436,7 @@ and other meter-signals.</p>
       ph_ini=0.32114058236696,
       ph_fin=0.16667894356546)
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-    PowerSystems.AC3ph.Sources.Voltage voltageL(V_nom=400e3, scType_par=false)
+    PowerSystems.AC3ph.Sources.Voltage voltageL(V_nom=400e3, use_vPhasor_in=true)
            annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdL
                                 annotation (Placement(transformation(extent={{
@@ -491,9 +490,8 @@ and other meter-signals.</p>
           rotation=270)));
 
   equation
-    connect(transPh.y, voltageL.vPhasor)
-                                       annotation (Line(points={{-80,50},{-54,
-            50},{-54,40}}, color={0,0,127}));
+    connect(transPh.y, voltageL.vPhasor_in)
+      annotation (Line(points={{-80,50},{-54,50},{-54,40}}, color={0,0,127}));
     connect(relayNet.y, switch.control) annotation (Line(points={{-10,-10},{10,
             -10}}, color={255,0,255}));
     connect(voltageL.term, meter.term_p) annotation (Line(points={{-50,30},{-40,
@@ -549,7 +547,7 @@ and other meter-signals.</p>
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC3ph.Sources.Voltage voltageL(
       V_nom=400,
-      scType_par=false,
+      use_vPhasor_in=true,
       alpha0=0.10035643198967)
            annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
     PowerSystems.AC3ph.Nodes.GroundOne grdV1
@@ -584,9 +582,8 @@ and other meter-signals.</p>
            annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
   equation
-    connect(transPh.y, voltageL.vPhasor)
-                                     annotation (Line(points={{-80,20},{-54,20},
-            {-54,10}}, color={0,0,127}));
+    connect(transPh.y, voltageL.vPhasor_in)
+      annotation (Line(points={{-80,20},{-54,20},{-54,10}}, color={0,0,127}));
     connect(voltageL.term, phasor_ind.term_p) annotation (Line(points={{-50,0},
             {-40,0},{-40,40},{-30,40}}, color={0,120,120}));
     connect(phasor_ind.term_n, ind.term_p) annotation (Line(points={{10,40},{20,

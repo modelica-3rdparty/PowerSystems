@@ -13,7 +13,7 @@ model PowerTransfer "Power transfer between two nodes"
       ph_fin=2*pi,
       ph_ini=0)
                annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  PowerSystems.AC3ph.Sources.InfBus infBus1(V_nom=130e3, scType_par=false)
+  PowerSystems.AC3ph.Sources.InfBus infBus1(V_nom=130e3, use_vPhasor_in=true)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   PowerSystems.AC3ph.Lines.RXline line(redeclare record Data =
     PowerSystems.AC3ph.Lines.Parameters.RXline (
@@ -31,7 +31,7 @@ model PowerTransfer "Power transfer between two nodes"
             extent={{80,0},{100,20}})));
 
 equation
-  connect(transPh.y,infBus1. vPhasor)
+  connect(transPh.y,infBus1.vPhasor_in)
                                  annotation (Line(points={{-60,30},{-44,30},{
             -44,20}}, color={0,0,127}));
   connect(infBus1.term, sensor.term_p)  annotation (Line(points={{-40,10},{-20,
@@ -67,7 +67,7 @@ model VoltageStability "Voltage stability"
               -80,100}})));
   PowerSystems.AC3ph.Sources.InfBus Vsource0(V_nom=400e3, alpha0=0)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=400e3, scType_par=false)
+  PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=400e3, use_vPhasor_in=true)
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
 
   PowerSystems.AC3ph.Sensors.Vmeter Vmeter(phasor=true, V_nom=400e3)
@@ -116,7 +116,7 @@ model VoltageStability "Voltage stability"
             extent={{-80,-40},{-100,-20}})));
 
 equation
-  connect(transPh.y, infBus.vPhasor)
+  connect(transPh.y, infBus.vPhasor_in)
       annotation (Line(points={{70,30},{44,30},{44,20}}, color={0,0,127}));
   connect(Vsource0.term, line0.term_p)   annotation (Line(points={{-60,50},{-40,
             50}}, color={0,110,110}));

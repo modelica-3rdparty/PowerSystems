@@ -942,10 +942,10 @@ model TieLine "Generators and power-oscillations"
           extent={{10,-10},{-10,10}},
           rotation=90)));
   PowerSystems.AC3ph.Loads.Zload load(
-    p0_set={0.95,0.2},
+    pq0={0.95,0.2},
     V_nom=26e3,
     S_nom=1500e6,
-      scType_par=false)
+    use_pq_in=true)
     annotation (Placement(transformation(
           origin={0,-90},
           extent={{-10,10},{10,-10}},
@@ -978,8 +978,8 @@ model TieLine "Generators and power-oscillations"
           rotation=90)));
 
 equation
-  connect(pq_change.y,load. p_set)   annotation (Line(points={{-20,-90},{-10,
-            -90}}, color={0,0,127}));
+  connect(pq_change.y,load.pq_in)
+    annotation (Line(points={{-20,-90},{-10,-90}}, color={0,0,127}));
   connect(setpts1.setpts,turboGen1. setpts)   annotation (Line(points={{-100,
             -10},{-100,-10}}, color={0,0,127}));
   connect(setpts2.setpts,turboGen2. setpts)   annotation (Line(points={{100,-10},
@@ -1146,7 +1146,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   PowerSystems.AC1ph_DC.Sensors.Psensor DCpower  annotation (Placement(transformation(
             extent={{50,-60},{70,-40}})));
   PowerSystems.AC1ph_DC.Loads.ZloadDC zLoadDC(S_nom=100e3,
-      scType_par=false,
+    use_p_in=true,
     V_nom=vDC_nom)
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   PowerSystems.Blocks.Signals.Transient transSig(
@@ -1194,8 +1194,8 @@ equation
             -70,-40}}, color={176,0,0}));
   connect(rectifier.heat, bdCond2.heat)   annotation (Line(points={{0,-40},{0,
             -40}}, color={176,0,0}));
-  connect(transSig.y, zLoadDC.p_set)   annotation (Line(points={{90,-30},{90,
-            -40}}, color={0,0,127}));
+  connect(transSig.y, zLoadDC.p_in)
+    annotation (Line(points={{90,-30},{90,-40}}, color={0,0,127}));
   connect(capSym.neutral, grd.term)
       annotation (Line(points={{30,-60},{30,-70}}, color={0,0,255}));
   connect(DCvoltage.v, limPID_DC.u_m)
@@ -1238,7 +1238,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
       s_ini=2*pi*180,
       s_fin=2*pi*150)
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  PowerSystems.Mechanics.Rotation.Speed speed(scType_par=false, w0=2*pi*
+  PowerSystems.Mechanics.Rotation.Speed speed(use_w_in=true, w0=2*pi*
           180)                        annotation (Placement(transformation(
             extent={{-70,-60},{-50,-40}})));
   PowerSystems.AC3ph.Generation.PMgenerator PMgen(
@@ -1267,7 +1267,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   PowerSystems.AC1ph_DC.Sensors.Psensor DCpower  annotation (Placement(transformation(
             extent={{30,-60},{50,-40}})));
   PowerSystems.AC1ph_DC.Loads.ZloadDC zLoadDC(
-      scType_par=false,
+    use_p_in=true,
     V_nom=vDC_nom,
     S_nom=100e3)
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
@@ -1310,8 +1310,8 @@ equation
       annotation (Line(points={{50,-50},{60,-50}}, color={0,0,255}));
   connect(capSym.term_p, DCvoltage.term)
       annotation (Line(points={{0,-50},{0,-20}}, color={0,0,255}));
-  connect(transSig.y, zLoadDC.p_set) annotation (Line(points={{70,-30},{70,-40}},
-          color={0,0,127}));
+  connect(transSig.y, zLoadDC.p_in)
+    annotation (Line(points={{70,-30},{70,-40}}, color={0,0,127}));
   connect(DCvoltage.v, PI_vDC.u_m) annotation (Line(points={{10,-10},{10,0},{
             -60,0},{-60,18}}, color={0,0,127}));
   connect(vDC_set.y, PI_vDC.u_s) annotation (Line(points={{-79,30},{-72,30}},
@@ -1326,8 +1326,8 @@ equation
       annotation (Line(points={{20,-50},{30,-50}}, color={0,0,255}));
   connect(capSym.neutral, grd.term)
       annotation (Line(points={{10,-60},{10,-70}}, color={0,0,255}));
-  connect(speedSignal.y, speed.w) annotation (Line(points={{-80,-50},{-70,-50}},
-          color={0,0,127}));
+  connect(speedSignal.y, speed.w_in)
+    annotation (Line(points={{-80,-50},{-70,-50}}, color={0,0,127}));
   connect(i_d.y, PMgen.i_act[1]) annotation (Line(points={{-80,-10},{-36,-10},{-36,
           -39.5}},       color={0,0,127}));
   annotation (

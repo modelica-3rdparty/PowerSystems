@@ -12,7 +12,7 @@ package DrivesDC "DC drives"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-60,-20},{-80,0}})));
-    PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(V_nom=1500, scType_par=false)
+    PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(V_nom=1500, use_vDC_in=true)
                                       annotation (Placement(transformation(
             extent={{-60,-20},{-40,0}})));
     PowerSystems.AC1ph_DC.Sensors.Psensor power      annotation (Placement(
@@ -50,8 +50,8 @@ package DrivesDC "DC drives"
       annotation (Line(points={{40,-10},{60,-10}}, color={0,0,0}));
     connect(dcm_ser.heat, bdCond.heat) annotation (Line(points={{30,0},{30,0}},
           color={176,0,0}));
-    connect(ramp.y, voltage.vDC) annotation (Line(points={{-60,20},{-44,20},{
-            -44,0}}, color={0,0,127}));
+    connect(ramp.y, voltage.vDC_in)
+      annotation (Line(points={{-60,20},{-44,20},{-44,0}}, color={0,0,127}));
   annotation (
     Documentation(
             info="<html>
@@ -72,12 +72,12 @@ package DrivesDC "DC drives"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-60,-20},{-80,0}})));
-    PowerSystems.AC1ph_DC.Sources.DCvoltage armVoltage(V_nom=1500, scType_par=true)
+    PowerSystems.AC1ph_DC.Sources.DCvoltage armVoltage(V_nom=1500)
                                       annotation (Placement(transformation(
             extent={{-60,-20},{-40,0}})));
     PowerSystems.AC1ph_DC.Sensors.Psensor power      annotation (Placement(
           transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC1ph_DC.Sources.DCvoltage excVoltage(V_nom=1500, scType_par=true)
+    PowerSystems.AC1ph_DC.Sources.DCvoltage excVoltage(V_nom=1500)
                                       annotation (Placement(transformation(
             extent={{-60,-60},{-40,-40}})));
     PowerSystems.AC1ph_DC.Drives.DCMpar dcm_par(
@@ -277,7 +277,7 @@ package DrivesDC "DC drives"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-80,-20},{-100,0}})));
-    PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(           pol=0, V_nom=100)
+    PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(pol=0, V_nom=100)
                                       annotation (Placement(transformation(
             extent={{-80,-20},{-60,0}})));
     PowerSystems.AC1ph_DC.Sensors.Efficiency efficiency(
@@ -294,14 +294,14 @@ package DrivesDC "DC drives"
       s_ini=0, s_fin=160)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
     PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01,
-      scType_par=false)
+      use_w_in=true)
       annotation (Placement(transformation(extent={{60,-20},{40,0}})));
 
   equation
     connect(grd.term, voltage.neutral) annotation (Line(points={{-80,-10},{-80,
             -10}}, color={0,0,255}));
-    connect(speedSignal.y, speed.w) annotation (Line(points={{80,-10},{60,-10}},
-          color={0,0,127}));
+    connect(speedSignal.y, speed.w_in)
+      annotation (Line(points={{80,-10},{60,-10}}, color={0,0,127}));
     connect(voltage.term, efficiency.term_p) annotation (Line(points={{-60,-10},
             {-40,-10}}, color={0,0,255}));
     connect(efficiency.term_n, machine.term)
@@ -353,7 +353,7 @@ package DrivesDC "DC drives"
     PowerSystems.Blocks.Signals.Transient speedSignal(
       s_ini=0, s_fin=160)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
-    PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01, scType_par=false)
+    PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01, use_w_in=true)
       annotation (Placement(transformation(extent={{60,-20},{40,0}})));
 
   equation
@@ -368,8 +368,8 @@ package DrivesDC "DC drives"
       annotation (Line(points={{-20,-10},{0,-10}}, color={0,0,255}));
     connect(machine.flange, speed.flange)
       annotation (Line(points={{20,-10},{40,-10}}, color={0,0,0}));
-    connect(speedSignal.y, speed.w) annotation (Line(points={{80,-10},{60,-10}},
-          color={0,0,127}));
+    connect(speedSignal.y, speed.w_in)
+      annotation (Line(points={{80,-10},{60,-10}}, color={0,0,127}));
   annotation (
     Documentation(
             info="<html>
