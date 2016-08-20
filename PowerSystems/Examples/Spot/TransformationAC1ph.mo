@@ -62,17 +62,17 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
 
     inner PowerSystems.System system(ref="inertial")
       annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
-    PowerSystems.Control.Relays.TapChangerRelay TapRelay2(
-      preset_1={0,0},
-      preset_2={0,1,2,3},
+    PowerSystems.Control.Relays.TapChangerRelay tapRelay2(
+      preset_1={2,2},
+      preset_2={2,1,2,3},
       t_switch_2={1,2,3})
       annotation (Placement(transformation(
           origin={10,-70},
           extent={{10,-10},{-10,10}},
           rotation=270)));
-    PowerSystems.Control.Relays.TapChangerRelay TapRelay1(
-      preset_1={0,1,2,3},
-      preset_2={0,0},
+    PowerSystems.Control.Relays.TapChangerRelay tapRelay1(
+      preset_1={2,1,2,3},
+      preset_2={2,2},
       t_switch_1={1,2,3})
       annotation (Placement(transformation(
           origin={10,70},
@@ -87,11 +87,11 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
     PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo1(
       redeclare record Data =
       PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph (
-      v_tc1={0.9,1.0,1.1},
-      v_tc2={0.9,1.0,1.1},
+      tap_neutral={2,2},
+      dv_tap={0.1,0.1},
       V_nom={1,10}),
-      use_tap_p=true,
-      use_tap_n=true)
+      use_tap_1=true,
+      use_tap_2=true)
                     annotation (Placement(transformation(extent={{0,20},{20,40}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter12(V_nom=10)
       annotation (Placement(transformation(extent={{40,20},{60,40}})));
@@ -100,11 +100,11 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
     PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo2(
       redeclare record Data =
       PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph (
-      v_tc1={0.9,1.0,1.1},
-      v_tc2={0.9,1.0,1.1},
+      tap_neutral={2,2},
+      dv_tap={0.1,0.1},
       V_nom={1,10}),
-      use_tap_p=true,
-      use_tap_n=true)
+      use_tap_1=true,
+      use_tap_2=true)
                     annotation (Placement(transformation(extent={{0,-20},{20,
               -40}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meter22(V_nom=10)
@@ -141,13 +141,13 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
       annotation (Line(points={{80,-30},{80,-50}}, color={0,0,255}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-90,0},{-90,0}}, color={0,0,255}));
-    connect(TapRelay1.tap_p, trafo1.tap_p)
+    connect(tapRelay1.tap_1, trafo1.tap_1)
       annotation (Line(points={{6,60},{6,40}}, color={255,127,0}));
-    connect(TapRelay1.tap_n, trafo1.tap_n) annotation (Line(points={{14,60},{14,
+    connect(tapRelay1.tap_2, trafo1.tap_2) annotation (Line(points={{14,60},{14,
             40}}, color={255,127,0}));
-    connect(TapRelay2.tap_p, trafo2.tap_p) annotation (Line(points={{6,-60},{6,
+    connect(tapRelay2.tap_1, trafo2.tap_1) annotation (Line(points={{6,-60},{6,
             -40}}, color={255,127,0}));
-    connect(TapRelay2.tap_n, trafo2.tap_n) annotation (Line(points={{14,-60},{
+    connect(tapRelay2.tap_2, trafo2.tap_2) annotation (Line(points={{14,-60},{
             14,-40}}, color={255,127,0}));
     annotation (
       Documentation(

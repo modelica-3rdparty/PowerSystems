@@ -399,22 +399,21 @@ package AC3ph "AC 3-phase components dq0"
     replaceable PowerSystems.AC3ph.Transformers.TrafoStray trafo(
       redeclare record Data =
           PowerSystems.AC3ph.Transformers.Parameters.TrafoStray (
-      v_tc1={1,1.1},
-      v_tc2={1,1.2},
+      dv_tap={0.1, 0.2},
       V_nom={1,10}),
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Y,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Delta,
-      use_tap_p=true,
-      use_tap_n=true)      annotation (Placement(transformation(extent={{0,-10},
+      use_tap_1=true,
+      use_tap_2=true)      annotation (Placement(transformation(extent={{0,-10},
               {20,10}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter2(V_nom=10)
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res(V_nom=10, r=100)
                                            annotation (Placement(transformation(
             extent={{80,-10},{100,10}})));
-    PowerSystems.Control.Relays.TapChangerRelay TapChanger(
-      preset_1={0,1,2},
-      preset_2={0,1,2},
+    PowerSystems.Control.Relays.TapChangerRelay tapChanger(
+      preset_1={1,1,2},
+      preset_2={1,1,2},
       t_switch_1={0.9,1.9},
       t_switch_2={1.1,2.1})
       annotation (Placement(transformation(
@@ -438,9 +437,9 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{70,0},{80,0}}, color={0,110,110}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-80,0},{-80,0}}, color={0,0,255}));
-    connect(TapChanger.tap_p, trafo.tap_p)
+    connect(tapChanger.tap_1, trafo.tap_1)
       annotation (Line(points={{6,50},{6,10}}, color={255,127,0}));
-    connect(TapChanger.tap_n, trafo.tap_n) annotation (Line(points={{14,50},{14,
+    connect(tapChanger.tap_2, trafo.tap_2) annotation (Line(points={{14,50},{14,
             10}}, color={255,127,0}));
     annotation (
       Documentation(

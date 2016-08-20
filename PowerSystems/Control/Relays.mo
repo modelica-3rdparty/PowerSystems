@@ -46,17 +46,17 @@ package Relays "Relays"
   block TapChangerRelay "Relay for setting tap-changer "
     extends PowerSystems.Basic.Icons.Block0;
 
-    parameter Integer preset_1[:](each min=0)={0}
-      "1: index v-levels tap-chg, 0 is nom";
-    parameter Integer preset_2[:](each min=0)={0}
-      "2: index v-levels tap-chg, 0 is nom";
-    parameter SI.Time t_switch_1[:]={1} "1: switching times";
-    parameter SI.Time t_switch_2[:]={1} "2:switching times";
-    Modelica.Blocks.Interfaces.IntegerOutput tap_p
-      "index of voltage level of tap changer 1"
+    parameter Integer preset_1[:]={1}
+      "1: positions tap changer";
+    parameter Integer preset_2[:]={1}
+      "2: positions tap changer";
+    parameter SI.Time t_switch_1[:]={0.5} "1: switching times";
+    parameter SI.Time t_switch_2[:]={0.5} "2: switching times";
+    Modelica.Blocks.Interfaces.IntegerOutput tap_1(start = preset_1[1])
+      "positions of tap changer 1"
       annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
-    Modelica.Blocks.Interfaces.IntegerOutput tap_n
-      "index of voltage level of tap changer 2"
+    Modelica.Blocks.Interfaces.IntegerOutput tap_2(start = preset_2[1])
+      "positions of tap changer 2"
       annotation (Placement(transformation(extent={{90,30},{110,50}})));
   protected
     Integer cnt_1(start=1,fixed=true);
@@ -65,17 +65,17 @@ package Relays "Relays"
   algorithm
     when time > t_switch_1[min(cnt_1, size(t_switch_1, 1))] then
       cnt_1 := cnt_1 + 1;
-      tap_p := preset_1[min(cnt_1, size(preset_1, 1))];
+      tap_1 := preset_1[min(cnt_1, size(preset_1, 1))];
     end when;
     when time > t_switch_2[min(cnt_2, size(t_switch_2, 1))] then
       cnt_2 := cnt_2 + 1;
-      tap_n := preset_2[min(cnt_2, size(preset_2, 1))];
+      tap_2 := preset_2[min(cnt_2, size(preset_2, 1))];
     end when;
     annotation (defaultComponentName = "tapRelay1",
       Documentation(
               info="<html>
-<p>The voltage level indices are pre-selected. They correspond to the index of the tap voltage levels
-of the transformer model. Level 0 is nominal voltage.</p>
+<p>The tap changer positions are pre-selected. The voltage change per position 
+and the neutral position for nominal voltage are defined in the transformer data.</p>
 <p>The switching times can be chosen arbitrarily.</p>
 </html>
 "),   Icon(coordinateSystem(
@@ -102,20 +102,21 @@ of the transformer model. Level 0 is nominal voltage.</p>
   block TapChanger3Relay "Relay for setting tap-changer 3-winding transformer"
     extends PowerSystems.Basic.Icons.Block0;
 
-    parameter Integer preset_1[:](min=0)={0}
-      "1: index v-levels tap-chg, 0 is nom";
-    parameter Integer preset_2a[:](min=0)={0}
-      "2a: index v-levels tap-chg, 0 is nom";
-    parameter Integer preset_2b[:](min=0)={0}
-      "2b: index v-levels tap-chg, 0 is nom";
-    parameter SI.Time t_switch_1[:]={1} "1: switching times";
-    parameter SI.Time t_switch_2a[:]={1} "2a: switching times";
-    parameter SI.Time t_switch_2b[:]={1} "2b: switching times";
-    Modelica.Blocks.Interfaces.IntegerOutput tap_p
-      "1: index of voltage level of tap changer"
+    parameter Integer preset_1[:]={1}
+      "1: positions tap changer";
+    parameter Integer preset_2a[:]={1}
+      "2a: positions tap changer";
+    parameter Integer preset_2b[:]={1}
+      "2b: positions tap changer";
+    parameter SI.Time t_switch_1[:]={0.5} "1: switching times";
+    parameter SI.Time t_switch_2a[:]={0.5} "2a: switching times";
+    parameter SI.Time t_switch_2b[:]={0.5} "2b: switching times";
+    Modelica.Blocks.Interfaces.IntegerOutput tap_1(start = preset_1[1])
+      "positions of tap changer 1"
       annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
-    Modelica.Blocks.Interfaces.IntegerOutput[2] tap_n
-      "2: indices of voltage level of tap changers {2a,2b}"
+    Modelica.Blocks.Interfaces.IntegerOutput[2] tap_2(
+      start = {preset_2a[1], preset_2b[1]})
+      "positions of tap changers {2a,2b}"
       annotation (Placement(transformation(extent={{90,30},{110,50}})));
   protected
     Integer cnt_1(start=1,fixed=true);
@@ -125,21 +126,21 @@ of the transformer model. Level 0 is nominal voltage.</p>
   algorithm
     when time > t_switch_1[min(cnt_1, size(t_switch_1, 1))] then
       cnt_1 := cnt_1 + 1;
-      tap_p := preset_1[min(cnt_1, size(preset_1, 1))];
+      tap_1 := preset_1[min(cnt_1, size(preset_1, 1))];
     end when;
     when time > t_switch_2a[min(cnt_2a, size(t_switch_2a, 1))] then
       cnt_2a := cnt_2a + 1;
-      tap_n[1] := preset_2a[min(cnt_2a, size(preset_2a, 1))];
+      tap_2[1] := preset_2a[min(cnt_2a, size(preset_2a, 1))];
     end when;
     when time > t_switch_2b[min(cnt_2b, size(t_switch_2b, 1))] then
       cnt_2b := cnt_2b + 1;
-      tap_n[2] := preset_2b[min(cnt_2b, size(preset_2b, 1))];
+      tap_2[2] := preset_2b[min(cnt_2b, size(preset_2b, 1))];
     end when;
     annotation (defaultComponentName = "tapRelay1",
       Documentation(
               info="<html>
-<p>The voltage level indices are pre-selected. They correspond to the index of the tap voltage levels
-of the transformer model. Level 0 is nominal voltage.</p>
+<p>The tap changer positions are pre-selected. The voltage change per position 
+and the neutral position for nominal voltage are defined in the transformer data.</p>
 <p>The switching times can be chosen arbitrarily.</p>
 </html>
 "),   Icon(coordinateSystem(

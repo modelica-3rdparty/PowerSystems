@@ -292,17 +292,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 
       partial model TrafoIdealBase "Base for ideal transformer, 3-phase dq0"
 
-        /*
-  extends Ports.YDportTrafo_p_n(
-    w1(start=w1_set), w2(start=w2_set),
-    final term_p(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[1])),
-    final term_n(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2])));
-
-  Start values not correct since no parameter expressions;
-  Can be removed without having an effect on the model since
-  if dynTC=true, w1,w2 are initialized in the initial equation section and
-  otherwise, there is an algebraic equation for w1 and w2.
-  */
         extends Ports.YDportTrafo_p_n(
           final term_p(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[1])),
           final term_n(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2])),
@@ -319,18 +308,18 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 
         parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
-        parameter Boolean use_tap_p = false "= true, if input tap_p is enabled"
-                            annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-        parameter Boolean use_tap_n = false "= true, if input tap_n is enabled"
-                            annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+        parameter Boolean use_tap_1 = false "= true, if input tap_1 is enabled"
+          annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+        parameter Boolean use_tap_2 = false "= true, if input tap_2 is enabled"
+          annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
-        Modelica.Blocks.Interfaces.IntegerInput tap_p if use_tap_p
+        Modelica.Blocks.Interfaces.IntegerInput tap_1 if use_tap_1
         "1: index of voltage level"
           annotation (Placement(transformation(
             origin={-40,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-        Modelica.Blocks.Interfaces.IntegerInput tap_n if use_tap_n
+        Modelica.Blocks.Interfaces.IntegerInput tap_2 if use_tap_2
         "2: index of voltage level"
           annotation (Placement(transformation(
             origin={40,100},
@@ -344,9 +333,9 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         final parameter Data par
           annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
-        Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
+        Modelica.Blocks.Interfaces.IntegerInput tap_1_internal
         "Needed to connect to conditional connector";
-        Modelica.Blocks.Interfaces.IntegerInput tap_n_internal
+        Modelica.Blocks.Interfaces.IntegerInput tap_2_internal
         "Needed to connect to conditional connector";
 
         outer System system;
@@ -356,17 +345,14 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         final parameter SI.Resistance[2, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
         final parameter Real W_nom=par.V_nom[2]/par.V_nom[1]
           annotation(Evaluate=true);
-        final parameter Real[:] W1=cat(1, {1}, par.v_tc1*V_base[1]/par.V_nom[1])*sqrt(scale[1])
-          annotation(Evaluate=true);
-        final parameter Real[:] W2=cat(1, {1}, par.v_tc2*V_base[2]/par.V_nom[2])*W_nom*sqrt(scale[2])
-          annotation(Evaluate=true);
-        final parameter SI.Resistance R_n1=par.r_n1*RL_base[1,1];
-        final parameter SI.Resistance R_n2=par.r_n2*RL_base[2,1];
+        final parameter SI.Resistance R_n1=par.r_n[1]*RL_base[1,1];
+        final parameter SI.Resistance R_n2=par.r_n[2]*RL_base[2,1];
         SI.AngularFrequency[2] omega;
-        Real w1_set=W1[1 + tap_p_internal]
-        "1: set voltage ratio to nominal primary";
-        Real w2_set=W2[1 + tap_n_internal]
-        "2: set voltage ratio to nominal secondary";
+        Real[2] dv_tap_pu = par.dv_tap .* V_base ./ par.V_nom;
+        Real w1_set = (1 + (tap_1_internal - par.tap_neutral[1]) * dv_tap_pu[1]) * sqrt(scale[1])
+          "1: set voltage ratio to nominal primary";
+        Real w2_set = (1 + (tap_2_internal - par.tap_neutral[2])*dv_tap_pu[2]) * W_nom*sqrt(scale[2])
+          "2: set voltage ratio to nominal secondary";
 
       initial equation
         if dynTC then
@@ -375,13 +361,13 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         end if;
 
       equation
-        connect(tap_p, tap_p_internal);
-        connect(tap_n, tap_n_internal);
-        if not use_tap_p then
-           tap_p_internal = 0;
+        connect(tap_1, tap_1_internal);
+        connect(tap_2, tap_2_internal);
+        if not use_tap_1 then
+           tap_1_internal = par.tap_neutral[1];
         end if;
-        if not use_tap_n then
-           tap_n_internal = 0;
+        if not use_tap_2 then
+           tap_2_internal = par.tap_neutral[2];
         end if;
 
         omega = der(term_p.theta);
@@ -602,18 +588,7 @@ For variable transformer ratio tap changer input needed.</p>
 
   partial model Trafo3IdealBase
       "Base for ideal 3-winding transformer, 3-phase dq0"
-  /*
-  extends Ports.YDportTrafo_p_n_n(
-    w1(start=w1_set), w2a(start=w2a_set), w2b(start=w2b_set),
-    final term_p(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[1])),
-    final term_na(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2])),
-    final term_nb(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[3])));
 
-  Start values not correct since no parameter expressions;
-  Can be removed without having an effect on the model since
-  if dynTC=true, w1,w2a,w2b are initialized in the initial equation section and
-  otherwise, there is an algebraic equation for w1 and w2a,w2b.
-*/
     extends Ports.YDportTrafo_p_n_n(
       final term_p(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[1])),
       final term_na(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2])),
@@ -623,18 +598,18 @@ For variable transformer ratio tap changer input needed.</p>
                                                                          annotation(Evaluate=true, choices(__Dymola_checkBox=true));
     parameter Boolean dynTC=false "enable dynamic tap-changing" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
-    parameter Boolean use_tap_p = false "= true, if input tap_p is enabled"
+    parameter Boolean use_tap_1 = false "= true, if input tap_1 is enabled"
                         annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-    parameter Boolean use_tap_n = false "= true, if input tap_n is enabled"
+    parameter Boolean use_tap_2 = false "= true, if input tap_2 is enabled"
                         annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
-    Modelica.Blocks.Interfaces.IntegerInput tap_p if  use_tap_p
+    Modelica.Blocks.Interfaces.IntegerInput tap_1 if  use_tap_1
         "1: index of voltage level"
       annotation (Placement(transformation(
             origin={-40,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-    Modelica.Blocks.Interfaces.IntegerInput[2] tap_n if  use_tap_n
+    Modelica.Blocks.Interfaces.IntegerInput[2] tap_2 if  use_tap_2
         "2: indices of voltage levels"
       annotation (Placement(transformation(
             origin={40,100},
@@ -649,9 +624,9 @@ For variable transformer ratio tap changer input needed.</p>
     final parameter Data par "trafo parameter record"
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
-    Modelica.Blocks.Interfaces.IntegerInput tap_p_internal
+    Modelica.Blocks.Interfaces.IntegerInput tap_1_internal
         "Needed to connect to conditional connector";
-    Modelica.Blocks.Interfaces.IntegerInput[2] tap_n_internal
+    Modelica.Blocks.Interfaces.IntegerInput[2] tap_2_internal
         "Needed to connect to conditional connector";
 
     outer System system;
@@ -663,21 +638,16 @@ For variable transformer ratio tap changer input needed.</p>
       annotation(Evaluate=true);
     final parameter Real Wb_nom=par.V_nom[3]/par.V_nom[1]
       annotation(Evaluate=true);
-    final parameter Real[:] W1=cat(1, {1}, par.v_tc1*V_base[1]/par.V_nom[1])*sqrt(scale[1])
-      annotation(Evaluate=true);
-    final parameter Real[:] W2a=cat(1, {1}, par.v_tc2a*V_base[2]/par.V_nom[2])*Wa_nom*sqrt(scale[2])
-      annotation(Evaluate=true);
-    final parameter Real[:] W2b=cat(1, {1}, par.v_tc2b*V_base[3]/par.V_nom[3])*Wb_nom*sqrt(scale[3])
-      annotation(Evaluate=true);
-    final parameter SI.Resistance R_n1=par.r_n1*RL_base[1,1];
-    final parameter SI.Resistance R_n2a=par.r_n2a*RL_base[2,1];
-    final parameter SI.Resistance R_n2b=par.r_n2b*RL_base[3,1];
+    final parameter SI.Resistance R_n1=par.r_n[1]*RL_base[1,1];
+    final parameter SI.Resistance R_n2a=par.r_n[2]*RL_base[2,1];
+    final parameter SI.Resistance R_n2b=par.r_n[3]*RL_base[3,1];
     SI.AngularFrequency omega[2];
-    Real w1_set=W1[1 + tap_p_internal]
+    Real[3] dv_tap_pu = par.dv_tap .* V_base ./ par.V_nom;
+    Real w1_set=(1 + (tap_1_internal - par.tap_neutral[1]) * dv_tap_pu[1]) * sqrt(scale[1])
         "1: set voltage ratio to nominal primary";
-    Real w2a_set=W2a[1 + tap_n_internal[1]]
+    Real w2a_set = (1 + (tap_2_internal[1] - par.tap_neutral[2]) * dv_tap_pu[2]) * Wa_nom*sqrt(scale[2])
         "2a: set voltage ratio to nominal secondary";
-    Real w2b_set=W2b[1 + tap_n_internal[2]]
+    Real w2b_set = (1 + (tap_2_internal[2] - par.tap_neutral[3]) * dv_tap_pu[3]) * Wb_nom*sqrt(scale[3])
         "2b: set voltage ratio to nominal secondary";
 
   initial equation
@@ -688,13 +658,13 @@ For variable transformer ratio tap changer input needed.</p>
     end if;
 
   equation
-    connect(tap_p, tap_p_internal);
-    connect(tap_n, tap_n_internal);
-    if not use_tap_p then
-       tap_p_internal = 0;
+    connect(tap_1, tap_1_internal);
+    connect(tap_2, tap_2_internal);
+    if not use_tap_1 then
+       tap_1_internal = par.tap_neutral[1];
     end if;
-    if not use_tap_n then
-       tap_n_internal = {0,0};
+    if not use_tap_2 then
+       tap_2_internal = par.tap_neutral[2:3];
     end if;
 
     omega = der(term_p.theta);
@@ -866,12 +836,12 @@ package Parameters "Parameter data for interactive use"
 record TrafoIdeal "Parameters for ideal transformer, 3-phase"
   extends Basic.Nominal.NominalDataTrafo;
 
-  SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  SIpu.Voltage[:] v_tc2=fill(1, 0) "2: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)" annotation(Dialog);
-  SIpu.Resistance r_n2=1 "2: resistance neutral to grd (if Y)" annotation(Dialog);
+  Integer[2] tap_neutral={1, 1} "{1,2}: neutral tap position"
+    annotation(Dialog(group="Options"));
+  SIpu.Voltage[2] dv_tap={0, 0} "{1,2}: delta-v per tap change"
+    annotation(Dialog(group="Options"));
+  SIpu.Resistance[2] r_n={1, 1} "{1,2}: resistance neutral to grd (if Y)"
+    annotation(Dialog);
 
   annotation (defaultComponentName="data",
     defaultComponentPrefixes="parameter",
@@ -921,15 +891,12 @@ record Trafo3Ideal "Parameters for ideal 3-winding transformer, 3-phase"
   extends Basic.Nominal.NominalDataTrafo(V_nom={1,1,1}
           "{prim,sec_a,sec_b} nom Voltage (= base if pu)");
 
-  SIpu.Voltage[:] v_tc1=fill(1, 0) "1: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  SIpu.Voltage[:] v_tc2a=fill(1, 0) "2a: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  SIpu.Voltage[:] v_tc2b=fill(1, 0) "2b: v-levels tap-changer"
-                              annotation(Dialog(group="Options"));
-  SIpu.Resistance r_n1=1 "1: resistance neutral to grd (if Y)" annotation(Dialog);
-  SIpu.Resistance r_n2a=1 "2a: resistance neutral to grd (if Y)" annotation(Dialog);
-  SIpu.Resistance r_n2b=1 "2b: resistance neutral to grd (if Y)" annotation(Dialog);
+  Integer[3] tap_neutral={1, 1, 1} "{1,2a,2b}: neutral tap position"
+    annotation(Dialog(group="Options"));
+  SIpu.Voltage[3] dv_tap={0, 0, 0} "{1,2a,2b}: delta-v per tap change"
+    annotation(Dialog(group="Options"));
+  SIpu.Resistance[3] r_n={1, 1, 1} "{1,2a,2b}: resistance neutral to grd (if Y)"
+    annotation(Dialog);
 
   annotation (defaultComponentName="data",
     defaultComponentPrefixes="parameter",
