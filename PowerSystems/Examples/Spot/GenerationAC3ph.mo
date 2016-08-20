@@ -1134,7 +1134,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   PowerSystems.AC1ph_DC.Impedances.CapacitorSym capSym(
     G=1e-4,
     C=0.020,
-      Vstart=vDC_nom)                   annotation (Placement(transformation(
+    V_start=vDC_nom)                   annotation (Placement(transformation(
             extent={{20,-60},{40,-40}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd    annotation (Placement(transformation(
           origin={30,-80},
@@ -1254,7 +1254,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   PowerSystems.AC1ph_DC.Impedances.CapacitorSym capSym(
     G=1e-4,
-      Vstart=vDC_nom,
+    V_start=vDC_nom,
     C=0.020)                            annotation (Placement(transformation(
             extent={{0,-60},{20,-40}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd    annotation (Placement(transformation(

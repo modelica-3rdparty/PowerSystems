@@ -225,7 +225,7 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
 
     parameter SI.Conductance G=0;
     parameter SI.Capacitance C=1e-6;
-    parameter PS.Voltage Vstart=0 "start voltage";
+    parameter PS.Voltage V_start=0 "start voltage";
     Interfaces.Electric_p term_p annotation (Placement(transformation(extent={{
               -110,-10},{-90,10}})));
     Interfaces.Electric_n term_n annotation (Placement(transformation(extent={{
@@ -235,10 +235,10 @@ package ImpedancesSingle "Simple mpedance and admittance two terminal"
           origin={0,-100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    Capacitor cap1(final G=2*G, final C=2*C, v(start=Vstart/2))
+    Capacitor cap1(final G=2*G, final C=2*C, v(start=V_start/2))
                                              annotation (Placement(
           transformation(extent={{-40,-10},{-20,10}})));
-    Capacitor cap2(final G=2*G, final C=2*C, v(start=Vstart/2))
+    Capacitor cap2(final G=2*G, final C=2*C, v(start=V_start/2))
                                              annotation (Placement(
           transformation(extent={{20,-10},{40,10}})));
 
