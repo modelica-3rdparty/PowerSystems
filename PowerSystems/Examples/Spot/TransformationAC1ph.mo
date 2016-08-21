@@ -63,16 +63,16 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
     inner PowerSystems.System system(ref="inertial")
       annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
     PowerSystems.Control.Relays.TapChangerRelay tapRelay2(
-      preset_1={2,2},
-      preset_2={2,1,2,3},
+      preset_1={0,0},
+      preset_2={0,-1,0,1},
       t_switch_2={1,2,3})
       annotation (Placement(transformation(
           origin={10,-70},
           extent={{10,-10},{-10,10}},
           rotation=270)));
     PowerSystems.Control.Relays.TapChangerRelay tapRelay1(
-      preset_1={2,1,2,3},
-      preset_2={2,2},
+      preset_1={0,-1,0,1},
+      preset_2={0,0},
       t_switch_1={1,2,3})
       annotation (Placement(transformation(
           origin={10,70},
@@ -87,7 +87,6 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
     PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo1(
       redeclare record Data =
       PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph (
-      tap_neutral={2,2},
       dv_tap={0.1,0.1},
       V_nom={1,10}),
       use_tap_1_in=true,
@@ -100,7 +99,6 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
     PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo2(
       redeclare record Data =
       PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph (
-      tap_neutral={2,2},
       dv_tap={0.1,0.1},
       V_nom={1,10}),
       use_tap_1_in=true,

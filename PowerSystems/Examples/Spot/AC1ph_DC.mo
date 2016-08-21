@@ -550,6 +550,7 @@ Compare with DoublePIline.</p>
     replaceable PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(
       redeclare record Data =
           PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph (
+      tap_neutral={1,1},
       dv_tap = {0.1,0.2},
       V_nom = {1,10}),
       use_tap_1_in=true,

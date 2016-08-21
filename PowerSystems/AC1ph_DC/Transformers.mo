@@ -663,7 +663,7 @@ package Parameters "Parameter data for interactive use"
 
 record TrafoIdeal1ph "Parameters for ideal transformer, 1-phase"
   extends Basic.Nominal.NominalDataTrafo;
-  Integer[2] tap_neutral={1, 1} "{1,2}: neutral tap position"
+  Integer[2] tap_neutral={0, 0} "{1,2}: neutral tap position"
     annotation(Dialog(group="Options"));
   SIpu.Voltage[2] dv_tap={0, 0} "{1,2}: delta-v per tap change"
     annotation(Dialog(group="Options"));
@@ -712,7 +712,7 @@ record TrafoSat1ph "Parameters for saturation transformer, 1-phase"
 end TrafoSat1ph;
 
 record Trafo3Ideal1ph "Parameters for ideal transformer, 1-phase"
-  Integer[3] tap_neutral={1, 1, 1} "{1,2a,2b}: neutral tap position"
+  Integer[3] tap_neutral={0, 0, 0} "{1,2a,2b}: neutral tap position"
     annotation(Dialog(group="Options"));
   SIpu.Voltage[3] dv_tap={0, 0, 0} "{1,2a,2b}: delta-v per tap change"
     annotation(Dialog(group="Options"));

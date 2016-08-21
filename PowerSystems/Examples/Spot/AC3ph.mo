@@ -398,6 +398,7 @@ package AC3ph "AC 3-phase components dq0"
     replaceable PowerSystems.AC3ph.Transformers.TrafoStray trafo(
       redeclare record Data =
           PowerSystems.AC3ph.Transformers.Parameters.TrafoStray (
+      tap_neutral={1,1},
       dv_tap={0.1, 0.2},
       V_nom={1,10}),
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Y,

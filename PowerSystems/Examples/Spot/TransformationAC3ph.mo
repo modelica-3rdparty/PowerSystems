@@ -116,7 +116,6 @@ PAR-Y configuration:<br>
       redeclare record Data =
       PowerSystems.AC3ph.Transformers.Parameters.TrafoStray (
       V_nom={1,10},
-      tap_neutral={2,2},
       dv_tap={0.1,0.1}),
       use_tap_1_in=true,
       use_tap_2_in=true)
@@ -129,7 +128,6 @@ PAR-Y configuration:<br>
       redeclare record Data =
       PowerSystems.AC3ph.Transformers.Parameters.TrafoStray (
       V_nom={1,10},
-      tap_neutral={2,2},
       dv_tap={0.1,0.1}),
       use_tap_1_in=true,
       use_tap_2_in=true)
@@ -140,16 +138,16 @@ PAR-Y configuration:<br>
                                            annotation (Placement(transformation(
             extent={{80,-40},{100,-20}})));
     PowerSystems.Control.Relays.TapChangerRelay tapRelay2(
-      preset_1={2,2},
-      preset_2={2,1,2,3},
+      preset_1={0,0},
+      preset_2={0,-1,0,1},
       t_switch_2={1,2,3})
       annotation (Placement(transformation(
           origin={10,-70},
           extent={{10,-10},{-10,10}},
           rotation=270)));
     PowerSystems.Control.Relays.TapChangerRelay tapRelay1(
-      preset_1={2,1,2,3},
-      preset_2={2,2},
+      preset_1={0,-1,0,1},
+      preset_2={0,0},
       t_switch_1={1,2,3})
       annotation (Placement(transformation(
           origin={10,70},

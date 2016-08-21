@@ -845,7 +845,7 @@ package Parameters "Parameter data for interactive use"
 record TrafoIdeal "Parameters for ideal transformer, 3-phase"
   extends Basic.Nominal.NominalDataTrafo;
 
-  Integer[2] tap_neutral={1, 1} "{1,2}: neutral tap position"
+  Integer[2] tap_neutral={0, 0} "{1,2}: neutral tap position"
     annotation(Dialog(group="Options"));
   SIpu.Voltage[2] dv_tap={0, 0} "{1,2}: delta-v per tap change"
     annotation(Dialog(group="Options"));
@@ -900,7 +900,7 @@ record Trafo3Ideal "Parameters for ideal 3-winding transformer, 3-phase"
   extends Basic.Nominal.NominalDataTrafo(V_nom={1,1,1}
           "{prim,sec_a,sec_b} nom Voltage (= base if pu)");
 
-  Integer[3] tap_neutral={1, 1, 1} "{1,2a,2b}: neutral tap position"
+  Integer[3] tap_neutral={0, 0, 0} "{1,2a,2b}: neutral tap position"
     annotation(Dialog(group="Options"));
   SIpu.Voltage[3] dv_tap={0, 0, 0} "{1,2a,2b}: delta-v per tap change"
     annotation(Dialog(group="Options"));
