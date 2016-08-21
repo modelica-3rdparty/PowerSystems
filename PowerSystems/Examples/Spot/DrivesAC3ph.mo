@@ -168,7 +168,7 @@ Compare 'transient' and 'steady-state' mode.</p>
   equation
     connect(select.theta_out, inverter.theta) annotation (Line(points={{-46,20},
             {-46,0}}, color={0,0,127}));
-    connect(select.uPhasor_out, inverter.uPhasor) annotation (Line(points={{-34,
+    connect(select.vPhasor_out,inverter.vPhasor)  annotation (Line(points={{-34,
             20},{-34,0}}, color={0,0,127}));
     connect(voltage.term, inverter.DC)
       annotation (Line(points={{-60,-10},{-50,-10}}, color={0,0,255}));
@@ -340,7 +340,7 @@ Compare 'transient' and 'steady-state' mode.</p>
   equation
     connect(select.theta_out, inverter.theta) annotation (Line(points={{-46,20},
             {-46,0}}, color={0,0,127}));
-    connect(select.uPhasor_out, inverter.uPhasor) annotation (Line(points={{-34,
+    connect(select.vPhasor_out,inverter.vPhasor)  annotation (Line(points={{-34,
             20},{-34,0}}, color={0,0,127}));
     connect(voltage.term, inverter.DC)
       annotation (Line(points={{-60,-10},{-50,-10}}, color={0,0,255}));
@@ -634,10 +634,10 @@ On-load steady-state start with torque-increase at 3 s, load-step 6 s and field-
 <pre>
   asm_ctrl.motor.tau_el
   asm_ctrl.motor.w_el
-  asm_ctrl.motor.uPhasor
+  asm_ctrl.motor.vPhasor
   asm_ctrl.motor.slip
 </pre></p>
-Check uPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage proportional to uPhasor[1] even if uPhasor[1] &gt  1. For a time-resolved converter this corresponds to overmodulation.
+Check vPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage proportional to vPhasor[1] even if vPhasor[1] &gt  1. For a time-resolved converter this corresponds to overmodulation.
 <p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>
 </html>"),
     experiment(
@@ -726,7 +726,7 @@ Transient start with torque-increase at 0.5 s, load-step 2 s and field-increase 
 <pre>
   asm_ctrl.motor.tau_el
   asm_ctrl.motor.w_el
-  asm_ctrl.motor.uPhasor
+  asm_ctrl.motor.vPhasor
   asm_ctrl.motor.slip
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>

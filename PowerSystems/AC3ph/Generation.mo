@@ -412,7 +412,7 @@ The machine inertia is determined by the inertia time constant H.</p>
             {70,64},{4,64}}, color={176,0,0}));
     connect(generator.phiRotor, inverter.theta)   annotation (Line(points={{20,
             10},{14,10},{14,20},{86,20},{86,10},{76,10}}, color={0,0,127}));
-    connect(generator.uPhasor, inverter.uPhasor)
+    connect(generator.vPhasor,inverter.vPhasor)
       annotation (Line(points={{40,10},{64,10}}, color={0,0,127}));
     connect(generator.i_meas, i_meas)       annotation (Line(points={{36,10},{
             36,40},{60,40},{60,100}}, color={0,0,127}));

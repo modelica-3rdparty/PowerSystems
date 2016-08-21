@@ -5,37 +5,33 @@ package Inverters "Rectifiers and Inverters"
 block Select "Select frequency and voltage-phasor type"
   extends PowerSystems.Basic.Icons.Block;
 
-  parameter Boolean fType_sys = true "= true, if inverter has system frequency"
-                                               annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-  parameter Boolean fType_par = true
-      "= true, if inverter has parameter frequency, otherwise defined by input omega"
-                                annotation(Evaluate=true, Dialog(enable=not fType_sys));
+  parameter Basic.Types.FrequencyType fType=PowerSystems.Basic.Types.FrequencyType.System
+    "frequency type" annotation(Evaluate=true);
+  parameter SI.Frequency f=system.f "frequency if type is parameter"
+    annotation(Dialog(enable=fType==PowerSystems.Basic.Types.FrequencyType.Parameter));
 
-  parameter SI.Frequency f=system.f "frequency"
-    annotation(Dialog(enable=fType_par));
+  parameter Boolean use_vPhasor_in = false
+      "= true to enable signal input vPhasor_in"
+   annotation(Evaluate=true, choices(checkBox=true));
 
-  parameter Boolean uType_par = true
-      "= true: uPhasor defined by parameter otherwise by input signal"
-   annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+  parameter Real v0=1 "voltage amplitude pu vDC/2"
+    annotation(Dialog(enable=not use_vPhasor_in));
+  parameter SI.Angle alpha0=0 "phase angle"
+    annotation(Dialog(enable=not use_vPhasor_in));
 
-  parameter Real u0=1 "voltage ampl pu vDC/2"
-                                         annotation(Dialog(enable=uType_par));
-  parameter SI.Angle alpha0=0 "phase angle" annotation(Dialog(enable=uType_par));
+  Modelica.Blocks.Interfaces.RealInput[2] vPhasor_in if use_vPhasor_in
+    "{abs(u), phase(u)}" annotation (Placement(transformation(
+        origin={60,100},
+        extent={{-10,-10},{10,10}},
+        rotation=270)));
+  Modelica.Blocks.Interfaces.RealInput omega_in(final unit="rad/s") if
+       fType==PowerSystems.Basic.Types.FrequencyType.Signal
+    "angular frequency" annotation (Placement(transformation(
+        origin={-60,100},
+        extent={{-10,-10},{10,10}},
+        rotation=270)));
 
-  Modelica.Blocks.Interfaces.RealInput[2] uPhasor if not uType_par
-      "{abs(u), phase(u)}"
-    annotation (Placement(transformation(
-          origin={60,100},
-          extent={{-10,-10},{10,10}},
-          rotation=270)));
-  Modelica.Blocks.Interfaces.RealInput omega(final unit="rad/s") if not fType_par
-      "angular frequency"
-    annotation (Placement(transformation(
-          origin={-60,100},
-          extent={{-10,-10},{10,10}},
-          rotation=270)));
-
-  Modelica.Blocks.Interfaces.RealOutput[2] uPhasor_out
+  Modelica.Blocks.Interfaces.RealOutput[2] vPhasor_out
       "{abs(u), phase(u)} to inverter"
     annotation (Placement(transformation(
           origin={60,-100},
@@ -51,45 +47,36 @@ block Select "Select frequency and voltage-phasor type"
 
   protected
   SI.Angle theta;
-  parameter Types.FreqType fType = if fType_sys then Types.FreqType.sys else
-                                       if fType_par then Types.FreqType.par else Types.FreqType.sig
-      "frequency type";
   Modelica.Blocks.Interfaces.RealInput omega_internal
       "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput[2] uPhasor_internal
+  Modelica.Blocks.Interfaces.RealInput[2] vPhasor_internal
       "Needed to connect to conditional connector";
 
 initial equation
-  if fType == Types.FreqType.sig then
+  if fType == Types.FrequencyType.Signal then
     theta = 0;
   end if;
 
 equation
-  connect(omega, omega_internal);
-  connect(uPhasor, uPhasor_internal);
-  if fType <> Types.FreqType.sig then
+  connect(omega_in, omega_internal);
+  connect(vPhasor_in, vPhasor_internal);
+  if fType <> Types.FrequencyType.Signal then
      omega_internal = 0.0;
   end if;
-  if uType_par then
-     uPhasor_internal = {0,0};
+  if not use_vPhasor_in then
+     vPhasor_internal = {v0, alpha0};
   end if;
 
-  if fType == Types.FreqType.sys then
+  if fType == Types.FrequencyType.System then
     theta = system.theta;
-  elseif fType == Types.FreqType.par then
+  elseif fType == Types.FrequencyType.Parameter then
     theta = 2*pi*f*(time - system.initime);
-  elseif fType == Types.FreqType.sig then
+  elseif fType == Types.FrequencyType.Signal then
     der(theta) = omega_internal;
   end if;
   theta_out = theta;
 
-  if uType_par then
-    uPhasor_out[1] = u0;
-    uPhasor_out[2] = alpha0;
-  else
-    uPhasor_out[1] = uPhasor_internal[1];
-    uPhasor_out[2] = uPhasor_internal[2];
-  end if;
+  vPhasor_out = vPhasor_internal;
 annotation (defaultComponentName="select1",
   Documentation(
           info="<html>
@@ -149,7 +136,7 @@ model Inverter "Complete modulator and inverter, 1-phase"
           origin={-60,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-  Modelica.Blocks.Interfaces.RealInput[2] uPhasor "desired {abs(u), phase(u)}"
+  Modelica.Blocks.Interfaces.RealInput[2] vPhasor "desired {abs(v), phase(v)}"
     annotation (Placement(transformation(
           origin={60,100},
           extent={{-10,-10},{10,10}},
@@ -188,7 +175,7 @@ model Inverter "Complete modulator and inverter, 1-phase"
 equation
   connect(theta, modulator.theta) annotation (Line(points={{-60,100},{-60,70},{
             -6,70},{-6,60}}, color={0,0,127}));
-  connect(uPhasor, modulator.uPhasor) annotation (Line(points={{60,100},{60,70},
+  connect(vPhasor,modulator.vPhasor)  annotation (Line(points={{60,100},{60,70},
             {6,70},{6,60}}, color={0,0,127}));
   connect(AC, inverter.AC) annotation (Line(points={{100,0},{10,0}}, color={0,0,
             255}));
@@ -258,7 +245,7 @@ model InverterAverage "Inverter time-average, 1-phase"
           origin={-60,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-  Modelica.Blocks.Interfaces.RealInput[2] uPhasor "desired {abs(u), phase(u)}"
+  Modelica.Blocks.Interfaces.RealInput[2] vPhasor "desired {abs(v), phase(v)}"
     annotation (Placement(transformation(
           origin={60,100},
           extent={{-10,-10},{10,10}},
@@ -281,8 +268,8 @@ equation
   hsw_nom = if syn then (2*par.Hsw_nom*m_carr/(pi*par.V_nom*par.I_nom))*der(theta) else
                  4*par.Hsw_nom*f_carr/(par.V_nom*par.I_nom);
 
-  phi = theta + uPhasor[2] + system.alpha0;
-  switch[1] = factor*uPhasor[1]*cos(phi);
+  phi = theta +vPhasor [2] + system.alpha0;
+  switch[1] = factor*vPhasor[1]*cos(phi);
   switch[2] = -switch[1];
   v = (vDC1 - cT*Vloss)*switch;
 // passive mode?
@@ -370,7 +357,7 @@ end InverterAverage;
 model Chopper "DC-DC converter"
   extends Partials.DC_DC_base(heat(final m=2));
 
-  Modelica.Blocks.Interfaces.RealInput uDC "desired uDC"
+  Modelica.Blocks.Interfaces.RealInput vDC "desired vDC"
                                                    annotation (Placement(
           transformation(
           origin={60,100},
@@ -389,7 +376,7 @@ model Chopper "DC-DC converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  connect(uDC, modulator.uDC)   annotation (Line(points={{60,100},{60,70},{6,70},
+  connect(vDC,modulator.vDC)    annotation (Line(points={{60,100},{60,70},{6,70},
             {6,60}}, color={0,0,127}));
   connect(DCin, chopper.DCin)
       annotation (Line(points={{-100,0},{-10,0}}, color={0,0,255}));

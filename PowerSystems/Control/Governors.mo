@@ -55,8 +55,7 @@ package Governors "Turbine Governors "
 <p>Constant excitation-voltage.</p>
 <p><tt>fieldVoltage=1</tt> corresponds to <tt>norm(v)=1 pu</tt> at open generator terminals.</p>
 </html>
-"),
-      Diagram(coordinateSystem(
+"),   Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={

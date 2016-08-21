@@ -98,9 +98,11 @@ package InvertersAC3ph "Inverters dq0"
             PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
         "equation, with losses")
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC3ph.Inverters.Select select(fType_sys=false, fType_par=true, f=100,
-      uType_par=false)  annotation (Placement(transformation(extent={{-20,20},{
-              0,40}})));
+    PowerSystems.AC3ph.Inverters.Select select(
+      fType=PowerSystems.Basic.Types.FrequencyType.Parameter,
+      f=100,
+      use_vPhasor_in=true)
+      annotation (Placement(transformation(extent={{-20,20},{0,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meterAC(
       abc=true,
       av=true,
@@ -131,10 +133,10 @@ package InvertersAC3ph "Inverters dq0"
       annotation (Line(points={{0,-10},{10,-10}}, color={0,120,120}));
     connect(select.theta_out, inverter.theta)
       annotation (Line(points={{-16,20},{-16,0}}, color={0,0,127}));
-    connect(select.uPhasor_out, inverter.uPhasor) annotation (Line(points={{-4,
+    connect(select.vPhasor_out,inverter.vPhasor)  annotation (Line(points={{-4,
             20},{-4,0}}, color={0,0,127}));
-    connect(vCtrl.y, select.uPhasor) annotation (Line(points={{-30,50},{-4,50},
-            {-4,40}}, color={0,0,127}));
+    connect(vCtrl.y,select.vPhasor_in)
+      annotation (Line(points={{-30,50},{-4,50},{-4,40}}, color={0,0,127}));
     connect(meterAC.term_n, pqLoad.term) annotation (Line(points={{30,-10},{40,
             -10}}, color={0,120,120}));
     connect(grd.term, vDC.neutral)
@@ -173,7 +175,7 @@ package InvertersAC3ph "Inverters dq0"
               PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
         "equation, with losses")
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
-    PowerSystems.AC3ph.Inverters.Select select(uType_par=false)
+    PowerSystems.AC3ph.Inverters.Select select(use_vPhasor_in=true)
                                   annotation (Placement(transformation(extent={
               {-30,20},{-10,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meterAC(
@@ -214,10 +216,10 @@ package InvertersAC3ph "Inverters dq0"
             -10}}, color={0,120,120}));
     connect(select.theta_out, inverter.theta) annotation (Line(points={{-26,20},
             {-26,0}}, color={0,0,127}));
-    connect(select.uPhasor_out, inverter.uPhasor) annotation (Line(points={{-14,
+    connect(select.vPhasor_out,inverter.vPhasor)  annotation (Line(points={{-14,
             20},{-14,0}}, color={0,0,127}));
-    connect(vCtrl.y, select.uPhasor) annotation (Line(points={{-40,50},{-14,50},
-            {-14,40}}, color={0,0,127}));
+    connect(vCtrl.y,select.vPhasor_in)
+      annotation (Line(points={{-40,50},{-14,50},{-14,40}}, color={0,0,127}));
     connect(vAC.neutral, grd.term)
       annotation (Line(points={{80,-10},{80,-10}}, color={0,0,255}));
     connect(inverter.heat, bdCond.heat)
@@ -250,7 +252,7 @@ package InvertersAC3ph "Inverters dq0"
     PowerSystems.AC3ph.Inverters.InverterAverage inverter(redeclare record Data =
       PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
-    PowerSystems.AC3ph.Inverters.Select select(uType_par=false)
+    PowerSystems.AC3ph.Inverters.Select select(use_vPhasor_in=true)
                                   annotation (Placement(transformation(extent={
               {-30,20},{-10,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meterAC(
@@ -291,10 +293,10 @@ package InvertersAC3ph "Inverters dq0"
             -10}}, color={0,120,120}));
     connect(select.theta_out, inverter.theta) annotation (Line(points={{-26,20},
             {-26,0}}, color={0,0,127}));
-    connect(select.uPhasor_out, inverter.uPhasor) annotation (Line(points={{-14,
+    connect(select.vPhasor_out,inverter.vPhasor)  annotation (Line(points={{-14,
             20},{-14,0}}, color={0,0,127}));
-    connect(vCtrl.y, select.uPhasor) annotation (Line(points={{-40,50},{-14,50},
-            {-14,40}}, color={0,0,127}));
+    connect(vCtrl.y,select.vPhasor_in)
+      annotation (Line(points={{-40,50},{-14,50},{-14,40}}, color={0,0,127}));
     connect(vAC.neutral, grd.term)
       annotation (Line(points={{80,-10},{80,-10}}, color={0,0,255}));
     connect(inverter.heat, bdCond.heat)

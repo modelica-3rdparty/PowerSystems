@@ -548,7 +548,7 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{60,0},{70,0}}, color={0,0,255}));
     connect(select.theta_out, ac_dc.theta)
       annotation (Line(points={{26,40},{26,10},{26,10}}, color={0,0,127}));
-    connect(select.uPhasor_out, ac_dc.uPhasor) annotation (Line(points={{14,40},
+    connect(select.vPhasor_out,ac_dc.vPhasor)  annotation (Line(points={{14,40},
             {14,10},{14,10}}, color={0,0,127}));
     connect(grd1.term, vAC.neutral)
       annotation (Line(points={{-80,0},{-80,0}}, color={0,0,255}));

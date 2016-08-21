@@ -7,13 +7,13 @@ block PWMasyn "Sine PWM asynchronous mode, 3phase"
 
   protected
   constant SI.Angle[3] phShift=(0:2)*2*pi/3;
-  Real[3] u_abc;
+  Real[3] v_abc;
   discrete SI.Time[3] sigdel_t;
   discrete SI.Time[3] t0;
 
 initial algorithm
   for k in 1:3 loop
-    if u_abc[k] > -1 then
+    if v_abc[k] > -1 then
       gates[{pgt[k], ngt[k]}] := {true,false};
       sigdel_t[k] := del_t;
     else
@@ -24,18 +24,18 @@ initial algorithm
   end for;
 
 equation
-  u_abc = uPhasor[1]*cos(fill(theta + uPhasor[2], 3) - phShift);
+  v_abc = vPhasor [1]*cos(fill(theta +vPhasor [2], 3) - phShift);
 /*
-  for k in 1:3 loop  // assumes |u_abc| < 1:
-    when time > pre(t0[k]) + pre(sigdel_t[k])*u_abc[k] then
+  for k in 1:3 loop  // assumes |v_abc| < 1:
+    when time > pre(t0[k]) + pre(sigdel_t[k])*v_abc[k] then
       gates[{pgt[k], ngt[k]}] = pre(gates[{ngt[k], pgt[k]}]);
       sigdel_t[k] = -pre(sigdel_t[k]);
       t0[k] = pre(t0[k]) + 2*del_t;
     end when;
   end for;
 */
-  for k in 1:3 loop  // allows |u_abc| >= 1:
-    when time > pre(t0[k]) + pre(sigdel_t[k])*u_abc[k] then
+  for k in 1:3 loop  // allows |v_abc| >= 1:
+    when time > pre(t0[k]) + pre(sigdel_t[k])*v_abc[k] then
       if noEvent(time < pre(t0[k]) + delp_t) then
         gates[{pgt[k], ngt[k]}] = pre(gates[{ngt[k],pgt[k]}]);
         sigdel_t[k] = -pre(sigdel_t[k]);
@@ -79,7 +79,7 @@ block PWMsyn "Sine PWM synchronous mode, 3phase"
   final parameter SI.Angle[m2] phi0=(1:2:2*m2 - 1)*del_phi;
   Integer[3] n;
   SI.Angle[3] phi;
-  Real[3] u_abc;
+  Real[3] v_abc;
   discrete Real[3] sigdel_phi;
   function mod2sign = Basic.Math.mod2sign;
 
@@ -87,7 +87,7 @@ initial algorithm
   n := {1,1,1} + integer(phi/(2*del_phi));
   for k in 1:3 loop
     if -scalar(mod2sign({n[k]})) > 0 then
-      if phi[k] <= phi0[n[k]] + del_phi*u_abc[k] then
+      if phi[k] <= phi0[n[k]] + del_phi*v_abc[k] then
         gates[{pgt[k], ngt[k]}] := {true,false};
         sigdel_phi[k] := del_phi;
       else
@@ -96,7 +96,7 @@ initial algorithm
         n[k] := if n[k] < m2 then n[k] + 1 else 1;
       end if;
     else
-      if phi[k] <= phi0[n[k]] - del_phi*u_abc[k] then
+      if phi[k] <= phi0[n[k]] - del_phi*v_abc[k] then
         gates[{pgt[k], ngt[k]}] := {false,true};
         sigdel_phi[k] := -del_phi;
       else
@@ -108,19 +108,19 @@ initial algorithm
   end for;
 
 equation
-  phi = mod(fill(theta + uPhasor[2], 3) - phShift, 2*pi);
-  u_abc = uPhasor[1]*cos(phi);
+  phi = mod(fill(theta +vPhasor [2], 3) - phShift, 2*pi);
+  v_abc =vPhasor [1]*cos(phi);
 /*
-  for k in 1:3 loop  // assumes |u_abc| < 1:
-    when phi[k] > phi0[(pre(n[k]))] + pre(sigdel_phi[k])*u_abc[k] then
+  for k in 1:3 loop  // assumes |v_abc| < 1:
+    when phi[k] > phi0[(pre(n[k]))] + pre(sigdel_phi[k])*v_abc[k] then
       gates[{pgt[k], ngt[k]}] = pre(gates[{ngt[k], pgt[k]}]);
       sigdel_phi[k] = -pre(sigdel_phi[k]);
       n[k] = if pre(n[k]) < m2 then pre(n[k]) + 1 else 1;
     end when;
   end for;
 */
-  for k in 1:3 loop  // allows |u_abc| >= 1:
-    when phi[k] > phi0[pre(n[k])] + pre(sigdel_phi[k])*u_abc[k] then
+  for k in 1:3 loop  // allows |v_abc| >= 1:
+    when phi[k] > phi0[pre(n[k])] + pre(sigdel_phi[k])*v_abc[k] then
       if noEvent(phi[k] < phi0[pre(n[k])] + delp_phi) then
         gates[{pgt[k], ngt[k]}] = pre(gates[{ngt[k],pgt[k]}]);
         sigdel_phi[k] = -pre(sigdel_phi[k]);
@@ -183,19 +183,19 @@ block PWMtab "PWM tabulated, synchronous mode, 3phase"
 
 initial algorithm
   n := {1,1,1};
-  phiIgn1 := intpol(uPhasor[1], table.phiIgn);
+  phiIgn1 := intpol(vPhasor[1], table.phiIgn);
   gates[{pgt[1], ngt[1]}] := {true, false};
   while phiIgn1[n[1]] < phi[1] and phi[1] < phiIgn1[end] loop
     n[1] := n[1] + 1;
     gates[{pgt[1], ngt[1]}] := gates[{ngt[1], pgt[1]}];
   end while;
-  phiIgn2 := intpol(uPhasor[1], table.phiIgn);
+  phiIgn2 := intpol(vPhasor[1], table.phiIgn);
   gates[{pgt[2], ngt[2]}] := {true, false};
   while phiIgn2[n[2]] < phi[2] and phi[2] < phiIgn2[end] loop
     n[2] := n[2] + 1;
     gates[{pgt[2], ngt[2]}] := gates[{ngt[2], pgt[2]}];
   end while;
-  phiIgn3 := intpol(uPhasor[1], table.phiIgn);
+  phiIgn3 := intpol(vPhasor[1], table.phiIgn);
   gates[{pgt[3], ngt[3]}] := {true, false};
   while phiIgn3[n[3]] < phi[3] and phi[3] < phiIgn3[end] loop
     n[3] := n[3] + 1;
@@ -203,7 +203,7 @@ initial algorithm
   end while;
 
 equation
-  phi = mod(fill(theta + uPhasor[2], 3) - phShift, 2*pi);
+  phi = mod(fill(theta +vPhasor [2], 3) - phShift, 2*pi);
 
   when phi[1] > pre(phiIgn1[pre(n[1])]) then
     gates[{pgt[1], ngt[1]}] = pre(gates[{ngt[1], pgt[1]}]);
@@ -218,20 +218,20 @@ equation
     n[3] = if pre(n[3]) < m2 then pre(n[3]) + 1 else 1;
   end when;
   when n[1]==1 then
-    phiIgn1 = intpol(uPhasor[1], table.phiIgn);
+    phiIgn1 = intpol(vPhasor[1], table.phiIgn);
   end when;
   when n[2]==1 then
-    phiIgn2 = intpol(uPhasor[1], table.phiIgn);
+    phiIgn2 = intpol(vPhasor[1], table.phiIgn);
   end when;
   when n[3]==1 then
-    phiIgn3 = intpol(uPhasor[1], table.phiIgn);
+    phiIgn3 = intpol(vPhasor[1], table.phiIgn);
   end when;
 
 /* desired version:
 initial algorithm
   n := {1,1,1};
   for k in 1:3 loop
-    phiIgn[k,:] := intpol(uPhasor[1], table.phiIgn);
+    phiIgn[k,:] := intpol(vPhasor[1], table.phiIgn);
     gates[{pgt[k], ngt[k]}] := {true, false};
     while phiIgn[k, n[k]] < phi[k] and phi[k] < phiIgn[k, end] loop
       n[k] := n[k] + 1;
@@ -245,7 +245,7 @@ equation
       n[k] := if pre(n[k]) < m2 then pre(n[k]) + 1 else 1;
     end when;
     when n[k]==1 then
-      phiIgn[k,:] := intpol(uPhasor[1], table.phiIgn);
+      phiIgn[k,:] := intpol(vPhasor[1], table.phiIgn);
     end when;
   end for;*/
   annotation (defaultComponentName = "pwm",
@@ -303,8 +303,8 @@ initial algorithm
   gates[{2,4,6}] := {not state[k,1], not state[k,2], not state[k,3]};
 
 equation
-  u = min(uPhasor[1], 0.85); // preliminary (no overmodulation)
-  phi = mod(theta + uPhasor[2], 2*pi);
+  u = min(vPhasor[1], 0.85); // preliminary (no overmodulation)
+  phi = mod(theta +vPhasor [2], 2*pi);
 
   when phi > pre(phi_s) + pre(phiIgn[pre(n)]) then
     if pre(n) < m2 then
@@ -385,8 +385,8 @@ initial algorithm
   gates[{2,4,6}] := {not state[k,1], not state[k,2], not state[k,3]};
 
 equation
-  u = min(uPhasor[1], 0.85); // preliminary (no overmodulation)
-  phi = mod(theta + uPhasor[2], 2*pi);
+  u = min(vPhasor[1], 0.85); // preliminary (no overmodulation)
+  phi = mod(theta +vPhasor [2], 2*pi);
 
   when phi > pre(phi_s) + pre(phiIgn[pre(n)]) then
     if pre(n) < m2 then
@@ -457,7 +457,7 @@ block SVPWM "Space vector PWM"
 equation
   phaseCorr.u2 = der(theta)/(2*f_carr); //d_phi = pi*f/f_carr.
 
-  connect(uPhasor, phToAlphaBeta.u) annotation (Line(points={{60,100},{60,80},{
+  connect(vPhasor, phToAlphaBeta.u) annotation (Line(points={{60,100},{60,80},{
             -80,80},{-80,0},{-70,0}}, color={0,0,127}));
   connect(phToAlphaBeta.y, logic.u_alpha_beta)     annotation (Line(points={{
             -50,0},{-41.3333,0}}, color={0,0,127}));
@@ -515,15 +515,15 @@ block BlockM "Block modulation, 3phase"
   constant SI.Angle[3] phShift=(0:2)*2*pi/3;
   SI.Angle alpha;
   Real a;
-  Real[3] u_abc;
+  Real[3] v_abc;
 
 equation
   alpha = max(min((1 - width)*pi/2, pi/2 - dphimin), 0);
   a = sin(alpha);
-  u_abc = cos(fill(theta + uPhasor[2], 3) - phShift);
+  v_abc = cos(fill(theta +vPhasor [2], 3) - phShift);
 
   for k in 1:3 loop
-    gates[{pgt[k], ngt[k]}] = {u_abc[k] > a, u_abc[k] < -a};
+    gates[{pgt[k], ngt[k]}] = {v_abc[k] > a, v_abc[k] < -a};
   end for;
   annotation (defaultComponentName = "blockMod",
     Documentation(
@@ -537,7 +537,7 @@ equation
   gates[5:6]     phase-module c
 </pre></p>
 <p>The default-value <pre>  width = 2/3</pre> corresponds to '2 phases on, one phase off'.<br><br>
-The input uPhasor[1] has no influence on this model. It is only needed, if additional PWM is desired.</p>
+The input vPhasor[1] has no influence on this model. It is only needed, if additional PWM is desired.</p>
 </html>"),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -569,7 +569,7 @@ end BlockM;
    t0 := del_t;
 
  equation
-   u = uPhasor[1]*cos(theta + uPhasor[2]);
+   u =vPhasor [1]*cos(theta +vPhasor [2]);
  /*
 //assumes |u| < 1:
   when time > pre(t0) + pre(sigdel_t)*u then
@@ -655,11 +655,11 @@ initial algorithm
 
 equation
   sigma = pre(sigma);
-  phi = mod(theta + uPhasor[2], 2*pi);
-  u = uPhasor[1]*cos(phi);
+  phi = mod(theta +vPhasor [2], 2*pi);
+  u =vPhasor [1]*cos(phi);
 
 /*
-// assumes |u_abc| < 1:
+// assumes |v_abc| < 1:
   when phi > phi0[(pre(n))] + pre(sigdel_phi)*u then
     gates[{pgt[1], ngt[1]}] = pre(gates[{ngt[1], pgt[1]}]);
     gates[{pgt[2], ngt[2]}] = pre(gates[{ngt[2], pgt[2]}]);
@@ -667,7 +667,7 @@ equation
     n = if pre(n) < m2 then pre(n) + 1 else 1;
   end when;
 */
-// allows |u_abc| >= 1:
+// allows |v_abc| >= 1:
   when phi > phi0[pre(n)] + pre(sigdel_phi)*u then
     if noEvent(phi < phi0[pre(n)] + delp_phi) then
       gates[{pgt[1], ngt[1]}] = pre(gates[{ngt[1], pgt[1]}]);
@@ -726,7 +726,7 @@ block PWMtab1ph "PWM tabulated, synchronous mode, 1-phase"
 
 initial algorithm
   n := 1;
-  phiIgn := intpol(uPhasor[1], table.phiIgn);
+  phiIgn := intpol(vPhasor[1], table.phiIgn);
   gates[{pgt[1], ngt[1]}] := {true, false};
   gates[{pgt[2], ngt[2]}] := {false, true};
   while phiIgn[n] < phi and phi < phiIgn[end] loop
@@ -736,7 +736,7 @@ initial algorithm
   end while;
 
 equation
-  phi = mod(theta + uPhasor[2], 2*pi);
+  phi = mod(theta +vPhasor [2], 2*pi);
 
   when phi > pre(phiIgn[pre(n)]) then
     gates[{pgt[1], ngt[1]}] = pre(gates[{ngt[1], pgt[1]}]);
@@ -744,7 +744,7 @@ equation
     n = if pre(n) < m2 then pre(n) + 1 else 1;
   end when;
   when n==1 then
-    phiIgn = intpol(uPhasor[1], table.phiIgn);
+    phiIgn = intpol(vPhasor[1], table.phiIgn);
   end when;
 annotation (defaultComponentName = "pwm",
   Documentation(
@@ -782,7 +782,7 @@ block BlockM1ph "Block modulation, 1phase"
 equation
   alpha = max(min((1 - width)*pi/2, pi/2 - dphimin), 0);
   a = sin(alpha);
-  u = cos(theta + uPhasor[2]);
+  u = cos(theta +vPhasor [2]);
 
   gates[{pgt[1], ngt[1]}] = {u > a, u < -a};
   gates[{pgt[2], ngt[2]}] = {u < -a, u > a};
@@ -796,7 +796,7 @@ equation
   gates[1:2]     phase-module 1
   gates[3:4]     phase-module 2
 </pre></p>
-The input uPhasor[1] has no influence on this model. It is only needed, if additional PWM is desired.</p>
+The input vPhasor[1] has no influence on this model. It is only needed, if additional PWM is desired.</p>
 </html>
 "), Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -809,8 +809,7 @@ block ChopperPWM "Chopper PWM (voltage)"
   extends PowerSystems.Basic.Icons.BlockS;
 
   parameter SI.Frequency f_carr=500 "carrier frequency";
-  Modelica.Blocks.Interfaces.RealInput uDC
-      "desired average voltage, pu v_DC_in"
+  Modelica.Blocks.Interfaces.RealInput vDC "desired average voltage, pu"
   annotation (Placement(transformation(
           origin={60,100},
           extent={{-10,-10},{10,10}},
@@ -828,7 +827,7 @@ block ChopperPWM "Chopper PWM (voltage)"
 equation
   when sample(0, del_t) then
     t0 = time;
-    t1 = time + uDC*del_t;
+    t1 = time +vDC *del_t;
   end when;
 
   gate = t0 <= time and time < t1;
@@ -909,7 +908,7 @@ package Partials "Partial models"
             origin={-60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-    Modelica.Blocks.Interfaces.RealInput[2] uPhasor
+    Modelica.Blocks.Interfaces.RealInput[2] vPhasor
         "voltage demand pu {norm(v), phase(v)} (see info)"
                             annotation (Placement(transformation(
             origin={60,100},
@@ -1179,7 +1178,7 @@ protected
             origin={-60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-    Modelica.Blocks.Interfaces.RealInput[2] uPhasor
+    Modelica.Blocks.Interfaces.RealInput[2] vPhasor
         "voltage demand pu {norm(v), phase(v)} (see info)"
                             annotation (Placement(transformation(
             origin={60,100},

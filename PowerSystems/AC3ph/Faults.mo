@@ -56,9 +56,8 @@ The transformation to inertial abc is only needed to determine the correct phase
 "),               Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
-          grid={2,2}), graphics={
-          Ellipse(
-            extent={{-30,60},{-10,40}},
+          grid={2,2}), graphics={Ellipse(
+                            extent={{-30,60},{-10,40}},
                             lineColor={0,0,0},
                             fillColor={0,255,128},
                             fillPattern=FillPattern.Solid),Ellipse(

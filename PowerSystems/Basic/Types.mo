@@ -148,17 +148,30 @@ package Types
                       "pu" "pu units";
 */
 
-  type FreqType = enumeration(
-      par "parameter",
-      sig "signal",
-      sys "system") "Frequency type"
+  type FrequencyType = enumeration(
+      Parameter "Parameter f",
+      Signal "Signal omega_in",
+      System "System defined") "Options for specification of frequency"
       annotation(Documentation(info="<html>
 <p><pre>
-  par:  source has parameter frequency
-  sig:  source has signal frequency
-  sys:  source has system frequency
+  Parameter: Parameter frequency
+  Signal:    Signal input omega_in
+  System:    System defined frequency
 </pre></p>
 </html>"));
+
+  type SystemFrequencyType = enumeration(
+      Parameter "Parameter f",
+      Signal "Signal omega_in",
+      Average "Average") "Options for specification of frequency in system object"
+      annotation(Documentation(info="<html>
+<p><pre>
+  Parameter: Parameter frequency
+  Signal:    Signal input omega_in
+  Average:   Average frequency over involved generators
+</pre></p>
+</html>"));
+
 /*
   type FreqType = String "frequency type" annotation(choices(
      choice=PowerSystems.Basic.Types.sys "system",

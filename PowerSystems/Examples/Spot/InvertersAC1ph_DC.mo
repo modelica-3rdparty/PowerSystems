@@ -90,9 +90,11 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
             PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
         "equation, with losses")
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-    PowerSystems.AC1ph_DC.Inverters.Select select(fType_sys=false, fType_par=true, f=100,
-      uType_par=false)   annotation (Placement(transformation(extent={{-20,20},
-              {0,40}})));
+    PowerSystems.AC1ph_DC.Inverters.Select select(
+      fType=PowerSystems.Basic.Types.FrequencyType.Parameter,
+      f=100,
+      use_vPhasor_in=true)
+      annotation (Placement(transformation(extent={{-20,20},{0,40}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterAC(av=true, tcst=0.1,
       V_nom=100,
       S_nom=1e3)
@@ -124,10 +126,10 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       annotation (Line(points={{30,-10},{40,-10}}, color={0,0,255}));
     connect(select.theta_out, inverter.theta)
       annotation (Line(points={{-16,20},{-16,0}}, color={0,0,127}));
-    connect(select.uPhasor_out, inverter.uPhasor) annotation (Line(points={{-4,
+    connect(select.vPhasor_out,inverter.vPhasor)  annotation (Line(points={{-4,
             20},{-4,0}}, color={0,0,127}));
-    connect(vCtrl.y, select.uPhasor) annotation (Line(points={{-30,50},{-4,50},
-            {-4,40}}, color={0,0,127}));
+    connect(vCtrl.y,select.vPhasor_in)
+      annotation (Line(points={{-30,50},{-4,50},{-4,40}}, color={0,0,127}));
     connect(grd.term, vDC.neutral)
       annotation (Line(points={{-80,-10},{-80,-10}}, color={0,0,255}));
     connect(inverter.heat, bdCond.heat)
@@ -162,7 +164,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
           PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
         "equation, with losses")
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
-    PowerSystems.AC1ph_DC.Inverters.Select select(uType_par=false)
+    PowerSystems.AC1ph_DC.Inverters.Select select(use_vPhasor_in=true)
                                    annotation (Placement(transformation(extent=
               {{-30,20},{-10,40}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterAC(av=true, tcst=0.1,
@@ -196,10 +198,10 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       annotation (Line(points={{20,-10},{30,-10}}, color={0,0,255}));
     connect(select.theta_out, inverter.theta) annotation (Line(points={{-26,20},
             {-26,0}}, color={0,0,127}));
-    connect(select.uPhasor_out, inverter.uPhasor) annotation (Line(points={{-14,
+    connect(select.vPhasor_out,inverter.vPhasor)  annotation (Line(points={{-14,
             20},{-14,0}}, color={0,0,127}));
-    connect(vCtrl.y, select.uPhasor) annotation (Line(points={{-40,50},{-14,50},
-            {-14,40}}, color={0,0,127}));
+    connect(vCtrl.y,select.vPhasor_in)
+      annotation (Line(points={{-40,50},{-14,50},{-14,40}}, color={0,0,127}));
     connect(vAC.neutral, grd.term)
       annotation (Line(points={{80,-10},{80,-10}}, color={0,0,255}));
     connect(meterDC.term_n, inverter.DC)
@@ -235,7 +237,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
     PowerSystems.AC1ph_DC.Inverters.InverterAverage inverter(redeclare record
         Data=PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
-    PowerSystems.AC1ph_DC.Inverters.Select select(uType_par=false)
+    PowerSystems.AC1ph_DC.Inverters.Select select(use_vPhasor_in=true)
                                    annotation (Placement(transformation(extent=
               {{-30,20},{-10,40}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterAC(av=true, tcst=0.1,
@@ -267,10 +269,10 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       annotation (Line(points={{20,-10},{30,-10}}, color={0,0,255}));
     connect(select.theta_out, inverter.theta) annotation (Line(points={{-26,20},
             {-26,0}}, color={0,0,127}));
-    connect(select.uPhasor_out, inverter.uPhasor) annotation (Line(points={{-14,
+    connect(select.vPhasor_out,inverter.vPhasor)  annotation (Line(points={{-14,
             20},{-14,0}}, color={0,0,127}));
-    connect(vCtrl.y, select.uPhasor) annotation (Line(points={{-40,50},{-14,50},
-            {-14,40}}, color={0,0,127}));
+    connect(vCtrl.y,select.vPhasor_in)
+      annotation (Line(points={{-40,50},{-14,50},{-14,40}}, color={0,0,127}));
     connect(vAC.neutral, grd.term)
       annotation (Line(points={{80,-10},{80,-10}}, color={0,0,255}));
     connect(meterDC.term_n, inverter.DC)
@@ -336,7 +338,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       annotation (Line(points={{10,-10},{20,-10}}, color={0,0,255}));
     connect(meterDCout.term_n, load.term)
       annotation (Line(points={{40,-10},{60,-10}}, color={0,0,255}));
-    connect(vDCoutCtrl.y, chopper.uDC) annotation (Line(points={{-20,30},{6,30},
+    connect(vDCoutCtrl.y,chopper.vDC)  annotation (Line(points={{-20,30},{6,30},
             {6,0}}, color={0,0,127}));
     connect(chopper.heat, bdCond.heat)
       annotation (Line(points={{0,0},{0,0}}, color={176,0,0}));

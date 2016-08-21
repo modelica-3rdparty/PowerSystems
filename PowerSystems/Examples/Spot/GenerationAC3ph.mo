@@ -841,8 +841,9 @@ end TurboGroupGenerator;
 
 model TieLine "Generators and power-oscillations"
 
-  inner PowerSystems.System system(f_nom=60, fType_par=false,
-      f_lim={55,65})
+  inner PowerSystems.System system(f_nom=60,
+      f_lim={55,65},
+      fType=PowerSystems.Basic.Types.SystemFrequencyType.Average)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen1(
     dispPA=true,

@@ -1,16 +1,18 @@
 within PowerSystems;
 model System "System reference"
+  parameter Basic.Types.SystemFrequencyType fType=PowerSystems.Basic.Types.SystemFrequencyType.Parameter
+    "frequency type"
+    annotation(Evaluate=true, Dialog(group="System"));
+  parameter SI.Frequency f = f_nom
+    "frequency if type is parameter, else initial frequency"
+    annotation(Evaluate=true, Dialog(group="System",
+      enable=fType==PowerSystems.Basic.Types.SystemFrequencyType.Parameter));
   parameter SI.Frequency f_nom = 50 "nominal frequency"
    annotation(Evaluate=true, Dialog(group="System"), choices(choice=50 "50 Hz", choice=60 "60 Hz"));
-  parameter SI.Frequency f = f_nom
-    "frequency if fType_par = true, else initial frequency"
-   annotation(Evaluate=true, Dialog(group="System"));
-  parameter Boolean fType_par = true
-    "= true, if system frequency defined by parameter f, else average frequency"
-    annotation(Evaluate=true, Dialog(group="System"));
   parameter SI.Frequency f_lim[2]={0.5*f_nom, 2*f_nom}
     "limit frequencies (for supervision of average frequency)"
-   annotation(Evaluate=true, Dialog(group="System",enable=not fType_par));
+   annotation(Evaluate=true, Dialog(group="System",
+     enable=fType<>PowerSystems.Basic.Types.SystemFrequencyType.Parameter));
   parameter SI.Angle alpha0 = 0 "phase angle"
    annotation(Evaluate=true, Dialog(group="System"));
   parameter String ref = "synchron" "reference frame (3-phase)"
@@ -40,35 +42,35 @@ model System "System reference"
     annotation(Evaluate=true);
   discrete SI.Time initime;
   SI.Angle theta(final start=0,
-    stateSelect=if fType_par then StateSelect.default else StateSelect.always);
+    stateSelect=if fType==Types.SystemFrequencyType.Parameter then StateSelect.default else StateSelect.always);
   SI.AngularFrequency omega(final start=2*pi*f);
-/*
-  Modelica.Blocks.Interfaces.RealInput omega_inp(min=0)
-    "system ang frequency (optional, fType=sig)"
-    annotation (extent=[90,-10; 110,10],    rotation=-180);
+  Modelica.Blocks.Interfaces.RealInput omega_in(min=0) if
+       fType == PowerSystems.Basic.Types.SystemFrequencyType.Signal
+    "system angular frequency (optional if fType==Signal)"
+    annotation (extent=[-110,-10; -90,10]);
 
-  Removed, since not input connector of inner/outer class not allowed in Modelica 3.
-*/
   Interfaces.Frequency receiveFreq
     "receives weighted frequencies from generators"
    annotation (Placement(transformation(extent={{-96,64},{-64,96}})));
+protected
+  Modelica.Blocks.Interfaces.RealInput omega_internal;
 initial equation
-  if not fType_par then
+  if fType <> Types.SystemFrequencyType.Parameter then
     theta = omega*time;
   end if;
 
 equation
+  connect(omega_in, omega_internal);
+  omega = omega_internal;
   when initial() then
     initime = time;
   end when;
-  if fType_par then
+  if fType == Types.SystemFrequencyType.Parameter then
     omega = 2*pi*f;
     theta = omega*time;
-    /*
-   elseif fType == Types.FreqType.sig then
-     omega = omega_inp;
-     Removed, since input connector of inner/outer class not allowed in Modelica 3
-    */
+  elseif fType == Types.SystemFrequencyType.Signal then
+    //omega defined by omega_in
+    theta = omega*time;
   else
     omega = if initial() then 2*pi*f else receiveFreq.w_H/receiveFreq.H;
     der(theta) = omega;
@@ -102,21 +104,19 @@ equation
         Text(
           extent={{-60,100},{100,60}},
           lineColor={215,215,215},
-          textString =                      "%name"),
+          textString="%name"),
         Text(
           extent={{-100,50},{100,20}},
           lineColor={0,0,0},
-          textString =                      "f_nom=%f_nom"),
+          textString="f_nom=%f_nom"),
         Text(
           extent={{-100,-20},{100,10}},
           lineColor={0,0,0},
-          textString=
-             "f par:%fType_par"),
+          textString="f:%fType"),
         Text(
           extent={{-100,-30},{100,-60}},
           lineColor={0,120,120},
-          textString=
-             "%ref"),
+          textString="%ref"),
         Text(
           extent={{-100,-70},{100,-100}},
           lineColor={176,0,0},

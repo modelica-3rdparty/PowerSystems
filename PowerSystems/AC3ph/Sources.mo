@@ -408,56 +408,49 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
     partial model VoltageBase "Voltage base, 3-phase dq0"
       extends SourceBase(final S_nom=1);
 
-      parameter Boolean fType_sys = true
-        "= true, if source has system frequency" annotation(Evaluate=true, choices(__Dymola_checkBox=true));
-      parameter Boolean fType_par = true
-        "= true, if source has parameter frequency, otherwise defined by input omega_in"
-                                    annotation(Evaluate=true, Dialog(enable=not fType_sys));
-      parameter SI.Frequency f=system.f "frequency"
-        annotation(Dialog(enable=fType_par));
+      parameter Basic.Types.FrequencyType fType=PowerSystems.Basic.Types.FrequencyType.System
+        "frequency type" annotation(Evaluate=true);
+      parameter SI.Frequency f=system.f "frequency if type is parameter"
+        annotation(Dialog(enable=fType==PowerSystems.Basic.Types.FrequencyType.Parameter));
 
       parameter Boolean use_vPhasor_in = false
         "= true to use input signal vPhasor_in, otherwise use fixed values"
        annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
       Modelica.Blocks.Interfaces.RealInput omega_in(final unit="rad/s") if
-                                                                        not fType_par
+           fType == PowerSystems.Basic.Types.FrequencyType.Signal
         "angular frequency" annotation (Placement(transformation(
             origin={-60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica.Blocks.Interfaces.RealInput[2] vPhasor_in if
-                                                         use_vPhasor_in
+      Modelica.Blocks.Interfaces.RealInput[2] vPhasor_in if use_vPhasor_in
         "{abs(voltage), phase}" annotation (Placement(transformation(
             origin={60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
     protected
-      parameter Types.FreqType fType = if fType_sys then Types.FreqType.sys else
-                                           if fType_par then Types.FreqType.par else Types.FreqType.sig
-        "frequency type";
       Modelica.Blocks.Interfaces.RealInput omega_internal
         "Needed to connect to conditional connector";
       Modelica.Blocks.Interfaces.RealInput[2] vPhasor_internal
         "Needed to connect to conditional connector";
 
     initial equation
-      if fType == Types.FreqType.sig then
+      if fType == Types.FrequencyType.Signal then
         theta = 0;
       end if;
 
     equation
       connect(omega_in, omega_internal);
       connect(vPhasor_in, vPhasor_internal);
-      if fType <> Types.FreqType.sig then
+      if fType <> Types.FrequencyType.Signal then
          omega_internal = 0.0;
       end if;
 
-      if fType == Types.FreqType.sys then
+      if fType == Types.FrequencyType.System then
         theta = system.theta;
-      elseif fType == Types.FreqType.par then
+      elseif fType == Types.FrequencyType.Parameter then
         theta = 2*pi*f*(time - system.initime);
-      elseif fType == Types.FreqType.sig then
+      elseif fType == Types.FrequencyType.Signal then
         der(theta) = omega_internal;
       end if;
       annotation (

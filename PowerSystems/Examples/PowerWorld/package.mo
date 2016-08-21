@@ -48,7 +48,8 @@ package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work p
             extent={{-10,-10},{10,10}},
             rotation=-90,
             origin={-80,-20})));
-    inner System system(fType_par=false, ini="tr")
+    inner System system(ini="tr", fType=
+      PowerSystems.Basic.Types.SystemFrequencyType.Average)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   equation
     connect(powerPlant.terminal, trafoPlant.terminal_p)

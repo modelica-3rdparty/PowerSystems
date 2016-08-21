@@ -468,8 +468,7 @@ package Multiplex "Multiplexer and AD converter"
   n = 1 if gates[2] = true else n = 0
 </pre>
 </html>
-"),
-      Icon(coordinateSystem(
+"),   Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={Text(
@@ -600,8 +599,7 @@ package Multiplex "Multiplexer and AD converter"
   c_n = 1 if gates[6] = true else c_n = 0
 </pre>
 </html>
-"),
-      Icon(coordinateSystem(
+"),   Icon(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
           grid={2,2}), graphics={

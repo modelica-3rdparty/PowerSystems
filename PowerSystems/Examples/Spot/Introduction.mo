@@ -113,9 +113,8 @@ and other meter-signals.</p>
               -50,20},{-70,40}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage2(
       v0eff=230,
-      fType_sys=false, fType_par=false)
-                   annotation (Placement(transformation(extent={{-40,-40},{-20,
-              -20}})));
+      fType=PowerSystems.Basic.Types.FrequencyType.Signal)
+      annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grdV2
                                  annotation (Placement(transformation(extent={{
               -50,-40},{-70,-20}})));

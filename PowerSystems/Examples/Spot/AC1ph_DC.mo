@@ -678,7 +678,7 @@ Compare with DoublePIline.</p>
       annotation (Line(points={{-80,20},{-64,20},{-64,10}}, color={0,0,127}));
     connect(select.theta_out,dc_ac. theta)
       annotation (Line(points={{26,40},{26,10}}, color={0,0,127}));
-    connect(select.uPhasor_out,dc_ac. uPhasor)
+    connect(select.vPhasor_out,dc_ac.vPhasor)
       annotation (Line(points={{14,40},{14,10}}, color={0,0,127}));
     connect(vDC.term, meterDC.term_p)
       annotation (Line(points={{70,0},{60,0}}, color={0,0,255}));

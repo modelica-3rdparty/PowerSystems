@@ -81,8 +81,8 @@ package Machines "AC machines, electric part "
           origin={100,100},
           extent={{10,-10},{-10,10}},
           rotation=180)));
-    Modelica.Blocks.Interfaces.RealOutput[2] uPhasor
-      "desired {abs(u), phase(u)}"
+    Modelica.Blocks.Interfaces.RealOutput[2] vPhasor
+      "desired {abs(v), phase(v)}"
       annotation (Placement(transformation(
           origin={-100,100},
           extent={{-10,-10},{10,10}},
@@ -116,7 +116,7 @@ package Machines "AC machines, electric part "
     (sum(omega) - w_el)*(-L_m*i_dq[2] - L_r*i_q) + diagonal(R_r)*i_d = zeros(n_r);
     (sum(omega) - w_el)*(L_m*i_dq[1] + L_r*i_d) + diagonal(R_r)*i_q = zeros(n_r);
     v_dq = sum(omega)*{-(c.L_s[2]*i_dq[2] + L_m*i_q), c.L_s[1]*i_dq[1] + L_m*i_d} + c.R_s*i_dq;
-    uPhasor = {sqrt(v_dq*v_dq)/par.V_nom, atan2(v_dq[2], v_dq[1]) + atan2(sin(alpha_psi - term.theta[1]), cos(alpha_psi - term.theta[1]))};
+    vPhasor = {sqrt(v_dq*v_dq)/par.V_nom, atan2(v_dq[2], v_dq[1]) + atan2(sin(alpha_psi - term.theta[1]), cos(alpha_psi - term.theta[1]))};
     annotation (
       defaultComponentName="asynchron",
   Documentation(
@@ -362,7 +362,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
           origin={100,100},
           extent={{10,-10},{-10,10}},
           rotation=180)));
-    Modelica.Blocks.Interfaces.RealOutput[2] uPhasor
+    Modelica.Blocks.Interfaces.RealOutput[2] vPhasor
       "desired {abs(u), phase(u)}"
       annotation (Placement(transformation(
           origin={-100,100},
@@ -392,7 +392,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
     i_meas = i_s[1:2]/I_nom;
     i_dq = i_act*I_nom;
     v_dq = w_el*{-(c.L_s[2]*i_dq[2]),c.L_s[1]*i_dq[1] + psi_e} + c.R_s*i_dq;
-    uPhasor = {sqrt(v_dq*v_dq)/par.V_nom,atan2(v_dq[2], v_dq[1])};
+    vPhasor = {sqrt(v_dq*v_dq)/par.V_nom,atan2(v_dq[2], v_dq[1])};
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Rectangle(
             extent={{-90,112},{90,88}},
@@ -438,7 +438,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
           origin={100,100},
           extent={{10,-10},{-10,10}},
           rotation=180)));
-    Modelica.Blocks.Interfaces.RealOutput[2] uPhasor
+    Modelica.Blocks.Interfaces.RealOutput[2] vPhasor
       "desired {abs(u), phase(u)}"
       annotation (Placement(transformation(
           origin={-100,100},
@@ -471,7 +471,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
     i_dq = i_act*I_nom;
     v_dq = w_el*{-c.L_s[2]*i_dq[2],c.L_s[1]*i_dq[1] + c.L_md[1]*i_rd[1] + psi_e}
        + c.R_s*i_dq;
-    uPhasor = {sqrt(v_dq*v_dq)/par.V_nom,atan2(v_dq[2], v_dq[1])};
+    vPhasor = {sqrt(v_dq*v_dq)/par.V_nom,atan2(v_dq[2], v_dq[1])};
   annotation (defaultComponentName = "synchron",
     Documentation(
             info="<html>

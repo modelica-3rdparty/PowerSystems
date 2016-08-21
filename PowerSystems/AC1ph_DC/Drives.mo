@@ -169,17 +169,17 @@ package Drives "DC-drives"
           color={0,120,120}));
     connect(motor.rotorAngle, inverter.theta) annotation (Line(points={{-20,10},
             {-16,10},{-16,20},{-84,20},{-84,10},{-76,10}}, color={0,0,127}));
-    connect(motor.uPhasor, inverter.uPhasor) annotation (Line(points={{-40,10},
+    connect(motor.vPhasor,inverter.vPhasor)  annotation (Line(points={{-40,10},
             {-64,10}}, color={0,0,127}));
   annotation (defaultComponentName = "bldcm",
     Documentation(
             info="<html>
 <p>Complete brushless DC drive with inverter.</p>
-<p>For block (rectangular) non-pulsed modulation the input to uPhasor[1] is arbitrary and has no influence.</p>
-<p>For pulsed rectangles uPhasor[1] can be used<br>
+<p>For block (rectangular) non-pulsed modulation the input to vPhasor[1] is arbitrary and has no influence.</p>
+<p>For pulsed rectangles vPhasor[1] can be used<br>
 a) to simulate time-average voltage amplitudes.<br>
 b) to determine the ratio of on- to off-time when using a pulsed modulator.<br>
-where 0 &lt  uPhasor[1] &lt  1.</p>
+where 0 &lt  vPhasor[1] &lt  1.</p>
 <p>The rectangle width is a parameter with default value 2/3, corresponding to '2 phases on, 1 phase off' at a time.</p>
 <p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
@@ -314,7 +314,7 @@ where 0 &lt  uPhasor[1] &lt  1.</p>
             origin={100,100},
             extent={{10,-10},{-10,10}},
             rotation=180)));
-    Modelica.Blocks.Interfaces.RealOutput[2] uPhasor
+    Modelica.Blocks.Interfaces.RealOutput[2] vPhasor
         "desired {abs(u), phase(u)}"
       annotation (Placement(transformation(
             origin={-100,100},
@@ -322,8 +322,8 @@ where 0 &lt  uPhasor[1] &lt  1.</p>
             rotation=180)));
 
   equation
-    uPhasor[1] = 1; //not used if no PWM
-    uPhasor[2] = atan2(c.R_s*i_s[2] + w_el*psi_e, -w_el*c.L_s[2]*i_s[2]);
+    vPhasor[1] = 1; //not used if no PWM
+    vPhasor[2] = atan2(c.R_s*i_s[2] + w_el*psi_e, -w_el*c.L_s[2]*i_s[2]);
     annotation (
   Documentation(info="<html>
 <p>The model is valid for permanent magnet (<tt>excite=2</tt>) machines.</p>
@@ -333,16 +333,16 @@ Example using 'average' inverter (approximation of rectangle by its fundamental)
 <p><pre>
   v_sd = -w_el*c.L_s[2]*i_s[2]/((4/pi)*sin(width*pi/2)*par.V_nom);
   v_sq = 1;
-  uPhasor[1] = sqrt(v_sd*v_sd + v_sq*v_sq);
-  uPhasor[2] = atan2(v_sq, v_sd);
+  vPhasor[1] = sqrt(v_sd*v_sd + v_sq*v_sq);
+  vPhasor[2] = atan2(v_sq, v_sd);
 </pre></p>
 <p>For reluctance (<tt>excite=3</tt>) machines psi_e is replaced by a desired magnetising current in d-axis <tt>i_sd</tt>.
 <pre>
-  uPhasor[2] = atan2(c.R_s*i_s[2] + w_el*c.L_s[1]*i_sd, c.R_s*i_sd - w_el*c.L_s[2]*i_s[2]);
+  vPhasor[2] = atan2(c.R_s*i_s[2] + w_el*c.L_s[1]*i_sd, c.R_s*i_sd - w_el*c.L_s[2]*i_s[2]);
 </pre>
 Using a pu-current <tt>i_sd_pu</tt> we obtain
 <pre>
-  uPhasor[2] = atan2(c.R_s*i_s[2] + w_el*c.L_s[1]*i_sd, (par.V_nom/(c.omega_nom*c.L_s[1]))*i_sd_pu - w_el*c.L_s[2]*i_s[2]);
+  vPhasor[2] = atan2(c.R_s*i_s[2] + w_el*c.L_s[1]*i_sd, (par.V_nom/(c.omega_nom*c.L_s[1]))*i_sd_pu - w_el*c.L_s[2]*i_s[2]);
 </pre></p>
 <p>More information see Partials.Synchron3rdBase.</p>
 </html>"), Icon(graphics={Rectangle(

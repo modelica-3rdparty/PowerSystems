@@ -86,7 +86,7 @@ model NetworkControlled "Dynamic power flow calculation with two generators"
     annotation (Placement(transformation(extent={{-120,90},{-100,70}})));
   Modelica.Blocks.Math.Gain frequency(k=1/(2*pi))
     annotation (Placement(transformation(extent={{-80,110},{-100,130}})));
-  inner System system(          fType_par=false)
+  inner System system(fType=PowerSystems.Basic.Types.SystemFrequencyType.Average)
     annotation (Placement(transformation(extent={{-170,110},{-150,130}})));
   Interfaces.Sender sender1(H=0.5*inertia1.J*inertia1.w^2/1e6, w=generator1.w)
     annotation (Placement(transformation(extent={{-26,100},{-14,112}})));
@@ -99,6 +99,8 @@ initial equation
     inertia1.w = system.omega/generator1.pp;
   end if;
   inertia1.phi = system.theta/generator1.pp;
+
+
 
 equation
   connect(impedance1.terminal_n, impedance2.terminal_p)

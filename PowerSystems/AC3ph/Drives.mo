@@ -126,7 +126,7 @@ package Drives "AC-drives dq0"
             -30,54},{4,54},{4,64}}, color={176,0,0}));
     connect(inverter.heat, heat_adapt.port_b) annotation (Line(points={{-70,10},
             {-70,64},{-4,64}}, color={176,0,0}));
-    connect(motor.uPhasor, inverter.uPhasor)
+    connect(motor.vPhasor,inverter.vPhasor)
       annotation (Line(points={{-40,10},{-64,10}}, color={0,0,127}));
     connect(motor.i_meas, i_meas)       annotation (Line(points={{-36,10},{-36,
             40},{-60,40},{-60,100}}, color={0,0,127}));
@@ -257,7 +257,7 @@ package Drives "AC-drives dq0"
             {-70,64},{-4,64}}, color={176,0,0}));
     connect(motor.phiRotor, inverter.theta)   annotation (Line(points={{-20,10},
             {-16,10},{-16,20},{-84,20},{-84,10},{-76,10}}, color={0,0,127}));
-    connect(motor.uPhasor, inverter.uPhasor)
+    connect(motor.vPhasor,inverter.vPhasor)
       annotation (Line(points={{-40,10},{-64,10}}, color={0,0,127}));
     connect(motor.i_meas, i_meas)       annotation (Line(points={{-36,10},{-36,
             40},{-60,40},{-60,100}}, color={0,0,127}));
