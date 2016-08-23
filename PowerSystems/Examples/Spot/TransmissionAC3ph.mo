@@ -636,12 +636,12 @@ Compare with DoublePIline.</p>
     PowerSystems.AC3ph.Generation.TurboGenerator turbGen(
       p_ini=0.762922,
       redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
-        redeclare replaceable record Data =
-          PowerSystems.AC3ph.Machines.Parameters.Synchron_ee (
-          V_nom=20e3,
-          S_nom=1000e6,
-          If_nom=2000), stIni_en=false) "nth order",
-      iniType=PowerSystems.Basic.Types.IniType.v_alpha,
+            redeclare replaceable record Data =
+              PowerSystems.AC3ph.Machines.Parameters.Synchron_ee (
+              V_nom=20e3,
+              S_nom=1000e6,
+              If_nom=2000), stIni_en=false) "nth order",
+      iniType=PowerSystems.Types.IniType.v_alpha,
       alpha_ini=0.5235987755983)
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(

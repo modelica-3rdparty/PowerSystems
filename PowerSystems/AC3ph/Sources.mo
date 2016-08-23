@@ -27,7 +27,7 @@ package Sources "Voltage and Power Sources"
 with variable amplitude and phase when 'vType' is 'signal'.</p>
 <p>Optional input:
 <pre>
-  omega_in           angular frequency (choose fType == \"sig\")
+  omega_in           angular frequency (choose fType == \"Signal\")
   vPhasor_in         {norm(v), phase(v)}, amplitude(v_abc)=sqrt(2/3)*vPhasor_in[1]
    vPhasor_in[1]     in SI or pu, depending on choice of 'units'
    vPhasor_in[2]     in rad
@@ -90,7 +90,7 @@ where
 </pre></p>
 <p>Optional input:
 <pre>
-  omega_in            angular frequency (if fType == \"sig\")
+  omega_in            angular frequency (if fType == \"Signal\")
   vPhasor_in          {modulation(v), common phase(v)}
    vPhasor_in[1] = 1  delivers the values for constant amplitudes v0
    vPhasor_in[1]      in SI or pu, depending on choice of 'units'
@@ -173,16 +173,21 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     extends Partials.PowerBase;
 
     parameter Boolean stIni_en=true "enable steady-state initial equation";
-    parameter PowerSystems.Basic.Types.IniType     iniType=PowerSystems.Basic.Types.IniType.v_alpha
+    parameter PowerSystems.Types.IniType iniType=PowerSystems.Types.IniType.v_alpha
       "initialisation type";
-    parameter SIpu.Voltage v_ini=1 "initial terminal voltage" annotation(Dialog(enable=iniType==PowerSystems.Basic.Types.IniType.v_alpha or iniType==PowerSystems.Basic.Types.IniType.v_p or iniType==PowerSystems.Basic.Types.IniType.v_q));
-    parameter SI.Angle alpha_ini=0 "initial terminal phase angle"             annotation(Dialog(enable=iniType==PowerSystems.Basic.Types.IniType.v_alpha));
+    parameter SIpu.Voltage v_ini=1 "initial terminal voltage" annotation(Dialog(enable=iniType
+             == PowerSystems.Types.IniType.v_alpha or iniType == PowerSystems.Types.IniType.v_p
+             or iniType == PowerSystems.Types.IniType.v_q));
+    parameter SI.Angle alpha_ini=0 "initial terminal phase angle"             annotation(Dialog(enable=iniType
+             == PowerSystems.Types.IniType.v_alpha));
     parameter SIpu.ApparentPower p_ini=1 "initial terminal active power"
-                                                        annotation(Dialog(enable=iniType==PowerSystems.Basic.Types.IniType.v_p));
+                                                        annotation(Dialog(enable=iniType
+             == PowerSystems.Types.IniType.v_p));
     parameter SIpu.ApparentPower q_ini=1 "initial terminal reactive power"
-      annotation(Dialog(enable=iniType==PowerSystems.Basic.Types.IniType.v_q));
+      annotation(Dialog(enable=iniType == PowerSystems.Types.IniType.v_q));
     parameter SIpu.ApparentPower pq_ini[2]={1,0}
-      "initial terminal {active, reactive} power"           annotation(Dialog(enable=iniType==PowerSystems.Basic.Types.IniType.p_q));
+      "initial terminal {active, reactive} power"           annotation(Dialog(enable=iniType
+             == PowerSystems.Types.IniType.p_q));
     parameter SIpu.Resistance r=0.01 "resistance";
     parameter SIpu.Reactance x=1 "reactance d- and q-axis";
     parameter SIpu.Reactance x_o=0.1 "reactance 0-axis";
@@ -204,16 +209,16 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     function atan2 = Modelica.Math.atan2;
 
   initial equation
-    if iniType==PowerSystems.Basic.Types.IniType.v_alpha then
+    if iniType == PowerSystems.Types.IniType.v_alpha then
       sqrt(v[1:2]*v[1:2]) = v_ini*V_base;
       atan2(v[2], v[1]) = alpha_ini + system.alpha0;
-    elseif iniType==PowerSystems.Basic.Types.IniType.v_p then
+    elseif iniType == PowerSystems.Types.IniType.v_p then
       sqrt(v[1:2]*v[1:2]) = v_ini*V_base;
       v[1:2]*i[1:2] = p_ini*S_base;
-    elseif iniType==PowerSystems.Basic.Types.IniType.v_q then
+    elseif iniType == PowerSystems.Types.IniType.v_q then
       sqrt(v[1:2]*v[1:2]) = v_ini*V_base;
       {v[2],-v[1]}*i[1:2] = q_ini*S_base;
-    elseif iniType==PowerSystems.Basic.Types.IniType.p_q then
+    elseif iniType == PowerSystems.Types.IniType.p_q then
       {v[1:2]*i[1:2], {v[2],-v[1]}*i[1:2]} = pq_ini*S_base;
     end if;
     if steadyIni_t then
@@ -408,17 +413,17 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
     partial model VoltageBase "Voltage base, 3-phase dq0"
       extends SourceBase(final S_nom=1);
 
-      parameter Basic.Types.FrequencyType fType=PowerSystems.Basic.Types.FrequencyType.System
-        "frequency type" annotation(Evaluate=true);
+      parameter Types.SourceFrequency fType=PowerSystems.Types.SourceFrequency.System
+        "frequency type" annotation (Evaluate=true, Dialog(group="Frequency"));
       parameter SI.Frequency f=system.f "frequency if type is parameter"
-        annotation(Dialog(enable=fType==PowerSystems.Basic.Types.FrequencyType.Parameter));
+        annotation(Dialog(group="Frequency", enable=fType == PowerSystems.Types.SourceFrequency.Parameter));
 
       parameter Boolean use_vPhasor_in = false
         "= true to use input signal vPhasor_in, otherwise use fixed values"
        annotation(Evaluate=true, choices(__Dymola_checkBox=true));
 
-      Modelica.Blocks.Interfaces.RealInput omega_in(final unit="rad/s") if
-           fType == PowerSystems.Basic.Types.FrequencyType.Signal
+      Modelica.Blocks.Interfaces.RealInput omega_in(final unit="rad/s") if fType
+         == PowerSystems.Types.SourceFrequency.Signal
         "angular frequency" annotation (Placement(transformation(
             origin={-60,100},
             extent={{-10,-10},{10,10}},
@@ -435,22 +440,22 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
         "Needed to connect to conditional connector";
 
     initial equation
-      if fType == Types.FrequencyType.Signal then
+      if fType == Types.SourceFrequency.Signal then
         theta = 0;
       end if;
 
     equation
       connect(omega_in, omega_internal);
       connect(vPhasor_in, vPhasor_internal);
-      if fType <> Types.FrequencyType.Signal then
+      if fType <> Types.SourceFrequency.Signal then
          omega_internal = 0.0;
       end if;
 
-      if fType == Types.FrequencyType.System then
+      if fType == Types.SourceFrequency.System then
         theta = system.theta;
-      elseif fType == Types.FrequencyType.Parameter then
+      elseif fType == Types.SourceFrequency.Parameter then
         theta = 2*pi*f*(time - system.initime);
-      elseif fType == Types.FrequencyType.Signal then
+      elseif fType == Types.SourceFrequency.Signal then
         der(theta) = omega_internal;
       end if;
       annotation (
@@ -526,7 +531,7 @@ Documentation(info="<html>
   pv:        {active power, abs(voltage)}  (only PVsource)
   p:         {active power, rective power} (only PQsource)
 </pre>
-<p>To use signal inputs, choose parameters vType=signal and/or fType=signal.</p>
+<p>To use signal inputs, choose parameters vType=signal and/or fType=Signal.</p>
 <p>General relations between voltage-norms, effective- and peak-values is shown in the table, both
 relative to each other (pu, norm = 1) and as example (SI, 400 V).</p>
 <table border=1 cellspacing=0 cellpadding=4>

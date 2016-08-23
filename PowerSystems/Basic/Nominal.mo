@@ -54,14 +54,18 @@ partial model NominalAC "Units and nominal values AC"
 end NominalAC;
 
 partial model NominalDC "Units and nominal values DC"
+    import PowerSystems;
   extends Nominal;
 
-  parameter Types.AngularVelocity w_nom = system.w_nom "nominal r.p.m."
-    annotation(Evaluate=true, Dialog(group="Nominal"), choices(
-    choice=3000 "3000 rpm",
-    choice=3600 "3600 rpm",
-    choice=1500 "1500 rpm",
-    choice=1800 "1800 rpm"));
+    parameter PowerSystems.Types.AngularVelocity w_nom=system.w_nom
+      "nominal r.p.m." annotation (
+      Evaluate=true,
+      Dialog(group="Nominal"),
+      choices(
+        choice=3000 "3000 rpm",
+        choice=3600 "3600 rpm",
+        choice=1500 "1500 rpm",
+        choice=1800 "1800 rpm"));
   protected
   outer PowerSystems.System system;
   annotation (
@@ -113,14 +117,18 @@ record NominalDataAC "Units and nominal data AC"
 end NominalDataAC;
 
 record NominalDataDC "Units and nominal data DC"
+    import PowerSystems;
   extends NominalData;
 
-  Types.AngularVelocity w_nom = 314.159265358979323846 "nominal r.p.m."
-    annotation(Evaluate=true, Dialog(group="Nominal"), choices(
-      choice=3000 "3000 rpm",
-      choice=3600 "3600 rpm",
-      choice=1500 "1500 rpm",
-      choice=1800 "1800 rpm"));
+    PowerSystems.Types.AngularVelocity w_nom=314.159265358979323846
+      "nominal r.p.m." annotation (
+      Evaluate=true,
+      Dialog(group="Nominal"),
+      choices(
+        choice=3000 "3000 rpm",
+        choice=3600 "3600 rpm",
+        choice=1500 "1500 rpm",
+        choice=1800 "1800 rpm"));
 
   annotation (defaultComponentPrefixes="parameter");
 end NominalDataDC;

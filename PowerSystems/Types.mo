@@ -1,6 +1,6 @@
-within PowerSystems.Basic;
+within PowerSystems;
 package Types
-    extends Modelica.Icons.Package;
+  extends Modelica.Icons.TypesPackage;
 
   package SIpu "Additional types for power systems"
     extends Modelica.Icons.Package;
@@ -109,18 +109,6 @@ package Types
 "));
   end SInotused;
 
-  type Color = Integer[3] (each min=0, each max=255) "RGB color" annotation (choices(
-        choice={255,0,0} "{255, 000, 000 }  red",
-        choice={255,255,0} "{255, 255, 000}  yellow",
-        choice={0,255,0} "{000, 255, 000}  green",
-        choice={0,255,255} "{000, 255, 255}  cyan",
-        choice={0,0,255} "{000, 000, 255}  blue",
-        choice={255,0,255} "{255, 000, 255}  magenta",
-        choice={0,0,0} "{000, 000, 000}  black",
-        choice={95,95,95} "{095, 095, 095}  dark grey",
-        choice={175,175,175} "{175, 175, 175}  grey",
-        choice={255,255,255} "{255, 255, 255}  white"));
-
 /*
   type Units = enumeration(
       SI "SI",
@@ -148,27 +136,28 @@ package Types
                       "pu" "pu units";
 */
 
-  type FrequencyType = enumeration(
+  type SourceFrequency = enumeration(
       Parameter "Parameter f",
       Signal "Signal omega_in",
       System "System defined") "Options for specification of frequency"
       annotation(Documentation(info="<html>
 <p><pre>
-  Parameter: Parameter frequency
-  Signal:    Signal input omega_in
-  System:    System defined frequency
+  Parameter: parameter f
+  Signal:    signal input omega_in
+  System:    system defined frequency
 </pre></p>
 </html>"));
 
-  type SystemFrequencyType = enumeration(
+  type SystemFrequency = enumeration(
       Parameter "Parameter f",
       Signal "Signal omega_in",
-      Average "Average") "Options for specification of frequency in system object"
+      Average "Average generators")
+    "Options for specification of frequency in system object"
       annotation(Documentation(info="<html>
 <p><pre>
-  Parameter: Parameter frequency
-  Signal:    Signal input omega_in
-  Average:   Average frequency over involved generators
+  Parameter: parameter f
+  Signal:    signal input omega_in
+  Average:   average frequency over involved generators
 </pre></p>
 </html>"));
 
@@ -349,6 +338,18 @@ In the case of three phase AC models we have:</p>
 </html>"));
     end ReferenceAngle;
 
+  type Color = Integer[3] (each min=0, each max=255) "RGB color" annotation (choices(
+        choice={255,0,0} "{255, 000, 000 }  red",
+        choice={255,255,0} "{255, 255, 000}  yellow",
+        choice={0,255,0} "{000, 255, 000}  green",
+        choice={0,255,255} "{000, 255, 255}  cyan",
+        choice={0,0,255} "{000, 000, 255}  blue",
+        choice={255,0,255} "{255, 000, 255}  magenta",
+        choice={0,0,0} "{000, 000, 000}  black",
+        choice={95,95,95} "{095, 095, 095}  dark grey",
+        choice={175,175,175} "{175, 175, 175}  grey",
+        choice={255,255,255} "{255, 255, 255}  white"));
+
     type AngularVelocity = SI.AngularVelocity(displayUnit="rpm");
     type Charge_Ah = Real (final quantity="ElectricCharge", final unit="A.h");
     type Length = SI.Length(displayUnit="km");
@@ -357,4 +358,3 @@ In the case of three phase AC models we have:</p>
     type TorsionStiffness = Real (final quantity="TorsionStiffness", final unit="N.m/rad", final min=0);
 
 end Types;
-

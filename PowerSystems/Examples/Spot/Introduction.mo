@@ -111,9 +111,8 @@ and other meter-signals.</p>
     PowerSystems.AC1ph_DC.Nodes.GroundOne grdV1
                                  annotation (Placement(transformation(extent={{
               -50,20},{-70,40}})));
-    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage2(
-      v0eff=230,
-      fType=PowerSystems.Basic.Types.FrequencyType.Signal)
+    PowerSystems.AC1ph_DC.Sources.ACvoltage voltage2(v0eff=230, fType=
+          PowerSystems.Types.SourceFrequency.Signal)
       annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grdV2
                                  annotation (Placement(transformation(extent={{
@@ -150,7 +149,7 @@ and other meter-signals.</p>
     Documentation(
             info="<html>
 <p>Example of two frequency-independent parts, one with system- and one with autonomous frequency.</p>
-<p>The input 'omega_inp' of voltage2 is connected to a signal source and the parameter <tt>fType</tt> is set to <tt>\"sig\"</tt>. The source delivers an angular frequency <tt>omega</tt> which is independent of the actual system frequency.</p>
+<p>The input 'omega_in' of voltage2 is connected to a signal source and the parameter <tt>f_source</tt> is set to <tt>\"Signal\"</tt>. The source delivers an angular frequency <tt>omega</tt> which is independent of the actual system frequency.</p>
 <p>Note: the 'Mode'-parameters 'ini' and 'sim' in 'system' are ignored by one-phase and DC components.</p>
 <p>
 <i>See for example:</i>

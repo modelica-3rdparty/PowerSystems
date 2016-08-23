@@ -580,16 +580,20 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
 
       parameter SI.AngularVelocity w_ini=2*pi*generator.par.f_nom/generator.par.pp
         "initial angular velocity (start-value if ini='st')";
-      parameter Types.IniType     iniType=PowerSystems.Basic.Types.IniType.v_alpha
+      parameter Types.IniType     iniType=PowerSystems.Types.IniType.v_alpha
         "initialisation type (if system.ini='st')";
       parameter SIpu.Voltage v_ini(unit="1")=1 "initial terminal voltage"
-        annotation(Dialog(enable=system.steadyIni and (iniType==PowerSystems.Basic.Types.IniType.v_alpha or iniType==PowerSystems.Basic.Types.IniType.v_p or iniType==PowerSystems.Basic.Types.IniType.v_q)));
+        annotation(Dialog(enable=system.steadyIni and (iniType == PowerSystems.Types.IniType.v_alpha
+               or iniType == PowerSystems.Types.IniType.v_p or iniType ==
+              PowerSystems.Types.IniType.v_q)));
       parameter SI.Angle alpha_ini=system.alpha0 "initial voltage phase angle"
-        annotation(Dialog(enable=system.steadyIni and iniType==PowerSystems.Basic.Types.IniType.v_alpha));
+        annotation(Dialog(enable=system.steadyIni and iniType == PowerSystems.Types.IniType.v_alpha));
       parameter SIpu.Power p_ini(unit="1")=1 "initial terminal active power"
-        annotation(Dialog(enable=system.steadyIni and (iniType==PowerSystems.Basic.Types.IniType.v_p or iniType==PowerSystems.Basic.Types.IniType.p_q)));
+        annotation(Dialog(enable=system.steadyIni and (iniType == PowerSystems.Types.IniType.v_p
+               or iniType == PowerSystems.Types.IniType.p_q)));
       parameter SIpu.Power q_ini(unit="1")=1 "initial terminal reactive power"
-        annotation(Dialog(enable=system.steadyIni and (iniType==PowerSystems.Basic.Types.IniType.v_q or iniType==PowerSystems.Basic.Types.IniType.p_q)));
+        annotation(Dialog(enable=system.steadyIni and (iniType == PowerSystems.Types.IniType.v_q
+               or iniType == PowerSystems.Types.IniType.p_q)));
       parameter Boolean dispPA=false "display power angle"
         annotation(Evaluate=true);
       AC3ph.Ports.ACdq0_n term "negative terminal"
@@ -644,22 +648,22 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
       function atan2 = Modelica.Math.atan2;
 
     initial equation
-      if iniType ==PowerSystems.Basic.Types.IniType.v_alpha then
+      if iniType == PowerSystems.Types.IniType.v_alpha then
         sqrt(term.v[1:2]*term.v[1:2]) = v_ini*generator.par.V_nom;
         atan2(term.v[2], term.v[1]) = alpha_ini;
-      elseif iniType ==PowerSystems.Basic.Types.IniType.v_p then
+      elseif iniType == PowerSystems.Types.IniType.v_p then
         sqrt(term.v[1:2]*term.v[1:2]) = v_ini*generator.par.V_nom;
         -term.v[1:2]*term.i[1:2] = p_ini*generator.par.S_nom;
-      elseif iniType ==PowerSystems.Basic.Types.IniType.v_q then
+      elseif iniType == PowerSystems.Types.IniType.v_q then
         sqrt(term.v[1:2]*term.v[1:2]) = v_ini*generator.par.V_nom;
         -{term.v[2],-term.v[1]}*term.i[1:2] = q_ini*generator.par.S_nom;
-      elseif iniType ==PowerSystems.Basic.Types.IniType.p_q then
+      elseif iniType == PowerSystems.Types.IniType.p_q then
         -term.v[1:2]*term.i[1:2] = p_ini*generator.par.S_nom;
         -{term.v[2],-term.v[1]}*term.i[1:2] = q_ini*generator.par.S_nom;
       end if;
 
     equation
-      if iniType ==PowerSystems.Basic.Types.IniType.v_alpha then
+      if iniType == PowerSystems.Types.IniType.v_alpha then
         Connections.potentialRoot(term.theta);
       end if;
       if Connections.isRoot(term.theta) then

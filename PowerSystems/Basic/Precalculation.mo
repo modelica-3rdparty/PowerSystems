@@ -527,8 +527,8 @@ with real time constants <tt>T</tt>. It calculates the <tt>n</tt> coefficients o
     input Real[:] a "coefficients of polynome";
     output SI.Angle[size(a,1)] T "time constant";
     output Boolean Tisreal "true if all time constants real";
-  protected
     import Modelica.Constants.eps;
+  protected
     parameter Integer n=size(a,1);
     Real[n, n] A;
     Real[n,2] lam "2nd index=1:2, real and imaginary part";
@@ -952,8 +952,8 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     output SI.Angle[n] Tc "time constant closed-loop";
     output SI.Angle[n] To "time constant open-loop";
     output SIpu.Reactance[n] xtr(each unit="1") "transient reactance";
-  protected
     import Modelica.Constants.eps;
+  protected
     Real[n+1] xm;
     Real[n+1,n+1] X;
     Real[n,n] X11;

@@ -5,10 +5,10 @@ package Inverters "Rectifiers and Inverters"
 block Select "Select frequency and voltage-phasor type"
   extends PowerSystems.Basic.Icons.Block;
 
-  parameter Basic.Types.FrequencyType fType=PowerSystems.Basic.Types.FrequencyType.System
-    "frequency type" annotation(Evaluate=true);
+    parameter Types.SourceFrequency fType=PowerSystems.Types.SourceFrequency.System
+      "frequency type" annotation (Evaluate=true, Dialog(group="Frequency"));
   parameter SI.Frequency f=system.f "frequency if type is parameter"
-    annotation(Dialog(enable=fType==PowerSystems.Basic.Types.FrequencyType.Parameter));
+    annotation(Dialog(group="Frequency", enable=fType == PowerSystems.Types.SourceFrequency.Parameter));
 
   parameter Boolean use_vPhasor_in = false
       "= true to enable signal input vPhasor_in"
@@ -25,8 +25,8 @@ block Select "Select frequency and voltage-phasor type"
         origin={60,100},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-  Modelica.Blocks.Interfaces.RealInput omega_in(final unit="rad/s") if
-    fType==PowerSystems.Basic.Types.FrequencyType.Signal "angular frequency"
+  Modelica.Blocks.Interfaces.RealInput omega_in(final unit="rad/s") if fType
+       == PowerSystems.Types.SourceFrequency.Signal        "angular frequency"
     annotation (Placement(transformation(
         origin={-60,100},
         extent={{-10,-10},{10,10}},
@@ -54,25 +54,25 @@ block Select "Select frequency and voltage-phasor type"
       "Needed to connect to conditional connector";
 
 initial equation
-  if fType == Types.FrequencyType.Signal then
+  if fType == Types.SourceFrequency.Signal then
     theta = 0;
   end if;
 
 equation
   connect(omega_in, omega_internal);
   connect(vPhasor_in, vPhasor_internal);
-  if fType <> Types.FrequencyType.Signal then
+  if fType <> Types.SourceFrequency.Signal then
      omega_internal = 0.0;
   end if;
   if not use_vPhasor_in then
      vPhasor_internal = {v0, alpha0};
   end if;
 
-  if fType == Types.FrequencyType.System then
+  if fType == Types.SourceFrequency.System then
     theta = system.theta;
-  elseif fType == Types.FrequencyType.Parameter then
+  elseif fType == Types.SourceFrequency.Parameter then
     theta = 2*pi*f*(time - system.initime);
-  elseif fType == Types.FrequencyType.Signal then
+  elseif fType == Types.SourceFrequency.Signal then
     der(theta) = omega_internal;
   end if;
   theta_out = theta;

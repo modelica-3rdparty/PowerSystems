@@ -498,8 +498,8 @@ In problematic cases use power sensors electrical and mechanical.</p>
   model Phasor "Visualiser of voltage and current phasor, 3-phase dq0"
     extends Partials.PhasorBase;
 
-    Basic.Types.Color color_p;
-    Basic.Types.Color color_n;
+    Types.Color color_p;
+    Types.Color color_n;
     extends Basic.Visualise.LeftBar(colorL={0,127,127}, xL=x_norm*abs(p[1])/V_base/I_base);
     extends Basic.Visualise.RightBar(colorR={127,0,127}, xR=x_norm*abs(p[2])/V_base/I_base);
     extends Basic.Visualise.DoubleNeedle(

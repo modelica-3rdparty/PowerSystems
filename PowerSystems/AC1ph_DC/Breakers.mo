@@ -58,7 +58,7 @@ with
             pattern=LinePattern.Dot), Text(
             extent={{-80,-20},{80,-60}},
             lineColor={0,0,255},
-            textString=                  "exp")}),
+            textString =                 "exp")}),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},
@@ -183,7 +183,7 @@ with
           Text(
             extent={{-80,-40},{80,-80}},
             lineColor={0,0,255},
-            textString=                  "exp"),
+            textString =                 "exp"),
           Line(points={{40,-40},{80,-40}}, color={0,0,255}),
           Line(
             points={{0,90},{0,20}},
@@ -383,7 +383,7 @@ with
             pattern=LinePattern.Dot), Text(
             extent={{-80,-20},{80,-60}},
             lineColor={0,0,255},
-            textString=                  "exp")}),
+            textString =                 "exp")}),
       Diagram(coordinateSystem(
           preserveAspectRatio=false,
           extent={{-100,-100},{100,100}},

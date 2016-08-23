@@ -841,27 +841,28 @@ end TurboGroupGenerator;
 
 model TieLine "Generators and power-oscillations"
 
-  inner PowerSystems.System system(f_nom=60,
+    inner PowerSystems.System system(
+      f_nom=60,
       f_lim={55,65},
-      fType=PowerSystems.Basic.Types.SystemFrequencyType.Average)
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  PowerSystems.AC3ph.Generation.TurboGenerator turboGen1(
-    dispPA=true,
-    alpha_ini=0.316177 + system.alpha0,
-    v_ini=1.05,
-    H=20,
-    redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
-      redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
+      fType=PowerSystems.Types.SystemFrequency.Average)
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    PowerSystems.AC3ph.Generation.TurboGenerator turboGen1(
+      dispPA=true,
+      alpha_ini=0.316177 + system.alpha0,
+      v_ini=1.05,
+      H=20,
+      redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
+            redeclare record Data =
+              PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
         "nth order",
-    redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
+      redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
         "1st order",
-    redeclare model Governor = PowerSystems.Control.Governors.Governor1st
+      redeclare model Governor = PowerSystems.Control.Governors.Governor1st
         "1st order",
       p_ini=0.9,
       q_ini=0.24022361,
-      iniType=PowerSystems.Basic.Types.IniType.p_q)
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+      iniType=PowerSystems.Types.IniType.p_q)
+      annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   PowerSystems.AC3ph.Nodes.BusBar bus1           annotation (Placement(
           transformation(extent={{-80,-20},{-60,0}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor1(term_p(v(start={20e3,0,0})))
@@ -874,23 +875,23 @@ model TieLine "Generators and power-oscillations"
     x=0.3e-3), len=200e3,
     stIni_en=false)
             annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
-  PowerSystems.AC3ph.Generation.TurboGenerator turboGen2(
-    dispPA=true,
-    alpha_ini=0.0144536 + system.alpha0,
-    v_ini=1.04,
-    H=20,
-    redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
+    PowerSystems.AC3ph.Generation.TurboGenerator turboGen2(
+      dispPA=true,
+      alpha_ini=0.0144536 + system.alpha0,
+      v_ini=1.04,
+      H=20,
+      redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
         "1st order",
-    redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
-      redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
+      redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
+            redeclare record Data =
+              PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
         "nth order",
-    redeclare model Governor = PowerSystems.Control.Governors.Governor1st
+      redeclare model Governor = PowerSystems.Control.Governors.Governor1st
         "1st order",
       p_ini=0.9,
       q_ini=0.5092972,
-      iniType=PowerSystems.Basic.Types.IniType.p_q)
-    annotation (Placement(transformation(extent={{100,-20},{80,0}})));
+      iniType=PowerSystems.Types.IniType.p_q)
+      annotation (Placement(transformation(extent={{100,-20},{80,0}})));
   PowerSystems.AC3ph.Nodes.BusBar bus2           annotation (Placement(
           transformation(extent={{60,-20},{80,0}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor2(term_p(v(start={20e3,0,0})))

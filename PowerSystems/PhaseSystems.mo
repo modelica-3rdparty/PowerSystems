@@ -17,7 +17,7 @@ package PhaseSystems "Phase systems used in power connectors"
       nominal = v_nominal, displayUnit = "kV") "voltage for connector";
     type Current = Real(unit = "A", quantity = "Current." + phaseSystemName,
       nominal = i_nominal) "current for connector";
-    type ReferenceAngle = Basic.Types.ReferenceAngle "Reference angle for connector";
+    type ReferenceAngle = Types.ReferenceAngle       "Reference angle for connector";
 
     replaceable partial function j "Return vector rotated by 90 degrees"
       extends Modelica.Icons.Function;

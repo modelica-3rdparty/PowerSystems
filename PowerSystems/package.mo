@@ -4,8 +4,8 @@ package PowerSystems "Library for electrical power systems"
 
   import Modelica.Constants.pi;
   import SI = Modelica.SIunits;
-  import PowerSystems.Basic.Types.SIpu "Per-Unit types for user interface";
-  import PowerSystems.Basic.Types;
+  import PowerSystems.Types.SIpu       "Per-Unit types for user interface";
+  import PowerSystems.Types;
 
 
   package UsersGuide "User's Guide"

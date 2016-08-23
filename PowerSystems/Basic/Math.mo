@@ -33,7 +33,6 @@ for arbitrary (time-dependent) input argument alpha.</p>
       input Real[2] x "2-dimensional vector";
       input Real[2] x_dot "time-derivative of x";
       output Real omega "angular velocity of x";
-  protected
       import Modelica.Constants.eps;
 
     algorithm
@@ -401,7 +400,7 @@ Should be modified (domains with boundaries).</p>
       input Real[:] x "x unsorted";
       output Real[size(x,1)] y "x sorted increasing";
       output Integer[size(x,1)] i "indizes of sorted x";
-    protected
+  protected
       Integer n = size(x,1);
       Integer itemp;
       Real ytemp;
@@ -431,7 +430,7 @@ Should be modified (domains with boundaries).</p>
       input Real[:] x "x unsorted";
       output Real[size(x,1)] y "x sorted decreasing";
       output Integer[size(x,1)] i "indizes of sorted x";
-    protected
+  protected
       Integer n = size(x,1);
       Integer itemp;
       Real ytemp;

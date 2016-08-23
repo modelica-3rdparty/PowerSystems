@@ -28,7 +28,7 @@ package Sources "DC voltage sources"
 with variable amplitude and phase when 'vType' is 'signal'.</p>
 <p>Optional input:
 <pre>
-  omega_in           angular frequency  (choose fType == \"sig\")
+  omega_in           angular frequency  (choose fType == \"Signal\")
   vPhasor_in         {eff(v), phase(v)}
    vPhasor_in[1]     in SI or pu, depending on choice of 'units'
    vPhasor_in[2]     in rad
@@ -73,7 +73,7 @@ where
 </pre></p>
 <p>Optional input:
 <pre>
-  omega_in            angular frequency (if fType == \"sig\")
+  omega_in            angular frequency (if fType == \"Signal\")
   vPhasor_in          {modulation(v), common phase(v)}
    vPhasor_in[1] = 1  delivers the values for constant amplitudes v0
    vPhasor_in[1]      in SI or pu, depending on choice of 'units'
@@ -220,12 +220,12 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
     end VoltageBase;
 
     partial model ACvoltageBase "AC voltage base"
-
-      parameter Basic.Types.FrequencyType fType=PowerSystems.Basic.Types.FrequencyType.System
-        "frequency type" annotation(Evaluate=true);
-      parameter SI.Frequency f=system.f "frequency if type is parameter"
-        annotation(Dialog(enable=fType==PowerSystems.Basic.Types.FrequencyType.Parameter));
       extends VoltageBase;
+
+      parameter Types.SourceFrequency fType=PowerSystems.Types.SourceFrequency.System
+        "frequency type" annotation (Evaluate=true, Dialog(group="Frequency"));
+      parameter SI.Frequency f=system.f "frequency if type is parameter"
+        annotation(Dialog(group="Frequency", enable=fType == PowerSystems.Types.SourceFrequency.Parameter));
 
       parameter Boolean use_vPhasor_in = false
         "= true to use input signal vPhasor_in, otherwise use fixed values"
@@ -235,8 +235,8 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
             origin={60,100},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-      Modelica.Blocks.Interfaces.RealInput omega_in(final unit="rad/s") if
-           fType == PowerSystems.Basic.Types.FrequencyType.Signal
+      Modelica.Blocks.Interfaces.RealInput omega_in(final unit="rad/s") if fType
+         == PowerSystems.Types.SourceFrequency.Signal
         "Angular frequency of source" annotation (Placement(transformation(
             origin={-60,100},
             extent={{-10,-10},{10,10}},
@@ -252,22 +252,22 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
       SI.Angle theta(stateSelect=StateSelect.prefer);
 
     initial equation
-      if fType == Types.FrequencyType.Signal then
+      if fType == Types.SourceFrequency.Signal then
         theta = 0;
       end if;
 
     equation
       connect(omega_in, omega_internal);
       connect(vPhasor_in, vPhasor_internal);
-      if fType <> Types.FrequencyType.Signal then
+      if fType <> Types.SourceFrequency.Signal then
          omega_internal = 0.0;
       end if;
 
-      if fType == Types.FrequencyType.System then
+      if fType == Types.SourceFrequency.System then
         theta = system.theta;
-      elseif fType == Types.FrequencyType.Parameter then
+      elseif fType == Types.SourceFrequency.Parameter then
         theta = 2*pi*f*(time - system.initime);
-      elseif fType == Types.FrequencyType.Signal then
+      elseif fType == Types.SourceFrequency.Signal then
         der(theta) = omega_internal;
       end if;
       annotation (
@@ -339,6 +339,6 @@ Documentation(info="<html>
 </pre>
 <p>DC sources have the optional input:</p>
 <pre>  vDC_in:       DC voltage</pre>
-<p>To use signal inputs, choose parameters vType=signal and/or fType=signal.</p>
+<p>To use signal inputs, choose parameters use_vPhasor_in=signal and/or fType=Signal.</p>
 </html>"));
 end Sources;

@@ -4,7 +4,7 @@ package Visualise "Elementary visualisers"
 
     model LeftBar "Display a bar on the left side of the icon"
 
-      input PowerSystems.Basic.Types.Color colorL = {0,0,0};
+    input PowerSystems.Types.Color colorL={0,0,0};
       input Real xL;
       annotation (Icon(coordinateSystem(
             preserveAspectRatio=false,
@@ -22,7 +22,7 @@ package Visualise "Elementary visualisers"
 
     model RightBar "Display a bar on the right side of the icon"
 
-      input PowerSystems.Basic.Types.Color colorR = {0,0,0};
+    input PowerSystems.Types.Color colorR={0,0,0};
       input Real xR;
       annotation (Icon(coordinateSystem(
             preserveAspectRatio=false,
@@ -40,7 +40,7 @@ package Visualise "Elementary visualisers"
 
     model Needle "Centered needle"
 
-      input PowerSystems.Basic.Types.Color color = {0,0,0};
+    input PowerSystems.Types.Color color={0,0,0};
       input Real x;
       input Real y;
       annotation (
@@ -55,8 +55,8 @@ package Visualise "Elementary visualisers"
 
     model DoubleNeedle "Centered double needle"
 
-      input PowerSystems.Basic.Types.Color color1 = {255,0,0};
-      input PowerSystems.Basic.Types.Color color2 = {0,0,255};
+    input PowerSystems.Types.Color color1={255,0,0};
+    input PowerSystems.Types.Color color2={0,0,255};
       input Real x1;
       input Real y1;
       input Real x2;

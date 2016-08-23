@@ -1,18 +1,18 @@
 within PowerSystems;
 model System "System reference"
-  parameter Basic.Types.SystemFrequencyType fType=PowerSystems.Basic.Types.SystemFrequencyType.Parameter
-    "frequency type"
-    annotation(Evaluate=true, Dialog(group="System"));
+  parameter Types.SystemFrequency fType=PowerSystems.Types.SystemFrequency.Parameter
+    "system frequency type"
+    annotation (Evaluate=true, Dialog(group="Frequency"));
   parameter SI.Frequency f = f_nom
     "frequency if type is parameter, else initial frequency"
-    annotation(Evaluate=true, Dialog(group="System",
-      enable=fType==PowerSystems.Basic.Types.SystemFrequencyType.Parameter));
+    annotation(Evaluate=true, Dialog(group="Frequency",
+      enable=fType == PowerSystems.Types.SystemFrequency.Parameter));
   parameter SI.Frequency f_nom = 50 "nominal frequency"
-   annotation(Evaluate=true, Dialog(group="System"), choices(choice=50 "50 Hz", choice=60 "60 Hz"));
+   annotation(Evaluate=true, Dialog(group="Nominal"), choices(choice=50 "50 Hz", choice=60 "60 Hz"));
   parameter SI.Frequency f_lim[2]={0.5*f_nom, 2*f_nom}
     "limit frequencies (for supervision of average frequency)"
-   annotation(Evaluate=true, Dialog(group="System",
-     enable=fType<>PowerSystems.Basic.Types.SystemFrequencyType.Parameter));
+   annotation(Evaluate=true, Dialog(group="Frequency",
+     enable=fType <> PowerSystems.Types.SystemFrequency.Parameter));
   parameter SI.Angle alpha0 = 0 "phase angle"
    annotation(Evaluate=true, Dialog(group="System"));
   parameter String ref = "synchron" "reference frame (3-phase)"
@@ -42,10 +42,9 @@ model System "System reference"
     annotation(Evaluate=true);
   discrete SI.Time initime;
   SI.Angle theta(final start=0,
-    stateSelect=if fType==Types.SystemFrequencyType.Parameter then StateSelect.default else StateSelect.always);
+    stateSelect=if fType==Types.SystemFrequency.Parameter then StateSelect.default else StateSelect.always);
   SI.AngularFrequency omega(final start=2*pi*f);
-  Modelica.Blocks.Interfaces.RealInput omega_in(min=0) if
-       fType == PowerSystems.Basic.Types.SystemFrequencyType.Signal
+  Modelica.Blocks.Interfaces.RealInput omega_in(min=0) if fType == PowerSystems.Types.SystemFrequency.Signal
     "system angular frequency (optional if fType==Signal)"
     annotation (extent=[-110,-10; -90,10]);
 
@@ -55,7 +54,7 @@ model System "System reference"
 protected
   Modelica.Blocks.Interfaces.RealInput omega_internal;
 initial equation
-  if fType <> Types.SystemFrequencyType.Parameter then
+  if fType <> Types.SystemFrequency.Parameter then
     theta = omega*time;
   end if;
 
@@ -65,10 +64,10 @@ equation
   when initial() then
     initime = time;
   end when;
-  if fType == Types.SystemFrequencyType.Parameter then
+  if fType == Types.SystemFrequency.Parameter then
     omega = 2*pi*f;
     theta = omega*time;
-  elseif fType == Types.SystemFrequencyType.Signal then
+  elseif fType == Types.SystemFrequency.Signal then
     //omega defined by omega_in
     theta = omega*time;
   else
@@ -108,11 +107,11 @@ equation
         Text(
           extent={{-100,50},{100,20}},
           lineColor={0,0,0},
-          textString="f_nom=%f_nom"),
+          textString="f:%fType"),
         Text(
           extent={{-100,-20},{100,10}},
           lineColor={0,0,0},
-          textString="f:%fType"),
+          textString="f_nom=%f_nom"),
         Text(
           extent={{-100,-30},{100,-60}},
           lineColor={0,120,120},

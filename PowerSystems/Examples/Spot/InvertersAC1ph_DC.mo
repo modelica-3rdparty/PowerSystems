@@ -91,7 +91,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
         "equation, with losses")
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Inverters.Select select(
-      fType=PowerSystems.Basic.Types.FrequencyType.Parameter,
+      fType=PowerSystems.Types.SourceFrequency.Parameter,
       f=100,
       use_vPhasor_in=true)
       annotation (Placement(transformation(extent={{-20,20},{0,40}})));
