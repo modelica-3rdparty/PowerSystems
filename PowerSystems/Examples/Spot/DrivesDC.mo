@@ -198,7 +198,7 @@ package DrivesDC "DC drives"
 
     inner PowerSystems.System system(f_nom=60,
       refType=PowerSystems.Types.ReferenceFrame.Inertial,
-      ini="tr")
+      dynType=PowerSystems.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-80,-20},{-100,0}})));
@@ -273,7 +273,7 @@ package DrivesDC "DC drives"
 
   model DCcharSpeed "DC pm: torque - speed characteristic"
 
-    inner PowerSystems.System system(f_nom=60, sim="st")
+    inner PowerSystems.System system(f_nom=60, dynType=PowerSystems.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-80,-20},{-100,0}})));
@@ -329,7 +329,7 @@ package DrivesDC "DC drives"
 
   model BLDCcharSpeed "BLDC: torque - speed characteristic"
 
-    inner PowerSystems.System system(f_nom=60, sim="st")
+    inner PowerSystems.System system(f_nom=60, dynType=PowerSystems.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-80,-20},{-100,0}})));

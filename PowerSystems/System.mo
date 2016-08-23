@@ -17,15 +17,11 @@ model System "System reference"
    annotation(Evaluate=true, Dialog(group="System"));
   parameter Types.ReferenceFrame refType = PowerSystems.Types.ReferenceFrame.Synchron
     "reference frame (3-phase)"
-    annotation(Evaluate=true, Dialog(group="System", enable=sim=="tr"));
-  parameter String ini = "st" "transient or steady-state initialisation"
-   annotation(Evaluate=true, Dialog(group="Mode", enable=sim=="tr"), choices(
-     choice="tr" "transient",
-     choice="st" "steady"));
-  parameter String sim = "tr" "transient or steady-state simulation"
-   annotation(Evaluate=true, Dialog(group="Mode"), choices(
-     choice="tr" "transient",
-     choice="st" "steady"));
+    annotation(Evaluate=true, Dialog(group="System", enable=dynType<>PowerSystems.Types.Dynamics.SteadyState));
+  parameter Types.Dynamics dynType = PowerSystems.Types.Dynamics.SteadyInitial
+    "transient or steady-state model"
+    annotation(Evaluate=true, Dialog(group="Mode"));
+
   final parameter SI.AngularFrequency omega_nom = 2*pi*f_nom
     "nominal angular frequency" annotation(Evaluate=true);
   final parameter Types.AngularVelocity w_nom = 2*pi*f_nom "nom r.p.m."
@@ -33,9 +29,9 @@ model System "System reference"
   final parameter Boolean synRef=if transientSim then refType==PowerSystems.Types.ReferenceFrame.Synchron else true
     annotation(Evaluate=true);
 
-  final parameter Boolean steadyIni = ini=="st"
+  final parameter Boolean steadyIni = dynType<>PowerSystems.Types.Dynamics.FixedInitial
     "steady state initialisation of electric equations" annotation(Evaluate=true);
-  final parameter Boolean transientSim = sim=="tr"
+  final parameter Boolean transientSim = dynType<>PowerSystems.Types.Dynamics.SteadyState
     "transient mode of electric equations" annotation(Evaluate=true);
   final parameter Boolean steadyIni_t = steadyIni and transientSim
     annotation(Evaluate=true);
@@ -118,7 +114,7 @@ equation
         Text(
           extent={{-100,-70},{100,-100}},
           lineColor={176,0,0},
-          textString =                         "ini:%ini  sim:%sim")}),
+          textString="%dynType")}),
   Documentation(info="<html>
 <p>The model <b>System</b> represents a global reference for the following purposes:</p>
 <p>It allows the choice of </p>

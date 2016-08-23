@@ -4,9 +4,9 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
 
   model Rectifier "Rectifier"
 
-    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
-                        annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}})));
+    inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
+      refType=PowerSystems.Types.ReferenceFrame.Inertial)
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
       t_change=0.1,
       t_duration=0.1,
@@ -75,9 +75,9 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
 
   model InverterToLoad "Inverter to load"
 
-    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
-                        annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}})));
+    inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
+      refType=PowerSystems.Types.ReferenceFrame.Inertial)
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(V_nom=100)
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1,
@@ -147,9 +147,9 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
 
   model InverterToGrid "Inverter to grid"
 
-    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
-                        annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}})));
+    inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
+      refType=PowerSystems.Types.ReferenceFrame.Inertial)
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0,
       V_nom=100,
       v0=2)
@@ -223,9 +223,9 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
 
   model InverterAvToGrid "Inverter to grid"
 
-    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
-                        annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}})));
+    inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
+      refType=PowerSystems.Types.ReferenceFrame.Inertial)
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0,
       V_nom=100,
       v0=2)
@@ -294,9 +294,9 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
 
   model Chopper "Chopper"
 
-    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
-                        annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}})));
+    inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
+      refType=PowerSystems.Types.ReferenceFrame.Inertial)
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(V_nom=100)
           annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDCin(av=true, tcst=0.1,

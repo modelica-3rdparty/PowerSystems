@@ -5,11 +5,10 @@ package DrivesAC3ph "AC drives, dq0"
   model ASMcharacteristic
     "AC asynchronous machine: torque - slip characteristic"
 
-    inner PowerSystems.System system(sim="st")
+    inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd
-                                 annotation (Placement(transformation(extent={{
-              -60,-20},{-80,0}})));
+      annotation (Placement(transformation(extent={{-60,-20},{-80,0}})));
     PowerSystems.AC3ph.Sources.Voltage voltage(V_nom=400)
                                      annotation (Placement(transformation(
             extent={{-60,-20},{-40,0}})));

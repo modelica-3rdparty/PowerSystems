@@ -4,9 +4,9 @@ package InvertersAC3ph "Inverters dq0"
 
   model Rectifier "Rectifier"
 
-    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
-                        annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}})));
+    inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
+      refType=PowerSystems.Types.ReferenceFrame.Inertial)
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
       t_change=0.1,
       t_duration=0.1,
@@ -81,8 +81,7 @@ package InvertersAC3ph "Inverters dq0"
   model InverterToLoad "Inverter to load"
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
-                        annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}})));
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd
                               annotation (Placement(transformation(extent={{-80,
               -20},{-100,0}})));
@@ -158,8 +157,7 @@ package InvertersAC3ph "Inverters dq0"
   model InverterToGrid "Inverter to grid"
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Synchron)
-                        annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}})));
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0,
       V_nom=100,
       v0=2)
@@ -238,9 +236,8 @@ package InvertersAC3ph "Inverters dq0"
 
   model InverterAvToGrid "Inverter to grid"
 
-    inner PowerSystems.System system(ini="tr")
-                        annotation (Placement(transformation(extent={{-100,80},
-              {-80,100}})));
+    inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial)
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0,
       V_nom=100,
       v0=2)

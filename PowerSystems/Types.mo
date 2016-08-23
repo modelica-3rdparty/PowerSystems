@@ -220,6 +220,18 @@ package Types
 </pre></p>
 </html>"));
 
+  type Dynamics = enumeration(
+      FixedInitial "Fixed initial conditions",
+      SteadyInitial "Steady-state initial conditions",
+      SteadyState "Steady-state (quasi-stationary)") "Options for specification of simulation"
+      annotation(Documentation(info="<html>
+<p><pre>
+  FixedInitial:    Transient simulation with fixed initial conditions
+  SteadyInitial:   Transient simulation with steady-state initial conditions
+  SteadyState:     Quasi-stationary simulation using steady-state model
+</pre></p>
+</html>"));
+
   type IniType = enumeration(
       v_alpha "v, alpha: voltage and phase angle, 'slack' (steady ini)",
       v_p "v, p: voltage and active power (steady ini)",
