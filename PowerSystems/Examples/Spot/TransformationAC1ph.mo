@@ -4,7 +4,7 @@ package TransformationAC1ph "Transformation 1 phase"
 
   model OnePhase "One phase transformer"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(pol=-1)
       annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
@@ -60,7 +60,7 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
 
   model TapChanger "One phase tap changing primary and secondary"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
     PowerSystems.Control.Relays.TapChangerRelay tapRelay2(
       preset_1={0,0},

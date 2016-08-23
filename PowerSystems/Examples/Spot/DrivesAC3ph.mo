@@ -125,7 +125,7 @@ Compare 'transient' and 'steady-state' mode.</p>
   model ASMav
     "AC asynchronous machine, voltage controlled with average inverter"
 
-    inner PowerSystems.System system(ref="synchron")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Synchron)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-80,-20},{-100,0}})));
@@ -208,7 +208,7 @@ Compare 'transient' and 'steady-state' mode.</p>
   model ASMav_icontrol
     "AC asynchronous machine, current controlled with average inverter"
 
-    inner PowerSystems.System system(ref="synchron")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Synchron)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-40,-40},{-60,-20}})));
@@ -296,7 +296,7 @@ Compare 'transient' and 'steady-state' mode.</p>
 
   model ASM "AC asynchronous machine, voltage controlled"
 
-    inner PowerSystems.System system(          ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-80,-20},{-100,0}})));
@@ -647,7 +647,7 @@ Check vPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
 
   model ASM_ctrl "AC asynchronous machine, current controlled"
 
-    inner PowerSystems.System system(          ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-40,-40},{-60,-20}})));

@@ -4,7 +4,7 @@ package DrivesDC "DC drives"
 
   model DCmotor_ser "DC motor series excited"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.Blocks.Signals.Transient ramp(
       t_change=0,
@@ -68,7 +68,7 @@ package DrivesDC "DC drives"
 
   model DCmotor_par "DC motor parallel excited"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-60,-20},{-80,0}})));
@@ -132,7 +132,7 @@ package DrivesDC "DC drives"
 
   model DCmotor_pm "DC motor permanent magnet excited"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-80,-20},{-100,0}})));
@@ -197,7 +197,7 @@ package DrivesDC "DC drives"
   model BLDC "Brushless DC motor"
 
     inner PowerSystems.System system(f_nom=60,
-      ref="inertial",
+      refType=PowerSystems.Types.ReferenceFrame.Inertial,
       ini="tr")
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(

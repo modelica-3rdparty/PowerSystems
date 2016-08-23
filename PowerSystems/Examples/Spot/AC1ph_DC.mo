@@ -4,7 +4,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Breaker "Breaker"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial, ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
@@ -58,7 +58,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Fault "Fault"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial, ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Control.Relays.SwitchRelay relay1(                       n=2, t_switch=
          {3.5,29.5}/50)
@@ -125,7 +125,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Impedance "Impedance"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial, ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
@@ -163,7 +163,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model ImpedanceOneTerm "Impedance One-terminal"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial, ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
@@ -195,7 +195,7 @@ package AC1ph_DC "AC 1-phase and DC components"
 
   model Line "Line"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial, ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(ph_fin=
           0.087266462599716)
@@ -331,7 +331,7 @@ Compare with DoublePIline.</p>
 
   model LoadAC "AC load"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial, ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.Transient[2] trsSignal(s_ini={1,2}, s_fin={2,3})
       annotation (Placement(transformation(
@@ -370,7 +370,7 @@ Compare with DoublePIline.</p>
 
   model LoadDC "AC load"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.Transient trsSignalL(s_ini=0.5, s_fin=1)
       annotation (Placement(transformation(
@@ -410,7 +410,7 @@ Compare with DoublePIline.</p>
 
   model Machines "Machines"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Mechanics.Rotation.Rotor rotor
       annotation (Placement(transformation(extent={{28,-10},{48,10}})));
@@ -466,7 +466,7 @@ Compare with DoublePIline.</p>
 
   model Sensor "Sensor and meter"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial, ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
@@ -499,7 +499,7 @@ Compare with DoublePIline.</p>
 
   model Source "Source"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial, ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     replaceable PowerSystems.AC1ph_DC.Sources.ACvoltage voltage
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -527,7 +527,7 @@ Compare with DoublePIline.</p>
 
   model Transformer "Transformer"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial, ini="tr")
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
                     annotation (Placement(transformation(extent={{-100,10},{-80,
@@ -592,7 +592,7 @@ Compare with DoublePIline.</p>
 
   model Rectifier "Rectifier"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial, ini="tr")
                         annotation (Placement(transformation(extent={{-80,60},{
               -60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
@@ -645,7 +645,7 @@ Compare with DoublePIline.</p>
 
   model Inverter "Inverter, controlled rectifier"
 
-    inner PowerSystems.System system(ref="inertial", ini="tr")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial, ini="tr")
                         annotation (Placement(transformation(extent={{-80,60},{
               -60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh

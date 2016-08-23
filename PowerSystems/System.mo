@@ -15,10 +15,9 @@ model System "System reference"
      enable=fType <> PowerSystems.Types.SystemFrequency.Parameter));
   parameter SI.Angle alpha0 = 0 "phase angle"
    annotation(Evaluate=true, Dialog(group="System"));
-  parameter String ref = "synchron" "reference frame (3-phase)"
-    annotation(Evaluate=true, Dialog(group="System", enable=sim=="tr"), choices(
-      choice="synchron",
-      choice="inertial"));
+  parameter Types.ReferenceFrame refType = PowerSystems.Types.ReferenceFrame.Synchron
+    "reference frame (3-phase)"
+    annotation(Evaluate=true, Dialog(group="System", enable=sim=="tr"));
   parameter String ini = "st" "transient or steady-state initialisation"
    annotation(Evaluate=true, Dialog(group="Mode", enable=sim=="tr"), choices(
      choice="tr" "transient",
@@ -31,7 +30,7 @@ model System "System reference"
     "nominal angular frequency" annotation(Evaluate=true);
   final parameter Types.AngularVelocity w_nom = 2*pi*f_nom "nom r.p.m."
                  annotation(Evaluate=true, Dialog(group="Nominal"));
-  final parameter Boolean synRef=if transientSim then ref=="synchron" else true
+  final parameter Boolean synRef=if transientSim then refType==PowerSystems.Types.ReferenceFrame.Synchron else true
     annotation(Evaluate=true);
 
   final parameter Boolean steadyIni = ini=="st"
@@ -115,7 +114,7 @@ equation
         Text(
           extent={{-100,-30},{100,-60}},
           lineColor={0,120,120},
-          textString="%ref"),
+          textString="%refType"),
         Text(
           extent={{-100,-70},{100,-100}},
           lineColor={176,0,0},
@@ -138,24 +137,16 @@ equation
 <p>It provides</p>
 <ul>
 <li> the system angular-frequency omega<br>
-     For frequency-type 'parameter' this is simply a parameter value.<br>
-     For frequency-type 'signal' it is a positive input signal.<br>
-     For frequency-type 'average' it is a weighted average over the relevant generator frequencies.
+     For fType Parameter this is simply a parameter value.<br>
+     For fType Signal it is a positive input signal.<br>
+     For fType Average it is a weighted average over the relevant generator frequencies.</li>
 <li> the system angle theta by integration of
 <pre> der(theta) = omega </pre><br>
      This angle allows the definition of a rotating electrical <b>coordinate system</b><br>
      for <b>AC three-phase models</b>.<br>
-     Root-nodes defining coordinate-orientation will choose a reference angle theta_ref (connector-variable theta[2]) according to the parameter <tt>ref</tt>:<br><br>
-     <tt>theta_ref = theta if ref = \"synchron\"</tt> (reference frame is synchronously rotating with theta).<br>
-     <tt>theta_ref = 0 if ref = \"inertial\"</tt> (inertial reference frame, not rotating).<br>
-
-     where<br>
-     <tt>theta = 1 :</tt> reference frame is synchronously rotating.<br>
-     <tt>ref=0 :</tt> reference frame is at rest.<br>
-     Note: Steady-state simulation is only possible for <tt>ref = \"synchron\"</tt>.<br><br>
-     <tt>ref</tt> is determined by the parameter <tt>refFrame</tt> in the following way:
-
-     </li>
+     Root-nodes defining coordinate-orientation will choose a reference angle theta_ref (connector-variable theta[2]) according to the parameter <tt>refType</tt>:<br><br>
+     <tt>theta_ref = theta if refType = Synchron</tt> (reference frame is synchronously rotating with theta).<br>
+     <tt>theta_ref = 0 if refType = Inertial</tt> (inertial reference frame, not rotating).<br></li>
 </ul>
 <p><b>Note</b>: Each model using <b>System</b> must use it with an <b>inner</b> declaration and instance name <b>system</b> in order that it can be accessed from all objects in the model.<br>When dragging the 'System' from the package browser into the diagram layer, declaration and instance name are automatically generated.</p>
 <p><a href=\"modelica://PowerSystems.UsersGuide.Overview\">up users guide</a></p>

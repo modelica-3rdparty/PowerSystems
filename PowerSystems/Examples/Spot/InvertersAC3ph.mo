@@ -4,7 +4,7 @@ package InvertersAC3ph "Inverters dq0"
 
   model Rectifier "Rectifier"
 
-    inner PowerSystems.System system(ini="tr", ref="inertial")
+    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
@@ -80,7 +80,7 @@ package InvertersAC3ph "Inverters dq0"
 
   model InverterToLoad "Inverter to load"
 
-    inner PowerSystems.System system(          ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd
@@ -157,7 +157,7 @@ package InvertersAC3ph "Inverters dq0"
 
   model InverterToGrid "Inverter to grid"
 
-    inner PowerSystems.System system(          ref="synchron")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Synchron)
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0,

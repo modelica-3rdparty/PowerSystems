@@ -4,7 +4,7 @@ package Introduction "Introductory examples"
 
   model Units "SI and pu units"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
                       annotation (Placement(transformation(extent={{-100,80},{
               -80,100}})));
     PowerSystems.AC3ph.Sources.Voltage voltage_SI(
@@ -101,7 +101,7 @@ and other meter-signals.</p>
 
   model Frequency "System and autonomous frequency"
 
-    inner PowerSystems.System system(f_nom=60, ref="inertial")
+    inner PowerSystems.System system(f_nom=60, refType=PowerSystems.Types.ReferenceFrame.Inertial)
                       annotation (Placement(transformation(extent={{-100,80},{
               -80,100}})));
     PowerSystems.Blocks.Signals.TransientFreq theta_dq0(f_fin=50, f_ini=10)
@@ -164,7 +164,7 @@ and other meter-signals.</p>
 
   model ReferenceInertial "Inertial reference system (non rotating)"
 
-    inner PowerSystems.System system(ini="tr", ref="inertial")
+    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
                       annotation (Placement(transformation(extent={{-100,80},{
               -80,100}})));
     PowerSystems.AC3ph.Sources.Voltage voltage_dq0(
@@ -198,16 +198,13 @@ and other meter-signals.</p>
   annotation (
     Documentation(
             info="<html>
-<p>This example shows two physically identical systems, the upper one in abc-, the lower one in dq0-representation.</p>
-<p>In the inertial, non rotating reference frame (<tt>SynRef=false</tt>), signals oscillate with the source frequency.</p>
+<p>This example shows a system in the inertial, non rotating reference frame (<tt>SynRef=false</tt>).
+Signals oscillate with the source frequency.</p>
 <p>
 <i>See for example:</i>
 <pre>
-  meter_abc.i     standard notation: 'abc'-system
   meter_dq0.i     standard notation: 'alpha beta gamma'-system
 </pre>
-and other meter-signals.<br>
-Compare with the signals of the identical system in the example below.</p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
 </html>"),
     experiment(StopTime=0.1, Interval=0.1e-3));
@@ -250,16 +247,14 @@ Compare with the signals of the identical system in the example below.</p>
   annotation (
     Documentation(
             info="<html>
-<p>This example shows two physically identical systems, the upper one in abc-, the lower one in dq0-representation.</p>
-<p>In the synchronous, rotating reference frame (<tt>SynRef=true</tt>), steady-state signals are constant (after an initial oscillation).</p>
+<p>This example shows a system in the synchronous, rotating reference frame (<tt>refType=Synchron</tt>).
+Stationary signals are constant after an initial oscillation.</p>
 <p>
 <i>See for example:</i>
 <pre>
-  meter_abc.i
   meter_dq0.i     standard notation: 'dq0'-system
 </pre>
-and other meter-signals.<br>
-Compare with the signals of the identical system in the example above.</p>
+<p>Compare with <tt>meter_dq0.i_abc</tt>, showing oscillating stationary signals.</p><br>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
 </html>"),
     experiment(StopTime=0.1, Interval=0.1e-3));
@@ -267,7 +262,7 @@ Compare with the signals of the identical system in the example above.</p>
 
   model InitialSteadyState "Steady-state initialisation"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
                       annotation (Placement(transformation(extent={{-100,80},{
               -80,100}})));
     PowerSystems.AC3ph.Sources.Voltage voltage_dq0(
@@ -303,11 +298,10 @@ Compare with the signals of the identical system in the example above.</p>
     Documentation(
             info="<html>
 <p>With 'system.ini = steady' (using the steady-state initial conditions) no inrush is observed as in the previous two examples. The solution is steady-state from the beginning.</p>
-<p>The example illustrates the choice <tt>SynRef=false</tt> (inertial system), but is valid for other choices too.</p>
+<p>The example illustrates the choice <tt>refType=Inertial</tt>, but is valid for other choices too.</p>
 <p>
 <i>See for example:</i>
 <pre>
-  meter_abc.i_abc
   meter_dq0.i_abc
 </pre>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>

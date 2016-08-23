@@ -209,6 +209,17 @@ package Types
 </html>"));
 */
 
+  type ReferenceFrame = enumeration(
+      Synchron "Synchronously rotating",
+      Inertial "Inertial (signals oscillate)")
+    "Options for specification of reference frame"
+      annotation(Documentation(info="<html>
+<p><pre>
+  Synchron: synchronously rotating (stationary signals are constant)
+  Inertial: inertial (stationary signals are oscillating)
+</pre></p>
+</html>"));
+
   type IniType = enumeration(
       v_alpha "v, alpha: voltage and phase angle, 'slack' (steady ini)",
       v_p "v, p: voltage and active power (steady ini)",

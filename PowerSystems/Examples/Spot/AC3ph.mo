@@ -272,7 +272,7 @@ package AC3ph "AC 3-phase components dq0"
 
   model Machines "Machines"
 
-    inner PowerSystems.System system(ref="synchron")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Synchron)
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
@@ -450,7 +450,7 @@ package AC3ph "AC 3-phase components dq0"
 
   model Rectifier "Rectifier"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
                         annotation (Placement(transformation(extent={{-80,60},{
               -60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh
@@ -504,7 +504,7 @@ package AC3ph "AC 3-phase components dq0"
 
   model Inverter "Inverter, controlled rectifier"
 
-    inner PowerSystems.System system(ref="inertial")
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
                         annotation (Placement(transformation(extent={{-80,60},{
               -60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh

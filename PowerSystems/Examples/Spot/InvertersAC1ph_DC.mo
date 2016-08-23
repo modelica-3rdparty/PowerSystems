@@ -4,7 +4,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
 
   model Rectifier "Rectifier"
 
-    inner PowerSystems.System system(ini="tr", ref="inertial")
+    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
@@ -75,7 +75,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
 
   model InverterToLoad "Inverter to load"
 
-    inner PowerSystems.System system(ini="tr", ref="inertial")
+    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(V_nom=100)
@@ -147,7 +147,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
 
   model InverterToGrid "Inverter to grid"
 
-    inner PowerSystems.System system(ini="tr", ref="inertial")
+    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0,
@@ -223,7 +223,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
 
   model InverterAvToGrid "Inverter to grid"
 
-    inner PowerSystems.System system(ini="tr", ref="inertial")
+    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(pol=0,
@@ -294,7 +294,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
 
   model Chopper "Chopper"
 
-    inner PowerSystems.System system(ini="tr", ref="inertial")
+    inner PowerSystems.System system(ini="tr", refType=PowerSystems.Types.ReferenceFrame.Inertial)
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
     PowerSystems.AC1ph_DC.Sources.DCvoltage vDC(V_nom=100)
