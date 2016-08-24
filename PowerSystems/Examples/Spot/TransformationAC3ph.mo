@@ -41,10 +41,11 @@ package TransformationAC3ph "Transformation dq0"
             extent={{-90,-10},{-110,10}})));
 
     PowerSystems.AC3ph.Transformers.TrafoStray trafo3(
+        redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.PAR,
       redeclare record Data =
-        PowerSystems.AC3ph.Transformers.Parameters.TrafoStray(V_nom={1,10}),
-        redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.PAR (
-            alpha=-0.17453292519943))
+          PowerSystems.AC3ph.Transformers.Parameters.TrafoStray (V_nom={1,10},
+            dv_tap={0.1,0}),
+      tap_1=-2)
       annotation (Placement(transformation(
             extent={{0,-70},{20,-50}})));
     PowerSystems.AC3ph.Sensors.PVImeter meter32(phasor=true, V_nom=10)

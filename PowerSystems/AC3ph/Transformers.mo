@@ -347,15 +347,13 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
         final parameter PS.Voltage[2] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
         final parameter SI.Resistance[2, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
-        final parameter Real W_nom=par.V_nom[2]/par.V_nom[1]
-          annotation(Evaluate=true);
         final parameter SI.Resistance R_n1=par.r_n[1]*RL_base[1,1];
         final parameter SI.Resistance R_n2=par.r_n[2]*RL_base[2,1];
         SI.AngularFrequency[2] omega;
         Real[2] dv_tap_pu = par.dv_tap .* V_base ./ par.V_nom;
         Real w1_set = (1 + (tap_1_internal - par.tap_neutral[1]) * dv_tap_pu[1]) * sqrt(scale[1])
           "1: set voltage ratio to nominal primary";
-        Real w2_set = (1 + (tap_2_internal - par.tap_neutral[2])*dv_tap_pu[2]) * W_nom*sqrt(scale[2])
+        Real w2_set = (1 + (tap_2_internal - par.tap_neutral[2])*dv_tap_pu[2]) * sqrt(scale[2])
           "2: set voltage ratio to nominal secondary";
 
       initial equation
@@ -382,6 +380,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
           w1 = w1_set;
           w2 = w2_set;
         end if;
+        w2_nom = par.V_nom[2]/par.V_nom[1];
 
         v_n1 = R_n1*i_n1
         "1: equation neutral to ground (relevant if Y-topology)";
@@ -643,10 +642,6 @@ For variable transformer ratio tap changer input needed.</p>
     final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
     final parameter PS.Voltage[3] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
     final parameter SI.Resistance[3, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
-    final parameter Real Wa_nom=par.V_nom[2]/par.V_nom[1]
-      annotation(Evaluate=true);
-    final parameter Real Wb_nom=par.V_nom[3]/par.V_nom[1]
-      annotation(Evaluate=true);
     final parameter SI.Resistance R_n1=par.r_n[1]*RL_base[1,1];
     final parameter SI.Resistance R_n2a=par.r_n[2]*RL_base[2,1];
     final parameter SI.Resistance R_n2b=par.r_n[3]*RL_base[3,1];
@@ -654,9 +649,9 @@ For variable transformer ratio tap changer input needed.</p>
     Real[3] dv_tap_pu = par.dv_tap .* V_base ./ par.V_nom;
     Real w1_set=(1 + (tap_1_internal - par.tap_neutral[1]) * dv_tap_pu[1]) * sqrt(scale[1])
         "1: set voltage ratio to nominal primary";
-    Real w2a_set = (1 + (tap_2_internal[1] - par.tap_neutral[2]) * dv_tap_pu[2]) * Wa_nom*sqrt(scale[2])
+    Real w2a_set = (1 + (tap_2_internal[1] - par.tap_neutral[2]) * dv_tap_pu[2]) * sqrt(scale[2])
         "2a: set voltage ratio to nominal secondary";
-    Real w2b_set = (1 + (tap_2_internal[2] - par.tap_neutral[3]) * dv_tap_pu[3]) * Wb_nom*sqrt(scale[3])
+    Real w2b_set = (1 + (tap_2_internal[2] - par.tap_neutral[3]) * dv_tap_pu[3]) * sqrt(scale[3])
         "2b: set voltage ratio to nominal secondary";
 
   initial equation
@@ -686,6 +681,8 @@ For variable transformer ratio tap changer input needed.</p>
       w2a = w2a_set;
       w2b = w2b_set;
     end if;
+    w2a_nom = par.V_nom[2]/par.V_nom[1];
+    w2b_nom = par.V_nom[3]/par.V_nom[1];
 
     v_n1 = R_n1*i_n1 "1: equation neutral to ground (relevant if Y-topology)";
     v_n2a = R_n2a*i_n2a

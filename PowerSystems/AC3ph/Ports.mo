@@ -422,7 +422,7 @@ partial model YDportTrafo_p_n
         PowerSystems.AC3ph.Ports.Topology.Delta "Delta"),
       choice(redeclare model Topology_p =
         PowerSystems.AC3ph.Ports.Topology.PAR "PAR")));
-  Topology_p top_p(v_cond=v1*w1, i_cond=i1/w1, v_n=v_n1)
+  Topology_p top_p(v_cond=v1, i_cond=i1, v_n=v_n1, w=w1)
       "p: Y, Delta or PAR topology"
     annotation (Placement(transformation(extent={{-80,-20},{-40,20}})));
 
@@ -435,7 +435,7 @@ partial model YDportTrafo_p_n
         PowerSystems.AC3ph.Ports.Topology.Delta "Delta"),
       choice(redeclare model Topology_n =
         PowerSystems.AC3ph.Ports.Topology.PAR "PAR")));
-  Topology_n top_n(v_cond=v2*w2, i_cond=i2/w2, v_n=v_n2)
+  Topology_n top_n(v_cond=v2*w2_nom, i_cond=i2/w2_nom, v_n=v_n2, w=w2)
       "n: Y, Delta or PAR topology"
     annotation (Placement(transformation(extent={{80,-20},{40,20}})));
 
@@ -455,8 +455,9 @@ partial model YDportTrafo_p_n
                                         annotation(Evaluate=true);
   final parameter Integer n_n2=top_n.n_n
                                         annotation(Evaluate=true);
-  Real w1 "1: voltage ratio to nominal";
-  Real w2 "2: voltage ratio to nominal";
+  Real w1 "1: voltage ratio to nominal for topology";
+  Real w2 "2: voltage ratio to nominal for topology";
+  Real w2_nom "2: nominal turns ratio";
 
 equation
   term_p.v = top_p.v_term;
@@ -520,7 +521,7 @@ partial model YDportTrafo_p_n_n
         PowerSystems.AC3ph.Ports.Topology.Y "Y"),
       choice(redeclare model Topology_p =
         PowerSystems.AC3ph.Ports.Topology.Delta "Delta")));
-  Topology_p top_p(v_cond=v1*w1, i_cond=i1/w1, v_n=v_n1)
+  Topology_p top_p(v_cond=v1, i_cond=i1, v_n=v_n1, w=w1)
       "p: Y or Delta topology"
     annotation (Placement(transformation(extent={{-80,-20},{-40,20}})));
 
@@ -531,7 +532,7 @@ partial model YDportTrafo_p_n_n
         PowerSystems.AC3ph.Ports.Topology.Y "Y"),
       choice(redeclare model Topology_na =
         PowerSystems.AC3ph.Ports.Topology.Delta "Delta")));
-  Topology_na top_na(v_cond=v2a*w2a, i_cond=i2a/w2a, v_n=v_n2a)
+  Topology_na top_na(v_cond=v2a*w2a_nom, i_cond=i2a/w2a_nom, v_n=v_n2a, w=w2a)
       "na: Y or Delta topology"
     annotation (Placement(transformation(extent={{80,20},{40,60}})));
 
@@ -542,7 +543,7 @@ partial model YDportTrafo_p_n_n
         PowerSystems.AC3ph.Ports.Topology.Y "Y"),
       choice(redeclare model Topology_nb =
         PowerSystems.AC3ph.Ports.Topology.Delta "Delta")));
-  Topology_nb top_nb(v_cond=v2b*w2b, i_cond=i2b/w2b, v_n=v_n2b)
+  Topology_nb top_nb(v_cond=v2b*w2b_nom, i_cond=i2b/w2b_nom, v_n=v_n2b, w=w2b)
       "nb: Y or Delta topology"
     annotation (Placement(transformation(extent={{80,-60},{40,-20}})));
 
@@ -569,9 +570,11 @@ partial model YDportTrafo_p_n_n
                                           annotation(Evaluate=true);
   final parameter Integer n_n2b=top_nb.n_n
                                           annotation(Evaluate=true);
-  Real w1 "1: voltage ratio to nominal";
-  Real w2a "2a: voltage ratio to nominal";
-  Real w2b "2b: voltage ratio to nominal";
+  Real w1 "1: voltage ratio to nominal for topology";
+  Real w2a "2a: voltage ratio to nominal for topology";
+  Real w2b "2b: voltage ratio to nominal for topology";
+  Real w2a_nom "2a: nominal turns ratio";
+  Real w2b_nom "2b: nominal turns ratio";
 
 equation
   Connections.branch(term_p.theta, term_na.theta);
@@ -641,6 +644,7 @@ package Topology "Topology transforms "
     input PS.Voltage[3] v_cond "conductor voltage";
     input PS.Current[3] i_cond "conductor current";
     input PS.Voltage[n_n] v_n(start=fill(0,n_n)) "voltage neutral";
+    input Real w = 1 "voltage ratio to nominal";
     PS.Current[n_n] i_n(start=fill(0,n_n)) "current neutral to ground";
     protected
     constant Real s3=sqrt(3);
@@ -667,8 +671,8 @@ package Topology "Topology transforms "
     extends TopologyBase(final scale=1, final n_n=1, final sh=0);
 
   equation
-    v_cond = v_term - {0, 0, s3*v_n[1]};
-    i_term = i_cond;
+    w*v_cond = v_term - {0, 0, s3*v_n[1]};
+    i_term = i_cond/w;
     i_n[1] = s3*i_term[3];
     annotation (defaultComponentName="Y",
   Documentation(
@@ -682,8 +686,8 @@ Defines Y-topology transform of voltage and current variables.</p>
 </pre>
 <p>Relations, zero-component and neutral point (grounding)</p>
 <pre>
-  v_cond = v_term - {0, 0, sqrt(3)*v_n}
-  i_term = i_cond
+  w*v_cond = v_term - {0, 0, sqrt(3)*v_n}
+  i_term = i_cond/w
   i_n = sqrt(3)*i_term[3]
 </pre>
 <p>Note: parameter sh (phase shift) not used.</p>
@@ -726,12 +730,12 @@ Defines Y-topology transform of voltage and current variables.</p>
     extends TopologyBase(final scale=3, final n_n=0);
 
     protected
-    final parameter Real[2,2] Rot=Basic.Transforms.rotation_dq((1-4*sh)*pi/6);
+    Real[2,2] R=Basic.Transforms.rotation_dq((1-4*sh)*pi/6) * s3 / w;
 
   equation
-    v_cond[1:2] = s3*Rot*v_term[1:2];
+    v_cond[1:2] = R*v_term[1:2];
     v_cond[3] = 0;
-    i_term[1:2] = s3*transpose(Rot)*i_cond[1:2];
+    i_term[1:2] = i_cond[1:2]*R;
     i_term[3] = 0;
     annotation (__Dymola_structurallyIncomplete=true,defaultComponentName="Delta",
         Documentation(
@@ -746,9 +750,10 @@ Defines Delta-topology transform of voltage and current variables.</p>
 <p>Relations, zero-component<br>
 <tt>v_n</tt> and <tt>i_n</tt> are not defined, as there is no neutral point.</p>
 <pre>
-  v_cond[1:2] = sqrt(3)*Rot*v_term[1:2];
+  R = Rot_dq((1-4*sh)*30deg) * sqrt(3) / w
+  v_cond[1:2] = R*v_term[1:2]
   v_cond[3] = 0
-  i_term[1:2] = sqrt(3)*transpose(Rot)*i_cond[1:2];
+  i_term[1:2] = transpose(R)*i_cond[1:2]
   i_term[3] = 0
 </pre>
 <p>with <tt>Rot = rotation_30deg</tt></p>
@@ -796,13 +801,13 @@ annotation (Placement(transformation(
 
   equation
     if control then
-      v_cond = v_term - {0, 0, s3*v_n[1]};
-      i_term = i_cond;
+      w*v_cond = v_term - {0, 0, s3*v_n[1]};
+      i_term = i_cond/w;
       i_n[1] = s3*i_term[3];
     else
-      v_cond[1:2] = s3*Rot*v_term[1:2];
+      w*v_cond[1:2] = s3*Rot*v_term[1:2];
       v_cond[3] = 0;
-      i_term[1:2] = s3*transpose(Rot)*i_cond[1:2];
+      i_term[1:2] = s3*transpose(Rot)*i_cond[1:2]/w;
       i_term[3] = 0;
       i_n[1] = 0;
     end if;
@@ -946,18 +951,18 @@ annotation (Placement(transformation(
     SI.Current[3] i_del;
 
   equation
-    i_term[1:2] = i_cond[1:2] - Rot*{-i_del[2], i_del[1]};
-    i_term[3] = i_cond[3] - i_del[3];
-    i_cond = i_neu + i_del;
+    i_term[1:2] = i_cond[1:2]/w - Rot*{-i_del[2], i_del[1]};
+    i_term[3] = i_cond[3]/w - i_del[3];
+    i_cond/w = i_neu + i_del;
     i_n[1] = s3*i_neu[3];
     if control then
-      v_cond = v_term - {0, 0, s3*v_n[1]} - epsR*i_neu;
-      i_del[1:2] = epsG*(s3*Rot*v_term[1:2] - v_cond[1:2]);
-      i_del[3] = -epsG*v_cond[3];
+      w*v_cond = v_term - {0, 0, s3*v_n[1]} - epsR*i_neu;
+      i_del[1:2] = epsG*(s3*Rot*v_term[1:2] - w*v_cond[1:2]);
+      i_del[3] = -epsG*w*v_cond[3];
     else
-      v_cond[1:2] = s3*Rot*v_term[1:2] - epsR*i_del[1:2];
-      v_cond[3] = -epsR*i_del[3];
-      i_neu = epsG*(v_term - v_cond - {0, 0, s3*v_n[1]});
+      w*v_cond[1:2] = s3*Rot*v_term[1:2] - epsR*i_del[1:2];
+      w*v_cond[3] = -epsR*i_del[3];
+      i_neu = epsG*(v_term - w*v_cond - {0, 0, s3*v_n[1]});
     end if;
   //i_n[1] = epsG*v_n[1]; // neutral point isolated
       annotation (defaultComponentName="Y_Delta",
@@ -1077,20 +1082,19 @@ Regularised version of Y_Delta. To be used, if device is fed across an inductive
               pattern=LinePattern.Dot)}));
   end Y_DeltaRegular;
 
-  model PAR "Phase angle regulating"
+  model PAR "Phase angle regulating (quadrature booster)"
     extends PowerSystems.AC3ph.Ports.Topology.TopologyBase(
       final scale=1, final n_n=1, final sh=0);
 
-    input SI.Angle alpha=0 "phase shift" annotation(Dialog);
+    SI.Angle alpha = atan(w - 1) "phase shift";
 
     protected
-    Real[2, 2] Rot = Basic.Transforms.rotation_dq(alpha);
+    Real[2, 2] R = [1, -w+1; w-1, 1] "Transforms.rotation_dq(alpha)/cos(alpha)";
 
   equation
-    // rotate by alpha
-    v_term[1:2] = Rot*v_cond[1:2];
+    v_term[1:2] = R*v_cond[1:2];
     v_term[3] = s3*v_n[1];
-    i_cond[1:2] = i_term[1:2]*Rot;
+    i_cond[1:2] = i_term[1:2]*R;
     i_cond[3] = i_term[3];
     i_n[1] = s3*i_term[3];
     annotation (defaultComponentName="Y",
@@ -1105,8 +1109,10 @@ Defines phase regulating transform of voltage and current variables.</p>
 </pre>
 <p>Relations, zero-component and neutral point (grounding)</p>
 <pre>
-  v_term = cat(1, v_cond[1:2]*(cos(alpha) + j*sin(alpha)), {sqrt(3)*v_n})
-  i_term = cat(1, i_cond[1:2]/conj(cos(alpha) + j*sin(alpha)), {i_cond[3]})
+  alpha = atan(w-1)
+  R = Rot_dq(alpha)/cos(alpha)
+  v_term = cat(1, R*v_cond[1:2], {sqrt(3)*v_n})
+  i_cond = cat(1, i_term[1:2]*R, {i_term[3]})
   i_n = sqrt(3)*i_term[3]
 </pre>
 <p>Note: parameter sh (phase shift) not used.</p>
@@ -1127,14 +1133,79 @@ Defines phase regulating transform of voltage and current variables.</p>
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={
-            Line(points={{-90,80},{90,80}}, color={0,0,255}),
-            Line(points={{60,-80},{60,10}},color={0,0,255}),
-            Line(
-              points={{-80,-80},{-20,10},{40,-80},{-80,-80},{-80,-80}},
-              color={255,0,0},
-              thickness=0.5),
-            Line(points={{-90,20},{90,20}}, color={0,0,255}),
-            Line(points={{-90,50},{90,50}}, color={0,0,255})}));
+            Line(points={{60,-80},{60,80}},color={0,0,255}),
+            Ellipse(
+              extent={{58,82},{62,78}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{58,62},{62,58}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{58,42},{62,38}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{58,22},{62,18}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{58,2},{62,-2}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Line(points={{-80,0},{60,60}},   color={0,0,255}),
+            Ellipse(
+              extent={{58,-18},{62,-22}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{58,-38},{62,-42}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{58,-58},{62,-62}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Ellipse(
+              extent={{58,-78},{62,-82}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+            Text(
+              extent={{-20,-2},{20,-10}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid,
+              textString="v_cond"),
+            Text(
+              extent={{-20,48},{20,40}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid,
+              textString="v_term"),
+            Text(
+              extent={{-60,10},{-40,2}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid,
+              fontName="Symbol",
+              textString="a"),
+            Text(
+              extent={{60,34},{90,26}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid,
+              textString="w = dv"),
+            Line(points={{-80,0},{60,0}},    color={0,0,255})}));
   end PAR;
   annotation (preferredView="info",
     Documentation(info="<HTML>

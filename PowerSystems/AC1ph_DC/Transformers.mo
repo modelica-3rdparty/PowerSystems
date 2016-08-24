@@ -305,12 +305,11 @@ and eddy current losses.</p>
       constant Real tc=0.01 "time constant tap-chg switching";
       final parameter PS.Voltage[2] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
       final parameter Real[2, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
-      final parameter Real W_nom=par.V_nom[2]/par.V_nom[1]
-        annotation(Evaluate=true);
+      Real w_nom = par.V_nom[2]/par.V_nom[1] "nominal turns ratio";
       Real[2] dv_tap_pu = par.dv_tap .* V_base ./ par.V_nom;
       Real w1_set = (1 + (tap_1_internal - par.tap_neutral[1]) * dv_tap_pu[1])
         "1: set voltage ratio to nominal primary";
-      Real w2_set = (1 + (tap_2_internal - par.tap_neutral[2]) * dv_tap_pu[2]) * W_nom
+      Real w2_set = (1 + (tap_2_internal - par.tap_neutral[2]) * dv_tap_pu[2]) * w_nom
         "2: set voltage ratio to nominal primary";
 
     initial equation
@@ -517,16 +516,14 @@ For variable transformer ratio tap changer input needed.</p>
       constant Real tc=0.01 "time constant tap-chg switching";
       final parameter PS.Voltage[3] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
       final parameter Real[3, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
-      final parameter Real Wa_nom=par.V_nom[2]/par.V_nom[1]
-        annotation(Evaluate=true);
-      final parameter Real Wb_nom=par.V_nom[3]/par.V_nom[1]
-        annotation(Evaluate=true);
+      Real wa_nom = par.V_nom[2]/par.V_nom[1] "nominal turns ratio";
+      Real wb_nom = par.V_nom[3]/par.V_nom[1] "nominal turns ratio";
       Real[3] dv_tap_pu = par.dv_tap .* V_base ./ par.V_nom;
       Real w1_set = (1 + (tap_1_internal - par.tap_neutral[1]) * dv_tap_pu[1])
         "1: set voltage ratio to nominal primary";
-      Real w2a_set = (1 + (tap_2_internal[1] - par.tap_neutral[2]) * dv_tap_pu[2]) * Wa_nom
+      Real w2a_set = (1 + (tap_2_internal[1] - par.tap_neutral[2]) * dv_tap_pu[2]) * wa_nom
         "2a: set voltage ratio to nominal primary";
-      Real w2b_set = (1 + (tap_2_internal[2] - par.tap_neutral[3]) * dv_tap_pu[3]) * Wb_nom
+      Real w2b_set = (1 + (tap_2_internal[2] - par.tap_neutral[3]) * dv_tap_pu[3]) * wb_nom
         "2b: set voltage ratio to nominal primary";
 
     initial equation
