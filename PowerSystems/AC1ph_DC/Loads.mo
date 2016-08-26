@@ -240,7 +240,7 @@ Consumes the desired power independent of voltage.</p>
 
       parameter Boolean use_p_in = false
         "= true to use input signal p_in, otherwise use parameter p0"
-        annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+        annotation(Evaluate=true, choices(checkBox=true));
       parameter SIpu.Power p0(min=0)=1 "fixed power (start value if signal input)"
         annotation(Dialog(enable=not use_p_in));
       Modelica.Blocks.Interfaces.RealInput p_in(min=0) if  use_p_in
@@ -276,7 +276,7 @@ Consumes the desired power independent of voltage.</p>
 
       parameter Boolean use_pq_in = false
         "= true to use input signal pq_in, otherwise use parameter pq0"
-        annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+        annotation(Evaluate=true, choices(checkBox=true));
 
       parameter SIpu.Power[2] pq0(min=0)={1,1}/sqrt(2)
         "fixed {active, reactive} power (start value if use_pq_in)"
@@ -405,7 +405,7 @@ Consumes the desired power independent of voltage.</p>
 
       parameter Boolean use_p_in = false
         "= true to use input signal p_in, otherwise use parameter p0"
-        annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+        annotation(Evaluate=true, choices(checkBox=true));
       parameter SIpu.Power p0(min=0)=1 "fixed power (start value if use_p_in)"
         annotation(Dialog(enable=not use_p_in));
       Modelica.Blocks.Interfaces.RealInput p_in(min=0) if  use_p_in

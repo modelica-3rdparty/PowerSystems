@@ -120,7 +120,7 @@ where
           rotation=270)));
     parameter Boolean use_vPhasor_in = false
       "= true to use input signal vPhasor_in, otherwise use {v0, alpha0}"
-     annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+     annotation(Evaluate=true, choices(checkBox=true));
     parameter SIpu.Voltage v0=1 "fixed voltage" annotation(Dialog(enable=not use_vPhasor_in));
     parameter SI.Angle alpha0=0 "fixed phase angle" annotation(Dialog(enable=not use_vPhasor_in));
 
@@ -275,7 +275,7 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
           rotation=270)));
     parameter Boolean use_pv_in = false
       "= true to use input signal pv_in, otherwise use {p0, v0}"
-     annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+     annotation(Evaluate=true, choices(checkBox=true));
     parameter SIpu.ApparentPower p0=1 "fixed active power"
      annotation(Dialog(enable=not use_pv_in));
     parameter SIpu.Voltage v0=1 "fixed voltage" annotation(Dialog(enable=not use_pv_in));
@@ -335,7 +335,7 @@ with variable power and voltage when 'pv' connected to a signal-input.</p>
           rotation=270)));
     parameter Boolean use_pq_in = false
       "= true to use input signal pq_in, otherwise use pq0"
-     annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+     annotation(Evaluate=true, choices(checkBox=true));
 
     parameter SIpu.ApparentPower pq0[2]={1,0} "fixed {active, reactive} power"
       annotation(Dialog(enable=not use_pq_in));
@@ -420,7 +420,7 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
 
       parameter Boolean use_vPhasor_in = false
         "= true to use input signal vPhasor_in, otherwise use fixed values"
-       annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+       annotation(Evaluate=true, choices(checkBox=true));
 
       Modelica.Blocks.Interfaces.RealInput omega_in(final unit="rad/s") if fType
          == PowerSystems.Types.SourceFrequency.Signal

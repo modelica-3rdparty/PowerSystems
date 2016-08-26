@@ -229,7 +229,7 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
 
       parameter Boolean use_vPhasor_in = false
         "= true to use input signal vPhasor_in, otherwise use fixed values"
-       annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+       annotation(Evaluate=true, choices(checkBox=true));
       Modelica.Blocks.Interfaces.RealInput[2] vPhasor_in if use_vPhasor_in
         "{abs(voltage), phase(voltage)}" annotation (Placement(transformation(
             origin={60,100},
@@ -298,7 +298,7 @@ If the connector 'neutral' remains unconnected, then the source is NOT grounded.
 
       parameter Boolean use_vDC_in = false
         "= true to use input signal vDC_in, otherwise use fixed value"
-       annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+       annotation(Evaluate=true, choices(checkBox=true));
       Modelica.Blocks.Interfaces.RealInput vDC_in if
                                                   use_vDC_in "DC voltage" annotation (
           Placement(transformation(

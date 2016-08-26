@@ -87,7 +87,7 @@ package Rotation "Rotating parts "
 
     parameter Boolean use_w_in = false
       "= true if speed defined by input w_in, otherwise by parameter w0"
-     annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+     annotation(Evaluate=true, choices(checkBox=true));
 
     parameter SI.AngularVelocity w0=1 "angular velocity"
      annotation(Dialog(enable=not use_w_in));
@@ -161,7 +161,7 @@ The start value is always given by <tt>w0</tt>.</p>
 
     parameter Boolean use_tau_in = false
       "= true if torque defined by input tau_in, otherwise by parameter tau0"
-     annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+     annotation(Evaluate=true, choices(checkBox=true));
 
      parameter SI.Torque tau0=1 "torque"
      annotation(Dialog(enable=not use_tau_in));

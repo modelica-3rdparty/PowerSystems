@@ -586,7 +586,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
 
       parameter Boolean use_pq_in = false
         "= true to use input signal pq_in, otherwise use parameter pq0"
-        annotation(Evaluate=true, choices(__Dymola_checkBox=true));
+        annotation(Evaluate=true, choices(checkBox=true));
 
       parameter SIpu.Power[2] pq0(each min=0)={sqrt(3),1}/2
         "fixed {active, reactive} power (start value if use_pq_in)"
