@@ -9,11 +9,11 @@ model ReactiveShunt "Shunt reactor with parallel conductor, 1-phase"
   parameter SIpu.Resistance r=0 "resistance (serial)";
   parameter SIpu.Reactance x_s=1 "self reactance";
   parameter SIpu.Reactance x_m=0 "mutual reactance, -x_s < x_m < x_s";
-  protected
+protected
   final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom);
-  final parameter SI.Conductance G=g/RL_base[1];
-  final parameter SI.Resistance R=r*RL_base[1];
-  final parameter SI.Inductance[2,2] L=[x_s,x_m;x_m,x_s]*RL_base[2];
+  SI.Conductance G=g/RL_base[1];
+  SI.Resistance R=r*RL_base[1];
+  SI.Inductance[2,2] L=[x_s,x_m;x_m,x_s]*RL_base[2];
   PS.Current[2] i_x;
 
 equation
@@ -89,10 +89,10 @@ model CapacitiveShunt "Shunt capacitor with parallel conductor, 1-phase, pp pg"
   parameter SIpu.Conductance g_pp=0 "conductance ph_ph";
   parameter SIpu.Susceptance b_pg=0.5 "susceptance ph-grd";
   parameter SIpu.Susceptance b_pp=0.5 "susceptance ph-ph";
-  protected
+protected
   final parameter SI.Resistance[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
-  final parameter SI.Conductance[2,2] G=[g_pg+g_pp,-g_pp;-g_pp,g_pg+g_pp]*GC_base[1];
-  final parameter SI.Capacitance[2,2] C=[b_pg+b_pp,-b_pp;-b_pp,b_pg+b_pp]*GC_base[2];
+  SI.Conductance[2,2] G=[g_pg+g_pp,-g_pp;-g_pp,g_pg+g_pp]*GC_base[1];
+  SI.Capacitance[2,2] C=[b_pg+b_pp,-b_pp;-b_pp,b_pg+b_pp]*GC_base[2];
 
 equation
   C*der(v) + G*v = i;

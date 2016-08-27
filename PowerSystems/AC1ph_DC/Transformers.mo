@@ -404,8 +404,8 @@ For variable transformer ratio tap changer input needed.</p>
       extends TrafoIdealBase(redeclare replaceable record Data =
           PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoStray1ph);
     protected
-      final parameter SI.Resistance[2] R=par.r.*RL_base[:, 1];
-      final parameter SI.Inductance[2] L=par.x.*RL_base[:, 2];
+      SI.Resistance[2] R=par.r.*RL_base[:, 1];
+      SI.Inductance[2] L=par.x.*RL_base[:, 2];
       annotation (
         Documentation(
         info="<html>
@@ -431,8 +431,8 @@ For variable transformer ratio tap changer input needed.</p>
           PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoMag1ph);
     protected
       final parameter SI.Resistance[2] RL12_base = sqrt((RL_base[1,:].*RL_base[2,:]));
-      final parameter SI.Resistance Redc=par.redc*RL12_base[1];
-      final parameter SI.Inductance Lm=par.xm*RL12_base[2];
+      SI.Resistance Redc=par.redc*RL12_base[1];
+      SI.Inductance Lm=par.xm*RL12_base[2];
       annotation (
         Documentation(
         info="<html>
@@ -454,8 +454,8 @@ For variable transformer ratio tap changer input needed.</p>
       extends TrafoMagBase(redeclare replaceable record Data =
           PowerSystems.AC1ph_DC.Transformers.Parameters.TrafoSat1ph);
     protected
-     final parameter Real xratio=par.xm_sat/par.xm;
-      final parameter Real[3] c_sat={1-xratio,(1-xratio)/(par.psi_sat-xratio),xratio};
+      Real xratio=par.xm_sat/par.xm;
+      Real[3] c_sat={1-xratio,(1-xratio)/(par.psi_sat-xratio),xratio};
       final parameter SI.MagneticFlux psi_nom=sqrt(2)*par.V_nom[1]/(2*pi*par.f_nom)
         "amplitude!";
       annotation (
@@ -632,8 +632,8 @@ For variable transformer ratio tap changer input needed.</p>
       extends Trafo3IdealBase(redeclare replaceable record Data =
           PowerSystems.AC1ph_DC.Transformers.Parameters.Trafo3Stray1ph);
     protected
-      final parameter SI.Resistance[3] R=par.r.*RL_base[:, 1];
-      final parameter SI.Inductance[3] L=par.x.*RL_base[:, 2];
+      SI.Resistance[3] R=par.r.*RL_base[:, 1];
+      SI.Inductance[3] L=par.x.*RL_base[:, 2];
       annotation (
         Documentation(
         info="<html>

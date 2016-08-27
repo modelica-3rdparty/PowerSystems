@@ -479,9 +479,9 @@ For variable transformer ratio tap changer input needed.</p>
           PowerSystems.AC3ph.Transformers.Parameters.TrafoStray
           constrainedby PowerSystems.AC3ph.Transformers.Parameters.TrafoStray);
     protected
-      final parameter SI.Resistance[2] R=par.r.*RL_base[:, 1];
-      final parameter SI.Inductance[2] L=par.x.*RL_base[:, 2];
-      final parameter SI.Inductance[2] L0=par.x0.*RL_base[:, 2];
+      SI.Resistance[2] R=par.r.*RL_base[:, 1];
+      SI.Inductance[2] L=par.x.*RL_base[:, 2];
+      SI.Inductance[2] L0=par.x0.*RL_base[:, 2];
       annotation (
         Documentation(
         info="<html>
@@ -516,9 +516,9 @@ For variable transformer ratio tap changer input needed.</p>
           constrainedby PowerSystems.AC3ph.Transformers.Parameters.TrafoMag);
     protected
       final parameter SI.Resistance[2] RL12_base = sqrt((RL_base[1,:].*RL_base[2,:])/product(scale));
-      final parameter SI.Resistance Redc=par.redc*RL12_base[1];
-      final parameter SI.Inductance Lm=par.xm*RL12_base[2];
-      final parameter SI.Inductance Lm0=par.xm0*RL12_base[2];
+      SI.Resistance Redc=par.redc*RL12_base[1];
+      SI.Inductance Lm=par.xm*RL12_base[2];
+      SI.Inductance Lm0=par.xm0*RL12_base[2];
       annotation (
         Documentation(
         info="<html>
@@ -563,8 +563,8 @@ For variable transformer ratio tap changer input needed.</p>
           PowerSystems.AC3ph.Transformers.Parameters.TrafoSat
           constrainedby PowerSystems.AC3ph.Transformers.Parameters.TrafoSat);
     protected
-      final parameter Real xratio=par.xm_sat/par.xm;
-      final parameter Real[3] c_sat={1-xratio,(1-xratio)/(par.psi_sat-xratio),xratio};
+      Real xratio=par.xm_sat/par.xm;
+      Real[3] c_sat={1-xratio,(1-xratio)/(par.psi_sat-xratio),xratio};
       final parameter SI.MagneticFlux psi_nom=sqrt(scale[1])*par.V_nom[1]/(2*pi*par.f_nom)
         "amplitude!";
       annotation (
@@ -803,10 +803,10 @@ For variable transformer ratio tap changer input needed.</p>
     extends Trafo3IdealBase(redeclare replaceable record Data =
         PowerSystems.AC3ph.Transformers.Parameters.Trafo3Stray
         constrainedby PowerSystems.AC3ph.Transformers.Parameters.Trafo3Stray);
-    protected
-    final parameter SI.Resistance[3] R=par.r.*RL_base[:, 1];
-    final parameter SI.Inductance[3] L=par.x.*RL_base[:, 2];
-    final parameter SI.Inductance[3] L0=par.x0.*RL_base[:, 2];
+  protected
+    SI.Resistance[3] R=par.r.*RL_base[:, 1];
+    SI.Inductance[3] L=par.x.*RL_base[:, 2];
+    SI.Inductance[3] L0=par.x0.*RL_base[:, 2];
     annotation (
       Documentation(
       info="<html>
