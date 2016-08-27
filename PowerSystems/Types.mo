@@ -24,8 +24,7 @@ package Types
         final min=0);
     type Susceptance = Real (
         final quantity="Susceptance",
-        unit="S/(VA/(V.V))",
-        min=0);
+        unit="S/(VA/(V.V))");
     type Admittance = Real (
         final quantity="Admittance",
         unit="S/(VA/(V.V))",
