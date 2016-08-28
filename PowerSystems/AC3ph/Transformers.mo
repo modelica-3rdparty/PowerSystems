@@ -4,7 +4,7 @@ package Transformers "Transformers 3-phase"
 
   model TrafoIdeal "Ideal transformer, 3-phase dq0"
     parameter Boolean D_D=false "set true if Delta-Delta topology!";
-    extends Partials.TrafoIdealBase(final stIni_en=false);
+    extends Partials.TrafoIdealBase(final dynType=Types.Dynamics.SteadyState);
 
   equation
     i1 + i2 = zeros(3);
@@ -27,13 +27,13 @@ package Transformers "Transformers 3-phase"
     extends Partials.TrafoStrayBase;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i1) = omega[1]*j_dq0(i1);
     end if;
 
   equation
     i1 + i2 = zeros(3);
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({sum(L),sum(L),sum(L0)})*der(i1) + omega[2]*sum(L)*j_dq0(i1) + sum(R)
       *i1 = v1 - v2;
     else
@@ -70,18 +70,18 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
     PS.Current[3] iedc;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i1) = omega[1]*j_dq0(i1);
       der(i2) = omega[1]*j_dq0(i2);
       der(imag) = omega[1]*j_dq0(imag);
-    elseif system.steadyIni_t then
+    elseif dynType <> Types.Dynamics.SteadyState then
       der(imag) = omega[1]*j_dq0(imag);
     end if;
 
   equation
     i1 + i2 = imag + iedc;
     Redc*iedc = v0;
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
       diagonal({L[2],L[2],L0[2]})*der(i2) + omega[2]*L[2]*j_dq0(i2) + R[2]*i2 = v2 - v0;
       Lm*der(imag) + omega[2]*Lm*{-imag[2], imag[1], 0} = v0;
@@ -132,11 +132,11 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
     function der_sat = Common.IronSaturation.der_saturationAnalytic;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i1) = omega[1]*j_dq0(i1);
       der(i2) = omega[1]*j_dq0(i2);
       der(psi0) = omega[1]*j_dq0(psi0);
-    elseif system.steadyIni_t then
+    elseif dynType <> Types.Dynamics.SteadyState then
       der(psi0) = omega[1]*j_dq0(psi0);
     end if;
 
@@ -146,7 +146,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
     psi0 = Lm*imag;
     gp = scalar(der_sat({0.66*sqrt(psi0*psi0)/psi_nom}, c_sat));
 
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
       diagonal({L[2],L[2],L0[2]})*der(i2) + omega[2]*L[2]*j_dq0(i2) + R[2]*i2 = v2 - v0;
       gp*(der(psi0) + omega[2]*j_dq0(psi0)) = v0;
@@ -205,11 +205,11 @@ The factor <tt>0.66</tt> in the expression of the effective pu flux is an estima
     function der_sat = Common.IronSaturation.der_saturationAnalytic;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i1) = omega[1]*j_dq0(i1);
       der(i2) = omega[1]*j_dq0(i2);
       der(psi0) = omega[1]*j_dq0(psi0);
-    elseif system.steadyIni_t then
+    elseif dynType <> Types.Dynamics.SteadyState then
       der(psi0) = omega[1]*j_dq0(psi0);
     end if;
 
@@ -269,14 +269,14 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
     extends Partials.Trafo3StrayBase;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i2a) = omega[1]*j_dq0(i2a);
       der(i2b) = omega[1]*j_dq0(i2b);
     end if;
 
   equation
     i1 + i2a + i2b = zeros(3);
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
       diagonal({L[2],L[2],L0[2]})*der(i2a) + omega[2]*L[2]*j_dq0(i2a) + R[2]*i2a = v2a - v0;
       diagonal({L[3],L[3],L0[3]})*der(i2b) + omega[2]*L[3]*j_dq0(i2b) + R[3]*i2b = v2b - v0;
@@ -297,8 +297,8 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
           final term_n(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2])),
           i1(start=i1_start), i2(start=i2_start));
 
-        parameter Boolean stIni_en=true "enable steady-state initial equation"
-          annotation(Evaluate=true, Dialog(tab="Initialization"));
+        parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+          annotation(Evaluate=true, Dialog(tab="Mode"));
         parameter PS.Current[3] i1_start = zeros(3)
         "start value of primary current"
           annotation(Dialog(tab="Initialization"));
@@ -315,7 +315,8 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         parameter Integer tap_2 = par.tap_neutral[2] "fixed tap_2 position"
           annotation(Dialog(enable=not use_tap_2_in, group="Options"));
         parameter Boolean dynTC=false "enable dynamic tap-changing"
-          annotation(Evaluate=true, Dialog(group="Options"));
+          annotation(Evaluate=true, Dialog(tab="Mode",
+            enable=dynType<>PowerSystems.Types.Dynamics.SteadyState));
 
         Modelica.Blocks.Interfaces.IntegerInput tap_1_in if use_tap_1_in
         "1: index of voltage level"
@@ -344,7 +345,6 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 
         outer System system;
         constant Real tc=0.01 "time constant tap-chg switching";
-        final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
         final parameter PS.Voltage[2] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
         final parameter SI.Resistance[2, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
         final parameter SI.Resistance R_n1=par.r_n[1]*RL_base[1,1];
@@ -373,7 +373,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         end if;
 
         omega = der(term_p.theta);
-        if system.transientSim and dynTC then
+        if dynType <> Types.Dynamics.SteadyState and dynTC then
           der(w1) + (w1 - w1_set)/tc = 0;
           der(w2) + (w2 - w2_set)/tc = 0;
         else
@@ -597,8 +597,8 @@ For variable transformer ratio tap changer input needed.</p>
       final term_na(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2])),
       final term_nb(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[3])));
 
-    parameter Boolean stIni_en=true "enable steady-state initial equation"
-      annotation(Evaluate=true, choices(checkBox=true), Dialog(tab="Initialization"));
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
 
     parameter Boolean use_tap_1_in = false "= true to enable input tap_1_in"
       annotation(Evaluate=true, choices(checkBox=true), Dialog(group="Options"));
@@ -639,7 +639,6 @@ For variable transformer ratio tap changer input needed.</p>
 
     outer System system;
     constant Real tc=0.01 "time constant tap-chg switching";
-    final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
     final parameter PS.Voltage[3] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
     final parameter SI.Resistance[3, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
     final parameter SI.Resistance R_n1=par.r_n[1]*RL_base[1,1];
@@ -672,7 +671,7 @@ For variable transformer ratio tap changer input needed.</p>
     end if;
 
     omega = der(term_p.theta);
-    if system.transientSim and dynTC then
+    if dynType <> Types.Dynamics.SteadyState and dynTC then
       der(w1) + (w1 - w1_set)/tc = 0;
       der(w2a) + (w2a - w2a_set)/tc = 0;
       der(w2b) + (w2b - w2b_set)/tc = 0;
@@ -803,7 +802,7 @@ For variable transformer ratio tap changer input needed.</p>
     extends Trafo3IdealBase(redeclare replaceable record Data =
         PowerSystems.AC3ph.Transformers.Parameters.Trafo3Stray
         constrainedby PowerSystems.AC3ph.Transformers.Parameters.Trafo3Stray);
-  protected
+    protected
     SI.Resistance[3] R=par.r.*RL_base[:, 1];
     SI.Inductance[3] L=par.x.*RL_base[:, 2];
     SI.Inductance[3] L0=par.x0.*RL_base[:, 2];

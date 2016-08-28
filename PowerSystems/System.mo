@@ -26,15 +26,13 @@ model System "System reference"
     "nominal angular frequency" annotation(Evaluate=true);
   final parameter Types.AngularVelocity w_nom = 2*pi*f_nom "nom r.p.m."
                  annotation(Evaluate=true, Dialog(group="Nominal"));
-  final parameter Boolean synRef=if transientSim then refType==PowerSystems.Types.ReferenceFrame.Synchron else true
+  final parameter Boolean synRef = refType==PowerSystems.Types.ReferenceFrame.Synchron
+    or dynType==PowerSystems.Types.Dynamics.SteadyState
     annotation(Evaluate=true);
 
-  final parameter Boolean steadyIni = dynType<>PowerSystems.Types.Dynamics.FixedInitial
+  final parameter Boolean steadyIni = dynType==PowerSystems.Types.Dynamics.SteadyInitial
+    or dynType==PowerSystems.Types.Dynamics.SteadyState
     "steady state initialisation of electric equations" annotation(Evaluate=true);
-  final parameter Boolean transientSim = dynType<>PowerSystems.Types.Dynamics.SteadyState
-    "transient mode of electric equations" annotation(Evaluate=true);
-  final parameter Boolean steadyIni_t = steadyIni and transientSim
-    annotation(Evaluate=true);
   discrete SI.Time initime;
   SI.Angle theta(final start=0,
     stateSelect=if fType==Types.SystemFrequency.Parameter then StateSelect.default else StateSelect.always);

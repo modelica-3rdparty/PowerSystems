@@ -202,8 +202,8 @@ Consumes the desired power independent of voltage.</p>
       extends Basic.Nominal.Nominal;
       extends Ports.Port_p;
 
-      parameter Boolean stIni_en=true "enable steady-state initialization"
-        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter PS.Voltage v_start = 0
         "start value of voltage drop" annotation(Dialog(tab="Initialization"));
       parameter PS.Current i_start = 0
@@ -215,7 +215,6 @@ Consumes the desired power independent of voltage.</p>
     protected
       outer System system;
       final parameter Real S_base=Basic.Precalculation.baseS(puUnits, S_nom);
-      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
 
     equation
       term.i[1] + term.i[2] = 0;
@@ -321,15 +320,15 @@ Consumes the desired power independent of voltage.</p>
                    function atan=Modelica.Math.atan;
 
                  initial equation
-                   if steadyIni_t then
+                   if dynType == Types.Dynamics.SteadyInitial then
                      der(psi) = 0;
-                   elseif not system.steadyIni then
+                   elseif dynType == Types.Dynamics.FixedInitial then
                      psi = psi_start;
                    end if;
 
                  equation
                    psi = Z[2]*i/system.omega_nom;
-                   if system.transientSim then
+                   if dynType <> Types.Dynamics.SteadyState then
                      der(psi) + Z[1]*i = v;
                    else
                      Z[1]*i = v;
@@ -363,15 +362,15 @@ Consumes the desired power independent of voltage.</p>
                    function atan=Modelica.Math.atan;
 
                  initial equation
-                   if steadyIni_t then
+                   if dynType == Types.Dynamics.SteadyInitial then
                      der(q) = 0;
-                   elseif not system.steadyIni then
+                   elseif dynType == Types.Dynamics.FixedInitial then
                      q = q_start;
                    end if;
 
                  equation
                    q = Y[2]*v/system.omega_nom;
-                   if system.transientSim then
+                   if dynType <> Types.Dynamics.SteadyState then
                      der(q) + Y[1]*v = i;
                    else
                      Y[1]*v = i;
@@ -451,9 +450,9 @@ Consumes the desired power independent of voltage.</p>
       SI.Inductance L(start=t_RL*Rstart);
 
     initial equation
-      if steadyIni_t then
+      if dynType == Types.Dynamics.SteadyInitial then
         der(L*i) = 0;
-      elseif not system.steadyIni then
+      elseif dynType == Types.Dynamics.FixedInitial then
         i = i_start;
       end if;
 

@@ -3,7 +3,7 @@ package Impedances "Impedance and admittance two terminal"
   extends Modelica.Icons.VariantsPackage;
 
   model Resistor "Resistor, 3-phase dq0"
-    extends Partials.ImpedBase(final f_nom=0, final stIni_en=false);
+    extends Partials.ImpedBase(final f_nom=0, final dynType=Types.Dynamics.SteadyState);
 
     parameter SIpu.Resistance r=1 "resistance";
   protected
@@ -51,7 +51,7 @@ package Impedances "Impedance and admittance two terminal"
   end Resistor;
 
   model Conductor "Conductor, 3-phase dq0"
-    extends Partials.ImpedBase(final f_nom=0, final stIni_en=false);
+    extends Partials.ImpedBase(final f_nom=0, final dynType=Types.Dynamics.SteadyState);
 
     parameter SIpu.Conductance g=1 "conductance";
   protected
@@ -111,14 +111,14 @@ package Impedances "Impedance and admittance two terminal"
     final parameter SI.Inductance L0=(x_s+2*x_m)*RL_base[2];
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i) = omega[1]*j_dq0(i);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
   equation
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = v;
     else
       omega[2]*L*j_dq0(i) + R*i = v;
@@ -211,14 +211,14 @@ package Impedances "Impedance and admittance two terminal"
     final parameter SI.Capacitance C=b*GC_base[2];
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(v) = omega[1]*j_dq0(v);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       v = v_start;
     end if;
 
   equation
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       C*der(v) + omega[2]*C*j_dq0(v) + G*v = i;
     else
       omega[2]*C*j_dq0(v) + G*v = i;
@@ -332,14 +332,14 @@ package Impedances "Impedance and admittance two terminal"
     final parameter SI.Inductance L0=L*(1 + 2*cpl)/(1-cpl);
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i) = omega[1]*j_dq0(i);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
   equation
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = v;
     else
       omega[2]*L*j_dq0(i) + R*i = v;
@@ -460,14 +460,14 @@ Instead of x_s, x_m, and r the parameters z_abs, cos(phi), and x_o are used.</p>
     final parameter SI.Capacitance C=y_abs*sin(acos(cos_phi))*GC_base[2];
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(v) = omega[1]*j_dq0(v);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       v = v_start;
     end if;
 
   equation
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       C*der(v) + omega[2]*C*j_dq0(v) + G*v = i;
     else
       omega[2]*C*j_dq0(v) + G*v = i;
@@ -582,7 +582,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   end Admittance;
 
   model ResistorNonSym "Resistor non symmetric, 3-phase dq0."
-    extends Partials.ImpedNonSymBase(final f_nom=0, final stIni_en=false);
+    extends Partials.ImpedNonSymBase(final f_nom=0, final dynType=Types.Dynamics.SteadyState);
 
     parameter SIpu.Resistance[3] r={1,1,1} "resistance[3] abc";
   protected
@@ -654,7 +654,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     SI.Inductance[3, 3] L;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(psi[1:2]) = omega[1]*j_dq0(psi[1:2]);
       psi[3] = 0;
     end if;
@@ -768,7 +768,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     SI.Capacitance[3, 3] C;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(q[1:2]) = omega[1]*j_dq0(q[1:2]);
       q[3] = 0;
     end if;
@@ -883,7 +883,7 @@ a time dependent transform of the coefficient matrix.</p>
   end CapacitorNonSym;
 
   model Varistor "Varistor, 3-phase dq0"
-    extends Partials.ImpedNonSymBase(final f_nom=0, final stIni_en=false);
+    extends Partials.ImpedNonSymBase(final f_nom=0, final dynType=Types.Dynamics.SteadyState);
 
     parameter SIpu.Resistance r0=100 "small voltage resistance";
     parameter SIpu.Voltage v0=1 "saturation voltage";
@@ -949,8 +949,8 @@ a time dependent transform of the coefficient matrix.</p>
       extends Ports.Port_pn;
       extends Basic.Nominal.NominalAC;
 
-      parameter Boolean stIni_en=true "enable steady-state initial equation"
-        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter PS.Voltage[3] v_start = zeros(3)
         "start value of voltage drop" annotation(Dialog(tab="Initialization"));
       parameter PS.Current[3] i_start = zeros(3)
@@ -960,7 +960,6 @@ a time dependent transform of the coefficient matrix.</p>
       PS.Current[3] i(start = i_start);
 
     protected
-      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       SI.AngularFrequency[2] omega;
 
     equation

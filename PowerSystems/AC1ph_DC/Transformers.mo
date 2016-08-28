@@ -21,9 +21,9 @@ package Transformers "Transformers 1-phase "
     extends Partials.TrafoStrayBase;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i1) = 0;
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i1 = i1_start;
     end if;
 
@@ -257,8 +257,8 @@ and eddy current losses.</p>
 
       extends Ports.PortTrafo_p_n(i1(start = i1_start), i2(start = i2_start));
 
-      parameter Boolean stIni_en=true "enable steady-state initial equation"
-        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter PS.Current i1_start = 0 "start value of primary current"
         annotation(Dialog(tab="Initialization"));
       parameter PS.Current i2_start = i1_start
@@ -295,7 +295,6 @@ and eddy current losses.</p>
       final parameter Data par "trafo parameter record"
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
-      final parameter Boolean steadyIni_t = system.steadyIni_t and stIni_en;
       Modelica.Blocks.Interfaces.IntegerInput tap_1_internal
         "Needed to connect to conditional connector";
       Modelica.Blocks.Interfaces.IntegerInput tap_2_internal

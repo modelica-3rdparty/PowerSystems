@@ -172,7 +172,9 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
   model VsourceRX "Voltage behind reactance source, 3-phase dq0"
     extends Partials.PowerBase;
 
-    parameter Boolean stIni_en=true "enable steady-state initial equation";
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
+
     parameter PowerSystems.Types.IniType iniType=PowerSystems.Types.IniType.v_alpha
       "initialisation type";
     parameter SIpu.Voltage v_ini=1 "initial terminal voltage" annotation(Dialog(enable=iniType
@@ -192,7 +194,6 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     parameter SIpu.Reactance x=1 "reactance d- and q-axis";
     parameter SIpu.Reactance x_o=0.1 "reactance 0-axis";
   protected
-    final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
     final parameter SIpu.Voltage v0(final fixed=false, start=1)
       "voltage behind reactance";
     final parameter SI.Angle alpha0(final fixed=false, start=0)
@@ -221,7 +222,7 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     elseif iniType == PowerSystems.Types.IniType.p_q then
       {v[1:2]*i[1:2], {v[2],-v[1]}*i[1:2]} = pq_ini*S_base;
     end if;
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i) = omega[1]*j_dq0(i);
     end if;
 
@@ -231,7 +232,7 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     i = -term.i;
     phi = term.theta[1] + alpha0 + system.alpha0;
 
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v} - v;
     else
       omega[2]*L*j_dq0(i) + R*i = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v} - v;

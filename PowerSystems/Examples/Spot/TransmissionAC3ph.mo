@@ -640,7 +640,7 @@ Compare with DoublePIline.</p>
               PowerSystems.AC3ph.Machines.Parameters.Synchron_ee (
               V_nom=20e3,
               S_nom=1000e6,
-              If_nom=2000), stIni_en=false) "nth order",
+              If_nom=2000), dynType=PowerSystems.Types.Dynamics.FreeInitial) "nth order",
       iniType=PowerSystems.Types.IniType.v_alpha,
       alpha_ini=0.5235987755983)
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
@@ -741,7 +741,7 @@ Compare with DoublePIline.</p>
           PowerSystems.AC3ph.Machines.Parameters.Synchron_ee (
           V_nom=20e3,
           S_nom=1000e6,
-          If_nom=2000), stIni_en=false) "nth order",
+          If_nom=2000), dynType=PowerSystems.Types.Dynamics.FreeInitial) "nth order",
       alpha_ini=0.5235987755983)
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(

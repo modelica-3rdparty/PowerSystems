@@ -79,9 +79,9 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
     final parameter SI.Inductance L=x*RL_base[2];
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i) = 0;
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
@@ -131,9 +131,9 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
     final parameter SI.Capacitance C=b*GC_base[2];
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(v) = 0;
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       v = v_start;
     end if;
 
@@ -232,8 +232,8 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
       extends Ports.Port_p;
       extends Basic.Nominal.NominalAC;
 
-      parameter Boolean stIni_en = true "enable steady-state initialization"
-        annotation(Evaluate=true);
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state initialization"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter PS.Voltage v_start = 0 "start value of voltage drop"
         annotation(Dialog(tab="Initialization"));
       parameter PS.Current i_start = 0 "start value of current"
@@ -241,9 +241,6 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
 
       PS.Voltage v(start = v_start);
       PS.Current i(start = i_start);
-
-    protected
-      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
 
     equation
       term.i[1] + term.i[2] = 0;

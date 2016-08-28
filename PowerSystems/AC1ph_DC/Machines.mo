@@ -65,14 +65,14 @@ package Machines "DC-machines, electric part"
     extends Partials.DCserBase;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i) = 0;
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
   equation
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       c.L*der(i) + (w_el*c.L_md + sum(c.R))*i = v;
     else
       (w_el*c.L_md + sum(c.R))*i = v;
@@ -123,14 +123,14 @@ L_md depends on the winding ratio between armature and field winding</p>
     extends Partials.DCparBase;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der({i_f, i}) = {0,0};
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
   equation
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal(c.L)*der({i_f, i}) + {0, w_el*c.L_md*i_f} + diagonal(c.R)*{i_f, i} = {v_f, v};
     else
       {0, w_el*c.L_md*i_f} + diagonal(c.R)*{i_f, i} = {v_f, v};
@@ -189,14 +189,14 @@ It can be determined in several ways,<br>
     extends Partials.DCpmBase;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i) = 0;
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
   equation
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       c.L*der(i) + c.R*i = v - w_el*c.Psi_pm;
     else
       c.R*i = v - w_el*c.Psi_pm;
@@ -233,8 +233,8 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
     partial model DCBase "Base DC machine"
       extends Ports.Port_p;
 
-      parameter Boolean stIni_en=true "enable steady-state initial equation"
-        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter PS.Voltage v_start = 0 "start value of voltage drop"
         annotation(Dialog(tab="Initialization"));
       parameter PS.Current i_start = 0 "start value of current"
@@ -262,7 +262,6 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
             rotation=90)));
     protected
       outer System system;
-      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       final parameter SI.AngularVelocity w_el_ini = w_ini*pp
         "initial rotor angular velocity electric";
 

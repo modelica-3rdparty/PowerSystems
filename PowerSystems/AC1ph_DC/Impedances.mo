@@ -89,9 +89,9 @@ package Impedances "Impedance and admittance two terminal"
     final parameter SI.Inductance[2,2] L=x*RL_base[2];
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i) = zeros(2);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
@@ -160,9 +160,9 @@ package Impedances "Impedance and admittance two terminal"
     final parameter SI.Capacitance[2] C=b*GC_base[2];
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(v) = zeros(2);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       v = v_start;
     end if;
 
@@ -250,9 +250,9 @@ package Impedances "Impedance and admittance two terminal"
     final parameter SI.Inductance[2,2] L=([1,cpl;cpl,1]/(1 - cpl))*z_abs*sin(acos(cos_phi))*RL_base[2];
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i) = zeros(2);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
@@ -345,9 +345,9 @@ Instead of x and r the parameters z_abs and cos(phi) are used.</p>
     final parameter SI.Capacitance C=y_abs*sin(acos(cos_phi))*GC_base[2];
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(v) = zeros(2);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       v = v_start;
     end if;
 
@@ -836,8 +836,8 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
       extends Ports.Port_pn;
       extends Basic.Nominal.NominalAC;
 
-      parameter Boolean stIni_en=true "enable steady-state initialization"
-        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter PS.Voltage[2] v_start = zeros(2)
         "start value of voltage drop" annotation(Dialog(tab="Initialization"));
       parameter PS.Current[2] i_start = zeros(2)
@@ -845,9 +845,6 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
 
       PS.Voltage[2] v(start = v_start);
       PS.Current[2] i(start = i_start);
-
-    protected
-      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
 
     equation
       v = term_p.v - term_n.v;

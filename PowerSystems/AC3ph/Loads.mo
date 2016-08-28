@@ -502,7 +502,7 @@ Consumes the desired active and reactive power at <b>nominal</b> voltage.</p>
     Real[2] xT;
 
   initial equation
-    if system.steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(x) = {0,0};
     end if;
     der(Z) = {0,0};
@@ -581,8 +581,8 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
       extends Ports.Yport_p;
       extends Basic.Nominal.Nominal;
 
-      parameter Boolean stIni_en=true "enable steady-state initial equation"
-        annotation(Evaluate=true, choices(checkBox=true), Dialog(tab="Initialization"));
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
 
       parameter Boolean use_pq_in = false
         "= true to use input signal pq_in, otherwise use parameter pq0"
@@ -600,7 +600,6 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
 
     protected
       outer System system;
-      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       final parameter Real S_base=Basic.Precalculation.baseS(puUnits, S_nom);
       final parameter Real R_base=Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
       final parameter SI.Resistance R_n=r_n*R_base;
@@ -656,13 +655,13 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
       SI.Impedance[2] Z(start=Zstart);
 
     initial equation
-      if steadyIni_t then
+      if dynType == Types.Dynamics.SteadyInitial then
         der(psi) = omega[1]*{-psi[2], psi[1], 0};
       end if;
 
     equation
       psi = Z[2]*{i[1], i[2], c0*i[3]}/system.omega_nom;
-      if system.transientSim then
+      if dynType <> Types.Dynamics.SteadyState then
         der(psi) + omega[2]*j_dq0(psi) + Z[1]*i = v;
       else
         omega[2]*j_dq0(psi)  + Z[1]*i = v;
@@ -697,13 +696,13 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
       SI.Admittance[2] Y(start=Ystart);
 
     initial equation
-      if steadyIni_t then
+      if dynType == Types.Dynamics.SteadyInitial then
         der(q) = omega[1]*{-q[2], q[1], 0};
       end if;
 
     equation
       q = Y[2]*{v[1], v[2], c0*v[3]}/system.omega_nom;
-      if system.transientSim then
+      if dynType <> Types.Dynamics.SteadyState then
         der(q) + omega[2]*j_dq0(q) + Y[1]*v = i;
       else
         omega[2]*j_dq0(q) + Y[1]*v = i;

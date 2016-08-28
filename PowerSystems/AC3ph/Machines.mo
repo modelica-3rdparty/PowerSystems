@@ -510,8 +510,8 @@ The mapping from current demand to voltage demand is based on the steady-state e
     partial model ACmachine "AC machine base, 3-phase dq0"
       extends Ports.YDport_p(i(start = i_start));
 
-      parameter Boolean stIni_en=true "enable steady-state initialization"
-        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter PS.Current[3] i_start = zeros(3)
         "start value of current conductor";
       parameter SI.Angle phi_el_ini=0 "initial rotor angle electric";
@@ -535,7 +535,6 @@ The mapping from current demand to voltage demand is based on the steady-state e
             rotation=90)));
     protected
       outer System system;
-      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       final parameter SI.AngularVelocity w_el_ini = w_ini*pp
         "initial rotor angular velocity electric";
       SI.AngularFrequency[2] omega;
@@ -701,12 +700,12 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
       SI.MagneticFlux[n_r] psi_rq "magnetic fluxrotor q";
 
     initial equation
-      if steadyIni_t then
+      if dynType == Types.Dynamics.SteadyInitial then
         der(psi_s) = omega[1]*{-psi_s[2], psi_s[1]};
         der(i[3]) = 0;
         der(psi_rd) = omega[1]*(-psi_rq);
         der(psi_rq) = omega[1]*psi_rd;
-      elseif system.steadyIni_t then
+      elseif dynType <> Types.Dynamics.SteadyState then
         der(psi_rd) = omega[1]*(-psi_rq);
         der(psi_rq) = omega[1]*psi_rd;
       end if;
@@ -716,7 +715,7 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
       psi_rd = L_m*i[1] + L_r*i_rd;
       psi_rq = L_m*i[2] + L_r*i_rq;
 
-      if system.transientSim then
+      if dynType <> Types.Dynamics.SteadyState then
         der(psi_s) + omega[2]*{-psi_s[2], psi_s[1]} + c.R_s*i[1:2] = v[1:2];
         c.L_s[3]*der(i[3]) + c.R_s*i[3] = v[3];
         der(psi_rd) + (omega[2] - w_el)*(-psi_rq) + diagonal(R_r)*i_rd = v_rd;
@@ -898,7 +897,7 @@ The transformation angle is the (electric) rotor-angle relative to the reference
       SI.MagneticFlux[2] psi_s "magnetic flux stator dq";
 
     initial equation
-      if steadyIni_t then
+      if dynType == Types.Dynamics.SteadyInitial then
         der(psi_s) = zeros(2);
         der(c.L_s[3]*i_s[3]) = 0;
       end if;
@@ -906,7 +905,7 @@ The transformation angle is the (electric) rotor-angle relative to the reference
     equation
       psi_s = {c.L_s[1]*i_s[1] + psi_e, c.L_s[2]*i_s[2]};
 
-      if system.transientSim then
+      if dynType <> Types.Dynamics.SteadyState then
         der(psi_s) + w_el*{-psi_s[2], psi_s[1]} + c.R_s*i_s[1:2] = v_s[1:2];
         c.L_s[3]*der(i_s[3]) + c.R_s*i_s[3] = v_s[3];
       else
@@ -994,12 +993,12 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
       PS.Current i_f "field current (not scaled to stator units)";
 
     initial equation
-      if steadyIni_t then
+      if dynType == Types.Dynamics.SteadyInitial then
         der(psi_s) = zeros(2);
         der(c.L_s[3]*i_s[3]) = 0;
         der(psi_rd) = zeros(n_d);
         der(psi_rq) = zeros(n_q);
-      elseif system.steadyIni_t then
+      elseif dynType <> Types.Dynamics.SteadyState then
         der(psi_rd) = zeros(n_d);
         der(psi_rq) = zeros(n_q);
       end if;
@@ -1013,7 +1012,7 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
       v_f = v_rd[1]/c.wf;
       i_f = i_rd[1]*c.wf;
 
-      if system.transientSim then
+      if dynType <> Types.Dynamics.SteadyState then
         der(psi_s) + w_el*{-psi_s[2], psi_s[1]} + c.R_s*i_s[1:2] = v_s[1:2];
         c.L_s[3]*der(i_s[3]) + c.R_s*i_s[3] = v_s[3];
         der(psi_rd) + diagonal(R_rd)*i_rd = v_rd;

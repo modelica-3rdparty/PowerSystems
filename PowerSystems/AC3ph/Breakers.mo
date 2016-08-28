@@ -28,11 +28,11 @@ package Breakers "Switches and Breakers 3-phase"
   initial equation
     pre(open) = not control[1];
     pre(closed) = control[1];
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       t0 = -Modelica.Constants.inf;
     end if;
   equation
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       when edge(open) or edge(closed) then
         t0 = time;
       end when;
@@ -103,6 +103,9 @@ with
     extends Ports.PortBase;
     extends PowerSystems.Basic.Nominal.NominalVI;
 
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
+
     parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
       "{resistance 'closed', conductance 'open'}";
     parameter SI.Time t_relax=10e-3 "switch relaxation time";
@@ -147,7 +150,7 @@ with
   initial equation
     pre(open_t) = not control;
     pre(closed_t) = control;
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       t0 = -Modelica.Constants.inf;
     end if;
   equation
@@ -162,7 +165,7 @@ with
     term_nf.i = -i_f;
     term_p.i + term_nt.i + term_nf.i = zeros(3);
 
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       when edge(open_t) or edge(closed_t) then
         t0 = time;
       end when;
@@ -393,6 +396,9 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       extends Ports.Port_pn;
       extends PowerSystems.Basic.Nominal.NominalVI;
 
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
+
       parameter Integer n=3 "number of independent switches";
       parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
         "{resistance 'closed', conductance 'open'}";
@@ -405,6 +411,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
             extent={{-10,-10},{10,10}},
             rotation=270)));
     protected
+      outer System system;
       final parameter SI.Resistance epsR=eps[1]*V_nom/I_nom;
       final parameter SI.Conductance epsG=eps[2]*I_nom/V_nom;
 

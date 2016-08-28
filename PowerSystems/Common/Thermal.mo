@@ -448,6 +448,9 @@ end BdCondBase;
 
 partial model BoundaryBase "Boundary model base"
 
+  parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+    annotation(Evaluate=true, Dialog(tab="Mode"));
+
   parameter Boolean av=false "time average heat-flow"  annotation(Evaluate=true,Dialog(group="Options"));
   parameter SI.Time tcst(min=1e-9)=1 "average time-constant"
                                                   annotation(Evaluate=true, Dialog(group="Options",enable=av));
@@ -461,7 +464,7 @@ partial model BoundaryBase "Boundary model base"
   outer System system;
 
 initial equation
-  if not ideal and system.steadyIni_t then
+  if not ideal and dynType == Types.Dynamics.SteadyInitial then
     der(T) = 0;
   end if;
   annotation (defaultComponentName="boundary",

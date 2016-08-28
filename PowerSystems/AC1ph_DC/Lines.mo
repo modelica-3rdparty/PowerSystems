@@ -10,9 +10,9 @@ package Lines "Transmission lines 1-phase"
     PS.Current[2] i(start = i_start);
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i) = zeros(2);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
@@ -87,10 +87,10 @@ package Lines "Transmission lines 1-phase"
     final parameter Integer ne1=ne + 1;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(v) = zeros(2,ne1);
       der(i) = zeros(2,ne);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       v = transpose(fill(v_start, ne1));
       i = transpose(fill(i_start, ne));
     end if;
@@ -336,10 +336,10 @@ The set of equations of two series connected lines of length len1 and len2 is id
     final parameter Integer ne1=ne + 1;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(v) = zeros(2,ne);
       der(i) = zeros(2,ne1);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       v = transpose(fill(v_start, ne));
       i = transpose(fill(i_start, ne1));
     end if;
@@ -530,10 +530,10 @@ model FaultRXline "Faulted RX transmission line, 1-phase"
   PS.Current[2] i2(start = i_start);
 
 initial equation
-  if steadyIni_t then
+  if dynType == Types.Dynamics.SteadyInitial then
     der(i1) = zeros(2);
     der(i2) = zeros(2);
-  elseif not system.steadyIni then
+  elseif dynType == Types.Dynamics.FixedInitial then
     i1 = i_start;
     i2 = i_start;
   end if;
@@ -683,11 +683,11 @@ model FaultTline "Faulted PI transmission line, 1-phase"
       "relative fault position within element nF";
 
 initial equation
-  if steadyIni_t then
+  if dynType == Types.Dynamics.SteadyInitial then
     der(v) = zeros(2,ne);
     der(i) = zeros(2,ne1);
     der(iF) = zeros(2);
-  elseif not system.steadyIni then
+  elseif dynType == Types.Dynamics.FixedInitial then
     v = transpose(fill(v_start, ne));
     i = transpose(fill(i_start, ne1));
     iF = iF_start;
@@ -803,8 +803,8 @@ end FaultTline;
       final parameter Data par "line parameters"
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-      parameter Boolean stIni_en=true "enable steady-state initialization"
-        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter PS.Voltage[2] v_start = zeros(2) "start value of voltage drop"
                                        annotation(Dialog(tab="Initialization"));
       parameter PS.Current[2] i_start = zeros(2) "start value of current"
@@ -812,7 +812,6 @@ end FaultTline;
 
     protected
       outer System system;
-      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       final parameter Real[2] RL_base=Basic.Precalculation.baseRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
       final parameter Real delta_len_km(final quantity="Length", final unit="km")=len/1e3/ne;
       final parameter SI.Resistance[2] R=par.r*delta_len_km*RL_base[1];

@@ -220,11 +220,13 @@ package Types
 </html>"));
 
   type Dynamics = enumeration(
+      FreeInitial "Free initial conditions",
       FixedInitial "Fixed initial conditions",
       SteadyInitial "Steady-state initial conditions",
       SteadyState "Steady-state (quasi-stationary)") "Options for specification of simulation"
       annotation(Documentation(info="<html>
 <p><pre>
+  FreeInitial:     Transient simulation with free initial conditions
   FixedInitial:    Transient simulation with fixed initial conditions
   SteadyInitial:   Transient simulation with steady-state initial conditions
   SteadyState:     Quasi-stationary simulation using steady-state model

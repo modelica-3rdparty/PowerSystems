@@ -18,8 +18,7 @@ model Vsource "Power transfer from voltage source to slack bus"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
   PowerSystems.AC3ph.Lines.RXline line(
     len=40e3, redeclare record Data =
-    PowerSystems.AC3ph.Lines.Parameters.RXline (V_nom=20e3, S_nom=500e6),
-    stIni_en=false)
+    PowerSystems.AC3ph.Lines.Parameters.RXline (V_nom=20e3, S_nom=500e6))
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
   PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
     annotation (Placement(transformation(extent={{70,0},{50,20}})));
@@ -411,7 +410,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
         V_nom=20e3,
         r=0.02e-3,
         x=0.2e-3),
-      stIni_en=false,
+      dynType=PowerSystems.Types.Dynamics.FreeInitial,
       len=400e3)
       annotation (Placement(transformation(extent={{30,0},{50,20}})));
     PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
@@ -437,9 +436,9 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
         V_nom=20e3,
         r=0.02e-3,
         x=0.2e-3),
-      stIni_en=false,
-      len=400e3)                            annotation (Placement(transformation(
-            extent={{30,-80},{50,-60}})));
+      dynType=PowerSystems.Types.Dynamics.FreeInitial,
+      len=400e3)
+      annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
     PowerSystems.AC3ph.Sources.Voltage VBus1(V_nom=20e3)
       annotation (Placement(transformation(extent={{90,-80},{70,-60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
@@ -544,7 +543,7 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
       V_nom=20e3,
       r=0.02e-3,
       x=0.2e-3),
-      stIni_en=false,
+      dynType=PowerSystems.Types.Dynamics.FreeInitial,
       len=400e3)
     annotation (Placement(transformation(extent={{30,0},{50,20}})));
   PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=20e3)
@@ -573,9 +572,9 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
       V_nom=20e3,
       r=0.02e-3,
       x=0.2e-3),
-      stIni_en=false,
-      len=400e3)                          annotation (Placement(transformation(
-            extent={{30,-60},{50,-40}})));
+      dynType=PowerSystems.Types.Dynamics.FreeInitial,
+      len=400e3)
+      annotation (Placement(transformation(extent={{30,-60},{50,-40}})));
   PowerSystems.AC3ph.Sources.Voltage VBus1(V_nom=20e3)
     annotation (Placement(transformation(extent={{90,-60},{70,-40}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
@@ -852,8 +851,8 @@ model TieLine "Generators and power-oscillations"
       v_ini=1.05,
       H=20,
       redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
-            redeclare record Data =
-              PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
+        redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
         "nth order",
       redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
         "1st order",
@@ -863,8 +862,8 @@ model TieLine "Generators and power-oscillations"
       q_ini=0.24022361,
       iniType=PowerSystems.Types.IniType.p_q)
       annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  PowerSystems.AC3ph.Nodes.BusBar bus1           annotation (Placement(
-          transformation(extent={{-80,-20},{-60,0}})));
+  PowerSystems.AC3ph.Nodes.BusBar bus1
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor1(term_p(v(start={20e3,0,0})))
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   PowerSystems.AC3ph.Lines.RXline line1(redeclare record Data =
@@ -873,7 +872,7 @@ model TieLine "Generators and power-oscillations"
     f_nom=60,
     r=0.02e-3,
     x=0.3e-3), len=200e3,
-    stIni_en=false)
+    dynType=PowerSystems.Types.Dynamics.FreeInitial)
             annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC3ph.Generation.TurboGenerator turboGen2(
       dispPA=true,
@@ -883,8 +882,8 @@ model TieLine "Generators and power-oscillations"
       redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
         "1st order",
       redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
-            redeclare record Data =
-              PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
+        redeclare record Data =
+          PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
         "nth order",
       redeclare model Governor = PowerSystems.Control.Governors.Governor1st
         "1st order",
@@ -892,8 +891,8 @@ model TieLine "Generators and power-oscillations"
       q_ini=0.5092972,
       iniType=PowerSystems.Types.IniType.p_q)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
-  PowerSystems.AC3ph.Nodes.BusBar bus2           annotation (Placement(
-          transformation(extent={{60,-20},{80,0}})));
+  PowerSystems.AC3ph.Nodes.BusBar bus2
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor2(term_p(v(start={20e3,0,0})))
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   PowerSystems.AC3ph.Lines.RXline line2(redeclare record Data =
@@ -902,7 +901,7 @@ model TieLine "Generators and power-oscillations"
     f_nom=60,
     r=0.02e-3,
     x=0.3e-3), len=40e3,
-    stIni_en=false)
+    dynType=PowerSystems.Types.Dynamics.FreeInitial)
             annotation (Placement(transformation(extent={{10,-20},{30,0}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen3(
     dispPA=true,
@@ -915,7 +914,7 @@ model TieLine "Generators and power-oscillations"
     redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
         redeclare record Data =
           PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA,
-        stIni_en=false) "nth order",
+        dynType=PowerSystems.Types.Dynamics.FreeInitial) "nth order",
       q_ini=0.10292306,
       p_ini=0.27353)
     annotation (Placement(transformation(
@@ -933,7 +932,7 @@ model TieLine "Generators and power-oscillations"
     f_nom=60,
     r=0.02e-3,
     x=0.3e-3), len=150e3,
-    stIni_en=false)
+    dynType=PowerSystems.Types.Dynamics.FreeInitial)
     annotation (Placement(transformation(
           origin={0,10},
           extent={{-10,-10},{10,10}},
@@ -1063,7 +1062,7 @@ model WindGeneratorLine "Asynchronous generator"
     V_nom=400,
     S_nom=30e3,
     r=0.05), len=1.5e3,
-      stIni_en=false)
+    dynType=PowerSystems.Types.Dynamics.FreeInitial)
     annotation (Placement(transformation(extent={{30,0},{50,20}})));
   PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=400)
     annotation (Placement(transformation(extent={{90,0},{70,20}})));

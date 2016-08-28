@@ -15,14 +15,14 @@ package Lines "Transmission lines 3-phase"
     final parameter SI.Inductance L0=x0*RL_base[2];
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i) = omega[1]*j_dq0(i);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
   equation
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = v;
     else
       omega[2]*L*j_dq0(i) + R*i = v;
@@ -114,9 +114,9 @@ package Lines "Transmission lines 3-phase"
     SI.AngularFrequency[2] omega;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i) = omega[1]*j_dq0(i);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
@@ -125,7 +125,7 @@ package Lines "Transmission lines 3-phase"
     v = term_p.v - term_n.v;
     i = term_p.i;
 
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = v;
     else
       omega[2]*L*j_dq0(i) + R*i = v;
@@ -225,10 +225,10 @@ package Lines "Transmission lines 3-phase"
     SI.AngularFrequency[2] omega;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(v) = omega[1]*jj_dq0(v);
       der(i) = omega[1]*jj_dq0(i);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       v = transpose(fill(v_start, ne1));
       i = transpose(fill(i_start, ne));
     end if;
@@ -238,7 +238,7 @@ package Lines "Transmission lines 3-phase"
     v[:, 1] = term_p.v;
     v[:, ne1] = term_n.v;
 
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({C,C,C0})*der(v) + omega[2]*C*jj_dq0(v) + G*v =
        [[2*(term_p.i - i[:, 1])], i[:, 1:ne - 1] - i[:, 2:ne], [2*(i[:, ne] + term_n.i)]];
       diagonal({L,L,L0})*der(i) + omega[2]*L*jj_dq0(i) + R*i =
@@ -650,10 +650,10 @@ The set of equations of two series connected lines of length len1 and len2 is id
     SI.AngularFrequency[2] omega;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(v) = omega[1]*jj_dq0(v);
       der(i) = omega[1]*jj_dq0(i);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       v = transpose(fill(v_start, ne));
       i = transpose(fill(i_start, ne1));
     end if;
@@ -663,7 +663,7 @@ The set of equations of two series connected lines of length len1 and len2 is id
     i[:, 1] = term_p.i;
     i[:, ne1] = -term_n.i;
 
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({C,C,C0})*der(v) + omega[2]*C*jj_dq0(v) + G*v =
        i[:,1:ne] - i[:,2:ne1];
       diagonal({L,L,L0})*der(i) + omega[2]*L*jj_dq0(i) + R*i =
@@ -973,10 +973,10 @@ The set of equations of two series connected lines of length len1 and len2 is id
     SI.AngularFrequency[2] omega;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i1) = omega[1]*j_dq0(i1);
       der(i2) = omega[1]*j_dq0(i2);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       i1 = i_start;
       i2 = i_start;
     end if;
@@ -987,7 +987,7 @@ The set of equations of two series connected lines of length len1 and len2 is id
     i1 = term_p.i;
     i2 = -term_n.i;
 
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       p*(diagonal({L,L,L0})*der(i1) + omega[2]*L*j_dq0(i1) + R*i1) =
        term_p.v - term_f.v;
       (1 - p)*(diagonal({L,L,L0})*der(i2) + omega[2]*L*j_dq0(i2) + R*i2) =
@@ -1184,11 +1184,11 @@ The set of equations of two series connected lines of length len1 and len2 is id
     SI.AngularFrequency[2] omega;
 
   initial equation
-    if steadyIni_t then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(v) = omega[1]*jj_dq0(v);
       der(i) = omega[1]*jj_dq0(i);
       der(iF) = omega[1]*j_dq0(iF);
-    elseif not system.steadyIni then
+    elseif dynType == Types.Dynamics.FixedInitial then
       v = transpose(fill(v_start, ne));
       i = transpose(fill(i_start, ne1));
       iF = iF_start;
@@ -1201,7 +1201,7 @@ The set of equations of two series connected lines of length len1 and len2 is id
     iF = -term_f.i;
     iF_p = [(1-pe)*iF, pe*iF];
 
-    if system.transientSim then
+    if dynType <> Types.Dynamics.SteadyState then
       diagonal({C,C,C0})*der(v) + omega[2]*C*jj_dq0(v) + G*v =
        [i[:,1:nF-2]-i[:, 2:nF-1], i[:,nF-1:nF]-i[:,nF:nF+1]-iF_p, i[:,nF+1:ne]-i[:,nF+2:ne1]];
       diagonal({L,L,L0})*der(i) + omega[2]*L*jj_dq0(i) + R*i =
@@ -1328,8 +1328,8 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
     partial model RXlineBase "RX-line base, 3-phase dq0"
       extends Ports.PortBase;
 
-      parameter Boolean stIni_en=true "enable steady-state initial equation"
-        annotation(Evaluate=true, Dialog(tab="Initialization"));
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter PS.Voltage[3] v_start = zeros(3) "start value of voltage drop"
         annotation(Dialog(tab="Initialization"));
       parameter PS.Current[3] i_start = zeros(3) "start value of current"
@@ -1345,7 +1345,6 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
       outer System system;
-      final parameter Boolean steadyIni_t=system.steadyIni_t and stIni_en;
       final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
       final parameter Real delta_len_km(final quantity="Length", final unit="km")=len/1e3/ne;
       final parameter SI.Resistance R=par.r*delta_len_km*RL_base[1];

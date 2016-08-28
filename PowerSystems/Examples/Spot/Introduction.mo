@@ -354,7 +354,7 @@ Stationary signals are constant after an initial oscillation.</p>
       PowerSystems.AC3ph.Lines.Parameters.RXline (
         V_nom=400e3,
         r=0.02e-3,
-        x=0.25e-3), stIni_en=false)
+        x=0.25e-3))
      annotation (Placement(transformation(
           origin={20,-40},
           extent={{-10,10},{10,-10}},

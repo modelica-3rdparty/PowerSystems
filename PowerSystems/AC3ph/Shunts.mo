@@ -18,13 +18,13 @@ protected
   PS.Current[3] i_x;
 
 initial equation
-  if system.steadyIni_t then
+  if dynType == Types.Dynamics.SteadyInitial then
     der(i_x) = omega[1]*j_dq0(i_x);
   end if;
 
 equation
   i_x = i - G*v;
-  if system.transientSim then
+  if dynType <> Types.Dynamics.SteadyState then
     diagonal({L,L,L0})*der(i_x) + omega[2]*L*j_dq0(i_x) + R*i_x = v;
   else
     omega[2]*L*j_dq0(i_x) + R*i_x = v;
@@ -135,12 +135,12 @@ protected
   SI.Capacitance C0=b_pg*GC_base[2];
 
 initial equation
-  if system.steadyIni_t then
+  if dynType == Types.Dynamics.SteadyInitial then
     der(v) = omega[1]*j_dq0(v);
   end if;
 
 equation
-  if system.transientSim then
+  if dynType <> Types.Dynamics.SteadyState then
     diagonal({C,C,C0})*der(v) + omega[2]*C*j_dq0(v) + diagonal({G,G,G0})*v = i;
   else
     omega[2]*C*j_dq0(v) + diagonal({G,G,G0})*v = i;
@@ -666,6 +666,9 @@ end CapacitiveShuntNonSym;
     partial model ShuntBase "Shunt base, 3-phase dq0"
       extends Ports.Port_p;
       extends Basic.Nominal.NominalAC;
+
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
 
       PS.Voltage[3] v;
       PS.Current[3] i;
