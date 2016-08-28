@@ -102,7 +102,7 @@ and other meter-signals.</p>
 
     inner PowerSystems.System system(f_nom=60, refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-    PowerSystems.Blocks.Signals.TransientFreq theta_dq0(f_fin=50, f_ini=10)
+    PowerSystems.Blocks.Signals.TransientFreq theta_dq0(f_end=50, f_start=10)
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(v0eff=230)
       annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
@@ -311,11 +311,11 @@ Stationary signals are constant after an initial oscillation.</p>
     inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
-      a_ini=1.14,
-      a_fin=1.0865,
+      a_start=1.14,
+      a_end=1.0865,
       t_duration=0.8,
-      ph_ini=0.32114058236696,
-      ph_fin=0.16667894356546)
+      ph_start=0.32114058236696,
+      ph_end=0.16667894356546)
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
     PowerSystems.AC3ph.Sources.Voltage voltageL(V_nom=400e3, use_vPhasor_in=true)
            annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
@@ -454,10 +454,10 @@ and other meter-signals.</p>
     inner PowerSystems.System system(f=50)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
-      a_fin=1.2,
-      ph_ini=-pi,
-      ph_fin=pi,
-      a_ini=0.7,
+      a_end=1.2,
+      ph_start=-pi,
+      ph_end=pi,
+      a_start=0.7,
       t_change=15,
       t_duration=30)
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));

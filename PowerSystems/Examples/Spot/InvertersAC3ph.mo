@@ -10,8 +10,8 @@ package InvertersAC3ph "Inverters dq0"
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
       t_change=0.1,
       t_duration=0.1,
-      a_ini=2,
-      a_fin=1)
+      a_start=2,
+      a_end=1)
          annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
     PowerSystems.AC3ph.Sources.Voltage vAC(use_vPhasor_in=true, V_nom=100)
           annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -113,7 +113,7 @@ package InvertersAC3ph "Inverters dq0"
     PowerSystems.Blocks.Signals.TransientPhasor vCtrl(
       t_change=0.05,
       t_duration=0.05,
-      a_ini=0)
+      a_start=0)
          annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
     PowerSystems.AC3ph.Loads.PQindLoad pqLoad(
       tcst=0.01, imax=1,
@@ -193,7 +193,7 @@ package InvertersAC3ph "Inverters dq0"
     PowerSystems.Blocks.Signals.TransientPhasor vCtrl(
       t_change=0.1,
       t_duration=0.1,
-      ph_fin=0.5235987755983)
+      ph_end=0.5235987755983)
          annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd
                                annotation (Placement(transformation(extent={{80,
@@ -269,7 +269,7 @@ package InvertersAC3ph "Inverters dq0"
     PowerSystems.Blocks.Signals.TransientPhasor vCtrl(
       t_change=0.1,
       t_duration=0.1,
-      ph_fin=0.5235987755983)
+      ph_end=0.5235987755983)
          annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
     PowerSystems.AC3ph.Nodes.GroundOne grd
                                annotation (Placement(transformation(extent={{80,

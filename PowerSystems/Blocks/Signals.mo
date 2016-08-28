@@ -29,17 +29,17 @@ package Signals "Special signals"
 
     parameter SI.Time t_change=0.5 "time when change";
     parameter SI.Time t_duration=1 "transition duration";
-    parameter Real s_ini=1 "initial value";
-    parameter Real s_fin=1 "final value";
+    parameter Real s_start=1 "initial value";
+    parameter Real s_end=1 "final value";
   protected
     final parameter SI.Frequency coef=2*exp(1)/t_duration;
 
   equation
-    y = 0.5*((s_fin + s_ini) + (s_fin - s_ini)*tanh(coef*(time - t_change)));
+    y = 0.5*((s_end + s_start) + (s_end - s_start)*tanh(coef*(time - t_change)));
     annotation (defaultComponentName = "transSig1",
       Documentation(
               info="<html>
-<p>The signal changes from <tt>s_ini</tt> to <tt>s_fin</tt><br>
+<p>The signal changes from <tt>s_start</tt> to <tt>s_end</tt><br>
 at time <tt>t_change</tt> with a transition duration <tt>t_duration</tt>.<br><br>
 The transition function is a hyperbolic tangent.</p>
 </html>
@@ -51,15 +51,15 @@ The transition function is a hyperbolic tangent.</p>
                 -40},{-14,-30},{-8,-18},{-2,-6},{2,4},{8,18},{14,30},{20,40},{
                 26,48},{34,54},{44,58},{64,60},{80,60}}, color={95,0,191}),
           Text(
-            extent={{-110,-10},{10,-50}},
+            extent={{-102,-10},{18,-50}},
             lineColor={160,160,164},
             textString=
-                 "ini"),
+                 "start"),
           Text(
             extent={{-10,50},{110,10}},
             lineColor={160,160,164},
             textString=
-                 "fin")}));
+                 "end")}));
   end Transient;
 
   block ConstantPhasor "Constant {norm, phase} of vector"
@@ -93,20 +93,20 @@ The transition function is a hyperbolic tangent.</p>
 
     parameter SI.Time t_change=0.5 "time when change";
     parameter SI.Time t_duration=1 "transition duration";
-    parameter Real a_ini=1 "initial norm |y|";
-    parameter Real a_fin=1 "final norm |y|";
-    parameter SI.Angle ph_ini=0 "initial phase (y)";
-    parameter SI.Angle ph_fin=0 "final phase (y)";
+    parameter Real a_start=1 "initial norm |y|";
+    parameter Real a_end=1 "final norm |y|";
+    parameter SI.Angle ph_start=0 "initial phase (y)";
+    parameter SI.Angle ph_end=0 "final phase (y)";
   protected
     final parameter SI.Frequency coef=2*exp(1)/t_duration;
 
   equation
-    y = 0.5*({a_fin+a_ini, ph_fin+ph_ini} + {a_fin-a_ini, ph_fin-ph_ini}*tanh(coef*(time - t_change)));
+    y = 0.5*({a_end+a_start, ph_end+ph_start} + {a_end-a_start, ph_end-ph_start}*tanh(coef*(time - t_change)));
      annotation (defaultComponentName = "transPh1",
       Documentation(
               info="<html>
 <p>The signal is a two-dimensional vector in polar representation.<br>
-Norm and phase change from <tt>{a_ini, ph_ini}</tt> to <tt>{a_fin, ph_fin}</tt><br>
+Norm and phase change from <tt>{a_start, ph_start}</tt> to <tt>{a_end, ph_end}</tt><br>
 at time <tt>t_change</tt> with a transition duration <tt>t_duration</tt>.<br><br>
 The transition function is a hyperbolic tangent for both norm and phase.</p>
 </html>
@@ -120,15 +120,15 @@ The transition function is a hyperbolic tangent for both norm and phase.</p>
             textString=
                  "phasor"),
           Text(
-            extent={{-110,-10},{10,-50}},
+            extent={{-102,-10},{18,-50}},
             lineColor={160,160,164},
             textString=
-                 "ini"),
+                 "start"),
           Text(
             extent={{-10,50},{110,10}},
             lineColor={160,160,164},
             textString=
-                 "fin"),
+                 "end"),
           Line(points={{-80,-60},{-64,-60},{-44,-58},{-34,-54},{-26,-48},{-20,
                 -40},{-14,-30},{-8,-18},{-2,-6},{2,4},{8,18},{14,30},{20,40},{
                 26,48},{34,54},{44,58},{64,60},{80,60}}, color={95,0,191})}));
@@ -155,18 +155,18 @@ The transition function is a hyperbolic tangent for both norm and phase.</p>
   end ConstantFreq;
 
   block TransientFreq "Transient frequency"
-    extends Transient(final s_ini=omega_ini, final s_fin=omega_fin);
+    extends Transient(final s_start=omega_start, final s_end=omega_end);
 
-    parameter SI.Frequency f_ini=system.f "initial frequency";
-    parameter SI.Frequency f_fin=system.f "final frequency";
+    parameter SI.Frequency f_start=system.f "initial frequency";
+    parameter SI.Frequency f_end=system.f "final frequency";
   protected
     outer System system;
-    final parameter SI.AngularFrequency omega_ini=2*pi*f_ini;
-    final parameter SI.AngularFrequency omega_fin=2*pi*f_fin;
+    final parameter SI.AngularFrequency omega_start=2*pi*f_start;
+    final parameter SI.AngularFrequency omega_end=2*pi*f_end;
     annotation (defaultComponentName = "transFreq1",
       Documentation(
               info="<html>
-<p>The frequency changes from <tt>f_ini</tt> to <tt>f_fin</tt><br>
+<p>The frequency changes from <tt>f_start</tt> to <tt>f_end</tt><br>
 at time <tt>t_change</tt> with a transition duration <tt>t_duration</tt>.<br><br>
 The transition function is a hyperbolic tangent.</p>
 </html>"),

@@ -233,13 +233,13 @@ package Types
 </pre></p>
 </html>"));
 
-  type IniType = enumeration(
-      v_alpha "v, alpha: voltage and phase angle, 'slack' (steady ini)",
-      v_p "v, p: voltage and active power (steady ini)",
-      v_q "v, q: voltage and reactive power (steady ini)",
-      p_q "p, q: active and reactive power (steady ini)",
+  type Init = enumeration(
+      v_alpha "v, alpha: voltage and phase angle, 'slack' (steady init)",
+      v_p "v, p: voltage and active power (steady init)",
+      v_q "v, q: voltage and reactive power (steady init)",
+      p_q "p, q: active and reactive power (steady init)",
       phi_w_el "phi_el, w_el: machine angle and angular velocity electric",
-      none "none: no initial condition") "Initialisation type"
+      none "none: no initial condition") "Initialization type"
       annotation(Documentation(info="<html>
 <p><pre>
   v_alpha:  terminal voltage and phase angle ('slack')

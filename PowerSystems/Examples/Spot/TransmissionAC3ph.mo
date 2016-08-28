@@ -10,8 +10,8 @@ model PowerTransfer "Power transfer between two nodes"
   PowerSystems.Blocks.Signals.TransientPhasor transPh(
       t_change=30,
       t_duration=60,
-      ph_fin=2*pi,
-      ph_ini=0)
+      ph_end=2*pi,
+      ph_start=0)
                annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   PowerSystems.AC3ph.Sources.InfBus infBus1(V_nom=130e3, use_vPhasor_in=true)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -104,8 +104,8 @@ model VoltageStability "Voltage stability"
   PowerSystems.Blocks.Signals.TransientPhasor transPh(
       t_change=90,
       t_duration=120,
-      a_ini=1,
-      a_fin=0) annotation (Placement(transformation(extent={{90,20},{70,40}})));
+      a_start=1,
+      a_end=0) annotation (Placement(transformation(extent={{90,20},{70,40}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd1 annotation (Placement(transformation(
             extent={{-80,40},{-100,60}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd4 annotation (Placement(transformation(
@@ -634,15 +634,15 @@ Compare with DoublePIline.</p>
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
     PowerSystems.AC3ph.Generation.TurboGenerator turbGen(
-      p_ini=0.762922,
+      p_start=0.762922,
       redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
             redeclare replaceable record Data =
               PowerSystems.AC3ph.Machines.Parameters.Synchron_ee (
               V_nom=20e3,
               S_nom=1000e6,
               If_nom=2000), dynType=PowerSystems.Types.Dynamics.FreeInitial) "nth order",
-      iniType=PowerSystems.Types.IniType.v_alpha,
-      alpha_ini=0.5235987755983)
+      initType=PowerSystems.Types.Init.v_alpha,
+      alpha_start=0.5235987755983)
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(
       redeclare record Data =
@@ -735,14 +735,14 @@ Compare with DoublePIline.</p>
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
     PowerSystems.AC3ph.Generation.TurboGenerator turbGen(
-      p_ini=0.761825,
+      p_start=0.761825,
       redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
         redeclare replaceable record Data =
           PowerSystems.AC3ph.Machines.Parameters.Synchron_ee (
           V_nom=20e3,
           S_nom=1000e6,
           If_nom=2000), dynType=PowerSystems.Types.Dynamics.FreeInitial) "nth order",
-      alpha_ini=0.5235987755983)
+      alpha_start=0.5235987755983)
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(
       redeclare record Data =

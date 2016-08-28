@@ -4,7 +4,7 @@ package TurboGroups "Turbines including generator-rotor"
 
   model FixedSpeedTG "Fixed speed turbo-generator rotor"
 
-    parameter SI.AngularVelocity w_ini=0 "initial rotor angular velocity";
+    parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity";
     parameter SI.AngularVelocity w_nom=1 "nom ang velocity";
     Interfaces.Rotation_n airgap "to airgap electric machine"
                                            annotation (Placement(transformation(
@@ -24,11 +24,11 @@ package TurboGroups "Turbines including generator-rotor"
   protected
     outer System system;
     SI.Angle phi(stateSelect=StateSelect.prefer);
-    SI.AngularVelocity w(start=w_ini, stateSelect=StateSelect.prefer);
+    SI.AngularVelocity w(start=w_start, stateSelect=StateSelect.prefer);
 
   initial equation
     if not system.steadyIni then
-      w = w_ini;
+      w = w_start;
     end if;
 
   equation
@@ -90,7 +90,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     parameter SIpu.AngularVelocity speed_thr(unit="1")=0.5
       "threshold: torque ctrl \\ power ctrl";
     parameter SI.Time H=1 "inertia constant turbine + generator";
-    parameter SI.AngularVelocity w_ini=0 "initial rotor angular velocity";
+    parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity";
     parameter SI.AngularVelocity w_nom=1 "nom ang velocity";
     parameter SI.Power P_nom=1 "nom power turbine";
     Interfaces.Rotation_n airgap "to airgap electric machine"
@@ -114,7 +114,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
       "inertia turbine + generator";
     final parameter SI.Torque tau_nom=P_nom/w_nom;
     SI.Angle phi(stateSelect=StateSelect.prefer);
-    SI.AngularVelocity w(start=w_ini, stateSelect=StateSelect.prefer);
+    SI.AngularVelocity w(start=w_start, stateSelect=StateSelect.prefer);
     SI.AngularAcceleration a(start=0);
     Real tau_pu(unit="1");
 
@@ -183,7 +183,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
       "turbo-group par"   annotation(choicesAllMatching=true);
     final parameter Data par "turbo-group par"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini), a(start=0))
+    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_start), a(start=0))
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
     SI.Angle[n] delta "difference angles";
   protected
@@ -329,7 +329,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
       "turbo-group par"   annotation(choicesAllMatching=true);
     final parameter Data par "turbo-group par"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini*par.ratio[end]/par.ratio[1]), a(start=0))
+    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_start*par.ratio[end]/par.ratio[1]), a(start=0))
       annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   protected
     Rotation.ThermalTurbineRotor turbine(J=par.J_turb)
@@ -471,7 +471,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
       "hydro-turbine par"   annotation(choicesAllMatching=true);
     final parameter Data par "hydro-turbine par"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini), a(start=0))
+    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_start), a(start=0))
       annotation (Placement(transformation(extent={{5,-10},{25,10}})));
   protected
     Rotation.HydroTurbineRotor turbine(J=par.J_turb)
@@ -551,7 +551,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
       annotation(choicesAllMatching=true);
     final parameter Data par "Diesel par"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini), a(start=0))
+    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_start), a(start=0))
       annotation (Placement(transformation(extent={{5,-10},{25,10}})));
   protected
     Rotation.DieselRotor diesel(J=par.J_turb)
@@ -626,7 +626,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
       annotation(choicesAllMatching=true);
     final parameter Data par "turbine par"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_ini*par.ratio[end]/par.ratio[1]), a(start=0))
+    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_start*par.ratio[end]/par.ratio[1]), a(start=0))
       annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   protected
     final parameter Real[3] gr2=diagonal(par.ratio)*par.ratio/par.ratio[end]^2;
@@ -980,7 +980,7 @@ end Parameters;
 
     partial model TurboBase "Turbine-generator rotor base "
 
-      parameter SI.AngularVelocity w_ini=0 "initial rotor angular velocity";
+      parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity";
       parameter Integer n=1 "number of turbines";
       Interfaces.Rotation_p[     n] blades "to turbine torque model"
                                                 annotation (Placement(

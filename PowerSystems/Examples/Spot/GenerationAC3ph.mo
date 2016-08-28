@@ -9,10 +9,10 @@ model Vsource "Power transfer from voltage source to slack bus"
               -80,100}})));
   PowerSystems.AC3ph.Sources.VsourceRX Vsource(
     V_nom=20e3,
-    v_ini=1.02,
+    v_start=1.02,
     S_nom=500e6,
-    pq_ini={1,0.428},
-      alpha_ini=0.037545522868902)
+    pq_start={1,0.428},
+      alpha_start=0.037545522868902)
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
   PowerSystems.AC3ph.Sensors.Psensor sensor
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
@@ -263,10 +263,10 @@ The power-angle is artificially fixed. The correspondence is:
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
-    parameter SI.AngularVelocity w_ini=2*pi*generator.par.f_nom/generator.par.pp
+    parameter SI.AngularVelocity w_start=2*pi*generator.par.f_nom/generator.par.pp
       "initial angular velocity (start-value if ini='st')";
     PowerSystems.Mechanics.TurboGroups.SingleMassTG turboGrp(
-      w_ini=w_ini,
+      w_start=w_start,
       H=20,
       w_nom=2*pi*generator.par.f_nom/generator.par.pp,
       P_nom=generator.par.S_nom)
@@ -275,7 +275,7 @@ The power-angle is artificially fixed. The correspondence is:
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
           PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA,
-        w_ini=w_ini)
+        w_start=w_start)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
 
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0116)
@@ -379,10 +379,10 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
               {-80,100}})));
-    parameter SI.AngularVelocity w_ini=2*pi*generator.par.f_nom/generator.par.pp
+    parameter SI.AngularVelocity w_start=2*pi*generator.par.f_nom/generator.par.pp
       "initial angular velocity (start-value if ini='st')";
     PowerSystems.Mechanics.TurboGroups.SingleMassTG turboGrp(
-      final w_ini=w_ini,
+      final w_start=w_start,
       H=20,
       w_nom=2*pi*generator.par.f_nom/generator.par.pp,
       P_nom=generator.par.S_nom)
@@ -391,7 +391,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
           PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA,
-        w_ini=w_ini)
+        w_start=w_start)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
 
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0094)
@@ -527,10 +527,10 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
       redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_ee (
         redeclare replaceable record Data =
           PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA),
-      v_ini=1.12762,
-      p_ini=1,
-      q_ini=0.42729,
-      alpha_ini=0.346481,
+      v_start=1.12762,
+      p_start=1,
+      q_start=0.42729,
+      alpha_start=0.346481,
       redeclare model Exciter = PowerSystems.Control.Exciters.ExciterConst
         "constant")
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -641,8 +641,8 @@ model GenOrder3and7 "Generator-models of different order"
               -80,100}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen1(
     dispPA=true,
-    v_ini=1.03,
-    p_ini=0.97,
+    v_start=1.03,
+    p_start=0.97,
     H=20,
     redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
         "1st order",
@@ -650,7 +650,7 @@ model GenOrder3and7 "Generator-models of different order"
       redeclare record Data =
         PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_ee60Hz_26kV_720MVA)
         "3rd order",
-      alpha_ini=0.5235987755983)
+      alpha_start=0.5235987755983)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   PowerSystems.AC3ph.Breakers.Switch switchGrd1(V_nom=26e3,I_nom=30e6)
     annotation (Placement(transformation(extent={{-20,30},{0,10}})));
@@ -667,8 +667,8 @@ model GenOrder3and7 "Generator-models of different order"
     annotation (Placement(transformation(extent={{80,40},{60,60}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen2(
     dispPA=true,
-    v_ini=1.03,
-    p_ini=0.97,
+    v_start=1.03,
+    p_start=0.97,
     H=20,
     redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
         "1st order",
@@ -676,7 +676,7 @@ model GenOrder3and7 "Generator-models of different order"
       redeclare record Data =
         PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
         "nth order",
-      alpha_ini=0.5235987755983)
+      alpha_start=0.5235987755983)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   PowerSystems.AC3ph.Breakers.Switch switchGrd2(V_nom=26e3,I_nom=30e6)
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
@@ -770,7 +770,7 @@ model TurboGroupGenerator
                                      annotation (Placement(transformation(
             extent={{-100,0},{-80,20}})));
   PowerSystems.AC3ph.Generation.TurboGrpGenerator turboGrpGen(
-    v_ini=1.0156,
+    v_start=1.0156,
     redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
         "1st order",
     redeclare model TurboGroup =
@@ -847,8 +847,8 @@ model TieLine "Generators and power-oscillations"
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     PowerSystems.AC3ph.Generation.TurboGenerator turboGen1(
       dispPA=true,
-      alpha_ini=0.316177 + system.alpha0,
-      v_ini=1.05,
+      alpha_start=0.316177 + system.alpha0,
+      v_start=1.05,
       H=20,
       redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
         redeclare record Data =
@@ -858,9 +858,9 @@ model TieLine "Generators and power-oscillations"
         "1st order",
       redeclare model Governor = PowerSystems.Control.Governors.Governor1st
         "1st order",
-      p_ini=0.9,
-      q_ini=0.24022361,
-      iniType=PowerSystems.Types.IniType.p_q)
+      p_start=0.9,
+      q_start=0.24022361,
+      initType=PowerSystems.Types.Init.p_q)
       annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   PowerSystems.AC3ph.Nodes.BusBar bus1
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
@@ -876,8 +876,8 @@ model TieLine "Generators and power-oscillations"
             annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC3ph.Generation.TurboGenerator turboGen2(
       dispPA=true,
-      alpha_ini=0.0144536 + system.alpha0,
-      v_ini=1.04,
+      alpha_start=0.0144536 + system.alpha0,
+      v_start=1.04,
       H=20,
       redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
         "1st order",
@@ -887,9 +887,9 @@ model TieLine "Generators and power-oscillations"
         "nth order",
       redeclare model Governor = PowerSystems.Control.Governors.Governor1st
         "1st order",
-      p_ini=0.9,
-      q_ini=0.5092972,
-      iniType=PowerSystems.Types.IniType.p_q)
+      p_start=0.9,
+      q_start=0.5092972,
+      initType=PowerSystems.Types.Init.p_q)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
   PowerSystems.AC3ph.Nodes.BusBar bus2
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
@@ -905,7 +905,7 @@ model TieLine "Generators and power-oscillations"
             annotation (Placement(transformation(extent={{10,-20},{30,0}})));
   PowerSystems.AC3ph.Generation.TurboGenerator turboGen3(
     dispPA=true,
-    v_ini=1.03,
+    v_start=1.03,
     H=20,
     redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
         "1st order",
@@ -915,8 +915,8 @@ model TieLine "Generators and power-oscillations"
         redeclare record Data =
           PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA,
         dynType=PowerSystems.Types.Dynamics.FreeInitial) "nth order",
-      q_ini=0.10292306,
-      p_ini=0.27353)
+      q_start=0.10292306,
+      p_start=0.27353)
     annotation (Placement(transformation(
           origin={0,70},
           extent={{-10,10},{10,-10}},
@@ -953,8 +953,8 @@ model TieLine "Generators and power-oscillations"
           rotation=270)));
   PowerSystems.Blocks.Signals.Transient[2] pq_change(
     each t_duration=0.1,
-    s_ini={0.95,0.2},
-    s_fin={0.2,0.1},
+    s_start={0.95,0.2},
+    s_end={0.2,0.1},
     each t_change=2)
                annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   PowerSystems.Control.Setpoints.Set_w_p_v setpts1
@@ -1069,8 +1069,8 @@ model WindGeneratorLine "Asynchronous generator"
   PowerSystems.Blocks.Signals.Transient trsSignal1(
     t_change=25,
     t_duration=50,
-      s_ini=5,
-      s_fin=15)     annotation (Placement(transformation(extent={{-100,0},{-80,
+      s_start=5,
+      s_end=15)     annotation (Placement(transformation(extent={{-100,0},{-80,
               20}})));
   PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{90,0},{110,20}})));
@@ -1152,8 +1152,8 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   PowerSystems.Blocks.Signals.Transient transSig(
     t_duration=2.5,
-    s_ini=1,
-    s_fin=0.7,
+    s_start=1,
+    s_end=0.7,
       t_change=10)                       annotation (Placement(transformation(
           origin={90,-20},
           extent={{-10,10},{10,-10}},
@@ -1236,8 +1236,8 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   PowerSystems.Blocks.Signals.Transient speedSignal(
     t_duration=5,
     t_change=20,
-      s_ini=2*pi*180,
-      s_fin=2*pi*150)
+      s_start=2*pi*180,
+      s_end=2*pi*150)
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   PowerSystems.Mechanics.Rotation.Speed speed(use_w_in=true, w0=2*pi*
           180)                        annotation (Placement(transformation(
@@ -1251,7 +1251,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     redeclare model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage (
       redeclare record Data =
         PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A(Vf=0)),
-      w_ini=1130.9733552923)
+      w_start=1130.9733552923)
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   PowerSystems.AC1ph_DC.Impedances.CapacitorSym capSym(
     G=1e-4,
@@ -1275,8 +1275,8 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   PowerSystems.Blocks.Signals.Transient transSig(
     t_duration=2.5,
       t_change=10,
-    s_ini=0.5,
-    s_fin=0.9)                           annotation (Placement(transformation(
+    s_start=0.5,
+    s_end=0.9)                           annotation (Placement(transformation(
           origin={70,-20},
           extent={{-10,10},{10,-10}},
           rotation=270)));
@@ -1284,9 +1284,9 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
       annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   PowerSystems.Blocks.Signals.Transient i_d(
     t_duration=5,
-    s_fin=0,
+    s_end=0,
     t_change=20,
-      s_ini=-0.1)
+      s_start=-0.1)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Modelica.Blocks.Sources.Constant vDC_set(k=vDC_nom)
       annotation (Placement(transformation(extent={{-100,20},{-80,40}})));

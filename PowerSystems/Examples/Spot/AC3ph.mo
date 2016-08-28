@@ -189,7 +189,7 @@ package AC3ph "AC 3-phase components dq0"
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-    PowerSystems.Blocks.Signals.TransientPhasor transPh(ph_fin=
+    PowerSystems.Blocks.Signals.TransientPhasor transPh(ph_end=
           0.087266462599716)
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC3ph.Sources.Voltage voltage1(
@@ -243,7 +243,7 @@ package AC3ph "AC 3-phase components dq0"
           transformation(extent={{-40,-10},{-20,10}})));
     replaceable PowerSystems.AC3ph.Loads.PQindLoad load(tcst=0.01, use_pq_in=true)
       annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-    PowerSystems.Blocks.Signals.Transient[2] trsSignal(s_ini={sqrt(3)/2,1/2}, s_fin={1,0.2})
+    PowerSystems.Blocks.Signals.Transient[2] trsSignal(s_start={sqrt(3)/2,1/2}, s_end={1,0.2})
       annotation (Placement(transformation(
           origin={40,60},
           extent={{-10,-10},{10,10}},

@@ -19,7 +19,7 @@ package DrivesDC "DC drives"
           transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Drives.DCMser dcm_ser(
       redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=6.4),
-      w_ini=146.60765716752,
+      w_start=146.60765716752,
       redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCser (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.DCser1500V_1p5MVA))
@@ -291,7 +291,7 @@ package DrivesDC "DC drives"
             PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA))
       annotation (Placement(transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
-      s_ini=0, s_fin=160)
+      s_start=0, s_end=160)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
     PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01,
       use_w_in=true)
@@ -351,7 +351,7 @@ package DrivesDC "DC drives"
         "inverter time-average")
       annotation (Placement(transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
-      s_ini=0, s_fin=160)
+      s_start=0, s_end=160)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
     PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01, use_w_in=true)
       annotation (Placement(transformation(extent={{60,-20},{40,0}})));

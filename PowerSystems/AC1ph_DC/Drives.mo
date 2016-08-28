@@ -6,7 +6,7 @@ package Drives "DC-drives"
     extends Partials.DriveBase(heat(final m=2));
 
     replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCser (
-      w_ini=w_ini) "DC motor series"
+      w_start=w_start) "DC motor series"
                         annotation (choicesAllMatching=true);
     Motor motor "DC motor series"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -22,7 +22,7 @@ package Drives "DC-drives"
     Documentation(
             info="<html>
 <p>Complete DC drive series connected.</p>
-<p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for machines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -43,7 +43,7 @@ package Drives "DC-drives"
     extends Partials.DriveBase(heat(final m=2));
 
     replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCpar (
-      w_ini = w_ini) "DC motor parallel"
+      w_start = w_start) "DC motor parallel"
                           annotation (choicesAllMatching=true);
     Motor motor "DC motor parallel"
        annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -63,7 +63,7 @@ package Drives "DC-drives"
     Documentation(
             info="<html>
 <p>Complete DC drive parallel connected.</p>
-<p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for machines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -85,7 +85,7 @@ package Drives "DC-drives"
     extends Partials.DriveBase(heat(final m=2));
 
     replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCpm (
-      w_ini = w_ini) "DC motor magnet"
+      w_start = w_start) "DC motor magnet"
                         annotation (choicesAllMatching=true);
     Motor motor "DC motor magnet"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -101,7 +101,7 @@ package Drives "DC-drives"
     Documentation(
             info="<html>
 <p>Complete DC drive permanent magnet excited.</p>
-<p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for machines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -145,7 +145,7 @@ package Drives "DC-drives"
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     replaceable model Motor =
         PowerSystems.AC1ph_DC.Drives.Partials.Synchron3rd_bldc (
-      w_ini = w_ini) "BLDC motor (syn pm machine)"
+      w_start = w_start) "BLDC motor (syn pm machine)"
       annotation (choices(
       choice(redeclare model Motor =
               PowerSystems.AC3ph.Machines.Synchron3rd_bldc "synchron 3rd order")));
@@ -181,7 +181,7 @@ a) to simulate time-average voltage amplitudes.<br>
 b) to determine the ratio of on- to off-time when using a pulsed modulator.<br>
 where 0 &lt  vPhasor[1] &lt  1.</p>
 <p>The rectangle width is a parameter with default value 2/3, corresponding to '2 phases on, 1 phase off' at a time.</p>
-<p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for machines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -209,8 +209,8 @@ where 0 &lt  vPhasor[1] &lt  1.</p>
 
   partial model DriveBase "DC drives base"
 
-    parameter Types.AngularVelocity  w_ini = 0
-        "initial rpm (start-value if ini='st')"
+    parameter Types.AngularVelocity  w_start = 0
+        "initial rpm (start-value if steady-state)"
       annotation(Dialog(enable=not system.steadyIni));
     AC1ph_DC.Ports.TwoPin_p term "electric terminal"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -219,11 +219,11 @@ where 0 &lt  vPhasor[1] &lt  1.</p>
     replaceable model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor
         "machine rotor"
                       annotation (choicesAllMatching=true);
-    Rotor rotor(w(start=w_ini)) "machine rotor"
+    Rotor rotor(w(start=w_start)) "machine rotor"
       annotation (Placement(transformation(extent={{0,-10},{20,10}})));
     replaceable model Gear = PowerSystems.Mechanics.Rotation.NoGear
         "type of gear"
-                     annotation (                                                                                                    choices(
+      annotation (choices(
         choice(redeclare model Gear = PowerSystems.Mechanics.Rotation.Joint
               "no gear"),
         choice(redeclare model Gear =

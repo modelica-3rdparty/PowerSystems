@@ -10,8 +10,8 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
     PowerSystems.Blocks.Signals.TransientPhasor transPh(
       t_change=0.1,
       t_duration=0.1,
-      a_ini=2,
-      a_fin=1)
+      a_start=2,
+      a_end=1)
          annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage vAC(use_vPhasor_in=true, V_nom=100,
       pol=0)
@@ -106,9 +106,9 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
     PowerSystems.Blocks.Signals.TransientPhasor vCtrl(
       t_change=0.05,
       t_duration=0.05,
-      a_ini=1.05,
-      a_fin=1.05,
-      ph_fin=0.5235987755983)
+      a_start=1.05,
+      a_end=1.05,
+      ph_end=0.5235987755983)
          annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{-80,-20},{-100,0}})));
@@ -180,9 +180,9 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
     PowerSystems.Blocks.Signals.TransientPhasor vCtrl(
       t_change=0.1,
       t_duration=0.1,
-      a_ini=1,
-      a_fin=1,
-      ph_fin=0.5235987755983)
+      a_start=1,
+      a_end=1,
+      ph_end=0.5235987755983)
          annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd  annotation (Placement(transformation(
             extent={{80,-20},{100,0}})));
@@ -253,7 +253,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
     PowerSystems.Blocks.Signals.TransientPhasor vCtrl(
       t_change=0.1,
       t_duration=0.1,
-      ph_fin=0.5235987755983)
+      ph_end=0.5235987755983)
          annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd  annotation (Placement(transformation(
             extent={{80,-20},{100,0}})));
@@ -315,8 +315,8 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
     PowerSystems.Blocks.Signals.Transient vDCoutCtrl(
       t_change=0,
       t_duration=0.2,
-      s_ini=0,
-      s_fin=0.7)                             annotation (Placement(
+      s_start=0,
+      s_end=0.7)                             annotation (Placement(
           transformation(extent={{-40,20},{-20,40}})));
     PowerSystems.AC1ph_DC.ImpedancesOneTerm.Inductor load(x=0.5, r=0.5,
       V_nom=100,

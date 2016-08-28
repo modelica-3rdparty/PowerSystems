@@ -6,7 +6,7 @@ package Generation "Turbo generator groups dq0"
     extends Partials.GenBase_el;
 
     replaceable model Rotor = PowerSystems.Mechanics.TurboGroups.SingleMassTG (
-      final w_ini=w_ini,
+      final w_start=w_start,
       final H=H,
       final P_nom=generator.par.S_nom,
       final w_nom=w_nom) "single-mass rotor (turbine-rotor + generator-rotor)"
@@ -18,11 +18,9 @@ package Generation "Turbo generator groups dq0"
     connect(rotor.airgap, generator.airgap)
     annotation (Line(points={{-40,6},{50,6}}, color={0,0,0}));
     connect(rotor.speed, governor.speed)
-                                       annotation (Line(points={{-56,10},{-56,
-            50}}, color={0,0,127}));
+      annotation (Line(points={{-56,10},{-56,50}}, color={0,0,127}));
     connect(governor.power, rotor.power)
-                                       annotation (Line(points={{-44,50},{-44,
-            10}}, color={0,0,127}));
+      annotation (Line(points={{-44,50},{-44,10}}, color={0,0,127}));
   annotation (defaultComponentName = "turboGen1",
     Documentation(
             info="<html>
@@ -54,7 +52,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
 
     replaceable model TurboGroup =
       PowerSystems.Mechanics.TurboGroups.SteamTurboGroup (
-        final w_ini=w_ini) "steam turbo-goup with generator-rotor"
+        final w_start=w_start) "steam turbo-goup with generator-rotor"
       annotation(choicesAllMatching = true);
     TurboGroup turboGroup "steam turbo-goup with generator-rotor"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -107,7 +105,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
     replaceable model Gear =
-      PowerSystems.Mechanics.TurboGroups.GasTurbineGear(final w_ini=w_ini)
+      PowerSystems.Mechanics.TurboGroups.GasTurbineGear(final w_start=w_start)
       "gas turbine with gear and generator-rotor"
       annotation(choicesAllMatching=true);
     Gear GT "gas turbine with gear and generator-rotor"
@@ -139,7 +137,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
 Gas turbine with gear and generator-rotor, elastically coupled.</p>
 <p>Steady-state initialisation:<br>
 If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <tt>p_set</tt> and <tt>v_set</tt> are determined at initialisation from initial active power and voltage. The corresponding value for the speed <tt>w_set</tt> is determined by the system frequency <tt>system.f0</tt>.</p>
-<p>Note: for turbines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for turbines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>
 "), Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -181,7 +179,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
     replaceable model HydroTurbine =
-      PowerSystems.Mechanics.TurboGroups.HydroTurbine(final w_ini=w_ini)
+      PowerSystems.Mechanics.TurboGroups.HydroTurbine(final w_start=w_start)
       "hydro turbine with generator-rotor"
       annotation(choicesAllMatching=true);
     HydroTurbine hydro "hydro turbine with generator-rotor"
@@ -243,7 +241,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
     replaceable model Diesel = PowerSystems.Mechanics.TurboGroups.Diesel (
-      final w_ini=w_ini) "Diesel engine with generator-rotor"
+      final w_start=w_start) "Diesel engine with generator-rotor"
       annotation(choicesAllMatching=true);
     Diesel diesel "Diesel engine with generator-rotor"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -296,7 +294,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
   model TurboPMgenerator "Turbo generator single mass, permanent magnet"
     extends Partials.GenBase;
 
-    parameter SI.AngularVelocity w_ini=2*pi*generator.par.f_nom/generator.par.pp
+    parameter SI.AngularVelocity w_start=2*pi*generator.par.f_nom/generator.par.pp
       "initial angular velocity (start-value if ini='st')";
     AC3ph.Ports.ACdq0_n term "negative terminal"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -309,7 +307,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
           extent={{10,-10},{-10,10}},
           rotation=180)));
     replaceable model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_pm (
-      final w_ini=w_ini) "synchron pm generator"
+      final w_start=w_start) "synchron pm generator"
       annotation (choices(
       choice(redeclare model Generator =
               PowerSystems.AC3ph.Machines.Synchron3rd_pm "3rd order"),
@@ -327,7 +325,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
       annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
     parameter Modelica.SIunits.Time H=10 "inertia cst turb + gen";
     replaceable model Rotor = PowerSystems.Mechanics.TurboGroups.SingleMassTG (
-      final w_ini=w_ini,
+      final w_start=w_start,
       final H=H,
       final P_nom=generator.par.S_nom,
       final w_nom=w_nom) "single-mass rotor (turbine-rotor + generator-rotor)"
@@ -381,7 +379,7 @@ The machine inertia is determined by the inertia time constant H.</p>
 
     replaceable model Generator =
       PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (
-        final w_ini=w_ini) "synchron pm generator"
+        final w_start=w_start) "synchron pm generator"
       annotation (choices(
         choice(redeclare model Generator =
           PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl "3rd order"),
@@ -422,7 +420,7 @@ The machine inertia is determined by the inertia time constant H.</p>
       defaultComponentName="pmGen_ctrl",
       Documentation(info="<html>
 <p>Generator with pm excitation and inverter for current-control. To be coupled to a mechanical engine. May contain a gear.</p>
-<p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for machines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>
 "), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
               100}}), graphics={
@@ -466,12 +464,12 @@ The machine inertia is determined by the inertia time constant H.</p>
   model WindGenerator "Wind generator"
     extends Partials.GenBase;
 
-    parameter SI.AngularVelocity w_ini=2*pi*generator.par.f_nom/generator.par.pp
+    parameter SI.AngularVelocity w_start=2*pi*generator.par.f_nom/generator.par.pp
       "initial angular velocity (start-value if ini='st')";
     AC3ph.Ports.ACdq0_n term "negative terminal"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     replaceable model Generator = PowerSystems.AC3ph.Machines.Asynchron (
-      w_ini=w_ini) "asynchron generator"
+      w_start=w_start) "asynchron generator"
       annotation (choicesAllMatching=true);
     Generator generator "asynchron generator"
       annotation (Placement(transformation(extent={{60,-10},{40,10}})));
@@ -482,7 +480,7 @@ The machine inertia is determined by the inertia time constant H.</p>
     Torque turbTorq "table: wind speed, torque"
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     replaceable model Gear =
-      PowerSystems.Mechanics.TurboGroups.WindTurbineGear(final w_ini= w_ini)
+      PowerSystems.Mechanics.TurboGroups.WindTurbineGear(final w_start= w_start)
       "wind turbine with generator-rotor" annotation(choicesAllMatching=true);
     Gear WT "wind turbine with generator-rotor"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -504,7 +502,7 @@ The machine inertia is determined by the inertia time constant H.</p>
             info="<html>
 <p>Wind generator.<br>
 Turbine with gear and generator-rotor, elastically coupled, asynchronous generator.</p>
-<p>Note: for turbines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for turbines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
     Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -578,22 +576,25 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
     partial model GenBase_el "Generation base el, synchron machines"
       extends GenBase;
 
-      parameter SI.AngularVelocity w_ini=2*pi*generator.par.f_nom/generator.par.pp
-        "initial angular velocity (start-value if ini='st')";
-      parameter Types.IniType     iniType=PowerSystems.Types.IniType.v_alpha
-        "initialisation type (if system.ini='st')";
-      parameter SIpu.Voltage v_ini(unit="1")=1 "initial terminal voltage"
-        annotation(Dialog(enable=system.steadyIni and (iniType == PowerSystems.Types.IniType.v_alpha
-               or iniType == PowerSystems.Types.IniType.v_p or iniType ==
-              PowerSystems.Types.IniType.v_q)));
-      parameter SI.Angle alpha_ini=system.alpha0 "initial voltage phase angle"
-        annotation(Dialog(enable=system.steadyIni and iniType == PowerSystems.Types.IniType.v_alpha));
-      parameter SIpu.Power p_ini(unit="1")=1 "initial terminal active power"
-        annotation(Dialog(enable=system.steadyIni and (iniType == PowerSystems.Types.IniType.v_p
-               or iniType == PowerSystems.Types.IniType.p_q)));
-      parameter SIpu.Power q_ini(unit="1")=1 "initial terminal reactive power"
-        annotation(Dialog(enable=system.steadyIni and (iniType == PowerSystems.Types.IniType.v_q
-               or iniType == PowerSystems.Types.IniType.p_q)));
+      parameter SI.AngularVelocity w_start=2*pi*generator.par.f_nom/generator.par.pp
+        "initial angular velocity (start-value if steady-state)"
+	annotation(Dialog(tab="Initialization"));
+      parameter Types.Init initType=PowerSystems.Types.Init.v_alpha
+        "initialisation type (if steady-state)"
+	annotation(Dialog(tab="Initialization"));
+      parameter SIpu.Voltage v_start(unit="1")=1 "initial terminal voltage"
+        annotation(Dialog(enable=system.steadyIni and (initType == PowerSystems.Types.Init.v_alpha
+               or initType == PowerSystems.Types.Init.v_p or initType ==
+              PowerSystems.Types.Init.v_q), tab="Initialization"));
+      parameter SI.Angle alpha_start=system.alpha0 "initial voltage phase angle"
+        annotation(Dialog(enable=system.steadyIni and initType == PowerSystems.Types.Init.v_alpha,
+          tab="Initialization"));
+      parameter SIpu.Power p_start(unit="1")=1 "initial terminal active power"
+        annotation(Dialog(enable=system.steadyIni and (initType == PowerSystems.Types.Init.v_p
+               or initType == PowerSystems.Types.Init.p_q), tab="Initialization"));
+      parameter SIpu.Power q_start(unit="1")=1 "initial terminal reactive power"
+        annotation(Dialog(enable=system.steadyIni and (initType == PowerSystems.Types.Init.v_q
+               or initType == PowerSystems.Types.Init.p_q), tab="Initialization"));
       parameter Boolean dispPA=false "display power angle"
         annotation(Evaluate=true);
       AC3ph.Ports.ACdq0_n term "negative terminal"
@@ -603,7 +604,7 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
         annotation (Placement(transformation(extent={{-110,10},{-90,-10}})));
       replaceable model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_ee
           (
-        final w_ini = w_ini) "synchron generator"
+        final w_start = w_start) "synchron generator"
         annotation (choices(
         choice(redeclare model Generator =
                 PowerSystems.AC3ph.Machines.Synchron3rd_ee "3rd order"),
@@ -648,22 +649,22 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
       function atan2 = Modelica.Math.atan2;
 
     initial equation
-      if iniType == PowerSystems.Types.IniType.v_alpha then
-        sqrt(term.v[1:2]*term.v[1:2]) = v_ini*generator.par.V_nom;
-        atan2(term.v[2], term.v[1]) = alpha_ini;
-      elseif iniType == PowerSystems.Types.IniType.v_p then
-        sqrt(term.v[1:2]*term.v[1:2]) = v_ini*generator.par.V_nom;
-        -term.v[1:2]*term.i[1:2] = p_ini*generator.par.S_nom;
-      elseif iniType == PowerSystems.Types.IniType.v_q then
-        sqrt(term.v[1:2]*term.v[1:2]) = v_ini*generator.par.V_nom;
-        -{term.v[2],-term.v[1]}*term.i[1:2] = q_ini*generator.par.S_nom;
-      elseif iniType == PowerSystems.Types.IniType.p_q then
-        -term.v[1:2]*term.i[1:2] = p_ini*generator.par.S_nom;
-        -{term.v[2],-term.v[1]}*term.i[1:2] = q_ini*generator.par.S_nom;
+      if initType == PowerSystems.Types.Init.v_alpha then
+        sqrt(term.v[1:2]*term.v[1:2]) = v_start*generator.par.V_nom;
+        atan2(term.v[2], term.v[1]) = alpha_start;
+      elseif initType == PowerSystems.Types.Init.v_p then
+        sqrt(term.v[1:2]*term.v[1:2]) = v_start*generator.par.V_nom;
+        -term.v[1:2]*term.i[1:2] = p_start*generator.par.S_nom;
+      elseif initType == PowerSystems.Types.Init.v_q then
+        sqrt(term.v[1:2]*term.v[1:2]) = v_start*generator.par.V_nom;
+        -{term.v[2],-term.v[1]}*term.i[1:2] = q_start*generator.par.S_nom;
+      elseif initType == PowerSystems.Types.Init.p_q then
+        -term.v[1:2]*term.i[1:2] = p_start*generator.par.S_nom;
+        -{term.v[2],-term.v[1]}*term.i[1:2] = q_start*generator.par.S_nom;
       end if;
 
     equation
-      if iniType == PowerSystems.Types.IniType.v_alpha then
+      if initType == PowerSystems.Types.Init.v_alpha then
         Connections.potentialRoot(term.theta);
       end if;
       if Connections.isRoot(term.theta) then
@@ -711,7 +712,7 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
     partial model GenBase_ctrl "Generation base pm, synchronous machines"
       extends GenBase0(heat(final m=sum(heat_adapt.m)));
 
-      parameter Types.AngularVelocity w_ini=0
+      parameter Types.AngularVelocity w_start=0
         "initial rpm (start-value if ini='st')"
         annotation(Dialog(enable=not system.steadyIni));
       Interfaces.Rotation_p flange    annotation (Placement(transformation(
@@ -733,7 +734,7 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
         annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
       replaceable model Rotor = PowerSystems.Mechanics.Rotation.Rotor (
-        w(start=w_ini)) "rotor generator" annotation(choicesAllMatching=true);
+        w(start=w_start)) "rotor generator" annotation(choicesAllMatching=true);
       Rotor rotor "rotor generator"
         annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 

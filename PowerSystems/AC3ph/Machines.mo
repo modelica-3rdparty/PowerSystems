@@ -7,11 +7,11 @@ package Machines "AC machines, electric part "
       PowerSystems.AC3ph.Machines.Parameters.Asynchron_cage);
 
   initial equation
-    phi_el = phi_el_ini;
+    phi_el = phi_el_start;
     if system.steadyIni then
       der(w_el) = 0;
     else
-      w_el = w_el_ini;
+      w_el = w_el_start;
     end if;
     annotation (
       defaultComponentName="asynchron",
@@ -32,11 +32,11 @@ package Machines "AC machines, electric part "
           transformation(extent={{-110,50},{-90,70}})));
 
   initial equation
-    phi_el = phi_el_ini;
+    phi_el = phi_el_start;
     if system.steadyIni then
       der(w_el) = 0;
     else
-      w_el = w_el_ini;
+      w_el = w_el_start;
     end if;
   equation
   /*
@@ -99,12 +99,12 @@ package Machines "AC machines, electric part "
     function acos=Modelica.Math.acos;
 
   initial equation
-    phi_el = phi_el_ini;
+    phi_el = phi_el_start;
     phiRotorflux = 0;
     if system.steadyIni then
       der(w_el) = 0;
     else
-      w_el = w_el_ini;
+      w_el = w_el_start;
     end if;
 
   equation
@@ -143,7 +143,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
 
   model Synchron3rd_ee
     "Synchronous machine electrically excited, 3rd order model, 3-phase dq0"
-    extends Partials.Synchron3rdBase(final phi_el_ini=-pi/2+system.alpha0,
+    extends Partials.Synchron3rdBase(final phi_el_start=-pi/2+system.alpha0,
       redeclare replaceable record Data =
         PowerSystems.AC3ph.Machines.Parameters.Synchron3rd_ee);
 
@@ -161,8 +161,8 @@ The mapping from current demand to voltage demand is based on the steady-state e
       w_el = sum(omega);
       der(w_el) = 0;
     else
-      phi_el = phi_el_ini;
-      w_el = w_el_ini;
+      phi_el = phi_el_start;
+      w_el = w_el_start;
     end if;
 
   equation
@@ -183,7 +183,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
   end Synchron3rd_ee;
 
   model Synchron_ee "Synchronous machine electrically excited, 3-phase dq0"
-    extends Partials.SynchronBase(final phi_el_ini=-pi/2+system.alpha0,
+    extends Partials.SynchronBase(final phi_el_start=-pi/2+system.alpha0,
       redeclare replaceable record Data =
         PowerSystems.AC3ph.Machines.Parameters.Synchron_ee);
     final parameter PS.Voltage Vf_nom=c.Vf_nom; // to be accessible from 'excitation'.
@@ -200,8 +200,8 @@ The mapping from current demand to voltage demand is based on the steady-state e
       w_el = sum(omega);
       der(w_el) = 0;
     else
-      phi_el = phi_el_ini;
-      w_el = w_el_ini;
+      phi_el = phi_el_start;
+      w_el = w_el_start;
     end if;
 
   equation
@@ -262,11 +262,11 @@ The mapping from current demand to voltage demand is based on the steady-state e
           rotation=180)));
 
   initial equation
-    phi_el = phi_el_ini;
+    phi_el = phi_el_start;
     if system.steadyIni then
       der(w_el) = 0;
     else
-      w_el = w_el_ini;
+      w_el = w_el_start;
     end if;
 
   equation
@@ -301,11 +301,11 @@ The mapping from current demand to voltage demand is based on the steady-state e
           rotation=180)));
 
   initial equation
-    phi_el = phi_el_ini;
+    phi_el = phi_el_start;
     if system.steadyIni then
       der(w_el) = 0;
     else
-      w_el = w_el_ini;
+      w_el = w_el_start;
     end if;
 
   equation
@@ -373,11 +373,11 @@ The mapping from current demand to voltage demand is based on the steady-state e
     PS.Voltage[2] v_dq "voltage demand {v_d, v_q} pu";
     PS.Current[2] i_dq "current demand {i_d, i_q} pu";
   initial equation
-    phi_el = phi_el_ini;
+    phi_el = phi_el_start;
     if system.steadyIni then
       der(w_el) = 0;
     else
-      w_el = w_el_ini;
+      w_el = w_el_start;
     end if;
 
   equation
@@ -449,11 +449,11 @@ The mapping from current demand to voltage demand is based on the steady-state e
     PS.Voltage[2] v_dq "voltage demand {v_d, v_q} pu";
     PS.Current[2] i_dq "current demand {i_d, i_q} pu";
   initial equation
-    phi_el = phi_el_ini;
+    phi_el = phi_el_start;
     if system.steadyIni then
       der(w_el) = 0;
     else
-      w_el = w_el_ini;
+      w_el = w_el_start;
     end if;
 
   equation
@@ -513,13 +513,16 @@ The mapping from current demand to voltage demand is based on the steady-state e
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
         annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter PS.Current[3] i_start = zeros(3)
-        "start value of current conductor";
-      parameter SI.Angle phi_el_ini=0 "initial rotor angle electric";
-      parameter SI.AngularVelocity w_ini=0 "initial rotor angular velocity";
+        "start value of current conductor"
+	annotation(Dialog(tab="Initialization"));
+      parameter SI.Angle phi_el_start=0 "initial rotor angle electric"
+	annotation(Dialog(tab="Initialization"));
+      parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity"
+	annotation(Dialog(tab="Initialization"));
       parameter Integer pp=1 "pole-pair number";
-      SI.Angle phi_el(stateSelect=StateSelect.prefer, start=phi_el_ini)
+      SI.Angle phi_el(stateSelect=StateSelect.prefer, start=phi_el_start)
         "rotor angle electric (syn: +pi/2)";
-      SI.AngularVelocity w_el(stateSelect=StateSelect.prefer, start=w_el_ini)
+      SI.AngularVelocity w_el(stateSelect=StateSelect.prefer, start=w_el_start)
         "rotor angular velocity el";
       SI.Torque tau_el "electromagnetic torque";
       Interfaces.Rotation_n airgap "electro-mechanical connection"
@@ -535,7 +538,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
             rotation=90)));
     protected
       outer System system;
-      final parameter SI.AngularVelocity w_el_ini = w_ini*pp
+      final parameter SI.AngularVelocity w_el_start = w_start*pp
         "initial rotor angular velocity electric";
       SI.AngularFrequency[2] omega;
       function atan2 = Modelica.Math.atan2;
@@ -557,7 +560,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
 The connector 'airgap' transfers the electromagnetic rotor-torque to the mechanical system.</p>
 <p>The electric reference frame can specified by the machine rotor. Use this choice ONLY if really necessary and care about restrictions. Choosing
 <pre>  isRef = true</pre> induces
-<pre>  term.theta = {-phi_el_ini, phi_el}</pre>
+<pre>  term.theta = {-phi_el_start, phi_el}</pre>
 and therefore
 <pre>  omega = {0, w_el}</pre>
 not allowing steady-state initialisation for asynchronous machines. Note that
@@ -849,7 +852,7 @@ Special choices are</p>
         "stator current dq0 in rotor-system";
 
     protected
-      parameter PS.Current[3] i_s_start = cat(1, inv(Basic.Transforms.rotation_dq(phi_el_ini))*i_start[1:2], {i_start[3]})
+      parameter PS.Current[3] i_s_start = cat(1, inv(Basic.Transforms.rotation_dq(phi_el_start))*i_start[1:2], {i_start[3]})
         "start value of stator current dq0 in rotor-system";
       SI.MagneticFlux psi_e "excitation flux";
       Real[2,2] Rot_dq "Rotation reference-dq0 to rotor-dq0 system";

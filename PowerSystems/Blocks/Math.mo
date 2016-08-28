@@ -3,16 +3,16 @@ package Math "Auxiliary blocks"
   extends Modelica.Icons.VariantsPackage;
 
 block Integrator "Integral of input-signal"
-  extends Partials.SISO(y(start=y_ini, fixed=true));
+  extends Partials.SISO(y(start=y_start, fixed=true));
 
-  parameter Real y_ini=0 "initial value";
+  parameter Real y_start=0 "initial value";
 
 equation
   der(y) = u;
   annotation (
     Documentation(info="<html>
 <p/>Calculates:
-<pre>  y_ini + Integral dt u</pre>
+<pre>  y_start + Integral dt u</pre>
 </html>
 "), Icon(coordinateSystem(
           preserveAspectRatio=false,

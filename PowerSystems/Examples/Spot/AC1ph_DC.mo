@@ -202,7 +202,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-    PowerSystems.Blocks.Signals.TransientPhasor transPh(ph_fin=
+    PowerSystems.Blocks.Signals.TransientPhasor transPh(ph_end=
           0.087266462599716)
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(
@@ -338,12 +338,12 @@ Compare with DoublePIline.</p>
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-    PowerSystems.Blocks.Signals.Transient[2] trsSignal(s_ini={1,2}, s_fin={2,3})
+    PowerSystems.Blocks.Signals.Transient[2] trsSignal(s_start={1,2}, s_end={2,3})
       annotation (Placement(transformation(
           origin={40,60},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.Blocks.Signals.TransientPhasor transPh(a_fin=0.9)
+    PowerSystems.Blocks.Signals.TransientPhasor transPh(a_end=0.9)
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage(use_vPhasor_in=true)
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
@@ -377,7 +377,7 @@ Compare with DoublePIline.</p>
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-    PowerSystems.Blocks.Signals.Transient trsSignalL(s_ini=0.5, s_fin=1)
+    PowerSystems.Blocks.Signals.Transient trsSignalL(s_start=0.5, s_end=1)
       annotation (Placement(transformation(
           origin={40,60},
           extent={{-10,-10},{10,10}},
@@ -388,7 +388,7 @@ Compare with DoublePIline.</p>
           transformation(extent={{-40,-10},{-20,10}})));
     replaceable PowerSystems.AC1ph_DC.Loads.PindLoadDC pLoadDC(use_p_in=true)
       annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-    PowerSystems.Blocks.Signals.Transient transV(s_fin=0.9)
+    PowerSystems.Blocks.Signals.Transient transV(s_end=0.9)
                                         annotation (Placement(transformation(
             extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Nodes.GroundOne grd annotation (Placement(transformation(
@@ -422,14 +422,14 @@ Compare with DoublePIline.</p>
     PowerSystems.Mechanics.Rotation.Torque torq(tau0=-1)
                                               annotation (Placement(
           transformation(extent={{80,-10},{60,10}})));
-    PowerSystems.Blocks.Signals.Transient transTau(s_ini=0, s_fin=-1)
+    PowerSystems.Blocks.Signals.Transient transTau(s_start=0, s_end=-1)
                                        annotation (Placement(transformation(
             extent={{100,-10},{80,10}})));
 
     PowerSystems.AC1ph_DC.Sources.DCvoltage voltage1(use_vDC_in=true, V_nom=
           100)                        annotation (Placement(transformation(
             extent={{-80,-10},{-60,10}})));
-    PowerSystems.Blocks.Signals.Transient transV(s_ini=0, s_fin=1)
+    PowerSystems.Blocks.Signals.Transient transV(s_start=0, s_end=1)
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.AC1ph_DC.Sensors.Psensor power
                                  annotation (Placement(transformation(extent={{

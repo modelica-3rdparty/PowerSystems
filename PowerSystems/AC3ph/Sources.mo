@@ -175,24 +175,23 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
       annotation(Evaluate=true, Dialog(tab="Mode"));
 
-    parameter PowerSystems.Types.IniType iniType=PowerSystems.Types.IniType.v_alpha
-      "initialisation type";
-    parameter SIpu.Voltage v_ini=1 "initial terminal voltage" annotation(Dialog(enable=iniType
-             == PowerSystems.Types.IniType.v_alpha or iniType == PowerSystems.Types.IniType.v_p
-             or iniType == PowerSystems.Types.IniType.v_q));
-    parameter SI.Angle alpha_ini=0 "initial terminal phase angle"             annotation(Dialog(enable=iniType
-             == PowerSystems.Types.IniType.v_alpha));
-    parameter SIpu.ApparentPower p_ini=1 "initial terminal active power"
-                                                        annotation(Dialog(enable=iniType
-             == PowerSystems.Types.IniType.v_p));
-    parameter SIpu.ApparentPower q_ini=1 "initial terminal reactive power"
-      annotation(Dialog(enable=iniType == PowerSystems.Types.IniType.v_q));
-    parameter SIpu.ApparentPower pq_ini[2]={1,0}
-      "initial terminal {active, reactive} power"           annotation(Dialog(enable=iniType
-             == PowerSystems.Types.IniType.p_q));
+    parameter PowerSystems.Types.Init initType=PowerSystems.Types.Init.v_alpha
+      "initialisation type" annotation(Dialog(tab="Initialization"));
+    parameter SIpu.Voltage v_start=1 "initial terminal voltage" annotation(Dialog(enable=initType
+             == PowerSystems.Types.Init.v_alpha or initType == PowerSystems.Types.Init.v_p
+             or initType == PowerSystems.Types.Init.v_q, tab="Initialization"));
+    parameter SI.Angle alpha_start=0 "initial terminal phase angle" annotation(Dialog(enable=initType
+             == PowerSystems.Types.Init.v_alpha, tab="Initialization"));
+    parameter SIpu.ApparentPower p_start=1 "initial terminal active power"
+      annotation(Dialog(enable=initType == PowerSystems.Types.Init.v_p, tab="Initialization"));
+    parameter SIpu.ApparentPower q_start=1 "initial terminal reactive power"
+      annotation(Dialog(enable=initType == PowerSystems.Types.Init.v_q, tab="Initialization"));
+    parameter SIpu.ApparentPower pq_start[2]={1,0}
+      "initial terminal {active, reactive} power" annotation(Dialog(enable=initType
+             == PowerSystems.Types.Init.p_q, tab="Initialization"));
     parameter SIpu.Resistance r=0.01 "resistance";
     parameter SIpu.Reactance x=1 "reactance d- and q-axis";
-    parameter SIpu.Reactance x_o=0.1 "reactance 0-axis";
+    parameter SIpu.Reactance x0=0.1 "reactance 0-axis";
   protected
     final parameter SIpu.Voltage v0(final fixed=false, start=1)
       "voltage behind reactance";
@@ -202,7 +201,7 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     final parameter Real[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*system.f_nom);
     final parameter SI.Resistance R=r*RL_base[1];
     final parameter SI.Inductance L = x*RL_base[2];
-    final parameter SI.Inductance L0 = x_o*RL_base[2];
+    final parameter SI.Inductance L0 = x0*RL_base[2];
     PS.Voltage[3] v(start={cos(system.alpha0),sin(system.alpha0),0}*V_base);
     PS.Current[3] i(start={0,0,0});
     SI.AngularFrequency[2] omega;
@@ -210,17 +209,17 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     function atan2 = Modelica.Math.atan2;
 
   initial equation
-    if iniType == PowerSystems.Types.IniType.v_alpha then
-      sqrt(v[1:2]*v[1:2]) = v_ini*V_base;
-      atan2(v[2], v[1]) = alpha_ini + system.alpha0;
-    elseif iniType == PowerSystems.Types.IniType.v_p then
-      sqrt(v[1:2]*v[1:2]) = v_ini*V_base;
-      v[1:2]*i[1:2] = p_ini*S_base;
-    elseif iniType == PowerSystems.Types.IniType.v_q then
-      sqrt(v[1:2]*v[1:2]) = v_ini*V_base;
-      {v[2],-v[1]}*i[1:2] = q_ini*S_base;
-    elseif iniType == PowerSystems.Types.IniType.p_q then
-      {v[1:2]*i[1:2], {v[2],-v[1]}*i[1:2]} = pq_ini*S_base;
+    if initType == PowerSystems.Types.Init.v_alpha then
+      sqrt(v[1:2]*v[1:2]) = v_start*V_base;
+      atan2(v[2], v[1]) = alpha_start + system.alpha0;
+    elseif initType == PowerSystems.Types.Init.v_p then
+      sqrt(v[1:2]*v[1:2]) = v_start*V_base;
+      v[1:2]*i[1:2] = p_start*S_base;
+    elseif initType == PowerSystems.Types.Init.v_q then
+      sqrt(v[1:2]*v[1:2]) = v_start*V_base;
+      {v[2],-v[1]}*i[1:2] = q_start*S_base;
+    elseif initType == PowerSystems.Types.Init.p_q then
+      {v[1:2]*i[1:2], {v[2],-v[1]}*i[1:2]} = pq_start*S_base;
     end if;
     if dynType == Types.Dynamics.SteadyInitial then
       der(i) = omega[1]*j_dq0(i);
@@ -243,9 +242,9 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
 <p>Ideal voltage source with constant amplitude and phase, and with resistive-inductive inner impedance.</p>
 <p>There are 3 different initialisation choices.
 <pre>
-  1)  v_ini, alpha_ini  initial terminal voltage and phase angle,
-  2)  v_ini, p_ini      initial terminal voltage and active power,
-  3)  pq_ini            initial terminal {active power, reactive power},
+  1)  v_start, alpha_start  initial terminal voltage and phase angle,
+  2)  v_start, p_start      initial terminal voltage and active power,
+  3)  pq_start             initial terminal {active power, reactive power},
 </pre></p>
 <p>Note: v0, alpha0 denote the exciting voltage ('behind reactance'), NOT the terminal voltage. v0 and alpha0 are kept constant during simulation. The values are determined at initialisation by the respective initial values above.</p>
 <p>Frequency: the source has always <i>system</i>-frequency.</p>

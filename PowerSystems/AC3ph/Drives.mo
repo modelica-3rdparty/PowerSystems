@@ -4,12 +4,12 @@ package Drives "AC-drives dq0"
 
   model ASM "Asynchronous machine with cage rotor"
 
-    parameter Types.AngularVelocity  w_ini=0
+    parameter Types.AngularVelocity  w_start=0
       "initial rpm (start-value if ini='st')"
-      annotation(Dialog(enable=not system.steadyIni));
-    extends Partials.DriveBase(rotor(w(start=w_ini)));
+      annotation(Dialog(enable=not system.steadyIni, tab="Initialization"));
+    extends Partials.DriveBase(rotor(w(start=w_start)));
     replaceable model Motor = PowerSystems.AC3ph.Machines.Asynchron (
-      final w_ini = w_ini) "asyn motor"
+      final w_start = w_start) "asyn motor"
       annotation(choicesAllMatching=true);
     Motor motor "asyn motor"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -25,7 +25,7 @@ package Drives "AC-drives dq0"
       Documentation(
               info="<html>
 <p>Complete ASM drive.</p>
-<p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for machines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -39,12 +39,12 @@ package Drives "AC-drives dq0"
 
   model ASM_Y_D "Asynchronous machine with cage rotor, Y-Delta switcheable"
 
-    parameter Types.AngularVelocity  w_ini=0
-      "initial rpm (start-value if ini='st')"
-      annotation(Dialog(enable=not system.steadyIni));
+    parameter Types.AngularVelocity w_start=0
+      "initial rpm (start-value if steady-state)"
+      annotation(Dialog(enable=not system.steadyIni, tab="Initialization"));
     extends Partials.DriveBase;
     replaceable model Motor = PowerSystems.AC3ph.Machines.AsynchronY_D (
-      final w_ini = w_ini) "asyn motor Y-Delta switcheable"
+      final w_start = w_start) "asyn motor Y-Delta switcheable"
                                        annotation (choicesAllMatching=true);
     Motor motor "asyn motor Y-Delta switcheable"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -65,7 +65,7 @@ package Drives "AC-drives dq0"
       Documentation(
               info="<html>
 <p>Complete ASM drive with switcheable Y-Delta topology.</p>
-<p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for machines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -105,7 +105,7 @@ package Drives "AC-drives dq0"
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
     replaceable model Motor = PowerSystems.AC3ph.Machines.Asynchron_ctrl (
-      final w_ini = w_ini) "asyn motor, current controlled"
+      final w_start = w_start) "asyn motor, current controlled"
       annotation (choices(
       choice(redeclare model Motor =
               PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
@@ -143,13 +143,13 @@ package Drives "AC-drives dq0"
                  "asyn")}),
       Documentation(info="<html>
 <p>Complete ASM drive with inverter and motor for field oriented current control.</p>
-<p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for machines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"));
   end ASM_ctrl;
 
   model SM_el "Synchronous machine, electric excitation"
 
-    parameter Types.AngularVelocity  w_ini=0
+    parameter Types.AngularVelocity  w_start=0
       "initial rpm (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
     extends Partials.DriveBase;
@@ -161,7 +161,7 @@ package Drives "AC-drives dq0"
       annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 
     replaceable model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_ee (
-      final w_ini = w_ini) "syn motor"
+      final w_start = w_start) "syn motor"
                   annotation (choices(
       choice(redeclare model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_ee
             "synchron 3rd order"),
@@ -205,7 +205,7 @@ package Drives "AC-drives dq0"
       Documentation(
               info="<html>
 <p>Complete SM drive with electrically excited motor.</p>
-<p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for machines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),
       Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -234,7 +234,7 @@ package Drives "AC-drives dq0"
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
     replaceable model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (
-      final w_ini = w_ini) "syn motor, current controlled"
+      final w_start = w_start) "syn motor, current controlled"
       annotation (choices(
       choice(redeclare model Motor =
               PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
@@ -283,7 +283,7 @@ package Drives "AC-drives dq0"
             fillPattern=FillPattern.Solid)}),
       Documentation(info="<html>
 <p>Complete SM drive with inverter and motor for field oriented current control.</p>
-<p>Note: for machines with gear <tt>w_ini</tt> denotes the initial angular velocity at the generator-side!</p>
+<p>Note: for machines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"));
   end SM_ctrl;
 
@@ -449,12 +449,12 @@ package Drives "AC-drives dq0"
   end DriveBase;
 
   partial model DriveBase_ctrl "AC drives base control"
-    parameter Types.AngularVelocity  w_ini=0
+    parameter Types.AngularVelocity  w_start=0
         "initial rpm (start-value if ini='st')"
       annotation(Dialog(enable=not system.steadyIni));
 
     extends DriveBase0(heat(final m=sum(heat_adapt.m)),
-      rotor(w(start=w_ini)));
+      rotor(w(start=w_start)));
 
     AC1ph_DC.Ports.TwoPin_p term "electric terminal DC"
                             annotation (Placement(transformation(extent={{-110,

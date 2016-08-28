@@ -27,8 +27,8 @@ package DrivesAC3ph "AC drives, dq0"
     tcst=0.01) annotation (Placement(transformation(extent={{40,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
     t_duration=0.5,
-      s_fin=2*system.omega_nom/asm.motor.pp,
-      s_ini=-system.omega_nom/asm.motor.pp)
+      s_end=2*system.omega_nom/asm.motor.pp,
+      s_start=-system.omega_nom/asm.motor.pp)
       annotation (Placement(transformation(extent={{78,-20},{58,0}})));
 
   equation
@@ -77,7 +77,7 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
       redeclare model Motor = PowerSystems.AC3ph.Machines.AsynchronY_D (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA),
-      w_ini=4.1887902047864)
+      w_start=4.1887902047864)
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{-10,0},{10,20}})));
@@ -144,7 +144,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA),
-      w_ini=157.07963267949)
+      w_start=157.07963267949)
       annotation (Placement(transformation(extent={{30,-20},{50,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond1(m=2)
                                             annotation (Placement(
@@ -221,7 +221,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       redeclare model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage (
         redeclare record Data =
           PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A),
-      w_ini=157.07963267949)
+      w_start=157.07963267949)
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
@@ -237,12 +237,12 @@ Compare 'transient' and 'steady-state' mode.</p>
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
       annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-    PowerSystems.Blocks.Signals.Transient i_q(s_fin=0.2, s_ini=0)
+    PowerSystems.Blocks.Signals.Transient i_q(s_end=0.2, s_start=0)
       "phase of modulation signal"          annotation (Placement(
           transformation(extent={{-90,0},{-70,20}})));
     PowerSystems.Blocks.Signals.Transient i_d(
-      s_ini=0.36,
-      s_fin=0.36,
+      s_start=0.36,
+      s_end=0.36,
       t_change=30,
       t_duration=60) "phase of modulation signal"
                                             annotation (Placement(
@@ -316,7 +316,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA),
-      w_ini=157.07963267949)
+      w_start=157.07963267949)
       annotation (Placement(transformation(extent={{30,-20},{50,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond1(m=2)
                                             annotation (Placement(
@@ -403,13 +403,13 @@ The machine defines the reference-system independent of the system choice (as ne
       stepTorque=-100,
       useSupport=false)
                 annotation (Placement(transformation(extent={{100,0},{80,20}})));
-    PowerSystems.Blocks.Signals.Transient i_q(t_change=3, s_ini=0.1)
+    PowerSystems.Blocks.Signals.Transient i_q(t_change=3, s_start=0.1)
       "phase of modulation signal"          annotation (Placement(
           transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.Blocks.Signals.Transient i_d(
       t_change=3,
-      s_ini=0,
-      s_fin=0) "phase of modulation signal" annotation (Placement(
+      s_start=0,
+      s_end=0) "phase of modulation signal" annotation (Placement(
           transformation(extent={{-80,40},{-60,60}})));
     Modelica.Blocks.Continuous.LimPID PI_i_q(
       Ti=0.2,
@@ -492,7 +492,7 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
       useSupport=false)
                 annotation (Placement(transformation(extent={{100,0},{80,20}})));
     PowerSystems.Blocks.Signals.Transient i_q(
-                    s_ini=0.1) "phase of modulation signal"
+                    s_start=0.1) "phase of modulation signal"
                                             annotation (Placement(
           transformation(extent={{-100,10},{-80,30}})));
     Modelica.Blocks.Continuous.LimPID PI_i_q(
@@ -504,8 +504,8 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
       yMax=1)
            annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
     PowerSystems.Blocks.Signals.Transient i_d(
-      s_ini=0,
-      s_fin=0) "phase of modulation signal" annotation (Placement(
+      s_start=0,
+      s_end=0) "phase of modulation signal" annotation (Placement(
           transformation(extent={{-80,40},{-60,60}})));
 
   equation
@@ -583,14 +583,14 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
       useSupport=false)
                 annotation (Placement(transformation(extent={{100,0},{80,20}})));
     PowerSystems.Blocks.Signals.Transient i_q(t_change=3,
-      s_fin=0.7,
-      s_ini=0.6) "phase of modulation signal"
+      s_end=0.7,
+      s_start=0.6) "phase of modulation signal"
                                             annotation (Placement(
           transformation(extent={{-100,10},{-80,30}})));
     PowerSystems.Blocks.Signals.Transient i_d(
       t_change=8,
-      s_fin=0.45,
-      s_ini=0.35) "phase of modulation signal"
+      s_end=0.45,
+      s_start=0.35) "phase of modulation signal"
                                             annotation (Placement(
           transformation(extent={{-80,40},{-60,60}})));
     Modelica.Blocks.Continuous.LimPID PI_i_q(
@@ -662,7 +662,7 @@ Check vPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
         redeclare model Inverter =
           PowerSystems.AC3ph.Inverters.Components.InverterSwitch
             "switch, no diode, no losses") "inverter with modulator",
-      w_ini=0.10471975511966)
+      w_start=0.10471975511966)
                 annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=5) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
@@ -677,7 +677,7 @@ Check vPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
       stepTorque=-200,
       useSupport=false)
                 annotation (Placement(transformation(extent={{100,0},{80,20}})));
-    PowerSystems.Blocks.Signals.Transient i_q(s_ini=0.6, s_fin=0.7)
+    PowerSystems.Blocks.Signals.Transient i_q(s_start=0.6, s_end=0.7)
       "phase of modulation signal"          annotation (Placement(
           transformation(extent={{-100,10},{-80,30}})));
     Modelica.Blocks.Continuous.LimPID PI_i_q(
@@ -687,10 +687,10 @@ Check vPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
       yMax=1)
            annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
     PowerSystems.Blocks.Signals.Transient i_d(
-      s_fin=0.45,
+      s_end=0.45,
       t_change=2.5,
       t_duration=0.5,
-      s_ini=0.35) "phase of modulation signal"
+      s_start=0.35) "phase of modulation signal"
                                             annotation (Placement(
           transformation(extent={{-80,40},{-60,60}})));
 
