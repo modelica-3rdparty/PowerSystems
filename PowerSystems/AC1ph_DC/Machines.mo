@@ -241,9 +241,9 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
         annotation(Dialog(tab="Initialization"));
       parameter Integer pp=2 "pole-pair number";
       parameter SI.Angle phi_el_start=0 "initial rotor angle electric"
-	annotation(Dialog(tab="Initialization"));
+        annotation (Dialog(tab="Initialization"));
       parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity"
-	annotation(Dialog(tab="Initialization"));
+        annotation (Dialog(tab="Initialization"));
       SI.Angle phi_el(start=phi_el_start, stateSelect=StateSelect.always)
         "rotor angle electric";
       SI.AngularVelocity w_el(start=w_el_start, stateSelect=StateSelect.always)
@@ -269,11 +269,6 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
 
     initial equation
       phi_el = phi_el_start;
-      if system.steadyIni then
-        der(w_el) = 0;
-      else
-        w_el = w_el_start;
-      end if;
 
     equation
       sum(term.i) = 0;

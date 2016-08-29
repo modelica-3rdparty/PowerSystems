@@ -1259,6 +1259,8 @@ end PowerSensor;
     partial model RigidRotorBase "Rigid rotor base"
       extends Ports.Rigid;
 
+      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+        annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter SI.Inertia J=1 "inertia";
       parameter SI.AngularVelocity w_start = 0
         "start value of angular velocity"
@@ -1266,6 +1268,16 @@ end PowerSensor;
       SI.Angle phi "rotation angle absolute";
       SI.AngularVelocity w(start = w_start);
       SI.AngularAcceleration a;
+
+    protected
+      outer System system;
+
+    initial equation
+      if dynType == Types.Dynamics.SteadyInitial then
+        der(w) = 0;
+      else
+        w = w_start;
+      end if;
 
     equation
       phi = flange_p.phi;

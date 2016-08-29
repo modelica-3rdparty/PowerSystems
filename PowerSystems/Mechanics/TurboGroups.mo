@@ -4,8 +4,12 @@ package TurboGroups "Turbines including generator-rotor"
 
   model FixedSpeedTG "Fixed speed turbo-generator rotor"
 
-    parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity";
-    parameter SI.AngularVelocity w_nom=1 "nom ang velocity";
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
+    parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity"
+      annotation(Dialog(tab="Initialization"));
+    parameter SI.AngularVelocity w_nom=1 "nominal angular velocity"
+      annotation(Dialog(group="Nominal"));
     Interfaces.Rotation_n airgap "to airgap electric machine"
                                            annotation (Placement(transformation(
             extent={{90,50},{110,70}})));
@@ -27,7 +31,7 @@ package TurboGroups "Turbines including generator-rotor"
     SI.AngularVelocity w(start=w_start, stateSelect=StateSelect.prefer);
 
   initial equation
-    if not system.steadyIni then
+    if dynType <> Types.Dynamics.SteadyInitial then
       w = w_start;
     end if;
 
@@ -87,12 +91,17 @@ Therefore phi and w represent the mechanical angle and angular velocity.
 
   model SingleMassTG "Single mass turbo-generator rotor"
 
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
     parameter SIpu.AngularVelocity speed_thr(unit="1")=0.5
       "threshold: torque ctrl \\ power ctrl";
     parameter SI.Time H=1 "inertia constant turbine + generator";
-    parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity";
-    parameter SI.AngularVelocity w_nom=1 "nom ang velocity";
-    parameter SI.Power P_nom=1 "nom power turbine";
+    parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity"
+      annotation(Dialog(tab="Initialization"));
+    parameter SI.AngularVelocity w_nom=1 "nominal angular velocity"
+      annotation(Dialog(group="Nominal"));
+    parameter SI.Power P_nom=1 "nominal power turbine"
+      annotation(Dialog(group="Nominal"));
     Interfaces.Rotation_n airgap "to airgap electric machine"
                                            annotation (Placement(transformation(
             extent={{90,50},{110,70}})));
@@ -117,6 +126,13 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     SI.AngularVelocity w(start=w_start, stateSelect=StateSelect.prefer);
     SI.AngularAcceleration a(start=0);
     Real tau_pu(unit="1");
+
+  initial equation
+    if dynType == Types.Dynamics.SteadyInitial then
+      der(w) = 0;
+    else
+      w = w_start;
+    end if;
 
   equation
     max(speed_thr, speed)*tau_pu = power;

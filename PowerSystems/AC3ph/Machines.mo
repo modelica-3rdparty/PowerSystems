@@ -8,11 +8,6 @@ package Machines "AC machines, electric part "
 
   initial equation
     phi_el = phi_el_start;
-    if system.steadyIni then
-      der(w_el) = 0;
-    else
-      w_el = w_el_start;
-    end if;
     annotation (
       defaultComponentName="asynchron",
   Documentation(
@@ -33,11 +28,7 @@ package Machines "AC machines, electric part "
 
   initial equation
     phi_el = phi_el_start;
-    if system.steadyIni then
-      der(w_el) = 0;
-    else
-      w_el = w_el_start;
-    end if;
+
   equation
   /*
   connect(YDcontrol, top.control) annotation (Line(points={{-100,60},{-80,60},
@@ -101,11 +92,6 @@ package Machines "AC machines, electric part "
   initial equation
     phi_el = phi_el_start;
     phiRotorflux = 0;
-    if system.steadyIni then
-      der(w_el) = 0;
-    else
-      w_el = w_el_start;
-    end if;
 
   equation
     der(phiRotorflux) = w_el - (-diagonal(R_r)*i_rd*psi_rq + diagonal(R_r)*i_rq*psi_rd)/(psi_rd*psi_rd + psi_rq*psi_rq + eps);
@@ -157,13 +143,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
           rotation=180)));
 
   initial equation
-    if system.steadyIni then
-      w_el = sum(omega);
-      der(w_el) = 0;
-    else
-      phi_el = phi_el_start;
-      w_el = w_el_start;
-    end if;
+    w_el = sum(omega);
 
   equation
     if par.excite==1 then
@@ -196,13 +176,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
           rotation=180)));
 
   initial equation
-    if system.steadyIni then
-      w_el = sum(omega);
-      der(w_el) = 0;
-    else
-      phi_el = phi_el_start;
-      w_el = w_el_start;
-    end if;
+    w_el = sum(omega);
 
   equation
     if par.excite==1 then
@@ -263,11 +237,6 @@ The mapping from current demand to voltage demand is based on the steady-state e
 
   initial equation
     phi_el = phi_el_start;
-    if system.steadyIni then
-      der(w_el) = 0;
-    else
-      w_el = w_el_start;
-    end if;
 
   equation
     if par.excite==1 then
@@ -302,11 +271,6 @@ The mapping from current demand to voltage demand is based on the steady-state e
 
   initial equation
     phi_el = phi_el_start;
-    if system.steadyIni then
-      der(w_el) = 0;
-    else
-      w_el = w_el_start;
-    end if;
 
   equation
     if par.excite==1 then
@@ -374,11 +338,6 @@ The mapping from current demand to voltage demand is based on the steady-state e
     PS.Current[2] i_dq "current demand {i_d, i_q} pu";
   initial equation
     phi_el = phi_el_start;
-    if system.steadyIni then
-      der(w_el) = 0;
-    else
-      w_el = w_el_start;
-    end if;
 
   equation
     if par.excite==1 then
@@ -450,11 +409,6 @@ The mapping from current demand to voltage demand is based on the steady-state e
     PS.Current[2] i_dq "current demand {i_d, i_q} pu";
   initial equation
     phi_el = phi_el_start;
-    if system.steadyIni then
-      der(w_el) = 0;
-    else
-      w_el = w_el_start;
-    end if;
 
   equation
     if par.excite==1 then
@@ -514,11 +468,11 @@ The mapping from current demand to voltage demand is based on the steady-state e
         annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter PS.Current[3] i_start = zeros(3)
         "start value of current conductor"
-	annotation(Dialog(tab="Initialization"));
+        annotation (Dialog(tab="Initialization"));
       parameter SI.Angle phi_el_start=0 "initial rotor angle electric"
-	annotation(Dialog(tab="Initialization"));
+        annotation (Dialog(tab="Initialization"));
       parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity"
-	annotation(Dialog(tab="Initialization"));
+        annotation (Dialog(tab="Initialization"));
       parameter Integer pp=1 "pole-pair number";
       SI.Angle phi_el(stateSelect=StateSelect.prefer, start=phi_el_start)
         "rotor angle electric (syn: +pi/2)";
