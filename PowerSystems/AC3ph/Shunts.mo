@@ -336,7 +336,7 @@ model ReactiveShuntNonSym
   PS.Current[3] i_x;
 
 initial equation
-  if system.steadyIni then
+  if dynType == Types.Dynamics.SteadyInitial then
     der(psi_x[1:2]) = omega[1]*j_dq0(psi_x[1:2]);
     psi_x[3] = 0;
   end if;
@@ -348,7 +348,11 @@ equation
 
   i_x = i - G*v;
   psi_x = L*(i - G*v);
-  der(psi_x) + omega[2]*j_dq0(psi_x) + R*i_x = v;
+  if dynType <> Types.Dynamics.SteadyState then
+    der(psi_x) + omega[2]*j_dq0(psi_x) + R*i_x = v;
+  else
+    omega[2]*j_dq0(psi_x) + R*i_x = v;
+  end if;
 annotation (defaultComponentName = "xShuntNonSym",
   Documentation(
           info="<html>
@@ -469,7 +473,7 @@ model CapacitiveShuntNonSym
   SI.Capacitance[3, 3] C;
 
 initial equation
-  if system.steadyIni then
+  if dynType == Types.Dynamics.SteadyInitial then
     der(q[1:2]) = omega[1]*j_dq0(q[1:2]);
     q[3] = 0;
   end if;
@@ -479,7 +483,11 @@ equation
   G = Park*G_abc*transpose(Park);
 
   q = C*v;
-  der(q) + omega[2]*j_dq0(q) + G*v = i;
+  if dynType <> Types.Dynamics.SteadyState then
+    der(q) + omega[2]*j_dq0(q) + G*v = i;
+  else
+    omega[2]*j_dq0(q) + G*v = i;
+  end if;
 annotation (defaultComponentName = "cShuntNonSym",
   Documentation(
           info="<html>

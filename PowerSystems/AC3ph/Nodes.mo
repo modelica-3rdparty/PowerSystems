@@ -392,6 +392,9 @@ package Nodes "Nodes and adaptors"
     extends Ports.Yport_p;
     extends Basic.Nominal.NominalAC;
 
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
+
     parameter SIpu.Reactance x_n=1 "reactance neutral to grd";
     parameter SIpu.Resistance r_n=0 "resistance neutral to grd";
   protected
@@ -400,13 +403,17 @@ package Nodes "Nodes and adaptors"
     final parameter SI.Resistance R_n=r_n*R_base;
 
   initial equation
-    if system.steadyIni then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i_n) = 0;
     end if;
 
   equation
     v = zeros(3);
-    L_n*der(i_n) + R_n*i_n = v_n;
+    if dynType <> Types.Dynamics.SteadyState then
+      L_n*der(i_n) + R_n*i_n = v_n;
+    else
+      R_n*i_n = v_n;
+    end if;
     annotation (
       defaultComponentName="indGrd",
   Documentation(
@@ -481,6 +488,9 @@ package Nodes "Nodes and adaptors"
     extends Ports.Yport_p;
     extends Basic.Nominal.NominalAC;
 
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
+
     parameter SIpu.Susceptance b_n=1 "susceptance neutral to grd";
     parameter SIpu.Conductance g_n=0 "conductance neutral to grd";
   protected
@@ -489,13 +499,17 @@ package Nodes "Nodes and adaptors"
     final parameter SI.Conductance G_n=g_n/R_base;
 
   initial equation
-    if system.steadyIni then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(i_n) = 0;
     end if;
 
   equation
     v = zeros(3);
-    C_n*der(v_n) + G_n*v_n = i_n;
+    if dynType <> Types.Dynamics.SteadyState then
+      C_n*der(v_n) + G_n*v_n = i_n;
+    else
+      G_n*v_n = i_n;
+    end if;
     annotation (
       defaultComponentName="capGrd",
   Documentation(

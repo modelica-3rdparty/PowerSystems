@@ -567,8 +567,7 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
 
       AC3ph.Ports.ACdq0_n term "negative terminal"
         annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-      annotation(Dialog(enable=not system.steadyIni),
-        Documentation(
+      annotation(Documentation(
         info="<html>
 </html>"));
     end GenBase;
@@ -583,18 +582,18 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
         "initialisation type (if steady-state)"
 	annotation(Dialog(tab="Initialization"));
       parameter SIpu.Voltage v_start(unit="1")=1 "initial terminal voltage"
-        annotation(Dialog(enable=system.steadyIni and (initType == PowerSystems.Types.Init.v_alpha
+        annotation(Dialog(enable=initType == PowerSystems.Types.Init.v_alpha
                or initType == PowerSystems.Types.Init.v_p or initType ==
-              PowerSystems.Types.Init.v_q), tab="Initialization"));
+              PowerSystems.Types.Init.v_q, tab="Initialization"));
       parameter SI.Angle alpha_start=system.alpha0 "initial voltage phase angle"
-        annotation(Dialog(enable=system.steadyIni and initType == PowerSystems.Types.Init.v_alpha,
+        annotation(Dialog(enable=initType == PowerSystems.Types.Init.v_alpha,
           tab="Initialization"));
       parameter SIpu.Power p_start(unit="1")=1 "initial terminal active power"
-        annotation(Dialog(enable=system.steadyIni and (initType == PowerSystems.Types.Init.v_p
-               or initType == PowerSystems.Types.Init.p_q), tab="Initialization"));
+        annotation(Dialog(enable=initType == PowerSystems.Types.Init.v_p
+               or initType == PowerSystems.Types.Init.p_q, tab="Initialization"));
       parameter SIpu.Power q_start(unit="1")=1 "initial terminal reactive power"
-        annotation(Dialog(enable=system.steadyIni and (initType == PowerSystems.Types.Init.v_q
-               or initType == PowerSystems.Types.Init.p_q), tab="Initialization"));
+        annotation(Dialog(enable=initType == PowerSystems.Types.Init.v_q
+               or initType == PowerSystems.Types.Init.p_q, tab="Initialization"));
       parameter Boolean dispPA=false "display power angle"
         annotation(Evaluate=true);
       AC3ph.Ports.ACdq0_n term "negative terminal"
@@ -713,8 +712,8 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
       extends GenBase0(heat(final m=sum(heat_adapt.m)));
 
       parameter Types.AngularVelocity w_start=0
-        "initial rpm (start-value if ini='st')"
-        annotation(Dialog(enable=not system.steadyIni));
+        "initial rpm (start-value if steady init)"
+        annotation(Dialog(tab="Initialization"));
       Interfaces.Rotation_p flange    annotation (Placement(transformation(
               extent={{-110,-10},{-90,10}})));
       AC1ph_DC.Ports.TwoPin_n term "negative terminal"

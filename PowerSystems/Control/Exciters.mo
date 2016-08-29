@@ -89,11 +89,14 @@ package Exciters "Generator Exciters "
   block Exciter1st "Exciter first order"
     extends Partials.ExciterBase;
 
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
     parameter Real k=50 "gain";
     parameter SI.Time t=0.005 "time constant voltage regulator";
   protected
     outer System system;
-    final parameter Modelica.Blocks.Types.Init initType=if system.steadyIni then
+    final parameter Modelica.Blocks.Types.Init initType=
+      if dynType == Types.Dynamics.SteadyInitial then
            Modelica.Blocks.Types.Init.SteadyState else
            Modelica.Blocks.Types.Init.NoInit;
     Blocks.Math.Norm norm(final n=3, n_eval=3)
@@ -106,8 +109,7 @@ package Exciters "Generator Exciters "
     Modelica.Blocks.Continuous.TransferFunction voltageReg(
       initType=initType,
       a={t,1},
-      b={k},
-      y(start=voltageReg.y_start))
+      b={k})
       annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
   equation

@@ -264,10 +264,10 @@ The following switches/features are provided:
       annotation (Placement(transformation(extent={{66,6},{74,14}})));
     initial equation
       if Connections.isRoot(generator.terminal.theta) then
-        if system.steadyIni then
+        if system.dynType == Types.Dynamics.SteadyInitial then
           rotor.a = 0;
         else
-           rotor.w = system.omega/generator.pp;
+          rotor.w = system.omega/generator.pp;
         end if;
         rotor.phi = system.theta/generator.pp;
       end if;
@@ -519,7 +519,7 @@ The following switches/features are provided:
       annotation (Placement(transformation(extent={{66,16},{74,24}})));
     initial equation
       if Connections.isRoot(generator.terminal.theta) then
-        if system.steadyIni then
+        if system.dynType == Types.Dynamics.SteadyInitial then
           rotor.a = 0;
         else
           rotor.w = system.omega/generator.pp;

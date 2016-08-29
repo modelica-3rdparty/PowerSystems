@@ -538,7 +538,10 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   model CapacitorSym "Symmetrical capacitor with neutral access"
     extends Partials.ImpedBase0;
 
-    parameter PS.Voltage V_start=0 "start voltage";
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
+    parameter PS.Voltage V_start=0 "start voltage"
+      annotation(Dialog(tab="Initialization"));
     parameter SI.Conductance G=1e-6;
     parameter SI.Capacitance C=1e-6;
     Interfaces.Electric_n neutral "symmetrical point"
@@ -559,7 +562,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
 
   initial equation
     capSym.cap1.v = capSym.cap2.v;
-    if system.steadyIni then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(capSym.cap1.v) + der(capSym.cap2.v) = 0;
     end if;
 
@@ -630,7 +633,10 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   model DClink "DC-link with filter circuit"
     extends Partials.ImpedBase0;
 
-    parameter PS.Voltage V_start=0 "start voltage";
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
+    parameter PS.Voltage V_start=0 "start voltage"
+      annotation(Dialog(tab="Initialization"));
     parameter SI.Resistance Rfilter=1e-3;
     parameter SI.Inductance Lfilter=1e-3;
     parameter SI.Capacitance Cfilter=1e-6;
@@ -668,7 +674,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     outer System system;
 
   initial equation
-    if system.steadyIni then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(cap.v) = 0;
       der(cap1.v) = 0;
     end if;
@@ -717,7 +723,10 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
   model DClinkSym "Symmetrical DC-link with filter circuit and neutral access"
     extends Partials.ImpedBase0;
 
-    parameter PS.Voltage V_start=0 "start voltage";
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
+    parameter PS.Voltage V_start=0 "start voltage"
+      annotation(Dialog(tab="Initialization"));
     parameter SI.Resistance Rfilter=1e-3;
     parameter SI.Inductance Lfilter=1e-3;
     parameter SI.Capacitance Cfilter=1e-6;
@@ -756,7 +765,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
 
   initial equation
     capSym.cap1.v = capSym.cap2.v;
-    if system.steadyIni then
+    if dynType == Types.Dynamics.SteadyInitial then
       der(cap1.v) = 0;
     end if;
 

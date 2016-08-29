@@ -99,11 +99,14 @@ package Governors "Turbine Governors "
   block Governor1st "Governor first order"
     extends Partials.GovernorBase;
 
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
     parameter Real k=20 "Gain";
     parameter Real t=5 "time constant speed regulator";
   protected
     outer System system;
-    final parameter Modelica.Blocks.Types.Init initType=if system.steadyIni then
+    final parameter Modelica.Blocks.Types.Init initType=
+      if dynType == Types.Dynamics.SteadyInitial then
            Modelica.Blocks.Types.Init.SteadyState else
            Modelica.Blocks.Types.Init.NoInit;
     Modelica.Blocks.Math.Add delta_speed(k2=-1)

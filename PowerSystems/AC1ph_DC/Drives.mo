@@ -210,8 +210,8 @@ where 0 &lt  vPhasor[1] &lt  1.</p>
   partial model DriveBase "DC drives base"
 
     parameter Types.AngularVelocity  w_start = 0
-        "initial rpm (start-value if steady-state)"
-      annotation(Dialog(enable=not system.steadyIni));
+        "initial rpm (start-value if steady init)"
+      annotation(Dialog(tab="Initialization"));
     AC1ph_DC.Ports.TwoPin_p term "electric terminal"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Interfaces.Rotation_n flange "mechanical flange"

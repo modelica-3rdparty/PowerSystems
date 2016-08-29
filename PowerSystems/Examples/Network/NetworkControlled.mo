@@ -93,14 +93,12 @@ model NetworkControlled "Dynamic power flow calculation with two generators"
   Interfaces.Sender sender2(H=0.5*inertia2.J*inertia2.w^2/1e6, w=generator2.w)
     annotation (Placement(transformation(extent={{74,100},{86,112}})));
 initial equation
-  if system.steadyIni then
+  if system.dynType == Types.Dynamics.SteadyInitial then
     inertia1.a = 0;
   else
     inertia1.w = system.omega/generator1.pp;
   end if;
   inertia1.phi = system.theta/generator1.pp;
-
-
 
 equation
   connect(impedance1.terminal_n, impedance2.terminal_p)

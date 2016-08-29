@@ -30,16 +30,13 @@ model System "System reference"
     or dynType==PowerSystems.Types.Dynamics.SteadyState
     annotation(Evaluate=true);
 
-  final parameter Boolean steadyIni = dynType==PowerSystems.Types.Dynamics.SteadyInitial
-    or dynType==PowerSystems.Types.Dynamics.SteadyState
-    "steady state initialisation of electric equations" annotation(Evaluate=true);
   discrete SI.Time initime;
   SI.Angle theta(final start=0,
     stateSelect=if fType==Types.SystemFrequency.Parameter then StateSelect.default else StateSelect.always);
   SI.AngularFrequency omega(final start=2*pi*f);
   Modelica.Blocks.Interfaces.RealInput omega_in(min=0) if fType == PowerSystems.Types.SystemFrequency.Signal
     "system angular frequency (optional if fType==Signal)"
-    annotation (extent=[-110,-10; -90,10]);
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   Interfaces.Frequency receiveFreq
     "receives weighted frequencies from generators"

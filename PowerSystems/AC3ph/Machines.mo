@@ -812,7 +812,7 @@ Special choices are</p>
       Real[2,2] Rot_dq "Rotation reference-dq0 to rotor-dq0 system";
 
     initial equation
-      if not system.steadyIni then
+      if dynType == Types.Dynamics.FixedInitial then
         // initialize i_s from i_start
         i_start = cat(1, Rot_dq*i_s[1:2], {i_s[3]});
       end if;

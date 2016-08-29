@@ -5,8 +5,8 @@ package Drives "AC-drives dq0"
   model ASM "Asynchronous machine with cage rotor"
 
     parameter Types.AngularVelocity  w_start=0
-      "initial rpm (start-value if ini='st')"
-      annotation(Dialog(enable=not system.steadyIni, tab="Initialization"));
+      "initial rpm (start-value if steady init)"
+      annotation(Dialog(tab="Initialization"));
     extends Partials.DriveBase(rotor(w(start=w_start)));
     replaceable model Motor = PowerSystems.AC3ph.Machines.Asynchron (
       final w_start = w_start) "asyn motor"
@@ -40,8 +40,8 @@ package Drives "AC-drives dq0"
   model ASM_Y_D "Asynchronous machine with cage rotor, Y-Delta switcheable"
 
     parameter Types.AngularVelocity w_start=0
-      "initial rpm (start-value if steady-state)"
-      annotation(Dialog(enable=not system.steadyIni, tab="Initialization"));
+      "initial rpm (start-value if steady init)"
+      annotation(Dialog(tab="Initialization"));
     extends Partials.DriveBase;
     replaceable model Motor = PowerSystems.AC3ph.Machines.AsynchronY_D (
       final w_start = w_start) "asyn motor Y-Delta switcheable"
@@ -150,8 +150,8 @@ package Drives "AC-drives dq0"
   model SM_el "Synchronous machine, electric excitation"
 
     parameter Types.AngularVelocity  w_start=0
-      "initial rpm (start-value if ini='st')"
-      annotation(Dialog(enable=not system.steadyIni));
+      "initial rpm (start-value if steady init)"
+      annotation(Dialog(tab="Initialization"));
     extends Partials.DriveBase;
 
     replaceable model Excitation =
@@ -450,8 +450,8 @@ package Drives "AC-drives dq0"
 
   partial model DriveBase_ctrl "AC drives base control"
     parameter Types.AngularVelocity  w_start=0
-        "initial rpm (start-value if ini='st')"
-      annotation(Dialog(enable=not system.steadyIni));
+        "initial rpm (start-value if steady init)"
+      annotation(Dialog(tab="Initialization"));
 
     extends DriveBase0(heat(final m=sum(heat_adapt.m)),
       rotor(w(start=w_start)));
