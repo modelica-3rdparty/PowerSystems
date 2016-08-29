@@ -52,10 +52,10 @@ package Relays "Relays"
       "2: positions tap changer";
     parameter SI.Time t_switch_1[:]={0.5} "1: switching times";
     parameter SI.Time t_switch_2[:]={0.5} "2: switching times";
-    Modelica.Blocks.Interfaces.IntegerOutput tap_1(start = preset_1[1])
+    Modelica.Blocks.Interfaces.IntegerOutput tap_1(start = preset_1[1], fixed = true)
       "positions of tap changer 1"
       annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
-    Modelica.Blocks.Interfaces.IntegerOutput tap_2(start = preset_2[1])
+    Modelica.Blocks.Interfaces.IntegerOutput tap_2(start = preset_2[1], fixed = true)
       "positions of tap changer 2"
       annotation (Placement(transformation(extent={{90,30},{110,50}})));
   protected
@@ -111,11 +111,11 @@ and the neutral position for nominal voltage are defined in the transformer data
     parameter SI.Time t_switch_1[:]={0.5} "1: switching times";
     parameter SI.Time t_switch_2a[:]={0.5} "2a: switching times";
     parameter SI.Time t_switch_2b[:]={0.5} "2b: switching times";
-    Modelica.Blocks.Interfaces.IntegerOutput tap_1(start = preset_1[1])
+    Modelica.Blocks.Interfaces.IntegerOutput tap_1(start = preset_1[1], fixed = true)
       "positions of tap changer 1"
       annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
     Modelica.Blocks.Interfaces.IntegerOutput[2] tap_2(
-      start = {preset_2a[1], preset_2b[1]})
+      start = {preset_2a[1], preset_2b[1]}, each fixed = true)
       "positions of tap changers {2a,2b}"
       annotation (Placement(transformation(extent={{90,30},{110,50}})));
   protected
