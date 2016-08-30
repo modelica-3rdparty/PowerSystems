@@ -5,6 +5,9 @@ package Breakers "Switches and Breakers 3-phase"
   model ForcedSwitch "Forced switch, 3-phase dq0"
     extends Partials.SwitchBase(final n=1);
 
+    parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
+      annotation(Evaluate=true, Dialog(tab="Mode"));
+
     parameter SI.Time t_relax=10e-3 "switch relaxation time";
     parameter Integer p_relax(min=2)=4 "power of relaxation exponent";
   protected
@@ -396,9 +399,6 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       extends Ports.Port_pn;
       extends PowerSystems.Basic.Nominal.NominalVI;
 
-      parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-        annotation(Evaluate=true, Dialog(tab="Mode"));
-
       parameter Integer n=3 "number of independent switches";
       parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
         "{resistance 'closed', conductance 'open'}";
@@ -411,7 +411,6 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
             extent={{-10,-10},{10,10}},
             rotation=270)));
     protected
-      outer System system;
       final parameter SI.Resistance epsR=eps[1]*V_nom/I_nom;
       final parameter SI.Conductance epsG=eps[2]*I_nom/V_nom;
 
