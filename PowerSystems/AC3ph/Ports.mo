@@ -637,8 +637,6 @@ package Topology "Topology transforms "
     extends PortBase;
     constant Integer scale "for scaling of impedance values";
     parameter Integer n_n(min=0,max=1)=1 "1 for Y, 0 for Delta";
-    parameter Integer sh(min=-1,max=1)=0 "(-1,0,+1)*120deg phase shift"
-                                                                      annotation(Evaluate=true);
     PS.Voltage[3] v_term "terminal voltage";
     PS.Current[3] i_term "terminal current";
     input PS.Voltage[3] v_cond "conductor voltage";
@@ -668,7 +666,7 @@ package Topology "Topology transforms "
   end TopologyBase;
 
   model Y "Y transform"
-    extends TopologyBase(final scale=1, final n_n=1, final sh=0);
+    extends TopologyBase(final scale=1, final n_n=1);
 
   equation
     w*v_cond = v_term - {0, 0, s3*v_n[1]};
@@ -728,9 +726,11 @@ Defines Y-topology transform of voltage and current variables.</p>
 
   model Delta "Delta transform"
     extends TopologyBase(final scale=3, final n_n=0);
+    parameter Integer shift(min=0, max=11) = 1 "(0, 1 .. 11)*30deg phase shift"
+      annotation(Evaluate=true);
 
     protected
-    Real[2,2] R=Basic.Transforms.rotation_dq((1-4*sh)*pi/6) * s3 / w;
+    Real[2,2] R=Basic.Transforms.rotation_dq(shift*pi/6) * s3 / w;
 
   equation
     v_cond[1:2] = R*v_term[1:2];
@@ -783,7 +783,7 @@ Defines Delta-topology transform of voltage and current variables.</p>
   end Delta;
 
   model Y_Delta "Y Delta switcheble transform"
-    extends TopologyBase(final scale=1, final n_n=1, final sh=0);
+    extends TopologyBase(final scale=1, final n_n=1);
 
   /*
   Modelica.Blocks.Interfaces.BooleanInput control "true:Y, false:Delta"
@@ -931,7 +931,7 @@ The neutral point is isolated.</p>
   end Y_Delta;
 
   model Y_DeltaRegular "Y Delta switcheble transform, eps-regularised"
-    extends TopologyBase(final scale=1, final n_n=1, final sh=0);
+    extends TopologyBase(final scale=1, final n_n=1);
 
   /*
   Modelica.Blocks.Interfaces.BooleanInput control "true:Y, false:Delta"
@@ -1084,7 +1084,7 @@ Regularised version of Y_Delta. To be used, if device is fed across an inductive
 
   model PAR "Phase angle regulating (quadrature booster)"
     extends PowerSystems.AC3ph.Ports.Topology.TopologyBase(
-      final scale=1, final n_n=1, final sh=0);
+      final scale=1, final n_n=1);
 
     SI.Angle alpha = atan(w - 1) "phase shift";
 
