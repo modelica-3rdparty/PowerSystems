@@ -323,7 +323,7 @@ package Shunts "Reactive and capacitive shunts"
             lineColor={0,0,255},
             textString=
                  "b_pg")}));
-end CapacitiveShunt;
+  end CapacitiveShunt;
 
   model ReactiveShuntNonSym
     "Shunt reactor with parallel conductor non symmetric, 3-phase dq0"

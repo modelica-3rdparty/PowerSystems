@@ -6,6 +6,13 @@ package PowerSystems "Library for electrical power systems"
   import SI = Modelica.SIunits;
   import PowerSystems.Types.SIpu "per-unit types for user interface";
 
+  constant String TableDir=Modelica.Utilities.Files.loadResource("modelica://PowerSystems/Resources/Tables/")
+    "Directory of example tables";
+
+  replaceable package PackagePhaseSystem =
+      PhaseSystems.ThreePhase_dq "Default phase system"
+    annotation (choicesAllMatching=true);
+
   package UsersGuide "User's Guide"
     extends Modelica.Icons.Information;
 
@@ -176,15 +183,6 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 <p>See also the publication <a href=\"https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf\">Franke, Wiesmann: Flexible modeling of electrical power systems -- the Modelica PowerSystems library, Modelica conference 2014</a>.</p>
 </html>"));
   end UsersGuide;
-
-
-  replaceable package PackagePhaseSystem =
-      PhaseSystems.ThreePhase_dq "Default phase system"
-    annotation (choicesAllMatching=true);
-
-  constant String TableDir=Modelica.Utilities.Files.loadResource("modelica://PowerSystems/Resources/Tables/")
-  "Directory of example tables";
-
 
   annotation (preferredView="info",
   version="0.5 dev",

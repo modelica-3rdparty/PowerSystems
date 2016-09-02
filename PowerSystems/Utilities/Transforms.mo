@@ -21,7 +21,7 @@ package Transforms "Transform functions"
   protected
       constant Real s13=sqrt(1/3);
 
-    algorithm
+  algorithm
       y := s13*{u[3]-u[2], u[1]-u[3], u[2]-u[1]};
       annotation (Inline=true, smoothOrder=2,
     Documentation(info="<html>
@@ -40,7 +40,7 @@ is
 <pre>  J_abc*u = ([0,-1,1; 1,0,-1; -1,1,0]/sqrt(3))*u</pre></p>
 <p><a href=\"modelica://PowerSystems.UsersGuide.Introduction.Transforms\">up users guide</a></p>
 </html>"));
-    end j_abc;
+  end j_abc;
 
     function jj_abc
     "Rotation(pi/2) of vector around {1,1,1} and projection on orth plane"
