@@ -3,7 +3,7 @@ package Inverters "Rectifiers and Inverters"
   extends Modelica.Icons.VariantsPackage;
 
 block Select "Select frequency and voltage-phasor type"
-  extends PowerSystems.Basic.Icons.Block;
+  extends PowerSystems.Icons.Block;
 
     parameter Types.SourceFrequency fType=PowerSystems.Types.SourceFrequency.System
       "frequency type" annotation (Evaluate=true, Dialog(group="Frequency"));
@@ -364,7 +364,7 @@ model Chopper "DC-DC converter"
           extent={{-10,-10},{10,10}},
           rotation=270)));
   replaceable model Modulator = PowerSystems.Control.Modulation.ChopperPWM
-    constrainedby PowerSystems.Basic.Icons.BlockS "modulator type"
+    constrainedby PowerSystems.Icons.BlockS       "modulator type"
     annotation(choicesAllMatching=true);
   Modulator modulator "modulator type"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
@@ -424,7 +424,8 @@ model ChopperAverage "DC-DC converter time-average"
   SI.Temperature[heat.m] T = heat.ports.T "component temperature";
   SI.HeatFlowRate[heat.m] Q_flow = -heat.ports.Q_flow
       "component loss-heat flow";
-  function lossT = Basic.Math.taylor "spec loss function of temperature";
+  function lossT = Utilities.Math.taylor
+                                     "spec loss function of temperature";
 
 equation
   DCin.v[2] = DCout.v[2];
@@ -1048,7 +1049,7 @@ package Partials "Partial models"
   extends Modelica.Icons.BasesPackage;
 
 partial model AC_DC_base "AC-DC base, 1-phase"
-  extends Basic.Icons.Inverter;
+  extends Icons.Inverter;
   extends Ports.PortBase;
 
   Ports.TwoPin_n AC "AC connection"
@@ -1077,7 +1078,7 @@ partial model AC_DC_base "AC-DC base, 1-phase"
 end AC_DC_base;
 
 partial model DC_DC_base "DC-DC base"
-  extends Basic.Icons.Inverter;
+  extends Icons.Inverter;
   extends Ports.PortBase;
 
   Ports.TwoPin_p DCin "DC in connection"
@@ -1127,7 +1128,8 @@ partial model SwitchEquation "Switch equation, 1-phase"
 
   SI.Temperature[heat.m] T "component temperature";
   SI.HeatFlowRate[heat.m] Q_flow "component loss-heat flow";
-  function loss = Basic.Math.taylor "spec loss function of temperature";
+  function loss = Utilities.Math.taylor
+                                    "spec loss function of temperature";
 
 equation
   AC.v = v + {vDC0,vDC0};

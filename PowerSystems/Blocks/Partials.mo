@@ -3,7 +3,7 @@ package Partials "Partial models"
   extends Modelica.Icons.BasesPackage;
 
   partial block SO
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealOutput y "output signal"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -14,7 +14,7 @@ package Partials "Partial models"
   end SO;
 
   partial block MO
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealOutput[n] y "output signal-vector"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -26,7 +26,7 @@ package Partials "Partial models"
   end MO;
 
   partial block SISO
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u "input signal"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -39,7 +39,7 @@ package Partials "Partial models"
   end SISO;
 
   partial block MISO
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput[n] u "input signal-vector"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -53,7 +53,7 @@ package Partials "Partial models"
   end MISO;
 
   partial block MIMO
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u[nin] "input signal-vector"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));

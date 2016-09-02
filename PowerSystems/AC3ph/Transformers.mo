@@ -200,8 +200,7 @@ The factor <tt>0.66</tt> in the expression of the effective pu flux is an estima
   protected
     Real[3] psi0(each stateSelect=StateSelect.prefer) "unsaturated flux";
     Real[3] gp;
-    Real[3,3] Park = Basic.Transforms.park(
-                                          term_p.theta[2]);
+    Real[3,3] Park=Utilities.Transforms.park(term_p.theta[2]);
     function der_sat = Common.IronSaturation.der_saturationAnalytic;
 
   initial equation
@@ -345,8 +344,14 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 
         outer System system;
         constant Real tc=0.01 "time constant tap-chg switching";
-        final parameter PS.Voltage[2] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
-        final parameter SI.Resistance[2, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
+        final parameter PS.Voltage[2] V_base=Utilities.Precalculation.baseTrafoV(
+                                                                             par.puUnits, par.V_nom);
+      final parameter SI.Resistance[2,2] RL_base=
+          Utilities.Precalculation.baseTrafoRL(
+                par.puUnits,
+                par.V_nom,
+                par.S_nom,
+                2*pi*par.f_nom);
         final parameter SI.Resistance R_n1=par.r_n[1]*RL_base[1,1];
         final parameter SI.Resistance R_n2=par.r_n[2]*RL_base[2,1];
         SI.AngularFrequency[2] omega;
@@ -639,8 +644,14 @@ For variable transformer ratio tap changer input needed.</p>
 
     outer System system;
     constant Real tc=0.01 "time constant tap-chg switching";
-    final parameter PS.Voltage[3] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
-    final parameter SI.Resistance[3, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
+    final parameter PS.Voltage[3] V_base=Utilities.Precalculation.baseTrafoV(
+                                                                         par.puUnits, par.V_nom);
+      final parameter SI.Resistance[3,2] RL_base=
+          Utilities.Precalculation.baseTrafoRL(
+            par.puUnits,
+            par.V_nom,
+            par.S_nom,
+            2*pi*par.f_nom);
     final parameter SI.Resistance R_n1=par.r_n[1]*RL_base[1,1];
     final parameter SI.Resistance R_n2a=par.r_n[2]*RL_base[2,1];
     final parameter SI.Resistance R_n2b=par.r_n[3]*RL_base[3,1];
@@ -839,7 +850,7 @@ package Parameters "Parameter data for interactive use"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 record TrafoIdeal "Parameters for ideal transformer, 3-phase"
-  extends Basic.Nominal.NominalDataTrafo;
+  extends Common.Nominal.NominalDataTrafo;
 
   Integer[2] tap_neutral={0, 0} "{1,2}: neutral tap position"
     annotation(Dialog(group="Options"));
@@ -893,7 +904,8 @@ record TrafoSat "Parameters for saturation transformer, 3-phase"
 end TrafoSat;
 
 record Trafo3Ideal "Parameters for ideal 3-winding transformer, 3-phase"
-  extends Basic.Nominal.NominalDataTrafo(V_nom={1,1,1}
+  extends Common.Nominal.NominalDataTrafo(
+                                         V_nom={1,1,1}
           "{prim,sec_a,sec_b} nom Voltage (= base if pu)");
 
   Integer[3] tap_neutral={0, 0, 0} "{1,2a,2b}: neutral tap position"

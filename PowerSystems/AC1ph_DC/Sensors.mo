@@ -139,7 +139,8 @@ package Sensors "Sensors n-phase or DC"
     output SIpu.Voltage v0(stateSelect=StateSelect.never);
   protected
     SIpu.Voltage[2] v_ab(each stateSelect=StateSelect.never);
-    final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
+    final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
+                                                                 puUnits, V_nom);
 
   equation
     v_ab = term.v/V_base;
@@ -178,7 +179,8 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     output SIpu.Current i0(stateSelect=StateSelect.never);
   protected
     SIpu.Current[2] i_ab(each stateSelect=StateSelect.never);
-    final parameter PS.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
+    final parameter PS.Current I_base=Utilities.Precalculation.baseI(
+                                                                 puUnits, V_nom, S_nom);
 
   equation
     i_ab = term_p.i/I_base;
@@ -216,7 +218,8 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     output SIpu.Power p_av=pav if av;
   protected
     outer System system;
-    final parameter SI.ApparentPower S_base=Basic.Precalculation.baseS(puUnits, S_nom);
+    final parameter SI.ApparentPower S_base=Utilities.Precalculation.baseS(
+        puUnits, S_nom);
     SIpu.Power pav;
 
   initial equation
@@ -265,8 +268,10 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     output SIpu.Current i0(stateSelect=StateSelect.never);
   protected
     outer System system;
-    final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
-    final parameter PS.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
+    final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
+                                                                 puUnits, V_nom);
+    final parameter PS.Current I_base=Utilities.Precalculation.baseI(
+                                                                 puUnits, V_nom, S_nom);
     SIpu.Power pav;
     SIpu.Voltage[2] v_ab;
     SIpu.Current[2] i_ab;
@@ -447,7 +452,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     partial model Meter1Base "Meter base 1 terminal, 1-phase"
       extends Sensor1Base;
-      extends Basic.Nominal.Nominal;
+      extends Common.Nominal.Nominal;
 
       annotation (
         Documentation(
@@ -462,7 +467,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     partial model Meter2Base "Meter base 2 terminal, 1-phase"
       extends Sensor2Base;
-      extends Basic.Nominal.Nominal;
+      extends Common.Nominal.Nominal;
 
       annotation (Icon(graphics={Ellipse(extent={{-70,70},{70,-70}}, lineColor=
                   {135,135,135})}));

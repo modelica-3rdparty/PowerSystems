@@ -361,7 +361,8 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
       final parameter Data par "machine parameters"
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
-      final parameter Coefficients.DCser c = Basic.Precalculation.machineDCser(par);
+      final parameter Coefficients.DCser c = Utilities.Precalculation.machineDCser(
+                                                                               par);
       annotation (
         Documentation(
               info="<html>
@@ -401,7 +402,8 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
       Ports.TwoPin_p field
         annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
     protected
-      final parameter Coefficients.DCpar c = Basic.Precalculation.machineDCpar(par);
+      final parameter Coefficients.DCpar c = Utilities.Precalculation.machineDCpar(
+                                                                               par);
     equation
       sum(field.i) = 0;
       v_f = field.v[1] - field.v[2];
@@ -443,7 +445,8 @@ The connector 'airgap' transfers the electromagnetic rotor-torque to the mechani
       final parameter Data par "machine parameters"
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
-      final parameter Coefficients.DCpm c = Basic.Precalculation.machineDCpm(par);
+      final parameter Coefficients.DCpm c = Utilities.Precalculation.machineDCpm(
+                                                                             par);
       annotation (
         Documentation(
               info="<html>
@@ -471,7 +474,8 @@ package Parameters "Parameter data for interactive use"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 record DCser "DC machine parameters series excited"
-  extends Basic.Nominal.NominalDataDC(w_nom=157.079632679489661923);
+  extends Common.Nominal.NominalDataDC(
+                                      w_nom=157.079632679489661923);
 
   Integer pp=2 "pole-pair nb" annotation(Dialog);
   SIpu.Inductance l_fd=0.15 "inductance field (d-axis)" annotation(Dialog);
@@ -487,7 +491,8 @@ record DCser "DC machine parameters series excited"
 end DCser;
 
 record DCpar "DC machine parameters parallel excited"
-  extends Basic.Nominal.NominalDataDC(w_nom=157.079632679489661923);
+  extends Common.Nominal.NominalDataDC(
+                                      w_nom=157.079632679489661923);
 
   SI.Voltage Vf_nom=1 "nom field voltage"
     annotation(Evaluate=true, Dialog(group="Nominal"));
@@ -505,7 +510,8 @@ record DCpar "DC machine parameters parallel excited"
 end DCpar;
 
 record DCpm "DC machine parameters permanent magnet excited"
-  extends Basic.Nominal.NominalDataDC(w_nom=157.079632679489661923);
+  extends Common.Nominal.NominalDataDC(
+                                      w_nom=157.079632679489661923);
 
   Integer pp=2 "pole-pair nb" annotation(Dialog);
   SIpu.Inductance l_aq=0.5 "inductance armature (q-axis)" annotation(Dialog);

@@ -730,7 +730,7 @@ Defines Y-topology transform of voltage and current variables.</p>
       annotation(Evaluate=true);
 
     protected
-    Real[2,2] R=Basic.Transforms.rotation_dq(shift*pi/6) * s3 / w;
+      Real[2,2] R=Utilities.Transforms.rotation_dq(shift*pi/6)*s3/w;
 
   equation
     v_cond[1:2] = R*v_term[1:2];
@@ -797,7 +797,7 @@ annotation (Placement(transformation(
   // in switcheable topology impedance defined as WINDING-impedance (i.e. Y-topology)
     protected
     parameter SI.Conductance epsG=1e-5;
-    constant Real[2,2] Rot=Basic.Transforms.rotation_dq(pi/6);
+      constant Real[2,2] Rot=Utilities.Transforms.rotation_dq(pi/6);
 
   equation
     if control then
@@ -946,7 +946,7 @@ annotation (Placement(transformation(
     protected
     parameter SI.Conductance epsG=1e-5;
     parameter SI.Resistance epsR=1e-5;
-    constant Real[2,2] Rot=Basic.Transforms.rotation_dq(pi/6);
+      constant Real[2,2] Rot=Utilities.Transforms.rotation_dq(pi/6);
     SI.Current[3] i_neu;
     SI.Current[3] i_del;
 

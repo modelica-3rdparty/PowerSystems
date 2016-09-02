@@ -199,7 +199,7 @@ Consumes the desired power independent of voltage.</p>
     extends Modelica.Icons.BasesPackage;
 
     partial model LoadBase "Load base, 1-phase"
-      extends Basic.Nominal.Nominal;
+      extends Common.Nominal.Nominal;
       extends Ports.Port_p;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
@@ -214,7 +214,7 @@ Consumes the desired power independent of voltage.</p>
 
     protected
       outer System system;
-      final parameter Real S_base=Basic.Precalculation.baseS(puUnits, S_nom);
+      final parameter Real S_base=Utilities.Precalculation.baseS(puUnits, S_nom);
 
     equation
       term.i[1] + term.i[2] = 0;

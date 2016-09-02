@@ -3,7 +3,7 @@ package Ideal "Custom models"
   extends Modelica.Icons.VariantsPackage;
 
 record SCparameter "Ideal semiconductor parameters"
-  extends Basic.Nominal.NominalDataVI;
+  extends Common.Nominal.NominalDataVI;
 
   parameter Real[2] eps(final min={0,0}, each final unit="1")={1e-4,1e-4}
       "{resistance 'on', conductance 'off'}";
@@ -46,7 +46,8 @@ partial model IdealCharacteristic "Ideal diode characteristic"
   SI.Voltage V "forward threshold voltage";
   SI.Current i_sc = i*par.V_nom/par.I_nom*unitAmperePerVolt
       "current scaled to voltage";
-  function loss = Basic.Math.taylor "spec loss function of temperature";
+  function loss = Utilities.Math.taylor
+                                    "spec loss function of temperature";
 
 equation
   V = if size(par.cT_loss,1)==0 then par.Vf else par.Vf*loss(T - par.T0_loss, par.cT_loss);
@@ -166,7 +167,8 @@ model SCswitch_Diode "Semiconductor switch with reverse Diode"
   SI.Current i_sc = i*par.V_nom/par.I_nom*unitAmperePerVolt
       "current scaled to voltage";
 
-  function loss = Basic.Math.taylor "spec loss function of temperature";
+  function loss = Utilities.Math.taylor
+                                    "spec loss function of temperature";
 
 equation
   V = if size(par.cT_loss,1)>0 then par.Vf*loss(T -par.T0_loss, par.cT_loss) else par.Vf;

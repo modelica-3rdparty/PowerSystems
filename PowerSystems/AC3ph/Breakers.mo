@@ -26,7 +26,7 @@ package Breakers "Switches and Breakers 3-phase"
     Boolean open=not control[1];
     Boolean closed=control[1];
 
-    function relaxation=PowerSystems.Basic.Math.relaxation;
+    function relaxation=PowerSystems.Utilities.Math.relaxation;
 
   initial equation
     pre(open) = not control[1];
@@ -104,7 +104,7 @@ with
 
   model ForcedCommSwitch "Forced commuting switch, 3-phase dq0"
     extends Ports.PortBase;
-    extends PowerSystems.Basic.Nominal.NominalVI;
+    extends PowerSystems.Common.Nominal.NominalVI;
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
       annotation(Evaluate=true, Dialog(tab="Mode"));
@@ -149,7 +149,7 @@ with
     Boolean open_t = not control;
     Boolean closed_t = control;
 
-    function relaxation=PowerSystems.Basic.Math.relaxation;
+    function relaxation=PowerSystems.Utilities.Math.relaxation;
   initial equation
     pre(open_t) = not control;
     pre(closed_t) = control;
@@ -397,7 +397,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
 
     partial model SwitchBase "Switch base, 3-phase dq0"
       extends Ports.Port_pn;
-      extends PowerSystems.Basic.Nominal.NominalVI;
+      extends PowerSystems.Common.Nominal.NominalVI;
 
       parameter Integer n=3 "number of independent switches";
       parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
@@ -453,8 +453,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       PS.Current[3] i_abc(each stateSelect=StateSelect.never)
         "current switch a, b, c";
     protected
-      Real[3,3] Park = PowerSystems.Basic.Transforms.park(
-                                            term_p.theta[2]);
+      Real[3,3] Park=PowerSystems.Utilities.Transforms.park(term_p.theta[2]);
 
     equation
       v = Park*v_abc;

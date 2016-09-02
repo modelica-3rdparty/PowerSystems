@@ -7,7 +7,10 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
 
     parameter SIpu.Resistance r=1 "resistance";
   protected
-    final parameter SI.Resistance R=r*Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
+    final parameter SI.Resistance R=r*Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom);
 
   equation
     R*i = v;
@@ -40,7 +43,10 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
 
     parameter SIpu.Conductance g=1 "conductance";
   protected
-    final parameter SI.Conductance G=g/Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
+    final parameter SI.Conductance G=g/Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom);
 
   equation
     G*v = i;
@@ -74,7 +80,11 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
     parameter SIpu.Resistance r=0 "resistance";
     parameter SIpu.Reactance x=1 "reactance matrix";
   protected
-    final parameter Real[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter Real[2] RL_base=Utilities.Precalculation.baseRL(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     final parameter SI.Resistance R=r*RL_base[1];
     final parameter SI.Inductance L=x*RL_base[2];
 
@@ -126,7 +136,11 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
     parameter SIpu.Conductance g=0 "conductance";
     parameter SIpu.Susceptance b=1 "susceptance";
   protected
-    final parameter Real[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter Real[2] GC_base=Utilities.Precalculation.baseGC(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     final parameter SI.Conductance G=g*GC_base[1];
     final parameter SI.Capacitance C=b*GC_base[2];
 
@@ -193,8 +207,11 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
     parameter SIpu.Resistance r0=100 "small voltage resistance";
     parameter SIpu.Voltage v0=1 "saturation voltage";
   protected
-    final parameter Real V0=(v0*Basic.Precalculation.baseV(puUnits, V_nom));
-    final parameter Real H0=(r0*Basic.Precalculation.baseR(puUnits, V_nom, S_nom)/V0);
+    final parameter Real V0=(v0*Utilities.Precalculation.baseV(puUnits, V_nom));
+    final parameter Real H0=(r0*Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom)/V0);
 
   equation
     v = V0*tanh(H0*i);
@@ -230,7 +247,7 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
 
     partial model ImpedBase "One terminal impedance base, 1-phase"
       extends Ports.Port_p;
-      extends Basic.Nominal.NominalAC;
+      extends Common.Nominal.NominalAC;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state initialization"
         annotation(Evaluate=true, Dialog(tab="Mode"));

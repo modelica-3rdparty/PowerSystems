@@ -7,7 +7,10 @@ package Impedances "Impedance and admittance two terminal"
 
     parameter SIpu.Resistance r=1 "resistance";
   protected
-    final parameter SI.Resistance R=r*Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
+    final parameter SI.Resistance R=r*Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom);
 
   equation
     R*i = v;
@@ -55,7 +58,10 @@ package Impedances "Impedance and admittance two terminal"
 
     parameter SIpu.Conductance g=1 "conductance";
   protected
-    final parameter SI.Conductance G=g/Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
+    final parameter SI.Conductance G=g/Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom);
 
   equation
     G*v = i;
@@ -105,7 +111,11 @@ package Impedances "Impedance and admittance two terminal"
     parameter SIpu.Reactance x_s=1 "self reactance";
     parameter SIpu.Reactance x_m=0 "mutual reactance, -x_s/2 < x_m < x_s";
   protected
-    final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter SI.Resistance[2] RL_base=Utilities.Precalculation.baseRL(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     final parameter SI.Resistance R=r*RL_base[1];
     final parameter SI.Inductance L=(x_s-x_m)*RL_base[2];
     final parameter SI.Inductance L0=(x_s+2*x_m)*RL_base[2];
@@ -206,7 +216,11 @@ package Impedances "Impedance and admittance two terminal"
     parameter SIpu.Conductance g=0 "conductance";
     parameter SIpu.Susceptance b=1 "susceptance";
   protected
-    final parameter SI.Resistance[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter SI.Resistance[2] GC_base=Utilities.Precalculation.baseGC(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     final parameter SI.Conductance G=g*GC_base[1];
     final parameter SI.Capacitance C=b*GC_base[2];
 
@@ -325,7 +339,11 @@ package Impedances "Impedance and admittance two terminal"
     parameter Real cpl(min=-0.5,max=1)=0
       "phase coupling x_m/x_s, -1/2 < cpl < 1";
   protected
-    final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter SI.Resistance[2] RL_base=Utilities.Precalculation.baseRL(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     function acos = Modelica.Math.acos;
     final parameter SI.Resistance R=z_abs*cos_phi*RL_base[1];
     final parameter SI.Inductance L=z_abs*sin(acos(cos_phi))*RL_base[2];
@@ -454,7 +472,11 @@ Instead of x_s, x_m, and r the parameters z_abs, cos(phi), and x_o are used.</p>
     parameter SIpu.Admittance y_abs=1 "abs value of admittance";
     parameter Real cos_phi(min=0,max=1)=0.1 "cos-phi of admittance";
   protected
-    final parameter SI.Resistance[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter SI.Resistance[2] GC_base=Utilities.Precalculation.baseGC(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     function acos = Modelica.Math.acos;
     final parameter SI.Conductance G=y_abs*cos_phi*GC_base[1];
     final parameter SI.Capacitance C=y_abs*sin(acos(cos_phi))*GC_base[2];
@@ -586,7 +608,10 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
 
     parameter SIpu.Resistance[3] r={1,1,1} "resistance[3] abc";
   protected
-    final parameter SI.Resistance[3] R_abc=r*Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
+    final parameter SI.Resistance[3] R_abc=r*Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom);
     SI.Resistance[3, 3] R;
 
   equation
@@ -647,7 +672,11 @@ Use only if 'non symmetric' is really desired because this component needs a tim
       "reactance[3,3] abc";
     SI.MagneticFlux[3] psi(each stateSelect=StateSelect.prefer) "magnetic flux";
   protected
-    final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter SI.Resistance[2] RL_base=Utilities.Precalculation.baseRL(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     final parameter SI.Resistance[3] R_abc=r*RL_base[1];
     final parameter SI.Inductance[3, 3] L_abc=x*RL_base[2];
     SI.Resistance[3, 3] R;
@@ -761,7 +790,11 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     SI.ElectricCharge[3] q(each stateSelect=StateSelect.prefer)
       "electric charge";
   protected
-    final parameter SI.Resistance[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter SI.Resistance[2] GC_base=Utilities.Precalculation.baseGC(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     final parameter SI.Conductance[3] G_abc=g*GC_base[1];
     final parameter SI.Capacitance[3] C_abc=b*GC_base[2];
     SI.Conductance[3, 3] G;
@@ -890,8 +923,11 @@ a time dependent transform of the coefficient matrix.</p>
     PS.Voltage[3] v_abc;
     PS.Current[3] i_abc(start=zeros(3));
   protected
-    final parameter Real V0=(v0*Basic.Precalculation.baseV(puUnits, V_nom));
-    final parameter Real H0=(r0*Basic.Precalculation.baseR(puUnits, V_nom, S_nom)/V0);
+    final parameter Real V0=(v0*Utilities.Precalculation.baseV(puUnits, V_nom));
+    final parameter Real H0=(r0*Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom)/V0);
 
   equation
     i_abc = transpose(Park)*i;
@@ -947,7 +983,7 @@ a time dependent transform of the coefficient matrix.</p>
 
     partial model ImpedBase "Impedance base, 3-phase dq0"
       extends Ports.Port_pn;
-      extends Basic.Nominal.NominalAC;
+      extends Common.Nominal.NominalAC;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
         annotation(Evaluate=true, Dialog(tab="Mode"));
@@ -986,7 +1022,7 @@ a time dependent transform of the coefficient matrix.</p>
       extends ImpedBase;
 
     protected
-      Real[3,3] Park = Basic.Transforms.park(term_p.theta[2]);
+      Real[3,3] Park=Utilities.Transforms.park(term_p.theta[2]);
 
       annotation (
         Documentation(

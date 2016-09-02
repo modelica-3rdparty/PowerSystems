@@ -1,4 +1,4 @@
-within PowerSystems.Basic;
+within PowerSystems.Common;
 package Nominal "Units and nominal values"
   extends Modelica.Icons.BasesPackage;
 

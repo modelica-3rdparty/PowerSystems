@@ -579,7 +579,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
 
     partial model LoadBase "Load base, 3-phase dq0"
       extends Ports.Yport_p;
-      extends Basic.Nominal.Nominal;
+      extends Common.Nominal.Nominal;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
         annotation(Evaluate=true, Dialog(tab="Mode"));
@@ -600,8 +600,11 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
 
     protected
       outer System system;
-      final parameter Real S_base=Basic.Precalculation.baseS(puUnits, S_nom);
-      final parameter Real R_base=Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
+      final parameter Real S_base=Utilities.Precalculation.baseS(puUnits, S_nom);
+      final parameter Real R_base=Utilities.Precalculation.baseR(
+              puUnits,
+              V_nom,
+              S_nom);
       final parameter SI.Resistance R_n=r_n*R_base;
       SI.AngularFrequency[2] omega;
       SI.Power[2] pq(start=pq0);

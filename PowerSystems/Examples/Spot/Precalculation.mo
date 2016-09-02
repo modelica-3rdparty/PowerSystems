@@ -46,8 +46,8 @@ model Z_matrixTrDat0 "z-matrix from transient data, n=1, 0"
   final parameter Boolean use_trans=true;
   final parameter Integer n_d=size(tc_d,1);
   final parameter Integer n_q=size(tc_q,1);
-  function T_open = PowerSystems.Basic.Precalculation.T_open;
-  function z_matrix = PowerSystems.Basic.Precalculation.z_fromTransDat;
+  function T_open = PowerSystems.Utilities.Precalculation.T_open;
+  function z_matrix = PowerSystems.Utilities.Precalculation.z_fromTransDat;
 
 algorithm
   (zr_d, zx_d) := z_matrix(n_d, omega_nom*tc_d, T_open(x_d, xtr_d, omega_nom*tc_d), x_d, xsig_s, r_s, if0, alpha_if0+pi, 0, true);
@@ -250,8 +250,8 @@ model Z_matrixTrDat1 "z-matrix from transient data, n=1"
   final parameter Boolean use_trans=true;
   final parameter Integer n_d=size(tc_d,1);
   final parameter Integer n_q=size(tc_q,1);
-  function T_open = PowerSystems.Basic.Precalculation.T_open;
-  function z_matrix = PowerSystems.Basic.Precalculation.z_fromTransDat;
+  function T_open = PowerSystems.Utilities.Precalculation.T_open;
+  function z_matrix = PowerSystems.Utilities.Precalculation.z_fromTransDat;
 
 algorithm
   (zr_d, zx_d) := z_matrix(n_d, omega_nom*tc_d, T_open(x_d, xtr_d, omega_nom*tc_d), x_d, xsig_s, r_s, if0, alpha_if0+pi, 0, true);
@@ -484,8 +484,8 @@ model Z_matrixTrDat2 "z-matrix from transient data, n=2"
   final parameter Boolean use_trans=true;
   final parameter Integer n_d=size(tc_d,1);
   final parameter Integer n_q=size(tc_q,1);
-  function T_open = PowerSystems.Basic.Precalculation.T_open;
-  function z_matrix = PowerSystems.Basic.Precalculation.z_fromTransDat;
+  function T_open = PowerSystems.Utilities.Precalculation.T_open;
+  function z_matrix = PowerSystems.Utilities.Precalculation.z_fromTransDat;
 
 algorithm
   (zr_d, zx_d) := z_matrix(n_d, omega_nom*tc_d, T_open(x_d, xtr_d, omega_nom*tc_d), x_d, xsig_s, r_s, if0, alpha_if0+pi, tol, true);
@@ -781,8 +781,8 @@ model Z_matrixTrDat3 "z-matrix from transient data, n=3"
   final parameter Boolean use_trans=true;
   final parameter Integer n_d=size(tc_d,1);
   final parameter Integer n_q=size(tc_q,1);
-  function T_open = PowerSystems.Basic.Precalculation.T_open;
-  function z_matrix = PowerSystems.Basic.Precalculation.z_fromTransDat;
+  function T_open = PowerSystems.Utilities.Precalculation.T_open;
+  function z_matrix = PowerSystems.Utilities.Precalculation.z_fromTransDat;
 
 algorithm
   (zr_d, zx_d) := z_matrix(n_d, omega_nom*tc_d, T_open(x_d, xtr_d, omega_nom*tc_d), x_d, xsig_s, r_s, if0, alpha_if0+pi, tol, true);
@@ -1126,7 +1126,7 @@ model Z_matrixEqCirc0 "z-matrix from equivalent circuit, n=1, 0"
   final parameter Boolean use_trans=false;
   final parameter Integer n_d=size(xsig_rd,1);
   final parameter Integer n_q=size(xsig_rq,1);
-  function z_matrix = PowerSystems.Basic.Precalculation.z_fromEqCirc;
+  function z_matrix = PowerSystems.Utilities.Precalculation.z_fromEqCirc;
 
 algorithm
   (zr_d, zx_d) := z_matrix(n_d, x_d, xsig_s, r_s, xm_d, xsig_rd, r_rd);
@@ -1319,7 +1319,7 @@ model Z_matrixEqCirc1 "z-matrix from equivalent circuit, n=1"
   final parameter Boolean use_trans=false;
   final parameter Integer n_d=size(xsig_rd,1);
   final parameter Integer n_q=size(xsig_rq,1);
-  function z_matrix = PowerSystems.Basic.Precalculation.z_fromEqCirc;
+  function z_matrix = PowerSystems.Utilities.Precalculation.z_fromEqCirc;
 
 algorithm
   (zr_d, zx_d) := z_matrix(n_d, x_d, xsig_s, r_s, xm_d, xsig_rd, r_rd);
@@ -1538,7 +1538,7 @@ model Z_matrixEqCirc2 "z-matrix from equivalent circuit, n=2"
   final parameter Boolean use_trans=false;
   final parameter Integer n_d=size(xsig_rd,1);
   final parameter Integer n_q=size(xsig_rq,1);
-  function z_matrix = PowerSystems.Basic.Precalculation.z_fromEqCirc;
+  function z_matrix = PowerSystems.Utilities.Precalculation.z_fromEqCirc;
 
 algorithm
   (zr_d, zx_d) := z_matrix(n_d, x_d, xsig_s, r_s, xm_d, xsig_rd, r_rd);
@@ -1820,7 +1820,7 @@ model Z_matrixEqCirc3 "z-matrix from equivalent circuit, n=3"
   final parameter Boolean use_trans=false;
   final parameter Integer n_d=size(xsig_rd,1);
   final parameter Integer n_q=size(xsig_rq,1);
-  function z_matrix = PowerSystems.Basic.Precalculation.z_fromEqCirc;
+  function z_matrix = PowerSystems.Utilities.Precalculation.z_fromEqCirc;
 
 algorithm
   (zr_d, zx_d) := z_matrix(n_d, x_d, xsig_s, r_s, xm_d, xsig_rd, r_rd);
@@ -2165,7 +2165,7 @@ model TransDatFromEqCirc "Calculates transient data from equivalent circuit"
   final parameter Boolean use_trans=false;
   final parameter Integer n_d=size(xsig_rd,1);
   final parameter Integer n_q=size(xsig_rq,1);
-  function transientData=PowerSystems.Basic.Precalculation.transientData;
+  function transientData=PowerSystems.Utilities.Precalculation.transientData;
   SI.Angle[n_d] Tc_d "Time constant closed-loop d-axis";
   SI.Angle[n_d] To_d "Time constant open-loop d-axis";
   SI.Angle[n_q] Tc_q "Time constant closed-loop q-axis";
@@ -2471,8 +2471,8 @@ model EqCircFromTransDat "Calculates equivalent circuit from transient data"
   final parameter Boolean use_trans=true;
   final parameter Integer n_d=size(tc_d,1);
   final parameter Integer n_q=size(tc_q,1);
-  function T_open = PowerSystems.Basic.Precalculation.T_open;
-  function equiCircuit = PowerSystems.Basic.Precalculation.equiCircuit;
+  function T_open = PowerSystems.Utilities.Precalculation.T_open;
+  function equiCircuit = PowerSystems.Utilities.Precalculation.equiCircuit;
 
 algorithm
   (r_rd, xsig_rd, xm_d) := equiCircuit(n_d, omega_nom*tc_d, T_open(x_d, xtr_d, omega_nom*tc_d), x_d, xsig_s, r_s, if0, alpha_if0+pi, tol, true);

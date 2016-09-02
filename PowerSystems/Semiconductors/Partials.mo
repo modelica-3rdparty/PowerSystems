@@ -40,7 +40,7 @@ package Partials "Partial models"
   end ComponentBase;
 
   partial model AC1ph_DC_base "AC(scalar)-DC base"
-    extends PowerSystems.Basic.Icons.Inverter;
+    extends PowerSystems.Icons.Inverter;
 
     Interfaces.Electric_n AC "AC scalar connection"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));

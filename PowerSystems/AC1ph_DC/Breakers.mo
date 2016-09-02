@@ -22,7 +22,7 @@ package Breakers "Breakers "
     Boolean open = not control;
     Boolean closed = control;
 
-    function relaxation=Basic.Math.relaxation;
+    function relaxation=Utilities.Math.relaxation;
 
   initial equation
     pre(open) = not control;
@@ -90,7 +90,7 @@ with
   end ForcedSwitch;
 
   model ForcedCommSwitch "Forced commuting switch, 1-phase"
-    extends Basic.Nominal.NominalVI;
+    extends Common.Nominal.NominalVI;
     extends Ports.PortBase;
 
     parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
@@ -132,7 +132,7 @@ with
     Boolean open_t = not control;
     Boolean closed_t = control;
 
-    function relaxation=Basic.Math.relaxation;
+    function relaxation=Utilities.Math.relaxation;
 
   initial equation
     pre(open_t) = not control;
@@ -342,7 +342,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
     Boolean[2] open = {not control[1],not control[2]};
     Boolean[2] closed = {control[1],control[2]};
 
-    function relaxation=Basic.Math.relaxation;
+    function relaxation=Utilities.Math.relaxation;
 
   initial equation
     pre(open) = {not control[1],not control[2]};
@@ -526,7 +526,7 @@ if it is mechanically fully 'open' (after a given opening duration) and the corr
 
      partial model SwitchBase0 "Switch base, 1-phase"
        extends Ports.Port_pn;
-       extends Basic.Nominal.NominalVI;
+       extends Common.Nominal.NominalVI;
 
        parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
         "{resistance 'closed', conductance 'open'}";

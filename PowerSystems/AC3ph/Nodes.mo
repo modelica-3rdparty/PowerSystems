@@ -87,8 +87,7 @@ package Nodes "Nodes and adaptors"
     Ports.ACdq0_p term "bus bar"
   annotation (Placement(transformation(extent={{-8,-66},{8,66}})));
   protected
-    Real[2,2] R = Basic.Transforms.rotation_dq(
-                                              term.theta[1]);
+    Real[2,2] R=Utilities.Transforms.rotation_dq(term.theta[1]);
     function atan2 = Modelica.Math.atan2;
 
   equation
@@ -319,11 +318,14 @@ package Nodes "Nodes and adaptors"
 
   model ResistiveGround "Y-node with neutral-access, 3-phase dq0"
     extends Ports.Yport_p;
-    extends Basic.Nominal.Nominal;
+    extends Common.Nominal.Nominal;
 
     parameter SIpu.Resistance r_n=0 "resistance neutral to grd";
   protected
-    final parameter Real R_base=Basic.Precalculation.baseR(         puUnits, V_nom, S_nom);
+    final parameter Real R_base=Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom);
     final parameter SI.Resistance R_n=r_n*R_base;
 
   equation
@@ -390,7 +392,7 @@ package Nodes "Nodes and adaptors"
 
   model InductiveGround "Y-node with neutral-access, 3-phase dq0"
     extends Ports.Yport_p;
-    extends Basic.Nominal.NominalAC;
+    extends Common.Nominal.NominalAC;
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
       annotation(Evaluate=true, Dialog(tab="Mode"));
@@ -398,7 +400,10 @@ package Nodes "Nodes and adaptors"
     parameter SIpu.Reactance x_n=1 "reactance neutral to grd";
     parameter SIpu.Resistance r_n=0 "resistance neutral to grd";
   protected
-    final parameter Real R_base=Basic.Precalculation.baseR(         puUnits, V_nom, S_nom);
+    final parameter Real R_base=Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom);
     final parameter SI.Inductance L_n=x_n*R_base/(2*pi*f_nom);
     final parameter SI.Resistance R_n=r_n*R_base;
 
@@ -486,7 +491,7 @@ package Nodes "Nodes and adaptors"
 
   model CapacitiveGround "Y-node with neutral-access, 3-phase dq0"
     extends Ports.Yport_p;
-    extends Basic.Nominal.NominalAC;
+    extends Common.Nominal.NominalAC;
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
       annotation(Evaluate=true, Dialog(tab="Mode"));
@@ -494,7 +499,10 @@ package Nodes "Nodes and adaptors"
     parameter SIpu.Susceptance b_n=1 "susceptance neutral to grd";
     parameter SIpu.Conductance g_n=0 "conductance neutral to grd";
   protected
-    final parameter Real R_base=Basic.Precalculation.baseR(         puUnits, V_nom, S_nom);
+    final parameter Real R_base=Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom);
     final parameter SI.Capacitance C_n=b_n/(R_base*2*pi*f_nom);
     final parameter SI.Conductance G_n=g_n/R_base;
 
@@ -583,7 +591,7 @@ package Nodes "Nodes and adaptors"
 
 model Y_OnePhase "Terminator, ACdq0 to an, bn, cn"
   extends Ports.Port_p;
-  extends Basic.Icons.Adaptor_dq0;
+  extends Icons.Adaptor_dq0;
 
   Interfaces.Electric_p neutral "neutral Y"
                                 annotation (Placement(transformation(
@@ -600,8 +608,7 @@ model Y_OnePhase "Terminator, ACdq0 to an, bn, cn"
                                                  annotation (Placement(
           transformation(extent={{90,-50},{110,-30}})));
   protected
-  Real[3,3] P = Basic.Transforms.park(
-                                     term.theta[2]);
+    Real[3,3] P=Utilities.Transforms.park(term.theta[2]);
 
 equation
   plug_a.v = cat(1, transpose(P[:, 1:1])*term.v, {neutral.v});
@@ -624,7 +631,7 @@ end Y_OnePhase;
 
 model ACdq0_a_b_c "Adaptor ACdq0 to pins a, b, c"
   extends Ports.Port_p;
-  extends PowerSystems.Basic.Icons.Adaptor_dq0;
+  extends PowerSystems.Icons.Adaptor_dq0;
 
   Interfaces.Electric_n term_a "phase a"
       annotation (Placement(transformation(extent={{90,30},{110,50}})));
@@ -633,8 +640,7 @@ model ACdq0_a_b_c "Adaptor ACdq0 to pins a, b, c"
   Interfaces.Electric_n term_c "phase c"
       annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   protected
-  Real[3,3] P = Basic.Transforms.park(
-                                     term.theta[2]);
+    Real[3,3] P=Utilities.Transforms.park(term.theta[2]);
 
 equation
   {term_a.v,term_b.v,term_c.v} = transpose(P)*term.v;

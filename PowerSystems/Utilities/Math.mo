@@ -1,9 +1,9 @@
-within PowerSystems.Basic;
+within PowerSystems.Utilities;
 package Math "Mathematical functions"
     extends Modelica.Icons.Package;
 
     function atanVarCut "arc-tangens with variable cut"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[2] x "2-dimensional vector";
       input Modelica.SIunits.Angle alpha "angle";
@@ -28,7 +28,7 @@ for arbitrary (time-dependent) input argument alpha.</p>
     end atanVarCut;
 
     function angVelocity "Angular velocity of 2dim vector"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[2] x "2-dimensional vector";
       input Real[2] x_dot "time-derivative of x";
@@ -50,7 +50,7 @@ for arbitrary (time-dependent) input argument alpha.</p>
     end angVelocity;
 
     function mod2sign "Modulo-two sign"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Integer[:] n "integer vector";
       output Integer[size(n, 1)] sign_n "(-1)^n_k, k=1:size(n)";
@@ -74,7 +74,7 @@ for arbitrary (time-dependent) input argument alpha.</p>
 
     function interpolateTable
     "Interpolation of tables with equidistant arguments"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real x "table argument";
       input Real[:, :] xy_tab "table, [argument, values]";
@@ -101,7 +101,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
     end interpolateTable;
 
     function polyCoefReal "Coefficients of a polynomial from real roots"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[:] r "root vector";
       output Real[size(r,1)+1] c "coefficient vector";
@@ -130,13 +130,13 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   c = {-6, 11, -6, 1};
 </blockquote><pre>
 <p>See also
-<a href=\"modelica://PowerSystems.Basic.Math.polyCoef\">polyCoef</a>, <a href=\"modelica://PowerSystems.Basic.Math.polyRoots\">polyRoots</a></p>
+<a href=\"modelica://PowerSystems.Utilities.Math.polyCoef\">polyCoef</a>, <a href=\"modelica://PowerSystems.Utilities.Math.polyRoots\">polyRoots</a></p>
 </html>
 "));
     end polyCoefReal;
 
     function polyCoef "Coefficients of a polynomial from roots"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[:,2] r "root vector, 2nd index=1:2, real and imaginary part";
       output Real[size(r,1)+1,2] c
@@ -171,13 +171,13 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   c = [-6, 0; 11, 0; -6, 0; 1, 0];
 </blockquote></pre>
 <p>See also
-<a href=\"modelica://PowerSystems.Basic.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"modelica://PowerSystems.Basic.Math.polyRoots\">polyRoots</a></p>
+<a href=\"modelica://PowerSystems.Utilities.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"modelica://PowerSystems.Utilities.Math.polyRoots\">polyRoots</a></p>
 </html>
 "));
     end polyCoef;
 
     function polyRoots "Roots of a polynomial"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[:] c "coefficient vector";
       output Real[size(c,1)-1,2] r
@@ -237,21 +237,21 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   r[2,:] = {-0.333333 -0.471405};
 </blockquote></pre>
 <p>See also
-<a href=\"modelica://PowerSystems.Basic.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"modelica://PowerSystems.Basic.Math.polyCoef\">polyCoef</a>, <a href=\"Modelica:Modelica.Math.Matrices.eigenValues\">eigenValues</a></p>
+<a href=\"modelica://PowerSystems.Utilities.Math.polyCoefReal\">polyCoefReal</a>, <a href=\"modelica://PowerSystems.Utilities.Math.polyCoef\">polyCoef</a>, <a href=\"Modelica:Modelica.Math.Matrices.eigenValues\">eigenValues</a></p>
 </html>
 "));
     end polyRoots;
 
     function fminSearch
     "Determines minimum of a scalar function with vector-argument x"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[:] x0 "start value, fcn(x0) is approximate min";
       input Real[:] x_opt "optional further arguments of function fcn";
       output Real[size(x0,1)] x "argument where function value is minimal";
       output Real y "value of function at x";
   protected
-      replaceable function fcn = PowerSystems.Basic.Precalculation.i_field
+      replaceable function fcn = PowerSystems.Utilities.Precalculation.i_field
       "function to be minimised around x0";
       Integer n = size(x,1);
       Integer max_fun = 200*n;
@@ -395,7 +395,7 @@ Should be modified (domains with boundaries).</p>
     end fminSearch;
 
     function sortUp "Sorts components of x in increasing order"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[:] x "x unsorted";
       output Real[size(x,1)] y "x sorted increasing";
@@ -425,7 +425,7 @@ Should be modified (domains with boundaries).</p>
     end sortUp;
 
     function sortDown "Sorts components of x in decreasing order"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[:] x "x unsorted";
       output Real[size(x,1)] y "x sorted decreasing";
@@ -455,7 +455,7 @@ Should be modified (domains with boundaries).</p>
     end sortDown;
 
     function relaxation "Exponential relaxation function"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real t "relative time";
       input Real t_char "characteristic time";
@@ -486,7 +486,7 @@ i.e. for negative t y takes its asymptotic values.</p>
     end relaxation;
 
     function taylor "Taylor series"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real x "argument";
       input Real[:] c "coefficients";
@@ -508,7 +508,7 @@ i.e. for negative t y takes its asymptotic values.</p>
     end taylor;
 
     function sign_gtlt "Characteristic function abs(x)>b"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[:] x "argument";
       input Real b(min=0) "threshold value";
@@ -528,7 +528,7 @@ i.e. for negative t y takes its asymptotic values.</p>
     end sign_gtlt;
 
     function sign_gt "Sign function x>b"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[:] x "argument";
       input Real b(min=0) "threshold value";
@@ -545,7 +545,7 @@ i.e. for negative t y takes its asymptotic values.</p>
     end sign_gt;
 
     function sign_lt "Sign function x<b"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[:] x "argument";
       input Real b(min=0) "threshold value";

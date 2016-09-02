@@ -181,7 +181,8 @@ package Sensors "Sensors and meters 3-phase"
     output SIpu.Voltage v_norm(stateSelect=StateSelect.never)=sqrt(v*v) if phasor;
     output SI.Angle alpha_v(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*v[1:2], Rot_dq[:,1]*v[1:2]) if phasor;
   protected
-    final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
+    final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
+                                                                 puUnits, V_nom);
 
   equation
     v = term.v/V_base;
@@ -229,7 +230,8 @@ As they use time-dependent coordinate transforms, use them only when and where n
     output SIpu.Current i_norm(stateSelect=StateSelect.never)=sqrt(i*i) if phasor;
     output SI.Angle alpha_i(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*i[1:2], Rot_dq[:,1]*i[1:2]) if phasor;
   protected
-    final parameter PS.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
+    final parameter PS.Current I_base=Utilities.Precalculation.baseI(
+                                                                 puUnits, V_nom, S_nom);
 
   equation
     i = term_p.i/I_base;
@@ -267,7 +269,8 @@ As they use time-dependent coordinate transforms, use them only when and where n
     output SIpu.Power[3] p_av=pav if av;
   protected
     outer System system;
-    final parameter SI.ApparentPower S_base=Basic.Precalculation.baseS(puUnits, S_nom);
+    final parameter SI.ApparentPower S_base=Utilities.Precalculation.baseS(
+        puUnits, S_nom);
     SIpu.Power[3] pav;
 
   initial equation
@@ -341,8 +344,10 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     output Real cos_phi(stateSelect=StateSelect.never)=cos(alpha_v - alpha_i) if phasor;
   protected
     outer System system;
-    final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
-    final parameter PS.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
+    final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
+                                                                 puUnits, V_nom);
+    final parameter PS.Current I_base=Utilities.Precalculation.baseI(
+                                                                 puUnits, V_nom, S_nom);
     SIpu.Power[3] pav;
 
   initial equation
@@ -500,9 +505,9 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     Types.Color color_p;
     Types.Color color_n;
-    extends Basic.Visualise.LeftBar(colorL={0,127,127}, xL=x_norm*abs(p[1])/V_base/I_base);
-    extends Basic.Visualise.RightBar(colorR={127,0,127}, xR=x_norm*abs(p[2])/V_base/I_base);
-    extends Basic.Visualise.DoubleNeedle(
+    extends Icons.LeftBar(          colorL={0,127,127}, xL=x_norm*abs(p[1])/V_base/I_base);
+    extends Icons.RightBar(          colorR={127,0,127}, xR=x_norm*abs(p[2])/V_base/I_base);
+    extends Icons.DoubleNeedle(
       color1={255,0,0},
       color2={0,0,255},
       x1=r_norm*v_dq[1]/V_base,
@@ -556,8 +561,8 @@ In problematic cases use power sensors electrical and mechanical.</p>
          choice=2 "2: alpha_beta_o",
          choice=3 "3: abc inertial"));
     protected
-      function park = Basic.Transforms.park;
-      function rot_dq = Basic.Transforms.rotation_dq;
+      function park = Utilities.Transforms.park;
+      function rot_dq = Utilities.Transforms.rotation_dq;
 
     equation
       term.i = zeros(3);
@@ -591,8 +596,8 @@ In problematic cases use power sensors electrical and mechanical.</p>
          choice=2 "2: alpha_beta_o",
          choice=3 "3: abc inertial"));
     protected
-      function park = Basic.Transforms.park;
-      function rot_dq = Basic.Transforms.rotation_dq;
+      function park = Utilities.Transforms.park;
+      function rot_dq = Utilities.Transforms.rotation_dq;
 
     equation
       term_p.v = term_n.v;
@@ -632,7 +637,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
         annotation(Evaluate=true,Dialog(group="Options"));
       parameter Boolean phasor=false "phasor"
         annotation(Evaluate=true,Dialog(group="Options"));
-      extends Basic.Nominal.Nominal;
+      extends Common.Nominal.Nominal;
     protected
       Real[3,3] Park;
       Real[2,2] Rot_dq;
@@ -666,7 +671,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
         annotation(Evaluate=true,Dialog(group="Options"));
       parameter Boolean phasor=false "phasor"
         annotation(Evaluate=true,Dialog(group="Options"));
-      extends Basic.Nominal.Nominal;
+      extends Common.Nominal.Nominal;
     protected
       Real[3,3] Park;
       Real[2,2] Rot_dq;
@@ -695,7 +700,8 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
   partial model PhasorBase "Phasor base, 3-phase dq0"
     extends Ports.Port_pn;
-    extends Basic.Nominal.Nominal(final puUnits=true);
+    extends Common.Nominal.Nominal(
+                                  final puUnits=true);
 
     PS.Voltage[2] v_dq;
     PS.Current[2] i_dq;
@@ -703,9 +709,11 @@ In problematic cases use power sensors electrical and mechanical.</p>
     protected
     constant Real r_norm(unit="1")=0.8 "norm radius phasor";
     constant Real x_norm(unit="1")=0.8 "norm amplitude power";
-    final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
-    final parameter PS.Current I_base=Basic.Precalculation.baseI(puUnits, V_nom, S_nom);
-    Real[2,2] Rot_dq = Basic.Transforms.rotation_dq(term_p.theta[1]);
+    final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
+                                                                 puUnits, V_nom);
+    final parameter PS.Current I_base=Utilities.Precalculation.baseI(
+                                                                 puUnits, V_nom, S_nom);
+      Real[2,2] Rot_dq=Utilities.Transforms.rotation_dq(term_p.theta[1]);
 
   equation
     term_p.v = term_n.v;

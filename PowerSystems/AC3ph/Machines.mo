@@ -635,7 +635,8 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
     protected
       final parameter Integer n_r = par.n_r
         "number of rotor circuits d- and q-axis";
-      final parameter Coefficients.Asynchron c = Basic.Precalculation.machineAsyn(par, top.scale);
+      final parameter Coefficients.Asynchron c = Utilities.Precalculation.machineAsyn(
+                                                                                  par, top.scale);
       parameter SI.Inductance L_m[n_r] = c.L_m;
       parameter SI.Resistance R_r[n_r] = c.R_r;
       parameter SI.Resistance R_m[n_r] = c.R_m;
@@ -806,7 +807,8 @@ Special choices are</p>
         "stator current dq0 in rotor-system";
 
     protected
-      parameter PS.Current[3] i_s_start = cat(1, inv(Basic.Transforms.rotation_dq(phi_el_start))*i_start[1:2], {i_start[3]})
+      parameter PS.Current[3] i_s_start = cat(1, inv(Utilities.Transforms.rotation_dq(
+                                                                                  phi_el_start))*i_start[1:2], {i_start[3]})
         "start value of stator current dq0 in rotor-system";
       SI.MagneticFlux psi_e "excitation flux";
       Real[2,2] Rot_dq "Rotation reference-dq0 to rotor-dq0 system";
@@ -818,7 +820,7 @@ Special choices are</p>
       end if;
 
     equation
-      Rot_dq = Basic.Transforms.rotation_dq(phi_el - term.theta[2]);
+      Rot_dq =Utilities.Transforms.rotation_dq(phi_el - term.theta[2]);
       v_s = cat(1, transpose(Rot_dq)*v[1:2], {v[3]});
       i = cat(1, Rot_dq*i_s[1:2], {i_s[3]});
       annotation (
@@ -849,7 +851,7 @@ The transformation angle is the (electric) rotor-angle relative to the reference
       final parameter Data par "machine parameters"
         annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
     protected
-      final parameter Coefficients.Synchron3rd c = Basic.Precalculation.machineSyn3rd(
+      final parameter Coefficients.Synchron3rd c = Utilities.Precalculation.machineSyn3rd(
                                                                                      par,top.scale);
       SI.MagneticFlux[2] psi_s "magnetic flux stator dq";
 
@@ -928,7 +930,8 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
     protected
       final parameter Integer n_d = par.n_d "number of rotor circuits d-axis";
       final parameter Integer n_q = par.n_q "number of rotor circuits q-axis";
-      final parameter Coefficients.Synchron c = Basic.Precalculation.machineSyn(par, top.scale);
+      final parameter Coefficients.Synchron c = Utilities.Precalculation.machineSyn(
+                                                                                par, top.scale);
       parameter SI.Inductance[n_d, n_d] L_rd = c.L_rd "L matrix rotor";
       parameter SI.Inductance[n_q, n_q] L_rq = c.L_rq "L matrix rotor";
       parameter SI.Inductance[n_d] L_md = c.L_md "L matrix mutual d-axis";
@@ -1206,7 +1209,7 @@ package Parameters "Parameter data for interactive use"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
   record Asynchron3rd "Asynchronous machine 3rd order parameters"
-    extends PowerSystems.Basic.Nominal.NominalDataAC;
+    extends PowerSystems.Common.Nominal.NominalDataAC;
 
     Boolean neu_iso "isolated neutral if Y" annotation(Dialog);
     Integer pp "pole-pair number" annotation(Dialog);
@@ -1536,7 +1539,7 @@ package Parameters "Parameter data for interactive use"
   end Asynchron_cage;
 
   record Synchron3rd "Synchronous machine 3rd order parameters"
-    extends PowerSystems.Basic.Nominal.NominalDataAC;
+    extends PowerSystems.Common.Nominal.NominalDataAC;
 
     Boolean neu_iso "isolated neutral if Y" annotation(Dialog);
     Integer pp "pole-pair number" annotation(Dialog);

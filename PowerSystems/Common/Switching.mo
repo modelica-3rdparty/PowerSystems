@@ -101,7 +101,7 @@ model Short "Short kernel optionally with exponential relaxation, no terminals"
   parameter Real beta(min=2)=4 "power of exponent" annotation(Dialog(enable=relax));
   SI.Time t0(start=-Modelica.Constants.inf, fixed=true);
   Real[2] r;
-  function relaxation=Basic.Math.relaxation;
+  function relaxation=Utilities.Math.relaxation;
 
 equation
   when edge(on) then

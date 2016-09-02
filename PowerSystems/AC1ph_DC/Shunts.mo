@@ -2,24 +2,28 @@ within PowerSystems.AC1ph_DC;
 package Shunts
   extends Modelica.Icons.VariantsPackage;
 
-model ReactiveShunt "Shunt reactor with parallel conductor, 1-phase"
-  extends Partials.ShuntBase;
+  model ReactiveShunt "Shunt reactor with parallel conductor, 1-phase"
+    extends Partials.ShuntBase;
 
-  parameter SIpu.Conductance g=0 "conductance (parallel)";
-  parameter SIpu.Resistance r=0 "resistance (serial)";
-  parameter SIpu.Reactance x_s=1 "self reactance";
-  parameter SIpu.Reactance x_m=0 "mutual reactance, -x_s < x_m < x_s";
-protected
-  final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom);
-  SI.Conductance G=g/RL_base[1];
-  SI.Resistance R=r*RL_base[1];
-  SI.Inductance[2,2] L=[x_s,x_m;x_m,x_s]*RL_base[2];
-  PS.Current[2] i_x;
+    parameter SIpu.Conductance g=0 "conductance (parallel)";
+    parameter SIpu.Resistance r=0 "resistance (serial)";
+    parameter SIpu.Reactance x_s=1 "self reactance";
+    parameter SIpu.Reactance x_m=0 "mutual reactance, -x_s < x_m < x_s";
+  protected
+    final parameter SI.Resistance[2] RL_base=Utilities.Precalculation.baseRL(
+        puUnits,
+        V_nom,
+        S_nom,
+        2*pi*f_nom);
+    SI.Conductance G=g/RL_base[1];
+    SI.Resistance R=r*RL_base[1];
+    SI.Inductance[2,2] L=[x_s,x_m;x_m,x_s]*RL_base[2];
+    PS.Current[2] i_x;
 
-equation
-  i_x = i - G*v;
-  L*der(i_x) + R*i_x = v;
-annotation (defaultComponentName = "xShunt",
+  equation
+    i_x = i - G*v;
+    L*der(i_x) + R*i_x = v;
+    annotation (defaultComponentName = "xShunt",
   Documentation(
           info="<html>
 <p>Info see package AC1ph_DC.Impedances.</p>
@@ -80,23 +84,27 @@ annotation (defaultComponentName = "xShunt",
           Line(points={{-60,-32},{-60,-8}}, color={0,0,255}),
           Line(points={{60,8},{60,32}}, color={0,0,255}),
           Line(points={{60,-32},{60,-8}}, color={0,0,255})}));
-end ReactiveShunt;
+  end ReactiveShunt;
 
-model CapacitiveShunt "Shunt capacitor with parallel conductor, 1-phase, pp pg"
-  extends Partials.ShuntBase;
+  model CapacitiveShunt "Shunt capacitor with parallel conductor, 1-phase, pp pg"
+    extends Partials.ShuntBase;
 
-  parameter SIpu.Conductance g_pg=0 "conductance ph-grd";
-  parameter SIpu.Conductance g_pp=0 "conductance ph_ph";
-  parameter SIpu.Susceptance b_pg=0.5 "susceptance ph-grd";
-  parameter SIpu.Susceptance b_pp=0.5 "susceptance ph-ph";
-protected
-  final parameter SI.Resistance[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
-  SI.Conductance[2,2] G=[g_pg+g_pp,-g_pp;-g_pp,g_pg+g_pp]*GC_base[1];
-  SI.Capacitance[2,2] C=[b_pg+b_pp,-b_pp;-b_pp,b_pg+b_pp]*GC_base[2];
+    parameter SIpu.Conductance g_pg=0 "conductance ph-grd";
+    parameter SIpu.Conductance g_pp=0 "conductance ph_ph";
+    parameter SIpu.Susceptance b_pg=0.5 "susceptance ph-grd";
+    parameter SIpu.Susceptance b_pp=0.5 "susceptance ph-ph";
+  protected
+    final parameter SI.Resistance[2] GC_base=Utilities.Precalculation.baseGC(
+        puUnits,
+        V_nom,
+        S_nom,
+        2*pi*f_nom);
+    SI.Conductance[2,2] G=[g_pg+g_pp,-g_pp;-g_pp,g_pg+g_pp]*GC_base[1];
+    SI.Capacitance[2,2] C=[b_pg+b_pp,-b_pp;-b_pp,b_pg+b_pp]*GC_base[2];
 
-equation
-  C*der(v) + G*v = i;
-annotation (defaultComponentName = "cShunt",
+  equation
+    C*der(v) + G*v = i;
+    annotation (defaultComponentName = "cShunt",
   Documentation(
           info="<html>
 <p>Terminology.<br>
@@ -204,14 +212,14 @@ annotation (defaultComponentName = "cShunt",
             lineThickness=0.5,
             textString=
                  "b_pp, g_pp")}));
-end CapacitiveShunt;
+  end CapacitiveShunt;
 
 package Partials "Partial models"
   extends Modelica.Icons.BasesPackage;
 
   partial model ShuntBase "Load base, 1-phase"
     extends Ports.Port_p;
-    extends Basic.Nominal.NominalAC;
+    extends Common.Nominal.NominalAC;
 
     PS.Voltage[2] v "voltage";
     PS.Current[2] i "current";

@@ -577,10 +577,10 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
 
       parameter SI.AngularVelocity w_start=2*pi*generator.par.f_nom/generator.par.pp
         "initial angular velocity (start-value if steady-state)"
-	annotation(Dialog(tab="Initialization"));
+        annotation (Dialog(tab="Initialization"));
       parameter Types.Init initType=PowerSystems.Types.Init.v_alpha
         "initialisation type (if steady-state)"
-	annotation(Dialog(tab="Initialization"));
+        annotation (Dialog(tab="Initialization"));
       parameter SIpu.Voltage v_start(unit="1")=1 "initial terminal voltage"
         annotation(Dialog(enable=initType == PowerSystems.Types.Init.v_alpha
                or initType == PowerSystems.Types.Init.v_p or initType ==

@@ -9,7 +9,11 @@ package Lines "Transmission lines 3-phase"
     parameter SIpu.Reactance x=0.1 "reactance";
     parameter SIpu.Reactance x0=3*x "reactance zero-comp";
   protected
-    final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter SI.Resistance[2] RL_base=Utilities.Precalculation.baseRL(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     final parameter SI.Resistance R=r*RL_base[1];
     final parameter SI.Inductance L=x*RL_base[2];
     final parameter SI.Inductance L0=x0*RL_base[2];
@@ -1345,7 +1349,11 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     protected
       outer System system;
-      final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
+      final parameter SI.Resistance[2] RL_base=Utilities.Precalculation.baseRL(
+              par.puUnits,
+              par.V_nom,
+              par.S_nom,
+              2*pi*par.f_nom);
       final parameter Real delta_len_km(final quantity="Length", final unit="km")=len/1e3/ne;
       final parameter SI.Resistance R=par.r*delta_len_km*RL_base[1];
       final parameter SI.Inductance L=par.x*delta_len_km*RL_base[2];
@@ -1363,7 +1371,11 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
       extends RXlineBase(ne=3, redeclare replaceable record Data =
           PowerSystems.AC3ph.Lines.Parameters.Line);
     protected
-      final parameter Real[2] GC_base=Basic.Precalculation.baseGC(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
+      final parameter Real[2] GC_base=Utilities.Precalculation.baseGC(
+              par.puUnits,
+              par.V_nom,
+              par.S_nom,
+              2*pi*par.f_nom);
       final parameter SI.Conductance G=(par.g_pg + 3*par.g_pp)*delta_len_km*GC_base[1];
       final parameter SI.Capacitance C=(par.b_pg + 3*par.b_pp)*delta_len_km*GC_base[2];
       final parameter SI.Capacitance C0=par.b_pg*delta_len_km*GC_base[2];
@@ -1381,7 +1393,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
   extends Modelica.Icons.BasesPackage;
 
    record RXline "RX-line parameters, 3-phase"
-     extends Basic.Nominal.NominalDataAC(
+     extends Common.Nominal.NominalDataAC(
                                       S_nom=100e6);
      SIpu.Resistance_km r=0.1e-3 "resistance/km" annotation(Dialog);
      SIpu.Reactance_km x=1e-3 "reactance/km" annotation(Dialog);

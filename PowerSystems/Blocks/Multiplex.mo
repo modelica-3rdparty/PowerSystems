@@ -3,7 +3,7 @@ package Multiplex "Multiplexer and AD converter"
   extends Modelica.Icons.VariantsPackage;
 
   block R2mux "Real multiplexer 2-fold"
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u1[n[1]] "vector of dimension n[1]"
       annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
@@ -39,7 +39,7 @@ package Multiplex "Multiplexer and AD converter"
   end R2mux;
 
   block R3mux "Real multiplexer 3-fold"
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u1[n[1]] "vector of dimension n[1]"
       annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
@@ -77,7 +77,7 @@ package Multiplex "Multiplexer and AD converter"
   end R3mux;
 
   block R4mux "Real multiplexer 4-fold"
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u1[n[1]] "vector of dimension n[1]"
       annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
@@ -117,7 +117,7 @@ package Multiplex "Multiplexer and AD converter"
   end R4mux;
 
   block R2demux "Real demultiplexer 2-fold"
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u[sum(n)] "vector of dimension sum(n)"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -152,7 +152,7 @@ package Multiplex "Multiplexer and AD converter"
   end R2demux;
 
   block R3demux "Real demultiplexer 3-fold"
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u[sum(n)] "vector of dimension sum(n)"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -189,7 +189,7 @@ package Multiplex "Multiplexer and AD converter"
   end R3demux;
 
   block R4demux "Real demultiplexer 4-fold"
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput u[sum(n)] "vector of dimension sum(n)"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -228,7 +228,7 @@ package Multiplex "Multiplexer and AD converter"
   end R4demux;
 
   block B2mux "Boolean multiplexer 2-fold "
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.BooleanInput u1[n[1]] "vector of dimension n[1]"
       annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
@@ -264,7 +264,7 @@ package Multiplex "Multiplexer and AD converter"
   end B2mux;
 
   block B2demux "Boolean demultiplexer 2-fold "
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.BooleanInput u[sum(n)]
       "vector of dimension sum(n)"
@@ -302,7 +302,7 @@ package Multiplex "Multiplexer and AD converter"
   end B2demux;
 
   block Gate2demux "Boolean demultiplexer 2-fold"
-    extends PowerSystems.Basic.Icons.Block;
+    extends PowerSystems.Icons.Block;
 
     Modelica.Blocks.Interfaces.BooleanInput gates[2*n]
       "vector of dimension 2*n"
@@ -348,7 +348,7 @@ package Multiplex "Multiplexer and AD converter"
   end Gate2demux;
 
   block Gate3demux "Boolean demultiplexer 3-fold "
-    extends PowerSystems.Basic.Icons.Block;
+    extends PowerSystems.Icons.Block;
 
     Modelica.Blocks.Interfaces.BooleanInput gates[3*n]
       "vector of dimension 3*n"
@@ -406,7 +406,7 @@ package Multiplex "Multiplexer and AD converter"
   end Gate3demux;
 
   block AD1ph "Analog-Digital converter 1-phase"
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput p "scalar analog p-signal"
                               annotation (Placement(transformation(extent={{
@@ -445,7 +445,7 @@ package Multiplex "Multiplexer and AD converter"
   end AD1ph;
 
   block DA1ph "Digital-Analog converter 1-phase"
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.BooleanInput gates[2] "boolean {p, n}-gate"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -483,7 +483,7 @@ package Multiplex "Multiplexer and AD converter"
   end DA1ph;
 
   block AD3ph "Analog-Digital converter 3-phase"
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.RealInput a_p "scalar analog p-signal phase a"
                                 annotation (Placement(transformation(extent={{
@@ -555,7 +555,7 @@ package Multiplex "Multiplexer and AD converter"
   end AD3ph;
 
   block DA3ph "Digital-Analog converter 3-phase"
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     Modelica.Blocks.Interfaces.BooleanInput gates[6]
       "boolean {a_p,a_n, b_p,b_n, c_p,c_n,}-gate"

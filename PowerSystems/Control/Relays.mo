@@ -3,7 +3,7 @@ package Relays "Relays"
   extends Modelica.Icons.VariantsPackage;
 
   block SwitchRelay "Relay for sequential switching "
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     parameter Integer n(min=1)=3 "number of signals";
     parameter Integer switched[:]=1:n "switched signals";
@@ -44,7 +44,7 @@ package Relays "Relays"
   end SwitchRelay;
 
   block TapChangerRelay "Relay for setting tap-changer "
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     parameter Integer preset_1[:]={1}
       "1: positions tap changer";
@@ -100,7 +100,7 @@ and the neutral position for nominal voltage are defined in the transformer data
   end TapChangerRelay;
 
   block TapChanger3Relay "Relay for setting tap-changer 3-winding transformer"
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     parameter Integer preset_1[:]={1}
       "1: positions tap changer";
@@ -165,7 +165,7 @@ and the neutral position for nominal voltage are defined in the transformer data
   end TapChanger3Relay;
 
   block Y_DeltaControl "Relay for Y-Delta topology switching "
-    extends PowerSystems.Basic.Icons.Block0;
+    extends PowerSystems.Icons.Block0;
 
     parameter Boolean ini_state=true "initial state (Y true, D false)"
       annotation(choices(choice=true "Y", choice=false "Delta"));

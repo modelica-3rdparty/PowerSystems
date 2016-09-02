@@ -81,7 +81,7 @@ block PWMsyn "Sine PWM synchronous mode, 3phase"
   SI.Angle[3] phi;
   Real[3] v_abc;
   discrete Real[3] sigdel_phi;
-  function mod2sign = Basic.Math.mod2sign;
+  function mod2sign = Utilities.Math.mod2sign;
 
 initial algorithm
   n := {1,1,1} + integer(phi/(2*del_phi));
@@ -179,7 +179,7 @@ block PWMtab "PWM tabulated, synchronous mode, 3phase"
 //  discrete SI.Angle[3,m2] phiIgn; // desired version
   Integer[3] n;
   SI.Angle[3] phi;
-  function intpol = Basic.Math.interpolateTable;
+  function intpol = Utilities.Math.interpolateTable;
 
 initial algorithm
   n := {1,1,1};
@@ -624,7 +624,7 @@ block PWMsyn1ph "Sine PWM synchronous mode, 1-phase"
   Integer n;
   Integer sigma;
   discrete Real sigdel_phi;
-  function mod2sign = Basic.Math.mod2sign;
+  function mod2sign = Utilities.Math.mod2sign;
 
 initial algorithm
   n := 1 + integer(phi/(2*del_phi));
@@ -722,7 +722,7 @@ block PWMtab1ph "PWM tabulated, synchronous mode, 1-phase"
   discrete SI.Angle[m2] phiIgn;
   SI.Angle phi;
   Integer n;
-  function intpol = Basic.Math.interpolateTable;
+  function intpol = Utilities.Math.interpolateTable;
 
 initial algorithm
   n := 1;
@@ -806,7 +806,7 @@ The input vPhasor[1] has no influence on this model. It is only needed, if addit
 end BlockM1ph;
 
 block ChopperPWM "Chopper PWM (voltage)"
-  extends PowerSystems.Basic.Icons.BlockS;
+  extends PowerSystems.Icons.BlockS;
 
   parameter SI.Frequency f_carr=500 "carrier frequency";
   Modelica.Blocks.Interfaces.RealInput vDC "desired average voltage, pu"
@@ -855,7 +855,7 @@ annotation (defaultComponentName = "chopperMod",
 end ChopperPWM;
 
 block ChopperPWM_I "Chopper PWM (current)"
-  extends PowerSystems.Basic.Icons.BlockS;
+  extends PowerSystems.Icons.BlockS;
 
   parameter SI.Current iRipple=1 "max ripple current";
   Modelica.Blocks.Interfaces.BooleanOutput gate(start=false) "gate"
@@ -900,7 +900,7 @@ package Partials "Partial models"
   extends Modelica.Icons.BasesPackage;
 
   partial block ModulatorBase "Modulator base"
-    extends PowerSystems.Basic.Icons.BlockS;
+    extends PowerSystems.Icons.BlockS;
 
     parameter Integer m(min=2,max=3)=3 "3 for 3-phase, 2 for 1-phase";
     Modelica.Blocks.Interfaces.RealInput theta "reference angle"
@@ -1166,7 +1166,7 @@ protected
   end PWMsynBase;
 
   partial block BlockBase "Block modulator base"
-    extends PowerSystems.Basic.Icons.BlockS;
+    extends PowerSystems.Icons.BlockS;
 
     parameter Integer m(min=2,max=3)=3 "3 for 3-phase, 2 for 1-phase";
     parameter SI.Angle width=2/3 "relative width (0 - 1)";
@@ -1220,7 +1220,7 @@ protected
 end Partials;
 
 package SpaceVector "Space vector logic and control"
-  extends PowerSystems.Basic.Icons.SpecialLibrary;
+  extends PowerSystems.Icons.SpecialLibrary;
 
   model SVMlogic "Logical part for SVM"
 

@@ -183,8 +183,8 @@ end Integrator;
     SI.Angle alpha(stateSelect=StateSelect.always);
     SI.AngularVelocity omega;
     function atan2=Modelica.Math.atan2;
-    function atanV=Basic.Math.atanVarCut;
-    function angVelocity=Basic.Math.angVelocity;
+    function atanV=Utilities.Math.atanVarCut;
+    function angVelocity=Utilities.Math.angVelocity;
 
   initial equation
     alpha =  atan2(sig*u[2], sig*u[1]); // leads to troubles with GNU-compiler.

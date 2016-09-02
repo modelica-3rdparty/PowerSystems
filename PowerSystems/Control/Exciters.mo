@@ -143,7 +143,7 @@ package Exciters "Generator Exciters "
     extends Modelica.Icons.BasesPackage;
 
   partial block ExciterBase "Exciter base"
-    extends PowerSystems.Basic.Icons.Block1;
+    extends PowerSystems.Icons.Block1;
 
     parameter SIpu.Voltage[2] v_f_minmax(each unit="1")={0, 3}
         "{min,max} exciter voltage";

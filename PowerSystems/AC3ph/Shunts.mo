@@ -2,34 +2,38 @@ within PowerSystems.AC3ph;
 package Shunts "Reactive and capacitive shunts"
   extends Modelica.Icons.VariantsPackage;
 
-model ReactiveShunt "Shunt reactor with parallel conductor, 3-phase dq0"
-  extends Partials.ShuntBase;
+  model ReactiveShunt "Shunt reactor with parallel conductor, 3-phase dq0"
+    extends Partials.ShuntBase;
 
-  parameter SIpu.Conductance g=0 "conductance (parallel)";
-  parameter SIpu.Resistance r=0 "resistance (serial)";
-  parameter SIpu.Reactance x_s=1 "self reactance";
-  parameter SIpu.Reactance x_m=0 "mutual reactance, -x_s/2 < x_m < x_s";
-protected
-  final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom);
-  SI.Conductance G=g/RL_base[1];
-  SI.Resistance R=r*RL_base[1];
-  SI.Inductance L=(x_s-x_m)*RL_base[2];
-  SI.Inductance L0=(x_s+2*x_m)*RL_base[2];
-  PS.Current[3] i_x;
+    parameter SIpu.Conductance g=0 "conductance (parallel)";
+    parameter SIpu.Resistance r=0 "resistance (serial)";
+    parameter SIpu.Reactance x_s=1 "self reactance";
+    parameter SIpu.Reactance x_m=0 "mutual reactance, -x_s/2 < x_m < x_s";
+  protected
+    final parameter SI.Resistance[2] RL_base=Utilities.Precalculation.baseRL(
+        puUnits,
+        V_nom,
+        S_nom,
+        2*pi*f_nom);
+    SI.Conductance G=g/RL_base[1];
+    SI.Resistance R=r*RL_base[1];
+    SI.Inductance L=(x_s-x_m)*RL_base[2];
+    SI.Inductance L0=(x_s+2*x_m)*RL_base[2];
+    PS.Current[3] i_x;
 
-initial equation
-  if dynType == Types.Dynamics.SteadyInitial then
-    der(i_x) = omega[1]*j_dq0(i_x);
-  end if;
+  initial equation
+    if dynType == Types.Dynamics.SteadyInitial then
+      der(i_x) = omega[1]*j_dq0(i_x);
+    end if;
 
-equation
-  i_x = i - G*v;
-  if dynType <> Types.Dynamics.SteadyState then
-    diagonal({L,L,L0})*der(i_x) + omega[2]*L*j_dq0(i_x) + R*i_x = v;
-  else
-    omega[2]*L*j_dq0(i_x) + R*i_x = v;
-  end if;
-annotation (defaultComponentName = "xShunt1",
+  equation
+    i_x = i - G*v;
+    if dynType <> Types.Dynamics.SteadyState then
+      diagonal({L,L,L0})*der(i_x) + omega[2]*L*j_dq0(i_x) + R*i_x = v;
+    else
+      omega[2]*L*j_dq0(i_x) + R*i_x = v;
+    end if;
+    annotation (defaultComponentName = "xShunt1",
   Documentation(
           info="<html>
 <p>Info see package ACabc.Impedances.</p>
@@ -117,35 +121,39 @@ annotation (defaultComponentName = "xShunt1",
           Line(points={{60,-12},{60,12}}, color={0,0,255}),
           Line(points={{60,38},{60,62}}, color={0,0,255}),
           Line(points={{60,-62},{60,-38}}, color={0,0,255})}));
-end ReactiveShunt;
+  end ReactiveShunt;
 
-model CapacitiveShunt
+  model CapacitiveShunt
     "Shunt capacitor with parallel conductor, 3-phase dq0, pp pg"
-  extends Partials.ShuntBase;
+    extends Partials.ShuntBase;
 
-  parameter SIpu.Conductance g_pg=0 "conductance ph-grd";
-  parameter SIpu.Conductance g_pp=0 "conductance ph_ph";
-  parameter SIpu.Susceptance b_pg=1 "susceptance ph-grd";
-  parameter SIpu.Susceptance b_pp=1/3 "susceptance ph-ph";
-protected
-  final parameter SI.Resistance[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
-  SI.Conductance G=(g_pg+3*g_pp)*GC_base[1];
-  SI.Conductance G0=g_pg*GC_base[1];
-  SI.Capacitance C=(b_pg+3*b_pp)*GC_base[2];
-  SI.Capacitance C0=b_pg*GC_base[2];
+    parameter SIpu.Conductance g_pg=0 "conductance ph-grd";
+    parameter SIpu.Conductance g_pp=0 "conductance ph_ph";
+    parameter SIpu.Susceptance b_pg=1 "susceptance ph-grd";
+    parameter SIpu.Susceptance b_pp=1/3 "susceptance ph-ph";
+  protected
+    final parameter SI.Resistance[2] GC_base=Utilities.Precalculation.baseGC(
+        puUnits,
+        V_nom,
+        S_nom,
+        2*pi*f_nom);
+    SI.Conductance G=(g_pg+3*g_pp)*GC_base[1];
+    SI.Conductance G0=g_pg*GC_base[1];
+    SI.Capacitance C=(b_pg+3*b_pp)*GC_base[2];
+    SI.Capacitance C0=b_pg*GC_base[2];
 
-initial equation
-  if dynType == Types.Dynamics.SteadyInitial then
-    der(v) = omega[1]*j_dq0(v);
-  end if;
+  initial equation
+    if dynType == Types.Dynamics.SteadyInitial then
+      der(v) = omega[1]*j_dq0(v);
+    end if;
 
-equation
-  if dynType <> Types.Dynamics.SteadyState then
-    diagonal({C,C,C0})*der(v) + omega[2]*C*j_dq0(v) + diagonal({G,G,G0})*v = i;
-  else
-    omega[2]*C*j_dq0(v) + diagonal({G,G,G0})*v = i;
-  end if;
-annotation (defaultComponentName = "cShunt1",
+  equation
+    if dynType <> Types.Dynamics.SteadyState then
+      diagonal({C,C,C0})*der(v) + omega[2]*C*j_dq0(v) + diagonal({G,G,G0})*v = i;
+    else
+      omega[2]*C*j_dq0(v) + diagonal({G,G,G0})*v = i;
+    end if;
+    annotation (defaultComponentName = "cShunt1",
   Documentation(
           info="<html>
 <p>Terminology.<br>
@@ -317,43 +325,47 @@ annotation (defaultComponentName = "cShunt1",
                  "b_pg")}));
 end CapacitiveShunt;
 
-model ReactiveShuntNonSym
+  model ReactiveShuntNonSym
     "Shunt reactor with parallel conductor non symmetric, 3-phase dq0"
-  extends Partials.ShuntBaseNonSym;
+    extends Partials.ShuntBaseNonSym;
 
-  parameter SIpu.Conductance[3] g={0,0,0} "conductance abc (parallel)";
-  parameter SIpu.Resistance[3] r={0,0,0} "resistance abc (serial)";
-  parameter SIpu.Reactance[3, 3] x=[1, 0, 0; 0, 1, 0; 0, 0, 1] "reactance abc";
-  SI.MagneticFlux[3] psi_x(each stateSelect=StateSelect.prefer) "magnetic flux";
+    parameter SIpu.Conductance[3] g={0,0,0} "conductance abc (parallel)";
+    parameter SIpu.Resistance[3] r={0,0,0} "resistance abc (serial)";
+    parameter SIpu.Reactance[3, 3] x=[1, 0, 0; 0, 1, 0; 0, 0, 1] "reactance abc";
+    SI.MagneticFlux[3] psi_x(each stateSelect=StateSelect.prefer) "magnetic flux";
   protected
-  final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom);
-  final parameter SI.Conductance[3] G_abc=g/RL_base[1];
-  final parameter SI.Reactance[3] R_abc=r*RL_base[1];
-  final parameter SI.Inductance[3, 3] L_abc=x*RL_base[2];
-  SI.Conductance[3, 3] G;
-  SI.Resistance[3, 3] R;
-  SI.Inductance[3, 3] L;
-  PS.Current[3] i_x;
+    final parameter SI.Resistance[2] RL_base=Utilities.Precalculation.baseRL(
+        puUnits,
+        V_nom,
+        S_nom,
+        2*pi*f_nom);
+    final parameter SI.Conductance[3] G_abc=g/RL_base[1];
+    final parameter SI.Reactance[3] R_abc=r*RL_base[1];
+    final parameter SI.Inductance[3, 3] L_abc=x*RL_base[2];
+    SI.Conductance[3, 3] G;
+    SI.Resistance[3, 3] R;
+    SI.Inductance[3, 3] L;
+    PS.Current[3] i_x;
 
-initial equation
-  if dynType == Types.Dynamics.SteadyInitial then
-    der(psi_x[1:2]) = omega[1]*j_dq0(psi_x[1:2]);
-    psi_x[3] = 0;
-  end if;
+  initial equation
+    if dynType == Types.Dynamics.SteadyInitial then
+      der(psi_x[1:2]) = omega[1]*j_dq0(psi_x[1:2]);
+      psi_x[3] = 0;
+    end if;
 
-equation
-  L = Park*L_abc*transpose(Park);
-  R = Park*diagonal(R_abc)*transpose(Park);
-  G = Park*diagonal(G_abc)*transpose(Park);
+  equation
+    L = Park*L_abc*transpose(Park);
+    R = Park*diagonal(R_abc)*transpose(Park);
+    G = Park*diagonal(G_abc)*transpose(Park);
 
-  i_x = i - G*v;
-  psi_x = L*(i - G*v);
-  if dynType <> Types.Dynamics.SteadyState then
-    der(psi_x) + omega[2]*j_dq0(psi_x) + R*i_x = v;
-  else
-    omega[2]*j_dq0(psi_x) + R*i_x = v;
-  end if;
-annotation (defaultComponentName = "xShuntNonSym",
+    i_x = i - G*v;
+    psi_x = L*(i - G*v);
+    if dynType <> Types.Dynamics.SteadyState then
+      der(psi_x) + omega[2]*j_dq0(psi_x) + R*i_x = v;
+    else
+      omega[2]*j_dq0(psi_x) + R*i_x = v;
+    end if;
+    annotation (defaultComponentName = "xShuntNonSym",
   Documentation(
           info="<html>
 <p>Reactive shunt with general reactance matrix and parallel conductor, defined in abc inertial system.<br>
@@ -450,45 +462,49 @@ Use only if 'non symmetric' is really desired because this component needs a tim
           Line(points={{60,38},{60,62}}, color={0,0,255}),
           Line(points={{60,-12},{60,12}}, color={0,0,255}),
           Line(points={{60,-62},{60,-38}}, color={0,0,255})}));
-end ReactiveShuntNonSym;
+  end ReactiveShuntNonSym;
 
-model CapacitiveShuntNonSym
+  model CapacitiveShuntNonSym
     "Shunt capacitor with parallel conductor non symmetric, 3-phase dq0, pp pg"
-  extends Partials.ShuntBaseNonSym;
+    extends Partials.ShuntBaseNonSym;
 
-  parameter SIpu.Conductance[3] g_pg={0,0,0} "conductance ph-grd abc";
-  parameter SIpu.Conductance[3] g_pp={0,0,0} "conductance ph_ph abc";
-  parameter SIpu.Susceptance[3] b_pg={1,1,1} "susceptance ph-grd abc";
-  parameter SIpu.Susceptance[3] b_pp={1,1,1}/3 "susceptance ph-ph abc";
-  SI.ElectricCharge[3] q(each stateSelect=StateSelect.prefer) "electric charge";
+    parameter SIpu.Conductance[3] g_pg={0,0,0} "conductance ph-grd abc";
+    parameter SIpu.Conductance[3] g_pp={0,0,0} "conductance ph_ph abc";
+    parameter SIpu.Susceptance[3] b_pg={1,1,1} "susceptance ph-grd abc";
+    parameter SIpu.Susceptance[3] b_pp={1,1,1}/3 "susceptance ph-ph abc";
+    SI.ElectricCharge[3] q(each stateSelect=StateSelect.prefer) "electric charge";
   protected
-  final parameter SI.Resistance[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
-  final parameter SI.Conductance[3,3] G_abc=(diagonal(g_pg)+
-    [g_pp[2]+g_pp[3],-g_pp[3],-g_pp[2];-g_pp[3],g_pp[3]+g_pp[1],-g_pp[1];-g_pp[2],-g_pp[1],g_pp[1]+g_pp[2]])
-    *GC_base[1];
-  final parameter SI.Capacitance[3,3] C_abc=(diagonal(b_pg)+
-    [b_pp[2]+b_pp[3],-b_pp[3],-b_pp[2];-b_pp[3],b_pp[3]+b_pp[1],-b_pp[1];-b_pp[2],-b_pp[1],b_pp[1]+b_pp[2]])
-    *GC_base[2];
-  SI.Conductance[3, 3] G;
-  SI.Capacitance[3, 3] C;
+    final parameter SI.Resistance[2] GC_base=Utilities.Precalculation.baseGC(
+        puUnits,
+        V_nom,
+        S_nom,
+        2*pi*f_nom);
+    final parameter SI.Conductance[3,3] G_abc=(diagonal(g_pg)+
+      [g_pp[2]+g_pp[3],-g_pp[3],-g_pp[2];-g_pp[3],g_pp[3]+g_pp[1],-g_pp[1];-g_pp[2],-g_pp[1],g_pp[1]+g_pp[2]])
+      *GC_base[1];
+    final parameter SI.Capacitance[3,3] C_abc=(diagonal(b_pg)+
+      [b_pp[2]+b_pp[3],-b_pp[3],-b_pp[2];-b_pp[3],b_pp[3]+b_pp[1],-b_pp[1];-b_pp[2],-b_pp[1],b_pp[1]+b_pp[2]])
+      *GC_base[2];
+    SI.Conductance[3, 3] G;
+    SI.Capacitance[3, 3] C;
 
-initial equation
-  if dynType == Types.Dynamics.SteadyInitial then
-    der(q[1:2]) = omega[1]*j_dq0(q[1:2]);
-    q[3] = 0;
-  end if;
+  initial equation
+    if dynType == Types.Dynamics.SteadyInitial then
+      der(q[1:2]) = omega[1]*j_dq0(q[1:2]);
+      q[3] = 0;
+    end if;
 
-equation
-  C = Park*C_abc*transpose(Park);
-  G = Park*G_abc*transpose(Park);
+  equation
+    C = Park*C_abc*transpose(Park);
+    G = Park*G_abc*transpose(Park);
 
-  q = C*v;
-  if dynType <> Types.Dynamics.SteadyState then
-    der(q) + omega[2]*j_dq0(q) + G*v = i;
-  else
-    omega[2]*j_dq0(q) + G*v = i;
-  end if;
-annotation (defaultComponentName = "cShuntNonSym",
+    q = C*v;
+    if dynType <> Types.Dynamics.SteadyState then
+      der(q) + omega[2]*j_dq0(q) + G*v = i;
+    else
+      omega[2]*j_dq0(q) + G*v = i;
+    end if;
+    annotation (defaultComponentName = "cShuntNonSym",
   Documentation(
           info="<html>
 <p>Capacitive shunt with general susceptance matrix and parallel conductor, defined in abc inertial system.<br>
@@ -666,14 +682,14 @@ Use only if 'non symmetric' is really desired because this component needs a tim
             lineColor={0,0,255},
             textString=
                  "g_pg")}));
-end CapacitiveShuntNonSym;
+  end CapacitiveShuntNonSym;
 
   package Partials "Partial models"
     extends Modelica.Icons.BasesPackage;
 
     partial model ShuntBase "Shunt base, 3-phase dq0"
       extends Ports.Port_p;
-      extends Basic.Nominal.NominalAC;
+      extends Common.Nominal.NominalAC;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
         annotation(Evaluate=true, Dialog(tab="Mode"));
@@ -722,7 +738,7 @@ end CapacitiveShuntNonSym;
       extends ShuntBase;
 
     protected
-      Real[3,3] Park = Basic.Transforms.park(term.theta[2]);
+      Real[3,3] Park=Utilities.Transforms.park(term.theta[2]);
       annotation (
         Documentation(
       info="<html>
@@ -735,7 +751,7 @@ transformation of general impedance matrices from abc rest- to general dq0-syste
 
   end Partials;
 
-annotation (preferredView="info",
+  annotation (preferredView="info",
     Documentation(info="<html>
 <p>Info see package ACdq0.Impedances.</p>
 </html>

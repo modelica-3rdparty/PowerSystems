@@ -302,8 +302,13 @@ and eddy current losses.</p>
 
       outer System system;
       constant Real tc=0.01 "time constant tap-chg switching";
-      final parameter PS.Voltage[2] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
-      final parameter Real[2, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
+      final parameter PS.Voltage[2] V_base=Utilities.Precalculation.baseTrafoV(
+                                                                           par.puUnits, par.V_nom);
+      final parameter Real[2,2] RL_base=Utilities.Precalculation.baseTrafoRL(
+              par.puUnits,
+              par.V_nom,
+              par.S_nom,
+              2*pi*par.f_nom);
       Real w_nom = par.V_nom[2]/par.V_nom[1] "nominal turns ratio";
       Real[2] dv_tap_pu = par.dv_tap .* V_base ./ par.V_nom;
       Real w1_set = (1 + (tap_1_internal - par.tap_neutral[1]) * dv_tap_pu[1])
@@ -513,8 +518,13 @@ For variable transformer ratio tap changer input needed.</p>
 
       outer System system;
       constant Real tc=0.01 "time constant tap-chg switching";
-      final parameter PS.Voltage[3] V_base=Basic.Precalculation.baseTrafoV(par.puUnits, par.V_nom);
-      final parameter Real[3, 2] RL_base=Basic.Precalculation.baseTrafoRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
+      final parameter PS.Voltage[3] V_base=Utilities.Precalculation.baseTrafoV(
+                                                                           par.puUnits, par.V_nom);
+      final parameter Real[3,2] RL_base=Utilities.Precalculation.baseTrafoRL(
+              par.puUnits,
+              par.V_nom,
+              par.S_nom,
+              2*pi*par.f_nom);
       Real wa_nom = par.V_nom[2]/par.V_nom[1] "nominal turns ratio";
       Real wb_nom = par.V_nom[3]/par.V_nom[1] "nominal turns ratio";
       Real[3] dv_tap_pu = par.dv_tap .* V_base ./ par.V_nom;
@@ -658,7 +668,7 @@ package Parameters "Parameter data for interactive use"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 record TrafoIdeal1ph "Parameters for ideal transformer, 1-phase"
-  extends Basic.Nominal.NominalDataTrafo;
+  extends Common.Nominal.NominalDataTrafo;
   Integer[2] tap_neutral={0, 0} "{1,2}: neutral tap position"
     annotation(Dialog(group="Options"));
   SIpu.Voltage[2] dv_tap={0, 0} "{1,2}: delta-v per tap change"
@@ -712,7 +722,8 @@ record Trafo3Ideal1ph "Parameters for ideal transformer, 1-phase"
     annotation(Dialog(group="Options"));
   SIpu.Voltage[3] dv_tap={0, 0, 0} "{1,2a,2b}: delta-v per tap change"
     annotation(Dialog(group="Options"));
-  extends Basic.Nominal.NominalDataTrafo(V_nom={1,1,1}
+  extends Common.Nominal.NominalDataTrafo(
+                                         V_nom={1,1,1}
     "{prim,sec_a,sec_b} nom Voltage (= base if pu)");
   annotation (defaultComponentName="data",
     defaultComponentPrefixes="parameter",

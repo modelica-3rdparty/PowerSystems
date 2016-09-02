@@ -1,9 +1,9 @@
-within PowerSystems.Basic;
+within PowerSystems.Utilities;
 package Precalculation "Precalculation functions"
-    extends Modelica.Icons.Package;
+  extends Modelica.Icons.Package;
 
   function baseV "Base voltage"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Boolean puUnits "= true if pu else SI units";
     input SI.Voltage V_nom "nom voltage";
@@ -30,7 +30,7 @@ package Precalculation "Precalculation functions"
   end baseV;
 
   function baseI "Base current"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Boolean puUnits "= true if pu else SI units";
     input SI.Voltage V_nom "nom voltage";
@@ -58,7 +58,7 @@ package Precalculation "Precalculation functions"
   end baseI;
 
   function baseS "Base power"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Boolean puUnits "= true if pu else SI units";
     input SI.ApparentPower S_nom "apparent power";
@@ -85,7 +85,7 @@ package Precalculation "Precalculation functions"
   end baseS;
 
   function baseR "Base resistance"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Boolean puUnits "= true if pu else SI units";
     input SI.Voltage V_nom "nom voltage";
@@ -114,7 +114,7 @@ package Precalculation "Precalculation functions"
   end baseR;
 
   function baseL "Base inductance"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Boolean puUnits "= true if pu else SI units";
     input SI.Voltage V_nom "nom voltage";
@@ -145,7 +145,7 @@ Therefore the SI-value is 1 and not 1/omega_nom. The function is needed for DC-m
   end baseL;
 
   function baseRL "Base resistance and inductance"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Boolean puUnits "= true if pu else SI units";
     input SI.Voltage V_nom "nom voltage";
@@ -175,7 +175,7 @@ Therefore the SI-value is 1 and not 1/omega_nom. The function is needed for DC-m
   end baseRL;
 
   function baseGC "Base conductance and capacitance"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Boolean puUnits "= true if pu else SI units";
     input SI.Voltage V_nom "nom voltage";
@@ -205,7 +205,7 @@ Therefore the SI-value is 1 and not 1/omega_nom. The function is needed for DC-m
   end baseGC;
 
   function baseTrafoV "Base voltage transformers"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Boolean puUnits "= true if pu else SI units";
     input SI.Voltage[:] V_nom "nom voltage {prim, sec} or {prim, sec1, sec2}";
@@ -233,7 +233,7 @@ Therefore the SI-value is 1 and not 1/omega_nom. The function is needed for DC-m
   end baseTrafoV;
 
   function baseTrafoRL "Base resistance and inductance transformers"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Boolean puUnits "= true if pu else SI units";
     input SI.Voltage[:] V_nom "nom voltage {prim, sec} or {prim, sec1, sec2}";
@@ -267,17 +267,17 @@ The secondary side is winding-reduced to the primary, as the equations are writt
   end baseTrafoRL;
 
   function machineDCser "Calculates coefficients of DC-machine series excited"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input AC1ph_DC.Machines.Parameters.DCser p "parameters DC machine series";
     output AC1ph_DC.Machines.Coefficients.DCser c
       "coefficients DC machine series";
   protected
     final parameter SI.AngularVelocity w_el_nom=p.pp*p.w_nom;
-    final parameter SI.Resistance R_base=Basic.Precalculation.baseR(
+    final parameter SI.Resistance R_base=Utilities.Precalculation.baseR(
                                                p.puUnits, p.V_nom, p.S_nom)
       "base resistance";
-    final parameter SI.Inductance L_base=Basic.Precalculation.baseL(
+    final parameter SI.Inductance L_base=Utilities.Precalculation.baseL(
                                                p.puUnits, p.V_nom, p.S_nom, w_el_nom)
       "base resistance";
 
@@ -292,17 +292,17 @@ The secondary side is winding-reduced to the primary, as the equations are writt
 
   function machineDCpar
     "Calculates coefficients of DC-machine parallel excited"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input AC1ph_DC.Machines.Parameters.DCpar p "parameters DC machine parallel";
     output AC1ph_DC.Machines.Coefficients.DCpar c
       "coefficients DC machine parallel";
   protected
     final parameter SI.AngularVelocity w_el_nom=p.pp*p.w_nom;
-    final parameter SI.Resistance R_base=Basic.Precalculation.baseR(
+    final parameter SI.Resistance R_base=Utilities.Precalculation.baseR(
                                                p.puUnits, p.V_nom, p.S_nom)
       "base resistance";
-    final parameter SI.Inductance L_base=Basic.Precalculation.baseL(
+    final parameter SI.Inductance L_base=Utilities.Precalculation.baseL(
                                                p.puUnits, p.V_nom, p.S_nom, w_el_nom)
       "base resistance";
     SI.AngularFrequency w_el_lim;
@@ -318,16 +318,16 @@ The secondary side is winding-reduced to the primary, as the equations are writt
   end machineDCpar;
 
   function machineDCpm "Calculates coefficients of DC-machine permanent magnet"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input AC1ph_DC.Machines.Parameters.DCpm p "parameters DC machine pm";
     output AC1ph_DC.Machines.Coefficients.DCpm c "coefficients DC machine pm";
   protected
     final parameter SI.AngularVelocity w_el_nom=p.pp*p.w_nom;
-    final parameter SI.Resistance R_base=Basic.Precalculation.baseR(
+    final parameter SI.Resistance R_base=Utilities.Precalculation.baseR(
                                                p.puUnits, p.V_nom, p.S_nom)
       "base resistance";
-    final parameter SI.Inductance L_base=Basic.Precalculation.baseL(
+    final parameter SI.Inductance L_base=Utilities.Precalculation.baseL(
                                                p.puUnits, p.V_nom, p.S_nom, w_el_nom)
       "base resistance";
 
@@ -342,7 +342,7 @@ The secondary side is winding-reduced to the primary, as the equations are writt
 
   function machineAsyn
     "Calculates coefficient matrices of asynchronous machine"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input AC3ph.Machines.Parameters.Asynchron p
       "parameters asynchronous machine";
@@ -352,7 +352,7 @@ The secondary side is winding-reduced to the primary, as the equations are writt
   protected
     final parameter Integer n_r=p.n_r "number of rotor circuits";
     final parameter SI.AngularFrequency omega_nom=2*pi*p.f_nom;
-    final parameter Real[2] RL_base=Basic.Precalculation.baseRL(
+    final parameter Real[2] RL_base=Utilities.Precalculation.baseRL(
                                            p.puUnits, p.V_nom, p.S_nom, omega_nom, scale)
       "base resistance inductance";
 
@@ -397,7 +397,7 @@ See also equivalent circuit on 'Diagram layer' of
 
   function machineSyn3rd
     "Calculates coefficient matrices of synchronous machine, 3rd order"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input AC3ph.Machines.Parameters.Synchron3rd p
       "parameters synchronous machine 3rd order";
@@ -406,7 +406,7 @@ See also equivalent circuit on 'Diagram layer' of
       "coefficient matrices synchronous machine 3rd order";
   protected
     final parameter SI.AngularFrequency omega_nom=2*pi*p.f_nom;
-    final parameter Real[2] RL_base=Basic.Precalculation.baseRL(
+    final parameter Real[2] RL_base=Utilities.Precalculation.baseRL(
                                            p.puUnits, p.V_nom, p.S_nom, omega_nom, scale)
       "base resistance inductance";
 
@@ -423,7 +423,7 @@ See also equivalent circuit on 'Diagram layer' of
   end machineSyn3rd;
 
   function machineSyn "Calculates coefficient matrices of synchronous machine"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input AC3ph.Machines.Parameters.Synchron p "parameters synchronous machine";
     input Integer scale=1 "scaling factor topology (Y:1, Delta:3)";
@@ -434,7 +434,7 @@ See also equivalent circuit on 'Diagram layer' of
     final parameter Integer n_d=p.n_d "number of rotor circuits d-axis";
     final parameter Integer n_q=p.n_q "number of rotor circuits q-axis";
     final parameter SI.AngularFrequency omega_nom=2*pi*p.f_nom;
-    final parameter Real[2] RL_base=Basic.Precalculation.baseRL(
+    final parameter Real[2] RL_base=Utilities.Precalculation.baseRL(
                                            p.puUnits, p.V_nom, p.S_nom, omega_nom, scale)
       "base resistance inductance";
     final parameter SI.Current If_base=(p.x_d - p.xsig_s)*p.If_nom;
@@ -500,7 +500,7 @@ See also equivalent circuit on 'Diagram layer' of
   end machineSyn;
 
   function polyCoef "Calculates polynome coefficients from time constants"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
     input SI.Angle[:] T "time constant";
     output Real[size(T,1)] a "coefficients of polynome";
   protected
@@ -512,17 +512,17 @@ See also equivalent circuit on 'Diagram layer' of
       a[1:k] := cat(1, {a[1] + T[k]}, a[2:k] + a[1:k-1]*T[k]);
     end for;
   annotation (Documentation(info="<html>
-<p>This function is related to <a href=\"modelica://PowerSystems.Basic.Math.polyCoefReal\">Math.polyCoefReal</a>, but modified for polynomes of the form
+<p>This function is related to <a href=\"modelica://PowerSystems.Utilities.Math.polyCoefReal\">Math.polyCoefReal</a>, but modified for polynomes of the form
 <pre>  product(1 + p*T[k]), k in 1:n</pre>
 with real time constants <tt>T</tt>. It calculates the <tt>n</tt> coefficients of the powers 1:n of <tt>p</tt>
 <pre>  a[k] for k in 1:n</pre>i.e. the constant factor 1 is omitted.</p>
-<p>See also <a href=\"modelica://PowerSystems.Basic.Precalculation.polyTime\">polyTime</a></p>
+<p>See also <a href=\"modelica://PowerSystems.Utilities.Precalculation.polyTime\">polyTime</a></p>
 </html>"));
   end polyCoef;
 
   function polyTime "Calculates time constants from polynome coefficients"
 
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Real[:] a "coefficients of polynome";
     output SI.Angle[size(a,1)] T "time constant";
@@ -533,7 +533,7 @@ with real time constants <tt>T</tt>. It calculates the <tt>n</tt> coefficients o
     Real[n, n] A;
     Real[n,2] lam "2nd index=1:2, real and imaginary part";
     import Modelica.Math.Matrices.eigenValues;
-    import PowerSystems.Basic.Math.sortDown;
+    import PowerSystems.Utilities.Math.sortDown;
 
   algorithm
     A[1, 1:n] := -cat(1, a[n-1:-1:1], {1})/a[n];
@@ -544,18 +544,18 @@ with real time constants <tt>T</tt>. It calculates the <tt>n</tt> coefficients o
     T := -ones(n)./lam[n:-1:1,1];
     T := sortDown(T);
   annotation(Documentation(info="<html>
-<p>This function is related to <a href=\"modelica://PowerSystems.Basic.Math.polyRoots\">Math.polyRoots</a>, but modified for polynomes of the form
+<p>This function is related to <a href=\"modelica://PowerSystems.Utilities.Math.polyRoots\">Math.polyRoots</a>, but modified for polynomes of the form
 <pre>  product(1 + p*T[k]), k in 1:n</pre>
 It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and herefrom <tt>T</tt>. The time constants are sorted in descending order.</p>
 <p>A boolean variable <tt>Tisreal</tt> indicates whether all time constants are real or not.</p>
-<p>See also <a href=\"modelica://PowerSystems.Basic.Precalculation.polyCoef\">polyCoef</a></p>
+<p>See also <a href=\"modelica://PowerSystems.Utilities.Precalculation.polyCoef\">polyCoef</a></p>
 </html>
 "));
   end polyTime;
 
   function x_transient
     "Calculates x_transient from x, T_closed, and T_open, forward transform"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Real x(unit="1") "total or syn reactance";
     input SI.Angle[:] Tc "time constant closed-loop";
@@ -588,7 +588,7 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
 
   function T_closed
     "Calculates T_closed from x, x_transient, and T_open, backward transform"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input SIpu.Reactance x(unit="1") "total or syn reactance";
     input SIpu.Reactance[:] xtr(each unit="1") "transient reactance";
@@ -609,7 +609,7 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
 
   function T_open
     "Calculates T_open from x, x_transient, and T_closed, backward transform"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input SIpu.Reactance x(unit="1") "total or syn reactance";
     input SIpu.Reactance[:] xtr(each unit="1") "transient reactance";
@@ -639,10 +639,10 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
   end T_open;
 
   function i_field "Calculates complex field current"
-    extends PowerSystems.Basic.Icons.Function;
-    import PowerSystems.Basic.Complex.ComplexType;
-    import PowerSystems.Basic.Complex.re;
-    import PowerSystems.Basic.Complex.im;
+    extends Modelica.Icons.Function;
+    import PowerSystems.Utilities.Complex.ComplexType;
+    import PowerSystems.Utilities.Complex.re;
+    import PowerSystems.Utilities.Complex.im;
 
     input SIpu.Reactance[:] xm2_n(each unit="1") "approximate value of xm[2:n]";
     input Real[:] x_opt "additional input arguments";
@@ -699,7 +699,7 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
   end i_field;
 
   function Tsig_xsig "Calculates Tsig and xsig"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Integer n "transient order";
     input Real[n] ac "polynome coefficient closed loop";
@@ -795,7 +795,7 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
   end Tsig_xsig;
 
   function z_fromTransDat "Calculates impedance matrix z from transient data"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Integer n "transient order";
     input SI.Angle[n] Tc "time constant closed-loop";
@@ -818,7 +818,7 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     Real[n] Tsig;
     Real[n] xsig;
     Boolean result;
-    import PowerSystems.Basic.Math.fminSearch;
+    import PowerSystems.Utilities.Math.fminSearch;
 
   algorithm
     if n==0 then
@@ -856,7 +856,7 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
   end z_fromTransDat;
 
   function z_fromEqCirc "Calculates impedance matrix z from equivalent circuit"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Integer n "transient order";
     input SIpu.Reactance x(unit="1") "total or syn reactance";
@@ -882,7 +882,7 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
   end z_fromEqCirc;
 
   function equiCircuit "Calculates equivalent circuit from transient data"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Integer n "transient order";
     input SI.Angle[n] Tc "time constant closed-loop";
@@ -904,7 +904,7 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     Real[n] Tsig;
     Real dif;
     Boolean result;
-    import PowerSystems.Basic.Math.fminSearch;
+    import PowerSystems.Utilities.Math.fminSearch;
 
   algorithm
     xm := cat(1, zeros(n), {x - xsig_s});
@@ -940,7 +940,7 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
   end equiCircuit;
 
   function transientData "Calculates transient data from equivalent circuit"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Integer n "transient order";
     input SIpu.Reactance x(unit="1") "total or syn reactance";
@@ -961,7 +961,7 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
     Real[n] sRinv;
     Real[n,2] lam "2nd index=1:2, real and imaginary part";
     import Modelica.Math.Matrices.eigenValues;
-    import PowerSystems.Basic.Math.sortDown;
+    import PowerSystems.Utilities.Math.sortDown;
 
   algorithm
     xm := cat(1, {0}, xm2_n, {x - xsig_s});

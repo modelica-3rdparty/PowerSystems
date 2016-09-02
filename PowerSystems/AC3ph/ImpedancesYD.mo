@@ -8,7 +8,11 @@ package ImpedancesYD
 
     parameter SIpu.Resistance r=1 "resistance";
   protected
-    final parameter SI.Resistance R=r*Basic.Precalculation.baseR(puUnits, V_nom, S_nom, top.scale);
+    final parameter SI.Resistance R=r*Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom,
+          top.scale);
 
   equation
     R*i = v;
@@ -56,7 +60,11 @@ package ImpedancesYD
 
     parameter SIpu.Conductance g=1 "conductance";
   protected
-    final parameter SI.Conductance G=g/Basic.Precalculation.baseR(puUnits, V_nom, S_nom, top.scale);
+    final parameter SI.Conductance G=g/Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom,
+          top.scale);
 
   equation
     G*v = i;
@@ -105,7 +113,12 @@ package ImpedancesYD
     parameter SIpu.Reactance x_s=1 "self reactance";
     parameter SIpu.Reactance x_m=0 "mutual reactance, -x_s/2 < x_m < x_s";
   protected
-    final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom, top.scale);
+    final parameter SI.Resistance[2] RL_base=Utilities.Precalculation.baseRL(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom,
+          top.scale);
     final parameter SI.Resistance R=r*RL_base[1];
     final parameter SI.Inductance L=(x_s-x_m)*RL_base[2];
     final parameter SI.Inductance L0=(x_s+2*x_m)*RL_base[2];
@@ -204,7 +217,12 @@ package ImpedancesYD
     parameter SIpu.Conductance g=0 "conductance";
     parameter SIpu.Susceptance b=1 "susceptance";
   protected
-    final parameter SI.Resistance[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom, top.scale);
+    final parameter SI.Resistance[2] GC_base=Utilities.Precalculation.baseGC(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom,
+          top.scale);
     final parameter SI.Conductance G=g*GC_base[1];
     final parameter SI.Capacitance C=b*GC_base[2];
 
@@ -320,7 +338,11 @@ package ImpedancesYD
 
     parameter SIpu.Resistance[3] r={1,1,1} "resistance[3] abc";
   protected
-    final parameter SI.Resistance[3] R_abc=r*Basic.Precalculation.baseR(puUnits, V_nom, S_nom, top.scale);
+    final parameter SI.Resistance[3] R_abc=r*Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom,
+          top.scale);
     SI.Resistance[3, 3] R;
 
   equation
@@ -380,7 +402,12 @@ Use only if 'non symmetric' is really desired because this component needs a tim
       "reactance[3,3] abc";
     SI.MagneticFlux[3] psi(each stateSelect=StateSelect.prefer) "magnetic flux";
   protected
-    final parameter SI.Resistance[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom, top.scale);
+    final parameter SI.Resistance[2] RL_base=Utilities.Precalculation.baseRL(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom,
+          top.scale);
     final parameter SI.Resistance[3] R_abc=r*RL_base[1];
     final parameter SI.Inductance[3, 3] L_abc=x*RL_base[2];
     SI.Resistance[3, 3] R;
@@ -494,7 +521,12 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     SI.ElectricCharge[3] q(each stateSelect=StateSelect.prefer)
       "electric charge";
   protected
-    final parameter SI.Resistance[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom, top.scale);
+    final parameter SI.Resistance[2] GC_base=Utilities.Precalculation.baseGC(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom,
+          top.scale);
     final parameter SI.Conductance[3] G_abc=g*GC_base[1];
     final parameter SI.Capacitance[3] C_abc=b*GC_base[2];
     SI.Conductance[3, 3] G;
@@ -625,8 +657,11 @@ Use only if 'non symmetric' is really desired because this component needs a tim
     PS.Voltage[3] v_abc;
     PS.Current[3] i_abc(start=zeros(3));
   protected
-    final parameter Real V0=(v0*Basic.Precalculation.baseV(puUnits, V_nom));
-    final parameter Real H0=(r0*Basic.Precalculation.baseR(puUnits, V_nom, S_nom)/V0);
+    final parameter Real V0=(v0*Utilities.Precalculation.baseV(puUnits, V_nom));
+    final parameter Real H0=(r0*Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom)/V0);
 
   equation
     i_abc = transpose(Park)*i;
@@ -682,14 +717,17 @@ Use only if 'non symmetric' is really desired because this component needs a tim
 
     partial model ImpedYDBase "One terminal impedance base, 3-phase dq0"
       extends Ports.YDport_p;
-      extends Basic.Nominal.NominalAC;
+      extends Common.Nominal.NominalAC;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
         annotation(Evaluate=true, Dialog(tab="Mode"));
       parameter SIpu.Resistance r_n=1 "resistance neutral to grd"
         annotation(Dialog(enable));
     protected
-      final parameter SI.Resistance R_n=r_n*Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
+      final parameter SI.Resistance R_n=r_n*Utilities.Precalculation.baseR(
+              puUnits,
+              V_nom,
+              S_nom);
       SI.AngularFrequency[2] omega;
 
     equation
@@ -725,7 +763,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
       extends ImpedYDBase;
 
     protected
-      Real[3,3] Park = Basic.Transforms.park(term.theta[2]);
+      Real[3,3] Park=Utilities.Transforms.park(term.theta[2]);
       annotation (
         Documentation(
       info="<html>

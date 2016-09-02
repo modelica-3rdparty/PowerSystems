@@ -1,20 +1,20 @@
-within PowerSystems.Basic;
+within PowerSystems.Utilities;
 package Transforms "Transform functions"
-    extends Modelica.Icons.Package;
+  extends Modelica.Icons.Package;
 
-    constant Real[3, 3] Park0=[[2, -1, -1]/sqrt(6); [0, 1, -1]/sqrt(2); [1, 1, 1]/sqrt(3)]
+  constant Real[3, 3] Park0=[[2, -1, -1]/sqrt(6); [0, 1, -1]/sqrt(2); [1, 1, 1]/sqrt(3)]
     "Orthogonal transform = Park(theta=0)";
-    constant Real[3, 3] J_abc=[0,-1,1; 1,0,-1; -1,1,0]/sqrt(3)
+  constant Real[3, 3] J_abc=[0,-1,1; 1,0,-1; -1,1,0]/sqrt(3)
     "Rotation (pi/2) around {1,1,1} and projection on orth plane";
-    //constant Real[3, 3] J_abc=skew(fill(sqrt(1/3), 3))/ "alternative";
-    //J_abc = P0'*J_dq0*P0 = Park'*J_dq0*Park
-    constant Real[3, 3] J_dq0=[0,-1,0; 1,0,0; 0,0,0]
+  //constant Real[3, 3] J_abc=skew(fill(sqrt(1/3), 3))/ "alternative";
+  //J_abc = P0'*J_dq0*P0 = Park'*J_dq0*Park
+  constant Real[3, 3] J_dq0=[0,-1,0; 1,0,0; 0,0,0]
     "Rotation (pi/2) around {0,0,1} and projection on orth plane";
-    //J_dq0 = P0*J_abc*P0' = Park*J_abc*Park'
+  //J_dq0 = P0*J_abc*P0' = Park*J_abc*Park'
 
-    function j_abc
+  function j_abc
     "Rotation(pi/2) of vector around {1,1,1} and projection on orth plane"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[3] u "vector (voltage, current)";
       output Real[3] y "rotated vector (voltage, current)";
@@ -44,7 +44,7 @@ is
 
     function jj_abc
     "Rotation(pi/2) of vector around {1,1,1} and projection on orth plane"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[3,:] u "array of 3-vectors (voltage, current)";
       output Real[3,size(u,2)] y "array of rotated vectors (voltage, current)";
@@ -55,14 +55,14 @@ is
       y := s13*{u[3,:]-u[2,:], u[1,:]-u[3,:], u[2,:]-u[1,:]};
       annotation (Inline=true, smoothOrder=2,
     Documentation(info="<html>
-<p>The function <tt>jj_abc(u)</tt> corresponds to <a href=\"modelica://PowerSystems.Basic.Transforms.j_abc\">j_abc</a> but has a matrix argument u.<br>
+<p>The function <tt>jj_abc(u)</tt> corresponds to <a href=\"modelica://PowerSystems.Utilities.Transforms.j_abc\">j_abc</a> but has a matrix argument u.<br>
 It acts on the first index in the same way as j_abc for all values of the second index.
 </html>"));
     end jj_abc;
 
     function j_dq0
     "Rotation(pi/2) of vector around {0,0,1} and projection on orth plane"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[:] u "vector (voltage, current)";
       output Real[size(u,1)] y "rotated vector (voltage, current)";
@@ -91,7 +91,7 @@ is
 
     function jj_dq0
     "Rotation(pi/2) of vector around {0,0,1} and projection on orth plane"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Real[:,:] u "array of 3- (or 2-) vectors (voltage, current)";
       output Real[size(u,1),size(u,2)] y
@@ -102,13 +102,13 @@ is
     //  y := cat(1, {-u[2,1:size(u,2)], u[1,1:size(u,2)]}, zeros(size(u,1)-2, size(u,2))); // preliminary until bug removed
       annotation (Inline=true, smoothOrder=2,
     Documentation(info="<html>
-<p>The function <tt>jj_dq0(u)</tt> corresponds to <a href=\"modelica://PowerSystems.Basic.Transforms.j_dq0\">j_dq0</a> but has a matrix argument u.<br>
+<p>The function <tt>jj_dq0(u)</tt> corresponds to <a href=\"modelica://PowerSystems.Utilities.Transforms.j_dq0\">j_dq0</a> but has a matrix argument u.<br>
 It acts on the first index in the same way as j_dq0 for all values of the second index.
 </html>"));
     end jj_dq0;
 
     function park "Park transform"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Modelica.SIunits.Angle theta "transformation angle";
       output Real[3,3] P "Park transformation matrix";
@@ -124,7 +124,7 @@ It acts on the first index in the same way as j_dq0 for all values of the second
       c := cos({theta, theta - dph_b, theta - dph_c});
       s := sin({theta, theta - dph_b, theta - dph_c});
       P := transpose([s23*c, -s23*s, {s13, s13, s13}]);
-      annotation (Inline=true, derivative = PowerSystems.Basic.Transforms.der_park,
+      annotation (Inline=true, derivative = PowerSystems.Utilities.Transforms.der_park,
     Documentation(info="<html>
 <p>The function <tt>park</tt> calculates the matrix <tt>P</tt> that transforms abc variables into dq0 variables with arbitrary angular orientation <tt>theta</tt>.<br>
 <tt>P</tt> can be factorised into a constant, angle independent orthogonal matrix <tt>P0</tt> and an angle-dependent rotation <tt>R</tt></p>
@@ -159,7 +159,7 @@ and
     end park;
 
     function der_park "Derivative of Park transform"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Modelica.SIunits.Angle theta "transformation angle";
       input Modelica.SIunits.AngularFrequency omega "d/dt theta";
@@ -177,14 +177,14 @@ and
       c := cos({theta, theta - dph_b, theta - dph_c});
       s := sin({theta, theta - dph_b, theta - dph_c});
       der_P := transpose([-s23omega*s, -s23omega*c, {0, 0, 0}]);
-    annotation(Inline=true, derivative(order=2) = PowerSystems.Basic.Transforms.der2_park,
+    annotation(Inline=true, derivative(order=2) = PowerSystems.Utilities.Transforms.der2_park,
     Documentation(info="<html>
 <p>First derivative of function park(theta) with respect to time.</p>
 </html>"));
     end der_park;
 
     function der2_park "2nd derivative of Park transform"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Modelica.SIunits.Angle theta "transformation angle";
       input Modelica.SIunits.AngularFrequency omega "d/dt theta";
@@ -211,7 +211,7 @@ and
     end der2_park;
 
     function rotation_dq "Rotation matrix dq"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Modelica.SIunits.Angle theta "rotation angle";
       output Real[2, 2] R_dq "rotation matrix";
@@ -223,7 +223,7 @@ and
       c :=  cos(theta);
       s :=  sin(theta);
       R_dq :=  [c, -s; s, c];
-      annotation (Inline=true, derivative = PowerSystems.Basic.Transforms.der_rotation_dq,
+      annotation (Inline=true, derivative = PowerSystems.Utilities.Transforms.der_rotation_dq,
     Documentation(info="<html>
 <p>The function <tt>rotation_dq</tt> calculates the matrix <tt>R_dq</tt> that is the restriction of <tt>R_dq0</tt> from dq0 to dq.</p>
 <p>The matrix <tt>R_dq0</tt> rotates dq0 variables around the o-axis in dq0-space with arbitrary angle <tt>theta</tt>.
@@ -252,7 +252,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     end rotation_dq;
 
     function der_rotation_dq "Derivative of rotation matrix dq"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Modelica.SIunits.Angle theta;
       input Modelica.SIunits.AngularFrequency omega "d/dt theta";
@@ -265,14 +265,14 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
       dc :=  -omega*sin(theta);
       ds :=   omega*cos(theta);
       der_R_dq :=  [dc, -ds; ds, dc];
-    annotation(Inline=true, derivative(order=2) = PowerSystems.Basic.Transforms.der2_rotation_dq,
+    annotation(Inline=true, derivative(order=2) = PowerSystems.Utilities.Transforms.der2_rotation_dq,
     Documentation(info="<html>
 <p>First derivative of function rotation_dq(theta) with respect to time.</p>
 </html>"));
     end der_rotation_dq;
 
     function der2_rotation_dq "2nd derivative of rotation matrix dq"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Modelica.SIunits.Angle theta;
       input Modelica.SIunits.AngularFrequency omega "d/dt theta";
@@ -297,7 +297,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     end der2_rotation_dq;
 
     function rotation_abc "Rotation matrix abc"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Modelica.SIunits.Angle theta "rotation angle";
       output Real[3,3] R_abc "rotation matrix";
@@ -316,7 +316,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
 
       g := {ac + c, ac + bs, ac - bs};
       R_abc := [g[{1,2,3}], g[{3,1,2}], g[{2,3,1}]];
-      annotation (Inline=true, derivative = PowerSystems.Basic.Transforms.der_rotation_abc,
+      annotation (Inline=true, derivative = PowerSystems.Utilities.Transforms.der_rotation_abc,
     Documentation(info="<html>
 <p>The function <tt>rotation_abc</tt> calculates the matrix <tt>R_abc</tt> that rotates abc variables around the {1,1,1}-axis in abc-space with arbitrary angle <tt>theta</tt>.
 <p>Using the definition
@@ -347,7 +347,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     end rotation_abc;
 
     function der_rotation_abc "Derivative of rotation matrix abc"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Modelica.SIunits.Angle theta;
       input Modelica.SIunits.AngularFrequency omega "d/dt theta";
@@ -367,14 +367,14 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
 
       dg := omega*{as - s, as + bc, as - bc};
       der_R_abc := [dg[{1,2,3}], dg[{3,1,2}], dg[{2,3,1}]];
-    annotation(Inline=true, derivative(order=2) = PowerSystems.Basic.Transforms.der2_rotation_abc,
+    annotation(Inline=true, derivative(order=2) = PowerSystems.Utilities.Transforms.der2_rotation_abc,
     Documentation(info="<html>
 <p>First derivative of function rotation_abc(theta) with respect to time.</p>
 </html>"));
     end der_rotation_abc;
 
     function der2_rotation_abc "2nd derivative of rotation matrix abc"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Modelica.SIunits.Angle theta;
       input Modelica.SIunits.AngularFrequency omega "d/dt theta";
@@ -407,7 +407,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     end der2_rotation_abc;
 
     function permutation "Permutation of vector components"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Integer s(min=-1,max=1) "(-1, 0, 1), numbers permutation";
       input Real[3] u "vector";
@@ -429,7 +429,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     end permutation;
 
     function der_permutation "Derivative of permutation of vector components"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Integer s(min=-1,max=1) "(-1, 0, 1), numbers permutation";
       input Real[3] u "vector";
@@ -444,7 +444,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
       else
         der_v := der_u;
       end if;
-    annotation(Inline=true, derivative(order2) = PowerSystems.Basic.Transforms.der2_permutation,
+    annotation(Inline=true, derivative(order2) = PowerSystems.Utilities.Transforms.der2_permutation,
     Documentation(info="<html>
 <p>First derivative of Transforms.permutation with respect to time.</p>
 </html>"));
@@ -452,7 +452,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
 
     function der2_permutation
     "2nd derivative of permutation of vector components"
-      extends PowerSystems.Basic.Icons.Function;
+      extends Modelica.Icons.Function;
 
       input Integer s(min=-1,max=1) "(-1, 0, 1), numbers permutation";
       input Real[3] u "vector";

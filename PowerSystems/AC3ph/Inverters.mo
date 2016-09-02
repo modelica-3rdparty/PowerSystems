@@ -3,7 +3,7 @@ package Inverters "Rectifiers and Inverters"
   extends Modelica.Icons.VariantsPackage;
 
 block Select "Select frequency and voltage-phasor type"
-  extends PowerSystems.Basic.Icons.Block;
+  extends PowerSystems.Icons.Block;
 
     parameter Types.SourceFrequency fType=PowerSystems.Types.SourceFrequency.System
       "frequency type" annotation (Evaluate=true, Dialog(group="Frequency"));
@@ -490,7 +490,7 @@ end InverterAverage;
         "current scaled to voltage in inertial abc representation";
     Real[3] s(each start = 0.5) "arc-length on characteristic";
     Real[3] switch "switch function in inertial abc representation";
-    Real[3,3] Park = Basic.Transforms.park(        AC.theta[2]);
+      Real[3,3] Park=Utilities.Transforms.park(AC.theta[2]);
 
   equation
     i_sc = transpose(Park)*AC.i*par.V_nom/par.I_nom;
@@ -627,7 +627,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
     constant Integer[3] ngt={2,4,6} "negative gates";
     PS.Voltage[3] v "voltage in inertial abc representation";
     Real[3] switch "switch function in inertial abc representation";
-    Real[3,3] Park = Basic.Transforms.park(        AC.theta[2]);
+      Real[3,3] Park=Utilities.Transforms.park(AC.theta[2]);
 
   equation
     for k in 1:3 loop
@@ -715,7 +715,7 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
         "current scaled to voltage in inertial abc representation";
     Real[3] s(each start = 0.5) "arc-length on characteristic";
     Real[3] switch "switch function in inertial abc representation";
-    Real[3,3] Park = Basic.Transforms.park(        AC.theta[2]);
+      Real[3,3] Park=Utilities.Transforms.park(AC.theta[2]);
 
   equation
     i_sc = transpose(Park)*AC.i*par.V_nom/par.I_nom;
@@ -932,7 +932,7 @@ package Partials "Partial models"
   extends Modelica.Icons.BasesPackage;
 
 partial model AC_DC_base "AC-DC base, 3-phase dq0"
-  extends PowerSystems.Basic.Icons.Inverter_dq0;
+  extends PowerSystems.Icons.Inverter_dq0;
   extends Ports.PortBase;
 
   Ports.ACdq0_n AC "AC 3-phase connection"
@@ -963,7 +963,8 @@ partial model SwitchEquation "Switch equation, 3-phase dq0"
 
   SI.Temperature[heat.m] T "component temperature";
   SI.HeatFlowRate[heat.m] Q_flow "component loss-heat flow";
-  function loss = Basic.Math.taylor "temp dependence of losses";
+  function loss = Utilities.Math.taylor
+                                    "temp dependence of losses";
 
 equation
   AC.v = v_dq0 + {0,0,sqrt(3)*vDC0};

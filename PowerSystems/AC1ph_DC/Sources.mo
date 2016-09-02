@@ -119,7 +119,7 @@ with variable amplitude when 'vType' is 'signal'.</p>
 
   model Battery "Battery"
     extends Ports.Port_n;
-    extends Basic.Nominal.Nominal;
+    extends Common.Nominal.Nominal;
 
     parameter Integer pol(min=-1,max=1)=-1 "grounding scheme"
       annotation(Evaluate=true,
@@ -129,7 +129,7 @@ with variable amplitude when 'vType' is 'signal'.</p>
     parameter SIpu.Voltage v0=1 "battery voltage";
     parameter Types.Charge_Ah Q_nom=1 "nominal Capacity";
   protected
-    final parameter Real V_base=Basic.Precalculation.baseV(puUnits, V_nom);
+    final parameter Real V_base=Utilities.Precalculation.baseV(puUnits, V_nom);
     PS.Voltage v;
     PS.Current i;
 
@@ -176,7 +176,7 @@ To be completed later with charging and discharging characteristic.</p>
 
     partial model VoltageBase "Voltage base"
       extends Ports.Port_n;
-      extends Basic.Nominal.Nominal(
+      extends Common.Nominal.Nominal(
                                  final S_nom=1);
 
       parameter Integer pol(min=-1,max=1)=-1 "grounding scheme"
@@ -188,7 +188,7 @@ To be completed later with charging and discharging characteristic.</p>
       Interfaces.Electric_p neutral "(use for grounding)"
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     protected
-      final parameter Real V_base=Basic.Precalculation.baseV(puUnits, V_nom);
+      final parameter Real V_base=Utilities.Precalculation.baseV(puUnits, V_nom);
 
     equation
       if pol==1 then

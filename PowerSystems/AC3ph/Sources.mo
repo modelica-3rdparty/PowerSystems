@@ -198,7 +198,11 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     final parameter SI.Angle alpha0(final fixed=false, start=0)
       "phase angle of voltage b r";
     final parameter PS.Voltage V(start=V_base)=v0*V_base;
-    final parameter Real[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*system.f_nom);
+    final parameter Real[2] RL_base=Utilities.Precalculation.baseRL(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*system.f_nom);
     final parameter SI.Resistance R=r*RL_base[1];
     final parameter SI.Inductance L = x*RL_base[2];
     final parameter SI.Inductance L0 = x0*RL_base[2];
@@ -387,13 +391,14 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
 
     partial model SourceBase "Voltage base, 3-phase dq0"
       extends Ports.Port_n;
-      extends Basic.Nominal.Nominal;
+      extends Common.Nominal.Nominal;
 
       Interfaces.Electric_p neutral "(use for grounding)"
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     protected
       outer System system;
-      final parameter PS.Voltage V_base=Basic.Precalculation.baseV(puUnits, V_nom);
+      final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
+                                                                   puUnits, V_nom);
       SI.Angle theta(stateSelect=StateSelect.prefer) "absolute angle";
 
     equation
@@ -489,7 +494,7 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
       extends SourceBase;
 
     protected
-      final parameter Real S_base=Basic.Precalculation.baseS(puUnits, S_nom);
+      final parameter Real S_base=Utilities.Precalculation.baseS(puUnits, S_nom);
 
     equation
       theta=system.theta;

@@ -3,7 +3,7 @@ package Custom "Custom models"
   extends Modelica.Icons.VariantsPackage;
 
 record SCparameter "Custom semiconductor parameters"
-  extends Basic.Nominal.NominalDataVI;
+  extends Common.Nominal.NominalDataVI;
 
   annotation (
     Documentation(

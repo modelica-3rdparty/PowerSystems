@@ -1,4 +1,4 @@
-within PowerSystems.Basic;
+within PowerSystems.Utilities;
 package Complex "Complex functions (auxiliary sub-package)"
   extends Modelica.Icons.Package;
 
@@ -9,7 +9,7 @@ package Complex "Complex functions (auxiliary sub-package)"
     "matrix representation of imaginary unit";
 
   function conjC "Conjugate value of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType conj_z "conjugate value of z";
@@ -21,7 +21,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end conjC;
 
   function absC "Absolute value of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output Real abs_z "absolute value of z";
@@ -33,7 +33,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end absC;
 
   function detC "Determinant of complex number matrix"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output Real det_z "determinant of z";
@@ -45,7 +45,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end detC;
 
   function invC "Inverse of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType inv_z "inverse of z";
@@ -57,7 +57,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end invC;
 
   function sumC "Sum of complex numbers"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType[          :] z "complex vector";
     output ComplexType s "sum of components of z";
@@ -72,7 +72,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end sumC;
 
   function prodC "Product of complex numbers"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType[          :] z "complex vector";
     output ComplexType p "product of components of z";
@@ -87,7 +87,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end prodC;
 
   function expI "Exponential of imaginary number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input Real phi "real argument";
     output ComplexType exp_jphi "exponential of j*phi";
@@ -104,7 +104,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end expI;
 
   function expC "Exponential of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType exp_z "exponential of z";
@@ -116,7 +116,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end expC;
 
   function powerC "Power of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     input Real alpha "exponent";
@@ -131,7 +131,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end powerC;
 
   function sqrtC "Square-root of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType sqrt_z "square-root of z";
@@ -145,7 +145,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end sqrtC;
 
   function logC "Logarithm of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType log_z "logarithm of z";
@@ -164,7 +164,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end logC;
 
   function cosC "Cosine of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType cos_z "cosine of z";
@@ -181,7 +181,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end cosC;
 
   function sinC "Sine of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType sin_z "sine of z";
@@ -198,7 +198,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end sinC;
 
   function tanC "Tangens of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType tan_z "tangens of z";
@@ -210,7 +210,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end tanC;
 
   function atanC "Arc-tangens of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType atan_z "arc-tangens of z";
@@ -226,7 +226,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end atanC;
 
   function coshC "Hyperbolic cosine of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType cosh_z "hyp cosine of z";
@@ -243,7 +243,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end coshC;
 
   function sinhC "Hyperbolic sine of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType sinh_z "hyp sine of z";
@@ -260,7 +260,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end sinhC;
 
   function tanhC "Hyperbolic tangens of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType tanh_z "hyp tangens of z";
@@ -272,7 +272,7 @@ package Complex "Complex functions (auxiliary sub-package)"
   end tanhC;
 
   function atanhC "Area-tangens-hyp of complex number"
-    extends PowerSystems.Basic.Icons.Function;
+    extends Modelica.Icons.Function;
 
     input ComplexType z "complex argument";
     output ComplexType atan_z "area-tangens-hyp of z";

@@ -812,7 +812,11 @@ end FaultTline;
 
     protected
       outer System system;
-      final parameter Real[2] RL_base=Basic.Precalculation.baseRL(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
+      final parameter Real[2] RL_base=Utilities.Precalculation.baseRL(
+              par.puUnits,
+              par.V_nom,
+              par.S_nom,
+              2*pi*par.f_nom);
       final parameter Real delta_len_km(final quantity="Length", final unit="km")=len/1e3/ne;
       final parameter SI.Resistance[2] R=par.r*delta_len_km*RL_base[1];
       final parameter SI.Inductance[2,2] L=([(par.x + par.x0),(par.x0 - par.x);(par.x0 - par.x),(par.x + par.x0)]/2)*delta_len_km*RL_base[2];
@@ -829,7 +833,11 @@ end FaultTline;
           PowerSystems.AC1ph_DC.Lines.Parameters.Line);
 
     protected
-      final parameter Real[2] GC_base=Basic.Precalculation.baseGC(par.puUnits, par.V_nom, par.S_nom, 2*pi*par.f_nom);
+      final parameter Real[2] GC_base=Utilities.Precalculation.baseGC(
+              par.puUnits,
+              par.V_nom,
+              par.S_nom,
+              2*pi*par.f_nom);
       final parameter SI.Conductance[2,2] G=[par.g_pg+par.g_pp,-par.g_pp;-par.g_pp,par.g_pg+par.g_pp]*delta_len_km*GC_base[1];
       final parameter SI.Capacitance[2,2] C=[par.b_pg+par.b_pp,-par.b_pp;-par.b_pp,par.b_pg+par.b_pp]*delta_len_km*GC_base[2];
 
@@ -847,7 +855,7 @@ package Parameters "Parameter data for interactive use"
  extends Modelica.Icons.MaterialPropertiesPackage;
 
   record RXline "RX-line parameters, 1-phase"
-    extends Basic.Nominal.NominalDataAC(
+    extends Common.Nominal.NominalDataAC(
                                      S_nom=100e6);
     SIpu.Resistance[2] r={0.1,0.1}*1e-3 "resistance/km";
     SIpu.Reactance_km x=1e-3 "reactance/km";

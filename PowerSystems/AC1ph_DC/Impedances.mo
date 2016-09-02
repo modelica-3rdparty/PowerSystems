@@ -7,7 +7,10 @@ package Impedances "Impedance and admittance two terminal"
 
     parameter SIpu.Resistance[2] r={1,1} "resistance";
   protected
-    final parameter SI.Resistance[2] R=r*Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
+    final parameter SI.Resistance[2] R=r*Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom);
 
   equation
     diagonal(R)*i = v;
@@ -45,7 +48,10 @@ package Impedances "Impedance and admittance two terminal"
 
     parameter SIpu.Conductance[2] g={1,1} "conductance";
   protected
-    final parameter SI.Conductance[2] G=g/Basic.Precalculation.baseR(puUnits, V_nom, S_nom);
+    final parameter SI.Conductance[2] G=g/Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom);
 
   equation
     diagonal(G)*v = i;
@@ -84,7 +90,11 @@ package Impedances "Impedance and admittance two terminal"
     parameter SIpu.Resistance[2] r={0,0} "resistance";
     parameter SIpu.Reactance[2,2] x=[1,0;0,1] "reactance matrix";
   protected
-    final parameter Real[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter Real[2] RL_base=Utilities.Precalculation.baseRL(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     final parameter SI.Resistance[2] R=r*RL_base[1];
     final parameter SI.Inductance[2,2] L=x*RL_base[2];
 
@@ -155,7 +165,11 @@ package Impedances "Impedance and admittance two terminal"
     parameter SIpu.Conductance[2] g={0,0} "conductance";
     parameter SIpu.Susceptance[2] b={1,1} "susceptance";
   protected
-    final parameter Real[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter Real[2] GC_base=Utilities.Precalculation.baseGC(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     final parameter SI.Conductance[2] G=g*GC_base[1];
     final parameter SI.Capacitance[2] C=b*GC_base[2];
 
@@ -244,7 +258,11 @@ package Impedances "Impedance and admittance two terminal"
     parameter Real cos_phi(min=0,max=1)=0.1 "cos-phi of impedance";
     parameter Real cpl(min=-1,max=1)=0 "phase coupling, -1 < cpl < 1";
   protected
-    final parameter Real[2] RL_base=Basic.Precalculation.baseRL(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter Real[2] RL_base=Utilities.Precalculation.baseRL(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     function acos = Modelica.Math.acos;
     final parameter SI.Resistance R=z_abs*cos_phi*RL_base[1];
     final parameter SI.Inductance[2,2] L=([1,cpl;cpl,1]/(1 - cpl))*z_abs*sin(acos(cos_phi))*RL_base[2];
@@ -339,7 +357,11 @@ Instead of x and r the parameters z_abs and cos(phi) are used.</p>
     parameter SIpu.Admittance y_abs=1 "abs value of admittance";
     parameter Real cos_phi(min=0,max=1)=0.1 "cos-phi of admittance";
   protected
-    final parameter Real[2] GC_base=Basic.Precalculation.baseGC(puUnits, V_nom, S_nom, 2*pi*f_nom);
+    final parameter Real[2] GC_base=Utilities.Precalculation.baseGC(
+          puUnits,
+          V_nom,
+          S_nom,
+          2*pi*f_nom);
     function acos = Modelica.Math.acos;
     final parameter SI.Conductance G=y_abs*cos_phi*GC_base[1];
     final parameter SI.Capacitance C=y_abs*sin(acos(cos_phi))*GC_base[2];
@@ -442,8 +464,11 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     parameter SIpu.Resistance r0=100 "small voltage resistance";
     parameter SIpu.Voltage v0=1 "saturation voltage";
   protected
-    final parameter Real V0=(v0*Basic.Precalculation.baseV(puUnits, V_nom));
-    final parameter Real H0=(r0*Basic.Precalculation.baseR(puUnits, V_nom, S_nom)/V0);
+    final parameter Real V0=(v0*Utilities.Precalculation.baseV(puUnits, V_nom));
+    final parameter Real H0=(r0*Utilities.Precalculation.baseR(
+          puUnits,
+          V_nom,
+          S_nom)/V0);
 
   equation
     v = V0*tanh(H0*i);
@@ -843,7 +868,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
 
     partial model ImpedBase "Impedance base, 1-phase"
       extends Ports.Port_pn;
-      extends Basic.Nominal.NominalAC;
+      extends Common.Nominal.NominalAC;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
         annotation(Evaluate=true, Dialog(tab="Mode"));
