@@ -1,87 +1,9 @@
 within PowerSystems.Mechanics;
-package Rotation "Rotating parts "
+package Rotational "Rotating parts "
   extends Modelica.Icons.VariantsPackage;
 
-  package Ports "One- and two-flange base for rotating mechanical components."
-  extends Modelica.Icons.BasesPackage;
-
-  partial model Flange_p "One flange, 'positive'"
-
-    Interfaces.Rotation_p flange "positive flange"
-  annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-    annotation (
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-            graphics={Text(
-              extent={{-100,-100},{100,-140}},
-              lineColor={0,0,0},
-              textString="%name")}),
-  Documentation(info="<html>
-</html>"));
-  end Flange_p;
-
-  partial model Flange_n "One flange, 'negative'"
-
-    Interfaces.Rotation_n flange "negative flange"
-  annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-    annotation (
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-            graphics={Text(
-              extent={{-100,-100},{100,-140}},
-              lineColor={0,0,0},
-              textString="%name")}),
-  Documentation(info="<html>
-</html>"));
-  end Flange_n;
-
-  partial model Flange_p_n "Two flange"
-
-    Interfaces.Rotation_p flange_p "positive flange"
-  annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-    Interfaces.Rotation_n flange_n "negative flange"
-  annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-    annotation (
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-            graphics={Text(
-              extent={{-100,-100},{100,-140}},
-              lineColor={0,0,0},
-              textString="%name")}),
-  Documentation(info="<html>
-</html>"));
-  end Flange_p_n;
-
-  partial model Rigid "Rigid two-flange"
-    extends Flange_p_n;
-
-  equation
-    flange_p.phi = flange_n.phi;
-    annotation (
-  Documentation(info="<html>
-</html>"));
-  end Rigid;
-
-  partial model Compliant "Compliant two-flange"
-    extends Flange_p_n;
-
-    SI.Angle d_phi "difference angle (twist)";
-    SI.Torque d_tau "twisting torque";
-
-  equation
-    flange_n.phi - flange_p.phi = d_phi;
-    flange_n.tau - flange_p.tau = 2*d_tau;
-    annotation (
-  Documentation(info="<html>
-</html>"));
-  end Compliant;
-
-    annotation (
-      preferredView="info",
-  Documentation(info="<html>
-<p>Contains mechanical one and two-ports with rotational connectors.</p>
-</html>"));
-  end Ports;
-
   model Speed "Rotation with given angular velocity"
-    extends Ports.Flange_n;
+    extends Ports.Flange_b;
 
     parameter SI.Time tcst(min=1e-9)=0.1 "time-constant";
 
@@ -157,7 +79,7 @@ The start value is always given by <tt>w0</tt>.</p>
   end Speed;
 
   model Torque "Driving torque"
-    extends Ports.Flange_n;
+    extends Ports.Flange_b;
 
     parameter Boolean use_tau_in = false
       "= true if torque defined by input tau_in, otherwise by parameter tau0"
@@ -278,7 +200,7 @@ equation
   Column 'colData' contains the torque in units <tt>tau_unit</tt> (<tt>tau_unit</tt> in \"N.m\").
 </pre></p>
 <p>Both time and torque may be linearly scaled by a factor if 'scale = true'.</p>
-<p>Flange_p and flange_n are rigidly connected. The torque acts on the connected component(s) in
+<p>Flange_a and flange_b are rigidly connected. The torque acts on the connected component(s) in
 <pre>
 positive direction, if tau_table &gt  0 and drive_load = +1 or tau_table &lt  0 and drive_load = -1
 negative direction, if tau_table &gt  0 and drive_load = -1 or tau_table &lt  0 and drive_load = +1
@@ -326,7 +248,7 @@ initial equation
   s = if dirTrack == 1 then s_factor*s_bd[1] else s_factor*s_bd[2];
 
 equation
-  phi = flange_p.phi;
+  phi =flange_a.phi;
   gRatio*vVehicle = r*der(phi);
   r*f = gRatio*tau;
   table.u = s/s_factor;
@@ -350,7 +272,7 @@ equation
 <p>Both position and slope may be linearly scaled by a factor if 'scale = true' (for example using a normalised height-profile).</p>
 <p>The torque load <tt>tau</tt> is related to a driving force <tt>f</tt> and a parameter (wheel-) radius <tt>r</tt> by
 <pre>  tau = f/r</pre>
-The force as a function of position <tt>s</tt> corresponds to a mass moving along a height profile with linear and quadratic friction. Flange_p and flange_n are rigidly connected.</p>
+The force as a function of position <tt>s</tt> corresponds to a mass moving along a height profile with linear and quadratic friction. Flange_a and flange_b are rigidly connected.</p>
 <p>Note: If the height h is also needed, it has to be scaled with the factor (slope_perc/100)*D.<br>
 Start integration at time = 0.</p>
 </html>
@@ -377,7 +299,7 @@ Start integration at time = 0.</p>
 end TabPosSlopeTorque;
 
   model FrictionTorque "Friction torque"
-    extends Ports.Flange_p;
+    extends Ports.Flange_a;
 
      parameter Real[2] cFrict(each min=0)={0,0}
       "friction cst {lin, quadr} in {[N.s/m], [N.s2/m2]}";
@@ -456,7 +378,7 @@ model Rotor "Rigid rotating mass"
   extends Partials.RigidRotorBase;
 
 equation
-  J*a = flange_p.tau + flange_n.tau;
+  J*a =flange_a.tau  +flange_b.tau;
   annotation (defaultComponentName = "rotor1",
     Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -492,7 +414,7 @@ end Rotor;
               info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
 <pre>
-  flange_p, flange_n:  connectors to other rotating parts
+  flange_a, flange_b:  connectors to other rotating parts
                        of the turbo-generator group
 </pre>
 <p><i>
@@ -541,7 +463,7 @@ phi and w represent the mechanical angle and angular velocity.
               info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
 <pre>
-  flange_p, flange_n:  connectors to other rotating parts
+  flange_a, flange_b:  connectors to other rotating parts
                        of the turbo-generator group
 </pre>
 <p><i>
@@ -603,7 +525,7 @@ phi and w represent the mechanical angle and angular velocity.
               info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
 <pre>
-  flange_p, flange_n:  connectors to other rotating parts
+  flange_a, flange_b:  connectors to other rotating parts
                        of the turbo-generator group
 </pre>
 <p><i>
@@ -655,7 +577,7 @@ phi and w represent the mechanical angle and angular velocity.
             info="<html>
 <p>Turbine-rotor as one single rigid mass</p>
 <pre>
-  flange_p, flange_n:  connectors to other rotating parts
+  flange_a, flange_b:  connectors to other rotating parts
                        of the turbo-generator group
 </pre>
 <p><i>
@@ -708,7 +630,7 @@ phi and w represent the mechanical angle and angular velocity.
               info="<html>
 <p>Rotor as one single stiff mass.</p>
 <pre>
-  flange_p, flange_n:  connectors to other rotating parts
+  flange_a, flange_b:  connectors to other rotating parts
                        of the turbo-generator group
 </pre>
 <p><i>
@@ -755,7 +677,8 @@ model ShaftNoMass "Elastic massless shaft"
                                         1e6 "torsion stiffness";
 
 equation
-  flange_p.tau + flange_n.tau = 0;
+    flange_a.tau
+               +flange_b.tau  = 0;
   d_tau = stiff*d_phi;
   annotation (defaultComponentName = "shaft1",
     Documentation(
@@ -784,10 +707,11 @@ model Shaft "Elastic massive shaft"
   SI.AngularAcceleration a;
 
 equation
-  flange_p.phi + flange_n.phi = 2*phi;
+    flange_a.phi
+               +flange_b.phi  = 2*phi;
   w = der(phi);
   a = der(w);
-  J*a = flange_p.tau + flange_n.tau;
+  J*a =flange_a.tau  +flange_b.tau;
   d_tau = stiff*d_phi;
   annotation (defaultComponentName = "shaft1",
     Documentation(
@@ -807,7 +731,7 @@ The parameter <tt>stiffness</tt> is a length-independent specification, in contr
 end Shaft;
 
 model GearNoMass "Massless gear"
-  extends Ports.Flange_p_n;
+  extends Ports.Flange_a_b;
 
   parameter Real[:] ratio={1,1}
       "gear-ratio {p, .., n}, (speeds in arbitrary units)";
@@ -815,8 +739,9 @@ model GearNoMass "Massless gear"
   final parameter Real ratio_pn=ratio[1]/ratio[end];
 
 equation
-  flange_p.phi = ratio_pn*flange_n.phi;
-  ratio_pn*flange_p.tau + flange_n.tau = 0;
+    flange_a.phi
+               = ratio_pn*flange_b.phi;
+  ratio_pn*flange_a.tau +flange_b.tau  = 0;
   annotation (defaultComponentName = "gear",
     Documentation(
             info="<html>
@@ -939,7 +864,7 @@ Gear ratios are defined by <b>relative</b> speed. The following specifications a
 end GearNoMass;
 
 model Gear "Massive gear"
-  extends Ports.Flange_p_n;
+  extends Ports.Flange_a_b;
 
   parameter Real[:] ratio={1,1}
       "gear-ratio {p, .., n}, (speeds in arbitrary units)";
@@ -952,11 +877,12 @@ model Gear "Massive gear"
   final parameter Real[size(ratio,1)] ratio2=diagonal(ratio)*ratio/(ratio[end]*ratio[end]);
 
 equation
-  flange_p.phi = ratio_pn*flange_n.phi;
-  phi = flange_n.phi;
+    flange_a.phi
+               = ratio_pn*flange_b.phi;
+  phi =flange_b.phi;
   w = der(phi);
   a = der(w);
-  (ratio2*J)*a = ratio_pn*flange_p.tau + flange_n.tau;
+  (ratio2*J)*a = ratio_pn*flange_a.tau +flange_b.tau;
   annotation (defaultComponentName = "gear",
     Documentation(
             info="<html>
@@ -1079,11 +1005,13 @@ equation
 end Gear;
 
 model NoGear "Placeholder for gear"
-  extends Ports.Flange_p_n;
+  extends Ports.Flange_a_b;
 
 equation
-  flange_p.phi = flange_n.phi;
-  flange_p.tau + flange_n.tau = 0;
+    flange_a.phi
+               =flange_b.phi;
+    flange_a.tau
+               +flange_b.tau  = 0;
   annotation (defaultComponentName = "joint",
     Documentation(
             info="<html>
@@ -1102,7 +1030,7 @@ equation
 end NoGear;
 
 model AngleSensor "Angle and angular velocity sensor (mechanical)"
-  extends Ports.Flange_p;
+  extends Ports.Flange_a;
 
   Modelica.Blocks.Interfaces.RealOutput phi "angle"
     annotation (Placement(transformation(
@@ -1158,21 +1086,22 @@ end AngleSensor;
 model PowerSensor "Power and torque sensor (mechanical)"
   extends Ports.Rigid;
 
-  Modelica.Blocks.Interfaces.RealOutput p "power, flange_p to flange_n"
+  Modelica.Blocks.Interfaces.RealOutput p "power, flange_a to flange_b"
     annotation (Placement(transformation(
           origin={-40,100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-  Modelica.Blocks.Interfaces.RealOutput tau "torque, flange_p to flange_n"
+  Modelica.Blocks.Interfaces.RealOutput tau "torque, flange_a to flange_b"
     annotation (Placement(transformation(
           origin={40,100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
 equation
-  flange_p.tau + flange_n.tau = 0;
-  tau = flange_p.tau;
-  p = der(flange_p.phi)*flange_p.tau;
+    flange_a.tau
+               +flange_b.tau  = 0;
+  tau =flange_a.tau;
+  p = der(flange_a.phi)*flange_a.tau;
   annotation (defaultComponentName = "powerSens1",
     Documentation(
             info="<html>
@@ -1205,7 +1134,7 @@ end PowerSensor;
     extends Modelica.Icons.BasesPackage;
 
     partial model TabTorque "Table data to torque"
-      extends Ports.Flange_p_n;
+      extends Ports.Flange_a_b;
 
       parameter String tableName="" "table name in file";
       parameter String fileName=TableDir + "" "name of file containing table";
@@ -1220,8 +1149,8 @@ end PowerSensor;
         annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 
     equation
-      flange_p.phi = flange_n.phi;
-      flange_p.tau + flange_n.tau + tau = 0;
+      flange_a.phi =flange_b.phi;
+      flange_a.tau +flange_b.tau  + tau = 0;
       annotation (defaultComponentName = "tabForce1",
         Documentation(
                 info="<html>
@@ -1280,7 +1209,7 @@ end PowerSensor;
       end if;
 
     equation
-      phi = flange_p.phi;
+      phi =flange_a.phi;
       w = der(phi);
       a = der(w);
       annotation (
@@ -1317,7 +1246,7 @@ end PowerSensor;
       end if;
       rotor.phi = phi - stator.phi;
       friction.phi = rotor.phi;
-      J*a = rotor.tau + flange_p.tau + flange_n.tau + friction.tau;
+      J*a = rotor.tau +flange_a.tau  +flange_b.tau  + friction.tau;
       annotation (
         Documentation(
               info="<html>
@@ -1335,8 +1264,89 @@ end PowerSensor;
 
   end Partials;
 
+  package Ports "One- and two-flange base for rotating mechanical components."
+  extends Modelica.Icons.InterfacesPackage;
+
+  partial model Flange_a "One flange, side a"
+
+    Interfaces.Rotation_p flange "positive flange"
+  annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+    annotation (
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+            graphics={Text(
+              extent={{-100,-100},{100,-140}},
+              lineColor={0,0,0},
+              textString="%name")}),
+  Documentation(info="<html>
+</html>"));
+  end Flange_a;
+
+  partial model Flange_b "One flange, side b"
+
+    Interfaces.Rotation_n flange "negative flange"
+  annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+    annotation (
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+            graphics={Text(
+              extent={{-100,-100},{100,-140}},
+              lineColor={0,0,0},
+              textString="%name")}),
+  Documentation(info="<html>
+</html>"));
+  end Flange_b;
+
+  partial model Flange_a_b "Two flange"
+
+    Interfaces.Rotation_p flange_a "flange side a"
+  annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+    Interfaces.Rotation_n flange_b "flange side b"
+  annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+    annotation (
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+            graphics={Text(
+              extent={{-100,-100},{100,-140}},
+              lineColor={0,0,0},
+              textString="%name")}),
+  Documentation(info="<html>
+</html>"));
+  end Flange_a_b;
+
+  partial model Rigid "Rigid two-flange"
+    extends Flange_a_b;
+
+  equation
+      flange_a.phi
+                 =flange_b.phi;
+    annotation (
+  Documentation(info="<html>
+</html>"));
+  end Rigid;
+
+  partial model Compliant "Compliant two-flange"
+    extends Flange_a_b;
+
+    SI.Angle d_phi "difference angle (twist)";
+    SI.Torque d_tau "twisting torque";
+
+  equation
+      flange_b.phi
+                 -flange_a.phi  = d_phi;
+      flange_b.tau
+                 -flange_a.tau  = 2*d_tau;
+    annotation (
+  Documentation(info="<html>
+</html>"));
+  end Compliant;
+
+    annotation (
+      preferredView="info",
+  Documentation(info="<html>
+<p>Contains mechanical one and two-ports with rotational connectors.</p>
+</html>"));
+  end Ports;
+
   annotation (preferredView="info",
 Documentation(info="<html>
 </html>
 "));
-end Rotation;
+end Rotational;

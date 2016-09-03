@@ -398,7 +398,7 @@ The machine inertia is determined by the inertia time constant H.</p>
       annotation (Placement(transformation(extent={{80,-10},{60,10}})));
 
   equation
-    connect(rotor.flange_n, generator.airgap) annotation (Line(points={{0,0},{
+    connect(rotor.flange_b, generator.airgap) annotation (Line(points={{0,0},{
             10,0},{10,6},{30,6}}, color={0,0,0}));
     connect(generator.term, inverter.AC)
       annotation (Line(points={{40,0},{60,0}}, color={0,120,120}));
@@ -720,19 +720,20 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
         annotation (Placement(transformation(extent={{90,-10},{110,10}})));
       Common.Thermal.HeatV_a_b_ab heat_adapt annotation (Placement(
             transformation(extent={{-10,60},{10,80}})));
-      replaceable model Gear = PowerSystems.Mechanics.Rotation.NoGear
+      replaceable model Gear = PowerSystems.Mechanics.Rotational.NoGear
         "type of gear"
         annotation (choices(
-          choice(redeclare model Gear = PowerSystems.Mechanics.Rotation.Joint
+          choice(redeclare model Gear = PowerSystems.Mechanics.Rotational.Joint
               "no gear"),
           choice(redeclare model Gear =
-                PowerSystems.Mechanics.Rotation.GearNoMass "massless gear"),
-          choice(redeclare model Gear = PowerSystems.Mechanics.Rotation.Gear
+                PowerSystems.Mechanics.Rotational.GearNoMass
+                                                           "massless gear"),
+          choice(redeclare model Gear = PowerSystems.Mechanics.Rotational.Gear
               "massive gear")));
       Gear gear "type of gear"
         annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-      replaceable model Rotor = PowerSystems.Mechanics.Rotation.Rotor (
+      replaceable model Rotor = PowerSystems.Mechanics.Rotational.Rotor (
         w(start=w_start)) "rotor generator" annotation(choicesAllMatching=true);
       Rotor rotor "rotor generator"
         annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
@@ -753,9 +754,9 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
     equation
       connect(heat_adapt.port_ab, heat)
         annotation (Line(points={{0,76},{0,100}}, color={176,0,0}));
-      connect(flange, gear.flange_p)
+      connect(flange,gear.flange_a)
         annotation (Line(points={{-100,0},{-60,0}}, color={0,0,0}));
-      connect(gear.flange_n, rotor.flange_p)
+      connect(gear.flange_b,rotor.flange_a)
         annotation (Line(points={{-40,0},{-20,0}}, color={0,0,0}));
       annotation (
         Documentation(

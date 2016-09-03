@@ -199,36 +199,36 @@ Therefore phi and w represent the mechanical angle and angular velocity.
       "turbo-group par"   annotation(choicesAllMatching=true);
     final parameter Data par "turbo-group par"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_start), a(start=0))
+    Rotational.ElectricRotor genRotor(
+      J=par.J_gen,
+      w(start=w_start),
+      a(start=0))
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
     SI.Angle[n] delta "difference angles";
   protected
-    Rotation.Rotor aux1(J=par.J_aux[1])
+    Rotational.Rotor aux1(J=par.J_aux[1])
       annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-    Rotation.ShaftNoMass shaft1(stiff=par.stiff[1])
+    Rotational.ShaftNoMass shaft1(stiff=par.stiff[1])
       annotation (Placement(transformation(extent={{-80,-10},{-70,10}})));
-    Rotation.ThermalTurbineRotor turbine1(J=par.J_turb[1])
-                  annotation (Placement(transformation(extent={{-70,-10},{-50,
-              10}})));
-    Rotation.ShaftNoMass shaft2(stiff=par.stiff[2])
+    Rotational.ThermalTurbineRotor turbine1(J=par.J_turb[1])
+      annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+    Rotational.ShaftNoMass shaft2(stiff=par.stiff[2])
       annotation (Placement(transformation(extent={{-50,-10},{-40,10}})));
-    Rotation.ThermalTurbineRotor turbine2(J=par.J_turb[2])
-                  annotation (Placement(transformation(extent={{-40,-10},{-20,
-              10}})));
-    Rotation.ShaftNoMass shaft3(stiff=par.stiff[3])
+    Rotational.ThermalTurbineRotor turbine2(J=par.J_turb[2])
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    Rotational.ShaftNoMass shaft3(stiff=par.stiff[3])
       annotation (Placement(transformation(extent={{-20,-10},{-10,10}})));
-    Rotation.ThermalTurbineRotor turbine3(J=par.J_turb[3])
-                  annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-    Rotation.ShaftNoMass shaft4(stiff=par.stiff[4])
-                                       annotation (Placement(transformation(
-            extent={{10,-10},{20,10}})));
-    Rotation.ThermalTurbineRotor turbine4(J=par.J_turb[4])
-                  annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-    Rotation.ShaftNoMass shaft5(stiff=par.stiff[5])
+    Rotational.ThermalTurbineRotor turbine3(J=par.J_turb[3])
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    Rotational.ShaftNoMass shaft4(stiff=par.stiff[4])
+      annotation (Placement(transformation(extent={{10,-10},{20,10}})));
+    Rotational.ThermalTurbineRotor turbine4(J=par.J_turb[4])
+      annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    Rotational.ShaftNoMass shaft5(stiff=par.stiff[5])
       annotation (Placement(transformation(extent={{40,-10},{50,10}})));
-    Rotation.ShaftNoMass shaft6(stiff=par.stiff[6])
+    Rotational.ShaftNoMass shaft6(stiff=par.stiff[6])
       annotation (Placement(transformation(extent={{70,-10},{80,10}})));
-    Rotation.Rotor aux2(J=par.J_aux[2])
+    Rotational.Rotor aux2(J=par.J_aux[2])
       annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   initial equation
@@ -246,32 +246,32 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     genRotor.a = aux2.a;
 
   equation
-    delta = {turbine2.flange_p.phi-turbine1.flange_n.phi, turbine3.flange_p.phi-turbine2.flange_n.phi,
-      turbine4.flange_p.phi-turbine3.flange_n.phi, genRotor.flange_p.phi-turbine4.flange_n.phi};
+    delta = {turbine2.flange_a.phi-turbine1.flange_b.phi,turbine3.flange_a.phi -turbine2.flange_b.phi,
+      turbine4.flange_a.phi-turbine3.flange_b.phi,genRotor.flange_a.phi -turbine4.flange_b.phi};
 
-    connect(aux1.flange_n, shaft1.flange_p)
+    connect(aux1.flange_b,shaft1.flange_a)
       annotation (Line(points={{-80,0},{-80,0}}, color={0,0,0}));
-    connect(shaft1.flange_n,turbine1. flange_p)
+    connect(shaft1.flange_b,turbine1.flange_a)
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,0}));
-    connect(turbine1.flange_n, shaft2.flange_p)
+    connect(turbine1.flange_b,shaft2.flange_a)
       annotation (Line(points={{-50,0},{-50,0}}, color={0,0,0}));
-    connect(shaft2.flange_n,turbine2. flange_p)
+    connect(shaft2.flange_b,turbine2.flange_a)
       annotation (Line(points={{-40,0},{-40,0}}, color={0,0,0}));
-    connect(turbine2.flange_n, shaft3.flange_p)
+    connect(turbine2.flange_b,shaft3.flange_a)
       annotation (Line(points={{-20,0},{-20,0}}, color={0,0,0}));
-    connect(shaft3.flange_n, turbine3.flange_p)
+    connect(shaft3.flange_b,turbine3.flange_a)
       annotation (Line(points={{-10,0},{-10,0}}, color={0,0,0}));
-    connect(turbine3.flange_n, shaft4.flange_p)
+    connect(turbine3.flange_b,shaft4.flange_a)
       annotation (Line(points={{10,0},{10,0}}, color={0,0,0}));
-    connect(shaft4.flange_n, turbine4.flange_p)
+    connect(shaft4.flange_b,turbine4.flange_a)
       annotation (Line(points={{20,0},{20,0}}, color={0,0,0}));
-    connect(turbine4.flange_n, shaft5.flange_p)
+    connect(turbine4.flange_b,shaft5.flange_a)
       annotation (Line(points={{40,0},{40,0}}, color={0,0,0}));
-    connect(shaft5.flange_n, genRotor.flange_p)
+    connect(shaft5.flange_b,genRotor.flange_a)
       annotation (Line(points={{50,0},{50,0}}, color={0,0,0}));
-    connect(genRotor.flange_n, shaft6.flange_p)
+    connect(genRotor.flange_b,shaft6.flange_a)
       annotation (Line(points={{70,0},{70,0}}, color={0,0,0}));
-    connect(shaft6.flange_n, aux2.flange_p)
+    connect(shaft6.flange_b,aux2.flange_a)
       annotation (Line(points={{80,0},{80,0}}, color={0,0,0}));
     connect(blades[1], turbine1.rotor)
                                       annotation (Line(points={{-100,60},{-60,
@@ -345,34 +345,35 @@ Therefore phi and w represent the mechanical angle and angular velocity.
       "turbo-group par"   annotation(choicesAllMatching=true);
     final parameter Data par "turbo-group par"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_start*par.ratio[end]/par.ratio[1]), a(start=0))
+    Rotational.ElectricRotor genRotor(
+      J=par.J_gen,
+      w(start=w_start*par.ratio[end]/par.ratio[1]),
+      a(start=0))
       annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   protected
-    Rotation.ThermalTurbineRotor turbine(J=par.J_turb)
-               annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-    Rotation.ShaftNoMass shaft1(stiff=par.stiff_sh[1])
+    Rotational.ThermalTurbineRotor turbine(J=par.J_turb)
+      annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    Rotational.ShaftNoMass shaft1(stiff=par.stiff_sh[1])
       annotation (Placement(transformation(extent={{-70,-10},{-60,10}})));
-    Rotation.ThermalTurbineRotor compressor(J=par.J_comp)
-             annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
-    Rotation.ShaftNoMass shaft2(stiff=par.stiff_sh[2])
-                                      annotation (Placement(transformation(
-            extent={{-40,-10},{-30,10}})));
-    Rotation.Gear gear1(ratio=par.ratio[1:2], J=par.J_gear1)
+    Rotational.ThermalTurbineRotor compressor(J=par.J_comp)
+      annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
+    Rotational.ShaftNoMass shaft2(stiff=par.stiff_sh[2])
+      annotation (Placement(transformation(extent={{-40,-10},{-30,10}})));
+    Rotational.Gear gear1(ratio=par.ratio[1:2], J=par.J_gear1)
       annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-    Rotation.ShaftNoMass shaft3(stiff=par.stiff_sh[3])
-                                      annotation (Placement(transformation(
-            extent={{-10,-10},{0,10}})));
-    Rotation.Gear gear2(ratio=par.ratio[2:3], J=par.J_gear2)
+    Rotational.ShaftNoMass shaft3(stiff=par.stiff_sh[3])
+      annotation (Placement(transformation(extent={{-10,-10},{0,10}})));
+    Rotational.Gear gear2(ratio=par.ratio[2:3], J=par.J_gear2)
       annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-    Rotation.ShaftNoMass shaft4(stiff=par.stiff_sh[4])
+    Rotational.ShaftNoMass shaft4(stiff=par.stiff_sh[4])
       annotation (Placement(transformation(extent={{20,-10},{30,10}})));
-    Rotation.Rotor accessory(J=par.J_acc)
+    Rotational.Rotor accessory(J=par.J_acc)
       annotation (Placement(transformation(extent={{30,-10},{40,10}})));
-    Rotation.ShaftNoMass shaft5(stiff=par.stiff_sh[5])
+    Rotational.ShaftNoMass shaft5(stiff=par.stiff_sh[5])
       annotation (Placement(transformation(extent={{40,-10},{50,10}})));
-    Rotation.Shaft coupling(J=par.J_cpl, stiff=par.stiff_cpl)
-             annotation (Placement(transformation(extent={{50,-40},{60,40}})));
-    Rotation.ShaftNoMass shaft6(stiff=par.stiff_sh[6])
+    Rotational.Shaft coupling(J=par.J_cpl, stiff=par.stiff_cpl)
+      annotation (Placement(transformation(extent={{50,-40},{60,40}})));
+    Rotational.ShaftNoMass shaft6(stiff=par.stiff_sh[6])
       annotation (Placement(transformation(extent={{60,-10},{70,10}})));
 
   initial equation
@@ -390,29 +391,29 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     coupling.a = genRotor.a;
 
   equation
-    connect(turbine.flange_n, shaft1.flange_p)
+    connect(turbine.flange_b,shaft1.flange_a)
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,0}));
-    connect(compressor.flange_n, shaft1.flange_n)
+    connect(compressor.flange_b,shaft1.flange_b)
       annotation (Line(points={{-60,0},{-60,0}}, color={0,0,0}));
-    connect(compressor.flange_p, shaft2.flange_p)
+    connect(compressor.flange_a,shaft2.flange_a)
       annotation (Line(points={{-40,0},{-40,0}}, color={0,0,0}));
-    connect(shaft2.flange_n, gear1.flange_p)
+    connect(shaft2.flange_b,gear1.flange_a)
       annotation (Line(points={{-30,0},{-30,0}}, color={0,0,0}));
-    connect(gear1.flange_n, shaft3.flange_p)
+    connect(gear1.flange_b,shaft3.flange_a)
       annotation (Line(points={{-10,0},{-10,0}}, color={0,0,0}));
-    connect(shaft3.flange_n, gear2.flange_p)
+    connect(shaft3.flange_b,gear2.flange_a)
       annotation (Line(points={{0,0},{0,0}}, color={0,0,0}));
-    connect(gear2.flange_n, shaft4.flange_p)
+    connect(gear2.flange_b,shaft4.flange_a)
       annotation (Line(points={{20,0},{20,0}}, color={0,0,0}));
-    connect(shaft4.flange_n, accessory.flange_p)
+    connect(shaft4.flange_b,accessory.flange_a)
       annotation (Line(points={{30,0},{30,0}}, color={0,0,0}));
-    connect(accessory.flange_n, shaft5.flange_p)
+    connect(accessory.flange_b,shaft5.flange_a)
       annotation (Line(points={{40,0},{40,0}}, color={0,0,0}));
-    connect(shaft5.flange_n, coupling.flange_p)
+    connect(shaft5.flange_b,coupling.flange_a)
       annotation (Line(points={{50,0},{50,0}}, color={0,0,0}));
-    connect(coupling.flange_n, shaft6.flange_p)
+    connect(coupling.flange_b,shaft6.flange_a)
       annotation (Line(points={{60,0},{60,0}}, color={0,0,0}));
-    connect(shaft6.flange_n, genRotor.flange_p)
+    connect(shaft6.flange_b,genRotor.flange_a)
       annotation (Line(points={{70,0},{70,0}}, color={0,0,0}));
     connect(blades[1], turbine.rotor) annotation (Line(points={{-100,60},{-80,
             60},{-80,6}}, color={0,0,0}));
@@ -487,12 +488,15 @@ Therefore phi and w represent the mechanical angle and angular velocity.
       "hydro-turbine par"   annotation(choicesAllMatching=true);
     final parameter Data par "hydro-turbine par"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_start), a(start=0))
+    Rotational.ElectricRotor genRotor(
+      J=par.J_gen,
+      w(start=w_start),
+      a(start=0))
       annotation (Placement(transformation(extent={{5,-10},{25,10}})));
   protected
-    Rotation.HydroTurbineRotor turbine(J=par.J_turb)
-                  annotation (Placement(transformation(extent={{-25,-10},{-5,10}})));
-    Rotation.Shaft shaft(J=par.J_shaft, stiff=par.stiff)
+    Rotational.HydroTurbineRotor turbine(J=par.J_turb)
+      annotation (Placement(transformation(extent={{-25,-10},{-5,10}})));
+    Rotational.Shaft shaft(J=par.J_shaft, stiff=par.stiff)
       annotation (Placement(transformation(extent={{-5,-10},{5,10}})));
 
   initial equation
@@ -502,9 +506,9 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     der(shaft.w) = der(genRotor.w);
 
   equation
-    connect(turbine.flange_n, shaft.flange_p)
+    connect(turbine.flange_b,shaft.flange_a)
       annotation (Line(points={{-5,0},{-5,0}}, color={0,0,0}));
-    connect(shaft.flange_n, genRotor.flange_p)
+    connect(shaft.flange_b,genRotor.flange_a)
       annotation (Line(points={{5,0},{5,0}}, color={0,0,0}));
     connect(blades[1], turbine.rotor) annotation (Line(points={{-100,60},{-15,
             60},{-15,6}}, color={0,0,0}));
@@ -567,12 +571,15 @@ Therefore phi and w represent the mechanical angle and angular velocity.
       annotation(choicesAllMatching=true);
     final parameter Data par "Diesel par"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_start), a(start=0))
+    Rotational.ElectricRotor genRotor(
+      J=par.J_gen,
+      w(start=w_start),
+      a(start=0))
       annotation (Placement(transformation(extent={{5,-10},{25,10}})));
   protected
-    Rotation.DieselRotor diesel(J=par.J_turb)
-                  annotation (Placement(transformation(extent={{-25,-10},{-5,10}})));
-    Rotation.ShaftNoMass shaft(stiff=par.stiff)
+    Rotational.DieselRotor diesel(J=par.J_turb)
+      annotation (Placement(transformation(extent={{-25,-10},{-5,10}})));
+    Rotational.ShaftNoMass shaft(stiff=par.stiff)
       annotation (Placement(transformation(extent={{-5,-10},{5,10}})));
 
   initial equation
@@ -580,9 +587,9 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     der(diesel.w) = der(genRotor.w);
 
   equation
-    connect(diesel.flange_n, shaft.flange_p)
+    connect(diesel.flange_b,shaft.flange_a)
       annotation (Line(points={{-5,0},{-5,0}}, color={0,0,0}));
-    connect(shaft.flange_n, genRotor.flange_p)
+    connect(shaft.flange_b,genRotor.flange_a)
       annotation (Line(points={{5,0},{5,0}}, color={0,0,0}));
     connect(blades[1], diesel.rotor) annotation (Line(points={{-100,60},{-15,60},
             {-15,6}}, color={0,0,0}));
@@ -642,22 +649,23 @@ Therefore phi and w represent the mechanical angle and angular velocity.
       annotation(choicesAllMatching=true);
     final parameter Data par "turbine par"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-    Rotation.ElectricRotor genRotor(J=par.J_gen, w(start=w_start*par.ratio[end]/par.ratio[1]), a(start=0))
+    Rotational.ElectricRotor genRotor(
+      J=par.J_gen,
+      w(start=w_start*par.ratio[end]/par.ratio[1]),
+      a(start=0))
       annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   protected
     final parameter Real[3] gr2=diagonal(par.ratio)*par.ratio/par.ratio[end]^2;
     final parameter SI.Inertia J_red=par.J_turb*gr2[1] + par.J_gear*gr2 + par.J_gen
       "gear reduced inertia";
-    Rotation.WindTurbineRotor turbine(J=par.J_turb)
-             annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-    Rotation.ShaftNoMass shaft1(stiff=par.stiff_sh[1])
-                                      annotation (Placement(transformation(
-            extent={{-20,-10},{-10,10}})));
-    Rotation.Gear gear(J=par.J_gear, ratio=par.ratio)
+    Rotational.WindTurbineRotor turbine(J=par.J_turb)
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    Rotational.ShaftNoMass shaft1(stiff=par.stiff_sh[1])
+      annotation (Placement(transformation(extent={{-20,-10},{-10,10}})));
+    Rotational.Gear gear(J=par.J_gear, ratio=par.ratio)
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-    Rotation.ShaftNoMass shaft2(stiff=par.stiff_sh[2])
-                                      annotation (Placement(transformation(
-            extent={{10,-10},{20,10}})));
+    Rotational.ShaftNoMass shaft2(stiff=par.stiff_sh[2])
+      annotation (Placement(transformation(extent={{10,-10},{20,10}})));
 
   initial equation
     turbine.w = (par.ratio[1]/par.ratio[end])*gear.w;
@@ -666,17 +674,17 @@ Therefore phi and w represent the mechanical angle and angular velocity.
     der(gear.w) = der(genRotor.w);
 
   equation
-    connect(turbine.flange_n,shaft1. flange_p) annotation (Line(points={{-20,0},
+    connect(turbine.flange_b,shaft1.flange_a)  annotation (Line(points={{-20,0},
             {-20,0}}, color={0,0,0}));
-    connect(shaft1.flange_n, gear.flange_p)
+    connect(shaft1.flange_b,gear.flange_a)
       annotation (Line(points={{-10,0},{-10,0}}, color={0,0,0}));
-    connect(gear.flange_n, shaft2.flange_p)
+    connect(gear.flange_b,shaft2.flange_a)
       annotation (Line(points={{10,0},{10,0}}, color={0,0,0}));
     connect(airgap, genRotor.rotor) annotation (Line(points={{100,60},{30,60},{
             30,6}}, color={0,0,0}));
     connect(blades[1], turbine.rotor) annotation (Line(points={{-100,60},{-30,
             60},{-30,6}}, color={0,0,0}));
-    connect(shaft2.flange_n, genRotor.flange_p) annotation (Line(points={{20,0},
+    connect(shaft2.flange_b,genRotor.flange_a)  annotation (Line(points={{20,0},
             {20,0}}, color={0,0,0}));
     annotation (defaultComponentName = "windGrp",
       Documentation(

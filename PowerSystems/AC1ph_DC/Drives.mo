@@ -216,19 +216,20 @@ where 0 &lt  vPhasor[1] &lt  1.</p>
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     Interfaces.Rotation_n flange "mechanical flange"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-    replaceable model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor
+    replaceable model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor
         "machine rotor"
                       annotation (choicesAllMatching=true);
     Rotor rotor(w(start=w_start)) "machine rotor"
       annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-    replaceable model Gear = PowerSystems.Mechanics.Rotation.NoGear
+    replaceable model Gear = PowerSystems.Mechanics.Rotational.NoGear
         "type of gear"
       annotation (choices(
-        choice(redeclare model Gear = PowerSystems.Mechanics.Rotation.Joint
+        choice(redeclare model Gear = PowerSystems.Mechanics.Rotational.Joint
               "no gear"),
         choice(redeclare model Gear =
-                PowerSystems.Mechanics.Rotation.GearNoMass "massless gear"),
-        choice(redeclare model Gear = PowerSystems.Mechanics.Rotation.Gear
+                PowerSystems.Mechanics.Rotational.GearNoMass
+                                                           "massless gear"),
+        choice(redeclare model Gear = PowerSystems.Mechanics.Rotational.Gear
               "massive gear")));
     Gear gear "type of gear"
       annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -241,9 +242,9 @@ where 0 &lt  vPhasor[1] &lt  1.</p>
     outer System system;
 
   equation
-    connect(rotor.flange_n, gear.flange_p)
+    connect(rotor.flange_b,gear.flange_a)
         annotation (Line(points={{20,0},{40,0}}, color={0,0,0}));
-    connect(gear.flange_n, flange)
+    connect(gear.flange_b, flange)
         annotation (Line(points={{60,0},{100,0}}, color={0,0,0}));
     annotation (
   Icon(coordinateSystem(

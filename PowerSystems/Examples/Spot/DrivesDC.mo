@@ -18,7 +18,8 @@ package DrivesDC "DC drives"
     PowerSystems.AC1ph_DC.Sensors.Psensor power      annotation (Placement(
           transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Drives.DCMser dcm_ser(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=6.4),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=6.4),
       w_start=146.60765716752,
       redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCser (
         redeclare record Data =
@@ -26,7 +27,7 @@ package DrivesDC "DC drives"
       annotation (Placement(transformation(extent={{20,-20},{40,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{20,0},{40,20}})));
-    PowerSystems.Mechanics.Rotation.TabPosSlopeTorque tabLoad(
+    PowerSystems.Mechanics.Rotational.TabPosSlopeTorque tabLoad(
       r=0.4,
       gRatio=40/17,
       cFrict={50,15},
@@ -37,7 +38,7 @@ package DrivesDC "DC drives"
       tableName="height",
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+      annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
   equation
     connect(voltage.term, power.term_p)
@@ -46,7 +47,7 @@ package DrivesDC "DC drives"
     annotation (Line(points={{0,-10},{20,-10}}, color={0,0,255}));
     connect(grd.term, voltage.neutral) annotation (Line(points={{-60,-10},{-60,
             -10}}, color={0,0,255}));
-    connect(dcm_ser.flange, tabLoad.flange_p)
+    connect(dcm_ser.flange,tabLoad.flange_a)
       annotation (Line(points={{40,-10},{60,-10}}, color={0,0,0}));
     connect(dcm_ser.heat, bdCond.heat) annotation (Line(points={{30,0},{30,0}},
           color={176,0,0}));
@@ -81,14 +82,15 @@ package DrivesDC "DC drives"
                                       annotation (Placement(transformation(
             extent={{-60,-60},{-40,-40}})));
     PowerSystems.AC1ph_DC.Drives.DCMpar dcm_par(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=6.4),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=6.4),
       redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCpar (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.DCpar1500V_1p5MVA))
       annotation (Placement(transformation(extent={{20,-20},{40,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{20,0},{40,20}})));
-    PowerSystems.Mechanics.Rotation.TabPosSlopeTorque tabLoad(
+    PowerSystems.Mechanics.Rotational.TabPosSlopeTorque tabLoad(
       r=0.4,
       gRatio=40/17,
       scale=true,
@@ -99,7 +101,7 @@ package DrivesDC "DC drives"
       mass=200e3,
       slope_perc=2.5,
       cFrict={50,15})
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+      annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
   equation
     connect(armVoltage.term, power.term_p) annotation (Line(points={{-40,-10},{
@@ -112,7 +114,7 @@ package DrivesDC "DC drives"
             -60,-10}}, color={0,0,255}));
     connect(excVoltage.neutral, armVoltage.neutral) annotation (Line(points={{
             -60,-50},{-60,-10}}, color={0,0,255}));
-    connect(dcm_par.flange, tabLoad.flange_p)
+    connect(dcm_par.flange,tabLoad.flange_a)
       annotation (Line(points={{40,-10},{60,-10}}, color={0,0,0}));
     connect(dcm_par.heat, bdCond.heat) annotation (Line(points={{30,0},{30,0}},
           color={176,0,0}));
@@ -144,14 +146,16 @@ package DrivesDC "DC drives"
     PowerSystems.AC1ph_DC.Sensors.Efficiency efficiency(tcst=0.1, m=2)
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Drives.DCMpm dcm_pm(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.02),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=0.02),
       redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCpm (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA))
       annotation (Placement(transformation(extent={{10,-20},{30,0}})));
-    PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.03)
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-    PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={0.01,0.0002})
+    PowerSystems.Mechanics.Rotational.Rotor loadInertia(J=0.03)
+      annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+    PowerSystems.Mechanics.Rotational.FrictionTorque frictTorq(cFrict={0.01,
+          0.0002})
       annotation (Placement(transformation(extent={{70,-20},{90,0}})));
     Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStep(
       stepTorque=-10,
@@ -169,11 +173,11 @@ package DrivesDC "DC drives"
             {-20,-10}}, color={0,0,255}));
     connect(efficiency.term_n, dcm_pm.term)
       annotation (Line(points={{0,-10},{10,-10}}, color={0,0,255}));
-    connect(dcm_pm.flange, loadInertia.flange_p)
+    connect(dcm_pm.flange,loadInertia.flange_a)
       annotation (Line(points={{30,-10},{40,-10}}, color={0,0,0}));
-    connect(loadInertia.flange_n, frictTorq.flange)
+    connect(loadInertia.flange_b, frictTorq.flange)
       annotation (Line(points={{60,-10},{70,-10}}, color={0,0,0}));
-    connect(loadInertia.flange_n, torqueStep.flange) annotation (Line(points={{
+    connect(loadInertia.flange_b, torqueStep.flange) annotation (Line(points={{
             60,-10},{64,-10},{64,30},{70,30}}, color={0,0,0}));
     connect(dcm_pm.heat, efficiency.heat) annotation (Line(points={{20,0},{20,
             10},{-10,10},{-10,0}}, color={176,0,0}));
@@ -185,7 +189,7 @@ package DrivesDC "DC drives"
 <pre>
   power.p                      dc power
   loadInertia.w                angular velocity load
-  loadInertia.flange_p.tau     torque on load
+  loadInertia.flange_a.tau     torque on load
   efficiency.eta               efficiency
 </pre></p>
 <p>See also example DCcharSpeed.</p>
@@ -216,7 +220,8 @@ package DrivesDC "DC drives"
         PowerSystems.AC1ph_DC.Drives.Partials.Synchron3rd_bldc (
           redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA),
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.02),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=0.02),
       redeclare model Inverter = PowerSystems.AC3ph.Inverters.Inverter (
         redeclare final model Modulator =
               PowerSystems.Control.Modulation.BlockM
@@ -226,9 +231,10 @@ package DrivesDC "DC drives"
             "switch, no diode, no losses") "inverter with modulator")
                              annotation (Placement(transformation(extent={{10,
               -20},{30,0}})));
-    PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.03)
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-    PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={0.01,0.0002})
+    PowerSystems.Mechanics.Rotational.Rotor loadInertia(J=0.03)
+      annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+    PowerSystems.Mechanics.Rotational.FrictionTorque frictTorq(cFrict={0.01,
+          0.0002})
       annotation (Placement(transformation(extent={{70,-20},{90,0}})));
     Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStep(
       startTime=1.5, stepTorque=-10,
@@ -246,11 +252,11 @@ package DrivesDC "DC drives"
             {-20,-10}}, color={0,0,255}));
     connect(efficiency.term_n, bldcm.term)
       annotation (Line(points={{0,-10},{10,-10}}, color={0,0,255}));
-    connect(bldcm.flange, loadInertia.flange_p)
+    connect(bldcm.flange,loadInertia.flange_a)
       annotation (Line(points={{30,-10},{40,-10}}, color={0,0,0}));
-    connect(loadInertia.flange_n, frictTorq.flange)
+    connect(loadInertia.flange_b, frictTorq.flange)
       annotation (Line(points={{60,-10},{70,-10}}, color={0,0,0}));
-    connect(loadInertia.flange_n, torqueStep.flange) annotation (Line(points={{
+    connect(loadInertia.flange_b, torqueStep.flange) annotation (Line(points={{
             60,-10},{64,-10},{64,30},{70,30}}, color={0,0,0}));
   annotation (
     Documentation(
@@ -260,7 +266,7 @@ package DrivesDC "DC drives"
 <pre>
   power.p                      dc power
   loadInertia.w                angular velocity load
-  loadInertia.flange_p.tau     torque on load
+  loadInertia.flange_a.tau     torque on load
   efficiency.eta               efficiency including semiconductor losses
 </pre></p>
 <p>See also example BLDCcharSpeed.</p>
@@ -285,7 +291,8 @@ package DrivesDC "DC drives"
       tcst=0.1,
       m=2)      annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
     PowerSystems.AC1ph_DC.Drives.DCMpm machine(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.02),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=0.02),
       redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCpm (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA))
@@ -293,8 +300,7 @@ package DrivesDC "DC drives"
     PowerSystems.Blocks.Signals.Transient speedSignal(
       s_start=0, s_end=160)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
-    PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01,
-      use_w_in=true)
+    PowerSystems.Mechanics.Rotational.Speed speed(tcst=0.01, use_w_in=true)
       annotation (Placement(transformation(extent={{60,-20},{40,0}})));
 
   equation
@@ -340,7 +346,8 @@ package DrivesDC "DC drives"
       tcst=0.1, m=3)
                 annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
     PowerSystems.AC1ph_DC.Drives.BLDC machine(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.02),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=0.02),
       redeclare model Motor =
           PowerSystems.AC1ph_DC.Drives.Partials.Synchron3rd_bldc (
         redeclare record Data =
@@ -353,7 +360,7 @@ package DrivesDC "DC drives"
     PowerSystems.Blocks.Signals.Transient speedSignal(
       s_start=0, s_end=160)
       annotation (Placement(transformation(extent={{100,-20},{80,0}})));
-    PowerSystems.Mechanics.Rotation.Speed speed(tcst=0.01, use_w_in=true)
+    PowerSystems.Mechanics.Rotational.Speed speed(tcst=0.01, use_w_in=true)
       annotation (Placement(transformation(extent={{60,-20},{40,0}})));
 
   equation

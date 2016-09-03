@@ -417,11 +417,10 @@ Compare with DoublePIline.</p>
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-    PowerSystems.Mechanics.Rotation.Rotor rotor
+    PowerSystems.Mechanics.Rotational.Rotor rotor
       annotation (Placement(transformation(extent={{28,-10},{48,10}})));
-    PowerSystems.Mechanics.Rotation.Torque torq(tau0=-1)
-                                              annotation (Placement(
-          transformation(extent={{80,-10},{60,10}})));
+    PowerSystems.Mechanics.Rotational.Torque torq(tau0=-1)
+      annotation (Placement(transformation(extent={{80,-10},{60,10}})));
     PowerSystems.Blocks.Signals.Transient transTau(s_start=0, s_end=-1)
                                        annotation (Placement(transformation(
             extent={{100,-10},{80,10}})));
@@ -449,9 +448,9 @@ Compare with DoublePIline.</p>
       annotation (Line(points={{-60,0},{-50,0}}, color={0,0,255}));
     connect(power.term_n, motor.term)
       annotation (Line(points={{-30,0},{-10,0}}, color={0,0,255}));
-    connect(motor.airgap, rotor.flange_p) annotation (Line(points={{0,6},{14,6},
+    connect(motor.airgap,rotor.flange_a)  annotation (Line(points={{0,6},{14,6},
             {14,0},{28,0}}, color={0,0,0}));
-    connect(rotor.flange_n, torq.flange)
+    connect(rotor.flange_b, torq.flange)
       annotation (Line(points={{48,0},{60,0}}, color={0,0,0}));
     connect(grd.term, voltage1.neutral)
       annotation (Line(points={{-80,0},{-80,0}}, color={0,0,255}));

@@ -1239,9 +1239,8 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
       s_start=2*pi*180,
       s_end=2*pi*150)
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  PowerSystems.Mechanics.Rotation.Speed speed(use_w_in=true, w0=2*pi*
-          180)                        annotation (Placement(transformation(
-            extent={{-70,-60},{-50,-40}})));
+    PowerSystems.Mechanics.Rotational.Speed speed(use_w_in=true, w0=2*pi*180)
+      annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
   PowerSystems.AC3ph.Generation.PMgenerator PMgen(
     redeclare model Generator =
       PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (

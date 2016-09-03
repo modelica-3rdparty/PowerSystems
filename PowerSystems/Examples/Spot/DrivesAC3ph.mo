@@ -13,7 +13,8 @@ package DrivesAC3ph "AC drives, dq0"
                                      annotation (Placement(transformation(
             extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Drives.ASM asm(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.3),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=0.3),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA))
@@ -21,10 +22,11 @@ package DrivesAC3ph "AC drives, dq0"
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
                                           annotation (Placement(transformation(
             extent={{-20,0},{0,20}})));
-    PowerSystems.Mechanics.Rotation.Speed speed(
-    w0=system.omega_nom/2,
-    use_w_in=true,
-    tcst=0.01) annotation (Placement(transformation(extent={{40,-20},{20,0}})));
+    PowerSystems.Mechanics.Rotational.Speed speed(
+      w0=system.omega_nom/2,
+      use_w_in=true,
+      tcst=0.01)
+      annotation (Placement(transformation(extent={{40,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
     t_duration=0.5,
       s_end=2*system.omega_nom/asm.motor.pp,
@@ -73,7 +75,8 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
     PowerSystems.AC3ph.Sensors.Psensor power
       annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
     PowerSystems.AC3ph.Drives.ASM_Y_D asm_Y_D(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.3),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=0.3),
       redeclare model Motor = PowerSystems.AC3ph.Machines.AsynchronY_D (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA),
@@ -81,9 +84,9 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{-10,0},{10,20}})));
-    PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=40)
+    PowerSystems.Mechanics.Rotational.Rotor loadInertia(J=40)
       annotation (Placement(transformation(extent={{30,-20},{50,0}})));
-    PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={1,0.05})
+    PowerSystems.Mechanics.Rotational.FrictionTorque frictTorq(cFrict={1,0.05})
       annotation (Placement(transformation(extent={{70,-20},{90,0}})));
     PowerSystems.Control.Relays.Y_DeltaControl relay1(t_switch={1.5})
       annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
@@ -93,9 +96,9 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
             30},{-20,-6},{-10,-6}}, color={255,0,255}));
     connect(voltage.term, power.term_p) annotation (Line(points={{-60,-10},{-50,
             -10}}, color={0,120,120}));
-    connect(asm_Y_D.flange, loadInertia.flange_p)
+    connect(asm_Y_D.flange,loadInertia.flange_a)
       annotation (Line(points={{10,-10},{30,-10}}, color={0,0,0}));
-    connect(loadInertia.flange_n, frictTorq.flange)
+    connect(loadInertia.flange_b, frictTorq.flange)
       annotation (Line(points={{50,-10},{70,-10}}, color={0,0,0}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-80,-10},{-80,-10}}, color={0,0,255}));
@@ -111,7 +114,7 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
 <pre>
   power.p
   asm_Y_D.motor.slip
-  loadInertia.flange_p.tau
+  loadInertia.flange_a.tau
   frictTorq.flange.tau
   frictTorq.w
 </pre>
@@ -140,7 +143,8 @@ Compare 'transient' and 'steady-state' mode.</p>
       phasor=true)
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.AC3ph.Drives.ASM asm(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=6.4),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=6.4),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA),
@@ -151,7 +155,7 @@ Compare 'transient' and 'steady-state' mode.</p>
           transformation(extent={{30,0},{50,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond2(m=1)
       annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
-    PowerSystems.Mechanics.Rotation.TabPosSlopeTorque tabLoad(
+    PowerSystems.Mechanics.Rotational.TabPosSlopeTorque tabLoad(
       r=0.4,
       gRatio=40/17,
       cFrict={50,15},
@@ -177,7 +181,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       annotation (Line(points={{10,-10},{30,-10}}, color={0,120,120}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-80,-10},{-80,-10}}, color={0,0,255}));
-    connect(asm.flange, tabLoad.flange_p)
+    connect(asm.flange,tabLoad.flange_a)
       annotation (Line(points={{50,-10},{70,-10}}, color={0,0,0}));
     connect(asm.heat, bdCond1.heat)
                                    annotation (Line(points={{40,0},{40,0}},
@@ -214,7 +218,8 @@ Compare 'transient' and 'steady-state' mode.</p>
     PowerSystems.AC1ph_DC.Sources.DCvoltage voltage(pol=0, V_nom=sqrt(2/3)*6000)
       annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
     PowerSystems.AC3ph.Drives.ASM_ctrl asm_ctrl(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.3),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=0.3),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron_ctrl (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA),
@@ -225,7 +230,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
-    PowerSystems.Mechanics.Rotation.TabPosSlopeTorque tabLoad(
+    PowerSystems.Mechanics.Rotational.TabPosSlopeTorque tabLoad(
       r=0.4,
       gRatio=40/17,
       cFrict={50,15},
@@ -261,7 +266,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       annotation (Line(points={{-40,-30},{-40,-30}}, color={0,0,255}));
     connect(voltage.term, asm_ctrl.term)
       annotation (Line(points={{-20,-30},{0,-30}}, color={0,0,255}));
-    connect(asm_ctrl.flange, tabLoad.flange_p)
+    connect(asm_ctrl.flange,tabLoad.flange_a)
       annotation (Line(points={{20,-30},{40,-30}}, color={0,0,0}));
     connect(i_q.y,PI_i_q. u_s)
                               annotation (Line(points={{-70,10},{-52,10}},
@@ -312,7 +317,8 @@ Compare 'transient' and 'steady-state' mode.</p>
       abc=true)
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.AC3ph.Drives.ASM asm(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=6.4),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=6.4),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron (
         redeclare record Data =
             PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA),
@@ -323,7 +329,7 @@ Compare 'transient' and 'steady-state' mode.</p>
           transformation(extent={{30,0},{50,20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond2(m=3)
       annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
-    PowerSystems.Mechanics.Rotation.TabPosSlopeTorque tabLoad(
+    PowerSystems.Mechanics.Rotational.TabPosSlopeTorque tabLoad(
       r=0.4,
       gRatio=40/17,
       cFrict={50,15},
@@ -349,7 +355,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       annotation (Line(points={{10,-10},{30,-10}}, color={0,120,120}));
     connect(grd.term, voltage.neutral)
       annotation (Line(points={{-80,-10},{-80,-10}}, color={0,0,255}));
-    connect(asm.flange, tabLoad.flange_p)
+    connect(asm.flange,tabLoad.flange_a)
       annotation (Line(points={{50,-10},{70,-10}}, color={0,0,0}));
     connect(asm.heat, bdCond1.heat)
                                    annotation (Line(points={{40,0},{40,0}},
@@ -383,7 +389,8 @@ The machine defines the reference-system independent of the system choice (as ne
                                       annotation (Placement(transformation(
             extent={{-40,-40},{-20,-20}})));
     PowerSystems.AC3ph.Drives.SM_ctrl sm_ctrl(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.3),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=0.3),
       redeclare model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage (
         redeclare record Data =
           PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A),
@@ -393,9 +400,9 @@ The machine defines the reference-system independent of the system choice (as ne
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
-    PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.5)
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-    PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={0.1,0.01})
+    PowerSystems.Mechanics.Rotational.Rotor loadInertia(J=0.5)
+      annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    PowerSystems.Mechanics.Rotational.FrictionTorque frictTorq(cFrict={0.1,0.01})
       annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
     Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStep(
       offsetTorque=0,
@@ -428,11 +435,11 @@ The machine defines the reference-system independent of the system choice (as ne
     connect(i_q.y, PI_i_q.u_s)
                               annotation (Line(points={{-80,20},{-62,20}},
           color={0,0,127}));
-    connect(sm_ctrl.flange, loadInertia.flange_p)
+    connect(sm_ctrl.flange,loadInertia.flange_a)
       annotation (Line(points={{20,-30},{40,-30}}, color={0,0,0}));
-    connect(loadInertia.flange_n, frictTorq.flange)
+    connect(loadInertia.flange_b, frictTorq.flange)
       annotation (Line(points={{60,-30},{80,-30}}, color={0,0,0}));
-    connect(loadInertia.flange_n, torqueStep.flange) annotation (Line(points={{
+    connect(loadInertia.flange_b, torqueStep.flange) annotation (Line(points={{
             60,-30},{70,-30},{70,10},{80,10}}, color={0,0,0}));
     connect(voltage.term, sm_ctrl.term)
       annotation (Line(points={{-20,-30},{0,-30}}, color={0,0,255}));
@@ -451,7 +458,7 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
 <p><i>See for example:</i>
 <pre>
   sm_ctrl.motor.tau_el
-  loadInertia.flange_p.tau
+  loadInertia.flange_a.tau
   sm_ctrl.motor.w_el
   loadInertia.w
 </pre></p>
@@ -470,7 +477,8 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
                                       annotation (Placement(transformation(
             extent={{-40,-40},{-20,-20}})));
     PowerSystems.AC3ph.Drives.SM_ctrl sm_ctrl(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.3),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=0.3),
       redeclare model Inverter = PowerSystems.AC3ph.Inverters.Inverter (
         redeclare model Inverter =
           PowerSystems.AC3ph.Inverters.Components.InverterSwitch
@@ -481,9 +489,9 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=5) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
-    PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.5)
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-    PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={0.1,0.01})
+    PowerSystems.Mechanics.Rotational.Rotor loadInertia(J=0.5)
+      annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    PowerSystems.Mechanics.Rotational.FrictionTorque frictTorq(cFrict={0.1,0.01})
       annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
     Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStep(
       offsetTorque=0,
@@ -516,11 +524,11 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
     connect(i_q.y, PI_i_q.u_s)
                             annotation (Line(points={{-80,20},{-62,20}}, color=
             {0,0,127}));
-    connect(sm_ctrl.flange, loadInertia.flange_p)
+    connect(sm_ctrl.flange,loadInertia.flange_a)
       annotation (Line(points={{20,-30},{40,-30}}, color={0,0,0}));
-    connect(loadInertia.flange_n, frictTorq.flange)
+    connect(loadInertia.flange_b, frictTorq.flange)
       annotation (Line(points={{60,-30},{80,-30}}, color={0,0,0}));
-    connect(loadInertia.flange_n, torqueStep.flange) annotation (Line(points={{
+    connect(loadInertia.flange_b, torqueStep.flange) annotation (Line(points={{
             60,-30},{70,-30},{70,10},{80,10}}, color={0,0,0}));
     connect(voltage.term, sm_ctrl.term)
       annotation (Line(points={{-20,-30},{0,-30}}, color={0,0,255}));
@@ -539,7 +547,7 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
 <p><i>See for example:</i>
 <pre>
   sm_ctrl.motor.tau_el
-  loadInertia.flange_p.tau
+  loadInertia.flange_a.tau
   sm_ctrl.motor.w_el
   loadInertia.w
 </pre></p>
@@ -572,9 +580,9 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
-    PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.5)
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-    PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={5,0.5})
+    PowerSystems.Mechanics.Rotational.Rotor loadInertia(J=0.5)
+      annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    PowerSystems.Mechanics.Rotational.FrictionTorque frictTorq(cFrict={5,0.5})
       annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
     Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStep(
       offsetTorque=0,
@@ -610,11 +618,11 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
     connect(i_q.y, PI_i_q.u_s)
                               annotation (Line(points={{-80,20},{-62,20}},
           color={0,0,127}));
-    connect(asm_ctrl.flange, loadInertia.flange_p)
+    connect(asm_ctrl.flange,loadInertia.flange_a)
       annotation (Line(points={{20,-30},{40,-30}}, color={0,0,0}));
-    connect(loadInertia.flange_n, frictTorq.flange)
+    connect(loadInertia.flange_b, frictTorq.flange)
       annotation (Line(points={{60,-30},{80,-30}}, color={0,0,0}));
-    connect(loadInertia.flange_n, torqueStep.flange) annotation (Line(points={{
+    connect(loadInertia.flange_b, torqueStep.flange) annotation (Line(points={{
             60,-30},{70,-30},{70,10},{80,10}}, color={0,0,0}));
     connect(voltage.term, asm_ctrl.term)
       annotation (Line(points={{-20,-30},{0,-30}}, color={0,0,255}));
@@ -654,7 +662,8 @@ Check vPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
                                       annotation (Placement(transformation(
             extent={{-40,-40},{-20,-20}})));
     PowerSystems.AC3ph.Drives.ASM_ctrl asm_ctrl(
-      redeclare model Rotor = PowerSystems.Mechanics.Rotation.ElectricRotor(J=0.3),
+      redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
+                                                                            J=0.3),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron_ctrl (
         redeclare record Data =
           PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA(r_n=0)),
@@ -666,10 +675,10 @@ Check vPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
                 annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=5) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
-    PowerSystems.Mechanics.Rotation.Rotor loadInertia(J=0.5, w_start(
+    PowerSystems.Mechanics.Rotational.Rotor loadInertia(J=0.5, w_start(
           displayUnit="rpm") = 0.10471975511966)
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-    PowerSystems.Mechanics.Rotation.FrictionTorque frictTorq(cFrict={5,0.5})
+      annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    PowerSystems.Mechanics.Rotational.FrictionTorque frictTorq(cFrict={5,0.5})
       annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
     Modelica.Mechanics.Rotational.Sources.TorqueStep torqueStep(
       offsetTorque=0,
@@ -702,11 +711,11 @@ Check vPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage
     connect(i_q.y, PI_i_q.u_s)
                             annotation (Line(points={{-80,20},{-62,20}}, color=
             {0,0,127}));
-    connect(asm_ctrl.flange, loadInertia.flange_p)
+    connect(asm_ctrl.flange,loadInertia.flange_a)
       annotation (Line(points={{20,-30},{40,-30}}, color={0,0,0}));
-    connect(loadInertia.flange_n, frictTorq.flange)
+    connect(loadInertia.flange_b, frictTorq.flange)
       annotation (Line(points={{60,-30},{80,-30}}, color={0,0,0}));
-    connect(loadInertia.flange_n, torqueStep.flange) annotation (Line(points={{
+    connect(loadInertia.flange_b, torqueStep.flange) annotation (Line(points={{
             60,-30},{70,-30},{70,10},{80,10}}, color={0,0,0}));
     connect(voltage.term, asm_ctrl.term)
       annotation (Line(points={{-20,-30},{0,-30}}, color={0,0,255}));
