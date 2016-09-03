@@ -582,7 +582,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
       extends Common.Nominal.Nominal;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-        annotation(Evaluate=true, Dialog(tab="Mode"));
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
 
       parameter Boolean use_pq_in = false
         "= true to use input signal pq_in, otherwise use parameter pq0"

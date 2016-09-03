@@ -100,7 +100,7 @@ package Governors "Turbine Governors "
     extends Partials.GovernorBase;
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-      annotation(Evaluate=true, Dialog(tab="Mode"));
+      annotation(Evaluate=true, Dialog(tab="Initialization"));
     parameter Real k=20 "Gain";
     parameter Real t=5 "time constant speed regulator";
   protected

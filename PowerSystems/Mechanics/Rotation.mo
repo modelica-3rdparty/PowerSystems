@@ -1260,7 +1260,7 @@ end PowerSensor;
       extends Ports.Rigid;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-        annotation(Evaluate=true, Dialog(tab="Mode"));
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
       parameter SI.Inertia J=1 "inertia";
       parameter SI.AngularVelocity w_start = 0
         "start value of angular velocity"

@@ -804,7 +804,7 @@ end FaultTline;
         annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-        annotation(Evaluate=true, Dialog(tab="Mode"));
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
       parameter PS.Voltage[2] v_start = zeros(2) "start value of voltage drop"
                                        annotation(Dialog(tab="Initialization"));
       parameter PS.Current[2] i_start = zeros(2) "start value of current"

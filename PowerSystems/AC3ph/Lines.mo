@@ -1333,7 +1333,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
       extends Ports.PortBase;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-        annotation(Evaluate=true, Dialog(tab="Mode"));
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
       parameter PS.Voltage[3] v_start = zeros(3) "start value of voltage drop"
         annotation(Dialog(tab="Initialization"));
       parameter PS.Current[3] i_start = zeros(3) "start value of current"

@@ -173,7 +173,7 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     extends Partials.PowerBase;
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-      annotation(Evaluate=true, Dialog(tab="Mode"));
+      annotation(Evaluate=true, Dialog(tab="Initialization"));
 
     parameter PowerSystems.Types.Init initType=PowerSystems.Types.Init.v_alpha
       "initialisation type" annotation(Dialog(tab="Initialization"));

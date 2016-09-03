@@ -6,7 +6,7 @@ package Breakers "Switches and Breakers 3-phase"
     extends Partials.SwitchBase(final n=1);
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-      annotation(Evaluate=true, Dialog(tab="Mode"));
+      annotation(Evaluate=true, Dialog(tab="Initialization"));
 
     parameter SI.Time t_relax=10e-3 "switch relaxation time";
     parameter Integer p_relax(min=2)=4 "power of relaxation exponent";
@@ -107,7 +107,7 @@ with
     extends PowerSystems.Common.Nominal.NominalVI;
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-      annotation(Evaluate=true, Dialog(tab="Mode"));
+      annotation(Evaluate=true, Dialog(tab="Initialization"));
 
     parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
       "{resistance 'closed', conductance 'open'}";

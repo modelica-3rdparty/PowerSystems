@@ -90,7 +90,7 @@ package Exciters "Generator Exciters "
     extends Partials.ExciterBase;
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-      annotation(Evaluate=true, Dialog(tab="Mode"));
+      annotation(Evaluate=true, Dialog(tab="Initialization"));
     parameter Real k=50 "gain";
     parameter SI.Time t=0.005 "time constant voltage regulator";
   protected

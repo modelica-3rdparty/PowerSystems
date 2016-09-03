@@ -720,7 +720,7 @@ Use only if 'non symmetric' is really desired because this component needs a tim
       extends Common.Nominal.NominalAC;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-        annotation(Evaluate=true, Dialog(tab="Mode"));
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
       parameter SIpu.Resistance r_n=1 "resistance neutral to grd"
         annotation(Dialog(enable));
     protected

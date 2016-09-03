@@ -5,7 +5,7 @@ package TurboGroups "Turbines including generator-rotor"
   model FixedSpeedTG "Fixed speed turbo-generator rotor"
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-      annotation(Evaluate=true, Dialog(tab="Mode"));
+      annotation(Evaluate=true, Dialog(tab="Initialization"));
     parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity"
       annotation(Dialog(tab="Initialization"));
     parameter SI.AngularVelocity w_nom=1 "nominal angular velocity"
@@ -92,7 +92,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
   model SingleMassTG "Single mass turbo-generator rotor"
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-      annotation(Evaluate=true, Dialog(tab="Mode"));
+      annotation(Evaluate=true, Dialog(tab="Initialization"));
     parameter SIpu.AngularVelocity speed_thr(unit="1")=0.5
       "threshold: torque ctrl \\ power ctrl";
     parameter SI.Time H=1 "inertia constant turbine + generator";

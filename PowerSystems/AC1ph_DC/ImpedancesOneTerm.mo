@@ -250,7 +250,7 @@ package ImpedancesOneTerm "Impedance and admittance one terminal"
       extends Common.Nominal.NominalAC;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state initialization"
-        annotation(Evaluate=true, Dialog(tab="Mode"));
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
       parameter PS.Voltage v_start = 0 "start value of voltage drop"
         annotation(Dialog(tab="Initialization"));
       parameter PS.Current i_start = 0 "start value of current"

@@ -234,7 +234,7 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
       extends Ports.Port_p;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-        annotation(Evaluate=true, Dialog(tab="Mode"));
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
       parameter PS.Voltage v_start = 0 "start value of voltage drop"
         annotation(Dialog(tab="Initialization"));
       parameter PS.Current i_start = 0 "start value of current"

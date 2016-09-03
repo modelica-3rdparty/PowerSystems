@@ -465,7 +465,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
       extends Ports.YDport_p(i(start = i_start));
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-        annotation(Evaluate=true, Dialog(tab="Mode"));
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
       parameter PS.Current[3] i_start = zeros(3)
         "start value of current conductor"
         annotation (Dialog(tab="Initialization"));

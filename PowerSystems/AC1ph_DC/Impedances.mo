@@ -564,7 +564,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     extends Partials.ImpedBase0;
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-      annotation(Evaluate=true, Dialog(tab="Mode"));
+      annotation(Evaluate=true, Dialog(tab="Initialization"));
     parameter PS.Voltage V_start=0 "start voltage"
       annotation(Dialog(tab="Initialization"));
     parameter SI.Conductance G=1e-6;
@@ -659,7 +659,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     extends Partials.ImpedBase0;
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-      annotation(Evaluate=true, Dialog(tab="Mode"));
+      annotation(Evaluate=true, Dialog(tab="Initialization"));
     parameter PS.Voltage V_start=0 "start voltage"
       annotation(Dialog(tab="Initialization"));
     parameter SI.Resistance Rfilter=1e-3;
@@ -749,7 +749,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
     extends Partials.ImpedBase0;
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-      annotation(Evaluate=true, Dialog(tab="Mode"));
+      annotation(Evaluate=true, Dialog(tab="Initialization"));
     parameter PS.Voltage V_start=0 "start voltage"
       annotation(Dialog(tab="Initialization"));
     parameter SI.Resistance Rfilter=1e-3;
@@ -871,7 +871,7 @@ Instead of b and g the parameters y_abs and cos(phi) are used.</p>
       extends Common.Nominal.NominalAC;
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-        annotation(Evaluate=true, Dialog(tab="Mode"));
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
       parameter PS.Voltage[2] v_start = zeros(2)
         "start value of voltage drop" annotation(Dialog(tab="Initialization"));
       parameter PS.Current[2] i_start = zeros(2)

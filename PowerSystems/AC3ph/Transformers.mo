@@ -297,7 +297,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
           i1(start=i1_start), i2(start=i2_start));
 
         parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-          annotation(Evaluate=true, Dialog(tab="Mode"));
+          annotation(Evaluate=true, Dialog(tab="Initialization"));
         parameter PS.Current[3] i1_start = zeros(3)
         "start value of primary current"
           annotation(Dialog(tab="Initialization"));
@@ -314,7 +314,7 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
         parameter Integer tap_2 = par.tap_neutral[2] "fixed tap_2 position"
           annotation(Dialog(enable=not use_tap_2_in, group="Options"));
         parameter Boolean dynTC=false "enable dynamic tap-changing"
-          annotation(Evaluate=true, Dialog(tab="Mode",
+          annotation(Evaluate=true, Dialog(tab="Initialization",
             enable=dynType<>PowerSystems.Types.Dynamics.SteadyState));
 
         Modelica.Blocks.Interfaces.IntegerInput tap_1_in if use_tap_1_in
@@ -603,7 +603,7 @@ For variable transformer ratio tap changer input needed.</p>
       final term_nb(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[3])));
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-      annotation(Evaluate=true, Dialog(tab="Mode"));
+      annotation(Evaluate=true, Dialog(tab="Initialization"));
 
     parameter Boolean use_tap_1_in = false "= true to enable input tap_1_in"
       annotation(Evaluate=true, choices(checkBox=true), Dialog(group="Options"));

@@ -258,7 +258,7 @@ and eddy current losses.</p>
       extends Ports.PortTrafo_p_n(i1(start = i1_start), i2(start = i2_start));
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
-        annotation(Evaluate=true, Dialog(tab="Mode"));
+        annotation(Evaluate=true, Dialog(tab="Initialization"));
       parameter PS.Current i1_start = 0 "start value of primary current"
         annotation(Dialog(tab="Initialization"));
       parameter PS.Current i2_start = i1_start

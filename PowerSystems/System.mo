@@ -20,7 +20,7 @@ model System "System reference"
     annotation(Evaluate=true, Dialog(group="System", enable=dynType<>PowerSystems.Types.Dynamics.SteadyState));
   parameter Types.Dynamics dynType = PowerSystems.Types.Dynamics.SteadyInitial
     "transient or steady-state model"
-    annotation(Evaluate=true, Dialog(group="Mode"));
+    annotation(Evaluate=true, Dialog(group="Initialization"));
 
   final parameter SI.AngularFrequency omega_nom = 2*pi*f_nom
     "nominal angular frequency" annotation(Evaluate=true);
