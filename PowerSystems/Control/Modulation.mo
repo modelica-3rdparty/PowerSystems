@@ -1220,7 +1220,7 @@ protected
 end Partials;
 
 package SpaceVector "Space vector logic and control"
-  extends PowerSystems.Icons.SpecialLibrary;
+  extends Modelica.Icons.VariantsPackage;
 
   model SVMlogic "Logical part for SVM"
 

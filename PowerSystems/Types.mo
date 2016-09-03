@@ -9,6 +9,7 @@ package Types
     type Voltage = Real (final quantity="Voltage", unit="V/V");
     type Current = Real (final quantity="Current", unit="A/A");
     type Power = Real (final quantity="Power", unit="W/W");
+    type ActivePower = Real (final quantity="Power", unit="W/W");
     type ApparentPower = Real (final quantity="ApparentPower", unit="VA/VA");
     type ReactivePower = Real (final quantity="ReactivePower", unit="var/var");
     type Resistance = Real (
@@ -55,86 +56,6 @@ package Types
 "));
   end SIpu;
 
-  package SInotused "Additional types for power systems"
-    extends Modelica.Icons.Package;
-
-    type AngularVelocity = Real(final quantity="AngularVelocity", unit="rad/s");
-    type Voltage = Real (final quantity="Voltage", unit="V");
-    type Current = Real (final quantity="Current", unit="A");
-    type ApparentPower = Real (final quantity="ApparentPower", unit="VA");
-    type Resistance = Real (
-        final quantity="Resistance",
-        unit="Ohm",
-        final min=0);
-    type Reactance = Real (final quantity="Reactance", unit="Ohm");
-    type Impedance = Real (final quantity="Impedance", unit="Ohm");
-    type Inductance = Real (final quantity="Inductance", unit="H");
-    type Conductance = Real (
-        final quantity="Conductance",
-        unit="S",
-        final min=0);
-    type Susceptance = Real (
-        final quantity="Susceptance",
-        unit="S",
-        min=0);
-    type Admittance = Real (
-        final quantity="Admittance",
-        unit="S",
-        min=0);
-    type Resistance_km = Real (
-        final quantity="Resistance_per_km",
-        unit="Ohm/km",
-        min=0);
-    type Reactance_km = Real (final quantity="Reactance_per_km",
-        unit="Ohm/km",
-        min=0);
-    type Conductance_km = Real (
-        final quantity="Conductance_per_km",
-        unit="S/km",
-        min=0);
-    type Susceptance_km = Real (
-        final quantity="Susceptance_per_km",
-        unit="S/km",
-        min=0);
-    type MagneticFlux = Real (final quantity="MagneticFlux", unit="Wb");
-
-    type Energy = Real (final quantity="Energy", unit="J");
-    type Power = Real (final quantity="Power", unit="W");
-    type Torque = Real (final quantity="Torque", unit="N.m");
-
-   annotation (
-    Documentation(info="<html>
-</html>
-"));
-  end SInotused;
-
-/*
-  type Units = enumeration(
-      SI "SI",
-      pu "pu") "unit choice SI or pu"
-      annotation(Documentation(info="<html>
-<p><pre>
-  SI:  SI units for input parameters
-  pu:  pu units for input parameters (per unit)
-</pre></p>
-<p>If <tt>pu</tt> units are chosen, the nominal values (typically <tt>S_nom</tt> and <tt>V_nom</tt>) are used, to determine the units (typically impedance units).</p>
-</html>"));
-*/
-/*
-  type Units = String "unit choice" annotation(choices(
-    choice=PowerSystems.Basic.Types.SI "SI",
-    choice=PowerSystems.Basic.Types.Units.pu "pu"), Documentation(info="<html>
-<p><pre>
-  SI:  parameters in SI
-  pu:  parameters in pu
-</pre></p>
-</html>"));
-    constant PowerSystems.Basic.Types.Units SI=
-                      "SI" "SI units";
-    constant PowerSystems.Basic.Types.Units pu=
-                      "pu" "pu units";
-*/
-
   type SourceFrequency = enumeration(
       Parameter "Parameter f",
       Signal "Signal omega_in",
@@ -159,54 +80,6 @@ package Types
   Average:   average frequency over involved generators
 </pre></p>
 </html>"));
-
-/*
-  type FreqType = String "frequency type" annotation(choices(
-     choice=PowerSystems.Basic.Types.sys "system",
-     choice=PowerSystems.Basic.Types.par "parameter",
-     choice=PowerSystems.Basic.Types.Units.sig "signal (omega)"), Documentation(info=
-                   "<html>
-<p><pre>
-  sys:  source has system frequency
-  par:  system or source has parameter frequency
-  sig:  system or source has signal frequency
-  ave:  system has averaged frequency (over involved generators)
-</pre></p>
-</html>"));
-
-
-    constant Types.FreqType par=
-                          "par" "parameter frequency";
-    constant Types.FreqType sig=
-                          "sig" "signal frequency";
-    constant Types.FreqType ave=
-                          "ave" "average frequency";
-    constant Types.FreqType sys=
-                          "sys" "system frequency";
-*/
-
-/*
-  type SourceType = enumeration(
-      par "parameter",
-      sig "signal") "Source type"
-      annotation(Documentation(info="<html>
-<p><pre>
-  par:  parameter
-  sig:  signal
-</pre></p>
-</html>"));
-*/
-/*
-  type SourceType = String "source type" annotation (choices(
-       choice=PowerSystems.Basic.Types.par "parameter",
-       choice=PowerSystems.Basic.Types.Units.sig "signal"), Documentation(info=
-                     "<html>
-<p><pre>
-  par:  parameter
-  sig:  signal
-</pre></p>
-</html>"));
-*/
 
   type ReferenceFrame = enumeration(
       Synchron "Synchronously rotating",
@@ -250,104 +123,19 @@ package Types
   none:     no initial condition
 </pre></p>
 </html>"));
-/*
-    type IniType = String "initialisation type"
-      annotation(choices(
-       choice=PowerSystems.Basic.Types.v_alpha
-        "voltage and phase angle ('slack')",
-       choice=PowerSystems.Basic.Types.v_p "voltage and active power",
-       choice=PowerSystems.Basic.Types.v_q "voltage and reactive power",
-       choice=PowerSystems.Basic.Types.p_q "active and reactive power",
-       choice=PowerSystems.Basic.Types.none "no initial condition"), Documentation(info=
-                     "<html>
-<p><pre>
-  v_alpha:  terminal voltage and phase angle ('slack')
-  v_p:      terminal voltage and active power
-  v_q:      terminal voltage and reactive power
-  p_q:      terminal active and reactive power
-  none:     no initial condition
-</pre></p>
-</html>"));
 
-      constant PowerSystems.Basic.Types.IniType v_alpha=
-                               "v_alpha" "voltage and phase";
-      constant PowerSystems.Basic.Types.IniType v_p=
-                           "v_p" "voltage and active power";
-      constant PowerSystems.Basic.Types.IniType v_q=
-                           "v_q" "voltage and reactive power";
-      constant PowerSystems.Basic.Types.IniType p_q=
-                           "p_q" "active and reactive power";
-      constant PowerSystems.Basic.Types.IniType none=
-                            "none" "no initial condition";
-*/
+  type ReferenceAngle "Reference angle"
+    extends SI.Angle;
 
-/*
-  type Mode = enumeration(
-      tr "transient",
-      st "steady") "Simulation and initialisation mode"
-      annotation (Documentation(info="<html>
-<p><pre>
-  tr:  transient
-  st:  steady state
-</pre></p>
-</html>"));
-*/
-/*
-    type Mode = String "simulation and initialisation mode" annotation (choices(
-       choice=PowerSystems.Basic.Types.tr "transient",
-       choice=PowerSystems.Basic.Types.st "steady"), Documentation(info=
-                     "<html>
-<p><pre>
-  tr:  transient
-  st:  steady state
-</pre></p>
-</html>"));
-
-      constant PowerSystems.Basic.Types.Mode tr=
-                        "tr" "transient mode";
-      constant PowerSystems.Basic.Types.Mode st=
-                        "st" "steady state mode";
-*/
-/*
-  type RefFrame = enumeration(
-      syn "synchronous",
-      inert "inertial") "Reference frame"
-      annotation (Documentation(info="<html>
-<p><pre>
-  syn:   synchronous (rotating)
-  inert: inertial (not rotating)
-</pre></p>
-</html>"));
-*/
-/*
-    type RefFrame = String "reference frame" annotation (choices(
-     choice=PowerSystems.Basic.Types.syn "synchronous",
-     choice=PowerSystems.Basic.Types.inert "inertial"), Documentation(info=
-                   "<html>
-<p><pre>
-  syn:   synchronous (rotating)
-  inert: inertial (not rotating)
-</pre></p>
-</html>"));
-
-      constant PowerSystems.Basic.Types.RefFrame syn=
-                             "syn" "synchronous";
-      constant PowerSystems.Basic.Types.RefFrame inert=
-                               "inert" "inertial";
-*/
-
-    type ReferenceAngle "Reference angle"
-      extends SI.Angle;
-
-      function equalityConstraint
-        input ReferenceAngle theta1[:];
-        input ReferenceAngle theta2[:];
-        output Real[0] residue "No constraints";
-      algorithm
-        for i in 1:size(theta1, 1) loop
-          assert(abs(theta1[i] - theta2[i]) < Modelica.Constants.eps, "angles theta1 and theta2 not equal over connection!");
-        end for;
-      end equalityConstraint;
+    function equalityConstraint
+      input ReferenceAngle theta1[:];
+      input ReferenceAngle theta2[:];
+      output Real[0] residue "No constraints";
+    algorithm
+      for i in 1:size(theta1, 1) loop
+        assert(abs(theta1[i] - theta2[i]) < Modelica.Constants.eps, "angles theta1 and theta2 not equal over connection!");
+      end for;
+    end equalityConstraint;
 
     annotation (Documentation(info="<html>
 <p>Type ReferenceAngle specifies the variable-type that contains relative frequency and angular orientation of a rotating electrical reference system.
@@ -360,7 +148,7 @@ In the case of three phase AC models we have:</p>
   der(theta[1] + theta[2])  absolute frequency
 </pre>
 </html>"));
-    end ReferenceAngle;
+  end ReferenceAngle;
 
   type Color = Integer[3] (each min=0, each max=255) "RGB color" annotation (choices(
         choice={255,0,0} "{255, 000, 000 }  red",
@@ -374,11 +162,11 @@ In the case of three phase AC models we have:</p>
         choice={175,175,175} "{175, 175, 175}  grey",
         choice={255,255,255} "{255, 255, 255}  white"));
 
-    type AngularVelocity = SI.AngularVelocity(displayUnit="rpm");
-    type Charge_Ah = Real (final quantity="ElectricCharge", final unit="A.h");
-    type Length = SI.Length(displayUnit="km");
-    type Percent = Real(final quantity="Percent",final unit="PC0") "Note: the unit PC0 is used until Modelica supports %";
-    type Stiffness = Real (final quantity="Stiffness", final unit="N", final min=0);
-    type TorsionStiffness = Real (final quantity="TorsionStiffness", final unit="N.m/rad", final min=0);
+  type AngularVelocity = SI.AngularVelocity(displayUnit="rpm");
+  type Charge_Ah = Real (final quantity="ElectricCharge", final unit="A.h");
+  type Length = SI.Length(displayUnit="km");
+  type Percent = Real(final quantity="Percent",final unit="PC0") "Note: the unit PC0 is used until Modelica supports %";
+  type Stiffness = Real (final quantity="Stiffness", final unit="N", final min=0);
+  type TorsionStiffness = Real (final quantity="TorsionStiffness", final unit="N.m/rad", final min=0);
 
 end Types;

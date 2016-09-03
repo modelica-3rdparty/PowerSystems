@@ -323,236 +323,10 @@ package Icons "Icons"
 
   end Inverter_dq0;
 
-  partial record Record "Record icon"
-
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics={
-            Rectangle(
-              extent={{-80,80},{80,-40}},
-              lineColor={95,95,95},
-              fillColor={255,255,170},
-              fillPattern=FillPattern.Solid),
-            Line(points={{-80,40},{80,40}}, color={95,95,95}),
-            Line(points={{0,80},{0,-40}}, color={95,95,95}),
-            Text(
-              extent={{-100,-80},{100,-120}},
-              lineColor={0,0,0},
-              textString="%name"),
-            Line(points={{-80,0},{80,0}}, color={95,95,95})}),
-          Documentation(info=""));
-  end Record;
-
-  partial function Function "Function icon"
-
-    annotation (
-      Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics={
-            Ellipse(
-              extent={{-100,60},{100,-60}},
-              lineColor={255,85,85},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-100,30},{100,-50}},
-              lineColor={255,85,85},
-              textString="f"),
-            Text(
-              extent={{-100,120},{100,80}},
-              lineColor={0,0,0},
-              textString="%name")}),
-      Documentation(
-              info="
-"));
-  end Function;
-
-  partial class Enumeration "Enumeration icon"
-
-    annotation (Icon(graphics={
-            Text(
-              extent={{-100,120},{100,80}},
-              lineColor={0,0,0},
-              textString="%name"),
-            Ellipse(
-              extent={{-100,60},{100,-60}},
-              lineColor={85,85,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-100,40},{100,-40}},
-              lineColor={85,85,255},
-              fillColor={223,159,191},
-              fillPattern=FillPattern.Solid,
-              textString="e")}),
-      Documentation(info=""));
-  end Enumeration;
-
-    partial class Library "Package icon 'Library'"
-
-      annotation (             Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics={
-            Rectangle(
-              extent={{-100,-100},{80,50}},
-              lineColor={0,0,255},
-              fillColor={235,235,235},
-              fillPattern=FillPattern.Solid),
-            Polygon(
-              points={{-100,50},{-80,70},{100,70},{80,50},{-100,50}},
-              lineColor={0,0,255},
-              fillColor={235,235,235},
-              fillPattern=FillPattern.Solid),
-            Polygon(
-              points={{100,70},{100,-80},{80,-100},{80,50},{100,70}},
-              lineColor={0,0,255},
-              fillColor={235,235,235},
-              fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-120,125},{120,70}},
-              lineColor={255,0,0},
-              textString="%name"),
-            Text(
-              extent={{-80,40},{70,-80}},
-              lineColor={95,95,95},
-              fillColor={255,255,170},
-              fillPattern=FillPattern.Solid,
-              textString="Library")}),
-        Documentation(info=""));
-    end Library;
-
-    partial class SpecialLibrary "Package icon 'Special Library'"
-
-      annotation (
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics={
-            Rectangle(
-              extent={{-100,-100},{80,50}},
-              lineColor={95,95,95},
-              fillColor={212,231,211},
-              fillPattern=FillPattern.Solid),
-            Polygon(
-              points={{-100,50},{-80,70},{100,70},{80,50},{-100,50}},
-              lineColor={95,95,95},
-              fillColor={212,231,211},
-              fillPattern=FillPattern.Solid),
-            Polygon(
-              points={{100,70},{100,-80},{80,-100},{80,50},{100,70}},
-              lineColor={95,95,95},
-              fillColor={212,231,211},
-              fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-80,40},{70,-80}},
-              lineColor={95,95,95},
-              fillColor={255,255,170},
-              fillPattern=FillPattern.Solid,
-              textString="Library"),
-            Text(
-              extent={{-120,125},{120,70}},
-              lineColor={255,0,0},
-              textString="%name")}),
-    Documentation(info=""));
-    end SpecialLibrary;
-
-    partial class Base "Package icon 'Base'"
-
-      annotation (
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics={
-            Rectangle(
-              extent={{-100,-100},{80,50}},
-              lineColor={95,95,95},
-              fillColor={253,255,202},
-              fillPattern=FillPattern.Solid),
-            Polygon(
-              points={{-100,50},{-80,70},{100,70},{80,50},{-100,50}},
-              lineColor={95,95,95},
-              fillColor={253,255,202},
-              fillPattern=FillPattern.Solid),
-            Polygon(
-              points={{100,70},{100,-80},{80,-100},{80,50},{100,70}},
-              lineColor={95,95,95},
-              fillColor={253,255,202},
-              fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-80,40},{70,-80}},
-              lineColor={95,95,95},
-              fillColor={255,255,170},
-              fillPattern=FillPattern.Solid,
-              textString="Base")}),
-    Documentation(info=""));
-    end Base;
-
-    partial class Partials "Package icon 'Partials'"
-
-      annotation (
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics={
-            Rectangle(
-              extent={{-100,-100},{80,50}},
-              lineColor={95,95,95},
-              fillColor={236,236,236},
-              fillPattern=FillPattern.Solid),
-            Polygon(
-              points={{-100,50},{-80,70},{100,70},{80,50},{-100,50}},
-              lineColor={95,95,95},
-              fillColor={236,236,236},
-              fillPattern=FillPattern.Solid),
-            Polygon(
-              points={{100,70},{100,-80},{80,-100},{80,50},{100,70}},
-              lineColor={95,95,95},
-              fillColor={236,236,236},
-              fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-80,40},{70,-80}},
-              lineColor={95,95,95},
-              fillColor={255,255,170},
-              fillPattern=FillPattern.Solid,
-              textString="Partials")}),
-    Documentation(info=""));
-    end Partials;
-
-    partial class Examples "Package icon 'Examples'"
-
-      annotation (
-    Icon(coordinateSystem(
-            preserveAspectRatio=false,
-            extent={{-100,-100},{100,100}},
-            grid={2,2}), graphics={
-            Rectangle(
-              extent={{-100,-100},{80,50}},
-              lineColor={95,95,95},
-              fillColor={255,170,170},
-              fillPattern=FillPattern.Solid),
-            Polygon(
-              points={{-100,50},{-80,70},{100,70},{80,50},{-100,50}},
-              lineColor={95,95,95},
-              fillColor={255,170,170},
-              fillPattern=FillPattern.Solid),
-            Polygon(
-              points={{100,70},{100,-80},{80,-100},{80,50},{100,70}},
-              lineColor={95,95,95},
-              fillColor={255,170,170},
-              fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-85,41},{65,-79}},
-              lineColor={95,95,95},
-              textString="Examples")}),
-    Documentation(info=""));
-    end Examples;
-
-    model LeftBar "Display a bar on the left side of the icon"
-
+  model LeftBar "Display a bar on the left side of the icon"
     input PowerSystems.Types.Color colorL={0,0,0};
-      input Real xL;
-      annotation (Icon(coordinateSystem(
+    input Real xL;
+    annotation (Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={Rectangle(
@@ -564,13 +338,12 @@ package Icons "Icons"
                 lineColor=colorL,
                 fillColor=colorL,
                 fillPattern=FillPattern.Solid)}));
-    end LeftBar;
+  end LeftBar;
 
-    model RightBar "Display a bar on the right side of the icon"
-
+  model RightBar "Display a bar on the right side of the icon"
     input PowerSystems.Types.Color colorR={0,0,0};
-      input Real xR;
-      annotation (Icon(coordinateSystem(
+    input Real xR;
+    annotation (Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics={Rectangle(
@@ -582,14 +355,13 @@ package Icons "Icons"
                 lineColor=colorR,
                 fillColor=colorR,
                 fillPattern=FillPattern.Solid)}));
-    end RightBar;
+  end RightBar;
 
-    model Needle "Centered needle"
-
+  model Needle "Centered needle"
     input PowerSystems.Types.Color color={0,0,0};
-      input Real x;
-      input Real y;
-      annotation (
+    input Real x;
+    input Real y;
+    annotation (
         Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -597,17 +369,16 @@ package Icons "Icons"
               points=DynamicSelect({{0,0},{100,0}},{{0,0},{x,y}}*100),
               color=color,
               thickness=0.5)}));
-    end Needle;
+  end Needle;
 
-    model DoubleNeedle "Centered double needle"
-
+  model DoubleNeedle "Centered double needle"
     input PowerSystems.Types.Color color1={255,0,0};
     input PowerSystems.Types.Color color2={0,0,255};
-      input Real x1;
-      input Real y1;
-      input Real x2;
-      input Real y2;
-      annotation (
+    input Real x1;
+    input Real y1;
+    input Real x2;
+    input Real y2;
+    annotation (
         Icon(coordinateSystem(
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
@@ -622,7 +393,8 @@ package Icons "Icons"
             preserveAspectRatio=false,
             extent={{-100,-100},{100,100}},
             grid={2,2}), graphics));
-    end DoubleNeedle;
+  end DoubleNeedle;
+
   annotation (preferredView="info",
     Documentation(info="<html>
 </html>
