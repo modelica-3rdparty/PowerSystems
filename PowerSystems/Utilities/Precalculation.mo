@@ -376,8 +376,8 @@ The secondary side is winding-reduced to the primary, as the equations are writt
       (zr, zx) := z_fromEqCirc(n_r, p.x, p.xsig_s, p.r_s, zeros(n_r-1), p.xsig_r, p.r_r);
     end if;
 
-  //  c.L_s := {p.x, p.x, p.x_o}*RL_base[2];
-    c.L_s := {zx[n_r+1,n_r+1], zx[n_r+1,n_r+1], p.x_o}*RL_base[2];
+  //  c.L_s := {p.x, p.x, p.x_0}*RL_base[2];
+    c.L_s := {zx[n_r+1,n_r+1], zx[n_r+1,n_r+1], p.x_0}*RL_base[2];
     c.L_r := zx[1:n_r,1:n_r]*RL_base[2];
     c.L_m := zx[n_r+1,1:n_r]*RL_base[2];
     c.R_s := p.r_s*RL_base[1];
@@ -411,7 +411,7 @@ See also equivalent circuit on 'Diagram layer' of
       "base resistance inductance";
 
   algorithm
-    c.L_s := {p.x_d, p.x_q, p.x_o}*RL_base[2];
+    c.L_s := {p.x_d, p.x_q, p.x_0}*RL_base[2];
     c.R_s := p.r_s*RL_base[1];
     c.R_n := p.r_n*RL_base[1];
     c.Psi_pm := p.psi_pm*(p.V_nom/omega_nom);
@@ -480,8 +480,8 @@ See also equivalent circuit on 'Diagram layer' of
         (zr_q, zx_q) := z_fromEqCirc(n_q, p.x_q, p.xsig_s, p.r_s, zeros(n_q-1), p.xsig_rq, p.r_rq);
     end if;
 
-  //  c.L_s := {p.x_d, p.x_q, p.x_o}*RL_base[2];
-    c.L_s := {zx_d[n_d+1,n_d+1], zx_q[n_q+1,n_q+1], p.x_o}*RL_base[2];
+  //  c.L_s := {p.x_d, p.x_q, p.x_0}*RL_base[2];
+    c.L_s := {zx_d[n_d+1,n_d+1], zx_q[n_q+1,n_q+1], p.x_0}*RL_base[2];
     c.L_rd := zx_d[1:n_d,1:n_d]*RL_base[2];
     c.L_rq := zx_q[1:n_q,1:n_q]*RL_base[2];
     c.L_md := zx_d[n_d+1,1:n_d]*RL_base[2];

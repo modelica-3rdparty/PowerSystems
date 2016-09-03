@@ -698,7 +698,7 @@ More info see at 'Machines.Asynchron' and 'Machines.Synchron'.</p>
       defaultComponentName="asynchron",
         Documentation(
           info="<html>
-<p>The stator contains one winding each in d-axis, q-axis, o-axis.<br>
+<p>The stator contains one winding each in d-axis, q-axis, 0-axis.<br>
 The rotor contains n_r windings each in d-axis and q-axis (at least one).<br>
 See also equivalent circuit on 'Diagram layer' of
 <a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Asynchron\">Parameters.Asynchron</a> !</p>
@@ -884,7 +884,7 @@ The transformation angle is the (electric) rotor-angle relative to the reference
         Documentation(
               info="<html>
 <p>'Voltage behind synchronous reactance', simplified model of synchronous machine.<br>
-One winding in d-axis, q-axis, o-axis.<br>
+One winding in d-axis, q-axis, 0-axis.<br>
 See also equivalent circuit on 'Diagram layer' of
 <a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Synchron3rd\">Parameters.Synchron3rd</a> !</p>
 <pre>
@@ -996,7 +996,7 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
         Documentation(
               info="<html>
 <p>General model of synchronous machine.<br>
-Stator: one winding each in d-axis, q-axis, o-axis.<br>
+Stator: one winding each in d-axis, q-axis, 0-axis.<br>
 Rotor: n_d windings in d-axis (field f, (n_d-1) damper D1, ..), n_q windings in q-axis (damper Q1, ..).<br>
 See also equivalent circuit on 'Diagram layer' of
 <a href=\"modelica://PowerSystems.AC3ph.Machines.Parameters.Synchron\">Parameters.Synchron</a> !</p>
@@ -1215,7 +1215,7 @@ package Parameters "Parameter data for interactive use"
     Integer pp "pole-pair number" annotation(Dialog);
 
     SIpu.Reactance x "total reactance d- and q-axis" annotation(Dialog);
-    SIpu.Reactance x_o "reactance o-axis" annotation(Dialog);
+    SIpu.Reactance x_0 "reactance 0-axis" annotation(Dialog);
     SIpu.Resistance r_s "resistance stator" annotation(Dialog);
     SIpu.Resistance r_n "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
 
@@ -1484,7 +1484,7 @@ package Parameters "Parameter data for interactive use"
       neu_iso=false,
       pp=1,
       x=4,
-      x_o=0.1,
+      x_0=0.1,
       r_s=0.04,
       r_n=1);
 
@@ -1501,7 +1501,7 @@ package Parameters "Parameter data for interactive use"
       neu_iso=false,
       pp=1,
       x=4,
-      x_o=0.1,
+      x_0=0.1,
       r_s=0.04,
       r_n=1,
       n_r=1,
@@ -1554,7 +1554,7 @@ package Parameters "Parameter data for interactive use"
 
     SIpu.Reactance x_d "syn reactance d-axis" annotation(Dialog);
     SIpu.Reactance x_q "syn reactance q-axis" annotation(Dialog);
-    SIpu.Reactance x_o "reactance o-axis" annotation(Dialog);
+    SIpu.Reactance x_0 "reactance 0-axis" annotation(Dialog);
     SIpu.Resistance r_s "resistance armature" annotation(Dialog);
     SIpu.Resistance r_n "resistance neutral to grd (if Y)" annotation(Dialog(enable=not neu_iso));
 
@@ -1953,7 +1953,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       final psi_pm=0,
       x_d=1.9,
       x_q=1.77,
-      x_o=0.1,
+      x_0=0.1,
       r_s=0.005,
       r_n=1);
 
@@ -1974,7 +1974,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       final psi_pm=0,
       x_d=1.9,
       x_q=1.77,
-      x_o=0.1,
+      x_0=0.1,
       r_s=0.005,
       r_n=1,
       n_d=2,
@@ -2049,7 +2049,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       psi_pm=1.2,
       x_d=0.4,
       x_q=0.4,
-      x_o=0.1,
+      x_0=0.1,
       r_s=0.05,
       r_n=1);
     annotation (defaultComponentName="syn3rd_pmPar",
@@ -2074,7 +2074,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       psi_pm=1.2,
       x_d=0.4,
       x_q=0.4,
-      x_o=0.1,
+      x_0=0.1,
       r_s=0.05,
       r_n=1,
       n_d=1,
@@ -2145,7 +2145,7 @@ Therefore we have to use the following definition for the phase-angle of i_f:
       final psi_pm=0,
       x_d=2.0,
       x_q=0.6,
-      x_o=0.1,
+      x_0=0.1,
       r_s=0.05,
       r_n=1);
     annotation (defaultComponentName="syn_reluctPar",
