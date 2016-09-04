@@ -306,9 +306,8 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
           origin={100,100},
           extent={{10,-10},{-10,10}},
           rotation=180)));
-    replaceable model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_pm (
-      final w_start=w_start) "synchron pm generator"
-      annotation (choices(
+    replaceable model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_pm
+      "synchron pm generator" annotation (choices(
       choice(redeclare model Generator =
               PowerSystems.AC3ph.Machines.Synchron3rd_pm "3rd order"),
       choice(redeclare model Generator =
@@ -378,9 +377,8 @@ The machine inertia is determined by the inertia time constant H.</p>
     extends Partials.GenBase_ctrl(heat_adapt(final m={2,inverter.heat.m}));
 
     replaceable model Generator =
-      PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (
-        final w_start=w_start) "synchron pm generator"
-      annotation (choices(
+      PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
+        "synchron pm generator" annotation (choices(
         choice(redeclare model Generator =
           PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl "3rd order"),
         choice(redeclare model Generator =
@@ -468,9 +466,8 @@ The machine inertia is determined by the inertia time constant H.</p>
       "initial angular velocity (start-value if ini='st')";
     AC3ph.Ports.ACdq0_n term "negative terminal"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-    replaceable model Generator = PowerSystems.AC3ph.Machines.Asynchron (
-      w_start=w_start) "asynchron generator"
-      annotation (choicesAllMatching=true);
+    replaceable model Generator = PowerSystems.AC3ph.Machines.Asynchron
+      "asynchron generator" annotation (choicesAllMatching=true);
     Generator generator "asynchron generator"
       annotation (Placement(transformation(extent={{60,-10},{40,10}})));
     replaceable model Torque = PowerSystems.Mechanics.TurboGroups.WindTabTorque
@@ -518,7 +515,7 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
   package Partials "Partial models"
     partial model GenBase0 "Generation base"
 
-      Interfaces.ThermalV_n heat(     m=2) "heat source port {stator, rotor}"
+      Interfaces.ThermalV_n heat(m=2) "heat source port {stator, rotor}"
         annotation (Placement(transformation(
             origin={0,100},
             extent={{-10,-10},{10,10}},
@@ -602,9 +599,7 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
         "setpoints {speed, power, voltage} pu"
         annotation (Placement(transformation(extent={{-110,10},{-90,-10}})));
       replaceable model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_ee
-          (
-        final w_start = w_start) "synchron generator"
-        annotation (choices(
+        "synchron generator" annotation (choices(
         choice(redeclare model Generator =
                 PowerSystems.AC3ph.Machines.Synchron3rd_ee "3rd order"),
         choice(redeclare model Generator =

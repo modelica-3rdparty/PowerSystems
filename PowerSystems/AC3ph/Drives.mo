@@ -4,13 +4,9 @@ package Drives "AC-drives dq0"
 
   model ASM "Asynchronous machine with cage rotor"
 
-    parameter Types.AngularVelocity  w_start=0
-      "initial rpm (start-value if steady init)"
-      annotation(Dialog(tab="Initialization"));
     extends Partials.DriveBase(rotor(w(start=w_start)));
-    replaceable model Motor = PowerSystems.AC3ph.Machines.Asynchron (
-      final w_start = w_start) "asyn motor"
-      annotation(choicesAllMatching=true);
+    replaceable model Motor = PowerSystems.AC3ph.Machines.Asynchron
+      "asyn motor" annotation(choicesAllMatching=true);
     Motor motor "asyn motor"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
@@ -39,13 +35,9 @@ package Drives "AC-drives dq0"
 
   model ASM_Y_D "Asynchronous machine with cage rotor, Y-Delta switcheable"
 
-    parameter Types.AngularVelocity w_start=0
-      "initial rpm (start-value if steady init)"
-      annotation(Dialog(tab="Initialization"));
     extends Partials.DriveBase;
-    replaceable model Motor = PowerSystems.AC3ph.Machines.AsynchronY_D (
-      final w_start = w_start) "asyn motor Y-Delta switcheable"
-                                       annotation (choicesAllMatching=true);
+    replaceable model Motor = PowerSystems.AC3ph.Machines.AsynchronY_D
+      "asyn motor Y-Delta switcheable" annotation (choicesAllMatching=true);
     Motor motor "asyn motor Y-Delta switcheable"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     input Modelica.Blocks.Interfaces.BooleanInput YDcontrol
@@ -104,9 +96,8 @@ package Drives "AC-drives dq0"
     Inverter inverter "inverter (average or modulated)"
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-    replaceable model Motor = PowerSystems.AC3ph.Machines.Asynchron_ctrl (
-      final w_start = w_start) "asyn motor, current controlled"
-      annotation (choices(
+    replaceable model Motor = PowerSystems.AC3ph.Machines.Asynchron_ctrl
+      "asyn motor, current controlled" annotation (choices(
       choice(redeclare model Motor =
               PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
             "synchron 3rd order"),
@@ -149,9 +140,6 @@ package Drives "AC-drives dq0"
 
   model SM_el "Synchronous machine, electric excitation"
 
-    parameter Types.AngularVelocity  w_start=0
-      "initial rpm (start-value if steady init)"
-      annotation(Dialog(tab="Initialization"));
     extends Partials.DriveBase;
 
     replaceable model Excitation =
@@ -160,9 +148,8 @@ package Drives "AC-drives dq0"
     Excitation excitation "excitation model"
       annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 
-    replaceable model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_ee (
-      final w_start = w_start) "syn motor"
-                  annotation (choices(
+    replaceable model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_ee
+      "syn motor" annotation (choices(
       choice(redeclare model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_ee
             "synchron 3rd order"),
       choice(redeclare model Motor = PowerSystems.AC3ph.Machines.Synchron_ee
@@ -170,15 +157,13 @@ package Drives "AC-drives dq0"
     Motor motor "syn motor"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-    Modelica.Blocks.Interfaces.RealInput fieldVoltage(
-                             final unit="1")
+    Modelica.Blocks.Interfaces.RealInput fieldVoltage(final unit="1")
       "field voltage pu from exciter control"
       annotation (Placement(transformation(
           origin={60,100},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    Modelica.Blocks.Interfaces.RealOutput[3] termVoltage(
-                                        final unit="1")
+    Modelica.Blocks.Interfaces.RealOutput[3] termVoltage(final unit="1")
       "terminal voltage pu to exciter control"
       annotation (Placement(transformation(
           origin={-60,100},
@@ -233,9 +218,8 @@ package Drives "AC-drives dq0"
     Inverter inverter "inverter (average or modulated)"
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-    replaceable model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (
-      final w_start = w_start) "syn motor, current controlled"
-      annotation (choices(
+    replaceable model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
+      "syn motor, current controlled" annotation (choices(
       choice(redeclare model Motor =
               PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl
             "synchron 3rd order"),
@@ -290,12 +274,15 @@ package Drives "AC-drives dq0"
   package Partials "Partial models"
   partial model DriveBase0 "AC drives base mechanical"
 
+    parameter Types.AngularVelocity  w_start=0
+      "initial rpm (start-value if steady init)"
+      annotation(Dialog(tab="Initialization"));
     Interfaces.Rotation_n flange "mechanical flange"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     replaceable model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor
         "machine rotor"
                       annotation(choicesAllMatching=true);
-    Rotor rotor "machine rotor"
+    Rotor rotor(w_start=w_start) "machine rotor"
       annotation (Placement(transformation(extent={{0,-10},{20,10}})));
     replaceable model Gear = PowerSystems.Mechanics.Rotational.NoGear
         "type of gear"
@@ -450,25 +437,18 @@ package Drives "AC-drives dq0"
   end DriveBase;
 
   partial model DriveBase_ctrl "AC drives base control"
-    parameter Types.AngularVelocity  w_start=0
-        "initial rpm (start-value if steady init)"
-      annotation(Dialog(tab="Initialization"));
 
-    extends DriveBase0(heat(final m=sum(heat_adapt.m)),
-      rotor(w(start=w_start)));
+    extends DriveBase0(heat(final m=sum(heat_adapt.m)));
 
     AC1ph_DC.Ports.TwoPin_p term "electric terminal DC"
-                            annotation (Placement(transformation(extent={{-110,
-                -10},{-90,10}})));
-    Modelica.Blocks.Interfaces.RealOutput[2] i_meas(
-                             each final unit="1")
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+    Modelica.Blocks.Interfaces.RealOutput[2] i_meas(each final unit="1")
         "measured current {i_d, i_q} pu"
       annotation (Placement(transformation(
             origin={-60,100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
-    Modelica.Blocks.Interfaces.RealInput[2] i_act(
-                             each final unit="1")
+    Modelica.Blocks.Interfaces.RealInput[2] i_act(each final unit="1")
         "actuated current {i_d, i_q} pu"
       annotation (Placement(transformation(
             origin={60,100},

@@ -274,8 +274,7 @@ The power-angle is artificially fixed. The correspondence is:
               -60,20}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
-          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA,
-        w_start=w_start)
+          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
 
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0116)
@@ -390,8 +389,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
               -60,20}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
-          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA,
-        w_start=w_start)
+          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
 
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0094)

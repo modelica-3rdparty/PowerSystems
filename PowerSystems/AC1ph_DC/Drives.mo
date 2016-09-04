@@ -5,9 +5,8 @@ package Drives "DC-drives"
   model DCMser "DC machine, series connected"
     extends Partials.DriveBase(heat(final m=2));
 
-    replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCser (
-      w_start=w_start) "DC motor series"
-                        annotation (choicesAllMatching=true);
+    replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCser
+      "DC motor series" annotation (choicesAllMatching=true);
     Motor motor "DC motor series"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
@@ -42,9 +41,8 @@ package Drives "DC-drives"
   model DCMpar "DC machine, parallel connected"
     extends Partials.DriveBase(heat(final m=2));
 
-    replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCpar (
-      w_start = w_start) "DC motor parallel"
-                          annotation (choicesAllMatching=true);
+    replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCpar
+      "DC motor parallel" annotation (choicesAllMatching=true);
     Motor motor "DC motor parallel"
        annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     AC1ph_DC.Ports.TwoPin_p field
@@ -84,9 +82,8 @@ package Drives "DC-drives"
   model DCMpm "DC machine, permanent magnet"
     extends Partials.DriveBase(heat(final m=2));
 
-    replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCpm (
-      w_start = w_start) "DC motor magnet"
-                        annotation (choicesAllMatching=true);
+    replaceable model Motor = PowerSystems.AC1ph_DC.Machines.DCpm
+      "DC motor magnet" annotation (choicesAllMatching=true);
     Motor motor "DC motor magnet"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
@@ -144,11 +141,10 @@ package Drives "DC-drives"
     Inverter inverter "inverter (average or modulated)"
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
     replaceable model Motor =
-        PowerSystems.AC1ph_DC.Drives.Partials.Synchron3rd_bldc (
-      w_start = w_start) "BLDC motor (syn pm machine)"
-      annotation (choices(
-      choice(redeclare model Motor =
-              PowerSystems.AC3ph.Machines.Synchron3rd_bldc "synchron 3rd order")));
+      PowerSystems.AC1ph_DC.Drives.Partials.Synchron3rd_bldc
+      "BLDC motor (syn pm machine)" annotation (choices(
+        choice(redeclare model Motor =
+          PowerSystems.AC3ph.Machines.Synchron3rd_bldc "synchron 3rd order")));
     Motor motor "BLDC motor (syn pm machine)"
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     Common.Thermal.HeatV_a_b_ab heat_adapt(final m={2,inverter.heat.m})

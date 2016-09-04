@@ -471,13 +471,10 @@ The mapping from current demand to voltage demand is based on the steady-state e
         annotation (Dialog(tab="Initialization"));
       parameter SI.Angle phi_el_start=0 "initial rotor angle electric"
         annotation (Dialog(tab="Initialization"));
-      parameter SI.AngularVelocity w_start=0 "initial rotor angular velocity"
-        annotation (Dialog(tab="Initialization"));
       parameter Integer pp=1 "pole-pair number";
       SI.Angle phi_el(stateSelect=StateSelect.prefer, start=phi_el_start)
         "rotor angle electric (syn: +pi/2)";
-      SI.AngularVelocity w_el(stateSelect=StateSelect.prefer, start=w_el_start)
-        "rotor angular velocity el";
+      SI.AngularVelocity w_el "rotor angular velocity el";
       SI.Torque tau_el "electromagnetic torque";
       Interfaces.Rotation_n airgap "electro-mechanical connection"
         annotation (Placement(
@@ -492,8 +489,6 @@ The mapping from current demand to voltage demand is based on the steady-state e
             rotation=90)));
     protected
       outer System system;
-      final parameter SI.AngularVelocity w_el_start = w_start*pp
-        "initial rotor angular velocity electric";
       SI.AngularFrequency[2] omega;
       function atan2 = Modelica.Math.atan2;
 
