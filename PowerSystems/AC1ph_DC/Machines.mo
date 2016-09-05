@@ -244,7 +244,7 @@ or from the induced armature voltage at nominal (compare with the synchronous ma
         annotation (Dialog(tab="Initialization"));
       SI.Angle phi_el(start=phi_el_start, stateSelect=StateSelect.always)
         "rotor angle electric";
-      SI.AngularVelocity w_el "rotor angular velocity el";
+      SI.AngularVelocity w_el(stateSelect=StateSelect.prefer) "rotor angular velocity el";
       SI.Torque tau_el "electromagnetic torque";
       PS.Voltage v(start = v_start) "voltage";
       PS.Current i(start = i_start) "current";

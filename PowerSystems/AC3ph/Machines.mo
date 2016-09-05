@@ -474,7 +474,7 @@ The mapping from current demand to voltage demand is based on the steady-state e
       parameter Integer pp=1 "pole-pair number";
       SI.Angle phi_el(stateSelect=StateSelect.prefer, start=phi_el_start)
         "rotor angle electric (syn: +pi/2)";
-      SI.AngularVelocity w_el "rotor angular velocity el";
+      SI.AngularVelocity w_el(stateSelect=StateSelect.prefer) "rotor angular velocity el";
       SI.Torque tau_el "electromagnetic torque";
       Interfaces.Rotation_n airgap "electro-mechanical connection"
         annotation (Placement(
