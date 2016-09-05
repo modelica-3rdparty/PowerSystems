@@ -1,0 +1,64 @@
+// Create a wireframe plot for wind turbine rotor characteristics
+// (using MoiPy 0.4)
+
+import SI = Modelica.SIunits;
+
+import Plt = matplotlib.pyplot;
+import mpl_toolkits.mplot3d.axes3d;
+
+// see model Components.Rotor
+function Pm
+  input Real v;
+  input Real w;
+  output Real Pm;
+protected
+  parameter Real c1=0.5176;
+  parameter Real c2=116;
+  parameter Real c3=0.4;
+  parameter Real c4=5;
+  parameter Real c5=21;
+  parameter Real c6=0.0068;
+  parameter SI.Angle beta = 0 "Pitch angle of blades (0°..20°)";
+  parameter SI.Density rho = 1.29 "Density of air";
+  parameter SI.Length R = 17 "Rotor length (radius)";
+  SI.Area A = Modelica.Constants.pi*R^2 "Area swept by rotor";
+  Real Cp "power coefficient";
+  Real lambdat "tip speed ratio";
+  Real lambdai;
+algorithm
+  lambdat := w*R/v;
+  lambdai := 1/(lambdat+0.08*beta) - 0.035/(beta^3 + 1);
+  Cp := c1*(c2*lambdai-c3*beta-c4)*Modelica.Math.exp(-c5*lambdai)+c6*lambdat;
+  Pm := 0.5*rho*A*v^3*Cp;
+end Pm;
+
+// calculate mesh and obtain maxima
+n = 67;
+(ww, vv) = numpy.meshgrid(linspace(0, 20, n), linspace(0, 30, n));
+
+PP = zeros(n, n);
+v_max = zeros(n);
+w_max = zeros(n);
+P_max = zeros(n);
+for i in 1:n loop
+  for j in 1:n loop
+    PP[i,j] := Pm(vv[i,j], ww[i,j]) * 1e-6;
+    if PP[i,j] > P_max[i] then
+      P_max[i] := PP[i,j];
+      v_max[i] := vv[i,j];
+      w_max[i] := ww[i,j];
+    end if;
+  end for;
+end for;
+
+// plot it
+fig = Plt.figure();
+ax = fig.add_subplot(111, projection="3d");
+ax.plot_wireframe(ww, vv, PP, colors="grey");
+//ax.plot_wireframe(w_max, v_max, P_max, colors="red");
+ax.plot(w_max, v_max, P_max, "ro");
+ax.set_xlabel("Rotor speed [rad/s]");
+ax.set_ylabel("Wind speed [m/s]");
+ax.set_zlabel("Mechanical power [MW]");
+Plt.title("Mechanical power extracted from wind");
+Plt.show();

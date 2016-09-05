@@ -127,6 +127,47 @@ The mapping from current demand to voltage demand is based on the steady-state e
             fillPattern=FillPattern.Solid)}));
   end Asynchron_ctrl;
 
+  model Asynchron_dfig "Doubly fed induction generator, 3-phase dq0"
+    extends AC3ph.Machines.Partials.AsynchronBase(v_rd = term_r.v[1]*ones(n_r), v_rq = term_r.v[2]*ones(n_r));
+    Modelica.Blocks.Interfaces.RealOutput phiRotor "rotor angle"
+      annotation (Placement(transformation(
+          origin={100,100},
+          extent={{10,-10},{-10,10}},
+          rotation=180)));
+
+    AC3ph.Ports.ACdq0_p term_r "positive terminal"
+                            annotation (Placement(transformation(extent={{-110,50},
+              {-90,70}},        rotation=0)));
+  initial equation
+    phi_el = phi_el_start;
+    phiRotor = 0;
+
+  equation
+    der(phiRotor) = w_el;
+    term_r.i = {sum(i_rd), sum(i_rq), 0};
+    annotation (
+      defaultComponentName="asynchron",
+  Documentation(info="<html>
+<p>A doubly fed induction generator is has a second feed to the rotor windings (term_r).
+A wide range of rotor speeds can be achieved by controlling the AC voltage of term_r.
+Doubly fed induction generators are popular for wind turbines.
+<p>For more information see Partials.AsynchronBase.</p>
+</html>
+"),
+  Icon(coordinateSystem(
+          preserveAspectRatio=true,
+          extent={{-100,-100},{100,100}},
+          grid={2,2}), graphics={Rectangle(
+            extent={{-90,112},{90,88}},
+            lineColor={0,0,127},
+            fillColor={170,213,255},
+            fillPattern=FillPattern.Solid)}),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=true,
+          extent={{-100,-100},{100,100}},
+          grid={2,2})));
+  end Asynchron_dfig;
+
   model Synchron3rd_ee
     "Synchronous machine electrically excited, 3rd order model, 3-phase dq0"
     extends Partials.Synchron3rdBase(final phi_el_start=-pi/2+system.alpha0,
