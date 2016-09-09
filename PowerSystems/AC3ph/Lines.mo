@@ -32,7 +32,7 @@ package Lines "Transmission lines 3-phase"
       omega[2]*L*j_dq0(i) + R*i = v;
     end if;
   annotation (
-    defaultComponentName="RXline0_1",
+    defaultComponentName="line1",
       Documentation(
         info="<html>
 <p>This component contains the same equations as 'Impedances.Inductor', but it is specified using the parameters x and x0 instead of xs and xm (see info package 'Impedances'), similar to 'RXline'. It does not contain the length parameter 'len'. Together with 'Sources.InfBus' it may be used to model a network specified by voltage and impedance values.</p>
@@ -135,7 +135,7 @@ package Lines "Transmission lines 3-phase"
       omega[2]*L*j_dq0(i) + R*i = v;
     end if;
     annotation (
-      defaultComponentName="RXline1",
+      defaultComponentName="line1",
   Documentation(
           info="<html>
 <p>Transmission line modelled as concentrated RX-impedance.</p>
@@ -254,15 +254,13 @@ package Lines "Transmission lines 3-phase"
        v[:,1:ne] - v[:,2:ne1];
     end if;
     annotation (
-      defaultComponentName="PIline1",
+      defaultComponentName="line1",
   Documentation(
           info="<html>
 <p>Transmission line modelled as discretised telegraph-equation, '&pi;-elements'.</p>
-<p>The line of total length <tt>len</tt> is divided into elements of length <tt>delta = len/n</tt>.
-It is composed of <tt>n-1</tt> interior elements of length <tt>delta</tt> and at each end of a half-element of length <tt>delta/2</tt>. Therefore it contains <tt>n</tt> interior nodes. Each element corresponds to a series resistor-inductor with values R and L corresponding to its length. A shunt parallel capacitor-conductor is linked to each node.<br>
-The minimum of n is 1.</p>
-<p>This kind of discretisation is slightly more complicated than the division of the line into n identical elements, but it results in a symmetric model with respect to interchanging positive and negative terminal.
-The set of equations of two series connected lines of length len1 and len2 is identical to the set of equations for one line of length len1 + len2 if delta1 = delta2. Otherwise differences occur from the different discretisation length.</p>
+<p>The line of total length <tt>len</tt> is divided into elements of length <tt>delta = len/ne</tt>.
+It is composed of <tt>ne</tt> interior elements of length <tt>delta</tt>. Therefore it contains <tt>ne+1</tt> nodes. Each element corresponds to a series resistor-inductor with values R and L corresponding to its length. A shunt parallel capacitor-conductor is linked to each node.<br>
+The minimum of ne is 1.</p>
 </html>"),
   Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -678,13 +676,13 @@ The set of equations of two series connected lines of length len1 and len2 is id
        [[2*(term_p.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.v)]];
     end if;
     annotation (
-      defaultComponentName="PIline1",
+      defaultComponentName="line1",
   Documentation(
           info="<html>
 <p>Transmission line modelled as discretised telegraph-equation, 'T-elements'.</p>
-<p>The line of total length <tt>len</tt> is divided into elements of length <tt>delta = len/n</tt>.
-It is composed of <tt>n-1</tt> interior elements of length <tt>delta</tt> and at each end of a half-element of length <tt>delta/2</tt>. Therefore it contains <tt>n</tt> interior nodes. Each element corresponds to a series resistor-inductor with values R and L corresponding to its length. A shunt parallel capacitor-conductor is linked to each node.<br>
-The minimum of n is 1.</p>
+<p>The line of total length <tt>len</tt> is divided into elements of length <tt>delta = len/ne</tt>.
+It is composed of <tt>ne-1</tt> interior elements of length <tt>delta</tt> and at each end of a half-element of length <tt>delta/2</tt>. Therefore it contains <tt>n</tt> interior nodes. Each element corresponds to a series resistor-inductor with values R and L corresponding to its length. A shunt parallel capacitor-conductor is linked to each node.<br>
+The minimum of ne is 1.</p>
 <p>This kind of discretisation is slightly more complicated than the division of the line into n identical elements, but it results in a symmetric model with respect to interchanging positive and negative terminal.
 The set of equations of two series connected lines of length len1 and len2 is identical to the set of equations for one line of length len1 + len2 if delta1 = delta2. Otherwise differences occur from the different discretisation length.</p>
 </html>"),
@@ -1001,7 +999,7 @@ The set of equations of two series connected lines of length len1 and len2 is id
       (1 - p)*(omega[2]*L*j_dq0(i2) + R*i2) = term_f.v - term_n.v;
     end if;
     annotation (
-      defaultComponentName="faultRXline",
+      defaultComponentName="faultLine",
   Documentation(
           info="<html>
 <p>Transmission line modelled as concentrated RX-impedance, with third terminal for connecting line-fault component.</p>
@@ -1167,7 +1165,7 @@ The set of equations of two series connected lines of length len1 and len2 is id
             fillPattern=FillPattern.Solid)}));
   end FaultRXline;
 
-  model FaultTline "Faulted PI transmission line, 3-phase dq0"
+  model FaultTline "Faulted T transmission line, 3-phase dq0"
     extends Ports.Port_p_n_f;
     parameter Real p(min=0.5/ne,max=1-0.5/ne)=0.5
       "rel fault-pos (1/2ne <= p < 1 - 1/2ne)";
@@ -1221,13 +1219,13 @@ The set of equations of two series connected lines of length len1 and len2 is id
        (v[:, nF-1] - term_f.v)/pe + (v[:, nF] - term_f.v)/(1-pe);
     end if;
     annotation (
-      defaultComponentName="faultPIline",
+      defaultComponentName="faultLine",
   Documentation(
           info="<html>
 <p>Transmission line modelled as discretised telegraph-equation, 'pi-elements'.</p>
-<p>The line of total length <tt>len</tt> is divided into elements of length <tt>delta = len/n</tt>.
-It is composed of <tt>n-1</tt> interior elements of length <tt>delta</tt> and at each end of a half-element of length <tt>delta/2</tt>. Therefore it contains <tt>n</tt> interior nodes. Each element corresponds to a series inductor-resistor with values R and L corresponding to its length. A shunt parallel capacitor-conductor is liked to each node.<br>
-The minimum of <tt>n</tt> is <tt>1</tt>.</p>
+<p>The line of total length <tt>len</tt> is divided into elements of length <tt>delta = len/ne</tt>.
+It is composed of <tt>ne-1</tt> interior elements of length <tt>delta</tt> and at each end of a half-element of length <tt>delta/2</tt>. Therefore it contains <tt>n</tt> interior nodes. Each element corresponds to a series inductor-resistor with values R and L corresponding to its length. A shunt parallel capacitor-conductor is liked to each node.<br>
+The minimum of <tt>ne</tt> is <tt>1</tt>.</p>
 <p>The fault is at relative length <tt>p(0&lt p&lt 1)</tt>:<br>
 <pre>  p*len = distance to fault from terminal term_p</pre>
 <p><tt>p</tt> is restricted in such a way that faults do not occur in the end-elements of the line. Furthermore the position within an element is restricted to a relative position between <tt>0.1</tt> and <tt>0.9</tt> for numerical reasons.</p>
@@ -1340,7 +1338,7 @@ The minimum of <tt>n</tt> is <tt>1</tt>.</p>
         annotation(Dialog(tab="Initialization"));
 
       parameter Types.Length len=100e3 "line length";
-      parameter Integer ne(min=1)=1 "number of pi-elements";
+      parameter Integer ne(min=1)=1 "number of line elements";
       replaceable record Data = PowerSystems.AC3ph.Lines.Parameters.RXline
         constrainedby PowerSystems.AC3ph.Lines.Parameters.RXline
         "line parameters"
