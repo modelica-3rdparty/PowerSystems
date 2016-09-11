@@ -856,12 +856,10 @@ package Parameters "Parameter data for interactive use"
  extends Modelica.Icons.MaterialPropertiesPackage;
 
   record RXline "RX-line parameters, 1-phase"
-    extends Common.Nominal.NominalDataAC(
-                                     S_nom=100e6);
-    SIpu.Resistance[2] r={0.1,0.1}*1e-3 "resistance/km";
-    SIpu.Reactance_km x=1e-3 "reactance/km";
-    SIpu.Reactance_km x0=3*x "reactance/km zero-comp";
-
+    extends Common.Nominal.NominalDataAC(S_nom=100e6);
+    SIpu.Resistance[2] r={0.1,0.1}*1e-3 "resistance/km" annotation(Dialog);
+    SIpu.Reactance_km x=1e-3 "reactance/km" annotation(Dialog);
+    SIpu.Reactance_km x0=3*x "reactance/km zero-comp" annotation(Dialog);
     annotation (defaultComponentName="data",
       defaultComponentPrefixes="parameter",
       Documentation(info="<html>
@@ -881,12 +879,10 @@ package Parameters "Parameter data for interactive use"
 
   record Line "Line parameters, 1-phase"
     extends RXline;
-
-    SIpu.Conductance g_pg=0 "shunt conductance/km ph-grd";
-    SIpu.Conductance g_pp=0 "shunt conductance/km ph_ph";
-    SIpu.Susceptance_km b_pg=0.025e-3 "susceptance/km ph-grd";
-    SIpu.Susceptance_km b_pp=0.025e-3 "susceptance/km ph-ph";
-
+    SIpu.Conductance g_pg=0 "shunt conductance/km ph-grd" annotation(Dialog);
+    SIpu.Conductance g_pp=0 "shunt conductance/km ph_ph" annotation(Dialog);
+    SIpu.Susceptance_km b_pg=0.025e-3 "susceptance/km ph-grd" annotation(Dialog);
+    SIpu.Susceptance_km b_pp=0.025e-3 "susceptance/km ph-ph" annotation(Dialog);
     annotation (defaultComponentName="data",
       defaultComponentPrefixes="parameter",
       Documentation(info="<html>

@@ -683,9 +683,8 @@ end TrafoIdeal1ph;
 record TrafoStray1ph
       "Parameters for ideal magnetic coupling transformer, 1-phase"
   extends TrafoIdeal1ph;
-  SIpu.Resistance[2] r={0.05,0.05} "{1,2}: resistance";
-  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance";
-
+  SIpu.Resistance[2] r={0.05,0.05} "{1,2}: resistance" annotation(Dialog);
+  SIpu.Reactance[2] x={0.05,0.05} "{1,2}: stray reactance" annotation(Dialog);
   annotation (defaultComponentName="data",
     defaultComponentPrefixes="parameter",
     Documentation(
@@ -695,9 +694,8 @@ end TrafoStray1ph;
 
 record TrafoMag1ph "Parameters for magnetic coupling transformer, 1-phase"
   extends TrafoStray1ph;
-  SIpu.Resistance redc=500 "resistance eddy current";
-  SIpu.Reactance xm=500 "mutual reactance";
-
+  SIpu.Resistance redc=500 "resistance eddy current" annotation(Dialog);
+  SIpu.Reactance xm=500 "mutual reactance" annotation(Dialog);
   annotation (defaultComponentName="data",
     defaultComponentPrefixes="parameter",
     Documentation(
@@ -707,9 +705,8 @@ end TrafoMag1ph;
 
 record TrafoSat1ph "Parameters for saturation transformer, 1-phase"
   extends TrafoMag1ph;
-  Real psi_sat(unit="1")=1.5 "saturation flux";
-  SIpu.Reactance xm_sat=1 "mutual reactance saturated";
-
+  Real psi_sat(unit="1")=1.5 "saturation flux" annotation(Dialog);
+  SIpu.Reactance xm_sat=1 "mutual reactance saturated" annotation(Dialog);
   annotation (defaultComponentName="data",
     defaultComponentPrefixes="parameter",
     Documentation(
@@ -722,8 +719,7 @@ record Trafo3Ideal1ph "Parameters for ideal transformer, 1-phase"
     annotation(Dialog(group="Options"));
   SIpu.Voltage[3] dv_tap={0, 0, 0} "{1,2a,2b}: delta-v per tap change"
     annotation(Dialog(group="Options"));
-  extends Common.Nominal.NominalDataTrafo(
-                                         V_nom={1,1,1}
+  extends Common.Nominal.NominalDataTrafo(V_nom={1,1,1}
     "{prim,sec_a,sec_b} nom Voltage (= base if pu)");
   annotation (defaultComponentName="data",
     defaultComponentPrefixes="parameter",
@@ -735,9 +731,10 @@ end Trafo3Ideal1ph;
 record Trafo3Stray1ph
       "Parameters for ideal magnetic coupling transformer, 1-phase"
   extends Trafo3Ideal1ph;
-  SIpu.Resistance[3] r={0.05,0.05,0.05} "{1,2a,2b}: resistance";
-  SIpu.Reactance[3] x={0.05,0.05,0.05} "{1,2a,2b}: stray reactance";
-
+  SIpu.Resistance[3] r={0.05,0.05,0.05} "{1,2a,2b}: resistance"
+    annotation(Dialog);
+  SIpu.Reactance[3] x={0.05,0.05,0.05} "{1,2a,2b}: stray reactance"
+    annotation(Dialog);
   annotation (defaultComponentName="data",
     defaultComponentPrefixes="parameter",
     Documentation(
