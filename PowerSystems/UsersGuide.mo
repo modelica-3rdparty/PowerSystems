@@ -75,19 +75,27 @@ The following table summerizes the PhaseSystems that are predefined in the Power
    Created the PowerSystems library out of the PowerFlow concept library and the Spot library.
 </li>
 </ul>
-</html>", revisions=
-            "<html>
+</html>", revisions="<html>
 <ul>
-<li><i>11 Jun 2016</i>
+<li><i>20 Sep 2016</i>
     by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
-     Version 0.5 dev
+    Version 0.5.0<br>
+    This release introduces a couple of changes that improve the modeling experience
+    and unify the library with other Modelica libraries.
   <ul>
   <li>Introduce replaceable model and record types, instead of replaceable
-      model and record instances.
-      This shall unify the look and feel with other Modelica libraries.</li>
-  <li>Rework AC3ph and AC1ph_DC line models
-  <ul><li>Rename PIline to Tline and introduce new PIline.</li>
-      <li>Simplify initialization.</li></ul>
+      model and record instances.</li>
+  <li>Simplify initialization
+  <ul><li>Introduce enumeration Types.Dynamics dynType, replacing Booleans stIni_en, steadyIni_t and transientSim</li>
+      <li>Unify naming of start parameters from *_ini to *_start</li>
+      <li>Simplify initialization of machine rotors and line models</li>
+  </ul></li>
+  <li>Rework AC3ph and AC1ph_DC line models: rename PIline to Tline and introduce new PIline.</li>
+  <li>Rework tap changers of AC3ph and AC1ph_DC trafo models: treat effect of tap changers in replaceable Topology, enabling more arrangements such as phase angle regulating.</li>
+  <li>Add examples for electrical drive trains of wind turbines</li>
+  <li>Reorganize Basic package to Utilities.</li>
+  <li>Add Inline=true annotations to functions that shall be inlined.</li>
+  <li>Introduce PhaseSystem Voltage and Current types, including nominal values of 1000.</li>
   <li>Upgrade Phasor model to standard Modelica graphics.</li>
   <li>Base on Modelica 3.2.2 instead of 3.2.1 (without changing anything).</li>
   </ul>

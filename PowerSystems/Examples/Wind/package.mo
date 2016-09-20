@@ -925,19 +925,15 @@ package Wind "Different wind turbine concepts"
 
 
 annotation (preferredView="info", Documentation(info="<html>
-This collection of examples was developed within MODRIO WP8.7. It demonstrates different drive train concepts for wind power generation.
-A challenge originates from the non-linear relationship between wind speed, rotational speed of the rotor and extracted mechanical power &ndash;
-see Components.Rotor whose characteristics is visualized in the following figure:
-<p><img src=\"modelica://PowerSystems/Examples/Wind/Resources/Rotor.png\"/></p>
-The rotor speed is typically controlled with power electronics at the Maximum Power Point (MPP) such that the extracted mechanical power is maximized for varying wind speed.
-See the red dots in the figure. The examples cover different basic concepts.
-<p>
-One approach is to use a synchonous machine together with a frequency converter to control the rotor speed and to
-decouple the variable rotor speed from the constant grid frequency, see e.g. WindTurbine_PSGI (Permanent magnet Synchronous Generator with Inverter).
-</p><p>
-Alternatively an asynchronous machine can be connected directly to the grid,
+<p>This collection of examples was developed within MODRIO WP8.7. It demonstrates different electrical drive train concepts for wind power generation.</p>
+<p>A challenge originates from the non-linear relationship between wind speed, rotational speed of the rotor and extracted mechanical power &ndash;
+see Components.Rotor whose characteristics is visualized in the following figure: </p>
+<p><img src=\"modelica://PowerSystems/Examples/Wind/Resources/Rotor.png\" width=\"500\"/></p>
+<p>The rotor speed is typically controlled with power electronics at the Maximum Power Point (MPP) such that the extracted mechanical power is maximized for varying wind speed. See the red dots in the figure. The examples cover different basic concepts. </p>
+<p>One approach is to use a synchonous machine together with a frequency converter to control the rotor speed and to decouple the variable rotor speed from the constant grid frequency, see e.g. WindTurbine_PSGI (Permanent magnet Synchronous Generator with Inverter). </p>
+<p>Alternatively an asynchronous machine can be connected directly to the grid,
 and a frequency converter is used to provide a bidirectional second feed to the rotor windings. See WindTurbine_DFIG (Doubly Fed Induction Generator).
-This way the power electronics can be smaller as the second feed only amounts to 20-30% of the overall turbine power.
-</p>
+This way the power electronics can be smaller as the second feed only amounts to 20-30&percnt; of the overall turbine power. </p>
+<p><img src=\"modelica://PowerSystems/Examples/Wind/Resources/WindTurbine_DFIG.png\"/></p>
 </html>"));
 end Wind;

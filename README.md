@@ -14,20 +14,40 @@ In particular this shall cover systems like:
 
 See also the publication [Franke, Wiesmann: Flexible modeling of electrical power systems -- the Modelica PowerSystems library, Modelica conference 2014](https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf).
 
-![PowerWorld.png](PowerSystems/Examples/PowerWorld/Resources/PowerWorld.png)
-
+<img src="PowerSystems/Examples/PowerWorld/Resources/PowerWorld.png" width="500">
+<img src="PowerSystems/Examples/Wind/Resources/WindTurbine_DFIG.png" width="300" align="top">
 
 ## Current release
 
-Download [PowerSystems v0.4.0 (2015-03-14)](../../archive/v0.4.0.zip)
+Download [PowerSystems v0.5.0 (2016-09-20)](../../archive/v0.5.0.zip)
 
 #### Revisions
+
+ * [Version v0.5.0  (2016-09-20)](../../archive/v0.5.0.zip)
+
+   This release introduces a couple of changes that improve the modeling experience
+   and unify the library with other Modelica libraries.
+   * Introduce replaceable model and record types, instead of replaceable
+     model and record instances.
+   * Simplify initialization
+     * Introduce enumeration Types.Dynamics dynType, replacing Booleans stIni_en, steadyIni_t and transientSim
+     * Unify naming of start parameters from *_ini to *_start
+     * Simplify initialization of machine rotors and line models
+   * Rework AC3ph and AC1ph_DC line models: rename PIline to Tline and introduce new PIline.
+   * Rework tap changers of AC3ph and AC1ph_DC trafo models: treat effect of tap changers in replaceable Topology, enabling more arrangements such as phase angle regulating.
+   * Add examples for electrical drive trains of wind turbines
+   * Reorganize Basic package to Utilities.
+   * Add Inline=true annotations to functions that shall be inlined.
+   * Introduce PhaseSystem Voltage and Current types, including nominal values of 1000.
+   * Upgrade Phasor model to standard Modelica graphics.
+   * Base on Modelica 3.2.2 instead of 3.2.1 (without changing anything).
 
  * [Version v0.4.0  (2015-03-14)](../../archive/v0.4.0.zip)
    * fix Generic components to work with simple ThreePhase_d again (was broken in v0.3)
    * rework parameter records (move parameter qualifiers from record members to whole records to permit their construction with functions)
    * remove ambiguous start values
    * lot of clean-up
+
  * [Version v0.3  (2014-10-20)](../../archive/v0.3.zip)
    * add initial equations to Generic models and related examples
    * add start parameters to AC1phDC and extend transient initialization
@@ -35,19 +55,25 @@ Download [PowerSystems v0.4.0 (2015-03-14)](../../archive/v0.4.0.zip)
    * fix use of condionally declared variables
    * clean up annotations
    * rename dqo to dq0
+
  * Version v0.2.1  (2014-08-15)
    * replace deprecated classDirectory() with loadResource()
    * fix references to Connections package
+
  * [Version v0.2 (2013-04-18)](../../archive/v0.2.zip)
    * Clean-up Examples and Resources
+
  * Version v0.1.3  (2013-02-28)
    * Generic: change connector units from MW to W
+
  * Version v0.1.2  (2012-12-22)
    * Rework Basic.Types to using SI units
    * Adapt parameter records to SI units
+
  * Version v0.1.1 (2012-12-15)
    * Rename Utilities package to Basic
    * Remove BasePU and BaseSI sub-packages
+
  * Version v0.1 (2012-12-06)
    * Initial version
 
