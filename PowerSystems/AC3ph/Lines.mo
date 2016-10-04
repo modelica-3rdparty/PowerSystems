@@ -20,16 +20,16 @@ package Lines "Transmission lines 3-phase"
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(i) = omega[1]*j_dq0(i);
+      der(i) = omega[1]*j(i);
     elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
   equation
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = v;
+      PS.map({L,L,L0}).*der(i) + omega[2]*L*j(i) + R*i = v;
     else
-      omega[2]*L*j_dq0(i) + R*i = v;
+      omega[2]*L*j(i) + R*i = v;
     end if;
   annotation (
     defaultComponentName="line1",
@@ -112,14 +112,14 @@ package Lines "Transmission lines 3-phase"
     extends Ports.Port_pn;
     extends Partials.RXlineBase(final ne=1);
 
-    PS.Voltage[3] v(start = v_start);
-    PS.Current[3] i(start = i_start);
+    PS.Voltage[PS.n] v(start = v_start);
+    PS.Current[PS.n] i(start = i_start);
   protected
     SI.AngularFrequency[2] omega;
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(i) = omega[1]*j_dq0(i);
+      der(i) = omega[1]*j(i);
     elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
@@ -130,9 +130,9 @@ package Lines "Transmission lines 3-phase"
     i = term_p.i;
 
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = v;
+      PS.map({L,L,L0}).*der(i) + omega[2]*L*j(i) + R*i = v;
     else
-      omega[2]*L*j_dq0(i) + R*i = v;
+      omega[2]*L*j(i) + R*i = v;
     end if;
     annotation (
       defaultComponentName="line1",
@@ -222,16 +222,16 @@ package Lines "Transmission lines 3-phase"
     extends Ports.Port_p_n;
     extends Partials.LineBase;
 
-    PS.Voltage[3,ne1] v(start = transpose(fill(v_start, ne1)));
-    PS.Current[3,ne] i(start = transpose(fill(i_start, ne)));
+    PS.Voltage[PS.n,ne1] v(start = transpose(fill(v_start, ne1)));
+    PS.Current[PS.n,ne] i(start = transpose(fill(i_start, ne)));
   protected
     final parameter Integer ne1=ne + 1;
     SI.AngularFrequency[2] omega;
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(v) = omega[1]*jj_dq0(v);
-      der(i) = omega[1]*jj_dq0(i);
+      der(v) = omega[1]*jj(v);
+      der(i) = omega[1]*jj(i);
     elseif dynType == Types.Dynamics.FixedInitial then
       v = transpose(fill(v_start, ne1));
       i = transpose(fill(i_start, ne));
@@ -243,14 +243,14 @@ package Lines "Transmission lines 3-phase"
     v[:, ne1] = term_n.v;
 
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({C,C,C0})*der(v) + omega[2]*C*jj_dq0(v) + G*v =
+      diagonal(PS.map({C,C,C0}))*der(v) + omega[2]*C*jj(v) + G*v =
        [[2*(term_p.i - i[:, 1])], i[:, 1:ne - 1] - i[:, 2:ne], [2*(i[:, ne] + term_n.i)]];
-      diagonal({L,L,L0})*der(i) + omega[2]*L*jj_dq0(i) + R*i =
+      diagonal(PS.map({L,L,L0}))*der(i) + omega[2]*L*jj(i) + R*i =
        v[:,1:ne] - v[:,2:ne1];
     else
-      omega[2]*C*jj_dq0(v) + G*v =
+      omega[2]*C*jj(v) + G*v =
        [[2*(term_p.i - i[:, 1])], i[:, 1:ne - 1] - i[:, 2:ne], [2*(i[:, ne] + term_n.i)]];
-      omega[2]*L*jj_dq0(i) + R*i =
+      omega[2]*L*jj(i) + R*i =
        v[:,1:ne] - v[:,2:ne1];
     end if;
     annotation (
@@ -645,16 +645,16 @@ The minimum of ne is 1.</p>
     extends Ports.Port_p_n;
     extends Partials.LineBase;
 
-    PS.Voltage[3,ne] v(start = transpose(fill(v_start, ne)));
-    PS.Current[3,ne1] i(start = transpose(fill(i_start, ne1)));
+    PS.Voltage[PS.n,ne] v(start = transpose(fill(v_start, ne)));
+    PS.Current[PS.n,ne1] i(start = transpose(fill(i_start, ne1)));
   protected
     final parameter Integer ne1=ne + 1;
     SI.AngularFrequency[2] omega;
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(v) = omega[1]*jj_dq0(v);
-      der(i) = omega[1]*jj_dq0(i);
+      der(v) = omega[1]*jj(v);
+      der(i) = omega[1]*jj(i);
     elseif dynType == Types.Dynamics.FixedInitial then
       v = transpose(fill(v_start, ne));
       i = transpose(fill(i_start, ne1));
@@ -666,13 +666,13 @@ The minimum of ne is 1.</p>
     i[:, ne1] = -term_n.i;
 
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({C,C,C0})*der(v) + omega[2]*C*jj_dq0(v) + G*v =
+      diagonal(PS.map({C,C,C0}))*der(v) + omega[2]*C*jj(v) + G*v =
        i[:,1:ne] - i[:,2:ne1];
-      diagonal({L,L,L0})*der(i) + omega[2]*L*jj_dq0(i) + R*i =
+      diagonal(PS.map({L,L,L0}))*der(i) + omega[2]*L*jj(i) + R*i =
        [[2*(term_p.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.v)]];
     else
-      omega[2]*C*jj_dq0(v) + G*v = i[:,1:ne] - i[:,2:ne1];
-      omega[2]*L*jj_dq0(i) + R*i =
+      omega[2]*C*jj(v) + G*v = i[:,1:ne] - i[:,2:ne1];
+      omega[2]*L*jj(i) + R*i =
        [[2*(term_p.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.v)]];
     end if;
     annotation (
@@ -969,15 +969,15 @@ The set of equations of two series connected lines of length len1 and len2 is id
     parameter Real p(min=0,max=1)=0.5 "rel fault-position (0 < p < 1)";
     extends Partials.RXlineBase(final ne=1);
 
-    PS.Current[3] i1(start = i_start);
-    PS.Current[3] i2(start = i_start);
+    PS.Current[PS.n] i1(start = i_start);
+    PS.Current[PS.n] i2(start = i_start);
   protected
     SI.AngularFrequency[2] omega;
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(i1) = omega[1]*j_dq0(i1);
-      der(i2) = omega[1]*j_dq0(i2);
+      der(i1) = omega[1]*j(i1);
+      der(i2) = omega[1]*j(i2);
     elseif dynType == Types.Dynamics.FixedInitial then
       i1 = i_start;
       i2 = i_start;
@@ -985,18 +985,18 @@ The set of equations of two series connected lines of length len1 and len2 is id
 
   equation
     omega = der(term_p.theta);
-    term_p.i + term_n.i + term_f.i = zeros(3);
+    term_p.i + term_n.i + term_f.i = zeros(PS.n);
     i1 = term_p.i;
     i2 = -term_n.i;
 
     if dynType <> Types.Dynamics.SteadyState then
-      p*(diagonal({L,L,L0})*der(i1) + omega[2]*L*j_dq0(i1) + R*i1) =
+      p*(PS.map({L,L,L0}).*der(i1) + omega[2]*L*j(i1) + R*i1) =
        term_p.v - term_f.v;
-      (1 - p)*(diagonal({L,L,L0})*der(i2) + omega[2]*L*j_dq0(i2) + R*i2) =
+      (1 - p)*(PS.map({L,L,L0}).*der(i2) + omega[2]*L*j(i2) + R*i2) =
        term_f.v - term_n.v;
     else
-      p*(omega[2]*L*j_dq0(i1) + R*i1) = term_p.v - term_f.v;
-      (1 - p)*(omega[2]*L*j_dq0(i2) + R*i2) = term_f.v - term_n.v;
+      p*(omega[2]*L*j(i1) + R*i1) = term_p.v - term_f.v;
+      (1 - p)*(omega[2]*L*j(i2) + R*i2) = term_f.v - term_n.v;
     end if;
     annotation (
       defaultComponentName="faultLine",
@@ -1171,13 +1171,13 @@ The set of equations of two series connected lines of length len1 and len2 is id
       "rel fault-pos (1/2ne <= p < 1 - 1/2ne)";
     extends Partials.LineBase;
 
-    parameter PS.Current[3] iF_start = zeros(3) "start value of fault current"
+    parameter PS.Current[PS.n] iF_start = zeros(PS.n) "start value of fault current"
       annotation(Dialog(tab="Initialization"));
 
-    PS.Voltage[3,ne] v(start = transpose(fill(v_start, ne)));
-    PS.Current[3,ne1] i(start = transpose(fill(i_start, ne1)));
-    PS.Current[3] iF(start = iF_start);
-    PS.Current[3,2] iF_p(each stateSelect=StateSelect.never);
+    PS.Voltage[PS.n,ne] v(start = transpose(fill(v_start, ne)));
+    PS.Current[PS.n,ne1] i(start = transpose(fill(i_start, ne1)));
+    PS.Current[PS.n] iF(start = iF_start);
+    PS.Current[PS.n,2] iF_p(each stateSelect=StateSelect.never);
   protected
     final parameter Integer ne1=ne + 1;
     final parameter Integer nF=integer(ne*p + 1.5);
@@ -1187,9 +1187,9 @@ The set of equations of two series connected lines of length len1 and len2 is id
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(v) = omega[1]*jj_dq0(v);
-      der(i) = omega[1]*jj_dq0(i);
-      der(iF) = omega[1]*j_dq0(iF);
+      der(v) = omega[1]*jj(v);
+      der(i) = omega[1]*jj(i);
+      der(iF) = omega[1]*j(iF);
     elseif dynType == Types.Dynamics.FixedInitial then
       v = transpose(fill(v_start, ne));
       i = transpose(fill(i_start, ne1));
@@ -1204,18 +1204,18 @@ The set of equations of two series connected lines of length len1 and len2 is id
     iF_p = [(1-pe)*iF, pe*iF];
 
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({C,C,C0})*der(v) + omega[2]*C*jj_dq0(v) + G*v =
+      diagonal(PS.map({C,C,C0}))*der(v) + omega[2]*C*jj(v) + G*v =
        [i[:,1:nF-2]-i[:, 2:nF-1], i[:,nF-1:nF]-i[:,nF:nF+1]-iF_p, i[:,nF+1:ne]-i[:,nF+2:ne1]];
-      diagonal({L,L,L0})*der(i) + omega[2]*L*jj_dq0(i) + R*i =
+      diagonal(PS.map({L,L,L0}))*der(i) + omega[2]*L*jj(i) + R*i =
        [[2*(term_p.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.v)]];
-      diagonal({L,L,L0})*der(iF) + omega[2]*L*j_dq0(iF) + R*iF =
+      PS.map({L,L,L0}).*der(iF) + omega[2]*L*j(iF) + R*iF =
        (v[:, nF-1] - term_f.v)/pe + (v[:, nF] - term_f.v)/(1-pe);
     else
-      omega[2]*C*jj_dq0(v) + G*v =
+      omega[2]*C*jj(v) + G*v =
        [i[:,1:nF-2]-i[:, 2:nF-1], i[:,nF-1:nF]-i[:,nF:nF+1]-iF_p, i[:,nF+1:ne]-i[:,nF+2:ne1]];
-      omega[2]*L*jj_dq0(i) + R*i =
+      omega[2]*L*jj(i) + R*i =
        [[2*(term_p.v - v[:, 1])], v[:, 1:ne - 1] - v[:, 2:ne], [2*(v[:, ne] - term_n.v)]];
-      omega[2]*L*j_dq0(iF) + R*iF =
+      omega[2]*L*j(iF) + R*iF =
        (v[:, nF-1] - term_f.v)/pe + (v[:, nF] - term_f.v)/(1-pe);
     end if;
     annotation (
@@ -1332,9 +1332,9 @@ The minimum of <tt>ne</tt> is <tt>1</tt>.</p>
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter PS.Voltage[3] v_start = zeros(3) "start value of voltage drop"
+      parameter PS.Voltage[PS.n] v_start = zeros(PS.n) "start value of voltage drop"
         annotation(Dialog(tab="Initialization"));
-      parameter PS.Current[3] i_start = zeros(3) "start value of current"
+      parameter PS.Current[PS.n] i_start = zeros(PS.n) "start value of current"
         annotation(Dialog(tab="Initialization"));
 
       parameter Types.Length len=100e3 "line length";

@@ -141,7 +141,7 @@ package Sensors "Sensors and meters 3-phase"
   model Psensor "Power sensor, 3-phase dq0"
     extends Partials.Sensor2Base(final signalTrsf=0);
 
-    Modelica.Blocks.Interfaces.RealOutput[3] p
+    Modelica.Blocks.Interfaces.RealOutput[PS.n] p
       "{active, reactive, DC} power, term_p to term_n"
     annotation (Placement(transformation(
           origin={0,100},
@@ -149,7 +149,7 @@ package Sensors "Sensors and meters 3-phase"
           rotation=90)));
 
   equation
-    p = {term_p.v[1:2]*term_p.i[1:2], -j_dq0(term_p.v[1:2])*term_p.i[1:2], term_p.v[3]*term_p.i[3]};
+    p = PS.phasePowers_vi(term_p.v, term_p.i);
   annotation (defaultComponentName = "Psensor1",
     Documentation(
             info="<html>
@@ -171,7 +171,7 @@ package Sensors "Sensors and meters 3-phase"
   model Vmeter "Voltage meter, 3-phase dq0"
     extends Partials.Meter1Base(final S_nom=1);
 
-    output SIpu.Voltage[3] v(each stateSelect=StateSelect.never);
+    output SIpu.Voltage[PS.n] v(each stateSelect=StateSelect.never);
     output SIpu.Voltage[2] vpp(each stateSelect=StateSelect.never);
 
     output SIpu.Voltage[3] v_abc(each stateSelect=StateSelect.never)=transpose(Park)*v if abc;
@@ -223,7 +223,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
   model Imeter "Current meter, 3-phase dq0"
     extends Partials.Meter2Base;
 
-    output SIpu.Current[3] i(each stateSelect=StateSelect.never);
+    output SIpu.Current[PS.n] i(each stateSelect=StateSelect.never);
 
     output SIpu.Current[3] i_abc(each stateSelect=StateSelect.never)=transpose(Park)*i if abc;
 
@@ -265,13 +265,13 @@ As they use time-dependent coordinate transforms, use them only when and where n
                                                     annotation(Evaluate=true, Dialog(group="Options",enable=av));
     extends Partials.Meter2Base(final V_nom=1, final abc=false, final phasor=false);
 
-    output SIpu.Power[3] p(each stateSelect=StateSelect.never);
-    output SIpu.Power[3] p_av=pav if av;
+    output SIpu.Power[PS.n] p(each stateSelect=StateSelect.never);
+    output SIpu.Power[PS.n] p_av=pav if av;
   protected
     outer System system;
     final parameter SI.ApparentPower S_base=Utilities.Precalculation.baseS(
         puUnits, S_nom);
-    SIpu.Power[3] pav;
+    SIpu.Power[PS.n] pav;
 
   initial equation
     if av then
@@ -279,11 +279,11 @@ As they use time-dependent coordinate transforms, use them only when and where n
     end if;
 
   equation
-    p = {term_p.v[1:2]*term_p.i[1:2], -j_dq0(term_p.v[1:2])*term_p.i[1:2], term_p.v[3]*term_p.i[3]}/S_base;
+    p = PS.phasePowers_vi(term_p.v, term_p.i)/S_base;
     if av then
       der(pav) = (p - pav)/tcst;
     else
-      pav = zeros(3);
+      pav = zeros(PS.n);
     end if;
     annotation (defaultComponentName = "Pmeter1",
       Icon(coordinateSystem(
@@ -327,11 +327,11 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
       vpp_abc := {v_abc[2],v_abc[3],v_abc[1]} - {v_abc[3],v_abc[1],v_abc[2]};
     end v2vpp_abc;
 
-    output SIpu.Power[3] p(each stateSelect=StateSelect.never);
-    output SIpu.Power[3] p_av=pav if av;
-    output SIpu.Voltage[3] v(each stateSelect=StateSelect.never);
+    output SIpu.Power[PS.n] p(each stateSelect=StateSelect.never);
+    output SIpu.Power[PS.n] p_av=pav if av;
+    output SIpu.Voltage[PS.n] v(each stateSelect=StateSelect.never);
     output SIpu.Voltage[2] vpp(each stateSelect=StateSelect.never);
-    output SIpu.Current[3] i(each stateSelect=StateSelect.never);
+    output SIpu.Current[PS.n] i(each stateSelect=StateSelect.never);
 
     output SIpu.Voltage[3] v_abc(each stateSelect=StateSelect.never)=transpose(Park)*v if abc;
     output SIpu.Voltage[3] vpp_abc(each stateSelect=StateSelect.never)=v2vpp_abc(transpose(Park)*v) if abc;
@@ -348,7 +348,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
                                                                  puUnits, V_nom);
     final parameter PS.Current I_base=Utilities.Precalculation.baseI(
                                                                  puUnits, V_nom, S_nom);
-    SIpu.Power[3] pav;
+    SIpu.Power[PS.n] pav;
 
   initial equation
     if av then
@@ -359,11 +359,11 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     v = term_p.v/V_base;
     vpp = sqrt(3)*{v[2],-v[1]};
     i = term_p.i/I_base;
-    p = {v[1:2]*i[1:2], -j_dq0(v[1:2])*i[1:2], v[3]*i[3]};
+    p = PS.phasePowers_vi(v, i);
     if av then
       der(pav) = (p - pav)/tcst;
     else
-      pav = zeros(3);
+      pav = zeros(PS.n);
     end if;
     if phasor then
       alpha_v = atan2(Rot_dq[:,2]*v[1:2], Rot_dq[:,1]*v[1:2]);
@@ -565,7 +565,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
       function rot_dq = Utilities.Transforms.rotation_dq;
 
     equation
-      term.i = zeros(3);
+      term.i = zeros(PS.n);
     annotation (
       Documentation(
             info="<html>

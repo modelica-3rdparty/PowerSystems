@@ -19,19 +19,19 @@ package Shunts "Reactive and capacitive shunts"
     SI.Resistance R=r*RL_base[1];
     SI.Inductance L=(x_s-x_m)*RL_base[2];
     SI.Inductance L0=(x_s+2*x_m)*RL_base[2];
-    PS.Current[3] i_x;
+    PS.Current[PS.n] i_x;
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(i_x) = omega[1]*j_dq0(i_x);
+      der(i_x) = omega[1]*j(i_x);
     end if;
 
   equation
     i_x = i - G*v;
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({L,L,L0})*der(i_x) + omega[2]*L*j_dq0(i_x) + R*i_x = v;
+      PS.map({L,L,L0}).*der(i_x) + omega[2]*L*j(i_x) + R*i_x = v;
     else
-      omega[2]*L*j_dq0(i_x) + R*i_x = v;
+      omega[2]*L*j(i_x) + R*i_x = v;
     end if;
     annotation (defaultComponentName = "xShunt1",
   Documentation(
@@ -144,14 +144,14 @@ package Shunts "Reactive and capacitive shunts"
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(v) = omega[1]*j_dq0(v);
+      der(v) = omega[1]*j(v);
     end if;
 
   equation
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({C,C,C0})*der(v) + omega[2]*C*j_dq0(v) + diagonal({G,G,G0})*v = i;
+      PS.map({C,C,C0}).*der(v) + omega[2]*C*j(v) + PS.map({G,G,G0}).*v = i;
     else
-      omega[2]*C*j_dq0(v) + diagonal({G,G,G0})*v = i;
+      omega[2]*C*j(v) + PS.map({G,G,G0}).*v = i;
     end if;
     annotation (defaultComponentName = "cShunt1",
   Documentation(
@@ -694,8 +694,8 @@ Use only if 'non symmetric' is really desired because this component needs a tim
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
 
-      PS.Voltage[3] v;
-      PS.Current[3] i;
+      PS.Voltage[PS.n] v;
+      PS.Current[PS.n] i;
     protected
       SI.AngularFrequency[2] omega;
 

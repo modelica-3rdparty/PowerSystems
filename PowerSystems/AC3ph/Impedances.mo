@@ -122,16 +122,16 @@ package Impedances "Impedance and admittance two terminal"
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(i) = omega[1]*j_dq0(i);
+      der(i) = omega[1]*j(i);
     elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
   equation
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = v;
+      PS.map({L,L,L0}).*der(i) + omega[2]*L*j(i) + R*i = v;
     else
-      omega[2]*L*j_dq0(i) + R*i = v;
+      omega[2]*L*j(i) + R*i = v;
     end if;
     annotation (
       defaultComponentName="ind1",
@@ -226,16 +226,16 @@ package Impedances "Impedance and admittance two terminal"
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(v) = omega[1]*j_dq0(v);
+      der(v) = omega[1]*j(v);
     elseif dynType == Types.Dynamics.FixedInitial then
       v = v_start;
     end if;
 
   equation
     if dynType <> Types.Dynamics.SteadyState then
-      C*der(v) + omega[2]*C*j_dq0(v) + G*v = i;
+      C*der(v) + omega[2]*C*j(v) + G*v = i;
     else
-      omega[2]*C*j_dq0(v) + G*v = i;
+      omega[2]*C*j(v) + G*v = i;
     end if;
     annotation (
       defaultComponentName="cap1",
@@ -351,16 +351,16 @@ package Impedances "Impedance and admittance two terminal"
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(i) = omega[1]*j_dq0(i);
+      der(i) = omega[1]*j(i);
     elseif dynType == Types.Dynamics.FixedInitial then
       i = i_start;
     end if;
 
   equation
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = v;
+      PS.map({L,L,L0}).*der(i) + omega[2]*L*j(i) + R*i = v;
     else
-      omega[2]*L*j_dq0(i) + R*i = v;
+      omega[2]*L*j(i) + R*i = v;
     end if;
     annotation (
       defaultComponentName="impedance1",
@@ -483,16 +483,16 @@ Instead of x_s, x_m, and r the parameters z_abs, cos(phi), and x_o are used.</p>
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(v) = omega[1]*j_dq0(v);
+      der(v) = omega[1]*j(v);
     elseif dynType == Types.Dynamics.FixedInitial then
       v = v_start;
     end if;
 
   equation
     if dynType <> Types.Dynamics.SteadyState then
-      C*der(v) + omega[2]*C*j_dq0(v) + G*v = i;
+      C*der(v) + omega[2]*C*j(v) + G*v = i;
     else
-      omega[2]*C*j_dq0(v) + G*v = i;
+      omega[2]*C*j(v) + G*v = i;
     end if;
     annotation (
       defaultComponentName="admittance1",
@@ -987,13 +987,13 @@ a time dependent transform of the coefficient matrix.</p>
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter PS.Voltage[3] v_start = zeros(3)
+      parameter PS.Voltage[PS.n] v_start = zeros(PS.n)
         "start value of voltage drop" annotation(Dialog(tab="Initialization"));
-      parameter PS.Current[3] i_start = zeros(3)
+      parameter PS.Current[PS.n] i_start = zeros(PS.n)
         "start value of current" annotation(Dialog(tab="Initialization"));
 
-      PS.Voltage[3] v(start = v_start);
-      PS.Current[3] i(start = i_start);
+      PS.Voltage[PS.n] v(start = v_start);
+      PS.Current[PS.n] i(start = i_start);
 
     protected
       SI.AngularFrequency[2] omega;

@@ -7,7 +7,7 @@ package Transformers "Transformers 3-phase"
     extends Partials.TrafoIdealBase(final dynType=Types.Dynamics.SteadyState);
 
   equation
-    i1 + i2 = zeros(3);
+    i1 + i2 = zeros(PS.n);
     if D_D then
       v1[1:2] = v2[1:2];
       i1[3]=0;
@@ -28,16 +28,15 @@ package Transformers "Transformers 3-phase"
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(i1) = omega[1]*j_dq0(i1);
+      der(i1) = omega[1]*j(i1);
     end if;
 
   equation
-    i1 + i2 = zeros(3);
+    i1 + i2 = zeros(PS.n);
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({sum(L),sum(L),sum(L0)})*der(i1) + omega[2]*sum(L)*j_dq0(i1) + sum(R)
-      *i1 = v1 - v2;
+      PS.map({sum(L),sum(L),sum(L0)}).*der(i1) + omega[2]*sum(L)*j(i1) + sum(R)*i1 = v1 - v2;
     else
-      omega[2]*sum(L)*j_dq0(i1) + sum(R)*i1 = v1 - v2;
+      omega[2]*sum(L)*j(i1) + sum(R)*i1 = v1 - v2;
     end if;
     annotation (
       defaultComponentName="trafo",
@@ -65,30 +64,30 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
   model TrafoMag "Magnetic coupling transformer, 3-phase dq0"
     extends Partials.TrafoMagBase;
 
-    PS.Voltage[3] v0;
-    PS.Current[3] imag;
-    PS.Current[3] iedc;
+    PS.Voltage[PS.n] v0;
+    PS.Current[PS.n] imag;
+    PS.Current[PS.n] iedc;
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(i1) = omega[1]*j_dq0(i1);
-      der(i2) = omega[1]*j_dq0(i2);
-      der(imag) = omega[1]*j_dq0(imag);
+      der(i1) = omega[1]*j(i1);
+      der(i2) = omega[1]*j(i2);
+      der(imag) = omega[1]*j(imag);
     elseif dynType <> Types.Dynamics.SteadyState then
-      der(imag) = omega[1]*j_dq0(imag);
+      der(imag) = omega[1]*j(imag);
     end if;
 
   equation
     i1 + i2 = imag + iedc;
     Redc*iedc = v0;
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
-      diagonal({L[2],L[2],L0[2]})*der(i2) + omega[2]*L[2]*j_dq0(i2) + R[2]*i2 = v2 - v0;
-      Lm*der(imag) + omega[2]*Lm*{-imag[2], imag[1], 0} = v0;
+      PS.map({L[1],L[1],L0[1]}).*der(i1) + omega[2]*L[1]*j(i1) + R[1]*i1 = v1 - v0;
+      PS.map({L[2],L[2],L0[2]}).*der(i2) + omega[2]*L[2]*j(i2) + R[2]*i2 = v2 - v0;
+      Lm*der(imag) + omega[2]*Lm*j(imag) = v0;
     else
-      omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
-      omega[2]*L[2]*j_dq0(i2) + R[2]*i2 = v2 - v0;
-      omega[2]*Lm*j_dq0(imag) = v0;
+      omega[2]*L[1]*j(i1) + R[1]*i1 = v1 - v0;
+      omega[2]*L[2]*j(i2) + R[2]*i2 = v2 - v0;
+      omega[2]*Lm*j(imag) = v0;
     end if;
     annotation (
       defaultComponentName="trafo",
@@ -123,21 +122,21 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
   model TrafoSatEff "Averaged saturation transformer, 3-phase dq0"
     extends Partials.TrafoSatBase;
 
-    PS.Voltage[3] v0;
-    PS.Current[3] imag;
-    PS.Current[3] iedc;
+    PS.Voltage[PS.n] v0;
+    PS.Current[PS.n] imag;
+    PS.Current[PS.n] iedc;
   protected
-    Real[3] psi0(each stateSelect=StateSelect.prefer) "unsaturated flux";
+    Real[PS.n] psi0(each stateSelect=StateSelect.prefer) "unsaturated flux";
     Real gp;
     function der_sat = Common.IronSaturation.der_saturationAnalytic;
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(i1) = omega[1]*j_dq0(i1);
-      der(i2) = omega[1]*j_dq0(i2);
-      der(psi0) = omega[1]*j_dq0(psi0);
+      der(i1) = omega[1]*j(i1);
+      der(i2) = omega[1]*j(i2);
+      der(psi0) = omega[1]*j(psi0);
     elseif dynType <> Types.Dynamics.SteadyState then
-      der(psi0) = omega[1]*j_dq0(psi0);
+      der(psi0) = omega[1]*j(psi0);
     end if;
 
   equation
@@ -147,13 +146,13 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
     gp = scalar(der_sat({0.66*sqrt(psi0*psi0)/psi_nom}, c_sat));
 
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
-      diagonal({L[2],L[2],L0[2]})*der(i2) + omega[2]*L[2]*j_dq0(i2) + R[2]*i2 = v2 - v0;
-      gp*(der(psi0) + omega[2]*j_dq0(psi0)) = v0;
+      PS.map({L[1],L[1],L0[1]}).*der(i1) + omega[2]*L[1]*j(i1) + R[1]*i1 = v1 - v0;
+      PS.map({L[2],L[2],L0[2]}).*der(i2) + omega[2]*L[2]*j(i2) + R[2]*i2 = v2 - v0;
+      gp*(der(psi0) + omega[2]*j(psi0)) = v0;
     else
-      omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
-      omega[2]*L[2]*j_dq0(i2) + R[2]*i2 = v2 - v0;
-      gp*(omega[2]*j_dq0(psi0)) = v0;
+      omega[2]*L[1]*j(i1) + R[1]*i1 = v1 - v0;
+      omega[2]*L[2]*j(i2) + R[2]*i2 = v2 - v0;
+      gp*(omega[2]*j(psi0)) = v0;
     end if;
     annotation (
       defaultComponentName="trafo",
@@ -269,20 +268,20 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
 
   initial equation
     if dynType == Types.Dynamics.SteadyInitial then
-      der(i2a) = omega[1]*j_dq0(i2a);
-      der(i2b) = omega[1]*j_dq0(i2b);
+      der(i2a) = omega[1]*j(i2a);
+      der(i2b) = omega[1]*j(i2b);
     end if;
 
   equation
-    i1 + i2a + i2b = zeros(3);
+    i1 + i2a + i2b = zeros(PS.n);
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({L[1],L[1],L0[1]})*der(i1) + omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
-      diagonal({L[2],L[2],L0[2]})*der(i2a) + omega[2]*L[2]*j_dq0(i2a) + R[2]*i2a = v2a - v0;
-      diagonal({L[3],L[3],L0[3]})*der(i2b) + omega[2]*L[3]*j_dq0(i2b) + R[3]*i2b = v2b - v0;
+      PS.map({L[1],L[1],L0[1]}).*der(i1) + omega[2]*L[1]*j(i1) + R[1]*i1 = v1 - v0;
+      PS.map({L[2],L[2],L0[2]}).*der(i2a) + omega[2]*L[2]*j(i2a) + R[2]*i2a = v2a - v0;
+      PS.map({L[3],L[3],L0[3]}).*der(i2b) + omega[2]*L[3]*j(i2b) + R[3]*i2b = v2b - v0;
     else
-      omega[2]*L[1]*j_dq0(i1) + R[1]*i1 = v1 - v0;
-      omega[2]*L[2]*j_dq0(i2a) + R[2]*i2a = v2a - v0;
-      omega[2]*L[3]*j_dq0(i2b) + R[3]*i2b = v2b - v0;
+      omega[2]*L[1]*j(i1) + R[1]*i1 = v1 - v0;
+      omega[2]*L[2]*j(i2a) + R[2]*i2a = v2a - v0;
+      omega[2]*L[3]*j(i2b) + R[3]*i2b = v2b - v0;
     end if;
   end Trafo3Stray;
 
@@ -292,16 +291,16 @@ Delta topology: impedance is defined as winding-impedance (see info package Tran
       partial model TrafoIdealBase "Base for ideal transformer, 3-phase dq0"
 
         extends Ports.YDportTrafo_p_n(
-          final term_p(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[1])),
-          final term_n(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2])),
+          final term_p(v(start=PS.map({cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[1]))),
+          final term_n(v(start=PS.map({cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2]))),
           i1(start=i1_start), i2(start=i2_start));
 
         parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
           annotation(Evaluate=true, Dialog(tab="Initialization"));
-        parameter PS.Current[3] i1_start = zeros(3)
+        parameter PS.Current[PS.n] i1_start = zeros(PS.n)
         "start value of primary current"
           annotation(Dialog(tab="Initialization"));
-        parameter PS.Current[3] i2_start = i1_start
+        parameter PS.Current[PS.n] i2_start = i1_start
         "start value of secondary current"
           annotation(Dialog(tab="Initialization"));
 
@@ -598,9 +597,9 @@ For variable transformer ratio tap changer input needed.</p>
       "Base for ideal 3-winding transformer, 3-phase dq0"
 
     extends Ports.YDportTrafo_p_n_n(
-      final term_p(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[1])),
-      final term_na(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2])),
-      final term_nb(v(start={cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[3])));
+      final term_p(v(start=PS.map({cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[1]))),
+      final term_na(v(start=PS.map({cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[2]))),
+      final term_nb(v(start=PS.map({cos(system.alpha0),sin(system.alpha0),0}*par.V_nom[3]))));
 
     parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
       annotation(Evaluate=true, Dialog(tab="Initialization"));

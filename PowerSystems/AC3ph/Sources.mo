@@ -19,7 +19,7 @@ package Sources "Voltage and Power Sources"
     V = vPhasor_internal[1]*V_base;
     alpha = vPhasor_internal[2];
     phi = term.theta[1] + alpha + system.alpha0;
-    term.v = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v};
+    term.v = PS.map({V*cos(phi), V*sin(phi), sqrt(3)*neutral.v});
     annotation (defaultComponentName = "voltage1",
       Documentation(
               info="<html>
@@ -49,7 +49,7 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
     SI.Angle alpha;
     SI.Angle phi;
     Integer[N] h_mod3;
-    Real[3, N] H;
+    Real[PS.n, N] H;
 
   equation
     if not use_vPhasor_in then
@@ -63,13 +63,13 @@ with variable amplitude and phase when 'vType' is 'signal'.</p>
     for n in 1:N loop
       if h_mod3[n] == 1 then
         phi := h[n]*(theta + alpha + system.alpha0 + alpha0[n]) - term.theta[2];
-        H[:, n] := {cos(phi), sin(phi), 0};
+        H[:, n] := PS.map({cos(phi), sin(phi), 0});
       elseif h_mod3[n] == 2 then
         phi := h[n]*(theta + alpha + system.alpha0 + alpha0[n]) + term.theta[2];
-        H[:, n] := {cos(phi), -sin(phi), 0};
+        H[:, n] := PS.map({cos(phi), -sin(phi), 0});
       else
         phi := h[n]*(theta + alpha + system.alpha0 + alpha0[n]);
-        H[:, n] := {0, 0, s2*cos(phi)};
+        H[:, n] := PS.map({0, 0, s2*cos(phi)});
       end if;
     end for;
     term.v := V*(H*v0);
@@ -139,7 +139,7 @@ where
     V = vPhasor_internal[1]*V_base;
     alpha = vPhasor_internal[2];
     phi = term.theta[1] + alpha + system.alpha0;
-    term.v = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v};
+    term.v = PS.map({V*cos(phi), V*sin(phi), sqrt(3)*neutral.v});
     annotation(defaultComponentName = "infBus",
       Documentation(
             info="<html>
@@ -206,8 +206,8 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     final parameter SI.Resistance R=r*RL_base[1];
     final parameter SI.Inductance L = x*RL_base[2];
     final parameter SI.Inductance L0 = x0*RL_base[2];
-    PS.Voltage[3] v(start={cos(system.alpha0),sin(system.alpha0),0}*V_base);
-    PS.Current[3] i(start={0,0,0});
+    PS.Voltage[PS.n] v(start=PS.map({cos(system.alpha0),sin(system.alpha0),0})*V_base);
+    PS.Current[PS.n] i(start=zeros(PS.n));
     SI.AngularFrequency[2] omega;
     SI.Angle phi(start=alpha0+system.alpha0);
     function atan2 = Modelica.Math.atan2;
@@ -226,7 +226,7 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
       {v[1:2]*i[1:2], {v[2],-v[1]}*i[1:2]} = pq_start*S_base;
     end if;
     if dynType == Types.Dynamics.SteadyInitial then
-      der(i) = omega[1]*j_dq0(i);
+      der(i) = omega[1]*j(i);
     end if;
 
   equation
@@ -236,9 +236,9 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     phi = term.theta[1] + alpha0 + system.alpha0;
 
     if dynType <> Types.Dynamics.SteadyState then
-      diagonal({L,L,L0})*der(i) + omega[2]*L*j_dq0(i) + R*i = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v} - v;
+      PS.map({L,L,L0}).*der(i) + omega[2]*L*j(i) + R*i = PS.map({V*cos(phi), V*sin(phi), sqrt(3)*neutral.v}) - v;
     else
-      omega[2]*L*j_dq0(i) + R*i = {V*cos(phi), V*sin(phi), sqrt(3)*neutral.v} - v;
+      omega[2]*L*j(i) + R*i = PS.map({V*cos(phi), V*sin(phi), sqrt(3)*neutral.v}) - v;
     end if;
     annotation (defaultComponentName = "Vsource1",
       Documentation(
@@ -304,7 +304,7 @@ with variable amplitude and phase when 'vPhasor_in' connected to a signal-input.
     V = pv_internal[2]*V_base;
     v*v = V*V;
     v*i = P;
-    term.v = cat(1, v, {sqrt(3)*neutral.v});
+    term.v = PS.map(cat(1, v, {sqrt(3)*neutral.v}));
     annotation (defaultComponentName = "PVsource1",
       Documentation(
               info="<html>
@@ -361,7 +361,7 @@ with variable power and voltage when 'pv' connected to a signal-input.</p>
     end if;
     P = pq_internal*S_base;
     {v*i, {v[2],-v[1]}*i} = P;
-    term.v = cat(1, v, {sqrt(3)*neutral.v});
+    term.v = PS.map(cat(1, v, {sqrt(3)*neutral.v}));
     annotation (defaultComponentName = "PQsource1",
       Documentation(
               info="<html>
@@ -407,7 +407,11 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
         term.theta = if system.synRef then {0, theta} else {theta, 0};
       end if;
 
-      sqrt(3)*term.i[3] + neutral.i = 0;
+      if PS.n > 2 then
+        sqrt(3)*term.i[3] + neutral.i = 0;
+      else
+        neutral.i = 0;
+      end if;
       annotation (
         Documentation(
               info="<html>

@@ -91,7 +91,7 @@ package Nodes "Nodes and adaptors"
     function atan2 = Modelica.Math.atan2;
 
   equation
-    term.i = zeros(3);
+    term.i = zeros(PS.n);
     v_norm = sqrt(term.v*term.v);
     alpha_v = atan2(R[:, 2]*term.v[1:2], R[:, 1]*term.v[1:2]);
     annotation (
