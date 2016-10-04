@@ -19,6 +19,15 @@ package PhaseSystems "Phase systems used in power connectors"
       nominal = i_nominal) "current for connector";
     type ReferenceAngle = Types.ReferenceAngle       "Reference angle for connector";
 
+    replaceable function map
+      "Map vector of higher order phase system to this phase system"
+      input Real[:] x;
+      output Real[n] y;
+    algorithm
+      y := x[1:n];
+      annotation(Inline=true);
+    end map;
+
     replaceable partial function j "Return vector rotated by 90 degrees"
       extends Modelica.Icons.Function;
       input Real x[n];
@@ -379,7 +388,7 @@ package PhaseSystems "Phase systems used in power connectors"
   end ThreePhase_d;
 
   package ThreePhase_dq "AC system, symmetrically loaded three phases"
-    extends PartialPhaseSystem(phaseSystemName="ThreePhase_dq", n=2, m=1);
+    extends PartialPhaseSystem(phaseSystemName="ThreePhase_dq", n=2, m=2);
 
     redeclare function j "Return vector rotated by 90 degrees"
       extends Modelica.Icons.Function;
@@ -390,12 +399,20 @@ package PhaseSystems "Phase systems used in power connectors"
       annotation(Inline=true);
     end j;
 
+    redeclare function jj "Vectorized version of j"
+      input Real[n,:] xx "array of voltage or current vectors";
+      output Real[n,size(xx,2)] yy "array of rotated vectors";
+    algorithm
+      yy := {-xx[2,:], xx[1,:]};
+      annotation(Inline=true);
+    end jj;
+
     redeclare function thetaRel
       "Return absolute angle of rotating system as offset to thetaRef"
       input SI.Angle theta[m];
       output SI.Angle thetaRel;
     algorithm
-      thetaRel := 0;
+      thetaRel := theta[1];
       annotation(Inline=true);
     end thetaRel;
 
@@ -404,7 +421,7 @@ package PhaseSystems "Phase systems used in power connectors"
       input SI.Angle theta[m];
       output SI.Angle thetaRef;
     algorithm
-      thetaRef := theta[1];
+      thetaRef := theta[2];
       annotation(Inline=true);
     end thetaRef;
 

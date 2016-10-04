@@ -3,14 +3,16 @@ package Ports "AC three-phase ports dq0 representation"
   extends Modelica.Icons.InterfacesPackage;
 
 partial model PortBase "base model adapting Spot to PowerSystems"
-  package PS = PhaseSystems.ThreePhase_dq0;
-  function j_dq0 = PS.j annotation(Inline=true);
-  function jj_dq0 = PS.jj annotation(Inline=true);
+  package PS = PackagePhaseSystem;
+  function j = PS.j annotation(Inline=true);
+  function jj = PS.jj annotation(Inline=true);
+  function j_dq0 = PhaseSystems.ThreePhase_dq0.j annotation(Inline=true);
+  function jj_dq0 = PhaseSystems.ThreePhase_dq0.jj annotation(Inline=true);
 end PortBase;
 
 connector ACdq0_p "AC terminal, 3-phase dq0 ('positive')"
   extends Interfaces.Terminal(redeclare package PhaseSystem =
-          PhaseSystems.ThreePhase_dq0);
+          PackagePhaseSystem);
   annotation (defaultComponentName = "term_p",
       Documentation(info="<html>
 <p>AC connector with vector variables in dq0-representation, positive.</p>
@@ -48,7 +50,7 @@ end ACdq0_p;
 
 connector ACdq0_n "AC terminal, 3-phase dq0 ('negative')"
   extends Interfaces.Terminal(redeclare package PhaseSystem =
-          PhaseSystems.ThreePhase_dq0);
+          PackagePhaseSystem);
   annotation (defaultComponentName = "term_n",
       Documentation(info="<html>
 <p>AC connector with vector variables in dq0-representation, negative.</p>
@@ -155,7 +157,7 @@ partial model Port_pn "AC two port 'current_in = current_out', 3-phase"
   extends Port_p_n;
 
 equation
-  term_p.i + term_n.i = zeros(3);
+  term_p.i + term_n.i = zeros(PS.n);
   annotation (
 Documentation(info="<html>
 </html>"));
@@ -439,13 +441,13 @@ partial model YDportTrafo_p_n
       "n: Y, Delta or PAR topology"
     annotation (Placement(transformation(extent={{80,-20},{40,20}})));
 
-  PS.Voltage[3] v1 "voltage conductor";
-  PS.Current[3] i1 "current conductor";
+  PS.Voltage[PS.n] v1 "voltage conductor";
+  PS.Current[PS.n] i1 "current conductor";
   PS.Voltage[n_n1] v_n1 "voltage neutral";
   PS.Current[n_n1] i_n1=top_p.i_n "current neutral to ground";
 
-  PS.Voltage[3] v2 "voltage conductor";
-  PS.Current[3] i2 "current conductor";
+  PS.Voltage[PS.n] v2 "voltage conductor";
+  PS.Current[PS.n] i2 "current conductor";
   PS.Voltage[n_n2] v_n2 "voltage neutral";
   PS.Current[n_n2] i_n2=top_n.i_n "current neutral to ground";
 
@@ -547,22 +549,22 @@ partial model YDportTrafo_p_n_n
       "nb: Y or Delta topology"
     annotation (Placement(transformation(extent={{80,-60},{40,-20}})));
 
-  PS.Voltage[3] v1 "voltage conductor";
-  PS.Current[3] i1 "current conductor";
+  PS.Voltage[PS.n] v1 "voltage conductor";
+  PS.Current[PS.n] i1 "current conductor";
   PS.Voltage[n_n1] v_n1 "voltage neutral";
   PS.Current[n_n1] i_n1=top_p.i_n "current neutral to ground";
 
-  PS.Voltage[3] v2a "voltage conductor";
-  PS.Current[3] i2a "current conductor";
+  PS.Voltage[PS.n] v2a "voltage conductor";
+  PS.Current[PS.n] i2a "current conductor";
   PS.Voltage[n_n2a] v_n2a "voltage neutral";
   PS.Current[n_n2a] i_n2a=top_na.i_n "current neutral to ground";
 
-  PS.Voltage[3] v2b "voltage conductor";
-  PS.Current[3] i2b "current conductor";
+  PS.Voltage[PS.n] v2b "voltage conductor";
+  PS.Current[PS.n] i2b "current conductor";
   PS.Voltage[n_n2b] v_n2b "voltage neutral";
   PS.Current[n_n2b] i_n2b=top_nb.i_n "current neutral to ground";
 
-  PS.Voltage[3] v0;
+  PS.Voltage[PS.n] v0;
   protected
   constant Integer[3] scale={top_p.scale, top_na.scale, top_nb.scale};
   final parameter Integer n_n1=top_p.n_n annotation(Evaluate=true);
@@ -637,10 +639,10 @@ package Topology "Topology transforms "
     extends PortBase;
     constant Integer scale "for scaling of impedance values";
     parameter Integer n_n(min=0,max=1)=1 "1 for Y, 0 for Delta";
-    PS.Voltage[3] v_term "terminal voltage";
-    PS.Current[3] i_term "terminal current";
-    input PS.Voltage[3] v_cond "conductor voltage";
-    input PS.Current[3] i_cond "conductor current";
+    PS.Voltage[PS.n] v_term "terminal voltage";
+    PS.Current[PS.n] i_term "terminal current";
+    input PS.Voltage[PS.n] v_cond "conductor voltage";
+    input PS.Current[PS.n] i_cond "conductor current";
     input PS.Voltage[n_n] v_n(start=fill(0,n_n)) "voltage neutral";
     input Real w = 1 "voltage ratio to nominal";
     PS.Current[n_n] i_n(start=fill(0,n_n)) "current neutral to ground";
@@ -669,9 +671,13 @@ package Topology "Topology transforms "
     extends TopologyBase(final scale=1, final n_n=1);
 
   equation
-    w*v_cond = v_term - {0, 0, s3*v_n[1]};
+    w*v_cond = v_term - PS.map({0, 0, s3*v_n[1]});
     i_term = i_cond/w;
-    i_n[1] = s3*i_term[3];
+    if PS.n > 2 then
+      i_n[1] = s3*i_term[3];
+    else
+      i_n[1] = 0;
+    end if;
     annotation (defaultComponentName="Y",
   Documentation(
           info="<html>
@@ -730,13 +736,15 @@ Defines Y-topology transform of voltage and current variables.</p>
       annotation(Evaluate=true);
 
     protected
-      Real[2,2] R=Utilities.Transforms.rotation_dq(shift*pi/6)*s3/w;
+      Real[2,2] Rot = Utilities.Transforms.rotation_dq(shift*pi/6)*s3/w;
 
   equation
-    v_cond[1:2] = R*v_term[1:2];
-    v_cond[3] = 0;
-    i_term[1:2] = i_cond[1:2]*R;
-    i_term[3] = 0;
+    v_cond[1:2] = Rot*v_term[1:2];
+    i_term[1:2] = i_cond[1:2]*Rot;
+    if PS.n > 2 then
+      v_cond[3] = 0;
+      i_term[3] = 0;
+    end if;
     annotation (__Dymola_structurallyIncomplete=true,defaultComponentName="Delta",
         Documentation(
         info="<html>
@@ -1089,14 +1097,18 @@ Regularised version of Y_Delta. To be used, if device is fed across an inductive
     SI.Angle alpha = atan(w - 1) "phase shift";
 
     protected
-    Real[2, 2] R = [1, -w+1; w-1, 1] "Transforms.rotation_dq(alpha)/cos(alpha)";
+    Real[2, 2] Rot = [1, -w+1; w-1, 1] "Transforms.rotation_dq(alpha)/cos(alpha)";
 
   equation
-    v_term[1:2] = R*v_cond[1:2];
-    v_term[3] = s3*v_n[1];
-    i_cond[1:2] = i_term[1:2]*R;
-    i_cond[3] = i_term[3];
-    i_n[1] = s3*i_term[3];
+    v_term[1:2] = Rot*v_cond[1:2];
+    i_cond[1:2] = i_term[1:2]*Rot;
+    if PS.n > 2 then
+      v_term[3] = s3*v_n[1];
+      i_cond[3] = i_term[3];
+      i_n[1] = s3*i_term[3];
+    else
+      i_n[1] = 0;
+    end if;
     annotation (defaultComponentName="Y",
   Documentation(
           info="<html>
