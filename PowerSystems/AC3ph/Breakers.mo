@@ -14,7 +14,7 @@ package Breakers "Switches and Breakers 3-phase"
     outer System system;
     SI.Time t0(start=-Modelica.Constants.inf);
     Real[2] r(start={0,1});
-    Real[3] s;
+    Real[PS.n] s;
   /*
   Boolean open(start=not control[1])=not control[1];
   Boolean closed(start=control[1])=control[1];
@@ -113,10 +113,10 @@ with
       "{resistance 'closed', conductance 'open'}";
     parameter SI.Time t_relax=10e-3 "switch relaxation time";
     parameter Integer p_relax(min=2)=4 "power of relaxation exponent";
-    PS.Voltage[3] v_t;
-    PS.Voltage[3] v_f;
-    PS.Current[3] i_t;
-    PS.Current[3] i_f;
+    PS.Voltage[PS.n] v_t;
+    PS.Voltage[PS.n] v_f;
+    PS.Current[PS.n] i_t;
+    PS.Current[PS.n] i_f;
 
     Ports.ACdq0_p term_p "positive terminal"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -136,8 +136,8 @@ with
     final parameter SI.Conductance epsG=eps[2]*I_nom/V_nom;
     SI.Time t0(start=-Modelica.Constants.inf);
     Real[2] r(start={0,1});
-    Real[3] s_t;
-    Real[3] s_f;
+    Real[PS.n] s_t;
+    Real[PS.n] s_f;
   /*
   Boolean open_t(start=not control)=not control;
   Boolean closed_t(start=control)=control;
@@ -166,7 +166,7 @@ with
     v_f = term_p.v - term_nf.v;
     term_nt.i = -i_t;
     term_nf.i = -i_f;
-    term_p.i + term_nt.i + term_nf.i = zeros(3);
+    term_p.i + term_nt.i + term_nf.i = zeros(PS.n);
 
     if dynType <> Types.Dynamics.SteadyState then
       when edge(open_t) or edge(closed_t) then
@@ -279,7 +279,7 @@ with
   end ForcedCommSwitch;
 
   model Switch "Ideal switch, 3-phase dq0"
-    extends Partials.SwitchTrsfBase;
+    extends Partials.SwitchSinglePhaseBase;
 
   protected
     Common.Switching.Switch switch_a(
@@ -328,7 +328,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
   end Switch;
 
   model Breaker "Breaker, 3-phase dq0"
-    extends Partials.SwitchTrsfBase;
+    extends Partials.SwitchSinglePhaseBase;
 
     replaceable parameter Parameters.BreakerArc par "breaker parameter"
                                              annotation (Placement(
@@ -402,8 +402,8 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
       parameter Integer n=3 "number of independent switches";
       parameter Real[2] eps(final min={0,0}, each unit="1")={1e-4,1e-4}
         "{resistance 'closed', conductance 'open'}";
-      PS.Voltage[3] v;
-      PS.Current[3] i;
+      PS.Voltage[PS.n] v;
+      PS.Current[PS.n] i;
       Modelica.Blocks.Interfaces.BooleanInput[n] control
         "true:closed, false:open"
       annotation (Placement(transformation(
@@ -444,8 +444,8 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
               pattern=LinePattern.Dot)}));
     end SwitchBase;
 
-    partial model SwitchTrsfBase
-      "Switch base, additional abc-variables, 3-phase dq0"
+    partial model SwitchSinglePhaseBase
+      "Switch base, additional abc-variables for single-phase switching"
       extends SwitchBase(final n=3);
 
       PS.Voltage[3] v_abc(each stateSelect=StateSelect.never)
@@ -491,7 +491,7 @@ Electrically the switch is on if it is 'closed', whereas it is switched off, if 
             Line(points={{30,0},{80,0}}, color={0,0,255}),
             Line(points={{-80,60},{-60,60}}, color={0,0,255}),
             Line(points={{0,60},{80,60}}, color={0,0,255})}));
-    end SwitchTrsfBase;
+    end SwitchSinglePhaseBase;
 
   end Partials;
 
