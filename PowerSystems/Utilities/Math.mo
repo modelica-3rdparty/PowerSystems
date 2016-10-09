@@ -6,8 +6,8 @@ package Math "Mathematical functions"
       extends Modelica.Icons.Function;
 
       input Real[2] x "2-dimensional vector";
-      input Modelica.SIunits.Angle alpha "angle";
-      output Modelica.SIunits.Angle phi
+      input SI.Angle alpha "angle";
+      output SI.Angle phi
       "arc(x) with range (alpha-pi) < phi <= (alpha+pi)";
   protected
       Real c;

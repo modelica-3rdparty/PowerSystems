@@ -24,7 +24,7 @@ model System "System reference"
 
   final parameter SI.AngularFrequency omega_nom = 2*pi*f_nom
     "nominal angular frequency" annotation(Evaluate=true);
-  final parameter Types.AngularVelocity w_nom = 2*pi*f_nom "nom r.p.m."
+  final parameter SI.AngularVelocity w_nom = 2*pi*f_nom "nom r.p.m."
                  annotation(Evaluate=true, Dialog(group="Nominal"));
   final parameter Boolean synRef = refType==PowerSystems.Types.ReferenceFrame.Synchron
     or dynType==PowerSystems.Types.Dynamics.SteadyState

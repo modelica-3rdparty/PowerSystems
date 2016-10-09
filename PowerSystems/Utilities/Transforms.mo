@@ -110,7 +110,7 @@ It acts on the first index in the same way as j_dq0 for all values of the second
     function park "Park transform"
       extends Modelica.Icons.Function;
 
-      input Modelica.SIunits.Angle theta "transformation angle";
+      input SI.Angle theta "transformation angle";
       output Real[3,3] P "Park transformation matrix";
   protected
       constant Real s13=sqrt(1/3);
@@ -161,8 +161,8 @@ and
     function der_park "Derivative of Park transform"
       extends Modelica.Icons.Function;
 
-      input Modelica.SIunits.Angle theta "transformation angle";
-      input Modelica.SIunits.AngularFrequency omega "d/dt theta";
+      input SI.Angle theta "transformation angle";
+      input SI.AngularFrequency omega "d/dt theta";
       output Real[3, 3] der_P "d/dt park";
   protected
       constant Real s23=sqrt(2/3);
@@ -186,9 +186,9 @@ and
     function der2_park "2nd derivative of Park transform"
       extends Modelica.Icons.Function;
 
-      input Modelica.SIunits.Angle theta "transformation angle";
-      input Modelica.SIunits.AngularFrequency omega "d/dt theta";
-      input Modelica.SIunits.AngularAcceleration omega_dot "d/dt omega";
+      input SI.Angle theta "transformation angle";
+      input SI.AngularFrequency omega "d/dt theta";
+      input SI.AngularAcceleration omega_dot "d/dt omega";
       output Real[3, 3] der2_P "d2/dt2 park";
   protected
       constant Real s23=sqrt(2/3);
@@ -213,7 +213,7 @@ and
     function rotation_dq "Rotation matrix dq"
       extends Modelica.Icons.Function;
 
-      input Modelica.SIunits.Angle theta "rotation angle";
+      input SI.Angle theta "rotation angle";
       output Real[2, 2] R_dq "rotation matrix";
   protected
       Real c;
@@ -254,8 +254,8 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     function der_rotation_dq "Derivative of rotation matrix dq"
       extends Modelica.Icons.Function;
 
-      input Modelica.SIunits.Angle theta;
-      input Modelica.SIunits.AngularFrequency omega "d/dt theta";
+      input SI.Angle theta;
+      input SI.AngularFrequency omega "d/dt theta";
       output Real[2, 2] der_R_dq "d/dt rotation_dq";
   protected
       Real dc;
@@ -274,9 +274,9 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     function der2_rotation_dq "2nd derivative of rotation matrix dq"
       extends Modelica.Icons.Function;
 
-      input Modelica.SIunits.Angle theta;
-      input Modelica.SIunits.AngularFrequency omega "d/dt theta";
-      input Modelica.SIunits.AngularAcceleration omega_dot "d/dt omega";
+      input SI.Angle theta;
+      input SI.AngularFrequency omega "d/dt theta";
+      input SI.AngularAcceleration omega_dot "d/dt omega";
       output Real[2, 2] der2_R_dq "d/2dt2 rotation_dq";
   protected
       Real c;
@@ -299,7 +299,7 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     function rotation_abc "Rotation matrix abc"
       extends Modelica.Icons.Function;
 
-      input Modelica.SIunits.Angle theta "rotation angle";
+      input SI.Angle theta "rotation angle";
       output Real[3,3] R_abc "rotation matrix";
   protected
       constant Real q13=1/3;
@@ -349,8 +349,8 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     function der_rotation_abc "Derivative of rotation matrix abc"
       extends Modelica.Icons.Function;
 
-      input Modelica.SIunits.Angle theta;
-      input Modelica.SIunits.AngularFrequency omega "d/dt theta";
+      input SI.Angle theta;
+      input SI.AngularFrequency omega "d/dt theta";
       output Real[3, 3] der_R_abc "d/dt rotation_abc";
   protected
       constant Real q13=1/3;
@@ -376,9 +376,9 @@ with P0 the orthogonal transform 'Transforms.P0'.</p>
     function der2_rotation_abc "2nd derivative of rotation matrix abc"
       extends Modelica.Icons.Function;
 
-      input Modelica.SIunits.Angle theta;
-      input Modelica.SIunits.AngularFrequency omega "d/dt theta";
-      input Modelica.SIunits.AngularAcceleration omega_dot "d/dt omega";
+      input SI.Angle theta;
+      input SI.AngularFrequency omega "d/dt theta";
+      input SI.AngularAcceleration omega_dot "d/dt omega";
       output Real[3, 3] der2_R_abc "d2/dt2 rotation_abc";
   protected
       constant Real q13=1/3;

@@ -121,13 +121,7 @@ with variable amplitude when 'vType' is 'signal'.</p>
     extends Ports.Port_n;
     extends Common.Nominal.Nominal;
 
-    parameter Integer pol(min=-1,max=1)=-1 "grounding scheme"
-      annotation(Evaluate=true,
-      choices(choice=1 "plus",
-      choice=0 "symmetrical",
-      choice=-1 "negative"));
     parameter SIpu.Voltage v0=1 "battery voltage";
-    parameter Types.Charge_Ah Q_nom=1 "nominal Capacity";
   protected
     final parameter Real V_base=Utilities.Precalculation.baseV(puUnits, V_nom);
     PS.Voltage v;

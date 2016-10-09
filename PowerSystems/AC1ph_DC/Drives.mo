@@ -205,7 +205,7 @@ where 0 &lt  vPhasor[1] &lt  1.</p>
 
   partial model DriveBase "DC drives base"
 
-    parameter Types.AngularVelocity  w_start = 0
+    parameter SI.AngularVelocity  w_start = 0
         "initial rpm (start-value if steady init)"
       annotation(Dialog(tab="Initialization"));
     AC1ph_DC.Ports.TwoPin_p term "electric terminal"

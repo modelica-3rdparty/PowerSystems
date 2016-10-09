@@ -161,8 +161,8 @@ package Interfaces
 
   partial model AddHeat "Additional heat port"
 
-    Modelica.SIunits.Temperature T "Temperature of conductor";
-    Modelica.SIunits.HeatFlowRate Q_flow "Dissipated heat of conductor";
+    SI.Temperature T "Temperature of conductor";
+    SI.HeatFlowRate Q_flow "Dissipated heat of conductor";
     Thermal_p heat "heat port"
       annotation (Placement(transformation(
           origin={0,100},
@@ -187,8 +187,8 @@ package Interfaces
   partial model AddHeatV "Additional vector heat port"
 
     parameter Integer m_heat(final min=1) = 1 "number of heat conductors";
-    Modelica.SIunits.Temperature[m_heat] T "Temperature of heat conductors";
-    Modelica.SIunits.HeatFlowRate[m_heat] Q_flow
+    SI.Temperature[m_heat] T "Temperature of heat conductors";
+    SI.HeatFlowRate[m_heat] Q_flow
       "Dissipated heat of conductors";
     ThermalV_p heat(final m=m_heat) "vector heat port"
       annotation (Placement(transformation(

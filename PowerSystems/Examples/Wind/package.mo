@@ -709,7 +709,7 @@ package Wind "Different wind turbine concepts"
       parameter Real c6=0.0068;
       parameter SI.Angle beta = 0 "Pitch angle of blades (0..20deg)";
       parameter SI.Density rho = 1.29 "Density of air";
-      parameter SI.Length R = 17 "Rotor length (radius)";
+      parameter SI.Radius R = 17 "Rotor length (radius)";
       parameter SI.Power P_nom = 1e6 "Nominal power"
         annotation(Dialog(group="Nominal"));
       SI.Area A = pi*R^2 "Area swept by rotor";

@@ -1224,7 +1224,7 @@ package SpaceVector "Space vector logic and control"
 
   model SVMlogic "Logical part for SVM"
 
-    parameter Modelica.SIunits.Time T_pwm "cycle time pwm";
+    parameter SI.Time T_pwm "cycle time pwm";
     inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-240,260},{-200,280}})));
     Modelica.StateGraph.Alternative Alternative1
@@ -1859,7 +1859,7 @@ This part calculates the duty ratios of the space vector modulation.
 
 model SVMpwm "Block generating the pwm pulses for SVM"
 
-  parameter Modelica.SIunits.Time T_pwm;
+  parameter SI.Time T_pwm;
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-180,160},{-140,180}})));
   Modelica.Blocks.Interfaces.BooleanInput trigger
@@ -2510,7 +2510,7 @@ end SVMsector3p6;
 
 model TriggeredPulse "Edge triggered pulse"
 
-  parameter Modelica.SIunits.Time T_pulse=1e-3 "width of triggered pulse";
+  parameter SI.Time T_pulse=1e-3 "width of triggered pulse";
   Modelica.Blocks.Logical.Timer Timer1(y(start=0))
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Modelica.Blocks.Logical.Edge Edge1 annotation (Placement(transformation(

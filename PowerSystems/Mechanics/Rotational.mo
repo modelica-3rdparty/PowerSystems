@@ -213,7 +213,7 @@ model TabPosSlopeTorque "Torque using table (position... slope)"
   extends Partials.TabTorque;
 
   constant SI.Force g_n=Modelica.Constants.g_n;
-  parameter SI.Length s_unit=1 "unit of 'position' in tab";
+  parameter SI.Distance s_unit=1 "unit of 'position' in tab";
   parameter Real[2] s_bd(each unit="m")={0,1} "{first, last} position in tab";
   parameter Integer dirTrack(min=-1,max=1)=+1 "forward or backward track"
     annotation(choices(
@@ -223,15 +223,15 @@ model TabPosSlopeTorque "Torque using table (position... slope)"
     annotation(choices(
     choice=1 "forward", choice=-1 "backward"));
   parameter Boolean scale=false "scale position and slope";
-  parameter SI.Length D=1 "scale distance to D" annotation(Dialog(enable=scale));
+  parameter SI.Distance D=1 "scale distance to D" annotation(Dialog(enable=scale));
   parameter Types.Percent slope_perc=100 "scale slope to slope_perc"
                                                              annotation(Dialog(enable=scale));
   parameter SI.Mass mass=1 "mass";
   parameter Real[2] cFrict(each min=0)={0,0}
       "friction cst {lin, quadr} (translation) in {[N.s/m], [N.s2/m2]}";
-  parameter SI.Length r=1 "radius wheel";
+  parameter SI.Radius r=1 "radius wheel";
   parameter Real gRatio=1 "gear-ratio";
-  SI.Length s;
+  SI.Distance s;
   SI.Velocity vVehicle(start=0) "vehicle horizontal velocity";
   protected
   final parameter Real s_factor=if scale then D/abs(s_bd[2]-s_bd[1]) else s_unit;
@@ -673,8 +673,7 @@ phi and w represent the mechanical angle and angular velocity.
 model ShaftNoMass "Elastic massless shaft"
   extends Ports.Compliant;
 
-  parameter Types.TorsionStiffness stiff=
-                                        1e6 "torsion stiffness";
+  parameter SI.TorsionStiffness stiff=1e6 "torsion stiffness";
 
 equation
     flange_a.tau
@@ -700,8 +699,7 @@ model Shaft "Elastic massive shaft"
   extends Ports.Compliant;
 
   parameter SI.Inertia J=1 "inertia";
-  parameter Types.TorsionStiffness stiff=
-                                        1e6 "torsion stiffness";
+  parameter SI.TorsionStiffness stiff=1e6 "torsion stiffness";
   SI.Angle phi(stateSelect=StateSelect.prefer) "rotation angle center";
   SI.AngularVelocity w(stateSelect=StateSelect.prefer);
   SI.AngularAcceleration a;
@@ -1008,10 +1006,8 @@ model NoGear "Placeholder for gear"
   extends Ports.Flange_a_b;
 
 equation
-    flange_a.phi
-               =flange_b.phi;
-    flange_a.tau
-               +flange_b.tau  = 0;
+    flange_a.phi = flange_b.phi;
+    flange_a.tau + flange_b.tau  = 0;
   annotation (defaultComponentName = "joint",
     Documentation(
             info="<html>
@@ -1098,9 +1094,8 @@ model PowerSensor "Power and torque sensor (mechanical)"
           rotation=90)));
 
 equation
-    flange_a.tau
-               +flange_b.tau  = 0;
-  tau =flange_a.tau;
+  flange_a.tau + flange_b.tau = 0;
+  tau = flange_a.tau;
   p = der(flange_a.phi)*flange_a.tau;
   annotation (defaultComponentName = "powerSens1",
     Documentation(

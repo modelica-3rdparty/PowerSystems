@@ -720,7 +720,7 @@ Therefore phi and w represent the mechanical angle and angular velocity.
 
   model PcontrolTorque "Turbine torque from power control"
 
-    parameter Types.AngularVelocity w_nom = 314.159265358979323846
+    parameter SI.AngularVelocity w_nom = 314.159265358979323846
       "nom r.p.m. turbine"
       annotation(Evaluate=true, Dialog(group="Nominal"));
     parameter SI.Power[:] P_nom={1} "nom power turbines"
@@ -812,7 +812,7 @@ torque control for speed &lt  speed_thr (speed threshold)
 
   model WindTabTorque "Turbine torque, table {speed, torque pu}"
 
-    parameter Types.AngularVelocity w_nom = 314.159265358979323846
+    parameter SI.AngularVelocity w_nom = 314.159265358979323846
       "nom r.p.m. turbine"
       annotation(Evaluate=true, Dialog(group="Nominal"));
     parameter SI.Power P_nom=1 "nom power turbine"
@@ -891,7 +891,7 @@ package Parameters "Parameter data for interactive use"
 record SteamTurboGroup "Steam turbo-group parameters"
   extends Modelica.Icons.Record;
 
-  parameter Types.AngularVelocity w_nom = 314.159265358979323846
+  parameter SI.AngularVelocity w_nom = 314.159265358979323846
         "nom r.p.m. turbines"
     annotation(Evaluate=true, Dialog(group="Nominal"));
   parameter SI.Power[:] P_nom={500e6,250e6,250e6,250e6} "nom power turbines"
@@ -900,8 +900,7 @@ record SteamTurboGroup "Steam turbo-group parameters"
         "inertia turbines";
   parameter SI.Inertia J_gen=70000 "inertia generator";
   parameter SI.Inertia[:] J_aux={500,1000} "inertia auxiliaries";
-  parameter Types.Stiffness[
-                           size(J_turb,1)+size(J_aux,1)] stiff={250,350,750,750,750,250}*1e6
+  parameter SI.Stiffness[size(J_turb,1)+size(J_aux,1)] stiff={250,350,750,750,750,250}*1e6
         "stiffness shafts";
 
   annotation (defaultComponentName="data",
@@ -913,7 +912,7 @@ end SteamTurboGroup;
 record GasTurbineGear "Turbo-group parameters"
   extends Modelica.Icons.Record;
 
-  parameter Types.AngularVelocity w_nom = 1576.7653528367 "nom r.p.m. turbine"
+  parameter SI.AngularVelocity w_nom = 1576.7653528367 "nom r.p.m. turbine"
     annotation(Evaluate=true, Dialog(group="Nominal"));
   parameter SI.Power[:] P_nom={12, -2}*1e6 "nom power {turbine, compressor}"
     annotation(Evaluate=true, Dialog(group="Nominal"));
@@ -925,11 +924,9 @@ record GasTurbineGear "Turbo-group parameters"
   parameter SI.Inertia J_cpl=40 "inertia coupling";
   parameter SI.Inertia J_gen=2500 "inertia generator";
   parameter Real[3] ratio={15057,5067,1500} "gear ratio";
-  parameter Types.Stiffness[
-                           6] stiff_sh={3,5.5,100,2500,250,200}*1e6
+  parameter SI.Stiffness[6] stiff_sh={3,5.5,100,2500,250,200}*1e6
         "stiffness shafts";
-  parameter Types.TorsionStiffness stiff_cpl=
-                                     130*1e6 "stiffness coupling";
+  parameter SI.TorsionStiffness stiff_cpl=130*1e6 "stiffness coupling";
 
   annotation (defaultComponentName="data",
     Documentation(
@@ -940,7 +937,7 @@ end GasTurbineGear;
 record HydroTurbine "Turbo-group parameters"
   extends Modelica.Icons.Record;
 
-  parameter Types.AngularVelocity w_nom = 314.159265358979323846
+  parameter SI.AngularVelocity w_nom = 314.159265358979323846
         "nom r.p.m. turbine"
     annotation(Evaluate=true, Dialog(group="Nominal"));
   parameter SI.Power P_nom=20e6 "nom power turbine"
@@ -948,8 +945,7 @@ record HydroTurbine "Turbo-group parameters"
   parameter SI.Inertia J_turb=1000 "inertia turbines";
   parameter SI.Inertia J_shaft=5 "inertia shaft";
   parameter SI.Inertia J_gen=500 "inertia generator";
-  parameter Types.TorsionStiffness stiff=
-                                 300e6 "stiffness shaft";
+  parameter SI.TorsionStiffness stiff=300e6 "stiffness shaft";
 
   annotation (defaultComponentName="data",
     Documentation(
@@ -960,13 +956,13 @@ end HydroTurbine;
 record Diesel "Turbo-group parameters"
   extends Modelica.Icons.Record;
 
-  parameter Types.AngularVelocity w_nom = 157.07963267949 "nom r.p.m. Diesel"
+  parameter SI.AngularVelocity w_nom = 157.07963267949 "nom r.p.m. Diesel"
     annotation(Evaluate=true, Dialog(group="Nominal"));
   parameter SI.Power P_nom=100e3 "nom power diesel"
     annotation(Evaluate=true, Dialog(group="Nominal"));
   parameter SI.Inertia J_turb=20 "inertia diesel";
   parameter SI.Inertia J_gen=20 "inertia generator";
-  parameter Types.TorsionStiffness stiff=1e6 "stiffness shaft";
+  parameter SI.TorsionStiffness stiff=1e6 "stiffness shaft";
 
   annotation (defaultComponentName="data",
     Documentation(
@@ -977,7 +973,7 @@ end Diesel;
 record WindTurbineGear "Turbo-group parameters"
   extends Modelica.Icons.Record;
 
-  parameter Types.AngularVelocity w_nom=1.0471975511966 "nom r.p.m. turbine"
+  parameter SI.AngularVelocity w_nom=1.0471975511966 "nom r.p.m. turbine"
     annotation(Evaluate=true, Dialog(group="Nominal"));
   parameter SI.Power P_nom=1e6 "nom power turbine"
     annotation(Evaluate=true, Dialog(group="Nominal"));
@@ -985,8 +981,7 @@ record WindTurbineGear "Turbo-group parameters"
   parameter SI.Inertia[3] J_gear={30,2,0.1} "inertias gear";
   parameter SI.Inertia J_gen=450 "inertia generator";
   parameter Real ratio[3]={10,100,1000} "gear ratio";
-  parameter Types.TorsionStiffness[
-                           2] stiff_sh={16,1}*1e6 "stiffness shafts";
+  parameter SI.TorsionStiffness[2] stiff_sh={16,1}*1e6 "stiffness shafts";
 
   annotation (defaultComponentName="data",
     Documentation(

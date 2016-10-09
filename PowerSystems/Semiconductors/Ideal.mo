@@ -12,7 +12,7 @@ record SCparameter "Ideal semiconductor parameters"
     annotation(Evaluate=true);
   parameter Real[:] cT_loss=fill(0,0) "{cT1,cT2,...} T-coef thermal losses"
     annotation(Evaluate=true);
-  parameter SI.Temp_K T0_loss=300 "reference T for cT_loss expansion"
+  parameter SI.Temperature T0_loss=300 "reference T for cT_loss expansion"
     annotation(Dialog(enable=size(cT_loss,1)>0), Evaluate=true);
   annotation (
     Documentation(

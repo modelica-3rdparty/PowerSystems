@@ -37,8 +37,8 @@ record DCpm100V_1kVA "DC machine permanent magnet excited, example"
     l_aq=0.5,
     r_aq=0.05,
     puUnits=true,
-    V_nom=100,
-    S_nom=1e3,
+    V_nom(displayUnit="V")=100,
+    S_nom(displayUnit="kVA")=1e3,
     w_nom=157.079632679489661923);
   annotation (defaultComponentPrefixes="parameter");
 end DCpm100V_1kVA;
@@ -47,8 +47,8 @@ record BLDC100V_1kVA
     "BLDC machine (= synchronous pm, 3rd order model), example pu-units"
   extends PowerSystems.AC3ph.Machines.Parameters.Synchron3rd(
     puUnits=true,
-    V_nom=100*sqrt(3/2)/2,
-    S_nom=1e3,
+    V_nom(displayUnit="V")=100*sqrt(3/2)/2,
+    S_nom(displayUnit="kVA")=1e3,
     f_nom=60,
     neu_iso=false,
     pp=2,
@@ -75,8 +75,8 @@ record BLDC100V_1kVA_SI
     "BLDC machine (= synchronous pm, 3rd order model), example SI-units"
   extends PowerSystems.AC3ph.Machines.Parameters.Synchron3rd(
     puUnits=false,
-    V_nom=100*sqrt(3/2)/2,
-    S_nom=1e3,
+    V_nom(displayUnit="V")=100*sqrt(3/2)/2,
+    S_nom(displayUnit="kVA")=1e3,
     f_nom=60,
     neu_iso=false,
     pp=2,
@@ -117,8 +117,8 @@ end BLDC100V_1kVA_SI;
       xsig_r={0.1},
       r_r={0.04},
       puUnits=true,
-      V_nom=400,
-      S_nom=30e3,
+      V_nom(displayUnit="V")=400,
+      S_nom(displayUnit="kVA")=30e3,
       f_nom=50);
     annotation (defaultComponentPrefixes="parameter");
   end Asynchron400V_30kVA;
@@ -159,8 +159,8 @@ end BLDC100V_1kVA_SI;
       r_s=0.03,
       r_n=1,
       puUnits=true,
-      V_nom=400,
-      S_nom=30e3,
+      V_nom(displayUnit="V")=400,
+      S_nom(displayUnit="kVA")=30e3,
       f_nom=50);
     annotation (defaultComponentPrefixes="parameter");
   end Synchron3rd_pm400V_30kVA;
@@ -194,8 +194,8 @@ end BLDC100V_1kVA_SI;
       r_rd={0.04},
       r_rq={0.04},
       puUnits=true,
-      V_nom=400,
-      S_nom=30e3,
+      V_nom(displayUnit="V")=400,
+      S_nom(displayUnit="kVA")=30e3,
       f_nom=50,
       If_nom=0);
     annotation (defaultComponentPrefixes="parameter");
@@ -212,8 +212,8 @@ end BLDC100V_1kVA_SI;
       r_s=0.03,
       r_n=1,
       puUnits=true,
-      V_nom=560,
-      S_nom=100e3,
+      V_nom(displayUnit="V")=560,
+      S_nom(displayUnit="kVA")=100e3,
       f_nom=400);
     annotation (defaultComponentPrefixes="parameter");
   end Synchron3rd_pm560V_100kVA;
@@ -247,8 +247,8 @@ end BLDC100V_1kVA_SI;
       r_rd={0.03},
       r_rq={0.03},
       puUnits=true,
-      V_nom=560,
-      S_nom=100e3,
+      V_nom(displayUnit="V")=560,
+      S_nom(displayUnit="kVA")=100e3,
       f_nom=400,
       If_nom=0);
     annotation (defaultComponentPrefixes="parameter");

@@ -57,8 +57,8 @@ partial model NominalDC "Units and nominal values DC"
     import PowerSystems;
   extends Nominal;
 
-    parameter PowerSystems.Types.AngularVelocity w_nom=system.w_nom
-      "nominal r.p.m." annotation (
+  parameter SI.AngularVelocity w_nom=system.w_nom
+    "nominal r.p.m." annotation (
       Evaluate=true,
       Dialog(group="Nominal"),
       choices(
@@ -120,8 +120,8 @@ record NominalDataDC "Units and nominal data DC"
     import PowerSystems;
   extends NominalData;
 
-    PowerSystems.Types.AngularVelocity w_nom=314.159265358979323846
-      "nominal r.p.m." annotation (
+  SI.AngularVelocity w_nom=314.159265358979323846
+    "nominal r.p.m." annotation (
       Evaluate=true,
       Dialog(group="Nominal"),
       choices(

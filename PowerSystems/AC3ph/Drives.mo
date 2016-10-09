@@ -272,9 +272,11 @@ package Drives "AC-drives dq0"
   end SM_ctrl;
 
   package Partials "Partial models"
+    extends Modelica.Icons.BasesPackage;
+
   partial model DriveBase0 "AC drives base mechanical"
 
-    parameter Types.AngularVelocity  w_start=0
+    parameter SI.AngularVelocity w_start=0
       "initial rpm (start-value if steady init)"
       annotation(Dialog(tab="Initialization"));
     Interfaces.Rotation_n flange "mechanical flange"
@@ -296,7 +298,7 @@ package Drives "AC-drives dq0"
               "massive gear")));
     Gear gear "type of gear"
       annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-    Interfaces.ThermalV_n heat(              m=2)
+    Interfaces.ThermalV_n heat(m=2)
         "heat source port {stator, rotor}"
       annotation (Placement(transformation(
             origin={0,100},
@@ -368,7 +370,6 @@ package Drives "AC-drives dq0"
   Documentation(info="<html>
 </html>"));
   end DriveBase0;
-    extends Modelica.Icons.BasesPackage;
 
   partial model DriveBase "AC drives base"
     extends DriveBase0;

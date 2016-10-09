@@ -3,7 +3,7 @@ package PowerSystems "Library for electrical power systems"
   extends Modelica.Icons.Package;
 
   import Modelica.Constants.pi;
-  import SI = Modelica.SIunits;
+  import PowerSystems.Types.SI "SI types with custom display units";
   import PowerSystems.Types.SIpu "per-unit types for user interface";
 
   constant String TableDir=Modelica.Utilities.Files.loadResource("modelica://PowerSystems/Resources/Tables/")

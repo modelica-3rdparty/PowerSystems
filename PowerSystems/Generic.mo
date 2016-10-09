@@ -44,8 +44,8 @@ package Generic "Simple components for basic investigations"
 
   model Admittance
     extends PowerSystems.Generic.Ports.PartialTwoTerminal;
-    parameter Modelica.SIunits.Conductance G = 1 "active component";
-    parameter Modelica.SIunits.Capacitance C = 1/314 "reactive component";
+    parameter SI.Conductance G = 1 "active component";
+    parameter SI.Capacitance C = 1/314 "reactive component";
     SI.AngularFrequency omegaRef;
   equation
     if PhaseSystem.m > 0 then
@@ -319,8 +319,8 @@ package Generic "Simple components for basic investigations"
 
   model FixedLoad
     extends PowerSystems.Generic.Ports.PartialLoad;
-    parameter Modelica.SIunits.Power P = 0 "rms value of constant active power";
-    parameter Modelica.SIunits.Angle phi = 0 "phase angle";
+    parameter SI.Power P = 0 "rms value of constant active power";
+    parameter SI.Angle phi = 0 "phase angle";
   equation
     PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, phi);
     annotation (Icon(coordinateSystem(preserveAspectRatio=false,
@@ -341,8 +341,8 @@ package Generic "Simple components for basic investigations"
 
   model FixedCurrent
     extends PowerSystems.Generic.Ports.PartialLoad;
-    parameter Modelica.SIunits.Current I = 0 "rms value of constant current";
-    parameter Modelica.SIunits.Angle phi = 0 "phase angle"
+    parameter SI.Current I = 0 "rms value of constant current";
+    parameter SI.Angle phi = 0 "phase angle"
     annotation (Dialog(group="Reference Parameters", enable = definiteReference));
   equation
     terminal.i = PhaseSystem.phaseCurrents(I, phi);
@@ -407,7 +407,7 @@ package Generic "Simple components for basic investigations"
 
   model PrescribedPowerLoad "Prescribed power load"
     extends PowerSystems.Generic.Ports.PartialLoad;
-    parameter Modelica.SIunits.Angle phi = 0 "phase angle";
+    parameter SI.Angle phi = 0 "phase angle";
     Modelica.Blocks.Interfaces.RealInput P(unit="W") annotation (Placement(
           transformation(extent={{130,-20},{90,20}})));
   equation

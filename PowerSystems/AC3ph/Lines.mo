@@ -1337,7 +1337,7 @@ The minimum of <tt>ne</tt> is <tt>1</tt>.</p>
       parameter PS.Current[PS.n] i_start = zeros(PS.n) "start value of current"
         annotation(Dialog(tab="Initialization"));
 
-      parameter Types.Length len=100e3 "line length";
+      parameter SI.Length len=100e3 "line length";
       parameter Integer ne(min=1)=1 "number of line elements";
       replaceable record Data = PowerSystems.AC3ph.Lines.Parameters.RXline
         constrainedby PowerSystems.AC3ph.Lines.Parameters.RXline

@@ -1,8 +1,6 @@
 within PowerSystems;
 package PhaseSystems "Phase systems used in power connectors"
   extends Modelica.Icons.Package;
-  import SI = Modelica.SIunits;
-  import Modelica.Constants.pi;
 
   partial package PartialPhaseSystem "Base package of all phase systems"
     extends Modelica.Icons.Package;

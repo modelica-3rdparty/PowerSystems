@@ -797,7 +797,7 @@ end FaultTline;
     partial model RXlineBase "RX-line base, 1-phase"
       extends Ports.PortBase;
 
-      parameter Types.Length len=100e3 "line length";
+      parameter SI.Length len=100e3 "line length";
       parameter Integer ne(min=1)=1 "number of line elements";
       replaceable record Data = PowerSystems.AC1ph_DC.Lines.Parameters.RXline
         "line parameters" annotation(choicesAllMatching=true);

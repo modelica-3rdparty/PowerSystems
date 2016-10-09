@@ -57,7 +57,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
     TurboGroup turboGroup "steam turbo-goup with generator-rotor"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
-    final parameter Modelica.SIunits.Time h=(sum(turboGroup.par.J_turb) +
+    final parameter SI.Time h=(sum(turboGroup.par.J_turb) +
         turboGroup.par.J_gen + sum(turboGroup.par.J_aux))*w_nom^2/(2
         *generator.par.S_nom) "inertia cst turb + gen";
 
@@ -112,10 +112,10 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
     final parameter Real[3] gr2=diagonal(GT.par.ratio)*GT.par.ratio/GT.par.ratio[end]^2;
-    final parameter Modelica.SIunits.Inertia J_red=(GT.par.J_turb + GT.par.J_comp)
+    final parameter SI.Inertia J_red=(GT.par.J_turb + GT.par.J_comp)
         *gr2[1] + GT.par.J_gear1*gr2[1:2] + GT.par.J_gear2*gr2[2:3] + (GT.par.J_acc
          + GT.par.J_cpl + GT.par.J_gen) "gear reduced inertia";
-    final parameter Modelica.SIunits.Time h=J_red*w_nom^2/(2*generator.par.S_nom);
+    final parameter SI.Time h=J_red*w_nom^2/(2*generator.par.S_nom);
 
   equation
     assert(abs(2*pi*generator.par.f_nom/(generator.par.pp*GT.par.w_nom) - 1) < 1e-3,
@@ -185,7 +185,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
     HydroTurbine hydro "hydro turbine with generator-rotor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
-    final parameter Modelica.SIunits.Time h=(hydro.par.J_turb + hydro.par.J_gen)
+    final parameter SI.Time h=(hydro.par.J_turb + hydro.par.J_gen)
         *w_nom^2/(2*generator.par.S_nom);
 
   equation
@@ -246,7 +246,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
     Diesel diesel "Diesel engine with generator-rotor"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   protected
-    final parameter Modelica.SIunits.Time h=(diesel.par.J_turb + diesel.par.J_gen)
+    final parameter SI.Time h=(diesel.par.J_turb + diesel.par.J_gen)
         *w_nom^2/(2*generator.par.S_nom);
 
   equation
@@ -322,7 +322,7 @@ If combined with 'Control.Setpoints.Set_w_p_v' or similar, the setpoint values <
           PowerSystems.Control.Governors.Governor1st "1st order")));
     Governor governor "governor (control)"
       annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-    parameter Modelica.SIunits.Time H=10 "inertia cst turb + gen";
+    parameter SI.Time H=10 "inertia cst turb + gen";
     replaceable model Rotor = PowerSystems.Mechanics.TurboGroups.SingleMassTG (
       final w_start=w_start,
       final H=H,
@@ -633,7 +633,7 @@ Turbine with gear and generator-rotor, elastically coupled, asynchronous generat
       Governor governor "governor (control)"
         annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
-      parameter Modelica.SIunits.Time H=10 "inertia cst turb + gen";
+      parameter SI.Time H=10 "inertia cst turb + gen";
     protected
       final parameter SI.AngularVelocity w_nom=2*pi*generator.par.f_nom/generator.par.pp
         "nominal angular velocity";
@@ -706,7 +706,7 @@ Constant setpoint values can be obtained at (steady-state) initialisation when u
     partial model GenBase_ctrl "Generation base pm, synchronous machines"
       extends GenBase0(heat(final m=sum(heat_adapt.m)));
 
-      parameter Types.AngularVelocity w_start=0
+      parameter SI.AngularVelocity w_start=0
         "initial rpm (start-value if steady init)"
         annotation(Dialog(tab="Initialization"));
       Interfaces.Rotation_p flange    annotation (Placement(transformation(
