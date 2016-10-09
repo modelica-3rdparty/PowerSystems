@@ -108,8 +108,4 @@ In the case of three phase AC models we have:</p>
         choice={175,175,175} "{175, 175, 175}  grey",
         choice={255,255,255} "{255, 255, 255}  white"));
 
-  type Percent = Real (
-    final quantity="Percent",
-    final unit="PC0") "Note: the unit PC0 is used until Modelica supports %";
-
 end Types;

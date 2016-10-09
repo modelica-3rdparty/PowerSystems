@@ -162,7 +162,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       mass=200e3,
       scale=true,
       D=1.5e3,
-      slope_perc=2.5,
+      slope_scale=0.025,
       tableName="height",
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
@@ -237,7 +237,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       mass=200e3,
       scale=true,
       D=1.5e3,
-      slope_perc=2.5,
+      slope_scale=0.025,
       tableName="height",
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
@@ -336,7 +336,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       mass=200e3,
       scale=true,
       D=1.5e3,
-      slope_perc=2.5,
+      slope_scale=0.025,
       tableName="height",
       fileName=TableDir + "hNormProfile.tab",
       colData=3)

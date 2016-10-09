@@ -53,6 +53,11 @@ package SI "SI types with custom attributes, like display units"
   type HeatCapacity = MSI.HeatCapacity;
   type ThermalConductance = MSI.ThermalConductance;
 
+  type Percent = Real (
+    final quantity="Percent",
+    final unit="1",
+    final displayUnit="1/100");
+
   annotation (
     Documentation(info="<html>
 </html>

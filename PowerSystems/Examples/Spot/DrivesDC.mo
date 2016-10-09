@@ -34,7 +34,7 @@ package DrivesDC "DC drives"
       mass=200e3,
       scale=true,
       D=1.5e3,
-      slope_perc=2.5,
+      slope_scale=0.025,
       tableName="height",
       fileName=TableDir + "hNormProfile.tab",
       colData=3)
@@ -99,7 +99,7 @@ package DrivesDC "DC drives"
       fileName=TableDir + "hNormProfile.tab",
       colData=3,
       mass=200e3,
-      slope_perc=2.5,
+      slope_scale=0.025,
       cFrict={50,15})
       annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
