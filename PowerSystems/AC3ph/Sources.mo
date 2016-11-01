@@ -404,7 +404,7 @@ with variable (active, reactive) power when 'pq' connected to a signal-input.</p
     equation
       Connections.potentialRoot(term.theta);
       if Connections.isRoot(term.theta) then
-        term.theta = if system.synRef then {0, theta} else {theta, 0};
+        term.theta = {system.thetaRel, system.thetaRef};
       end if;
 
       if PS.n > 2 then

@@ -151,7 +151,6 @@ package Generic "Simple components for basic investigations"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     SI.AngularVelocity w = pp*der(flange.phi);
     PS.Voltage V(start = V_nom);
-    SI.Angle thetaRel;
   protected
     outer System system;
 
@@ -162,19 +161,16 @@ package Generic "Simple components for basic investigations"
         if Connections.isRoot(terminal.theta) then
           V = V_nom;
           if PhaseSystem.m > 1 then
-            PhaseSystem.thetaRel(terminal.theta) = 0;
+            PhaseSystem.thetaRel(terminal.theta) = system.thetaRel;
           end if;
         end if;
       end if;
-      thetaRel = PhaseSystem.thetaRel(terminal.theta);
-    else
-      thetaRel = 0;
     end if;
     if PhaseSystem.m == 0 or not synchronous then
       V = V_nom/f_nom*w/2/pi;
     end if;
     0 = PhaseSystem.activePower(terminal.v, terminal.i) + w*flange.tau;
-    terminal.v = PhaseSystem.phaseVoltages(V, thetaRel);
+    terminal.v = PhaseSystem.phaseVoltages(V, PhaseSystem.thetaRel(terminal.theta));
     annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
               -100},{100,100}}), graphics={
           Line(points={{-100,0},{-50,0}}, color={0,120,120}),
@@ -222,27 +218,21 @@ package Generic "Simple components for basic investigations"
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     parameter PhaseSystem_dc.Voltage V_dc = 150e3 "voltage of dc system";
     PS.Current I "value of current";
-    SI.Angle thetaRel;
   protected
     outer System system;
   equation
     if PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
-        PhaseSystem.thetaRef(terminal.theta) = system.theta;
+        PhaseSystem.thetaRef(terminal.theta) = system.thetaRef;
         if PhaseSystem.m > 1 then
-          PhaseSystem.thetaRel(terminal.theta) = 0;
+          PhaseSystem.thetaRel(terminal.theta) = system.thetaRel;
         end if;
       end if;
-      thetaRel = PhaseSystem.thetaRel(terminal.theta);
-    else
-      thetaRel = 0;
     end if;
-    if true then
-      Connections.branch(terminal.theta, terminal_dc.theta)
-        "needed because terminal_dc is a generic Terminal with theta";
-    end if;
+    Connections.branch(terminal.theta, terminal_dc.theta)
+      "needed because terminal_dc is a generic Terminal with theta";
     terminal_dc.v = PhaseSystem_dc.phaseVoltages(V_dc);
-    terminal.i = PhaseSystem.phaseCurrents(I, thetaRel);
+    terminal.i = PhaseSystem.phaseCurrents(I, PhaseSystem.thetaRel(terminal.theta));
     0 = PhaseSystem_dc.activePower(terminal_dc.v, terminal_dc.i)
       + PhaseSystem.activePower(terminal.v, terminal.i);
     annotation (Icon(coordinateSystem(preserveAspectRatio=true,
@@ -289,22 +279,18 @@ package Generic "Simple components for basic investigations"
   model FixedVoltageSource
     extends PowerSystems.Generic.Ports.PartialSource;
     parameter PS.Voltage V = 10e3 "value of constant voltage";
-    SI.Angle thetaRel;
   protected
     outer System system;
   equation
     if PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
-        PhaseSystem.thetaRef(terminal.theta) = system.theta;
+        PhaseSystem.thetaRef(terminal.theta) = system.thetaRef;
         if PhaseSystem.m > 1 then
-          PhaseSystem.thetaRel(terminal.theta) = 0;
+          PhaseSystem.thetaRel(terminal.theta) = system.thetaRel;
         end if;
       end if;
-      thetaRel = PhaseSystem.thetaRel(terminal.theta);
-    else
-      thetaRel = 0;
     end if;
-    terminal.v = PhaseSystem.phaseVoltages(V, thetaRel);
+    terminal.v = PhaseSystem.phaseVoltages(V, PhaseSystem.thetaRel(terminal.theta));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Rectangle(
             extent={{-90,90},{90,-90}},
@@ -383,9 +369,9 @@ package Generic "Simple components for basic investigations"
   equation
     if PhaseSystem.m > 0 then
       if Connections.isRoot(terminal.theta) then
-        PhaseSystem.thetaRef(terminal.theta) = system.theta;
+        PhaseSystem.thetaRef(terminal.theta) = system.thetaRef;
         if PhaseSystem.m > 1 then
-          PhaseSystem.thetaRel(terminal.theta) = 0;
+          PhaseSystem.thetaRel(terminal.theta) = system.thetaRel;
         end if;
       end if;
       thetaRel = PhaseSystem.thetaRel(terminal.theta);

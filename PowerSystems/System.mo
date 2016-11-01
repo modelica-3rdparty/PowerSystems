@@ -32,7 +32,10 @@ model System "System reference"
 
   discrete SI.Time initime;
   SI.Angle theta(final start=0,
-    stateSelect=if fType==Types.SystemFrequency.Parameter then StateSelect.default else StateSelect.always);
+    stateSelect=if fType==Types.SystemFrequency.Parameter then StateSelect.default else StateSelect.always)
+    "system angle";
+  SI.Angle thetaRel = theta - thetaRef "angle relative to reference frame";
+  SI.Angle thetaRef = if synRef then theta else 0 "angle of reference frame";
   SI.AngularFrequency omega(final start=2*pi*f);
   Modelica.Blocks.Interfaces.RealInput omega_in(min=0) if fType == PowerSystems.Types.SystemFrequency.Signal
     "system angular frequency (optional if fType==Signal)"
@@ -131,15 +134,17 @@ equation
      For fType Parameter this is simply a parameter value.<br>
      For fType Signal it is a positive input signal.<br>
      For fType Average it is a weighted average over the relevant generator frequencies.</li>
-<li> the system angle theta by integration of
-<pre> der(theta) = omega </pre><br>
-     This angle allows the definition of a rotating electrical <b>coordinate system</b><br>
-     for <b>AC three-phase models</b>.<br>
-     Root-nodes defining coordinate-orientation will choose a reference angle theta_ref (connector-variable theta[2]) according to the parameter <tt>refType</tt>:<br><br>
-     <tt>theta_ref = theta if refType = Synchron</tt> (reference frame is synchronously rotating with theta).<br>
-     <tt>theta_ref = 0 if refType = Inertial</tt> (inertial reference frame, not rotating).<br></li>
+<li> the system angle theta by integration of <pre> der(theta) = omega </pre></li>
+<li> the reference angle <tt>thetaRef</tt> for defining the coordinate-orientation:<br>
+     <tt>thetaRef = theta if refType == Synchron</tt> (reference frame is synchronously rotating with theta).<br>
+     <tt>thetaRef = 0 if refType == Inertial</tt> (inertial reference frame, not rotating).<br></li>
+<li> the angle <tt>thetaRel = theta - thetaRef</tt></li>
 </ul>
-<p><b>Note</b>: Each model using <b>System</b> must use it with an <b>inner</b> declaration and instance name <b>system</b> in order that it can be accessed from all objects in the model.<br>When dragging the 'System' from the package browser into the diagram layer, declaration and instance name are automatically generated.</p>
+The angles allow the definition of a rotating or stationary electrical <b>coordinate system</b>.<br>
+Root-nodes defining coordinate-orientation will have the connector variable <tt>theta = {thetaRel, thetaRef}</tt>
+<p><b>Note</b>: Each model using <b>System</b> must use it with an <b>inner</b> declaration and
+instance name <b>system</b> in order that it can be accessed from all objects in the model.<br>
+When dragging the 'System' from the package browser into the diagram layer, declaration and instance name are automatically generated.</p>
 <p><a href=\"modelica://PowerSystems.UsersGuide.Overview\">up users guide</a></p>
 </html>
 "));
