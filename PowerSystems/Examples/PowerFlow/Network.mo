@@ -43,29 +43,25 @@ package Network "Text book example and variants of it"
           origin={50,-10},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.Generic.FixedCurrent
-                         fixedCurrent3(I=50, redeclare package PhaseSystem =
-        PhaseSystem)                         annotation (Placement(
-          transformation(extent={{70,-90},{90,-70}})));
-    PowerSystems.Generic.FixedCurrent
-                         fixedCurrent1(I=55, redeclare package PhaseSystem =
-        PhaseSystem)                         annotation (Placement(
-          transformation(extent={{-70,-40},{-90,-20}})));
-    PowerSystems.Generic.FixedCurrent
-                         fixedCurrent2(I=45, redeclare package PhaseSystem =
-        PhaseSystem)
+    PowerSystems.Generic.FixedCurrent fixedCurrent3(I=50,
+      redeclare package PhaseSystem = PhaseSystem)
+      annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
+    PowerSystems.Generic.FixedCurrent fixedCurrent1(I=55,
+      redeclare package PhaseSystem = PhaseSystem)
+      annotation (Placement(transformation(extent={{-70,-40},{-90,-20}})));
+    PowerSystems.Generic.FixedCurrent fixedCurrent2(I=45,
+      redeclare package PhaseSystem = PhaseSystem)
       annotation (Placement(transformation(extent={{-70,-90},{-90,-70}})));
-    PowerSystems.Generic.FixedCurrent
-                         fixedCurrent4(I=60, redeclare package PhaseSystem =
-        PhaseSystem)                         annotation (Placement(
-          transformation(extent={{70,-40},{90,-20}})));
-    PowerSystems.Generic.VoltageConverter transformer1(ratio=10/10.4156,
+    PowerSystems.Generic.FixedCurrent fixedCurrent4(I=60,
+      redeclare package PhaseSystem = PhaseSystem)
+      annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
+    PowerSystems.Generic.Transformer transformer1(ratio=10/10.4156,
       redeclare package PhaseSystem = PhaseSystem)
       annotation (Placement(transformation(
           origin={-50,30},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.Generic.VoltageConverter transformer2(ratio=10/10, redeclare
+    PowerSystems.Generic.Transformer transformer2(ratio=10/10, redeclare
         package PhaseSystem=PhaseSystem)
       annotation (Placement(transformation(
           origin={50,30},
@@ -180,12 +176,12 @@ package Network "Text book example and variants of it"
     PowerSystems.Generic.FixedCurrent
                          fixedCurrent4(I=60) annotation (Placement(
             transformation(extent={{70,-40},{90,-20}})));
-    PowerSystems.Generic.VoltageConverter transformer1(ratio=10/10.4156)
+    PowerSystems.Generic.Transformer transformer1(ratio=10/10.4156)
       annotation (Placement(transformation(
             origin={-50,30},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-    PowerSystems.Generic.VoltageConverter transformer2(ratio=10/10)
+    PowerSystems.Generic.Transformer transformer2(ratio=10/10)
       annotation (Placement(transformation(
             origin={50,30},
             extent={{-10,-10},{10,10}},
@@ -259,12 +255,12 @@ package Network "Text book example and variants of it"
     PowerSystems.Generic.FixedCurrent
                          fixedCurrent4(I=60) annotation (Placement(
           transformation(extent={{70,-40},{90,-20}})));
-    PowerSystems.Generic.VoltageConverter transformer1(ratio=10/10.4156)
+    PowerSystems.Generic.Transformer transformer1(ratio=10/10.4156)
       annotation (Placement(transformation(
           origin={-50,30},
           extent={{-10,-10},{10,10}},
           rotation=270)));
-    PowerSystems.Generic.VoltageConverter transformer2(ratio=10/10)
+    PowerSystems.Generic.Transformer transformer2(ratio=10/10)
       annotation (Placement(transformation(
           origin={50,30},
           extent={{-10,-10},{10,10}},

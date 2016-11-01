@@ -87,7 +87,7 @@ package Generic "Simple components for basic investigations"
             fillPattern=FillPattern.Solid)}));
   end Admittance;
 
-  model VoltageConverter
+  model Transformer "Ideal transformer model"
     extends PowerSystems.Generic.Ports.PartialTwoTerminal;
     parameter Real ratio = 1 "conversion ratio terminal_p.v/terminal_n.v";
   equation
@@ -119,7 +119,7 @@ package Generic "Simple components for basic investigations"
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
           Ellipse(extent={{-80,50},{20,-50}}, lineColor={0,120,120})}));
-  end VoltageConverter;
+  end Transformer;
 
   model Ground
     extends PowerSystems.Generic.Ports.PartialLoad;

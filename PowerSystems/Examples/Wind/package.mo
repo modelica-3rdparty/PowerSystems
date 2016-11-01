@@ -2,10 +2,9 @@ within PowerSystems.Examples;
 package Wind "Different wind turbine concepts"
   extends Modelica.Icons.ExamplesPackage;
 
-
   model WindTurbine_IG
   "Wind turbine with Induction Generator (asynchronous) -- fixed speed"
-     extends Modelica.Icons.Example;
+    extends Modelica.Icons.Example;
     AC3ph.Machines.Asynchron generator(redeclare record Data =
         Spot.Data.Machines.Asynchron400V_30kVA (
         V_nom=690,
@@ -892,10 +891,10 @@ package Wind "Different wind turbine concepts"
 
   end Components;
 
-
   package Test
+    extends Modelica.Icons.ExamplesPackage;
     model RotorTest
-
+      extends Modelica.Icons.Example;
       Components.Rotor rotor(R=17)
         annotation (Placement(transformation(extent={{-10,0},{10,20}})));
       Modelica.Blocks.Sources.Ramp ramp(

@@ -1,34 +1,28 @@
 within PowerSystems.Examples;
 package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work package 5.3"
-
-
   extends Modelica.Icons.ExamplesPackage;
-
 
   model PowerWorld "Interoperation of wind power and thermal power"
     extends Modelica.Icons.Example;
 
     Components.WindFarm windFarm(redeclare package PhaseSystem =
-          PowerSystems.PhaseSystems.DirectCurrent)
-                                 annotation (Placement(transformation(extent={{-50,60},
-                {-30,80}})));
-    Components.City city annotation (                      Placement(
-            transformation(extent={{60,-50},{80,-30}})));
+      PowerSystems.PhaseSystems.DirectCurrent)
+      annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
+    Components.City city
+      annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
     Components.LoadDispatcher dispatcher
-      annotation (                           Placement(transformation(extent={{-90,-60},
-                {-70,-40}})));
+      annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
     Components.PowerPlant powerPlant(primaryControlMax=40)
-                                     annotation (
-          Placement(transformation(extent={{-62,-10},{-40,12}})));
-    PowerSystems.Generic.VoltageConverter trafoPlant(ratio=10/380)
+      annotation (Placement(transformation(extent={{-62,-10},{-40,12}})));
+    PowerSystems.Generic.Transformer trafoPlant(ratio=10/380)
       annotation (Placement(transformation(extent={{-36,-6},{-24,6}})));
-    PowerSystems.Generic.VoltageConverter distribution(ratio=380/50)
+    PowerSystems.Generic.Transformer distribution(ratio=380/50)
       annotation (Placement(transformation(extent={{44,-46},{56,-34}})));
     PowerSystems.Generic.Inverter HVDC(potentialReference=false)
       annotation (Placement(transformation(extent={{-16,34},{-4,46}})));
     Components.HydroPlant hydroPlant(primaryControlMax=200)
       annotation (Placement(transformation(extent={{80,20},{60,40}})));
-    PowerSystems.Generic.VoltageConverter trafoHydro(ratio=380/10)
+    PowerSystems.Generic.Transformer trafoHydro(ratio=380/10)
       annotation (Placement(transformation(extent={{44,24},{56,36}})));
     PowerSystems.Generic.Impedance linePlant(R=1, L=1/314)
       annotation (Placement(transformation(extent={{-16,-46},{-4,-34}})));
@@ -43,14 +37,14 @@ package PowerWorld "Demonstrate stabilization of wind power in Eurosyslib work p
             rotation=-90,
             origin={40,-10})));
     Modelica.Blocks.Sources.RealExpression frequency(y=system.omega/2/pi)
-    "Average frequency"   annotation (Placement(
+      "Average frequency" annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
             rotation=-90,
             origin={-80,-20})));
     inner System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
       fType=PowerSystems.Types.SystemFrequency.Average)
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   equation
     connect(powerPlant.terminal, trafoPlant.terminal_p)
       annotation (Line(
@@ -999,9 +993,10 @@ The following switches/features are provided:
 
 
   package Test "Component tests for PowerWorld example"
+    extends Modelica.Icons.ExamplesPackage;
 
     model PowerPlantTest1 "Test primary control"
-    import PowerSystems;
+      extends Modelica.Icons.Example;
       Components.PowerPlant powerPlant
         annotation (Placement(transformation(extent={{-20,0},{2,22}})));
       Modelica.Blocks.Sources.Constant schedule(k=450)
@@ -1023,7 +1018,6 @@ The following switches/features are provided:
     equation
       connect(powerPlant.terminal, prescribedLoad.terminal) annotation (Line(points={{2,10},{20,10}},
                                                                              color={0,0,0},
-                                                                             pattern=LinePattern.None,
                                                                              smooth=Smooth.None));
       connect(secondary.y, powerPlant.plantDispatch[2])
         annotation (Line(points={{-59,10},{-40,10},{-40,4},{-20,4}},
@@ -1048,7 +1042,7 @@ The following switches/features are provided:
     end PowerPlantTest1;
 
     model PowerPlantTest2 "Test secondary control"
-    import PowerSystems;
+      extends Modelica.Icons.Example;
       Components.PowerPlant powerPlant
         annotation (Placement(transformation(extent={{-20,0},{2,22}})));
       Modelica.Blocks.Sources.Constant schedule(k=490)
@@ -1071,7 +1065,6 @@ The following switches/features are provided:
     equation
       connect(powerPlant.terminal, prescribedLoad.terminal) annotation (Line(points={{2,10},{20,10}},
                                                                              color={0,0,0},
-                                                                             pattern=LinePattern.None,
                                                                              smooth=Smooth.None));
       connect(schedule.y, powerPlant.plantDispatch[1])
         annotation (Line(points={{-59,-30},{-30,-30},{-30,3.33333},{-20,3.33333}},
@@ -1096,7 +1089,7 @@ The following switches/features are provided:
     end PowerPlantTest2;
 
     model PowerPlantTest3 "Test connection to a large net"
-    import PowerSystems;
+      extends Modelica.Icons.Example;
       Components.PowerPlant powerPlant
         annotation (Placement(transformation(extent={{-20,0},{2,22}})));
       Modelica.Blocks.Sources.Constant schedule(k=490)
@@ -1137,7 +1130,7 @@ The following switches/features are provided:
     end PowerPlantTest3;
 
     model HydroPlantTest1 "Test primary control"
-    import PowerSystems;
+      extends Modelica.Icons.Example;
       Components.HydroPlant hydroPlant(primaryControlMax=310)
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
       Modelica.Blocks.Sources.Constant schedule(k=50)
@@ -1189,7 +1182,7 @@ The following switches/features are provided:
     end HydroPlantTest1;
 
     model HydroPlantTest2 "Test secondary control"
-    import PowerSystems;
+      extends Modelica.Icons.Example;
       Components.HydroPlant hydroPlant
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
       Modelica.Blocks.Sources.Constant schedule(k=50)
@@ -1234,7 +1227,7 @@ The following switches/features are provided:
     end HydroPlantTest2;
 
     model WindFarmLoadTest "WindFarm connected to a load"
-    import PowerSystems;
+      extends Modelica.Icons.Example;
       Components.WindFarm windFarm
         annotation (Placement(transformation(extent=
                                              {{-60,0},{-40,20}})));
@@ -1256,7 +1249,7 @@ The following switches/features are provided:
     end WindFarmLoadTest;
 
     model WindFarmGridTest "WindFarm connected to a large net"
-    import PowerSystems;
+      extends Modelica.Icons.Example;
       Components.WindFarm windFarm
         annotation (Placement(transformation(extent=
                                              {{-60,0},{-40,20}})));
@@ -1273,7 +1266,7 @@ The following switches/features are provided:
     end WindFarmGridTest;
 
     model WindFarmHVDCTest "WindFarm connected to a large net via HVDC"
-    import PowerSystems;
+      extends Modelica.Icons.Example;
       Components.WindFarm windFarm(redeclare package PhaseSystem =
             PowerSystems.PhaseSystems.DirectCurrent)
         annotation (Placement(transformation(extent=
@@ -1284,7 +1277,7 @@ The following switches/features are provided:
       PowerSystems.Generic.Inverter
         inverter
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-    inner PowerSystems.System system
+      inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
       connect(windFarm.terminal, inverter.terminal_dc) annotation (Line(points={{-40,10},{-20,10}},
@@ -1298,12 +1291,12 @@ The following switches/features are provided:
     end WindFarmHVDCTest;
 
     model CityTest
-    import PowerSystems;
+      extends Modelica.Icons.Example;
       PowerSystems.Generic.FixedVoltageSource largeGrid annotation (Placement(
           transformation(extent={{-60,0},{-40,20}})));
       Components.City city
         annotation (Placement(transformation(extent={{20,0},{40,20}})));
-    inner PowerSystems.System system
+      inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     equation
     connect(largeGrid.terminal, city.terminal) annotation (Line(
@@ -1314,7 +1307,7 @@ The following switches/features are provided:
     end CityTest;
 
     model LoadDispatcherTest
-    import PowerSystems;
+      extends Modelica.Icons.Example;
       Components.LoadDispatcher loadDispatcher
         annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
       Modelica.Blocks.Sources.Trapezoid frequency(amplitude=2,
@@ -1333,8 +1326,7 @@ The following switches/features are provided:
 
   constant String PowerWorldResources = Modelica.Utilities.Files.loadResource("modelica://PowerSystems.Examples.PowerWorld/Resources/");
 
-
-annotation (preferredView="info",Documentation(info="<html>
+  annotation (preferredView="info",Documentation(info="<html>
 <p>The example demonstrates power/frequency control exploiting a thermal power plant and a pump store for the stabilization of fluctuating wind power.
 The demonstrator developed for Eurosyslib WP5.3 complements the model with a 3D animation using DLR&apos;s SimVis software.</p>
 <p><img src=\"modelica://PowerSystems.Examples.PowerWorld/Resources/PowerWorld.png\"/></p>
