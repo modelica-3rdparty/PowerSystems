@@ -139,7 +139,7 @@ package Generic "Simple components for basic investigations"
   end Ground;
 
   model Generator "Basic transformation of rotational to electrical power"
-    extends PowerSystems.Generic.Ports.PartialSource(
+    extends PowerSystems.Generic.Ports.PartialVoltageSource(
                                      final potentialReference = synchronous);
     parameter Boolean synchronous = PhaseSystem.m > 0 "synchronous machine";
     parameter Integer pp = 1 "pole-pair number";
@@ -151,22 +151,14 @@ package Generic "Simple components for basic investigations"
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     SI.AngularVelocity w = pp*der(flange.phi);
     PS.Voltage V(start = V_nom);
-  protected
-    outer System system;
-
   equation
-    if PhaseSystem.m > 0 then
-      if synchronous then
+    if PhaseSystem.m > 0 and synchronous then
+      if Connections.isRoot(terminal.theta) then
+        V = V_nom;
+      else
         pp*flange.phi = PhaseSystem.thetaRef(terminal.theta);
-        if Connections.isRoot(terminal.theta) then
-          V = V_nom;
-          if PhaseSystem.m > 1 then
-            PhaseSystem.thetaRel(terminal.theta) = system.thetaRel;
-          end if;
-        end if;
       end if;
-    end if;
-    if PhaseSystem.m == 0 or not synchronous then
+    else
       V = V_nom/f_nom*w/2/pi;
     end if;
     0 = PhaseSystem.activePower(terminal.v, terminal.i) + w*flange.tau;
@@ -211,26 +203,14 @@ package Generic "Simple components for basic investigations"
   end Generator;
 
   model Inverter "Convert direct current to alternating current"
-    extends PowerSystems.Generic.Ports.PartialSource;
+    extends PowerSystems.Generic.Ports.PartialVoltageSource;
     package PhaseSystem_dc = PowerSystems.PhaseSystems.DirectCurrent;
     PowerSystems.Generic.Ports.Terminal_p terminal_dc(
       redeclare package PhaseSystem = PhaseSystem_dc)
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
     parameter PhaseSystem_dc.Voltage V_dc = 150e3 "voltage of dc system";
     PS.Current I "value of current";
-  protected
-    outer System system;
   equation
-    if PhaseSystem.m > 0 then
-      if Connections.isRoot(terminal.theta) then
-        PhaseSystem.thetaRef(terminal.theta) = system.thetaRef;
-        if PhaseSystem.m > 1 then
-          PhaseSystem.thetaRel(terminal.theta) = system.thetaRel;
-        end if;
-      end if;
-    end if;
-    Connections.branch(terminal.theta, terminal_dc.theta)
-      "needed because terminal_dc is a generic Terminal with theta";
     terminal_dc.v = PhaseSystem_dc.phaseVoltages(V_dc);
     terminal.i = PhaseSystem.phaseCurrents(I, PhaseSystem.thetaRel(terminal.theta));
     0 = PhaseSystem_dc.activePower(terminal_dc.v, terminal_dc.i)
@@ -277,19 +257,9 @@ package Generic "Simple components for basic investigations"
   end Inverter;
 
   model FixedVoltageSource
-    extends PowerSystems.Generic.Ports.PartialSource;
+    extends PowerSystems.Generic.Ports.PartialVoltageSource;
     parameter PS.Voltage V = 10e3 "value of constant voltage";
-  protected
-    outer System system;
   equation
-    if PhaseSystem.m > 0 then
-      if Connections.isRoot(terminal.theta) then
-        PhaseSystem.thetaRef(terminal.theta) = system.thetaRef;
-        if PhaseSystem.m > 1 then
-          PhaseSystem.thetaRel(terminal.theta) = system.thetaRel;
-        end if;
-      end if;
-    end if;
     terminal.v = PhaseSystem.phaseVoltages(V, PhaseSystem.thetaRel(terminal.theta));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Rectangle(
@@ -358,27 +328,13 @@ package Generic "Simple components for basic investigations"
   end FixedCurrent;
 
   model PrescribedPowerSource "Prescribed power source"
-    extends PowerSystems.Generic.Ports.PartialSource(
+    extends PowerSystems.Generic.Ports.PartialVoltageSource(
       final potentialReference=true);
     Modelica.Blocks.Interfaces.RealInput P(unit="W") annotation (Placement(
           transformation(extent={{-130,-20},{-90,20}})));
     PS.Current I "value of current";
-    SI.Angle thetaRel;
-  protected
-    outer System system;
   equation
-    if PhaseSystem.m > 0 then
-      if Connections.isRoot(terminal.theta) then
-        PhaseSystem.thetaRef(terminal.theta) = system.thetaRef;
-        if PhaseSystem.m > 1 then
-          PhaseSystem.thetaRel(terminal.theta) = system.thetaRel;
-        end if;
-      end if;
-      thetaRel = PhaseSystem.thetaRel(terminal.theta);
-    else
-      thetaRel = 0;
-    end if;
-    terminal.i = PhaseSystem.phaseCurrents(I, thetaRel);
+    terminal.i = PhaseSystem.phaseCurrents(I, PhaseSystem.thetaRel(terminal.theta));
     0 = PhaseSystem.activePower(terminal.v, terminal.i) + P;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics={Rectangle(
@@ -477,9 +433,7 @@ package Generic "Simple components for basic investigations"
     equation
       v = terminal_p.v - terminal_n.v;
       i = terminal_p.i;
-      if true or PhaseSystem.m > 0 then
-        Connections.branch(terminal_p.theta, terminal_n.theta);
-      end if;
+      Connections.branch(terminal_p.theta, terminal_n.theta);
     end PartialTwoTerminal;
 
     partial model PartialSource
@@ -488,10 +442,8 @@ package Generic "Simple components for basic investigations"
         annotation (choicesAllMatching=true);
       package PS = PhaseSystem;
       function j = PhaseSystem.j annotation(Inline=true);
-      PowerSystems.Generic.Ports.Terminal_n
-                                         terminal(
-                                      redeclare package PhaseSystem =
-            PhaseSystem)
+      PowerSystems.Generic.Ports.Terminal_n terminal(
+        redeclare package PhaseSystem = PhaseSystem)
         annotation (Placement(transformation(extent={{90,-10},{110,10}})));
       SI.Power p[PhaseSystem.n] = PhaseSystem.phasePowers_vi(terminal.v, terminal.i);
       SI.Angle phi = PhaseSystem.phase(terminal.v) - PhaseSystem.phase(-terminal.i);
@@ -499,17 +451,29 @@ package Generic "Simple components for basic investigations"
          annotation (Evaluate=true, Dialog(group="Reference Parameters"));
       parameter Boolean definiteReference = false "serve as definite root"
          annotation (Evaluate=true, Dialog(group="Reference Parameters"));
+    end PartialSource;
+
+    partial model PartialVoltageSource
+      extends PartialSource;
+    protected
+      outer System system;
     equation
-      if true or PhaseSystem.m > 0 then
-        if potentialReference then
-          if definiteReference then
-            Connections.root(terminal.theta);
-          else
-            Connections.potentialRoot(terminal.theta);
-          end if;
+      if potentialReference then
+        if definiteReference then
+          Connections.root(terminal.theta);
+        else
+          Connections.potentialRoot(terminal.theta);
         end if;
       end if;
-    end PartialSource;
+      if Connections.isRoot(terminal.theta) then
+        if PhaseSystem.m > 0 then
+          PhaseSystem.thetaRef(terminal.theta) = system.thetaRef;
+        end if;
+        if PhaseSystem.m > 1 then
+          PhaseSystem.thetaRel(terminal.theta) = system.thetaRel;
+        end if;
+      end if;
+    end PartialVoltageSource;
 
     partial model PartialLoad
       replaceable package PhaseSystem = PackagePhaseSystem constrainedby
