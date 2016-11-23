@@ -465,7 +465,7 @@ of the voltage signals Delta-side versus the signals Y-side of -30 deg.<br>
 &nbsp; Setting the parameter <tt>sh = +-1</tt> shifts the secondary side by <tt>+-120 deg</tt>.</p>
 <p>Transformer ratio.<br>
 The winding ratio is determined indirectly by the choice of nominal voltages and the topology of both primary and secondary side.<br>
-It may be &gt 1 or &lt 1.</p>
+It may be &gt; 1 or &lt; 1.</p>
 <p>Tap changers.<br>
 For constant transformer ratio no tap changer input needed.<br>
 For variable transformer ratio tap changer input needed.</p>
@@ -795,7 +795,7 @@ of the voltage signals Delta-side versus the signals Y-side of -30 deg.<br>
 &nbsp; Setting the parameter <tt>sh = +-1</tt> shifts the secondary side by <tt>+-120 deg</tt>.</p>
 <p>Transformer ratio.<br>
 The winding ratio is determined indirectly by the choice of nominal voltages and the topology of both primary and secondary side.<br>
-It may be &gt 1 or &lt 1.</p>
+It may be &gt; 1 or &lt; 1.</p>
 <p>Tap changers.<br>
 For constant transformer ratio no tap changer input needed.<br>
 For variable transformer ratio tap changer input needed.</p>

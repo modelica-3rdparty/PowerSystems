@@ -478,8 +478,8 @@ As they use time-dependent coordinate transforms, use them only when and where n
             info="<html>
 <p>Measures the electric power <tt>p</tt> flowing from 'term_p' to 'term_n' and the total heat inflow <tt>q</tt> at term 'heat'. The efficiency eta in % is then defined by
 <pre>
-  eta = 100*(p - q)/p     if arrow points into the measured component and q &lt  abs(p)
-  eta = 100*p/(p + q)     if arrow points out of the measured component and q &lt  abs(p)
+  eta = 100*(p - q)/p     if arrow points into the measured component and q &lt;  abs(p)
+  eta = 100*p/(p + q)     if arrow points out of the measured component and q &lt;  abs(p)
   eta = 0                 else
 </pre>
 Positive values of eta indicate powerflow in direction of arrow,

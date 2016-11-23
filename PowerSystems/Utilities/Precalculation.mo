@@ -789,7 +789,7 @@ It determines first the root vector <pre>  r[k] = -1/T[k], k in 1:n</p> and here
     xsig := ones(n)./gsig;
   annotation (Documentation(info="<html>
 <p>Calculates rotor leakage reactance xsig and corresponding time constants Tsig.</p>
-<p>If transient order n &gt  3, the coefficients xm[2:n-2] are assumed to be 0.<br>
+<p>If transient order n &gt;  3, the coefficients xm[2:n-2] are assumed to be 0.<br>
 A different choice is not meaningful, as long as we only have 2 parameters (complex field-current) to fit.</p>
 </html>"));
   end Tsig_xsig;

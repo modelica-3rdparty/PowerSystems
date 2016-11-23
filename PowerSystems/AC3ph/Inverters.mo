@@ -291,15 +291,15 @@ annotation (defaultComponentName="inverter",
 <pre>
   |v_AC| = u*sqrt(3/2)*v_DC/2     AC voltage norm
 
-  u[1] &le  1 for pure sine-modulation, but u[1] &gt  1 possible.
+  u[1] &le;  1 for pure sine-modulation, but u[1] &gt;  1 possible.
   u[1] = 1 corresponds to AC single-phase amplitude = v_DC/2
 </pre>
 For space-vector modulation:
 <pre>
   |v_AC| = u*sqrt(2/3)*v_DC       AC voltage norm
 
-  u[1] &le  sqrt(3)/2 = 0.866: pure sine-pwm,
-  sqrt(3)/2 &le  u[1] &le  1:  overmodulation (not implemented in this preliminary version).
+  u[1] &le;  sqrt(3)/2 = 0.866: pure sine-pwm,
+  sqrt(3)/2 &le;  u[1] &le;  1:  overmodulation (not implemented in this preliminary version).
   u[1] = sqrt(3)/2 corresponds to AC single-phase amplitude = v_DC/sqrt(3)
 </pre>
 For block modulation:
@@ -449,15 +449,15 @@ equation
 <pre>
   |v_AC| = u*sqrt(3/2)*v_DC/2     AC voltage norm
 
-  u[1] &le  1 for pure sine-modulation, but u[1] &gt  1 possible.
+  u[1] &le;  1 for pure sine-modulation, but u[1] &gt;  1 possible.
   u[1] = 1 corresponds to AC single-phase amplitude = v_DC/2
 </pre></p>
 <p>If equivalent to space-vector modulation:
 <pre>
   |v_AC| = u*sqrt(2/3)*v_DC       AC voltage norm
 
-  u[1] &le  sqrt(3)/2 = 0.866: pure sine-pwm,
-  sqrt(3)/2 &le  u[1] &le  1:  overmodulation (not implemented in this preliminary version).
+  u[1] &le;  sqrt(3)/2 = 0.866: pure sine-pwm,
+  sqrt(3)/2 &le;  u[1] &le;  1:  overmodulation (not implemented in this preliminary version).
   u[1] = sqrt(3)/2 corresponds to AC single-phase amplitude = v_DC/sqrt(3)
 </pre></p>
 <p>If equivalent to block (rectangular) modulation:<br>
@@ -465,8 +465,8 @@ Note that this component works with the fundamental of the rectangular voltage.
 <pre>
   |v_AC| = u*(4/pi)*sin(width*pi/2)*sqrt(3/2)*v_DC/2    AC voltage norm of fundamental
 
-  u[1] = 1 for block modulation without pwm, 0 &lt  width &lt  1
-  u[1] &le  1 for block modulation with pwm.
+  u[1] = 1 for block modulation without pwm, 0 &lt;  width &lt;  1
+  u[1] &le;  1 for block modulation with pwm.
   u[1] = 1 corresponds to AC single-phase amplitude = (4/pi)*sin(width*pi/2)*v_DC/2
 </pre></p>
 </html>"));

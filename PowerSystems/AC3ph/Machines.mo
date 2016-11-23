@@ -943,7 +943,7 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
 <p>The power angle is calculated if so desired. Note that for an inverter driven machine the power angle signal is oscillating with the source voltage.
 <pre>
   powerAngle:   difference (angle of rotor) - (angle of terminal_voltage)
-                (&gt 0: generator, &lt 0: motor)
+                (&gt; 0: generator, &lt; 0: motor)
 </pre></p>
 </html>"),
         Icon(coordinateSystem(
@@ -1062,7 +1062,7 @@ where <tt>psi_pm</tt> relates to the induced armature voltage <tt>v_op</tt> at o
 <p>The power angle is calculated if so desired. Note that for an inverter driven machine the power angle signal is oscillating with the source voltage.
 <pre>
   powerAngle:   difference (angle of rotor) - (angle of terminal_voltage)
-                (&gt 0: generator, &lt 0: motor)
+                (&gt; 0: generator, &lt; 0: motor)
 </pre></p>
 </html>"),
         Icon(coordinateSystem(

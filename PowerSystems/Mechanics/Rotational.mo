@@ -201,8 +201,8 @@ equation
 <p>Both time and torque may be linearly scaled by a factor if 'scale = true'.</p>
 <p>Flange_a and flange_b are rigidly connected. The torque acts on the connected component(s) in
 <pre>
-positive direction, if tau_table &gt  0 and drive_load = +1 or tau_table &lt  0 and drive_load = -1
-negative direction, if tau_table &gt  0 and drive_load = -1 or tau_table &lt  0 and drive_load = +1
+positive direction, if tau_table &gt;  0 and drive_load = +1 or tau_table &lt;  0 and drive_load = -1
+negative direction, if tau_table &gt;  0 and drive_load = -1 or tau_table &lt;  0 and drive_load = +1
 </pre></p>
 <p>Note: start integration at time = 0</p>
 </html>"));

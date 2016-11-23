@@ -53,9 +53,9 @@ package DrivesAC3ph "AC drives, dq0"
   asm.torque         motor mechanical torque
   asm.motor.slip     slip (negative: motor, positive: generator mode)
 
-       slip &lt  -1    motor breake mode
-  -1 &lt  slip &lt  0     motor drive mode
-       slip &gt  0     generator mode
+       slip &lt;  -1    motor breake mode
+  -1 &lt;  slip &lt;  0     motor drive mode
+       slip &gt;  0     generator mode
 </pre></p>
 <p>Plot torque vs slip:<br>
 plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent variable': 'asm.motor.slip'.</p>
@@ -453,7 +453,7 @@ The machine defines the reference-system independent of the system choice (as ne
     Documentation(
             info="<html>
 <p>Field oriented control of pm synchronous machine with time-average inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.<br>
-For pm machine (psi_pm &gt  0, x_d = x_q) i_d can be set to zero. For reluctance machines (psi_pm = 0, x_d &gt  x_q) i_d must have a positive value.</p>
+For pm machine (psi_pm &gt;  0, x_d = x_q) i_d can be set to zero. For reluctance machines (psi_pm = 0, x_d &gt;  x_q) i_d must have a positive value.</p>
 On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
 <p><i>See for example:</i>
 <pre>
@@ -542,7 +542,7 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
     Documentation(
             info="<html>
 <p>Field oriented control of pm synchronous machine with modulated inverter. The first component of i_dq controls 'field', the second controls 'torque' at constant 'field'.<br>
-For pm machine (psi_pm &gt  0, x_d = x_q) i_d can be set to zero. For reluctance machines (psi_pm = 0, x_d &gt  x_q) i_d must have a positive value.</p>
+For pm machine (psi_pm &gt;  0, x_d = x_q) i_d can be set to zero. For reluctance machines (psi_pm = 0, x_d &gt;  x_q) i_d must have a positive value.</p>
 Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
 <p><i>See for example:</i>
 <pre>
@@ -644,7 +644,7 @@ On-load steady-state start with torque-increase at 3 s, load-step 6 s and field-
   asm_ctrl.motor.vPhasor
   asm_ctrl.motor.slip
 </pre></p>
-Check vPhasor[1] &lt  1.<br>The time-average inverter produces a desired voltage proportional to vPhasor[1] even if vPhasor[1] &gt  1. For a time-resolved converter this corresponds to overmodulation.
+Check vPhasor[1] &lt;  1.<br>The time-average inverter produces a desired voltage proportional to vPhasor[1] even if vPhasor[1] &gt;  1. For a time-resolved converter this corresponds to overmodulation.
 <p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>
 </html>"),
     experiment(

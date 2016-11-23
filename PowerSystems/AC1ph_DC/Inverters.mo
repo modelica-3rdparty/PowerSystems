@@ -197,7 +197,7 @@ annotation (defaultComponentName="inverter",
 <pre>
   v_AC_eff = u*v_DC/sqrt(2)     AC effective voltage
 
-  u[1] &le  1 for pure sine-modulation, but u[1] &gt  1 possible.
+  u[1] &le;  1 for pure sine-modulation, but u[1] &gt;  1 possible.
   u[1] = 1 corresponds to:  AC amplitude = v_DC
 </pre>
 For block modulation:
@@ -337,7 +337,7 @@ equation
 <pre>
   v_AC_eff = u*v_DC/sqrt(2)     AC effective voltage
 
-  u[1] &le  1 for pure sine-modulation, but u[1] &gt  1 possible.
+  u[1] &le;  1 for pure sine-modulation, but u[1] &gt;  1 possible.
   u[1] = 1 corresponds to:  AC amplitude = v_DC
 </pre></p>
 <p>If equivalent to block (rectangular) modulation:<br>
@@ -346,8 +346,8 @@ The method must be improved in this case (in particular in context with inductiv
 <pre>
   v_AC_eff = u*(4/pi)*sin(width*pi/2)*v_DC/sqrt(2)    AC eff voltage of fundamental
 
-  u[1] = 1 for block modulation without pwm, 0 &lt  width &lt  1
-  u[1] &le  1 for block modulation with pwm.
+  u[1] = 1 for block modulation without pwm, 0 &lt;  width &lt;  1
+  u[1] &le;  1 for block modulation with pwm.
   u[1] = 1 corresponds to AC amplitude = (4/pi)*sin(width*pi/2)*v_DC
 </pre></p>
 </html>
@@ -394,7 +394,7 @@ annotation (defaultComponentName="chopper",
 <p><tt>u_DC</tt> determines the desired DC-out voltage <tt>v_DCout</tt> in terms of the DC-in voltage <tt>v_DCin</tt> according to the following relation:
 <pre>
   v_DCout = u_DC*v_DCin
-  u_DC &le  1
+  u_DC &le;  1
 </pre></p>
 </html>"));
 end Chopper;
@@ -556,7 +556,7 @@ Diagram(coordinateSystem(
 <p><tt>u_DC</tt> determines the desired DC-out voltage <tt>v_DCout</tt> in terms of the DC-in voltage <tt>v_DCin</tt> according to the following relation:
 <pre>
   v_DCout = u_DC*v_DCin
-  u_DC &le  1
+  u_DC &le;  1
 </pre></p>
 </html>"));
 end ChopperAverage;

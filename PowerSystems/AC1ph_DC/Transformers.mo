@@ -390,7 +390,7 @@ and eddy current losses.</p>
 &nbsp; - index 2 (term_n)     \"secondary\"</p>
 <p>Transformer ratio.<br>
 The winding ratio is determined indirectly by the choice of nominal voltages.<br>
-It may be &gt  or &lt  1.</p>
+It may be &gt;  or &lt;  1.</p>
 <p>Tap changers.<br>
 For constant transformer ratio no tap changer input needed.<br>
 For variable transformer ratio tap changer input needed.</p>
@@ -623,7 +623,7 @@ For variable transformer ratio tap changer input needed.</p>
 &nbsp; - index 2b (term_nb)     \"secondary b\"</p>
 <p>Transformer ratio.<br>
 The winding ratio is determined indirectly by the choice of nominal voltages.<br>
-It may be &gt  or &lt  1.</p>
+It may be &gt;  or &lt;  1.</p>
 <p>Tap changers.<br>
 For constant transformer ratio no tap changer input needed.<br>
 For variable transformer ratio tap changer input needed.</p>

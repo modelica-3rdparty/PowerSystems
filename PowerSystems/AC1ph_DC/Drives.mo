@@ -175,7 +175,7 @@ package Drives "DC-drives"
 <p>For pulsed rectangles vPhasor[1] can be used<br>
 a) to simulate time-average voltage amplitudes.<br>
 b) to determine the ratio of on- to off-time when using a pulsed modulator.<br>
-where 0 &lt  vPhasor[1] &lt  1.</p>
+where 0 &lt;  vPhasor[1] &lt;  1.</p>
 <p>The rectangle width is a parameter with default value 2/3, corresponding to '2 phases on, 1 phase off' at a time.</p>
 <p>Note: for machines with gear <tt>w_start</tt> denotes the initial angular velocity at the generator-side!</p>
 </html>"),

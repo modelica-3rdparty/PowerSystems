@@ -1003,7 +1003,7 @@ The set of equations of two series connected lines of length len1 and len2 is id
   Documentation(
           info="<html>
 <p>Transmission line modelled as concentrated RX-impedance, with third terminal for connecting line-fault component.</p>
-<p>The fault is at relative length <tt>p(0&lt p&lt 1)</tt>:<br>
+<p>The fault is at relative length <tt>p(0&lt; p&lt; 1)</tt>:<br>
 <pre>  p*len = distance to fault from terminal term_p</pre>
 </html>
 "),
@@ -1226,7 +1226,7 @@ The set of equations of two series connected lines of length len1 and len2 is id
 <p>The line of total length <tt>len</tt> is divided into elements of length <tt>delta = len/ne</tt>.
 It is composed of <tt>ne-1</tt> interior elements of length <tt>delta</tt> and at each end of a half-element of length <tt>delta/2</tt>. Therefore it contains <tt>n</tt> interior nodes. Each element corresponds to a series inductor-resistor with values R and L corresponding to its length. A shunt parallel capacitor-conductor is liked to each node.<br>
 The minimum of <tt>ne</tt> is <tt>1</tt>.</p>
-<p>The fault is at relative length <tt>p(0&lt p&lt 1)</tt>:<br>
+<p>The fault is at relative length <tt>p(0&lt; p&lt; 1)</tt>:<br>
 <pre>  p*len = distance to fault from terminal term_p</pre>
 <p><tt>p</tt> is restricted in such a way that faults do not occur in the end-elements of the line. Furthermore the position within an element is restricted to a relative position between <tt>0.1</tt> and <tt>0.9</tt> for numerical reasons.</p>
 </html>"),
@@ -1457,7 +1457,7 @@ Faulted transmission lines contain a third terminal for connection to a fault-co
 </pre>
 <p>Coupling:</p>
 <pre>
-  cpl = x_m/x_s &gt  0,        positive for lines
+  cpl = x_m/x_s &gt;  0,        positive for lines
 </pre>
 <p>More info see package ACdq0Impedances.</p>
 </html>"));

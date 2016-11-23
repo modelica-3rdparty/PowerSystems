@@ -289,7 +289,7 @@ Instead of x and r the parameters z_abs and cos(phi) are used.</p>
   x = imag(z) = |z|*sin(phi)          inductance pair
 </pre>
 <p>With</p>
-<pre>  cpl = x_m/x_s, -1 &lt  cpl &lt  1         coupling coefficient</pre>
+<pre>  cpl = x_m/x_s, -1 &lt;  cpl &lt;  1         coupling coefficient</pre>
 <p>we have</p>
 <pre>  x0 = x*(1 + cpl)/(1 - cpl)          inductance 0-component</pre>
 <p>and</p>
@@ -299,8 +299,8 @@ Instead of x and r the parameters z_abs and cos(phi) are used.</p>
 </pre>
 <p>Coupling:</p>
 <pre>
-  cpl &gt  0:        positive coupling (example lines)
-  cpl &lt  0:        negative coupling
+  cpl &gt;  0:        positive coupling (example lines)
+  cpl &lt;  0:        negative coupling
 </pre>
 <p>More info see package AC1_DC.Impedances.</p>
 </html>
@@ -951,7 +951,7 @@ Documentation(info="<html>
 </pre>
 <p>Coupling.</p>
 <pre>
-  -x_s &lt  x_m &lt  x_s
+  -x_s &lt;  x_m &lt;  x_s
   uncoupled limit:          x_m = 0,        x0 = x_s
   fully positive coupled:   x_m = x_s,      x0 = 2*x_s
   fully negative coupled:   x_m = -x_s,     x0 = 0

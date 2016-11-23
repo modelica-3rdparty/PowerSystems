@@ -25,7 +25,7 @@ The analytic expression for the saturating flux function is
 <pre>
   psi = (c[1]/c[2])*tanh(c[2]*psi0) + c[3]*psi0
 </pre>
-For <tt>xratio &lt &lt  1</tt> the coefficients <tt>c</tt> are related to
+For <tt>xratio &lt; &lt;  1</tt> the coefficients <tt>c</tt> are related to
 <pre>
   xratio      ratio saturated/unsaturated coupling impedance
   psi_sat     saturation value of flux pu
@@ -64,7 +64,7 @@ The analytic expression for the saturating flux function and derivative is
   psi = (c[1]/c[2])*tanh(c[2]*psi0) + c[3]*psi0
   d_psi/d_psi0 = c[1]/cosh(c[2]*psi0)^2 + c[3]
 </pre>
-For <tt>xratio &lt &lt  1</tt> the coefficients <tt>c</tt> are related to
+For <tt>xratio &lt; &lt;  1</tt> the coefficients <tt>c</tt> are related to
 <pre>
   xratio      ratio saturated/unsaturated coupling impedance
   psi_sat     saturation value of flux pu
