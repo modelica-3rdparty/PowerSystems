@@ -170,7 +170,7 @@ end Integrator;
   y[2]     argument, phase
 </pre></p>
 <p>The phase <tt>y[2]</tt> is continuous in the interval
-<pre>  -pi &lt  phi &lt = +pi</pre></p>
+<pre>  -pi &lt;  phi &lt; = +pi</pre></p>
 </html>"));
   end ToPolar;
 
@@ -210,7 +210,7 @@ end Integrator;
   y[2]     argument, phase
 </pre></p>
 <p>The phase <tt>y[2]</tt> is continuous on the whole real axis
-<pre>  -inf &lt  phi &lt  +inf</pre></p>
+<pre>  -inf &lt;  phi &lt;  +inf</pre></p>
 </html>"));
   end ToPolarR;
 

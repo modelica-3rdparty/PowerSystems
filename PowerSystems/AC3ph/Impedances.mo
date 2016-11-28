@@ -376,7 +376,7 @@ Instead of x_s, x_m, and r the parameters z_abs, cos(phi), and x_o are used.</p>
   x = imag(z) = |z|*sin(phi)           inductance dq-components
 </pre>
 <p>With</p>
-<pre>  cpl = x_m/x_s, -1/2 &lt  cpl &lt  1        coupling coefficient</pre>
+<pre>  cpl = x_m/x_s, -1/2 &lt;  cpl &lt;  1        coupling coefficient</pre>
 <p>we have</p>
 <pre>  x0 = x*(1 + 2*cpl)/(1 - cpl)         inductance o-component</pre>
 <p>and</p>
@@ -386,9 +386,9 @@ Instead of x_s, x_m, and r the parameters z_abs, cos(phi), and x_o are used.</p>
 </pre>
 <p>Coupling:</p>
 <pre>
-  cpl = x_m/x_s  coupling coefficient, -1/2 &lt  cpl &lt  1>
-  cpl &gt  0        positive coupling (example lines)
-  cpl &lt  0        negative coupling (example machine windings)
+  cpl = x_m/x_s  coupling coefficient, -1/2 &lt;  cpl &lt;  1>
+  cpl &gt;  0        positive coupling (example lines)
+  cpl &lt;  0        negative coupling (example machine windings)
   cpl = (x0/x - 1)/(x0/x + 2) </li>
 </pre>
 <p> More info see package ACdq0.Impedances.</p>
@@ -1102,7 +1102,7 @@ annotation (preferredView="info",
 </pre>
 <p>Coupling.</p>
 <pre>
-  -x_s/2 &lt  x_m &lt  x_s
+  -x_s/2 &lt;  x_m &lt;  x_s
   uncoupled limit:          x_m = 0,               x0 = x
   fully positive coupled:   x_m = x_s,             x0 = 3*x_s
   fully negative coupled:   x_m = -x_s/2,          x0 = 0

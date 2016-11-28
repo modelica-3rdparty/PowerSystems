@@ -765,9 +765,9 @@ Therefore phi and w represent the mechanical angle and angular velocity.
               info="<html>
 <p>This is a default model. The torque is directly determined by the pu power control-signal.
 It does neither contain thermal nor hydraulic forces, but it may be replaced by appropriate physical models.</p>
-<p>Power control for speed &gt  speed_thr (speed threshold)
+<p>Power control for speed &gt;  speed_thr (speed threshold)
 <pre>  speed*torq = power</pre>
-torque control for speed &lt  speed_thr (speed threshold)
+torque control for speed &lt;  speed_thr (speed threshold)
 <pre>  speed_thr*torq = power</pre></p>
 </html>
 "),   Icon(coordinateSystem(

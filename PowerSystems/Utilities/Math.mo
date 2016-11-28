@@ -21,7 +21,7 @@ package Math "Mathematical functions"
     annotation (smoothOrder=2,
     Documentation(info="<html>
 <p>Genralised atan2 with range
-<pre>  (alpha - pi) &lt  phi &lt = (alpha + pi)</pre>
+<pre>  (alpha - pi) &lt;  phi &lt; = (alpha + pi)</pre>
 i. e. cut at angle <pre>  alpha + pi</pre>
 for arbitrary (time-dependent) input argument alpha.</p>
 </html>"));
@@ -223,7 +223,7 @@ The table contains the argument-vector as first column xy_tab[1,:].</p>
   r[k, 1]: real part of kth root
   r[k, 2]: imaginary part of kth root
 </pre>
-<p>If <tt>c_N</tt> is different from <tt>0</tt> then <tt>n=N</tt>, otherwise <tt>n&lt N</tt>.</p>
+<p>If <tt>c_N</tt> is different from <tt>0</tt> then <tt>n=N</tt>, otherwise <tt>n&lt; N</tt>.</p>
 <p><h4>Example</h4></p>
 <pre><blockquote>
   Real[3] c = {1,2,3};
@@ -472,12 +472,12 @@ Should be modified (domains with boundaries).</p>
     Documentation(info="<html>
 <p>The function has two components, y[1] decreasing and y[2] increasing.</p>
 <p>For
-<pre>  0 &le  t &lt  t_relax
+<pre>  0 &le;  t &lt;  t_relax
   y[1] decreases exponentially from 1 to 0
   y[2] increases exponentially from 0 to 1
 </pre>
 For
-<pre>  t &lt  0 and t &ge  t_relax
+<pre>  t &lt;  0 and t &ge  t_relax
   y[1] = 0
   y[2] = 1
 </pre>
@@ -521,8 +521,8 @@ i.e. for negative t y takes its asymptotic values.</p>
     annotation(Documentation(info="<html>
 <p>Calculates the \"sign\" function
 <pre>
-  sig = +1 if x[k] &gt  +b else 0,
-  sig = -1 if x[k] &lt  -b else 0,
+  sig = +1 if x[k] &gt;  +b else 0,
+  sig = -1 if x[k] &lt;  -b else 0,
 </pre>component-wise.</p>
 </html>"));
     end sign_gtlt;
@@ -540,7 +540,7 @@ i.e. for negative t y takes its asymptotic values.</p>
       end for;
     annotation(Documentation(info="<html>
 <p>Calculates the \"sign\" function
-<pre>  sig = 1 if x[k] &gt  b else 0</pre>component-wise.</p>
+<pre>  sig = 1 if x[k] &gt;  b else 0</pre>component-wise.</p>
 </html>"));
     end sign_gt;
 
@@ -557,7 +557,7 @@ i.e. for negative t y takes its asymptotic values.</p>
       end for;
     annotation(Documentation(info="<html>
 <p>Calculates the \"sign\" function
-<pre>  sig = -1 if x[k] &lt  b else 0</pre>component-wise.</p>
+<pre>  sig = -1 if x[k] &lt;  b else 0</pre>component-wise.</p>
 </html>"));
     end sign_lt;
     annotation (preferredView="info",

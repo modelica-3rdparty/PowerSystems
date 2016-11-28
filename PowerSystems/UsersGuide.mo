@@ -14,11 +14,11 @@ package UsersGuide "User's Guide"
 <li>DC power systems, like HVDC </li>
 </ul></p>
 <p>A general terminal for electrical power systems can be defined as:</p>
-<pre>connector Terminal &QUOT;General power terminal&QUOT;
-  replaceable package PhaseSystem = PhaseSystems.PartialPhaseSystem &QUOT;Phase system&QUOT;;
-  PhaseSystem.Voltage v[PhaseSystem.n] &QUOT;voltage vector&QUOT;;
-  flow PhaseSystem.Current i[PhaseSystem.n] &QUOT;current vector&QUOT;;
-  PhaseSystem.ReferenceAngle theta[PhaseSystem.m] &QUOT;optional vector of phase angles&QUOT;;
+<pre>connector Terminal &quot;General power terminal&quot;
+  replaceable package PhaseSystem = PhaseSystems.PartialPhaseSystem &quot;Phase system&quot;;
+  PhaseSystem.Voltage v[PhaseSystem.n] &quot;voltage vector&quot;;
+  flow PhaseSystem.Current i[PhaseSystem.n] &quot;current vector&quot;;
+  PhaseSystem.ReferenceAngle theta[PhaseSystem.m] &quot;optional vector of phase angles&quot;;
 end Terminal;</pre>
 <p>The replaceable PhaseSystem defines the number <code><b>n</b></code> of independent voltage and current components and their representation in the connector. Moreover it defines types for the physical quantities so that terminals of different phase systems cannot be directly connected. </p>
 <p>The vector of reference angles <code><b>theta[m]</b></code> allows the definition of a rotating reference system for the description of AC systems with modal components. It is known from the Spot library that this enables the treatment of modal quantities in the time domain, covering transient and unsymmetric systems as well. </p>
@@ -54,7 +54,7 @@ The following table summerizes the PhaseSystems that are predefined in the Power
     annotation (
         Documentation(info="<html>
 <p><a href=\"modelica://PowerSystems.Examples.Network\">Examples.Network</a>: The examples NetworkLoop and NetworkOpened are taken from the textbook Oeding, Oswald: Elektrische Kraftwerke und Netze, section 14.2.5: Leistungsfluss in Ringnetzen. The example NetworkControlled additionally investigates frequency/power control in conjunction with the Modelica.Rotational library and a basic EMF (Electro-Motoric Force). </p>
-<p><a href=\"modelica://PowerSystems.Examples.PowerWorld\">Examples.PowerWorld</a> models a control area for power distribution in island mode. It was used to demonstrate &QUOT;Stabilization of wind power&QUOT; in the Eurosyslib work package 5.3. See . </p>
+<p><a href=\"modelica://PowerSystems.Examples.PowerWorld\">Examples.PowerWorld</a> models a control area for power distribution in island mode. It was used to demonstrate &quot;Stabilization of wind power&quot; in the Eurosyslib work package 5.3. See . </p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot\">Examples.Spot</a> serve as tutorial and interactive documentation for the detailed component models in AC1ph_DC and AC3ph. </p>
 </html>"));
   end Examples;

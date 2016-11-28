@@ -54,7 +54,7 @@ equation
 <pre>
   |v_AC| = u*sqrt(3/2)*v_DC/2     AC voltage norm
 
-  u[1] &le  1 for pure sine-modulation, but u[1] &gt  1 possible.
+  u[1] &le;  1 for pure sine-modulation, but u[1] &gt;  1 possible.
   u[1] = 1 corresponds to AC single-phase amplitude = v_DC/2
 
   gates[1:2]     phase-module a
@@ -139,7 +139,7 @@ equation
 <pre>
   |v_AC| = u*sqrt(3/2)*v_DC/2     AC voltage norm
 
-  u[1] &le  1 for pure sine-modulation, but u[1] &gt  1 possible.
+  u[1] &le;  1 for pure sine-modulation, but u[1] &gt;  1 possible.
   u[1] = 1 corresponds to AC single-phase amplitude = v_DC/2
 
   gates[1:2]     phase-module a
@@ -255,7 +255,7 @@ equation
 <pre>
   |v_AC| = u*sqrt(3/2)*v_DC/2     AC voltage norm
 
-  u[1] &le  1 for pure sine-modulation, but u[1] &gt  1 possible.
+  u[1] &le;  1 for pure sine-modulation, but u[1] &gt;  1 possible.
   u[1] = 1 corresponds to AC single-phase amplitude = v_DC/2
 
   gates[1:2]     phase-module a
@@ -338,8 +338,8 @@ equation
 <pre>
   |v_AC| = u*sqrt(2/3)*v_DC     AC voltage norm
 
-  u[1] &le  sqrt(3)/2 = 0.866: pure sine-pwm,
-  sqrt(3)/2 &le  u[1] &le  1:  overmodulation (not implemented in this preliminary version).
+  u[1] &le;  sqrt(3)/2 = 0.866: pure sine-pwm,
+  sqrt(3)/2 &le;  u[1] &le;  1:  overmodulation (not implemented in this preliminary version).
   u[1] = sqrt(3)/2 corresponds to AC single-phase amplitude = v_DC/sqrt(3)
 
   gates[1:2]     phase-module a
@@ -419,8 +419,8 @@ equation
 <pre>
   |v_AC| = u*sqrt(2/3)*v_DC     AC voltage norm
 
-  u[1] &le  sqrt(3)/2 = 0.866: pure sine-pwm,
-  sqrt(3)/2 &le  u[1] &le  1:  overmodulation (not implemented in this preliminary version).
+  u[1] &le;  sqrt(3)/2 = 0.866: pure sine-pwm,
+  sqrt(3)/2 &le;  u[1] &le;  1:  overmodulation (not implemented in this preliminary version).
   u[1] = sqrt(3)/2 corresponds to AC single-phase amplitude = v_DC/sqrt(3)
 
   gates[1:2]     phase-module a
@@ -479,8 +479,8 @@ equation
 <pre>
   |v_AC| = u*sqrt(2/3)*v_DC     AC voltage norm
 
-  u[1] &le  sqrt(3)/2 = 0.866: pure sine-pwm,
-  sqrt(3)/2 &le  u[1] &le  1:  overmodulation (not implemented in this preliminary version).
+  u[1] &le;  sqrt(3)/2 = 0.866: pure sine-pwm,
+  sqrt(3)/2 &le;  u[1] &le;  1:  overmodulation (not implemented in this preliminary version).
   u[1] = sqrt(3)/2 corresponds to AC single-phase amplitude = v_DC/sqrt(3)
 
   gates[1:2]     phase-module a
@@ -599,7 +599,7 @@ end BlockM;
 <pre>
   v_AC_eff = u*v_DC/sqrt(2)     AC effective voltage
 
-  u[1] &le  1 for pure sine-modulation, but u[1] &gt  1 possible.
+  u[1] &le;  1 for pure sine-modulation, but u[1] &gt;  1 possible.
   u[1] = 1 corresponds to:  AC amplitude = v_DC
 
   gates[1:2]     phase-module 1
@@ -688,7 +688,7 @@ annotation (defaultComponentName = "pwm",
 <pre>
   v_AC_eff = u*v_DC/sqrt(2)     AC effective voltage
 
-  u[1] &le  1 for pure sine-modulation, but u[1] &gt  1 possible.
+  u[1] &le;  1 for pure sine-modulation, but u[1] &gt;  1 possible.
   u[1] = 1 corresponds to:  AC amplitude = v_DC
 
   gates[1:2]     phase-module 1
@@ -753,7 +753,7 @@ annotation (defaultComponentName = "pwm",
 <pre>
   v_AC_eff = u*v_DC/sqrt(2)     AC effective voltage
 
-  u[1] &le  1 for pure sine-modulation, but u[1] &gt  1 possible.
+  u[1] &le;  1 for pure sine-modulation, but u[1] &gt;  1 possible.
   u[1] = 1 corresponds to:  AC amplitude = v_DC
 
   gates[1:2]     phase-module 1
@@ -837,7 +837,7 @@ annotation (defaultComponentName = "chopperMod",
 <p>Pulse width modulation for chopper, voltage controlled.
 <pre>
   u[1] = 1 corresponds to:  v_DC_out = v_DC_in
-  u[1] &le  1 for pwm, but u[1] &gt  1 possible.
+  u[1] &le;  1 for pwm, but u[1] &gt;  1 possible.
 </pre></p>
 </html>"),
   Icon(coordinateSystem(
