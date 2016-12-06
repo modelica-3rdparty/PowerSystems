@@ -1117,13 +1117,13 @@ protected
 
     parameter SI.Frequency f_carr=1e3 "carrier frequency"
       annotation(Evaluate=true);
-    parameter SI.Frequency dtmin(min=Modelica.Constants.eps,max=0.1*del_t)=1e-6
+    parameter SI.Time dt_min(min=Modelica.Constants.eps,max=0.1*del_t)=1e-6
         "minimal time between on/off"
                                     annotation(Evaluate=true);
     protected
     final parameter SI.Time del_t=1/(4*f_carr)
                                               annotation(Evaluate=true);
-    final parameter SI.Time delp_t=del_t - dtmin/2 annotation(Evaluate=true);
+    final parameter SI.Time delp_t=del_t - dt_min/2 annotation(Evaluate=true);
     annotation (
       Icon(coordinateSystem(
             preserveAspectRatio=false,
@@ -1143,13 +1143,13 @@ protected
 
     parameter Integer mult(min=1)=3 "multiplicity (2*mult-1 pulses/period)"
                                                   annotation(Evaluate=true);
-    parameter SI.Frequency dphimin(min=Modelica.Constants.eps,max=0.1*del_phi)=1e-6
+    parameter SI.Angle dphi_min(min=Modelica.Constants.eps,max=0.1*del_phi)=1e-6
         "minimal time between on/off"                            annotation(Evaluate=true);
     protected
     final parameter Integer m2=2*(2*mult-1)
                                          annotation(Evaluate=true);
     final parameter SI.Angle del_phi=pi/m2    annotation(Evaluate=true);
-    final parameter SI.Angle delp_phi=del_phi-dphimin/2
+    final parameter SI.Angle delp_phi=del_phi-dphi_min/2
                                                       annotation(Evaluate=true);
     annotation (
       Icon(coordinateSystem(
