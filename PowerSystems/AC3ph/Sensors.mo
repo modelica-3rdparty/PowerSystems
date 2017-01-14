@@ -338,9 +338,9 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     output SIpu.Current[3] i_abc(each stateSelect=StateSelect.never)=transpose(Park)*i if abc;
 
     output SIpu.Voltage v_norm(stateSelect=StateSelect.never)=sqrt(v*v) if phasor;
-    output SI.Angle alpha_v(stateSelect=StateSelect.never);
+    output SI.Angle alpha_v(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*v[1:2], Rot_dq[:,1]*v[1:2]) if phasor;
     output SIpu.Current i_norm(stateSelect=StateSelect.never)=sqrt(i*i) if phasor;
-    output SI.Angle alpha_i(stateSelect=StateSelect.never);
+    output SI.Angle alpha_i(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*i[1:2], Rot_dq[:,1]*i[1:2]) if phasor;
     output Real cos_phi(stateSelect=StateSelect.never)=cos(alpha_v - alpha_i) if phasor;
   protected
     outer System system;
@@ -364,13 +364,6 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
       der(pav) = (p - pav)/tcst;
     else
       pav = zeros(PS.n);
-    end if;
-    if phasor then
-      alpha_v = atan2(Rot_dq[:,2]*v[1:2], Rot_dq[:,1]*v[1:2]);
-      alpha_i = atan2(Rot_dq[:,2]*i[1:2], Rot_dq[:,1]*i[1:2]);
-    else
-      alpha_v = 0;
-      alpha_i = 0;
     end if;
     annotation (defaultComponentName = "PVImeter1",
       Icon(coordinateSystem(
