@@ -6,7 +6,7 @@ package Nodes "Nodes and adaptors"
     extends Ports.Port_p;
 
   equation
-    term.v = zeros(3);
+    term.v = zeros(PS.n);
     annotation (
       defaultComponentName="grd1",
   Documentation(
@@ -686,7 +686,7 @@ end ACdq0_abc;
           rotation=270)));
 
   equation
-    term.i = zeros(3);
+    term.i = zeros(PS.n);
     Connections.potentialRoot(term.theta);
     if Connections.isRoot(term.theta) then
       term.theta = if system.synRef then {0, theta} else {theta, 0};
@@ -727,7 +727,7 @@ end ACdq0_abc;
 
   equation
     term_p.v = term_n.v;
-    term_p.i + term_n.i = zeros(3);
+    term_p.i + term_n.i = zeros(PS.n);
     annotation (defaultComponentName="break1",
       Icon(coordinateSystem(
           preserveAspectRatio=false,

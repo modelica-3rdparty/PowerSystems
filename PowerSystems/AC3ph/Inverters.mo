@@ -379,8 +379,8 @@ equation
   hsw_nom = if syn then (2*par.Hsw_nom*m_carr/(pi*par.V_nom*par.I_nom))*der(theta) else
                         4*par.Hsw_nom*f_carr/(par.V_nom*par.I_nom);
 
-  phi = AC.theta[1] +vPhasor [2] + system.alpha0;
-  switch_dq0 = factor*vPhasor[1]*{cos(phi), sin(phi), 0};
+  phi = AC.theta[1] + vPhasor[2] + system.alpha0;
+  switch_dq0 = factor*vPhasor[1]*PS.map({cos(phi), sin(phi), 0});
   v_dq0 = (vDC1 - cT*Vloss)*switch_dq0;
 // passive mode?
 
@@ -939,15 +939,14 @@ partial model AC_DC_base "AC-DC base, 3-phase dq0"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   AC1ph_DC.Ports.TwoPin_p DC "DC connection"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Interfaces.ThermalV_n heat(     m=3) "vector heat port"
+  Interfaces.ThermalV_n heat(m=3) "vector heat port"
     annotation (Placement(transformation(
             origin={0,100},
             extent={{-10,-10},{10,10}},
             rotation=90)));
 
-      annotation (                           Documentation(info="<html>
+  annotation (Documentation(info="<html>
 </html>"));
-
 end AC_DC_base;
 
 partial model SwitchEquation "Switch equation, 3-phase dq0"
@@ -958,19 +957,22 @@ partial model SwitchEquation "Switch equation, 3-phase dq0"
   PS.Voltage vDC0=0.5*(DC.v[1] + DC.v[2]);
   PS.Current iDC1=(DC.i[1] - DC.i[2]);
   PS.Current iDC0=(DC.i[1] + DC.i[2]);
-  Real[3] v_dq0 "switching function voltage in dq0 representation";
-  Real[3] switch_dq0 "switching function in dq0 representation";
+  Real[PS.n] v_dq0 "switching function voltage in dq0 representation";
+  Real[PS.n] switch_dq0 "switching function in dq0 representation";
 
   SI.Temperature[heat.m] T "component temperature";
   SI.HeatFlowRate[heat.m] Q_flow "component loss-heat flow";
-  function loss = Utilities.Math.taylor
-                                    "temp dependence of losses";
+  function loss = Utilities.Math.taylor "temp dependence of losses";
+  SI.Conductance C0 = 1 "for dq phase system";
 
 equation
-  AC.v = v_dq0 + {0,0,sqrt(3)*vDC0};
+  AC.v = v_dq0 + PS.map({0,0,sqrt(3)*vDC0});
   iDC1 + switch_dq0*AC.i = 0;
-  iDC0 + sqrt(3)*AC.i[3] = 0;
-
+  if PS.n > 2 then
+    iDC0 + sqrt(3)*AC.i[3] = 0;
+  else
+    iDC0 = C0*vDC0 "iDC0 = 0, vDC0 = 0";
+  end if;
   T = heat.ports.T;
   heat.ports.Q_flow = -Q_flow;
   annotation (
