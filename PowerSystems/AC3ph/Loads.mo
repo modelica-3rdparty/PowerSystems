@@ -643,7 +643,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
     end LoadBase;
 
     partial model IndLoadBase "Inductive load base, 3-phase dq0"
-      extends LoadBase(v(start={vstart[1],vstart[2],0}), i(start={istart[1],istart[2],0}));
+      extends LoadBase(v(start={v_start[1],v_start[2],0}), i(start={i_start[1],i_start[2],0}));
 
       parameter Real cpl(min=-0.5,max=1)=0
         "phase coupling x_m/x_s, (-1/2 < cpl < 1)";
@@ -652,10 +652,10 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
     protected
       final parameter Real c0=(1 + 2*cpl)/(1 - cpl);
       final parameter Real V2_nom=V_nom*V_nom;
-      final parameter Real[2] Zstart=(pq0/(pq0*pq0*S_base))*V2_nom;
-      final parameter PS.Voltage[2] vstart={cos(system.alpha0), sin(system.alpha0)}*V_nom;
-      final parameter PS.Current[2] istart=[Zstart[1],Zstart[2];-Zstart[2],Zstart[1]]*vstart/(Zstart*Zstart);
-      SI.Impedance[2] Z(start=Zstart);
+      final parameter Real[2] Z_start=(pq0/(pq0*pq0*S_base))*V2_nom;
+      final parameter PS.Voltage[2] v_start={cos(system.alpha0), sin(system.alpha0)}*V_nom;
+      final parameter PS.Current[2] i_start=[Z_start[1],Z_start[2];-Z_start[2],Z_start[1]]*v_start/(Z_start*Z_start);
+      SI.Impedance[2] Z(start=Z_start);
 
     initial equation
       if dynType == Types.Dynamics.SteadyInitial then
@@ -685,7 +685,7 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
     end IndLoadBase;
 
     partial model CapLoadBase "Capacitive load base, 3-phase dq0"
-      extends LoadBase(v(start={vstart[1],vstart[2],0}), i(start={istart[1],istart[2],0}));
+      extends LoadBase(v(start={v_start[1],v_start[2],0}), i(start={i_start[1],i_start[2],0}));
 
       parameter Real beta(min=0)=0 "ratio b_pp/b_pg, (beta > 0)";
       SI.ElectricCharge[3] q(each stateSelect=StateSelect.prefer)
@@ -693,10 +693,10 @@ Consumes the desired active and reactive power at steady state and <b>nominal</b
     protected
       final parameter Real c0=1/(1+3*beta);
       final parameter Real I2_nom=(S_nom/V_nom)^2;
-      final parameter SI.Admittance[2] Ystart=(pq0/(pq0*pq0*S_base))*I2_nom;
-      final parameter PS.Voltage[2] vstart={cos(system.alpha0), sin(system.alpha0)}*V_nom;
-      final parameter PS.Current[2] istart=[Ystart[1],-Ystart[2];Ystart[2],Ystart[1]]*vstart;
-      SI.Admittance[2] Y(start=Ystart);
+      final parameter SI.Admittance[2] Y_start=(pq0/(pq0*pq0*S_base))*I2_nom;
+      final parameter PS.Voltage[2] v_start={cos(system.alpha0), sin(system.alpha0)}*V_nom;
+      final parameter PS.Current[2] i_start=[Y_start[1],-Y_start[2];Y_start[2],Y_start[1]]*v_start;
+      SI.Admittance[2] Y(start=Y_start);
 
     initial equation
       if dynType == Types.Dynamics.SteadyInitial then

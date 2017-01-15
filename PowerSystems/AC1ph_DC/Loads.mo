@@ -204,13 +204,9 @@ Consumes the desired power independent of voltage.</p>
 
       parameter Types.Dynamics dynType=system.dynType "transient or steady-state model"
         annotation(Evaluate=true, Dialog(tab="Initialization"));
-      parameter PS.Voltage v_start = 0
-        "start value of voltage drop" annotation(Dialog(tab="Initialization"));
-      parameter PS.Current i_start = 0
-        "start value of current" annotation(Dialog(tab="Initialization"));
 
-      PS.Voltage v(start = v_start);
-      PS.Current i(start = i_start);
+      PS.Voltage v;
+      PS.Current i;
 
     protected
       outer System system;
@@ -235,7 +231,7 @@ Consumes the desired power independent of voltage.</p>
     end LoadBase;
 
     partial model ResLoadBase "Resistive load base, 1-phase"
-      extends LoadBase(v(start=V_nom), i(start=V_nom/Rstart));
+      extends LoadBase(v(start=V_nom), i(start=V_nom/R_start));
 
       parameter Boolean use_p_in = false
         "= true to use input signal p_in, otherwise use parameter p0"
@@ -253,9 +249,9 @@ Consumes the desired power independent of voltage.</p>
         "Needed to connect to conditional connector";
 
       final parameter Real V2_nom(unit="V2")=V_nom*V_nom;
-      final parameter Real Rstart=V2_nom/(p0*S_base);
+      final parameter Real R_start=V2_nom/(p0*S_base);
       SI.Power p;
-      SI.Resistance R(start=Rstart);
+      SI.Resistance R(start=R_start);
     equation
       connect(p_in, p_internal);
 
@@ -305,7 +301,7 @@ Consumes the desired power independent of voltage.</p>
     end LoadBaseAC;
 
                  partial model IndLoadBaseAC "Inductive load base AC, 1-phase"
-                   extends LoadBaseAC(v(start=vstart), i(start=istart));
+                   extends LoadBaseAC(v(start=v_start), i(start=i_start));
 
                    parameter SI.MagneticFlux psi_start=0 "start value for magnetic flux"
                      annotation (Dialog(tab="Initialization"));
@@ -313,10 +309,10 @@ Consumes the desired power independent of voltage.</p>
                      "magnetic flux";
     protected
                    final parameter Real V2_nom=V_nom*V_nom;
-                   final parameter Real[2] Zstart=(pq0/(pq0*pq0*S_base))*V2_nom;
-                   final parameter PS.Voltage vstart=cos(system.alpha0)*V_nom;
-                   final parameter PS.Current istart=cos(system.alpha0-atan(Zstart[2]/Zstart[1]))*V_nom/sqrt(Zstart*Zstart);
-                   SI.Impedance[2] Z(start=Zstart);
+                   final parameter Real[2] Z_start=(pq0/(pq0*pq0*S_base))*V2_nom;
+                   final parameter PS.Voltage v_start=cos(system.alpha0)*V_nom;
+                   final parameter PS.Current i_start=cos(system.alpha0-atan(Z_start[2]/Z_start[1]))*V_nom/sqrt(Z_start*Z_start);
+                   SI.Impedance[2] Z(start=Z_start);
                    function atan=Modelica.Math.atan;
 
                  initial equation
@@ -347,7 +343,7 @@ Consumes the desired power independent of voltage.</p>
                  end IndLoadBaseAC;
 
                  partial model CapLoadBaseAC "Capacitive load base AC, 1-phase"
-                   extends LoadBaseAC(v(start=vstart), i(start=istart));
+                   extends LoadBaseAC(v(start=v_start), i(start=i_start));
 
                    parameter SI.ElectricCharge q_start=0 "start value for electric charge"
                      annotation (Dialog(tab="Initialization"));
@@ -355,10 +351,10 @@ Consumes the desired power independent of voltage.</p>
                      "electric charge";
     protected
                    final parameter Real I2_nom=(S_nom/V_nom)^2;
-                   final parameter SI.Admittance[2] Ystart=(pq0/(pq0*pq0*S_base))*I2_nom;
-                   final parameter PS.Voltage vstart=cos(system.alpha0)*V_nom;
-                   final parameter PS.Current istart=cos(system.alpha0+atan(Ystart[2]/Ystart[1]))*V_nom*sqrt(Ystart*Ystart);
-                   SI.Admittance[2] Y(start=Ystart);
+                   final parameter SI.Admittance[2] Y_start=(pq0/(pq0*pq0*S_base))*I2_nom;
+                   final parameter PS.Voltage v_start=cos(system.alpha0)*V_nom;
+                   final parameter PS.Current i_start=cos(system.alpha0+atan(Y_start[2]/Y_start[1]))*V_nom*sqrt(Y_start*Y_start);
+                   SI.Admittance[2] Y(start=Y_start);
                    function atan=Modelica.Math.atan;
 
                  initial equation
@@ -443,11 +439,14 @@ Consumes the desired power independent of voltage.</p>
       extends LoadBaseDC;
 
       parameter SI.Time t_RL=0.1 "R-L time constant";
+      parameter PS.Current i_start = 0
+        "start value of current" annotation(Dialog(tab="Initialization"));
+
     protected
       final parameter Real V2_nom(unit="V2")=V_nom*V_nom;
-      final parameter Real Rstart=V2_nom/(p0*S_base);
-      SI.Resistance R(start=Rstart);
-      SI.Inductance L(start=t_RL*Rstart);
+      final parameter Real R_start=V2_nom/(p0*S_base);
+      SI.Resistance R(start=R_start);
+      SI.Inductance L(start=t_RL*R_start);
 
     initial equation
       if dynType == Types.Dynamics.SteadyInitial then
