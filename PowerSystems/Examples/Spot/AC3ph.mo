@@ -362,7 +362,7 @@ package AC3ph "AC 3-phase components dq0"
     PowerSystems.AC3ph.ImpedancesYD.Inductor ind(r=0.1)
                                               annotation (Placement(
           transformation(extent={{70,-10},{90,10}})));
-    PowerSystems.AC3ph.Sensors.PVImeter meter(abc=true, phasor=true)
+    PowerSystems.AC3ph.Sensors.PVImeter meter(abc=true)
                                         annotation (Placement(transformation(
             extent={{40,-10},{60,10}})));
     replaceable PowerSystems.AC3ph.Sources.Voltage voltage

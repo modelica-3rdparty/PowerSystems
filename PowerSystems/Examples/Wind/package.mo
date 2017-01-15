@@ -19,7 +19,7 @@ package Wind "Different wind turbine concepts"
     AC3ph.Nodes.BusBar busbar        annotation (Placement(
             transformation(extent={{-70,-90},{-50,-70}},
                                                       rotation=0)));
-    AC3ph.Sensors.PVImeter meter(phasor=true,
+    AC3ph.Sensors.PVImeter meter(
       V_nom(displayUnit="kV") = 1000,
       S_nom(displayUnit="MVA") = 1000000) annotation (Placement(
           transformation(extent={{-50,-90},{-30,-70}}, rotation=0)));
@@ -89,8 +89,7 @@ package Wind "Different wind turbine concepts"
         points={{0,-80},{20,-80}},
         color={0,120,120},
         smooth=Smooth.None));
-    annotation (preferredView="diagram", Diagram(graphics),
-      experiment(StopTime=100));
+    annotation (experiment(StopTime=100), Diagram(graphics));
   end WindTurbine_IG;
 
 
@@ -111,7 +110,7 @@ package Wind "Different wind turbine concepts"
     AC3ph.Nodes.BusBar busbar        annotation (Placement(
             transformation(extent={{-70,-90},{-50,-70}},
                                                       rotation=0)));
-    AC3ph.Sensors.PVImeter meter(phasor=true,
+    AC3ph.Sensors.PVImeter meter(
       V_nom(displayUnit="kV") = 1000,
       S_nom(displayUnit="MVA") = 1000000) annotation (Placement(
           transformation(extent={{-50,-90},{-30,-70}}, rotation=0)));
@@ -238,8 +237,7 @@ package Wind "Different wind turbine concepts"
         smooth=Smooth.None));
     connect(vPhasor_set.y, inverter1.vPhasor) annotation (Line(points={{-31,6},{
             -34,6},{-34,-20},{-26,-20},{-26,-24}}, color={0,0,127}));
-    annotation (preferredView="diagram",
-      experiment(StopTime=100));
+    annotation (experiment(StopTime=100));
   end WindTurbine_DFIG;
 
 
@@ -286,7 +284,7 @@ package Wind "Different wind turbine concepts"
     Common.Thermal.BdCondV bdCond2(m=1)
       annotation (Placement(transformation(extent={{30,-24},{50,-4}},  rotation=
                0)));
-    AC3ph.Sensors.PVImeter meter(phasor=true,
+    AC3ph.Sensors.PVImeter meter(
       V_nom(displayUnit="kV") = 1000,
       S_nom(displayUnit="MVA") = 1000000) annotation (Placement(
           transformation(extent={{-50,-90},{-30,-70}}, rotation=0)));
@@ -385,10 +383,9 @@ package Wind "Different wind turbine concepts"
       points={{-70,-30},{-72,-30},{-72,-26},{-44,-26},{-44,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (preferredView="diagram", Diagram(coordinateSystem(
+    annotation (experiment(StopTime=100), Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                 graphics),
-      experiment(StopTime=100));
+                                                 graphics));
   end WindTurbine_PSGR;
 
 
@@ -435,7 +432,6 @@ package Wind "Different wind turbine concepts"
       annotation (Placement(transformation(extent={{30,-24},{50,-4}},  rotation=
              0)));
     AC3ph.Sensors.PVImeter meter(
-      phasor=true,
       V_nom(displayUnit="kV") = 1000,
       S_nom(displayUnit="MVA") = 1000000) annotation (Placement(transformation(
         extent={{-50,-90},{-30,-70}}, rotation=0)));
@@ -543,8 +539,7 @@ package Wind "Different wind turbine concepts"
       color={0,0,127}));
   connect(i_q_err.y, PI.u)
     annotation (Line(points={{-31,0},{-42.8,0}}, color={0,0,127}));
-    annotation (preferredView="diagram",
-      experiment(StopTime=100));
+    annotation (experiment(StopTime=100));
   end WindTurbine_PSGI;
 
 
@@ -576,7 +571,7 @@ package Wind "Different wind turbine concepts"
       annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
     Components.WindTurbine wt3
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-    AC3ph.Sensors.PVImeter meter(phasor=true,
+    AC3ph.Sensors.PVImeter meter(
       V_nom(displayUnit="kV") = 1000,
       S_nom(displayUnit="MVA") = 1000000) annotation (Placement(
           transformation(extent={{30,-20},{50,0}}, rotation=0)));
@@ -690,8 +685,7 @@ package Wind "Different wind turbine concepts"
         points={{-4,-90},{20,-90},{20,-10}},
         color={0,120,120},
         smooth=Smooth.None));
-    annotation (preferredView="diagram",
-      experiment(StopTime=100));
+    annotation (experiment(StopTime=100));
   end WindFarm;
 
 
@@ -915,9 +909,8 @@ package Wind "Different wind turbine concepts"
           points={{10,10},{50,10}},
           color={0,0,0},
           smooth=Smooth.None));
-      annotation (
-        Diagram(graphics),
-        experiment(StopTime=100));
+      annotation (experiment(StopTime=100),
+        Diagram(graphics));
     end RotorTest;
 
   end Test;

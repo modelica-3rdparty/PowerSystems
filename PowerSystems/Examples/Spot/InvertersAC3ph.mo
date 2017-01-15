@@ -23,8 +23,7 @@ package InvertersAC3ph "Inverters dq0"
       av=true,
       tcst=0.1,
       V_nom=100,
-      S_nom=1e3,
-      phasor=true)
+      S_nom=1e3)
       annotation (Placement(transformation(extent={{-20,0},{0,20}})));
     PowerSystems.AC3ph.Inverters.Rectifier rectifier(redeclare model Rectifier =
       PowerSystems.AC3ph.Inverters.Components.RectifierEquation(redeclare
@@ -106,7 +105,6 @@ package InvertersAC3ph "Inverters dq0"
       abc=true,
       av=true,
       tcst=0.1,
-      phasor=true,
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{10,-20},{30,0}})));
@@ -177,7 +175,6 @@ package InvertersAC3ph "Inverters dq0"
                                   annotation (Placement(transformation(extent={
               {-30,20},{-10,40}})));
     PowerSystems.AC3ph.Sensors.PVImeter meterAC(
-      phasor=true,
       V_nom=100,
       S_nom=1e3,
       av=true,
@@ -256,7 +253,6 @@ package InvertersAC3ph "Inverters dq0"
       abc=true,
       av=true,
       tcst=0.1,
-      phasor=true,
       V_nom=100,
       S_nom=1e3)
       annotation (Placement(transformation(extent={{0,-20},{20,0}})));

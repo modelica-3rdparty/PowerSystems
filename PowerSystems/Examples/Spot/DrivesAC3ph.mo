@@ -139,8 +139,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A)
       annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
     PowerSystems.AC3ph.Sensors.PVImeter power(av=true,
-      tcst=0.05,
-      phasor=true)
+      tcst=0.05)
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.AC3ph.Drives.ASM asm(
       redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (

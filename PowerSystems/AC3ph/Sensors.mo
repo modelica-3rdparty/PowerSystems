@@ -178,8 +178,8 @@ package Sensors "Sensors and meters 3-phase"
     output SIpu.Voltage[3] vpp_abc(each stateSelect=StateSelect.never)=
       {v_abc[2],v_abc[3],v_abc[1]} - {v_abc[3],v_abc[1],v_abc[2]} if abc;
 
-    output SIpu.Voltage v_norm(stateSelect=StateSelect.never)=sqrt(v*v) if phasor;
-    output SI.Angle alpha_v(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*v[1:2], Rot_dq[:,1]*v[1:2]) if phasor;
+    output SIpu.Voltage v_norm(stateSelect=StateSelect.never);
+    output SI.Angle alpha_v(stateSelect=StateSelect.never);
   protected
     final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
                                                                  puUnits, V_nom);
@@ -187,6 +187,8 @@ package Sensors "Sensors and meters 3-phase"
   equation
     v = term.v/V_base;
     vpp = sqrt(3)*{v[2],-v[1]};
+    v_norm = sqrt(v*v);
+    alpha_v = atan2(Rot_dq[:,2]*v[1:2], Rot_dq[:,1]*v[1:2]);
     annotation (defaultComponentName = "Vmeter1",
       Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -227,14 +229,16 @@ As they use time-dependent coordinate transforms, use them only when and where n
 
     output SIpu.Current[3] i_abc(each stateSelect=StateSelect.never)=transpose(Park)*i if abc;
 
-    output SIpu.Current i_norm(stateSelect=StateSelect.never)=sqrt(i*i) if phasor;
-    output SI.Angle alpha_i(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*i[1:2], Rot_dq[:,1]*i[1:2]) if phasor;
+    output SIpu.Current i_norm(stateSelect=StateSelect.never);
+    output SI.Angle alpha_i(stateSelect=StateSelect.never);
   protected
     final parameter PS.Current I_base=Utilities.Precalculation.baseI(
                                                                  puUnits, V_nom, S_nom);
 
   equation
     i = term_p.i/I_base;
+    i_norm = sqrt(i*i);
+    alpha_i = atan2(Rot_dq[:,2]*i[1:2], Rot_dq[:,1]*i[1:2]);
     annotation (defaultComponentName = "Imeter1",
       Documentation(
               info="<html>
@@ -263,7 +267,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
     parameter Boolean av=false "time average power"  annotation(Evaluate=true,Dialog(group="Options"));
     parameter SI.Time tcst(min=1e-9)=1 "average time-constant"
                                                     annotation(Evaluate=true, Dialog(group="Options",enable=av));
-    extends Partials.Meter2Base(final V_nom=1, final abc=false, final phasor=false);
+    extends Partials.Meter2Base(final V_nom=1, final abc=false);
 
     output SIpu.Power[PS.n] p(each stateSelect=StateSelect.never);
     output SIpu.Power[PS.n] p_av=pav if av;
@@ -337,11 +341,12 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     output SIpu.Voltage[3] vpp_abc(each stateSelect=StateSelect.never)=v2vpp_abc(transpose(Park)*v) if abc;
     output SIpu.Current[3] i_abc(each stateSelect=StateSelect.never)=transpose(Park)*i if abc;
 
-    output SIpu.Voltage v_norm(stateSelect=StateSelect.never)=sqrt(v*v) if phasor;
-    output SI.Angle alpha_v(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*v[1:2], Rot_dq[:,1]*v[1:2]) if phasor;
-    output SIpu.Current i_norm(stateSelect=StateSelect.never)=sqrt(i*i) if phasor;
-    output SI.Angle alpha_i(stateSelect=StateSelect.never)=atan2(Rot_dq[:,2]*i[1:2], Rot_dq[:,1]*i[1:2]) if phasor;
-    output Real cos_phi(stateSelect=StateSelect.never)=cos(alpha_v - alpha_i) if phasor;
+    output SIpu.Voltage v_norm(stateSelect=StateSelect.never);
+    output SI.Angle alpha_v(stateSelect=StateSelect.never);
+    output SIpu.Current i_norm(stateSelect=StateSelect.never);
+    output SI.Angle alpha_i(stateSelect=StateSelect.never);
+    output Real cos_phi(stateSelect=StateSelect.never);
+
   protected
     outer System system;
     final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
@@ -365,6 +370,11 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
     else
       pav = zeros(PS.n);
     end if;
+    v_norm = sqrt(v*v);
+    alpha_v = atan2(Rot_dq[:,2]*v[1:2], Rot_dq[:,1]*v[1:2]);
+    i_norm = sqrt(i*i);
+    alpha_i = atan2(Rot_dq[:,2]*i[1:2], Rot_dq[:,1]*i[1:2]);
+    cos_phi = cos(alpha_v - alpha_i);
     annotation (defaultComponentName = "PVImeter1",
       Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -625,12 +635,10 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     partial model Meter1Base "Meter 1 terminal base, 3-phase dq0"
       extends Sensor1Base(final signalTrsf=0);
+      extends Common.Nominal.Nominal;
 
       parameter Boolean abc=false "abc inertial"
         annotation(Evaluate=true,Dialog(group="Options"));
-      parameter Boolean phasor=false "phasor"
-        annotation(Evaluate=true,Dialog(group="Options"));
-      extends Common.Nominal.Nominal;
     protected
       Real[3,3] Park;
       Real[2,2] Rot_dq;
@@ -641,11 +649,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
       else
         Park = zeros(3,3);
       end if;
-      if phasor then
-        Rot_dq = rot_dq(term.theta[1]);
-      else
-        Rot_dq = zeros(2,2);
-      end if;
+      Rot_dq = rot_dq(term.theta[1]);
       annotation (
         Documentation(
               info="<html>
@@ -659,12 +663,10 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     partial model Meter2Base "Meter 2 terminal base, 3-phase dq0"
       extends Sensor2Base(final signalTrsf=0);
+      extends Common.Nominal.Nominal;
 
       parameter Boolean abc=false "abc inertial"
         annotation(Evaluate=true,Dialog(group="Options"));
-      parameter Boolean phasor=false "phasor"
-        annotation(Evaluate=true,Dialog(group="Options"));
-      extends Common.Nominal.Nominal;
     protected
       Real[3,3] Park;
       Real[2,2] Rot_dq;
@@ -675,11 +677,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
       else
         Park = zeros(3,3);
       end if;
-      if phasor then
-        Rot_dq = rot_dq(term_p.theta[1]);
-      else
-        Rot_dq = zeros(2,2);
-      end if;
+      Rot_dq = rot_dq(term_p.theta[1]);
       annotation (
         Documentation(
               info="<html>
@@ -693,8 +691,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
   partial model PhasorBase "Phasor base, 3-phase dq0"
     extends Ports.Port_pn;
-    extends Common.Nominal.Nominal(
-                                  final puUnits=true);
+    extends Common.Nominal.Nominal(final puUnits=true);
 
     PS.Voltage[2] v_dq;
     PS.Current[2] i_dq;

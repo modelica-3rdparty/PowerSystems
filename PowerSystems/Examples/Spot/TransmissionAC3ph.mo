@@ -70,9 +70,9 @@ model VoltageStability "Voltage stability"
   PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=400e3, use_vPhasor_in=true)
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
 
-  PowerSystems.AC3ph.Sensors.Vmeter Vmeter(phasor=true, V_nom=400e3)
+  PowerSystems.AC3ph.Sensors.Vmeter Vmeter(V_nom=400e3)
       annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  PowerSystems.AC3ph.Sensors.PVImeter meter0(phasor=true, S_nom=100e6)
+  PowerSystems.AC3ph.Sensors.PVImeter meter0(S_nom=100e6)
       annotation (Placement(transformation(extent={{0,40},{20,60}})));
   PowerSystems.AC3ph.Lines.RXline line0(redeclare record Data =
     PowerSystems.AC3ph.Lines.Parameters.RXline (
@@ -83,7 +83,7 @@ model VoltageStability "Voltage stability"
   PowerSystems.AC3ph.Sources.InfBus Vsource1(V_nom=400e3, alpha0=
           0.087266462599716)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  PowerSystems.AC3ph.Sensors.PVImeter meter1(phasor=true, S_nom=100e6)
+  PowerSystems.AC3ph.Sensors.PVImeter meter1(S_nom=100e6)
       annotation (Placement(transformation(extent={{0,0},{20,20}})));
   PowerSystems.AC3ph.Lines.RXline line1(redeclare record Data =
     PowerSystems.AC3ph.Lines.Parameters.RXline (
@@ -93,7 +93,7 @@ model VoltageStability "Voltage stability"
             extent={{-40,0},{-20,20}})));
   PowerSystems.AC3ph.Sources.InfBus Vsource2(V_nom=400e3, alpha0=-0.087266462599716)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  PowerSystems.AC3ph.Sensors.PVImeter meter2(phasor=true, S_nom=100e6)
+  PowerSystems.AC3ph.Sensors.PVImeter meter2(S_nom=100e6)
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   PowerSystems.AC3ph.Lines.RXline line2(redeclare record Data =
     PowerSystems.AC3ph.Lines.Parameters.RXline (

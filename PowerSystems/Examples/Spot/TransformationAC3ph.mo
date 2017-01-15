@@ -10,7 +10,7 @@ package TransformationAC3ph "Transformation dq0"
 
     PowerSystems.AC3ph.Sources.Voltage voltage
       annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-    PowerSystems.AC3ph.Sensors.PVImeter meter1(phasor=true)
+    PowerSystems.AC3ph.Sensors.PVImeter meter1
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC3ph.Nodes.BusBar bus      annotation (Placement(transformation(
             extent={{-30,-10},{-10,10}})));
@@ -20,7 +20,7 @@ package TransformationAC3ph "Transformation dq0"
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Y,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
       annotation (Placement(transformation(extent={{0,50},{20,70}})));
-    PowerSystems.AC3ph.Sensors.PVImeter meter12( V_nom=10, phasor=true)
+    PowerSystems.AC3ph.Sensors.PVImeter meter12(V_nom=10)
       annotation (Placement(transformation(extent={{40,50},{60,70}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res12(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
@@ -32,7 +32,7 @@ package TransformationAC3ph "Transformation dq0"
         PowerSystems.AC3ph.Transformers.Parameters.TrafoStray(V_nom={1,10}))
       annotation (Placement(transformation(
             extent={{0,-10},{20,10}})));
-    PowerSystems.AC3ph.Sensors.PVImeter meter22(phasor=true, V_nom=10)
+    PowerSystems.AC3ph.Sensors.PVImeter meter22(V_nom=10)
       annotation (Placement(transformation(extent={{40,-10},{60,10}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res22(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
@@ -48,7 +48,7 @@ package TransformationAC3ph "Transformation dq0"
       tap_1=-2)
       annotation (Placement(transformation(
             extent={{0,-70},{20,-50}})));
-    PowerSystems.AC3ph.Sensors.PVImeter meter32(phasor=true, V_nom=10)
+    PowerSystems.AC3ph.Sensors.PVImeter meter32(V_nom=10)
       annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res32(V_nom=10, r=1000)
       annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
@@ -109,7 +109,7 @@ PAR-Y configuration:<br>
       annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
     PowerSystems.AC3ph.Sources.Voltage voltage
       annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-    PowerSystems.AC3ph.Sensors.PVImeter meter1(phasor=true)
+    PowerSystems.AC3ph.Sensors.PVImeter meter1
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC3ph.Nodes.BusBar bus      annotation (Placement(transformation(
             extent={{-30,-10},{-10,10}})));
@@ -121,7 +121,7 @@ PAR-Y configuration:<br>
       use_tap_1_in=true,
       use_tap_2_in=true)
       annotation (Placement(transformation(extent={{0,20},{20,40}})));
-    PowerSystems.AC3ph.Sensors.PVImeter meter12(V_nom=10, phasor=true)
+    PowerSystems.AC3ph.Sensors.PVImeter meter12(V_nom=10)
       annotation (Placement(transformation(extent={{40,20},{60,40}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res12(V_nom=10, r=1000)
       annotation (Placement(transformation(extent={{80,20},{100,40}})));
@@ -133,7 +133,7 @@ PAR-Y configuration:<br>
       use_tap_1_in=true,
       use_tap_2_in=true)
       annotation (Placement(transformation(extent={{0,-20},{20,-40}})));
-    PowerSystems.AC3ph.Sensors.PVImeter meter22(phasor=true, V_nom=10)
+    PowerSystems.AC3ph.Sensors.PVImeter meter22(V_nom=10)
       annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res22(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
@@ -215,18 +215,18 @@ if secondary side is changed at fixed source.</p>
 
     PowerSystems.AC3ph.Sources.Voltage voltage
       annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-    PowerSystems.AC3ph.Sensors.PVImeter meter1(phasor=true)
+    PowerSystems.AC3ph.Sensors.PVImeter meter1
       annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
     PowerSystems.AC3ph.Nodes.BusBar bus      annotation (Placement(transformation(
             extent={{-30,-10},{-10,10}})));
     PowerSystems.AC3ph.Transformers.Trafo3Stray trafo3Stray
       annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-    PowerSystems.AC3ph.Sensors.PVImeter meter12( V_nom=10, phasor=true)
+    PowerSystems.AC3ph.Sensors.PVImeter meter12(V_nom=10)
       annotation (Placement(transformation(extent={{40,20},{60,40}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res12(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
             extent={{80,20},{100,40}})));
-    PowerSystems.AC3ph.Sensors.PVImeter meter22(phasor=true, V_nom=10)
+    PowerSystems.AC3ph.Sensors.PVImeter meter22(V_nom=10)
       annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
     PowerSystems.AC3ph.ImpedancesYD.Resistor res22(V_nom=10, r=1000)
                                            annotation (Placement(transformation(
