@@ -1,5 +1,5 @@
-within PowerSystems.Examples.Spot;
-package DrivesDC "DC drives"
+within PowerSystems.Examples.AC1ph_DC;
+package Drives "DC drives"
   extends Modelica.Icons.ExamplesPackage;
 
   model DCmotor_ser "DC motor series excited"
@@ -23,7 +23,7 @@ package DrivesDC "DC drives"
       w_start=146.60765716752,
       redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCser (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.DCser1500V_1p5MVA))
+            PowerSystems.Examples.Data.Machines.DCser1500V_1p5MVA))
       annotation (Placement(transformation(extent={{20,-20},{40,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{20,0},{40,20}})));
@@ -62,7 +62,7 @@ package DrivesDC "DC drives"
   power.p
   tabLoad.vVehicle
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Drives\">up users guide</a></p>
 </html>
 "),    experiment(StopTime=60));
   end DCmotor_ser;
@@ -86,7 +86,7 @@ package DrivesDC "DC drives"
                                                                             J=6.4),
       redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCpar (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.DCpar1500V_1p5MVA))
+            PowerSystems.Examples.Data.Machines.DCpar1500V_1p5MVA))
       annotation (Placement(transformation(extent={{20,-20},{40,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
           transformation(extent={{20,0},{40,20}})));
@@ -127,7 +127,7 @@ package DrivesDC "DC drives"
   power.p
   tabLoad.vVehicle
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Drives\">up users guide</a></p>
 </html>"),
     experiment(StopTime=60));
   end DCmotor_par;
@@ -150,7 +150,7 @@ package DrivesDC "DC drives"
                                                                             J=0.02),
       redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCpm (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA))
+            PowerSystems.Examples.Data.Machines.DCpm100V_1kVA))
       annotation (Placement(transformation(extent={{10,-20},{30,0}})));
     PowerSystems.Mechanics.Rotational.Rotor loadInertia(J=0.03)
       annotation (Placement(transformation(extent={{40,-20},{60,0}})));
@@ -193,7 +193,7 @@ package DrivesDC "DC drives"
   efficiency.eta               efficiency
 </pre></p>
 <p>See also example DCcharSpeed.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Drives\">up users guide</a></p>
 </html>
 "),    experiment(StopTime=3));
   end DCmotor_pm;
@@ -219,7 +219,7 @@ package DrivesDC "DC drives"
       redeclare model Motor =
         PowerSystems.AC1ph_DC.Drives.Partials.Synchron3rd_bldc (
           redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA),
+            PowerSystems.Examples.Data.Machines.BLDC100V_1kVA),
       redeclare model Rotor = PowerSystems.Mechanics.Rotational.ElectricRotor (
                                                                             J=0.02),
       redeclare model Inverter = PowerSystems.AC3ph.Inverters.Inverter (
@@ -270,7 +270,7 @@ package DrivesDC "DC drives"
   efficiency.eta               efficiency including semiconductor losses
 </pre></p>
 <p>See also example BLDCcharSpeed.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Drives\">up users guide</a></p>
 </html>
 "),    experiment(
         StopTime=3,
@@ -295,7 +295,7 @@ package DrivesDC "DC drives"
                                                                             J=0.02),
       redeclare model Motor = PowerSystems.AC1ph_DC.Machines.DCpm (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.DCpm100V_1kVA))
+            PowerSystems.Examples.Data.Machines.DCpm100V_1kVA))
       annotation (Placement(transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
       s_start=0, s_end=160)
@@ -328,7 +328,7 @@ package DrivesDC "DC drives"
   machine.motor.tau_el     torque (el)
 </pre>
 (right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Drives\">up users guide</a></p>
 </html>"),
     experiment(StopTime=1, Tolerance=1e-005));
   end DCcharSpeed;
@@ -351,10 +351,10 @@ package DrivesDC "DC drives"
       redeclare model Motor =
           PowerSystems.AC1ph_DC.Drives.Partials.Synchron3rd_bldc (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.BLDC100V_1kVA),
+            PowerSystems.Examples.Data.Machines.BLDC100V_1kVA),
       redeclare model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage (
         final modulation=3, redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
+        PowerSystems.Examples.Data.Semiconductors.IdealSC100V_10A)
         "inverter time-average")
       annotation (Placement(transformation(extent={{0,-20},{20,0}})));
     PowerSystems.Blocks.Signals.Transient speedSignal(
@@ -389,7 +389,7 @@ package DrivesDC "DC drives"
   machine.motor.tau_el     torque (el)
 </pre>
 (right click dcm_pm.motor.w_el and choose Independent variable: w_el).</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesDC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Drives\">up users guide</a></p>
 </html>"),
     experiment(StopTime=1, Tolerance=1e-005));
   end BLDCcharSpeed;
@@ -397,6 +397,6 @@ package DrivesDC "DC drives"
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>DC drives (motors electrical and mechanical).</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples\">up users guide</a></p>
 </html>"));
-end DrivesDC;
+end Drives;

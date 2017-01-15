@@ -1,5 +1,5 @@
-within PowerSystems.Examples.Spot;
-package DrivesAC3ph "AC drives, dq0"
+within PowerSystems.Examples.AC3ph;
+package Drives "AC drives, dq0"
   extends Modelica.Icons.ExamplesPackage;
 
   model ASMcharacteristic
@@ -17,7 +17,7 @@ package DrivesAC3ph "AC drives, dq0"
                                                                             J=0.3),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA))
+            PowerSystems.Examples.Data.Machines.Asynchron400V_30kVA))
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
                                           annotation (Placement(transformation(
@@ -59,7 +59,7 @@ package DrivesAC3ph "AC drives, dq0"
 </pre></p>
 <p>Plot torque vs slip:<br>
 plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent variable': 'asm.motor.slip'.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Drives\">up users guide</a></p>
 </html>"));
   end ASMcharacteristic;
 
@@ -79,7 +79,7 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
                                                                             J=0.3),
       redeclare model Motor = PowerSystems.AC3ph.Machines.AsynchronY_D (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA),
+            PowerSystems.Examples.Data.Machines.Asynchron400V_30kVA),
       w_start=4.1887902047864)
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=2) annotation (Placement(
@@ -119,7 +119,7 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
   frictTorq.w
 </pre>
 Compare 'transient' and 'steady-state' mode.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Drives\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=3));
   end ASM_Y_D;
@@ -136,7 +136,7 @@ Compare 'transient' and 'steady-state' mode.</p>
     PowerSystems.AC3ph.Inverters.Select select
       annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
     PowerSystems.AC3ph.Inverters.InverterAverage inverter(redeclare record Data =
-      PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A)
+      PowerSystems.Examples.Data.Semiconductors.IdealSC3kV_500A)
       annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
     PowerSystems.AC3ph.Sensors.PVImeter power(av=true,
       tcst=0.05)
@@ -146,7 +146,7 @@ Compare 'transient' and 'steady-state' mode.</p>
                                                                             J=6.4),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA),
+            PowerSystems.Examples.Data.Machines.Asynchron3kV_1p5MVA),
       w_start=157.07963267949)
       annotation (Placement(transformation(extent={{30,-20},{50,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond1(m=2)
@@ -199,7 +199,7 @@ The model uses a time-average inverter. With the actual parameter values the 'in
   tabLoad.vVehicle
 </pre>
 Compare 'transient' and 'steady-state' mode.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Drives\">up users guide</a></p>
 </html>
 "),      experiment(
         StopTime=60,
@@ -221,10 +221,10 @@ Compare 'transient' and 'steady-state' mode.</p>
                                                                             J=0.3),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron_ctrl (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA),
+            PowerSystems.Examples.Data.Machines.Asynchron3kV_1p5MVA),
       redeclare model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC3kV_500A),
+          PowerSystems.Examples.Data.Semiconductors.IdealSC3kV_500A),
       w_start=157.07963267949)
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
@@ -289,7 +289,7 @@ The model uses a time-average inverter. For comparison with the previous example
   tabLoad.vVehicle
 </pre>
 Compare 'transient' and 'steady-state' mode.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Drives\">up users guide</a></p>
 </html>
 "),      experiment(
         StopTime=60,
@@ -320,7 +320,7 @@ Compare 'transient' and 'steady-state' mode.</p>
                                                                             J=6.4),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron (
         redeclare record Data =
-            PowerSystems.Examples.Spot.Data.Machines.Asynchron3kV_1p5MVA),
+            PowerSystems.Examples.Data.Machines.Asynchron3kV_1p5MVA),
       w_start=157.07963267949)
       annotation (Placement(transformation(extent={{30,-20},{50,0}})));
     PowerSystems.Common.Thermal.BdCondV bdCond1(m=2)
@@ -372,7 +372,7 @@ The machine defines the reference-system independent of the system choice (as ne
   time_av.y         time-average pu stator currents
   asm.motor.tau_el  electric torque
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Drives\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1, Tolerance=1e-005));
   end ASM;
@@ -392,10 +392,10 @@ The machine defines the reference-system independent of the system choice (as ne
                                                                             J=0.3),
       redeclare model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A),
+          PowerSystems.Examples.Data.Semiconductors.IdealSC1kV_100A),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA))
+          PowerSystems.Examples.Data.Machines.Synchron3rd_pm400V_30kVA))
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
@@ -461,7 +461,7 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
   sm_ctrl.motor.w_el
   loadInertia.w
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Drives\">up users guide</a></p>
 </html>"),
     experiment(StopTime=10));
   end SM_ctrlAv;
@@ -484,7 +484,7 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
             "switch, no diode, no losses") "inverter with modulator",
       redeclare model Motor = PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm400V_30kVA(r_n=0)))
+          PowerSystems.Examples.Data.Machines.Synchron3rd_pm400V_30kVA(r_n=0)))
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=5) annotation (Placement(
           transformation(extent={{0,-20},{20,0}})));
@@ -550,7 +550,7 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
   sm_ctrl.motor.w_el
   loadInertia.w
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Drives\">up users guide</a></p>
 </html>"),
     experiment(
         StopTime=3,
@@ -571,10 +571,10 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
       rotor(J=0.3),
       redeclare model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A),
+          PowerSystems.Examples.Data.Semiconductors.IdealSC1kV_100A),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron_ctrl (
             redeclare record Data =
-              PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA,
+              PowerSystems.Examples.Data.Machines.Asynchron400V_30kVA,
             i_start={10,10,0}))
       annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
     PowerSystems.Common.Thermal.BdCondV bdCond(m=3) annotation (Placement(
@@ -644,7 +644,7 @@ On-load steady-state start with torque-increase at 3 s, load-step 6 s and field-
   asm_ctrl.motor.slip
 </pre></p>
 Check vPhasor[1] &lt;  1.<br>The time-average inverter produces a desired voltage proportional to vPhasor[1] even if vPhasor[1] &gt;  1. For a time-resolved converter this corresponds to overmodulation.
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Drives\">up users guide</a></p>
 </html>"),
     experiment(
         StopTime=10,
@@ -665,7 +665,7 @@ Check vPhasor[1] &lt;  1.<br>The time-average inverter produces a desired voltag
                                                                             J=0.3),
       redeclare model Motor = PowerSystems.AC3ph.Machines.Asynchron_ctrl (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA(r_n=0)),
+          PowerSystems.Examples.Data.Machines.Asynchron400V_30kVA(r_n=0)),
       redeclare model Inverter = PowerSystems.AC3ph.Inverters.Inverter (
         redeclare model Inverter =
           PowerSystems.AC3ph.Inverters.Components.InverterSwitch
@@ -736,7 +736,7 @@ Transient start with torque-increase at 0.5 s, load-step 2 s and field-increase 
   asm_ctrl.motor.vPhasor
   asm_ctrl.motor.slip
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.DrivesAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Drives\">up users guide</a></p>
 </html>"),
     experiment(
         StopTime=3,
@@ -746,7 +746,7 @@ Transient start with torque-increase at 0.5 s, load-step 2 s and field-increase 
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>AC drives (motors electrical and mechanical). Electric motor terminal in dq0-representation.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples\">up users guide</a></p>
 </html>
 "));
-end DrivesAC3ph;
+end Drives;

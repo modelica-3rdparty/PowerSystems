@@ -1,4 +1,4 @@
-within PowerSystems.Examples.PowerFlow;
+within PowerSystems.Examples.Generic;
 package Network "Text book example and variants of it"
   extends Modelica.Icons.ExamplesPackage;
 

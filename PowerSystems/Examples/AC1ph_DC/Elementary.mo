@@ -1,5 +1,5 @@
-within PowerSystems.Examples.Spot;
-package AC1ph_DC "AC 1-phase and DC components"
+within PowerSystems.Examples.AC1ph_DC;
+package Elementary "AC 1-phase and DC components"
   extends Modelica.Icons.ExamplesPackage;
 
   model Breaker "Breaker"
@@ -52,7 +52,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=1e-4));
   end Breaker;
@@ -120,7 +120,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=0.2, Interval=1e-4));
   end Fault;
@@ -159,7 +159,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=2.7e-4));
   end Impedance;
@@ -192,7 +192,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=2.7e-4));
   end ImpedanceOneTerm;
@@ -240,7 +240,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=1e-4));
   end Line;
@@ -253,7 +253,7 @@ package AC1ph_DC "AC 1-phase and DC components"
     PowerSystems.AC1ph_DC.Sources.ACvoltage voltage1(V_nom=20e3, alpha0=0.5235987755983)
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC1ph_DC.Transformers.TrafoStray trafo(redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Transformers.TrafoStray1ph (
+          PowerSystems.Examples.Data.Transformers.TrafoStray1ph (
           V_nom={20e3,132e3},
           S_nom=100e6,
           f_nom=50))
@@ -368,7 +368,7 @@ Compare with DoublePIline.</p>
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1, Interval=1e-4));
   end LoadAC;
@@ -408,7 +408,7 @@ Compare with DoublePIline.</p>
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1, Interval=2.7e-4));
   end LoadDC;
@@ -463,7 +463,7 @@ Compare with DoublePIline.</p>
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=1));
   end Machines;
@@ -497,7 +497,7 @@ Compare with DoublePIline.</p>
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=0.2, Interval=2.7e-4));
   end Sensor;
@@ -526,7 +526,7 @@ Compare with DoublePIline.</p>
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=0.2, Interval=2.7e-4));
   end Source;
@@ -591,7 +591,7 @@ Compare with DoublePIline.</p>
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=3, Interval=4e-4));
   end Transformer;
@@ -644,7 +644,7 @@ Compare with DoublePIline.</p>
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=0.2, Interval=0.2e-3));
   end Rectifier;
@@ -705,7 +705,7 @@ Compare with DoublePIline.</p>
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Elementary\">up users guide</a></p>
 </html>
 "),   experiment(StopTime=0.2, Interval=0.2e-3));
   end Inverter;
@@ -714,6 +714,6 @@ Compare with DoublePIline.</p>
 Documentation(info="<html>
 <p>This package contains small models for testing single components from AC1ph_DC.
 The replaceable component can be replaced by a user defined component of similar type.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples\">up users guide</a></p>
 </html>"));
-end AC1ph_DC;
+end Elementary;

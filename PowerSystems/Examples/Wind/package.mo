@@ -5,32 +5,32 @@ package Wind "Different wind turbine concepts"
   model WindTurbine_IG
   "Wind turbine with Induction Generator (asynchronous) -- fixed speed"
     extends Modelica.Icons.Example;
-    AC3ph.Machines.Asynchron generator(redeclare record Data =
-        Spot.Data.Machines.Asynchron400V_30kVA (
+    PowerSystems.AC3ph.Machines.Asynchron generator(redeclare record Data =
+        Data.Machines.Asynchron400V_30kVA (
         V_nom=690,
         S_nom=3e6,
         pp=4))
       annotation (Placement(transformation(extent={{-50,-50},{-70,-30}})));
-    Common.Thermal.BdCondV bdCond(m=2)
+    PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
         annotation (Placement(transformation(extent={{-70,-24},{-50,-4}},rotation=
                0)));
     inner System system annotation (Placement(transformation(extent={{-100,80},
               {-80,100}},  rotation=0)));
-    AC3ph.Nodes.BusBar busbar        annotation (Placement(
+    PowerSystems.AC3ph.Nodes.BusBar busbar        annotation (Placement(
             transformation(extent={{-70,-90},{-50,-70}},
                                                       rotation=0)));
-    AC3ph.Sensors.PVImeter meter(
+    PowerSystems.AC3ph.Sensors.PVImeter meter(
       V_nom(displayUnit="kV") = 1000,
       S_nom(displayUnit="MVA") = 1000000) annotation (Placement(
           transformation(extent={{-50,-90},{-30,-70}}, rotation=0)));
-    AC3ph.Lines.PIline line(len=1000, redeclare record Data =
-        AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
+    PowerSystems.AC3ph.Lines.PIline line(len=1000, redeclare record Data =
+        PowerSystems.AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
       annotation (Placement(transformation(extent={{20,-90},{40,-70}},
                                                                     rotation=0)));
-    AC3ph.Sources.InfBus infBus(V_nom=15e3)
+    PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=15e3)
       annotation (Placement(transformation(extent={{80,-90},{60,-70}},
                                                                     rotation=0)));
-    AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
+    PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
               extent={{80,-90},{100,-70}},
                                         rotation=0)));
     Modelica.Blocks.Sources.Ramp windSpeed(
@@ -47,8 +47,8 @@ package Wind "Different wind turbine concepts"
     Modelica.Mechanics.Rotational.Components.IdealGear gear(ratio=generator.par.pp
           /200)
       annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-    AC3ph.Transformers.TrafoIdeal trafo(redeclare record Data =
-        AC3ph.Transformers.Parameters.TrafoIdeal (V_nom={690,15e3}, S_nom=3e6))
+    PowerSystems.AC3ph.Transformers.TrafoIdeal trafo(redeclare record Data =
+        PowerSystems.AC3ph.Transformers.Parameters.TrafoIdeal (V_nom={690,15e3}, S_nom=3e6))
       annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   equation
     connect(generator.heat,bdCond. heat) annotation (Line(
@@ -96,32 +96,32 @@ package Wind "Different wind turbine concepts"
   model WindTurbine_DFIG
   "Wind turbine with Doubly Fed Induction Generator (asynchronous) -- variable speed"
      extends Modelica.Icons.Example;
-  AC3ph.Machines.Asynchron_dfig generator(redeclare record Data =
-        Spot.Data.Machines.Asynchron400V_30kVA (
+  PowerSystems.AC3ph.Machines.Asynchron_dfig generator(redeclare record Data =
+        Data.Machines.Asynchron400V_30kVA (
         V_nom=690,
         S_nom=3e6,
         pp=4))
     annotation (Placement(transformation(extent={{-50,-50},{-70,-30}})));
-    Common.Thermal.BdCondV bdCond(m=2)
+    PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
         annotation (Placement(transformation(extent={{-70,-18},{-50,2}}, rotation=
                0)));
     inner System system annotation (Placement(transformation(extent={{-100,80},
               {-80,100}},  rotation=0)));
-    AC3ph.Nodes.BusBar busbar        annotation (Placement(
+    PowerSystems.AC3ph.Nodes.BusBar busbar        annotation (Placement(
             transformation(extent={{-70,-90},{-50,-70}},
                                                       rotation=0)));
-    AC3ph.Sensors.PVImeter meter(
+    PowerSystems.AC3ph.Sensors.PVImeter meter(
       V_nom(displayUnit="kV") = 1000,
       S_nom(displayUnit="MVA") = 1000000) annotation (Placement(
           transformation(extent={{-50,-90},{-30,-70}}, rotation=0)));
-    AC3ph.Lines.PIline line(len=1000, redeclare record Data =
-        AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
+    PowerSystems.AC3ph.Lines.PIline line(len=1000, redeclare record Data =
+        PowerSystems.AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
       annotation (Placement(transformation(extent={{20,-90},{40,-70}},
                                                                     rotation=0)));
-    AC3ph.Sources.InfBus infBus(V_nom=15e3)
+    PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=15e3)
       annotation (Placement(transformation(extent={{80,-90},{60,-70}},
                                                                     rotation=0)));
-    AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
+    PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
               extent={{80,-90},{100,-70}},
                                         rotation=0)));
     Modelica.Blocks.Sources.Ramp windSpeed(
@@ -137,26 +137,26 @@ package Wind "Different wind turbine concepts"
     Modelica.Mechanics.Rotational.Components.IdealGear gear(ratio=generator.par.pp
         /200)
       annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-    AC3ph.Inverters.InverterAverage inverter1
+    PowerSystems.AC3ph.Inverters.InverterAverage inverter1
       annotation (Placement(transformation(extent={{-10,-44},{-30,-24}})));
-    Common.Thermal.BdCondV bdCond1(m=1)
+    PowerSystems.Common.Thermal.BdCondV bdCond1(m=1)
       annotation (Placement(transformation(extent={{-30,-18},{-10,2}}, rotation=
                0)));
-    AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1)
+    PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1)
       annotation (Placement(transformation(extent={{0,-44},{20,-24}},
                                                                     rotation=0)));
-    AC3ph.Inverters.InverterAverage inverter2
+    PowerSystems.AC3ph.Inverters.InverterAverage inverter2
       annotation (Placement(transformation(extent={{30,-44},{50,-24}})));
-    AC3ph.Inverters.Select select2
+    PowerSystems.AC3ph.Inverters.Select select2
       annotation (Placement(transformation(extent={{30,-2},{50,18}})));
-    Common.Thermal.BdCondV bdCond2(m=1)
+    PowerSystems.Common.Thermal.BdCondV bdCond2(m=1)
       annotation (Placement(transformation(extent={{30,-18},{50,2}},   rotation=
                0)));
     Modelica.Blocks.Sources.RealExpression vPhasor_set[2](y={0.5 - min(
         windSpeed.y, 15)/20,0.25*windSpeed.y/15})
       annotation (Placement(transformation(extent={{-10,-4},{-30,16}})));
-    AC3ph.Transformers.TrafoIdeal trafo(redeclare record Data =
-        AC3ph.Transformers.Parameters.TrafoIdeal (V_nom={690,15e3}, S_nom=3e6))
+    PowerSystems.AC3ph.Transformers.TrafoIdeal trafo(redeclare record Data =
+        PowerSystems.AC3ph.Transformers.Parameters.TrafoIdeal (V_nom={690,15e3}, S_nom=3e6))
       annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   equation
     connect(generator.heat,bdCond. heat) annotation (Line(
@@ -259,52 +259,52 @@ package Wind "Different wind turbine concepts"
     Modelica.Mechanics.Rotational.Components.IdealGear gear(ratio=generator.par.pp
         /200)
       annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-    AC3ph.Machines.Synchron_pm generator(redeclare record Data =
-        Spot.Data.Machines.Synchron_pm400V_30kVA (
+    PowerSystems.AC3ph.Machines.Synchron_pm generator(redeclare record Data =
+        Data.Machines.Synchron_pm400V_30kVA (
         V_nom=690,
         S_nom=3e6,
         pp=4))
       annotation (Placement(transformation(extent={{-50,-50},{-70,-30}})));
-    Common.Thermal.BdCondV bdCond(m=2)
+    PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
         annotation (Placement(transformation(extent={{-70,-24},{-50,-4}},rotation=
                0)));
-    AC3ph.Inverters.RectifierAverage rectifier1(redeclare record Data =
+    PowerSystems.AC3ph.Inverters.RectifierAverage rectifier1(redeclare record Data =
           Semiconductors.Ideal.SCparameter)
       annotation (Placement(transformation(extent={{-12,-50},{-32,-30}})));
-    Common.Thermal.BdCondV bdCond1(m=1)
+    PowerSystems.Common.Thermal.BdCondV bdCond1(m=1)
       annotation (Placement(transformation(extent={{-32,-24},{-12,-4}},rotation=
                0)));
-    AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1)
+    PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1)
       annotation (Placement(transformation(extent={{0,-50},{20,-30}},
                                                                     rotation=0)));
-    AC3ph.Inverters.InverterAverage inverter2
+    PowerSystems.AC3ph.Inverters.InverterAverage inverter2
       annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-    AC3ph.Inverters.Select select2
+    PowerSystems.AC3ph.Inverters.Select select2
       annotation (Placement(transformation(extent={{30,-8},{50,12}})));
-    Common.Thermal.BdCondV bdCond2(m=1)
+    PowerSystems.Common.Thermal.BdCondV bdCond2(m=1)
       annotation (Placement(transformation(extent={{30,-24},{50,-4}},  rotation=
                0)));
-    AC3ph.Sensors.PVImeter meter(
+    PowerSystems.AC3ph.Sensors.PVImeter meter(
       V_nom(displayUnit="kV") = 1000,
       S_nom(displayUnit="MVA") = 1000000) annotation (Placement(
           transformation(extent={{-50,-90},{-30,-70}}, rotation=0)));
-    AC3ph.Lines.PIline line(len=1000, redeclare record Data =
-          AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
+    PowerSystems.AC3ph.Lines.PIline line(len=1000, redeclare record Data =
+          PowerSystems.AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
       annotation (Placement(transformation(extent={{20,-90},{40,-70}},
                                                                     rotation=0)));
-    AC3ph.Sources.InfBus infBus(V_nom=15e3)
+    PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=15e3)
       annotation (Placement(transformation(extent={{80,-90},{60,-70}},
                                                                     rotation=0)));
-    AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
+    PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
               extent={{80,-90},{100,-70}},
                                         rotation=0)));
-    AC3ph.Nodes.BusBar busbar        annotation (Placement(
+    PowerSystems.AC3ph.Nodes.BusBar busbar        annotation (Placement(
             transformation(extent={{-70,-90},{-50,-70}},
                                                       rotation=0)));
-    AC3ph.Transformers.TrafoIdeal trafo(redeclare record Data =
-        AC3ph.Transformers.Parameters.TrafoIdeal(V_nom={690,15e3}, S_nom=3e6))
+    PowerSystems.AC3ph.Transformers.TrafoIdeal trafo(redeclare record Data =
+        PowerSystems.AC3ph.Transformers.Parameters.TrafoIdeal(V_nom={690,15e3}, S_nom=3e6))
       annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-    AC3ph.Nodes.DefReference reference
+    PowerSystems.AC3ph.Nodes.DefReference reference
       annotation (Placement(transformation(extent={{-54,-50},{-34,-30}})));
   equation
     connect(windSpeed.y, rotor.v) annotation (Line(
@@ -407,47 +407,47 @@ package Wind "Different wind turbine concepts"
     Modelica.Mechanics.Rotational.Components.IdealGear gear(ratio=generator.par.pp
         /200)
       annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-    AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1)
+    PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1)
       annotation (Placement(transformation(extent={{0,-50},{20,-30}},
                                                                   rotation=0)));
-    AC3ph.Machines.Synchron_pm_ctrl generator(redeclare record Data =
-        Spot.Data.Machines.Synchron_pm400V_30kVA (
+    PowerSystems.AC3ph.Machines.Synchron_pm_ctrl generator(redeclare record Data =
+        Data.Machines.Synchron_pm400V_30kVA (
         V_nom=690,
         S_nom=3e6,
         pp=4))
       annotation (Placement(transformation(extent={{-50,-50},{-70,-30}})));
-    Common.Thermal.BdCondV bdCond(m=2)
+    PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
       annotation (Placement(transformation(extent={{-70,-24},{-50,-4}},rotation=
              0)));
-    AC3ph.Inverters.InverterAverage inverter1
+    PowerSystems.AC3ph.Inverters.InverterAverage inverter1
       annotation (Placement(transformation(extent={{-12,-50},{-32,-30}})));
-    Common.Thermal.BdCondV bdCond1(m=1)
+    PowerSystems.Common.Thermal.BdCondV bdCond1(m=1)
       annotation (Placement(transformation(extent={{-32,-24},{-12,-4}},rotation=
              0)));
-    AC3ph.Inverters.InverterAverage inverter2
+    PowerSystems.AC3ph.Inverters.InverterAverage inverter2
       annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-    AC3ph.Inverters.Select select2
+    PowerSystems.AC3ph.Inverters.Select select2
       annotation (Placement(transformation(extent={{30,-8},{50,12}})));
-    Common.Thermal.BdCondV bdCond2(m=1)
+    PowerSystems.Common.Thermal.BdCondV bdCond2(m=1)
       annotation (Placement(transformation(extent={{30,-24},{50,-4}},  rotation=
              0)));
-    AC3ph.Sensors.PVImeter meter(
+    PowerSystems.AC3ph.Sensors.PVImeter meter(
       V_nom(displayUnit="kV") = 1000,
       S_nom(displayUnit="MVA") = 1000000) annotation (Placement(transformation(
         extent={{-50,-90},{-30,-70}}, rotation=0)));
-    AC3ph.Lines.PIline line(len=1000, redeclare record Data =
-        AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
+    PowerSystems.AC3ph.Lines.PIline line(len=1000, redeclare record Data =
+        PowerSystems.AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
       annotation (Placement(transformation(extent={{20,-90},{40,-70}},
                                                                   rotation=0)));
-    AC3ph.Sources.InfBus infBus(V_nom=15e3)
+    PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=15e3)
       annotation (Placement(transformation(extent={{80,-90},{60,-70}},
                                                                   rotation=0)));
-    AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
+    PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
             extent={{80,-90},{100,-70}}, rotation=0)));
-    AC3ph.Nodes.BusBar busbar  annotation (Placement(
+    PowerSystems.AC3ph.Nodes.BusBar busbar  annotation (Placement(
           transformation(extent={{-70,-90},{-50,-70}}, rotation=0)));
-    AC3ph.Transformers.TrafoIdeal trafo(redeclare record Data =
-        AC3ph.Transformers.Parameters.TrafoIdeal(V_nom={690,15e3}, S_nom=3e6))
+    PowerSystems.AC3ph.Transformers.TrafoIdeal trafo(redeclare record Data =
+        PowerSystems.AC3ph.Transformers.Parameters.TrafoIdeal(V_nom={690,15e3}, S_nom=3e6))
       annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
     Modelica.Blocks.Continuous.PI PI(T=0.5, initType=Modelica.Blocks.Types.Init.SteadyState)
       annotation (Placement(transformation(extent={{-44,-6},{-56,6}})));
@@ -548,15 +548,15 @@ package Wind "Different wind turbine concepts"
     extends Modelica.Icons.Example;
     inner System system annotation (Placement(transformation(extent={{-100,80},
               {-80,100}},  rotation=0)));
-    AC3ph.Lines.PIline line(len=500, redeclare record Data =
-        AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=15e6))
+    PowerSystems.AC3ph.Lines.PIline line(len=500, redeclare record Data =
+        PowerSystems.AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=15e6))
       annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                                                                     rotation=-90,
           origin={60,-40})));
-    AC3ph.Sources.InfBus infBus(V_nom=15e3)
+    PowerSystems.AC3ph.Sources.InfBus infBus(V_nom=15e3)
       annotation (Placement(transformation(extent={{80,-80},{60,-60}},
                                                                     rotation=0)));
-    AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
+    PowerSystems.AC3ph.Nodes.GroundOne grd annotation (Placement(transformation(
               extent={{80,-80},{100,-60}},
                                         rotation=0)));
     Modelica.Blocks.Sources.Ramp windSpeed(
@@ -571,44 +571,44 @@ package Wind "Different wind turbine concepts"
       annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
     Components.WindTurbine wt3
       annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-    AC3ph.Sensors.PVImeter meter(
+    PowerSystems.AC3ph.Sensors.PVImeter meter(
       V_nom(displayUnit="kV") = 1000,
       S_nom(displayUnit="MVA") = 1000000) annotation (Placement(
           transformation(extent={{30,-20},{50,0}}, rotation=0)));
-    AC3ph.Nodes.BusBar busbar annotation (Placement(
+    PowerSystems.AC3ph.Nodes.BusBar busbar annotation (Placement(
             transformation(extent={{10,-20},{30,0}},  rotation=0)));
-    AC3ph.Lines.PIline line1(
+    PowerSystems.AC3ph.Lines.PIline line1(
     ne=1,
     len=100,
-    redeclare record Data = AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
+    redeclare record Data = PowerSystems.AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
       annotation (Placement(transformation(extent={{-6,-6},{6,6}},  rotation=0,
           origin={-10,70})));
-    AC3ph.Lines.PIline line2(
+    PowerSystems.AC3ph.Lines.PIline line2(
     ne=1,
     len=100,
-    redeclare record Data = AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
+    redeclare record Data = PowerSystems.AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
       annotation (Placement(transformation(extent={{-6,-6},{6,6}},  rotation=0,
           origin={-10,30})));
-    AC3ph.Lines.PIline line3(
+    PowerSystems.AC3ph.Lines.PIline line3(
     ne=1,
     len=100,
-    redeclare record Data = AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
+    redeclare record Data = PowerSystems.AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
       annotation (Placement(transformation(extent={{-6,-6},{6,6}},  rotation=0,
           origin={-10,-10})));
     Components.WindTurbine wt4
       annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-    AC3ph.Lines.PIline line4(
+    PowerSystems.AC3ph.Lines.PIline line4(
     ne=1,
     len=100,
-    redeclare record Data = AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
+    redeclare record Data = PowerSystems.AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
       annotation (Placement(transformation(extent={{-6,-6},{6,6}},  rotation=0,
           origin={-10,-50})));
     Components.WindTurbine wt5
       annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-    AC3ph.Lines.PIline line5(
+    PowerSystems.AC3ph.Lines.PIline line5(
     ne=1,
     len=100,
-    redeclare record Data = AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
+    redeclare record Data = PowerSystems.AC3ph.Lines.Parameters.Line (V_nom=15e3, S_nom=3e6))
       annotation (Placement(transformation(extent={{-6,-6},{6,6}},  rotation=0,
           origin={-10,-90})));
   equation
@@ -741,19 +741,19 @@ package Wind "Different wind turbine concepts"
 
       Modelica.Blocks.Interfaces.RealInput windSpeed
         annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-    AC3ph.Machines.Asynchron_dfig generator(redeclare record Data =
-          Spot.Data.Machines.Asynchron400V_30kVA (
+    PowerSystems.AC3ph.Machines.Asynchron_dfig generator(redeclare record Data =
+          Data.Machines.Asynchron400V_30kVA (
           V_nom=690,
           S_nom=3e6,
           pp=4))
       annotation (Placement(transformation(extent={{-50,-50},{-70,-30}})));
-      Common.Thermal.BdCondV bdCond(m=2)
+      PowerSystems.Common.Thermal.BdCondV bdCond(m=2)
           annotation (Placement(transformation(extent={{-70,-18},{-50,2}}, rotation=
                  0)));
-      AC3ph.Nodes.BusBar busbar
+      PowerSystems.AC3ph.Nodes.BusBar busbar
         annotation (Placement(
               transformation(extent={{-80,-90},{-60,-70}}, rotation=0)));
-      AC3ph.Sensors.Psensor sensor
+      PowerSystems.AC3ph.Sensors.Psensor sensor
         annotation (Placement(transformation(extent={{-60,-90},{-40,-70}},
                                                                        rotation=0)));
       Rotor rotor(R=40)
@@ -763,25 +763,25 @@ package Wind "Different wind turbine concepts"
       Modelica.Mechanics.Rotational.Components.IdealGear gear(ratio=generator.par.pp
           /200)
         annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-      AC3ph.Inverters.InverterAverage inverter1
+      PowerSystems.AC3ph.Inverters.InverterAverage inverter1
         annotation (Placement(transformation(extent={{-10,-44},{-30,-24}})));
-      Common.Thermal.BdCondV bdCond1(m=1)
+      PowerSystems.Common.Thermal.BdCondV bdCond1(m=1)
           annotation (Placement(transformation(extent={{-30,-18},{-10,2}}, rotation=
                  0)));
-      AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1)
+      PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1)
         annotation (Placement(transformation(extent={{0,-44},{20,-24}},
                                                                       rotation=0)));
-      AC3ph.Inverters.InverterAverage inverter2
+      PowerSystems.AC3ph.Inverters.InverterAverage inverter2
         annotation (Placement(transformation(extent={{30,-44},{50,-24}})));
-      AC3ph.Inverters.Select select2
+      PowerSystems.AC3ph.Inverters.Select select2
         annotation (Placement(transformation(extent={{30,-2},{50,18}})));
-      Common.Thermal.BdCondV bdCond2(m=1)
+      PowerSystems.Common.Thermal.BdCondV bdCond2(m=1)
           annotation (Placement(transformation(extent={{30,-18},{50,2}},   rotation=
                  0)));
-      AC3ph.Transformers.TrafoIdeal trafo(redeclare record Data =
-          AC3ph.Transformers.Parameters.TrafoIdeal(V_nom={690,15e3}, S_nom=3e6))
+      PowerSystems.AC3ph.Transformers.TrafoIdeal trafo(redeclare record Data =
+          PowerSystems.AC3ph.Transformers.Parameters.TrafoIdeal(V_nom={690,15e3}, S_nom=3e6))
         annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
-      AC3ph.Ports.ACdq0_p term
+      PowerSystems.AC3ph.Ports.ACdq0_p term
         annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
       Modelica.Blocks.Sources.RealExpression vPhasor_set[2](y={0.5 - min(
           windSpeed, 15)/20,0.25*windSpeed/15})

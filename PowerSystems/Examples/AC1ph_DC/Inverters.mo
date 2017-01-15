@@ -1,5 +1,5 @@
-within PowerSystems.Examples.Spot;
-package InvertersAC1ph_DC "Inverters 1 phase and DC"
+within PowerSystems.Examples.AC1ph_DC;
+package Inverters "Inverters 1 phase and DC"
   extends Modelica.Icons.ExamplesPackage;
 
   model Rectifier "Rectifier"
@@ -28,7 +28,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
         Rectifier =
           PowerSystems.AC1ph_DC.Inverters.Components.RectifierEquation (
           redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A))
+          PowerSystems.Examples.Data.Semiconductors.IdealSC100V_10A))
       annotation (Placement(transformation(extent={{30,0},{10,20}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDC(av=true, tcst=0.1,
       V_nom=100,
@@ -66,7 +66,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       Documentation(
               info="<html>
 <p>1-phase rectifier. Compare 'equation' and 'modular' version.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.InvertersAC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Inverters\">up users guide</a></p>
 </html>
 "),   experiment(
         StopTime=0.2,
@@ -87,7 +87,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
     PowerSystems.AC1ph_DC.Inverters.Inverter inverter(redeclare model Inverter =
         PowerSystems.AC1ph_DC.Inverters.Components.InverterEquation(redeclare
             record Data =
-            PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
+            PowerSystems.Examples.Data.Semiconductors.IdealSC100V_10A)
         "equation, with losses")
       annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     PowerSystems.AC1ph_DC.Inverters.Select select(
@@ -138,7 +138,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       Documentation(
               info="<html>
 <p>1-phase inverter, feeding load at constant 100Hz with increasing amplitude.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.InvertersAC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Inverters\">up users guide</a></p>
 </html>
 "),   experiment(
         StopTime=0.2,
@@ -161,7 +161,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
     PowerSystems.AC1ph_DC.Inverters.Inverter inverter(redeclare model Inverter =
         PowerSystems.AC1ph_DC.Inverters.Components.InverterEquation (
           redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
+          PowerSystems.Examples.Data.Semiconductors.IdealSC100V_10A)
         "equation, with losses")
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC1ph_DC.Inverters.Select select(use_vPhasor_in=true)
@@ -214,7 +214,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       Documentation(
               info="<html>
 <p>3-phase inverter, feeding into grid with increasing phase. Compare 'switch', 'equation' and 'modular' version.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.InvertersAC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Inverters\">up users guide</a></p>
 </html>"),
       experiment(
         StopTime=0.2,
@@ -235,7 +235,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       S_nom=1e3)
       annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC1ph_DC.Inverters.InverterAverage inverter(redeclare record
-        Data=PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A)
+        Data=PowerSystems.Examples.Data.Semiconductors.IdealSC100V_10A)
       annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
     PowerSystems.AC1ph_DC.Inverters.Select select(use_vPhasor_in=true)
                                    annotation (Placement(transformation(extent=
@@ -285,7 +285,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       Documentation(
               info="<html>
 <p>1-phase inverter based on AVERAGED switch-equation, feeding into grid with increasing phase.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.InvertersAC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Inverters\">up users guide</a></p>
 </html>"),
       experiment(
         StopTime=0.2,
@@ -306,7 +306,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
     PowerSystems.AC1ph_DC.Inverters.Chopper chopper(redeclare model Chopper =
       PowerSystems.AC1ph_DC.Inverters.Components.ChopperModular(redeclare
             record Data =
-               PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC100V_10A))
+               PowerSystems.Examples.Data.Semiconductors.IdealSC100V_10A))
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
     PowerSystems.AC1ph_DC.Sensors.PVImeter meterDCout(av=true, tcst=0.1,
       V_nom=100,
@@ -346,7 +346,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
       Documentation(
               info="<html>
 <p>One quadrant chopper.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.InvertersAC1ph_DC\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Inverters\">up users guide</a></p>
 </html>
 "),   experiment(
         StopTime=0.2,
@@ -356,7 +356,7 @@ package InvertersAC1ph_DC "Inverters 1 phase and DC"
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Comparison of different one-phase rectifier and inverter models.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples\">up users guide</a></p>
 </html>
 "));
-end InvertersAC1ph_DC;
+end Inverters;

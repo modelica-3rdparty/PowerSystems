@@ -1,5 +1,5 @@
-within PowerSystems.Examples.Spot;
-package TransmissionAC3ph "AC transmission, dq0"
+within PowerSystems.Examples.AC3ph;
+package Transmission "AC transmission, dq0"
   extends Modelica.Icons.ExamplesPackage;
 
 model PowerTransfer "Power transfer between two nodes"
@@ -55,7 +55,7 @@ Alternatively one can look at a variation of amplitude ratios.</p>
   sensor1.p[1]     active power
   sensor1.p[2]     reactive power.
 </pre>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=60));
 end PowerTransfer;
@@ -159,7 +159,7 @@ equation
   meter1/2/3.v_norm and plot it against
   meter1/2/3.p[1] as independent variable.
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>"),
       experiment(StopTime=180, Interval=180e-3));
 end VoltageStability;
@@ -225,7 +225,7 @@ end VoltageStability;
 Compare with PIline.</p>
 <p><i>See for example:</i>
 <pre>  meter.p[1:2]     active and reactive power</pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1));
   end RXline;
@@ -294,7 +294,7 @@ Compare with RXline.</p>
   meter.p[1:2]     active and reactive power
   line.v           line voltage, oscillations due to switching
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1, Interval=2.5e-5));
   end Tline;
@@ -367,7 +367,7 @@ Compare with FaultPIline.</p>
   meter.p[1:2]     active and reactive power
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1));
   end FaultRXline;
@@ -441,7 +441,7 @@ Compare with FaultRXline.</p>
   line.v           line voltage, oscillations due to switching
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1, Interval=2.5e-5));
   end FaultTline;
@@ -456,17 +456,17 @@ Compare with FaultRXline.</p>
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(
       redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Transformers.TrafoStray,
+          PowerSystems.Examples.Data.Transformers.TrafoStray,
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Lines.RXline line(len=480000, redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Lines.OHline400kV)
+          PowerSystems.Examples.Data.Lines.OHline400kV)
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     PowerSystems.AC3ph.Lines.FaultRXline lineF(
-      redeclare record Data = PowerSystems.Examples.Spot.Data.Lines.OHline400kV,
+      redeclare record Data = PowerSystems.Examples.Data.Lines.OHline400kV,
         len=430000)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
@@ -529,7 +529,7 @@ Compare with DoublePIline.</p>
   meter.p[1:2]     active and reactive power
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=0.5, Interval=2.5e-5));
   end DoubleRXline;
@@ -545,19 +545,19 @@ Compare with DoublePIline.</p>
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(
       redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Transformers.TrafoStray,
+        PowerSystems.Examples.Data.Transformers.TrafoStray,
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Lines.PIline line(
                                         len=480000, redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV)
+          PowerSystems.Examples.Data.Lines.OHline_400kV)
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     PowerSystems.AC3ph.Lines.FaultTline lineF(
       redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV, len=430000)
+          PowerSystems.Examples.Data.Lines.OHline_400kV, len=430000)
       annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{50,0},{70,20}})));
@@ -622,7 +622,7 @@ Compare with DoublePIline.</p>
   lineF.v          fault line voltage
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, Interval=2.5e-5));
   end DoublelLine;
@@ -646,18 +646,18 @@ Compare with DoublePIline.</p>
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(
       redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Transformers.TrafoStray,
+        PowerSystems.Examples.Data.Transformers.TrafoStray,
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Lines.RXline line(
       len=480000,
-      redeclare record Data = PowerSystems.Examples.Spot.Data.Lines.OHline400kV)
+      redeclare record Data = PowerSystems.Examples.Data.Lines.OHline400kV)
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     PowerSystems.AC3ph.Lines.FaultRXline lineF(
-      redeclare record Data = PowerSystems.Examples.Spot.Data.Lines.OHline400kV,
+      redeclare record Data = PowerSystems.Examples.Data.Lines.OHline400kV,
         len=430000)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
@@ -723,7 +723,7 @@ Compare with DoublePIline.</p>
   meter.p[1:2]     active and reactive power
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=0.5));
   end DoubleRXlineTG;
@@ -746,19 +746,19 @@ Compare with DoublePIline.</p>
       annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
     PowerSystems.AC3ph.Transformers.TrafoStray trafo(
       redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Transformers.TrafoStray,
+        PowerSystems.Examples.Data.Transformers.TrafoStray,
       redeclare model Topology_p = PowerSystems.AC3ph.Ports.Topology.Delta,
       redeclare model Topology_n = PowerSystems.AC3ph.Ports.Topology.Y)
               annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
     PowerSystems.AC3ph.Lines.PIline line(
                                         len=480e3, redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV)
+          PowerSystems.Examples.Data.Lines.OHline_400kV)
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     PowerSystems.AC3ph.Breakers.Switch switch1(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     PowerSystems.AC3ph.Lines.FaultTline lineF(
       redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Lines.OHline_400kV, len=430000)
+          PowerSystems.Examples.Data.Lines.OHline_400kV, len=430000)
       annotation (Placement(transformation(extent={{20,0},{40,20}})));
     PowerSystems.AC3ph.Breakers.Switch switch2(V_nom=400e3, I_nom=2500)
       annotation (Placement(transformation(extent={{50,0},{70,20}})));
@@ -825,13 +825,13 @@ Compare with DoublePIline.</p>
   lineF.v          fault line voltage
   abc.i_abc        fault currents
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, Interval=1.5e-4));
   end DoubleLineTG;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transmission line models and faults.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples\">up users guide</a></p>
 </html>"));
-end TransmissionAC3ph;
+end Transmission;

@@ -1,5 +1,5 @@
-within PowerSystems.Examples.PowerFlow;
-package GenericComponentsTest "Small examples with Generic components"
+within PowerSystems.Examples.Generic;
+package Test "Small examples with Generic components"
   extends Modelica.Icons.ExamplesPackage;
 
   model ImpedanceTest
@@ -199,4 +199,4 @@ package GenericComponentsTest "Small examples with Generic components"
     annotation (experiment(StopTime=1));
   end GeneratorTest2;
 
-end GenericComponentsTest;
+end Test;

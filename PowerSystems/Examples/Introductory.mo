@@ -1,5 +1,5 @@
-within PowerSystems.Examples.Spot;
-package Introduction "Introductory examples"
+within PowerSystems.Examples;
+package Introductory "Introductory examples for overall concepts"
   extends Modelica.Icons.ExamplesPackage;
 
   model Units "SI and pu units"
@@ -93,7 +93,7 @@ Quantities in 'meter_pu' are displayed in pu.</p>
   meter_pu.p[1] = 0.83232 pu (active power in pu)
 </pre>
 and other meter-signals.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Introductory\">up users guide</a></p>
 </html>"),
     experiment(StopTime=0.1));
   end Units;
@@ -155,7 +155,7 @@ and other meter-signals.</p>
   meter1     v and i-signal, system frequency (60 Hz)
   meter2     v and i-signal, variable frequency (10 to 50 Hz)
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Introductory\">up users guide</a></p>
 </html>"),
     experiment(StopTime=1, Interval=1e-3));
   end Frequency;
@@ -203,7 +203,7 @@ Signals oscillate with the source frequency.</p>
 <pre>
   meter_dq0.i     standard notation: 'alpha beta gamma'-system
 </pre>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Introductory\">up users guide</a></p>
 </html>"),
     experiment(StopTime=0.1, Interval=0.1e-3));
   end ReferenceInertial;
@@ -252,7 +252,7 @@ Stationary signals are constant after an initial oscillation.</p>
   meter_dq0.i     standard notation: 'dq0'-system
 </pre>
 <p>Compare with <tt>meter_dq0.i_abc</tt>, showing oscillating stationary signals.</p><br>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Introductory\">up users guide</a></p>
 </html>"),
     experiment(StopTime=0.1, Interval=0.1e-3));
   end ReferenceSynchron;
@@ -300,7 +300,7 @@ Stationary signals are constant after an initial oscillation.</p>
 <pre>
   meter_dq0.i_abc
 </pre>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Introductory\">up users guide</a></p>
 </html>"),
     experiment(StopTime=0.1, Interval=0.1e-3));
   end InitialSteadyState;
@@ -407,7 +407,7 @@ Fast dynamics are resolved after switching.</p>
   meter.p[2]  reactive power in pu, from 0.25 (500 MW) to 0.125 (250 MW)
 </pre>
 and other meter-signals.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Introductory\">up users guide</a></p>
 </html>
 "),    experiment(StopTime=1, Interval=1e-3));
   end SimulationFixedInitial;
@@ -425,7 +425,7 @@ and other meter-signals.</p>
   meter.p[2]  reactive power in pu, from 0.25 (500 MW) to 0.125 (250 MW)
 </pre>
 and other meter-signals.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Introductory\">up users guide</a></p>
 </html>
 "),    experiment(StopTime=1, Interval=1e-3));
   end SimulationSteadyInitial;
@@ -444,7 +444,7 @@ This quasi-stationary approximation corresponds to an infinitely fast response o
   meter.p[2]  reactive power in pu, from 0.25 (500 MW) to 0.125 (250 MW)
 </pre>
 and other meter-signals.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Introductory\">up users guide</a></p>
 </html>
 "),    experiment(StopTime=1, Interval=1e-3));
   end SimulationSteadyState;
@@ -528,7 +528,7 @@ Inductive current (blue) is behind, capacitive ahead of voltage (red).</p>
 The left bar (green) displays the active power,<br>
 the right bar (violet) displays the reactive power.<br>
 An additional arrow indicates the direction of active power flow.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Introductory\">up users guide</a></p>
 </html>"),
     experiment(StopTime=30, Interval=0.02));
   end Display;
@@ -567,7 +567,7 @@ Interpolates table-values.</p>
   y[2] against u     quadratic curve
 </pre>
 (choose  u as 'independent variable', right mouse)</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Introduction\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.Introductory\">up users guide</a></p>
 </html>"),
     experiment(StopTime=1));
   end Tables;
@@ -576,8 +576,8 @@ Interpolates table-values.</p>
 Documentation(info="<html>
 <p>Each of the introductory examples points out one specific aspect of specifying and simulating a model.
 The examples are based on most elementary configurations. A meter is added for convenience, displaying signals both in abc- and dq0-representation. </p>
-<p>The component PowerSystems.System is needed in all models, except in Introduction.Tables.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+<p>The component <a href=\"modelica://PowerSystems.System\">PowerSystems.System</a> is needed in all models for system wide definitions.</p>
+<p><a href=\"modelica://PowerSystems.Examples\">up users guide</a></p>
 </html>
 "));
-end Introduction;
+end Introductory;

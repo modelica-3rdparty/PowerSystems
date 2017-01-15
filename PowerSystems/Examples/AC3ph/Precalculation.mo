@@ -1,4 +1,4 @@
-within PowerSystems.Examples.Spot;
+within PowerSystems.Examples.AC3ph;
 package Precalculation "Precalculation of machine matrices"
 extends Modelica.Icons.ExamplesPackage;
 
@@ -77,7 +77,7 @@ algorithm
   r_s    for r_0:    armature (stator) resistance
   r_r    for r:      rotor resistances
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Precalculation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Precalculation\">up users guide</a></p>
 </html>"), Diagram(graphics={
           Line(points={{-40,80},{-40,10}}, color={0,0,255}),
           Line(points={{90,50},{90,40}}, color={0,0,255}),
@@ -283,7 +283,7 @@ algorithm
   r_s    for r_0:    armature (stator) resistance
   r_r    for r:      rotor resistances
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Precalculation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Precalculation\">up users guide</a></p>
 </html>"), Diagram(graphics={
           Line(points={{-40,80},{-40,10}}, color={0,0,255}),
           Line(points={{90,50},{90,40}}, color={0,0,255}),
@@ -518,7 +518,7 @@ algorithm
   r_s    for r_0:    armature (stator) resistance
   r_r    for r:      rotor resistances
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Precalculation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Precalculation\">up users guide</a></p>
 </html>"), Diagram(graphics={
           Line(points={{-40,80},{-40,10}}, color={0,0,255}),
           Line(points={{50,80},{50,10}}, color={0,0,255}),
@@ -815,7 +815,7 @@ algorithm
   r_s    for r_0:    armature (stator) resistance
   r_r    for r:      rotor resistances
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Precalculation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Precalculation\">up users guide</a></p>
 </html>"), Diagram(graphics={
           Line(points={{-40,80},{-40,10}}, color={0,0,255}),
           Line(points={{10,80},{10,10}}, color={0,0,255}),
@@ -1157,7 +1157,7 @@ algorithm
   r_s    for r_0:    armature (stator) resistance
   r_r    for r:      rotor resistances
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Precalculation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Precalculation\">up users guide</a></p>
 </html>"), Diagram(graphics={
           Line(points={{-40,80},{-40,10}}, color={0,0,255}),
           Line(points={{90,50},{90,40}}, color={0,0,255}),
@@ -1351,7 +1351,7 @@ algorithm
   r_s    for r_0:    armature (stator) resistance
   r_r    for r:      rotor resistances
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Precalculation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Precalculation\">up users guide</a></p>
 </html>"), Diagram(graphics={
           Line(points={{-40,80},{-40,10}}, color={0,0,255}),
           Line(points={{90,50},{90,40}}, color={0,0,255}),
@@ -1571,7 +1571,7 @@ algorithm
   r_s    for r_0:    armature (stator) resistance
   r_r    for r:      rotor resistances
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Precalculation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Precalculation\">up users guide</a></p>
 </html>"), Diagram(graphics={
           Line(points={{-40,80},{-40,10}}, color={0,0,255}),
           Line(points={{50,80},{50,10}}, color={0,0,255}),
@@ -1853,7 +1853,7 @@ algorithm
   r_s    for r_0:    armature (stator) resistance
   r_r    for r:      rotor resistances
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Precalculation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Precalculation\">up users guide</a></p>
 </html>"), Diagram(graphics={
           Line(points={{-40,80},{-40,10}}, color={0,0,255}),
           Line(points={{10,80},{10,10}}, color={0,0,255}),
@@ -2206,7 +2206,7 @@ algorithm
   r_s    for r_0:    armature (stator) resistance
   r_r    for r:      rotor resistances
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Precalculation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Precalculation\">up users guide</a></p>
 </html>"), Diagram(graphics={
           Line(points={{-40,80},{-40,10}}, color={0,0,255}),
           Line(points={{50,80},{50,10}}, color={0,0,255}),
@@ -2505,7 +2505,7 @@ algorithm
   r_s    for r_0:    armature (stator) resistance
   r_r    for r:      rotor resistances
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.Precalculation\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Precalculation\">up users guide</a></p>
 </html>"), Diagram(graphics={
           Line(points={{-40,80},{-40,10}}, color={0,0,255}),
           Line(points={{50,80},{50,10}}, color={0,0,255}),
@@ -2742,6 +2742,6 @@ remain the same for d- and q-axis. This facilitates checking.</p>
   xm[2:n] = 0, no coupling terms in q-axis
 </pre>
 whereas for machines <b>without</b> field-winding (asynchronous), the q-axis diagram is valid for both axes d and q.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples\">up users guide</a></p>
 </html>"));
 end Precalculation;

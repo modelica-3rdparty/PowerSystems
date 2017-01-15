@@ -1,5 +1,5 @@
 within PowerSystems.Examples;
-package PowerFlow "Power flow calculations"
+package Generic "Examples for Generic components"
   extends Modelica.Icons.ExamplesPackage;
-
-end PowerFlow;
+  annotation (preferredView="info");
+end Generic;

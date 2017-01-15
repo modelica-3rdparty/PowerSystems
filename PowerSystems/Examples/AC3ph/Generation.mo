@@ -1,5 +1,5 @@
-within PowerSystems.Examples.Spot;
-package GenerationAC3ph "AC power generation, dq0"
+within PowerSystems.Examples.AC3ph;
+package Generation "AC power generation, dq0"
   extends Modelica.Icons.ExamplesPackage;
 
 model Vsource "Power transfer from voltage source to slack bus"
@@ -47,7 +47,7 @@ The powerflow depends essentially on the phase difference between the nodes and 
 <pre>
  sensor.p[1:2]    active and reactive power
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1));
 end Vsource;
@@ -98,7 +98,7 @@ The active powerflow is now directly determined through a parameter instead of i
 <pre>
  sensor.p[1:2]    active and reactive power
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1));
 end PVsource;
@@ -148,7 +148,7 @@ Both active and reactive powerflow are now directly determined through a paramet
 <pre>
  sensor.p[1:2]    active and reactive power
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1));
 end PQsource;
@@ -168,7 +168,7 @@ end PQsource;
           transformation(extent={{-30,40},{-50,60}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
-          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
+          PowerSystems.Examples.Data.Machines.SynchronIso20kV_500MVA)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
 
     PowerSystems.AC3ph.Sensors.Psensor sensor
@@ -253,7 +253,7 @@ The power-angle is artificially fixed. The correspondence is:
 <pre>
  sensor.p[1:2]    active and reactive power
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>"),
         experiment(StopTime=1));
   end PowerAngle;
@@ -274,7 +274,7 @@ The power-angle is artificially fixed. The correspondence is:
               -60,20}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
-          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
+          PowerSystems.Examples.Data.Machines.SynchronIso20kV_500MVA)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
 
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0116)
@@ -368,7 +368,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
  sensor.p[1:2]      active and reactive power
  V_gen1.alpha0 with gen.powerAngle.
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1));
   end TurbineGenerator;
@@ -389,7 +389,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
               -60,20}})));
     PowerSystems.AC3ph.Machines.Synchron3rd_ee generator(redeclare replaceable
         record Data =
-          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA)
+          PowerSystems.Examples.Data.Machines.SynchronIso20kV_500MVA)
       annotation (Placement(transformation(extent={{-30,0},{-50,20}})));
 
     PowerSystems.Control.Governors.GovernorSimple governor(p=1.0094)
@@ -510,7 +510,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
  sensor.p[1:2]      active and reactive power
  V_gen1.alpha0 and busbar1.alpha_v with gen.powerAngle.
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1));
   end TurbineGeneratorLine;
@@ -524,7 +524,7 @@ model TurboGeneratorLine "Turbo-generator with line to infinite bus"
     H=20,
       redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_ee (
         redeclare replaceable record Data =
-          PowerSystems.Examples.Spot.Data.Machines.SynchronIso20kV_500MVA),
+          PowerSystems.Examples.Data.Machines.SynchronIso20kV_500MVA),
       v_start=1.12762,
       p_start=1,
       q_start=0.42729,
@@ -627,7 +627,7 @@ equation
  sensor.p[1:2]      active and reactive power
  V_gen1.alpha0 and busbar1.alpha_v with gen.powerAngle.
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1));
 end TurboGeneratorLine;
@@ -646,7 +646,7 @@ model GenOrder3and7 "Generator-models of different order"
         "1st order",
     redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron3rd_ee (
       redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_ee60Hz_26kV_720MVA)
+        PowerSystems.Examples.Data.Machines.Synchron3rd_ee60Hz_26kV_720MVA)
         "3rd order",
       alpha_start=0.5235987755983)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
@@ -672,7 +672,7 @@ model GenOrder3and7 "Generator-models of different order"
         "1st order",
     redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
       redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
+        PowerSystems.Examples.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
         "nth order",
       alpha_start=0.5235987755983)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
@@ -753,7 +753,7 @@ A common 3-phase short circuit occurs at 100 msec, cleared after 300 ms.</p>
 </pre>
 of <tt>turbGen1</tt> and <tt>turbGen2</tt>.<br>
 The high order model exhibits fast damping of torque-oscillations due to the damper windings. See also damper currents i_rd, i_rq (protected).</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, Interval=0.5e-3));
 end GenOrder3and7;
@@ -774,10 +774,10 @@ model TurboGroupGenerator
     redeclare model TurboGroup =
       PowerSystems.Mechanics.TurboGroups.SteamTurboGroup (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Turbines.SteamTurboGroup1200MW),
+          PowerSystems.Examples.Data.Turbines.SteamTurboGroup1200MW),
     redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
       redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Machines.Synchron_ee20kV_1200MVA)
+        PowerSystems.Examples.Data.Machines.Synchron_ee20kV_1200MVA)
         "nth order")
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   PowerSystems.AC3ph.Lines.RXline line(
@@ -829,7 +829,7 @@ A common 3-phase short circuit occurs at 0.1 sec, cleared after 200 ms.</p>
   turboGrpGen.generator.tau      torque (electric frequency)
   turboGrpGen.turboGroup.delta   relative angles between single turbines (frequencies typical 16 to 23 Hz)
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>"),
       experiment(
         StopTime=0.5,
@@ -850,7 +850,7 @@ model TieLine "Generators and power-oscillations"
       H=20,
       redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
+          PowerSystems.Examples.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
         "nth order",
       redeclare model Exciter = PowerSystems.Control.Exciters.Exciter1st
         "1st order",
@@ -881,7 +881,7 @@ model TieLine "Generators and power-oscillations"
         "1st order",
       redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
+          PowerSystems.Examples.Data.Machines.Synchron_ee60Hz_26kV_720MVA)
         "nth order",
       redeclare model Governor = PowerSystems.Control.Governors.Governor1st
         "1st order",
@@ -911,7 +911,7 @@ model TieLine "Generators and power-oscillations"
         "1st order",
     redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_ee (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Machines.Synchron_ee60Hz_26kV_720MVA,
+          PowerSystems.Examples.Data.Machines.Synchron_ee60Hz_26kV_720MVA,
         dynType=PowerSystems.Types.Dynamics.FreeInitial) "nth order",
       q_start=0.10292306,
       p_start=0.27353)
@@ -1032,7 +1032,7 @@ After the load decreases, system frequency starts to increase from 60 to 62 Hz w
  sensor's.p[1:2]    active and reactive power
  system.omega       system frequency
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=30));
 end TieLine;
@@ -1046,10 +1046,10 @@ model WindGeneratorLine "Asynchronous generator"
     redeclare model Gear =
       PowerSystems.Mechanics.TurboGroups.WindTurbineGear (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Turbines.WindTurbineGear),
+          PowerSystems.Examples.Data.Turbines.WindTurbineGear),
     redeclare model Generator = PowerSystems.AC3ph.Machines.Asynchron (
       redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Machines.Asynchron400V_30kVA))
+        PowerSystems.Examples.Data.Machines.Asynchron400V_30kVA))
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   PowerSystems.AC3ph.Nodes.BusBar busbar        annotation (Placement(
           transformation(extent={{-30,0},{-10,20}})));
@@ -1100,7 +1100,7 @@ The wind-speed is increased from 5 to 15 m/s. The machine remains stable.</p>
   sensor.p[1:2]    active and reactive power
   windGen.generator.slip
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>
 
 "),      experiment(StopTime=60, Interval=60e-3));
@@ -1119,7 +1119,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
         "1st order",
     redeclare model Generator = PowerSystems.AC3ph.Machines.Synchron_pm (
       redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Machines.Synchron_pm560V_100kVA)
+        PowerSystems.Examples.Data.Machines.Synchron_pm560V_100kVA)
         "nth order")
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   PowerSystems.AC3ph.Nodes.DefReference reference
@@ -1127,7 +1127,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   PowerSystems.AC3ph.Sensors.Psensor ACpower  annotation (Placement(transformation(
             extent={{-40,-60},{-20,-40}})));
   PowerSystems.AC3ph.Inverters.RectifierAverage rectifier(redeclare record Data =
-           PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A)
+           PowerSystems.Examples.Data.Semiconductors.IdealSC1kV_100A)
                                           annotation (Placement(transformation(
             extent={{10,-60},{-10,-40}})));
   PowerSystems.AC1ph_DC.Impedances.CapacitorSym capSym(
@@ -1217,7 +1217,7 @@ integration in inertial abc-system.</p>
   DCpower.p
   DCvoltage.v
 </pre>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>"),
 experiment(StopTime=30));
 end Islanding;
@@ -1243,11 +1243,11 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     redeclare model Generator =
       PowerSystems.AC3ph.Machines.Synchron3rd_pm_ctrl (
         redeclare record Data =
-          PowerSystems.Examples.Spot.Data.Machines.Synchron3rd_pm560V_100kVA (
+          PowerSystems.Examples.Data.Machines.Synchron3rd_pm560V_100kVA (
             neu_iso=true)),
     redeclare model Inverter = PowerSystems.AC3ph.Inverters.InverterAverage (
       redeclare record Data =
-        PowerSystems.Examples.Spot.Data.Semiconductors.IdealSC1kV_100A(Vf=0)),
+        PowerSystems.Examples.Data.Semiconductors.IdealSC1kV_100A(Vf=0)),
       w_start=1130.9733552923)
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   PowerSystems.AC1ph_DC.Impedances.CapacitorSym capSym(
@@ -1338,7 +1338,7 @@ The generator is directly coupled to a (passive) rectifier. If an average-versio
   DCpower.p
   DCvoltage.v
 </pre>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.GenerationAC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>"),
 experiment(StopTime=30));
 end LocalGeneration;
@@ -1349,4 +1349,4 @@ Documentation(info="<html>
 <p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
 </html>
 "));
-end GenerationAC3ph;
+end Generation;

@@ -1,5 +1,5 @@
-within PowerSystems.Examples.Spot;
-package AC3ph "AC 3-phase components dq0"
+within PowerSystems.Examples.AC3ph;
+package Elementary "AC 3-phase components dq0"
   extends Modelica.Icons.ExamplesPackage;
 
   model Breaker "Breaker"
@@ -47,7 +47,7 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,255}));
     annotation (
       Documentation(info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=1e-4));
   end Breaker;
@@ -110,7 +110,7 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2, Interval=1e-4));
   end Fault;
@@ -147,7 +147,7 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2));
   end Impedance;
@@ -180,7 +180,7 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.2));
   end ImpedanceYD;
@@ -226,7 +226,7 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1));
   end Line;
@@ -265,7 +265,7 @@ package AC3ph "AC 3-phase components dq0"
   annotation (
     Documentation(
             info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
     experiment(StopTime=1));
   end Load;
@@ -318,7 +318,7 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{80,0},{80,0}}, color={0,0,127}));
     annotation (
       Documentation(info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1));
   end Machines;
@@ -350,7 +350,7 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{-70,0},{-70,0}}, color={0,0,255}));
     annotation (
       Documentation(info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1));
   end Sensor;
@@ -379,7 +379,7 @@ package AC3ph "AC 3-phase components dq0"
       annotation (Line(points={{-40,0},{-40,0}}, color={0,0,255}));
     annotation (
       Documentation(info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1));
   end Source;
@@ -443,7 +443,7 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=3));
   end Transformer;
@@ -497,7 +497,7 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1, Interval=0.2e-3));
   end Rectifier;
@@ -559,7 +559,7 @@ package AC3ph "AC 3-phase components dq0"
     annotation (
       Documentation(
               info="<html>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.AC3ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC3ph.Elementary\">up users guide</a></p>
 </html>"),
       experiment(StopTime=1, Interval=0.2e-3));
   end Inverter;
@@ -568,6 +568,6 @@ package AC3ph "AC 3-phase components dq0"
 Documentation(info="<html>
 <p>This package contains small models for testing single components from AC3ph.
 The replaceable component can be replaced by a user defined component of similar type.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples\">up users guide</a></p>
 </html>"));
-end AC3ph;
+end Elementary;

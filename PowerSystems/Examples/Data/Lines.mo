@@ -1,4 +1,4 @@
-within PowerSystems.Examples.Spot.Data;
+within PowerSystems.Examples.Data;
 package Lines "Line example data"
   extends Modelica.Icons.MaterialPropertiesPackage;
 

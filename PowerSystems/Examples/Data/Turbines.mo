@@ -1,4 +1,4 @@
-within PowerSystems.Examples.Spot.Data;
+within PowerSystems.Examples.Data;
 package Turbines "Turbine example data"
   extends Modelica.Icons.MaterialPropertiesPackage;
 

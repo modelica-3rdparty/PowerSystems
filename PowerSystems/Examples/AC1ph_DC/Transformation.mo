@@ -1,5 +1,5 @@
-within PowerSystems.Examples.Spot;
-package TransformationAC1ph "Transformation 1 phase"
+within PowerSystems.Examples.AC1ph_DC;
+package Transformation "Transformation 1 phase"
   extends Modelica.Icons.ExamplesPackage;
 
   model OnePhase "One phase transformer"
@@ -53,7 +53,7 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
   meter1.v     voltage phase secondary Y-Y topology
   meter2.v     voltage phase secondary Y_Delta topology
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransformationAC1ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Transformation\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1, Interval=1e-3));
   end OnePhase;
@@ -162,13 +162,13 @@ Note that the primary voltage source is fixed.</p>
   meter 12.v     voltage secondary, if primary is changed at fixed source.
   meter 22.v     voltage secondary, if secondary is changed at fixed source.
 </pre></p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot.TransformationAC1ph\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples.AC1ph_DC.Transformation\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=4, Interval=1e-3));
   end TapChanger;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transformers one-phase and tap changer control.</p>
-<p><a href=\"modelica://PowerSystems.Examples.Spot\">up users guide</a></p>
+<p><a href=\"modelica://PowerSystems.Examples\">up users guide</a></p>
 </html>"));
-end TransformationAC1ph;
+end Transformation;
