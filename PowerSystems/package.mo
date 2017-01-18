@@ -14,12 +14,13 @@ package PowerSystems "Library for electrical power systems"
     annotation (choicesAllMatching=true);
 
   annotation (preferredView="info",
-  version="0.6 dev",
-  versionDate="2016-10-04",
+  version="0.6.0",
+  versionDate="2017-01-18",
   Documentation(info="<html>
 <p>The Modelica PowerSystems library is intended for the modeling of electrical <b>power systems</b> at different <b>levels of detail</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
 <p>The Users Guide to the library is <a href=\"modelica://PowerSystems.UsersGuide\"><b>here</b></a>.</p>
-<p><br/>Copyright &copy; 2007-2016, Modelica Association. </p>
+<p><br/>Copyright &copy; 2007-2017, Modelica Association. </p>
+<p>Copyright &copy; 2004-2008, H.J. Wiesmann (&dagger; 2015).</p>
 <p><i>This Modelica package is <b>Open Source</b> software; it can be redistributed and/or modified
 under the terms of the <b>Modelica license, version 2.0, see the license conditions and
 the accompanying disclaimer <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">here</a>.</b></i> </p>

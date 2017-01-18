@@ -19,9 +19,22 @@ See also the publication [Franke, Wiesmann: Flexible modeling of electrical powe
 
 ## Current release
 
-Download [PowerSystems v0.5.0 (2016-09-20)](../../archive/v0.5.0.zip)
+Download [PowerSystems v0.6.0 (2017-01-18)](../../archive/v0.6.0.zip)
 
 #### Revisions
+
+ * [Version v0.6.0  (2017-01-18)](../../archive/v0.6.0.zip)
+   * Enhance AC3ph with replaceable PhaseSystem.
+     Many components work with ThreePhase_dq as well, besides the default ThreePhase_dq0.
+   * Introduce own SI sub-package to get appropriate display units.
+   * Treat PerCent as display unit, 0..1 internally.
+   * Implement inertial reference frame for Generic components (#18).
+   * Fix some HTML warnings (#20).
+   * Fix measurement units in PWM control models (#21).
+   * Make phasor of PVImeter unconditional (#26).
+   * Unify naming of start values for Loads.
+   * Reorganize Examples to better outline the Introductory examples and
+     to better reflect the three component sub-packages AC3ph, AC1ph_DC and Generic.
 
  * [Version v0.5.0  (2016-09-20)](../../archive/v0.5.0.zip)
 

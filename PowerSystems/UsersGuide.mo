@@ -77,6 +77,23 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 </ul>
 </html>", revisions="<html>
 <ul>
+<li><i>18 Jan 2017</i>
+    by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
+    Version 0.6.0
+  <ul>
+  <li>Enhance AC3ph with replaceable PhaseSystem.
+      Many components work with ThreePhase_dq as well, besides the default ThreePhase_dq0.</li>
+  <li>Introduce own SI sub-package to get appropriate display units.</li>
+  <li>Treat PerCent as display unit, 0..1 internally.</li>
+  <li>Implement inertial reference frame for Generic components (#18)</li>
+  <li>Fix some HTML warnings (#20)</li>
+  <li>Fix measurement units in PWM control models (#21)</li>
+  <li>Make phasor of PVImeter unconditional (#26)</li>
+  <li>Unify naming of start values for Loads</li>
+  <li>Reorganize Examples to better outline the Introductory examples and
+      to better reflect the three component sub-packages AC3ph, AC1ph_DC and Generic.</li>
+  </ul>
+</li>
 <li><i>20 Sep 2016</i>
     by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
     Version 0.5.0<br>
