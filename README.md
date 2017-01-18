@@ -14,8 +14,8 @@ In particular this shall cover systems like:
 
 See also the publication [Franke, Wiesmann: Flexible modeling of electrical power systems -- the Modelica PowerSystems library, Modelica conference 2014](https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf).
 
-<img src="PowerSystems/Examples/PowerWorld/Resources/PowerWorld.png" width="500">
-<img src="PowerSystems/Examples/Wind/Resources/WindTurbine_DFIG.png" width="300" align="top">
+<img src="PowerSystems 0.6.0/Examples/PowerWorld/Resources/PowerWorld.png" width="500">
+<img src="PowerSystems 0.6.0/Examples/Wind/Resources/WindTurbine_DFIG.png" width="300" align="top">
 
 ## Current release
 
