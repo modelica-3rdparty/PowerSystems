@@ -5,3 +5,9 @@ A few words about the rationale of this fork. As a professor of Electric power S
 My the difficulties in understanding this library were due to both the documentation (that I consider too short) and the library whose structure and organization, in my opinion, can be improved.
 
 Therefore I consider this fork as a lab to test my ideas and what I think are improvements. I will continue to contribute to the "official" Power Systems Library with tichets and comments to tickets.
+
+
+NOTES ABOUT COMMITS
+
+1)  ELIMINATION OF GENERIC SUB-LIBRARY.
+Power systems has two kinds of models: Generic and Other. The latter come from the original SPOT library. I think that for the purpose of my fork, having two kinds of models is too much. I see  that the Generic models are much simpler than the others, and are too simple, in my opinion, for the majority of needs a  Power System Engineer usually has. Therefore I chose to concentrate on the other models (i.e. those that come from the SPOT library)
