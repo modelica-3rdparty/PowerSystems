@@ -1,114 +1,17 @@
-# PowerSystems
+# PowerSystems - Ceraolo's fork
 
-The library is intended to model electrical power systems at different levels of detail both in transient and steady-state mode.
+A few words about the rationale of this fork. As a professor of Electric power Systems and a heavy Modelica user, I consider Power System Library a very important achievement of the Modelica community. However, personally I've had several problems in understanding how to use this library, and I think that also other users may encounter similar problems.
 
-## Library description
+My the difficulties in understanding this library were due to both the documentation (that I consider too short) and the library whose structure and organization, in my opinion, can be improved.
 
-`PowerSystems` provides a framework and examples for the flexible modeling of electical power systems. Generic component models adapt to different application needs by using a replaceable `PhaseSystem`. Moreover the library contains the extensive sets of detailed one phase and transient three phase component models of the former [SPOT](https://github.com/modelica-3rdparty/SPOT) library.
+Therefore I consider this fork as a lab to test my ideas and what I think are improvements. I will continue to contribute to the "official" Power Systems Library with tichets and comments to tickets.
 
-In particular this shall cover systems like:
 
- * AC power systems, including dc power flow, steady-state, transient, and unsymmetric,
- * Variable frequency systems, e.g. in wind turbines or for drive control, and
- * DC power systems, like HVDC
+NOTES ABOUT COMMITS
 
-See also the publication [Franke, Wiesmann: Flexible modeling of electrical power systems -- the Modelica PowerSystems library, Modelica conference 2014](https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf).
+1)  ELIMINATION OF GENERIC SUB-LIBRARY.
+Power systems has two kinds of models: Generic and Other. The latter come from the original SPOT library. I think that for the purpose of my fork, having two kinds of models is too much. I see  that the Generic models are much simpler than the others, and are too simple, in my opinion, for the majority of needs a  Power System Engineer usually has. Therefore I chose to concentrate on the other models (i.e. those that come from the SPOT library)
 
-<img src="PowerSystems/Examples/PowerWorld/Resources/PowerWorld.png" width="500">
-<img src="PowerSystems/Examples/Wind/Resources/WindTurbine_DFIG.png" width="300" align="top">
-
-## Current release
-
-Download [PowerSystems v0.6.0 (2017-01-18)](../../archive/v0.6.0.zip)
-
-#### Revisions
-
- * [Version v0.6.0  (2017-01-18)](../../archive/v0.6.0.zip)
-   * Enhance AC3ph with replaceable PhaseSystem.
-     Many components work with ThreePhase_dq as well, besides the default ThreePhase_dq0.
-   * Introduce own SI sub-package to get appropriate display units.
-   * Treat PerCent as display unit, 0..1 internally.
-   * Implement inertial reference frame for Generic components (#18).
-   * Fix some HTML warnings (#20).
-   * Fix measurement units in PWM control models (#21).
-   * Make phasor of PVImeter unconditional (#26).
-   * Unify naming of start values for Loads.
-   * Reorganize Examples to better outline the Introductory examples and
-     to better reflect the three component sub-packages AC3ph, AC1ph_DC and Generic.
-
- * [Version v0.5.0  (2016-09-20)](../../archive/v0.5.0.zip)
-
-   This release introduces a couple of changes that improve the modeling experience
-   and unify the library with other Modelica libraries.
-   * Introduce replaceable model and record types, instead of replaceable
-     model and record instances.
-   * Simplify initialization
-     * Introduce enumeration Types.Dynamics dynType, replacing Booleans stIni_en, steadyIni_t and transientSim
-     * Unify naming of start parameters from *_ini to *_start
-     * Simplify initialization of machine rotors and line models
-   * Rework AC3ph and AC1ph_DC line models: rename PIline to Tline and introduce new PIline.
-   * Rework tap changers of AC3ph and AC1ph_DC trafo models: treat effect of tap changers in replaceable Topology, enabling more arrangements such as phase angle regulating.
-   * Add examples for electrical drive trains of wind turbines
-   * Reorganize Basic package to Utilities.
-   * Add Inline=true annotations to functions that shall be inlined.
-   * Introduce PhaseSystem Voltage and Current types, including nominal values of 1000.
-   * Upgrade Phasor model to standard Modelica graphics.
-   * Base on Modelica 3.2.2 instead of 3.2.1 (without changing anything).
-
- * [Version v0.4.0  (2015-03-14)](../../archive/v0.4.0.zip)
-   * fix Generic components to work with simple ThreePhase_d again (was broken in v0.3)
-   * rework parameter records (move parameter qualifiers from record members to whole records to permit their construction with functions)
-   * remove ambiguous start values
-   * lot of clean-up
-
- * [Version v0.3  (2014-10-20)](../../archive/v0.3.zip)
-   * add initial equations to Generic models and related examples
-   * add start parameters to AC1phDC and extend transient initialization
-   * add start parameters to AC3ph to improve steady-state initialization
-   * fix use of condionally declared variables
-   * clean up annotations
-   * rename dqo to dq0
-
- * Version v0.2.1  (2014-08-15)
-   * replace deprecated classDirectory() with loadResource()
-   * fix references to Connections package
-
- * [Version v0.2 (2013-04-18)](../../archive/v0.2.zip)
-   * Clean-up Examples and Resources
-
- * Version v0.1.3  (2013-02-28)
-   * Generic: change connector units from MW to W
-
- * Version v0.1.2  (2012-12-22)
-   * Rework Basic.Types to using SI units
-   * Adapt parameter records to SI units
-
- * Version v0.1.1 (2012-12-15)
-   * Rename Utilities package to Basic
-   * Remove BasePU and BaseSI sub-packages
-
- * Version v0.1 (2012-12-06)
-   * Initial version
-
-## License
-
-Copyright &copy; 2007-2015, Modelica Association.
-
-This Modelica package is free software and the use is completely at your own risk;
-it can be redistributed and/or modified under the terms of the [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2).
-
-## Development and contribution
-
-Contributors:
-
- * Hansj&uuml;rg Wiesmann (&dagger; 2015): Wrote the original [SPOT](https://github.com/modelica-3rdparty/SPOT) library and supported the creation of the `PowerSystems` library.
- * [Martin Otter](http://www.robotic.dlr.de/Martin.Otter): Converted the original Spot library from Modelica 2 to Modelica 3.
- * [R&uuml;diger Franke](mailto:Ruediger.Franke@de.abb.com): Created the `PowerSystems` library out of the `PowerFlow` concept library and the [SPOT](https://github.com/modelica-3rdparty/SPOT) library.
-
-You may report any issues with using the [Issues](../../issues) button.
-
-Contributions in shape of [Pull Requests](../../pulls) are always welcome.
-
-# Acknowledgement
-
-This work was in parts supported by the ITEA2 MODRIO project by funding of BMBF under contract number ITEA 2 - 11004. Work on the predecessor PowerFlow library was in parts supported by the ITEA2 EUROSYSLIB project by funding of BMBF under contract number ITEA 2 - 06020. Work on the predecessor Spot library was in parts supported by the RealSim project by funding of the IST Programme, Contract No. IST-1999-11979.
+2) ADAPTATION OF EXAMPLES' SHEET SIZE TO THE MODEL SIZE
+ Tools use the size of the model's sheet to choose the display default size of the models. Tools (e.g. Dymola and OpenModelica) as default arrange things so that everything in the shett is visible. So, If models have large blank parts, then the important part off the display is smaller tnan necessary, often tiny. This is particular important when in Dymola's simulation mode the model diagram is displayed.
+  Blank parts will be thus progressively eliminated to enhance model's display in tools, at least those mentioned above.
