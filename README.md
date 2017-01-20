@@ -11,3 +11,7 @@ NOTES ABOUT COMMITS
 
 1)  ELIMINATION OF GENERIC SUB-LIBRARY.
 Power systems has two kinds of models: Generic and Other. The latter come from the original SPOT library. I think that for the purpose of my fork, having two kinds of models is too much. I see  that the Generic models are much simpler than the others, and are too simple, in my opinion, for the majority of needs a  Power System Engineer usually has. Therefore I chose to concentrate on the other models (i.e. those that come from the SPOT library)
+
+2) ADAPTATION OF SEXAMPLES' SHEET SIZE TO THTHE MODEL SIZE
+  tools use the size of the model's sheet to choose the display default size of the models. Tools (e.g. Dymola and OpenModelica) as default arrange things so that everything in the shett is visible. So, If models have large blank parts, then the important part off the display is smaller tnan necessary, often tiny. This is particular important when in Dymola's simulation mode the model diagram is displayed.
+  Blank parts will be thus progressively eliminated to enhance model's display in tools, at least those mentioned above.
