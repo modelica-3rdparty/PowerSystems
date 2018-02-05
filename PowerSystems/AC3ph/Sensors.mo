@@ -3,7 +3,7 @@ package Sensors "Sensors and meters 3-phase"
   extends Modelica.Icons.SensorsPackage;
 
   model VnormSensor "Voltage-norm sensor, 3-phase dq0"
-    extends Partials.Sensor1Base(final signalTrsf=0);
+    extends Partials.Sensor1Base(final S_nom=1);
 
     parameter Integer n_eval(
       min=2,
@@ -16,8 +16,12 @@ package Sensors "Sensors and meters 3-phase"
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
+  protected
+    final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
+      puUnits, V_nom);
+
   equation
-    v = sqrt(term.v[1:n_eval]*term.v[1:n_eval]);
+    v = sqrt(term.v[1:n_eval]*term.v[1:n_eval])/V_base;
   annotation (defaultComponentName = "Vsensor1",
     Documentation(
             info="<html>
@@ -33,7 +37,7 @@ package Sensors "Sensors and meters 3-phase"
   end VnormSensor;
 
   model InormSensor "Current-norm sensor, 3-phase dq0"
-    extends Partials.Sensor2Base(final signalTrsf=0);
+    extends Partials.Sensor2Base;
 
     parameter Integer n_eval(
       min=2,
@@ -46,8 +50,12 @@ package Sensors "Sensors and meters 3-phase"
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
+  protected
+    final parameter PS.Current I_base=Utilities.Precalculation.baseI(
+      puUnits, V_nom, S_nom);
+
   equation
-    i = sqrt(term_p.i[1:n_eval]*term_p.i[1:n_eval]);
+    i = sqrt(term_p.i[1:n_eval]*term_p.i[1:n_eval])/I_base;
   annotation (defaultComponentName = "Isensor1",
     Documentation(
             info="<html>
@@ -56,23 +64,34 @@ package Sensors "Sensors and meters 3-phase"
   end InormSensor;
 
   model Vsensor "Voltage sensor, 3-phase dq0"
-    extends Partials.Sensor1Base;
+    extends Partials.Sensor1Base(final S_nom=1);
+
+    parameter Integer signalTrsf=0 "signal in which reference frame?"
+     annotation(Evaluate=true,Dialog(group="Options"), choices(
+       choice=0 "0: actual ref frame",
+       choice=1 "1: dq0 synchronous",
+       choice=2 "2: alpha_beta_o",
+       choice=3 "3: abc inertial"));
 
     Modelica.Blocks.Interfaces.RealOutput[3] v "voltage, phase-to-ground"
-    annotation (Placement(transformation(
+      annotation (Placement(transformation(
           origin={0,100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
+  protected
+    final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
+      puUnits, V_nom);
+
   equation
     if signalTrsf == 0 then
-      v = term.v; // actual
+      v = term.v/V_base; // actual
     elseif signalTrsf == 1 then
-      v = cat(1, transpose(rot_dq(term.theta[1]))*term.v[1:2], term.v[3:3]); // dq0
+      v = cat(1, transpose(rot_dq(term.theta[1]))*term.v[1:2], term.v[3:3])/V_base; // dq0
     elseif signalTrsf == 2 then
-      v = cat(1, rot_dq(term.theta[2])*term.v[1:2], term.v[3:3]); // alpha-beta_o
+      v = cat(1, rot_dq(term.theta[2])*term.v[1:2], term.v[3:3])/V_base; // alpha-beta_o
     elseif signalTrsf == 3 then
-      v = transpose(park(term.theta[2]))*term.v; // abc
+      v = transpose(park(term.theta[2]))*term.v/V_base; // abc
     end if;
   annotation (defaultComponentName = "Vsensor1",
     Documentation(
@@ -102,21 +121,33 @@ package Sensors "Sensors and meters 3-phase"
   model Isensor "Current sensor, 3-phase dq0"
     extends Partials.Sensor2Base;
 
-    Modelica.Blocks.Interfaces.RealOutput[3] i "current, term_p to term_n"              annotation (Placement(
+    parameter Integer signalTrsf=0 "signal in which reference frame?"
+     annotation(Evaluate=true,Dialog(group="Options"), choices(
+       choice=0 "0: actual ref frame",
+       choice=1 "1: dq0 synchronous",
+       choice=2 "2: alpha_beta_o",
+       choice=3 "3: abc inertial"));
+
+    Modelica.Blocks.Interfaces.RealOutput[3] i "current, term_p to term_n"
+      annotation (Placement(
           transformation(
           origin={0,100},
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
+  protected
+    final parameter PS.Current I_base=Utilities.Precalculation.baseI(
+      puUnits, V_nom, S_nom);
+
   equation
     if signalTrsf == 0 then
-      i = term_p.i;
+      i = term_p.i/I_base;
     elseif signalTrsf == 1 then // actual
-      i = cat(1, transpose(rot_dq(term_p.theta[1]))*term_p.i[1:2], term_p.i[3:3]); // dq0
+      i = cat(1, transpose(rot_dq(term_p.theta[1]))*term_p.i[1:2], term_p.i[3:3])/I_base; // dq0
     elseif signalTrsf == 2 then
-      i = cat(1, rot_dq(term_p.theta[2])*term_p.i[1:2], term_p.i[3:3]); // alpha-beta_o
+      i = cat(1, rot_dq(term_p.theta[2])*term_p.i[1:2], term_p.i[3:3])/I_base; // alpha-beta_o
     elseif signalTrsf == 3 then
-      i = transpose(park(term_p.theta[2]))*term_p.i; // abc
+      i = transpose(park(term_p.theta[2]))*term_p.i/I_base; // abc
     end if;
   annotation (defaultComponentName = "Isensor1",
     Documentation(
@@ -139,7 +170,7 @@ package Sensors "Sensors and meters 3-phase"
   end Isensor;
 
   model Psensor "Power sensor, 3-phase dq0"
-    extends Partials.Sensor2Base(final signalTrsf=0);
+    extends Partials.Sensor2Base(final V_nom=1);
 
     Modelica.Blocks.Interfaces.RealOutput[PS.n] p
       "{active, reactive, DC} power, term_p to term_n"
@@ -148,8 +179,12 @@ package Sensors "Sensors and meters 3-phase"
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
+  protected
+    final parameter SI.ApparentPower S_base=Utilities.Precalculation.baseS(
+      puUnits, S_nom);
+
   equation
-    p = PS.phasePowers_vi(term_p.v, term_p.i);
+    p = PS.phasePowers_vi(term_p.v, term_p.i)/S_base;
   annotation (defaultComponentName = "Psensor1",
     Documentation(
             info="<html>
@@ -182,7 +217,7 @@ package Sensors "Sensors and meters 3-phase"
     output SI.Angle alpha_v(stateSelect=StateSelect.never);
   protected
     final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
-                                                                 puUnits, V_nom);
+      puUnits, V_nom);
 
   equation
     v = term.v/V_base;
@@ -233,7 +268,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
     output SI.Angle alpha_i(stateSelect=StateSelect.never);
   protected
     final parameter PS.Current I_base=Utilities.Precalculation.baseI(
-                                                                 puUnits, V_nom, S_nom);
+      puUnits, V_nom, S_nom);
 
   equation
     i = term_p.i/I_base;
@@ -263,18 +298,17 @@ As they use time-dependent coordinate transforms, use them only when and where n
   end Imeter;
 
   model Pmeter "Power meter, 3-phase dq0"
+    extends Partials.Meter2Base(final V_nom=1, final abc=false);
 
     parameter Boolean av=false "time average power"  annotation(Evaluate=true,Dialog(group="Options"));
     parameter SI.Time tcst(min=1e-9)=1 "average time-constant"
                                                     annotation(Evaluate=true, Dialog(group="Options",enable=av));
-    extends Partials.Meter2Base(final V_nom=1, final abc=false);
-
     output SIpu.Power[PS.n] p(each stateSelect=StateSelect.never);
     output SIpu.Power[PS.n] p_av=pav if av;
   protected
     outer System system;
     final parameter SI.ApparentPower S_base=Utilities.Precalculation.baseS(
-        puUnits, S_nom);
+      puUnits, S_nom);
     SIpu.Power[PS.n] pav;
 
   initial equation
@@ -350,9 +384,9 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
   protected
     outer System system;
     final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
-                                                                 puUnits, V_nom);
+      puUnits, V_nom);
     final parameter PS.Current I_base=Utilities.Precalculation.baseI(
-                                                                 puUnits, V_nom, S_nom);
+      puUnits, V_nom, S_nom);
     SIpu.Power[PS.n] pav;
 
   initial equation
@@ -426,7 +460,7 @@ As they use time-dependent coordinate transforms, use them only when and where n
   end PVImeter;
 
   model Efficiency "Power sensor, 3-phase dq0"
-    extends Partials.Sensor2Base(final signalTrsf=0);
+    extends Partials.Sensor2Base;
 
     Interfaces.ThermalV_p heat(     m=m) "vector heat port"
       annotation (Placement(transformation(
@@ -508,8 +542,8 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     Types.Color color_p;
     Types.Color color_n;
-    extends Icons.LeftBar(          colorL={0,127,127}, xL=x_norm*abs(p[1])/V_base/I_base);
-    extends Icons.RightBar(          colorR={127,0,127}, xR=x_norm*abs(p[2])/V_base/I_base);
+    extends Icons.LeftBar(colorL={0,127,127}, xL=x_norm*abs(p[1])/V_base/I_base);
+    extends Icons.RightBar(colorR={127,0,127}, xR=x_norm*abs(p[2])/V_base/I_base);
     extends Icons.DoubleNeedle(
       color1={255,0,0},
       color2={0,0,255},
@@ -556,13 +590,8 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     partial model Sensor1Base "Sensor 1 terminal base, 3-phase dq0"
       extends Ports.Port_p;
+      extends Common.Nominal.Nominal;
 
-      parameter Integer signalTrsf=0 "signal in which reference frame?"
-       annotation(Evaluate=true,Dialog(group="Options"), choices(
-         choice=0 "0: actual ref frame",
-         choice=1 "1: dq0 synchronous",
-         choice=2 "2: alpha_beta_o",
-         choice=3 "3: abc inertial"));
     protected
       function park = Utilities.Transforms.park;
       function rot_dq = Utilities.Transforms.rotation_dq;
@@ -591,13 +620,8 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     partial model Sensor2Base "Sensor 2 terminal base, 3-phase dq0"
       extends Ports.Port_pn;
+      extends Common.Nominal.Nominal;
 
-      parameter Integer signalTrsf=0 "signal in which reference frame?"
-       annotation(Evaluate=true,Dialog(group="Options"), choices(
-         choice=0 "0: actual ref frame",
-         choice=1 "1: dq0 synchronous",
-         choice=2 "2: alpha_beta_o",
-         choice=3 "3: abc inertial"));
     protected
       function park = Utilities.Transforms.park;
       function rot_dq = Utilities.Transforms.rotation_dq;
@@ -634,8 +658,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
     end Sensor2Base;
 
     partial model Meter1Base "Meter 1 terminal base, 3-phase dq0"
-      extends Sensor1Base(final signalTrsf=0);
-      extends Common.Nominal.Nominal;
+      extends Sensor1Base;
 
       parameter Boolean abc=false "abc inertial"
         annotation(Evaluate=true,Dialog(group="Options"));
@@ -662,8 +685,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
     end Meter1Base;
 
     partial model Meter2Base "Meter 2 terminal base, 3-phase dq0"
-      extends Sensor2Base(final signalTrsf=0);
-      extends Common.Nominal.Nominal;
+      extends Sensor2Base;
 
       parameter Boolean abc=false "abc inertial"
         annotation(Evaluate=true,Dialog(group="Options"));

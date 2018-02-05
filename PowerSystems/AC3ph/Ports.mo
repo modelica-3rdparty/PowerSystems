@@ -183,15 +183,19 @@ end Port_p_n_f;
 partial model Yport_p "AC one port Y topology 'positive'"
   extends Port_p;
 
-  PS.Voltage[3] v "voltage terminal to neutral";
-  PS.Current[3] i "current terminal in";
+  PS.Voltage[PS.n] v "voltage terminal to neutral";
+  PS.Current[PS.n] i "current terminal in";
   PS.Voltage v_n(final start=0) "voltage neutral";
   PS.Current i_n(final start=0) "current neutral";
 
 equation
-  v = term.v - {0, 0, sqrt(3)*v_n};
+  v = term.v - PS.map({0, 0, sqrt(3)*v_n});
   term.i = i;
-  i_n = sqrt(3)*term.i[3];
+  if PS.n > 2 then
+    i_n = sqrt(3)*term.i[3];
+  else
+    i_n = 0;
+  end if;
   annotation (  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
               -100,-100},{100,100}}), graphics={Line(points={{30,-16},{52,-16},
                 {62,0},{52,16},{30,16}}, color={0,0,255}), Line(points={{30,0},
@@ -217,15 +221,19 @@ end Yport_p;
 partial model Yport_n "AC one port Y topology 'negative'"
   extends Port_n;
 
-  PS.Voltage[3] v "voltage terminal to neutral";
-  PS.Current[3] i "current terminal in";
+  PS.Voltage[PS.n] v "voltage terminal to neutral";
+  PS.Current[PS.n] i "current terminal in";
   PS.Voltage v_n(final start=0) "voltage neutral";
   PS.Current i_n(final start=0) "current neutral";
 
 equation
-  v = term.v - {0, 0, sqrt(3)*v_n};
+  v = term.v - PS.map({0, 0, sqrt(3)*v_n});
   term.i = i;
-  i_n = sqrt(3)*term.i[3];
+  if PS.n > 2 then
+    i_n = sqrt(3)*term.i[3];
+  else
+    i_n = 0;
+  end if;
   annotation (  Diagram(graphics={Line(points={{-30,-16},{-52,-16},{-62,0},{-52,
                 16},{-30,16}}, color={0,0,255}), Line(points={{-70,0},{-30,0}},
               color={0,0,255})}),
@@ -267,8 +275,8 @@ partial model YDport_p "AC one port Y or Delta topology 'positive'"
   Topology_p top(v_cond=v, i_cond=i, v_n=v_n)
     annotation (Placement(transformation(extent={{30,-20},{70,20}})));
 
-  PS.Voltage[3] v "voltage conductor";
-  PS.Current[3] i "current conductor";
+  PS.Voltage[PS.n] v "voltage conductor";
+  PS.Current[PS.n] i "current conductor";
   PS.Voltage[n_n] v_n "voltage neutral";
   PS.Current[n_n] i_n=top.i_n "current neutral to ground";
   protected
@@ -317,8 +325,8 @@ partial model YDport_n "AC one port Y or Delta topology 'positive'"
             "Delta")));
   Topology_n top(v_cond=v, i_cond=i, v_n=v_n) "Y or Delta topology"
     annotation (Placement(transformation(extent={{-30,-20},{-70,20}})));
-  PS.Voltage[3] v "voltage conductor";
-  PS.Current[3] i "current conductor";
+  PS.Voltage[PS.n] v "voltage conductor";
+  PS.Current[PS.n] i "current conductor";
   PS.Voltage[n_n] v_n "voltage neutral";
   PS.Current[n_n] i_n=top.i_n "current neutral to ground";
   protected
@@ -368,8 +376,8 @@ partial model Y_Dport_p "AC two port, switcheable Y-Delta topology"
         PowerSystems.AC3ph.Ports.Topology.Y_DeltaRegular "Y_DeltaRegular")));
   Topology_p top(v_cond=v, i_cond=i, control=YDcontrol) "Y-Delta switcheable"
     annotation (Placement(transformation(extent={{30,-20},{70,20}})));
-  PS.Voltage[3] v "voltage conductor";
-  PS.Current[3] i "current conductor";
+  PS.Voltage[PS.n] v "voltage conductor";
+  PS.Current[PS.n] i "current conductor";
   Modelica.Blocks.Interfaces.BooleanInput YDcontrol "true:Y, false:Delta"
                                             annotation (Placement(
           transformation(extent={{-110,30},{-90,50}})));
