@@ -332,7 +332,7 @@ with variable power and voltage when 'pv' connected to a signal-input.</p>
   model PQsource "Power source, 3-phase dq0"
     extends Partials.PowerBase;
 
-    Modelica.Blocks.Interfaces.RealInput[2] pq_in(final unit="1") if  use_pq_in
+    Modelica.Blocks.Interfaces.RealInput[2] pq_in(each final unit="1") if  use_pq_in
       "{active, reactive} power" annotation (Placement(transformation(
           origin={60,100},
           extent={{-10,-10},{10,10}},
