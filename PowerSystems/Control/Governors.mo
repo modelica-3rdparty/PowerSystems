@@ -116,7 +116,7 @@ package Governors "Turbine Governors "
       initType=initType,
       a={t,1},
       b={k})  annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-    Modelica.Blocks.Math.Add delta_power
+    Modelica.Blocks.Math.Add delta_power(k1=-1)
                             annotation (Placement(transformation(extent={{10,
               -10},{30,10}})));
 
