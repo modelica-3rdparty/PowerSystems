@@ -273,10 +273,10 @@ Consumes the desired power independent of voltage.</p>
         "= true to use input signal pq_in, otherwise use parameter pq0"
         annotation(Evaluate=true, choices(checkBox=true));
 
-      parameter SIpu.Power[2] pq0(min=0)={1,1}/sqrt(2)
+      parameter SIpu.Power[2] pq0(each min=0)={1,1}/sqrt(2)
         "fixed {active, reactive} power (start value if use_pq_in)"
         annotation(Dialog(enable=not use_pq_in));
-      Modelica.Blocks.Interfaces.RealInput[2] pq_in(min=0) if use_pq_in
+      Modelica.Blocks.Interfaces.RealInput[2] pq_in(each min=0) if use_pq_in
         "desired {active, reactive} power" annotation (Placement(transformation(
             origin={0,100},
             extent={{-10,-10},{10,10}},
