@@ -23,6 +23,11 @@ Download [PowerSystems v0.6.0 (2017-01-18)](../../archive/v0.6.0.zip)
 
 #### Revisions
 
+ * [Version v1.0.0  (2018-11-12)](../../archive/v1.0.0.zip)
+   * Added missing 'each'.
+   * Enhance sensors with scaling of output signals.
+   * Add steady-state AC3ph PQload.
+
  * [Version v0.6.0  (2017-01-18)](../../archive/v0.6.0.zip)
    * Enhance AC3ph with replaceable PhaseSystem.
      Many components work with ThreePhase_dq as well, besides the default ThreePhase_dq0.

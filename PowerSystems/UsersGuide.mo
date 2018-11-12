@@ -77,6 +77,15 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 </ul>
 </html>", revisions="<html>
 <ul>
+<li><i>12 Nov 2018</i>
+    by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
+    Version 1.0.0
+  <ul>
+  <li>Added missing 'each'.</li>
+  <li>Enhance sensors with scaling of output signals.</li>
+  <li>Add steady-state AC3ph PQload.</li>
+  </ul>
+</li>
 <li><i>18 Jan 2017</i>
     by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
     Version 0.6.0
