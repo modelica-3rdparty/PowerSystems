@@ -19,7 +19,7 @@ See also the publication [Franke, Wiesmann: Flexible modeling of electrical powe
 
 ## Current release
 
-Download [PowerSystems v0.6.0 (2017-01-18)](../../archive/v0.6.0.zip)
+Download [PowerSystems v1.0.0 (2018-11-12)](../../archive/v1.0.0.zip)
 
 #### Revisions
 
