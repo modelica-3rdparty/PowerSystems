@@ -2,6 +2,43 @@ within PowerSystems.AC3ph;
 package Loads "Loads"
   extends Modelica.Icons.VariantsPackage;
 
+  model PQload "PQ steady-state load"
+    extends PowerSystems.AC3ph.Loads.Partials.LoadBase;
+  equation
+    PS.map({pq[1], pq[2], 0}) = PS.phasePowers_vi(v, i);
+    annotation (defaultComponentName="pqLoad",
+      Documentation(info="<html>
+<p>Steady-state load with constant characteristic.<br>
+Consumes the desired active and reactive power.</p>
+</html>"),
+      Icon(graphics={  Text(
+            extent={{-96,36},{44,-24}},
+            lineColor={176,0,0},
+            fillColor={128,128,128},
+            fillPattern=FillPattern.Solid,
+            textString=
+             "p   q")}),
+      Diagram(graphics={
+          Rectangle(
+            extent={{-70,4},{30,-4}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-70,20},{30,12}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-70,-12},{30,-20}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid)}));
+  end PQload;
+
   model Zload "Impedance load, 3-phase dq0"
     extends Partials.IndLoadBase;
 

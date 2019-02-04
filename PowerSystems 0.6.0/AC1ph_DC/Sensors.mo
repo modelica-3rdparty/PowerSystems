@@ -3,7 +3,7 @@ package Sensors "Sensors n-phase or DC"
   extends Modelica.Icons.SensorsPackage;
 
   model VdiffSensor "Voltage difference sensor, 1-phase"
-    extends Partials.Sensor1Base;
+    extends Partials.Sensor1Base(final S_nom=1);
 
     Modelica.Blocks.Interfaces.RealOutput v
       "difference voltage 'plus' - 'minus'"
@@ -12,8 +12,12 @@ package Sensors "Sensors n-phase or DC"
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
+  protected
+    final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
+      puUnits, V_nom);
+
   equation
-    v = term.v[1] - term.v[2];
+    v = (term.v[1] - term.v[2])/V_base;
     annotation (defaultComponentName = "Vsensor1",
       Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -38,8 +42,12 @@ package Sensors "Sensors n-phase or DC"
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
+  protected
+    final parameter PS.Current I_base=Utilities.Precalculation.baseI(
+      puUnits, V_nom, S_nom);
+
   equation
-    i = 0.5*(term_p.i[1] - term_p.i[2]);
+    i = 0.5*(term_p.i[1] - term_p.i[2])/I_base;
     annotation (defaultComponentName = "Isensor1",
       Documentation(
               info="<html>
@@ -52,7 +60,7 @@ package Sensors "Sensors n-phase or DC"
   end IdiffSensor;
 
   model Vsensor "Voltage sensor, 1-phase"
-    extends Partials.Sensor1Base;
+    extends Partials.Sensor1Base(final S_nom=1);
 
     Modelica.Blocks.Interfaces.RealOutput[2] v
       "voltage 'plus' and 'minus'-to-ground"
@@ -61,8 +69,12 @@ package Sensors "Sensors n-phase or DC"
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
+  protected
+    final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
+      puUnits, V_nom);
+
   equation
-    v = term.v;
+    v = term.v/V_base;
     annotation (defaultComponentName = "Vsensor1",
       Icon(coordinateSystem(
           preserveAspectRatio=false,
@@ -90,8 +102,12 @@ package Sensors "Sensors n-phase or DC"
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
+  protected
+    final parameter PS.Current I_base=Utilities.Precalculation.baseI(
+      puUnits, V_nom, S_nom);
+
   equation
-    i = term_p.i;
+    i = term_p.i/I_base;
     annotation (defaultComponentName = "Isensor1",
       Documentation(
               info="<html>
@@ -115,8 +131,12 @@ package Sensors "Sensors n-phase or DC"
           extent={{-10,-10},{10,10}},
           rotation=90)));
 
+  protected
+    final parameter SI.ApparentPower S_base=Utilities.Precalculation.baseS(
+      puUnits, S_nom);
+
   equation
-    p = term_p.v*term_p.i;
+    p = term_p.v*term_p.i/S_base;
    annotation (defaultComponentName = "Psensor1",
       Documentation(
               info="<html>
@@ -140,7 +160,7 @@ package Sensors "Sensors n-phase or DC"
   protected
     SIpu.Voltage[2] v_ab(each stateSelect=StateSelect.never);
     final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
-                                                                 puUnits, V_nom);
+      puUnits, V_nom);
 
   equation
     v_ab = term.v/V_base;
@@ -180,7 +200,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
   protected
     SIpu.Current[2] i_ab(each stateSelect=StateSelect.never);
     final parameter PS.Current I_base=Utilities.Precalculation.baseI(
-                                                                 puUnits, V_nom, S_nom);
+      puUnits, V_nom, S_nom);
 
   equation
     i_ab = term_p.i/I_base;
@@ -219,7 +239,7 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
   protected
     outer System system;
     final parameter SI.ApparentPower S_base=Utilities.Precalculation.baseS(
-        puUnits, S_nom);
+      puUnits, S_nom);
     SIpu.Power pav;
 
   initial equation
@@ -269,9 +289,9 @@ Use them only when and where needed. Otherwise use 'Sensors'.</p>
   protected
     outer System system;
     final parameter PS.Voltage V_base=Utilities.Precalculation.baseV(
-                                                                 puUnits, V_nom);
+      puUnits, V_nom);
     final parameter PS.Current I_base=Utilities.Precalculation.baseI(
-                                                                 puUnits, V_nom, S_nom);
+      puUnits, V_nom, S_nom);
     SIpu.Power pav;
     SIpu.Voltage[2] v_ab;
     SIpu.Current[2] i_ab;
@@ -406,6 +426,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     partial model Sensor1Base "Sensor Base, 1-phase"
       extends Ports.Port_p;
+      extends Common.Nominal.Nominal;
 
     equation
       term.i = zeros(2);
@@ -428,6 +449,7 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     partial model Sensor2Base "Sensor Base, 1-phase"
       extends Ports.Port_pn;
+      extends Common.Nominal.Nominal;
 
     equation
       term_p.v = term_n.v;
@@ -452,7 +474,6 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     partial model Meter1Base "Meter base 1 terminal, 1-phase"
       extends Sensor1Base;
-      extends Common.Nominal.Nominal;
 
       annotation (
         Documentation(
@@ -467,7 +488,6 @@ In problematic cases use power sensors electrical and mechanical.</p>
 
     partial model Meter2Base "Meter base 2 terminal, 1-phase"
       extends Sensor2Base;
-      extends Common.Nominal.Nominal;
 
       annotation (Icon(graphics={Ellipse(extent={{-70,70},{70,-70}}, lineColor=
                   {135,135,135})}));
