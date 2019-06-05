@@ -111,7 +111,7 @@ package Impedances "Impedance and admittance two terminal"
     parameter SIpu.Reactance x_s=1 "self reactance";
     parameter SIpu.Reactance x_m=0 "mutual reactance, -x_s/2 < x_m < x_s";
   protected
-    final parameter SI.Resistance[2] RL_base=Utilities.Precalculation.baseRL(
+    final parameter Real[2] RL_base=Utilities.Precalculation.baseRL(
           puUnits,
           V_nom,
           S_nom,
