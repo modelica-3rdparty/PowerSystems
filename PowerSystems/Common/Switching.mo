@@ -45,7 +45,7 @@ model Breaker "Breaker kernel, no terminals"
   parameter SI.Time t_opening=20e-3 "opening duration";
   parameter SI.ElectricFieldStrength Earc=50e3 "electric field arc";
   parameter SI.Resistance R0=1 "small signal resistance arc";
-  replaceable Plasma.ArcBreaker arcBreaker(E=Earc, r=R0/(D*Earc))
+  replaceable Plasma.ArcBreaker arcBreaker(E=Earc, r=R0/(D*Earc), d=d)
     annotation (Placement(transformation(extent={{-30,-20},{30,20}})));
   protected
   SI.Voltage v_arc;
@@ -58,7 +58,6 @@ initial equation
   pre(open) = not closed;
 
 equation
-  arcBreaker.d=d;
   arcBreaker.v=v_arc;
   arcBreaker.i=i_arc;
 

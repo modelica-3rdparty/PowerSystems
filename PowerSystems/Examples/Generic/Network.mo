@@ -7,7 +7,7 @@ package Network "Text book example and variants of it"
     extends Modelica.Icons.Example;
 
     replaceable package PhaseSystem =
-        PackagePhaseSystem "Default phase system"
+        PhaseSystems.ThreePhase_dq "Default phase system"
       annotation (choicesAllMatching=true);
 
     PowerSystems.Generic.FixedVoltageSource
