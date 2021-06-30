@@ -77,6 +77,16 @@ The following table summerizes the PhaseSystems that are predefined in the Power
 </ul>
 </html>", revisions="<html>
 <ul>
+<li><i>30 Jun 2021</i>
+    by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
+    Version 1.0.1
+  <ul>
+  <li>Make semiconductor model in Semiconductors.PhaseModules.SwitchModule replaceable.</li>
+  <li>Fix unit in AC3ph.Impedances.Inductor (#43).</li>
+  <li>Added missing 'each' to AC3ph.Machines.Synchron_pm_ctrl (#44).</li>
+  <li>Small clean-ups</li>
+  </ul>
+</li>
 <li><i>12 Nov 2018</i>
     by <a href=\"mailto:Ruediger.Franke@de.abb.com\">Ruediger Franke</a>:<br>
     Version 1.0.0

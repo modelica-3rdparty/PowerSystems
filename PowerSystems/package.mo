@@ -14,8 +14,8 @@ package PowerSystems "Library for electrical power systems"
     annotation (choicesAllMatching=true);
 
   annotation (preferredView="info",
-  version="1.0.0",
-  versionDate="2018-11-12",
+  version="1.0.1",
+  versionDate="2021-06-30",
   Documentation(info="<html>
 <p>The Modelica PowerSystems library is intended for the modeling of electrical <b>power systems</b> at different <b>levels of detail</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
 <p>The Users Guide to the library is <a href=\"modelica://PowerSystems.UsersGuide\"><b>here</b></a>.</p>
@@ -32,7 +32,7 @@ by funding of the IST Programme, Contract No. IST-1999-11979. </i></p>
 <p/>
 </html>
 "),
-  uses(Modelica(version="3.2.2")),
+  uses(Modelica(version="3.2.3")),
   Icon(graphics={
       Line(
         points={{-60,-16},{38,-16}},

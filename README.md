@@ -23,6 +23,12 @@ Download [PowerSystems v1.0.0 (2018-11-12)](../../archive/v1.0.0.zip)
 
 #### Revisions
 
+ * [Version v1.0.1  (2021-06-30)](../../archive/v1.0.1.zip)
+   * Make semiconductor model in Semiconductors.PhaseModules.SwitchModule replaceable.
+   * Fix unit in AC3ph.Impedances.Inductor (#43).
+   * Added missing 'each' to AC3ph.Machines.Synchron_pm_ctrl (#44).
+   * Small clean-ups
+
  * [Version v1.0.0  (2018-11-12)](../../archive/v1.0.0.zip)
    * Added missing 'each'.
    * Enhance sensors with scaling of output signals.
