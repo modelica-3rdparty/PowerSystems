@@ -103,9 +103,9 @@ end Select;
 model Rectifier "Rectifier, 3-phase dq0"
   extends Partials.AC_DC_base(heat(final m=3));
 
-  replaceable model Rectifier =
-    PowerSystems.AC3ph.Inverters.Components.RectifierEquation "rectifier model"
-                       annotation (choices(
+  replaceable model Rectifier = PowerSystems.AC3ph.Inverters.Components.RectifierEquation
+    constrainedby PowerSystems.AC3ph.Inverters.Partials.AC_DC_base "rectifier model"
+    annotation (choices(
     choice(redeclare model Rectifier =
            PowerSystems.AC3ph.Inverters.Components.RectifierEquation
             "equation, with losses"),
@@ -244,9 +244,9 @@ model Inverter "Complete modulator and inverter, 3-phase dq0"
             "block modulation (no PWM)")));
   Modulator modulator
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  replaceable model Inverter =
-        PowerSystems.AC3ph.Inverters.Components.InverterSwitch "inverter model"
-                     annotation (choices(
+  replaceable model Inverter = PowerSystems.AC3ph.Inverters.Components.InverterSwitch
+    constrainedby PowerSystems.AC3ph.Inverters.Partials.AC_DC_base "inverter model"
+    annotation (choices(
     choice(redeclare model Inverter =
               PowerSystems.AC3ph.Inverters.Components.InverterSwitch
             "switch, no diode, no losses"),
@@ -555,10 +555,9 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
   model RectifierModular "Rectifier modular, 3-phase"
     extends Partials.AC_DC_base(heat(final m=3));
 
-    package SCpackage = PowerSystems.Semiconductors.Ideal "SC package";
-    replaceable record Data = SCpackage.SCparameter(final Hsw_nom=0)
-        "SC parameters"
-                      annotation(choicesAllMatching=true);
+    replaceable record Data = PowerSystems.Semiconductors.Ideal.SCparameter(final Hsw_nom=0)
+      "SC parameters"
+      annotation(choicesAllMatching=true);
     final parameter Data par "SC parameters"
       annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
     Nodes.ACdq0_a_b_c acdq0_a_b_c annotation (Placement(transformation(extent={
@@ -842,8 +841,10 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
   model InverterModular "Inverter modular, 3-phase"
     extends Partials.AC_DC_base(heat(final m=3));
 
-    package SCpackage = PowerSystems.Semiconductors.Ideal "SC package";
-    replaceable record Data = SCpackage.SCparameter "SC parameters"
+    replaceable model Switch = PowerSystems.Semiconductors.Ideal.SCswitch_Diode "Semiconductor model"
+      constrainedby PowerSystems.Semiconductors.Partials.GateInput
+      annotation(choicesAllMatching=true);
+    replaceable record Data = PowerSystems.Semiconductors.Ideal.SCparameter "SC parameters"
       annotation(choicesAllMatching=true);
     final parameter Data par "SC parameters"
       annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -859,13 +860,13 @@ Blocking losses are neglected in the expression of dissipated heat <tt>Q_flow</t
             transformation(extent={{-10,70},{10,90}})));
     Blocks.Multiplex.Gate3demux gate3demux1(final n=2)
       annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
-    Semiconductors.PhaseModules.SwitchModule switchMod_a(final par=par)
+    Semiconductors.PhaseModules.SwitchModule switchMod_a(redeclare model Switch=Switch, final par=par)
         "switch + reverse diode module AC_a"
         annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-    Semiconductors.PhaseModules.SwitchModule switchMod_b(final par=par)
+    Semiconductors.PhaseModules.SwitchModule switchMod_b(redeclare model Switch=Switch, final par=par)
         "switch + reverse diode module AC_b"
         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-    Semiconductors.PhaseModules.SwitchModule switchMod_c(final par=par)
+    Semiconductors.PhaseModules.SwitchModule switchMod_c(redeclare model Switch=Switch, final par=par)
         "switch + reverse diode module AC_c"
         annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 

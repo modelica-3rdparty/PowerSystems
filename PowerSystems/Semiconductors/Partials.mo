@@ -39,6 +39,19 @@ package Partials "Partial models"
          "%name")}));
   end ComponentBase;
 
+  partial model GateInput "Provide gate input for active components"
+
+    Modelica.Blocks.Interfaces.BooleanInput gate "true:on, false: off"
+      annotation (Placement(transformation(
+          origin={60,100},
+          extent={{-10,-10},{10,10}},
+          rotation=270)));
+
+    annotation (
+      Documentation(
+            info="<html></html>"));
+  end GateInput;
+
   partial model AC1ph_DC_base "AC(scalar)-DC base"
     extends PowerSystems.Icons.Inverter;
 

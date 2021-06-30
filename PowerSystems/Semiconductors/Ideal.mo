@@ -85,12 +85,7 @@ end Diode;
 
 model Thyristor "Thyristor"
   extends IdealCharacteristic;
-
-  Modelica.Blocks.Interfaces.BooleanInput gate "true:on, false: off"
-    annotation (Placement(transformation(
-          origin={60,100},
-          extent={{-10,-10},{10,10}},
-          rotation=270)));
+  extends Partials.GateInput;
 
 equation
   on = s > V and (pre(on) or gate);
@@ -118,12 +113,7 @@ end Thyristor;
 
 model SCswitch "Semiconductor switch"
   extends IdealCharacteristic;
-
-  Modelica.Blocks.Interfaces.BooleanInput gate "true:on, false: off"
-    annotation (Placement(transformation(
-          origin={60,100},
-          extent={{-10,-10},{10,10}},
-          rotation=270)));
+  extends Partials.GateInput;
 
 equation
   on = s > V and gate;
@@ -150,16 +140,13 @@ end SCswitch;
 
 model SCswitch_Diode "Semiconductor switch with reverse Diode"
   extends Partials.ComponentBase;
+  extends Partials.GateInput;
 
   parameter SCparameter par "ideal with forward Vf"
                                         annotation (Placement(transformation(
             extent={{-80,-80},{-60,-60}})));
-  Modelica.Blocks.Interfaces.BooleanInput gate "true:on, false: off"
-    annotation (Placement(transformation(
-          origin={60,100},
-          extent={{-10,-10},{10,10}},
-          rotation=270)));
-  protected
+
+protected
   constant Real unitAmperePerVolt(unit="A/V") = 1    annotation(HideResult=true);
 
   Real s(start = 0.5) "auxiliary variable";

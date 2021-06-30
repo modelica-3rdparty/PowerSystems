@@ -9,18 +9,17 @@ model DiodeModule "Diode module"
   annotation (choices(
   choice(redeclare package SCpackage=Semiconductors.Ideal "ideal"),
   choice(redeclare package SCpackage=Semiconductors.Custom "custom")));*/
-  package SCpackage=Semiconductors.Ideal "SC package";
-  parameter SCpackage.SCparameter par "SC parameters"
+  parameter Semiconductors.Ideal/*SCpackage*/.SCparameter par "SC parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   PowerSystems.AC1ph_DC.Nodes.Electric_pn_p_n pn_p_n
                              annotation (Placement(transformation(extent={{-60,
               -10},{-40,10}})));
-  SCpackage.Diode diode1(final par=par) "diode DC_p"
+  Semiconductors.Ideal/*SCpackage*/.Diode diode1(final par=par) "diode DC_p"
     annotation (Placement(transformation(
           origin={0,30},
           extent={{-10,-10},{10,10}},
           rotation=90)));
-  SCpackage.Diode diode2(final par=par) "diode DC_n"
+  Semiconductors.Ideal/*SCpackage*/.Diode diode2(final par=par) "diode DC_n"
     annotation (Placement(transformation(
           origin={0,-30},
           extent={{-10,-10},{10,10}},
@@ -77,8 +76,10 @@ model SwitchModule "Switch module"
   annotation (choices(
   choice(redeclare package SCpackage=PowerSystems.Semiconductors.Ideal "ideal"),
   choice(redeclare package SCpackage=PowerSystems.Semiconductors.Custom "custom")));*/
-  package SCpackage=Semiconductors.Ideal "SC package";
-  parameter SCpackage.SCparameter par "SC parameters"
+  replaceable model Switch = PowerSystems.Semiconductors.Ideal/*SCpackage*/.SCswitch_Diode
+    constrainedby PowerSystems.Semiconductors.Partials.GateInput
+    annotation(choicesAllMatching=true);
+  parameter Semiconductors.Ideal/*SCpackage*/.SCparameter par "SC parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput[2] gates "gate-pair p and n"
     annotation (Placement(transformation(
@@ -89,41 +90,39 @@ model SwitchModule "Switch module"
     annotation (Placement(transformation(extent={{-70,60},{-50,80}})));
   PowerSystems.AC1ph_DC.Nodes.Electric_pn_p_n pn_p_n
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  SCpackage.SCswitch_Diode switch_D1(final par=par)
-      "switch + reverse diode DC_p"
+  Switch switch1(final par=par) "switch DC_p"
     annotation (Placement(transformation(
           origin={0,30},
           extent={{-10,10},{10,-10}},
           rotation=270)));
-  SCpackage.SCswitch_Diode switch_D2(final par=par)
-      "switch + reverse diode DC_n"
+  Switch switch2(final par=par) "switch DC_n"
     annotation (Placement(transformation(
           origin={0,-30},
           extent={{-10,10},{10,-10}},
           rotation=270)));
 
 equation
-  connect(AC, switch_D1.term_n) annotation (Line(points={{100,0},{-6.12303e-016,
+  connect(AC, switch1.term_n) annotation (Line(points={{100,0},{-6.12303e-016,
             0},{-6.12303e-016,20}}, color={0,0,255}));
-  connect(switch_D1.term_p, pn_p_n.term_p) annotation (Line(points={{
+  connect(switch1.term_p, pn_p_n.term_p) annotation (Line(points={{
             6.12303e-016,40},{0,40},{0,50},{-40,50},{-40,4},{-64,4}}, color={0,
             0,255}));
-  connect(AC, switch_D2.term_p) annotation (Line(points={{100,0},{6.12303e-016,
+  connect(AC, switch2.term_p) annotation (Line(points={{100,0},{6.12303e-016,
             0},{6.12303e-016,-20}}, color={0,0,255}));
-  connect(switch_D2.term_n, pn_p_n.term_n) annotation (Line(points={{
+  connect(switch2.term_n, pn_p_n.term_n) annotation (Line(points={{
             -6.12303e-016,-40},{0,-40},{0,-50},{-40,-50},{-40,-4},{-64,-4}},
           color={0,0,255}));
   connect(gates, gate2demux.gates) annotation (Line(points={{-60,100},{-60,80}},
           color={255,0,255}));
-  connect(gate2demux.gates_1[1], switch_D1.gate) annotation (Line(points={{-64,
+  connect(gate2demux.gates_1[1], switch1.gate) annotation (Line(points={{-64,
             60},{-64,24},{-10,24}}, color={255,0,255}));
-  connect(gate2demux.gates_2[1], switch_D2.gate) annotation (Line(points={{-56,
+  connect(gate2demux.gates_2[1], switch2.gate) annotation (Line(points={{-56,
             60},{-56,-36},{-10,-36}}, color={255,0,255}));
   connect(pn_p_n.term_pn, DC)
       annotation (Line(points={{-76,0},{-100,0}}, color={0,0,255}));
-  connect(switch_D1.heat, heat)   annotation (Line(points={{-10,30},{-20,30},{
+  connect(switch1.heat, heat)   annotation (Line(points={{-10,30},{-20,30},{
             -20,80},{0,80},{0,100}}, color={176,0,0}));
-  connect(switch_D2.heat, heat)   annotation (Line(points={{-10,-30},{-20,-30},
+  connect(switch2.heat, heat)   annotation (Line(points={{-10,-30},{-20,-30},
             {-20,80},{0,80},{0,100}}, color={176,0,0}));
   annotation (defaultComponentName = "switchMod1",
     Documentation(
