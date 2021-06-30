@@ -3,6 +3,7 @@ package Elementary "AC 1-phase and DC components"
   extends Modelica.Icons.ExamplesPackage;
 
   model Breaker "Breaker"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
@@ -58,6 +59,7 @@ package Elementary "AC 1-phase and DC components"
   end Breaker;
 
   model Fault "Fault"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
@@ -126,6 +128,7 @@ package Elementary "AC 1-phase and DC components"
   end Fault;
 
   model Impedance "Impedance"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
@@ -165,6 +168,7 @@ package Elementary "AC 1-phase and DC components"
   end Impedance;
 
   model ImpedanceOneTerm "Impedance One-terminal"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
@@ -198,6 +202,7 @@ package Elementary "AC 1-phase and DC components"
   end ImpedanceOneTerm;
 
   model Line "Line"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
@@ -246,7 +251,7 @@ package Elementary "AC 1-phase and DC components"
   end Line;
 
   model DoublelLine "Parallel lines, one faulted"
-    import PowerSystems;
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -334,6 +339,7 @@ Compare with DoublePIline.</p>
   end DoublelLine;
 
   model LoadAC "AC load"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
@@ -374,6 +380,7 @@ Compare with DoublePIline.</p>
   end LoadAC;
 
   model LoadDC "AC load"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -414,6 +421,7 @@ Compare with DoublePIline.</p>
   end LoadDC;
 
   model Machines "Machines"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -469,6 +477,7 @@ Compare with DoublePIline.</p>
   end Machines;
 
   model Sensor "Sensor and meter"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
@@ -503,6 +512,7 @@ Compare with DoublePIline.</p>
   end Sensor;
 
   model Source "Source"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
@@ -532,6 +542,7 @@ Compare with DoublePIline.</p>
   end Source;
 
   model Transformer "Transformer"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
@@ -597,6 +608,7 @@ Compare with DoublePIline.</p>
   end Transformer;
 
   model Rectifier "Rectifier"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)
@@ -650,6 +662,7 @@ Compare with DoublePIline.</p>
   end Rectifier;
 
   model Inverter "Inverter, controlled rectifier"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
       dynType=PowerSystems.Types.Dynamics.FixedInitial)

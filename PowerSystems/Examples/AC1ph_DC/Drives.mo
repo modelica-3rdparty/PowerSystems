@@ -3,6 +3,7 @@ package Drives "DC drives"
   extends Modelica.Icons.ExamplesPackage;
 
   model DCmotor_ser "DC motor series excited"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -68,6 +69,7 @@ package Drives "DC drives"
   end DCmotor_ser;
 
   model DCmotor_par "DC motor parallel excited"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -133,6 +135,7 @@ package Drives "DC drives"
   end DCmotor_par;
 
   model DCmotor_pm "DC motor permanent magnet excited"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -199,6 +202,7 @@ package Drives "DC drives"
   end DCmotor_pm;
 
   model BLDC "Brushless DC motor"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(f_nom=60,
       refType=PowerSystems.Types.ReferenceFrame.Inertial,
@@ -278,6 +282,7 @@ package Drives "DC drives"
   end BLDC;
 
   model DCcharSpeed "DC pm: torque - speed characteristic"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(f_nom=60, dynType=PowerSystems.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -334,6 +339,7 @@ package Drives "DC drives"
   end DCcharSpeed;
 
   model BLDCcharSpeed "BLDC: torque - speed characteristic"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(f_nom=60, dynType=PowerSystems.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));

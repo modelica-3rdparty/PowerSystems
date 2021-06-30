@@ -3,6 +3,7 @@ package Precalculation "Precalculation of machine matrices"
 extends Modelica.Icons.ExamplesPackage;
 
 model Z_matrixTrDat0 "z-matrix from transient data, n=1, 0"
+  extends Modelica.Icons.Example;
 
   parameter SI.AngularFrequency omega_nom=2*pi*60 "nom ang frequency";
   parameter Boolean use_xtr=true "use t_closed and x_transient?"
@@ -207,6 +208,7 @@ algorithm
 end Z_matrixTrDat0;
 
 model Z_matrixTrDat1 "z-matrix from transient data, n=1"
+  extends Modelica.Icons.Example;
 
   parameter SI.AngularFrequency omega_nom=2*pi*60 "nom ang frequency";
   parameter Boolean use_xtr=true "use t_closed and x_transient?"
@@ -438,6 +440,7 @@ algorithm
 end Z_matrixTrDat1;
 
 model Z_matrixTrDat2 "z-matrix from transient data, n=2"
+  extends Modelica.Icons.Example;
 
   parameter SI.AngularFrequency omega_nom=2*pi*60 "nom ang frequency";
   parameter Boolean use_xtr=true "use t_closed and x_transient?"
@@ -735,6 +738,7 @@ algorithm
 end Z_matrixTrDat2;
 
 model Z_matrixTrDat3 "z-matrix from transient data, n=3"
+  extends Modelica.Icons.Example;
 
   parameter SI.AngularFrequency omega_nom=2*pi*60 "nom ang frequency";
   parameter Boolean use_xtr=true "use t_closed and x_transient?"
@@ -1094,6 +1098,7 @@ algorithm
 end Z_matrixTrDat3;
 
 model Z_matrixEqCirc0 "z-matrix from equivalent circuit, n=1, 0"
+  extends Modelica.Icons.Example;
 
   parameter SI.AngularFrequency omega_nom=2*pi*60 "nom ang frequency";
   parameter SIpu.Reactance x_d=1.77 "syn reactance d-axis";
@@ -1287,6 +1292,7 @@ algorithm
 end Z_matrixEqCirc0;
 
 model Z_matrixEqCirc1 "z-matrix from equivalent circuit, n=1"
+  extends Modelica.Icons.Example;
 
   parameter SI.AngularFrequency omega_nom=2*pi*60 "nom ang frequency";
   parameter SIpu.Reactance x_d=1.77 "syn reactance d-axis";
@@ -1506,6 +1512,7 @@ algorithm
 end Z_matrixEqCirc1;
 
 model Z_matrixEqCirc2 "z-matrix from equivalent circuit, n=2"
+  extends Modelica.Icons.Example;
 
   parameter SI.AngularFrequency omega_nom=2*pi*60 "nom ang frequency";
   parameter SIpu.Reactance x_d=1.77 "syn reactance d-axis";
@@ -1788,6 +1795,7 @@ algorithm
 end Z_matrixEqCirc2;
 
 model Z_matrixEqCirc3 "z-matrix from equivalent circuit, n=3"
+  extends Modelica.Icons.Example;
 
   parameter SI.AngularFrequency omega_nom=2*pi*60 "nom ang frequency";
   parameter SIpu.Reactance x_d=1.77 "syn reactance d-axis";
@@ -2132,6 +2140,7 @@ algorithm
 end Z_matrixEqCirc3;
 
 model TransDatFromEqCirc "Calculates transient data from equivalent circuit"
+  extends Modelica.Icons.Example;
 
   parameter SI.AngularFrequency omega_nom=2*pi*60 "nom ang frequency";
   parameter SIpu.Reactance x_d=1.77 "syn reactance d-axis";
@@ -2423,6 +2432,7 @@ algorithm
 end TransDatFromEqCirc;
 
 model EqCircFromTransDat "Calculates equivalent circuit from transient data"
+  extends Modelica.Icons.Example;
 
   parameter SI.AngularFrequency omega_nom=2*pi*60 "nom ang frequency";
   parameter Boolean use_xtr=true "use t_closed and x_transient?"

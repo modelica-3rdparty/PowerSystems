@@ -3,6 +3,7 @@ package Inverters "Inverters dq0"
   extends Modelica.Icons.ExamplesPackage;
 
   model Rectifier "Rectifier"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
       refType=PowerSystems.Types.ReferenceFrame.Inertial)
@@ -78,6 +79,7 @@ package Inverters "Inverters dq0"
   end Rectifier;
 
   model InverterToLoad "Inverter to load"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -153,6 +155,7 @@ package Inverters "Inverters dq0"
   end InverterToLoad;
 
   model InverterToGrid "Inverter to grid"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Synchron)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -232,6 +235,7 @@ package Inverters "Inverters dq0"
   end InverterToGrid;
 
   model InverterAvToGrid "Inverter to grid"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));

@@ -3,6 +3,7 @@ package Transmission "AC transmission, dq0"
   extends Modelica.Icons.ExamplesPackage;
 
 model PowerTransfer "Power transfer between two nodes"
+  extends Modelica.Icons.Example;
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
@@ -61,6 +62,7 @@ Alternatively one can look at a variation of amplitude ratios.</p>
 end PowerTransfer;
 
 model VoltageStability "Voltage stability"
+  extends Modelica.Icons.Example;
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
@@ -165,6 +167,7 @@ equation
 end VoltageStability;
 
   model RXline "Single lumped line"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -231,6 +234,7 @@ Compare with PIline.</p>
   end RXline;
 
   model Tline "Single PI-line"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -300,6 +304,7 @@ Compare with RXline.</p>
   end Tline;
 
   model FaultRXline "Faulted lumped line"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -373,6 +378,7 @@ Compare with FaultPIline.</p>
   end FaultRXline;
 
   model FaultTline "Faulted PI-line"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -447,6 +453,7 @@ Compare with FaultRXline.</p>
   end FaultTline;
 
   model DoubleRXline "Parallel lumped lines, one faulted"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -535,7 +542,7 @@ Compare with DoublePIline.</p>
   end DoubleRXline;
 
   model DoublelLine "Parallel lines, one faulted"
-    import PowerSystems;
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -629,6 +636,7 @@ Compare with DoublePIline.</p>
 
   model DoubleRXlineTG
     "Parallel lumped lines with turbo generator, one line faulted"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -729,7 +737,7 @@ Compare with DoublePIline.</p>
   end DoubleRXlineTG;
 
   model DoubleLineTG "Parallel lines with turbo generator, one line faulted"
-    import PowerSystems;
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},

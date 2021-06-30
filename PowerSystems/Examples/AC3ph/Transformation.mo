@@ -3,7 +3,7 @@ package Transformation "Transformation dq0"
   extends Modelica.Icons.ExamplesPackage;
 
   model PhaseShifts "Phase shift primary-secondary"
-    import PowerSystems;
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
@@ -104,6 +104,7 @@ PAR-Y configuration:<br>
   end PhaseShifts;
 
   model TapChanger "Tap changing primary and secondary"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
@@ -209,6 +210,7 @@ if secondary side is changed at fixed source.</p>
   end TapChanger;
 
   model TreeWinding "Tree winding transformer"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));

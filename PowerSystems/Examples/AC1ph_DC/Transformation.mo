@@ -3,6 +3,7 @@ package Transformation "Transformation 1 phase"
   extends Modelica.Icons.ExamplesPackage;
 
   model OnePhase "One phase transformer"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));
@@ -59,6 +60,7 @@ Both sides have to choose a grounding scheme. In this example grounding is perfo
   end OnePhase;
 
   model TapChanger "One phase tap changing primary and secondary"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-100.5,80},{-80.5,100}})));

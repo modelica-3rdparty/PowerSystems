@@ -3,6 +3,7 @@ package Generation "AC power generation, dq0"
   extends Modelica.Icons.ExamplesPackage;
 
 model Vsource "Power transfer from voltage source to slack bus"
+  extends Modelica.Icons.Example;
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
@@ -53,6 +54,7 @@ The powerflow depends essentially on the phase difference between the nodes and 
 end Vsource;
 
 model PVsource "Power transfer from power-voltage source to slack bus"
+  extends Modelica.Icons.Example;
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
@@ -104,6 +106,7 @@ The active powerflow is now directly determined through a parameter instead of i
 end PVsource;
 
 model PQsource "Power transfer from power source to slack bus"
+  extends Modelica.Icons.Example;
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
@@ -154,6 +157,7 @@ Both active and reactive powerflow are now directly determined through a paramet
 end PQsource;
 
   model PowerAngle "Generator at fixed power angle"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -259,6 +263,7 @@ The power-angle is artificially fixed. The correspondence is:
   end PowerAngle;
 
   model TurbineGenerator "Turbine with generator"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -374,6 +379,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
   end TurbineGenerator;
 
   model TurbineGeneratorLine "Turbine with generator and line"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
                         annotation (Placement(transformation(extent={{-100,80},
@@ -516,6 +522,7 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
   end TurbineGeneratorLine;
 
 model TurboGeneratorLine "Turbo-generator with line to infinite bus"
+  extends Modelica.Icons.Example;
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
@@ -633,6 +640,7 @@ equation
 end TurboGeneratorLine;
 
 model GenOrder3and7 "Generator-models of different order"
+  extends Modelica.Icons.Example;
 
   inner PowerSystems.System system(f_nom=60)
                       annotation (Placement(transformation(extent={{-100,80},{
@@ -760,6 +768,7 @@ end GenOrder3and7;
 
 model TurboGroupGenerator
     "Turbogroup with generator, electro-mechanical interaction"
+  extends Modelica.Icons.Example;
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
@@ -837,6 +846,7 @@ A common 3-phase short circuit occurs at 0.1 sec, cleared after 200 ms.</p>
 end TurboGroupGenerator;
 
 model TieLine "Generators and power-oscillations"
+  extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(
       f_nom=60,
@@ -1038,6 +1048,7 @@ After the load decreases, system frequency starts to increase from 60 to 62 Hz w
 end TieLine;
 
 model WindGeneratorLine "Asynchronous generator"
+  extends Modelica.Icons.Example;
 
   inner PowerSystems.System system
                       annotation (Placement(transformation(extent={{-100,80},{
@@ -1107,6 +1118,7 @@ The wind-speed is increased from 5 to 15 m/s. The machine remains stable.</p>
 end WindGeneratorLine;
 
 model Islanding "AC synchronous generator in islanding configuration"
+  extends Modelica.Icons.Example;
 
   inner PowerSystems.System system
 annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -1222,9 +1234,9 @@ integration in inertial abc-system.</p>
 experiment(StopTime=30));
 end Islanding;
 
-public
 model LocalGeneration
     "AC torque controlled synchronous machine as local generator"
+  extends Modelica.Icons.Example;
 
   inner PowerSystems.System system(f_nom=60)
 annotation (Placement(transformation(extent={{-100,80},{-80,100}})));

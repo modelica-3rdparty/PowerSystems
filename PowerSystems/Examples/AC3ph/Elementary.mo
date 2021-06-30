@@ -3,6 +3,7 @@ package Elementary "AC 3-phase components dq0"
   extends Modelica.Icons.ExamplesPackage;
 
   model Breaker "Breaker"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -53,6 +54,7 @@ package Elementary "AC 3-phase components dq0"
   end Breaker;
 
   model Fault "Fault"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -116,6 +118,7 @@ package Elementary "AC 3-phase components dq0"
   end Fault;
 
   model Impedance "Impedance"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -153,6 +156,7 @@ package Elementary "AC 3-phase components dq0"
   end Impedance;
 
   model ImpedanceYD "Impedance Y-Delta"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -186,6 +190,7 @@ package Elementary "AC 3-phase components dq0"
   end ImpedanceYD;
 
   model Line "Line"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -232,6 +237,7 @@ package Elementary "AC 3-phase components dq0"
   end Line;
 
   model Load "Load"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -271,6 +277,7 @@ package Elementary "AC 3-phase components dq0"
   end Load;
 
   model Machines "Machines"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Synchron)
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -324,6 +331,7 @@ package Elementary "AC 3-phase components dq0"
   end Machines;
 
   model Sensor "Sensor and meter"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -356,6 +364,7 @@ package Elementary "AC 3-phase components dq0"
   end Sensor;
 
   model Source "Source"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -385,6 +394,7 @@ package Elementary "AC 3-phase components dq0"
   end Source;
 
   model Transformer "Transformer"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -449,6 +459,7 @@ package Elementary "AC 3-phase components dq0"
   end Transformer;
 
   model Rectifier "Rectifier"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
                         annotation (Placement(transformation(extent={{-80,60},{
@@ -503,6 +514,7 @@ package Elementary "AC 3-phase components dq0"
   end Rectifier;
 
   model Inverter "Inverter, controlled rectifier"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
                         annotation (Placement(transformation(extent={{-80,60},{

@@ -4,6 +4,7 @@ package Drives "AC drives, dq0"
 
   model ASMcharacteristic
     "AC asynchronous machine: torque - slip characteristic"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -64,6 +65,7 @@ plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent var
   end ASMcharacteristic;
 
   model ASM_Y_D "AC asynchronous machine Y-Delta switcheable"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -126,6 +128,7 @@ Compare 'transient' and 'steady-state' mode.</p>
 
   model ASMav
     "AC asynchronous machine, voltage controlled with average inverter"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Synchron)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -209,6 +212,7 @@ Compare 'transient' and 'steady-state' mode.</p>
 
   model ASMav_icontrol
     "AC asynchronous machine, current controlled with average inverter"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Synchron)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -298,6 +302,7 @@ Compare 'transient' and 'steady-state' mode.</p>
   end ASMav_icontrol;
 
   model ASM "AC asynchronous machine, voltage controlled"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -379,6 +384,7 @@ The machine defines the reference-system independent of the system choice (as ne
 
   model SM_ctrlAv
     "AC synchronous pm machine, current controlled with average inverter"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -467,6 +473,7 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
   end SM_ctrlAv;
 
   model SM_ctrl "AC synchronous pm machine, current controlled"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -559,6 +566,7 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
 
   model ASM_ctrlAv
     "AC asynchronous machine, current controlled with average inverter"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -652,6 +660,7 @@ Check vPhasor[1] &lt;  1.<br>The time-average inverter produces a desired voltag
   end ASM_ctrlAv;
 
   model ASM_ctrl "AC asynchronous machine, current controlled"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));

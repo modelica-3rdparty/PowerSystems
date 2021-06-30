@@ -3,6 +3,7 @@ package Inverters "Inverters 1 phase and DC"
   extends Modelica.Icons.ExamplesPackage;
 
   model Rectifier "Rectifier"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
       refType=PowerSystems.Types.ReferenceFrame.Inertial)
@@ -74,6 +75,7 @@ package Inverters "Inverters 1 phase and DC"
   end Rectifier;
 
   model InverterToLoad "Inverter to load"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
       refType=PowerSystems.Types.ReferenceFrame.Inertial)
@@ -146,6 +148,7 @@ package Inverters "Inverters 1 phase and DC"
   end InverterToLoad;
 
   model InverterToGrid "Inverter to grid"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
       refType=PowerSystems.Types.ReferenceFrame.Inertial)
@@ -222,6 +225,7 @@ package Inverters "Inverters 1 phase and DC"
   end InverterToGrid;
 
   model InverterAvToGrid "Inverter to grid"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
       refType=PowerSystems.Types.ReferenceFrame.Inertial)
@@ -293,6 +297,7 @@ package Inverters "Inverters 1 phase and DC"
   end InverterAvToGrid;
 
   model Chopper "Chopper"
+    extends Modelica.Icons.Example;
 
     inner PowerSystems.System system(dynType=PowerSystems.Types.Dynamics.FixedInitial,
       refType=PowerSystems.Types.ReferenceFrame.Inertial)
