@@ -204,7 +204,8 @@ algorithm
             extent={{-70,-18},{-50,-22}},
             lineColor={0,0,255},
             fillColor={0,0,255},
-            fillPattern=FillPattern.Solid)}));
+            fillPattern=FillPattern.Solid)}),
+        experiment(StopTime=0));
 end Z_matrixTrDat0;
 
 model Z_matrixTrDat1 "z-matrix from transient data, n=1"
@@ -436,7 +437,8 @@ algorithm
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "xsig_rq1")}));
+                 "xsig_rq1")}),
+        experiment(StopTime=0));
 end Z_matrixTrDat1;
 
 model Z_matrixTrDat2 "z-matrix from transient data, n=2"
@@ -734,7 +736,8 @@ algorithm
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "xsig_rq1")}));
+                 "xsig_rq1")}),
+        experiment(StopTime=0));
 end Z_matrixTrDat2;
 
 model Z_matrixTrDat3 "z-matrix from transient data, n=3"
@@ -1094,7 +1097,8 @@ algorithm
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "xsig_rq1")}));
+                 "xsig_rq1")}),
+        experiment(StopTime=0));
 end Z_matrixTrDat3;
 
 model Z_matrixEqCirc0 "z-matrix from equivalent circuit, n=1, 0"
@@ -1288,7 +1292,8 @@ algorithm
             extent={{-70,-18},{-50,-22}},
             lineColor={0,0,255},
             fillColor={0,0,255},
-            fillPattern=FillPattern.Solid)}));
+            fillPattern=FillPattern.Solid)}),
+        experiment(StopTime=0));
 end Z_matrixEqCirc0;
 
 model Z_matrixEqCirc1 "z-matrix from equivalent circuit, n=1"
@@ -1508,7 +1513,8 @@ algorithm
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "xsig_rq1")}));
+                 "xsig_rq1")}),
+        experiment(StopTime=0));
 end Z_matrixEqCirc1;
 
 model Z_matrixEqCirc2 "z-matrix from equivalent circuit, n=2"
@@ -1791,7 +1797,8 @@ algorithm
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "xsig_rq1")}));
+                 "xsig_rq1")}),
+        experiment(StopTime=0));
 end Z_matrixEqCirc2;
 
 model Z_matrixEqCirc3 "z-matrix from equivalent circuit, n=3"
@@ -2136,7 +2143,8 @@ algorithm
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "xsig_rq1")}));
+                 "xsig_rq1")}),
+        experiment(StopTime=0));
 end Z_matrixEqCirc3;
 
 model TransDatFromEqCirc "Calculates transient data from equivalent circuit"
@@ -2428,7 +2436,8 @@ algorithm
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "xsig_rq1")}));
+                 "xsig_rq1")}),
+        experiment(StopTime=0));
 end TransDatFromEqCirc;
 
 model EqCircFromTransDat "Calculates equivalent circuit from transient data"
@@ -2728,7 +2737,8 @@ algorithm
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
             textString=
-                 "xsig_rq1")}));
+                 "xsig_rq1")}),
+        experiment(StopTime=0));
 end EqCircFromTransDat;
 
 annotation (preferredView="info",
