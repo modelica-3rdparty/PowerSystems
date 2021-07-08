@@ -982,10 +982,10 @@ A different choice is not meaningful, as long as we only have 2 parameters (comp
 
     lam := eigenValues(diagonal(sRinv)*X11*diagonal(sRinv));
     To := sortDown(lam[:,1]);
+    assert(max(abs(lam[:,2])) < eps, "spectrum open-loop is not real!");
     lam := eigenValues(diagonal(sRinv)*(X11 - X11ac)*diagonal(sRinv));
     Tc := sortDown(lam[:,1]);
-    assert(max(abs(lam[:,2])) < eps, "spectrum open-loop is not real!");
-    assert(max(abs(lam[:,2])) < eps,  "spectrum closed-loop is not real!");
+    assert(max(abs(lam[:,2])) < eps, "spectrum closed-loop is not real!");
     xtr := x_transient(x, Tc, To);
   annotation (Documentation(info="<html>
 <p>This function is added for completeness. It is not used in the machine models.</p>
