@@ -431,7 +431,7 @@ The following switches/features are provided:
               lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid,
-              textString="%name%"),
+              textString="%name"),
             Rectangle(
               extent={{-100,-100},{-30,50}},
               lineColor={0,0,255},
@@ -603,7 +603,7 @@ The following switches/features are provided:
               lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid,
-              textString="%name%"),
+              textString="%name"),
             Polygon(
               points={{-18,-18},{16,-56},{36,-34},{76,-36},{18,24},{-104,20},{-18,
                   -18}},
@@ -716,7 +716,7 @@ The following switches/features are provided:
               lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid,
-              textString="%name%")}));
+              textString="%name")}));
     end WindFarm;
 
     model LoadDispatcher
@@ -879,7 +879,7 @@ The following switches/features are provided:
               lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid,
-              textString="%name%")}));
+              textString="%name")}));
     end LoadDispatcher;
 
     model City
@@ -986,7 +986,7 @@ The following switches/features are provided:
               lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid,
-              textString="%name%")}));
+              textString="%name")}));
     end City;
 
   end Components;
