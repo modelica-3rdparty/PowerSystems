@@ -1226,28 +1226,6 @@ The following switches/features are provided:
       annotation (experiment(StopTime=86400));
     end HydroPlantTest2;
 
-    model WindFarmLoadTest "WindFarm connected to a load"
-      extends Modelica.Icons.Example;
-      Components.WindFarm windFarm
-        annotation (Placement(transformation(extent=
-                                             {{-60,0},{-40,20}})));
-      PowerSystems.Generic.Impedance
-        load(R=30, L=10/314)
-        annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-      PowerSystems.Generic.Ground
-        ground
-        annotation (Placement(transformation(extent={{20,0},{40,20}})));
-    inner PowerSystems.System system
-      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-    equation
-      connect(load.terminal_n,ground. terminal)
-        annotation (Line(points={{0,10},{20,10}}, color={0,0,0}));
-      connect(windFarm.terminal, load.terminal_p) annotation (Line(points={{-40,10},{-20,10}},
-                                                                   color={0,0,0},
-                                                                   smooth=Smooth.None));
-      annotation (experiment(StopTime=86400));
-    end WindFarmLoadTest;
-
     model WindFarmGridTest "WindFarm connected to a large net"
       extends Modelica.Icons.Example;
       Components.WindFarm windFarm
