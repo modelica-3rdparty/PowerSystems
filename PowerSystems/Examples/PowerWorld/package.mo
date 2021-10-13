@@ -1216,7 +1216,7 @@ The following switches/features are provided:
       connect(secondary.y, hydroPlant.hydroDispatch[2]) annotation (Line(points={{-59,10},{-20,10}},
                                                                          color={0,0,127},
                                                                          smooth=Smooth.None));
-    connect(line.terminal_n, largeGrid.terminal) annotation (Line(
+      connect(line.terminal_n, largeGrid.terminal) annotation (Line(
         points={{40,10},{60,10}},
         color={0,0,0},
         smooth=Smooth.None));
@@ -1295,10 +1295,13 @@ The following switches/features are provided:
                                                   offset=49,
                                                   width=15)
         annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+      inner System system annotation(
+        Placement(visible = true, transformation(extent = {{-100, 80}, {-80, 100}}, rotation = 0)));
     equation
       connect(frequency.y, loadDispatcher.frequency) annotation (Line(points={{-59,30},{-30,30},{-30,17}},
                                                                       color={0,0,127},
                                                                       smooth=Smooth.None));
+      annotation (experiment(StopTime=120));
     end LoadDispatcherTest;
   end Test;
 

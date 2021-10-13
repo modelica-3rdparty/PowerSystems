@@ -51,15 +51,15 @@ package Drives "AC drives, dq0"
       Documentation(info="<html>
 <p>Steady-state simulation to produce motor characteristic 'torque vs slip'.<br>
 <pre>
-  asm.torque         motor mechanical torque
-  asm.motor.slip     slip (negative: motor, positive: generator mode)
+  asm.motor.airgap.tau   motor mechanical torque
+  asm.motor.slip         slip (negative: motor, positive: generator mode)
 
-       slip &lt;  -1    motor breake mode
+        slip &lt;  -1    motor breake mode
   -1 &lt;  slip &lt;  0     motor drive mode
-       slip &gt;  0     generator mode
+        slip &gt;  0     generator mode
 </pre></p>
 <p>Plot torque vs slip:<br>
-plot 'asm.torque', then right-click 'asm.motor.slip' and choose 'Independent variable': 'asm.motor.slip'.</p>
+plot 'asm.motor.airgap.tau' over 'asm.motor.slip' as independent variable.</p>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Drives\">up users guide</a></p>
 </html>"));
   end ASMcharacteristic;
@@ -374,7 +374,7 @@ The machine defines the reference-system independent of the system choice (as ne
 <p><i>See for example:</i>
 <pre>
   power.p_av        time-average power
-  time_av.y         time-average pu stator currents
+  power.i           stator currents
   asm.motor.tau_el  electric torque
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Drives\">up users guide</a></p>

@@ -249,8 +249,8 @@ simplest generator description as a \"voltage behind reactance\".</p>
 <p>Upper part: 3-winding generator model, isotrope with x_d = x_q.<br>
 The power-angle is artificially fixed. The correspondence is:
 <pre>
-  V_gen1.alpha0 ~ powerAngle.delta
-  V_gen1.v0     ~ exciter.v_f
+  Vgen1.alpha0 ~ powerAngle.delta
+  Vgen1.v0     ~ exciter.v_f
 </pre></p>
 <p>In both cases the terminal voltage is fixed by the bus voltage. The results should coincide.</p>
 <p><i>See for example:</i>
@@ -364,14 +364,14 @@ simplest generator description as a \"voltage behind reactance\".</p>
 <p>Upper part: 3-winding generator model, isotrope with x_d = x_q.<br>
 Instead of a fixed power-angle as in the previous example, a turbine delivers the appropriate power. The correspondence is still:
 <pre>
-  V_gen1.alpha0 ~ generator.powerAngle (mod 2pi)
-  V_gen1.v0     ~ exciter.v_f
+  Vgen1.alpha0 ~ generator.powerAngle (mod 2pi)
+  Vgen1.v0     ~ exciter.v_f
 </pre></p>
 <p>In both cases the terminal voltage is fixed by the bus voltage. The results should coincide.</p>
 <p><i>See and compare for example:</i>
 <pre>
  sensor.p[1:2]      active and reactive power
- V_gen1.alpha0 with gen.powerAngle.
+ Vgen1.alpha0 with generator.powerAngle.
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>
@@ -508,13 +508,13 @@ Instead of a fixed power-angle as in the previous example, a turbine delivers th
 <p>The third example is obtained from the previous by adding a line between generator and infinite bus.</p>
 <p>The terminal voltage depends on the line-properties. Now the correspondence is:
 <pre>
-  V_gen1.alpha0 - bus1.alpha_v ~ generator.powerAngle
-  V_gen1.v0                    ~ exciter.v_f
+  Vgen1.alpha0 - busbar1.alpha_v ~ generator.powerAngle
+  Vgen1.v0                       ~ exciter.v_f
 </pre></p>
 <p><i>See and compare for example:</i>
 <pre>
  sensor.p[1:2]      active and reactive power
- V_gen1.alpha0 and busbar1.alpha_v with gen.powerAngle.
+ Vgen1.alpha0 and busbar1.alpha_v with generator.powerAngle.
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>
@@ -626,13 +626,13 @@ equation
 <p>This example is the last step on the way 'from voltage source to generator model'.</p>
 <p>Turbine and generator are packed into one single model. The terminal voltage depends on the line-properties. The correspondence is:
 <pre>
-  V_gen1.alpha0 - bus1.alpha_v ~ turboGen.generator.powerAngle
-  V_gen1.v0                    ~ exciter.v_f
+  Vgen1.alpha0 - busbar1.alpha_v ~ turboGen.generator.powerAngle
+  Vgen1.v0                       ~ exciter.v_f
 </pre></p>
 <p><i>See and compare for example:</i>
 <pre>
  sensor.p[1:2]      active and reactive power
- V_gen1.alpha0 and busbar1.alpha_v with gen.powerAngle.
+ Vgen1.alpha0 and busbar1.alpha_v with turboGen.generator.powerAngle.
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>
 </html>
@@ -757,7 +757,7 @@ A common 3-phase short circuit occurs at 100 msec, cleared after 300 ms.</p>
 <p><i>Compare for example:</i>
 <pre>
   .generator.i        current
-  .generator.tau      torque
+  .generator.tau_el   torque
 </pre>
 of <tt>turbGen1</tt> and <tt>turbGen2</tt>.<br>
 The high order model exhibits fast damping of torque-oscillations due to the damper windings. See also damper currents i_rd, i_rq (protected).</p>
@@ -835,7 +835,7 @@ equation
 A common 3-phase short circuit occurs at 0.1 sec, cleared after 200 ms.</p>
 <p><i>See for example:</i>
 <pre>
-  turboGrpGen.generator.tau      torque (electric frequency)
+  turboGrpGen.generator.tau_el   torque (electric frequency)
   turboGrpGen.turboGroup.delta   relative angles between single turbines (frequencies typical 16 to 23 Hz)
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Generation\">up users guide</a></p>

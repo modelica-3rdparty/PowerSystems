@@ -53,8 +53,8 @@ equation
 Alternatively one can look at a variation of amplitude ratios.</p>
 <p><i>See for example:</i>
 <pre>
-  sensor1.p[1]     active power
-  sensor1.p[2]     reactive power.
+  sensor.p[1]     active power
+  sensor.p[2]     reactive power.
 </pre>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>
@@ -158,8 +158,8 @@ equation
 </pre></p>
 <p><i>See for example:</i>
 <pre>
-  meter1/2/3.v_norm and plot it against
-  meter1/2/3.p[1] as independent variable.
+  meter0/1/2.v_norm and plot it against
+  meter0/1/2.p[1] as independent variable.
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>"),
@@ -533,7 +533,8 @@ Compare with FaultRXline.</p>
 Compare with DoublePIline.</p>
 <p><i>See for example:</i>
 <pre>
-  meter.p[1:2]     active and reactive power
+  meterL.p[1:2]    active and reactive power
+  meterF.p[1:2]    active and reactive power fault line
   abc.i_abc        fault currents
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
@@ -541,7 +542,7 @@ Compare with DoublePIline.</p>
 "),      experiment(StopTime=0.5, Interval=2.5e-5));
   end DoubleRXline;
 
-  model DoublelLine "Parallel lines, one faulted"
+  model DoubleLine "Parallel lines, one faulted"
     extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
@@ -624,7 +625,8 @@ Compare with DoublePIline.</p>
 Compare with DoublePIline.</p>
 <p><i>See for example:</i>
 <pre>
-  meter.p[1:2]     active and reactive power
+  meterL.p[1:2]    active and reactive power
+  meterF.p[1:2]    active and reactive power fault line
   line.v           line voltage, oscillations due to switching
   lineF.v          fault line voltage
   abc.i_abc        fault currents
@@ -632,7 +634,7 @@ Compare with DoublePIline.</p>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, Interval=2.5e-5));
-  end DoublelLine;
+  end DoubleLine;
 
   model DoubleRXlineTG
     "Parallel lumped lines with turbo generator, one line faulted"
@@ -728,7 +730,8 @@ Compare with DoublePIline.</p>
 Compare with DoublePIline.</p>
 <p><i>See for example:</i>
 <pre>
-  meter.p[1:2]     active and reactive power
+  meterL.p[1:2]    active and reactive power
+  meterF.p[1:2]    active and reactive power fault line
   abc.i_abc        fault currents
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transmission\">up users guide</a></p>
@@ -828,7 +831,8 @@ Compare with DoublePIline.</p>
 Compare with DoublePIline.</p>
 <p><i>See for example:</i>
 <pre>
-  meter.p[1:2]     active and reactive power
+  meterL.p[1:2]    active and reactive power
+  meterF.p[1:2]    active and reactive power fault line
   line.v           line voltage, oscillations due to switching
   lineF.v          fault line voltage
   abc.i_abc        fault currents

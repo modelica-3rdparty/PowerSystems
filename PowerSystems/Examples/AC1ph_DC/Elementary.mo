@@ -204,8 +204,7 @@ package Elementary "AC 1-phase and DC components"
   model Line "Line"
     extends Modelica.Icons.Example;
 
-    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial,
-      dynType=PowerSystems.Types.Dynamics.FixedInitial)
+    inner PowerSystems.System system(refType=PowerSystems.Types.ReferenceFrame.Inertial)
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     PowerSystems.Blocks.Signals.TransientPhasor transPh(ph_end=
           0.087266462599716)
@@ -250,7 +249,7 @@ package Elementary "AC 1-phase and DC components"
       experiment(StopTime=0.2, Interval=1e-4));
   end Line;
 
-  model DoublelLine "Parallel lines, one faulted"
+  model DoubleLine "Parallel lines, one faulted"
     extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
@@ -328,15 +327,16 @@ package Elementary "AC 1-phase and DC components"
 Compare with DoublePIline.</p>
 <p><i>See for example:</i>
 <pre>
-  meter.p[1:2]     active and reactive power
+  meterL.p         power flow
+  meterF.p         power flow fault line
   line.v           line voltage, oscillations due to switching
   lineF.v          fault line voltage
-  abc.i_abc        fault currents
+  ab.i             fault currents
 </pre></p>
 <p><a href=\"modelica://PowerSystems.Examples.Spot.TransmissionAC3ph\">up users guide</a></p>
 </html>"),
       experiment(StopTime=0.5, Interval=2.5e-5));
-  end DoublelLine;
+  end DoubleLine;
 
   model LoadAC "AC load"
     extends Modelica.Icons.Example;

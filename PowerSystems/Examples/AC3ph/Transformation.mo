@@ -209,7 +209,7 @@ if secondary side is changed at fixed source.</p>
 "),      experiment(StopTime=4));
   end TapChanger;
 
-  model TreeWinding "Tree winding transformer"
+  model ThreeWinding "Three winding transformer"
     extends Modelica.Icons.Example;
 
     inner PowerSystems.System system
@@ -276,7 +276,7 @@ Delta_Y configuration:<br>
 <p><a href=\"modelica://PowerSystems.Examples.AC3ph.Transformation\">up users guide</a></p>
 </html>
 "),      experiment(StopTime=1));
-  end TreeWinding;
+  end ThreeWinding;
   annotation (preferredView="info",
 Documentation(info="<html>
 <p>Transformers three-phase and tap changer control.</p>
