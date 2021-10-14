@@ -463,7 +463,8 @@ The machine inertia is determined by the inertia time constant H.</p>
     extends Partials.GenBase;
 
     parameter SI.AngularVelocity w_start=2*pi*generator.par.f_nom/generator.par.pp
-      "initial angular velocity (start-value if ini='st')";
+      "initial angular velocity (start-value if ini='st')"
+      annotation (Dialog(tab="Initialization"));
     AC3ph.Ports.ACdq0_n term "negative terminal"
       annotation (Placement(transformation(extent={{90,-10},{110,10}})));
     replaceable model Generator = PowerSystems.AC3ph.Machines.Asynchron

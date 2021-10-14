@@ -294,7 +294,7 @@ package Elementary "AC 3-phase components dq0"
       redeclare record Data =
         PowerSystems.AC3ph.Machines.Parameters.Asynchron_cage(V_nom=400, S_nom=1e3))
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-    PowerSystems.Mechanics.Rotational.Rotor rotor
+    PowerSystems.Mechanics.Rotational.Rotor rotor(w_start = 314.1592653589793)
       annotation (Placement(transformation(extent={{28,-10},{48,10}})));
     PowerSystems.Mechanics.Rotational.Torque torq
       annotation (Placement(transformation(extent={{80,-10},{60,10}})));
