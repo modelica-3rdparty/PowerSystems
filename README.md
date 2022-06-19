@@ -12,7 +12,7 @@ In particular this shall cover systems like:
  * Variable frequency systems, e.g. in wind turbines or for drive control, and
  * DC power systems, like HVDC
 
-See also the publication [Franke, Wiesmann: Flexible modeling of electrical power systems - the Modelica PowerSystems library, Modelica conference 2014](https://ep.liu.se/ecp/096/054/ecp14096054.pdf).
+See also the publication [Franke, Wiesmann: Flexible modeling of electrical power systems - the Modelica PowerSystems library, Modelica conference 2014](https://doi.org/10.3384/ECP14096515).
 
 <img src="PowerSystems/Examples/PowerWorld/Resources/PowerWorld.png" width="500">
 <img src="PowerSystems/Examples/Wind/Resources/WindTurbine_DFIG.png" width="300" align="top">
