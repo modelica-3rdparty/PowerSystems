@@ -260,7 +260,7 @@ Compare 'transient' and 'steady-state' mode.</p>
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=0.1,
       yMax=1,
-      initType=Modelica.Blocks.Types.InitPID.SteadyState,
+      initType=Modelica.Blocks.Types.Init.SteadyState,
       gainPID(y(start=0.1)))
            annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
 
@@ -427,7 +427,7 @@ The machine defines the reference-system independent of the system choice (as ne
       Ti=0.2,
       Td=0.1,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      initType=Modelica.Blocks.Types.InitPID.SteadyState,
+      initType=Modelica.Blocks.Types.Init.SteadyState,
       yMax=1,
       gainPID(y(start=0.1)))
            annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
@@ -513,7 +513,7 @@ On-load steady-state start with torque-increase at 3 s and load-step 6 s.</p>
       Td=0.05,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
       Ti=0.2,
-      initType=Modelica.Blocks.Types.InitPID.InitialState,
+      initType=Modelica.Blocks.Types.Init.InitialState,
       xi_start=0.1,
       yMax=1)
            annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
@@ -614,7 +614,7 @@ Transient start with torque-increase at 0.5 s and load-step 2 s.</p>
       Ti=0.1,
       yMax=1,
       gainPID(y(start=0.1)),
-      initType=Modelica.Blocks.Types.InitPID.SteadyState)
+      initType=Modelica.Blocks.Types.Init.SteadyState)
            annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
   equation

@@ -32,7 +32,7 @@ by funding of the IST Programme, Contract No. IST-1999-11979. </i></p>
 <p/>
 </html>
 "),
-  uses(Modelica(version="3.2.3")),
+  uses(Modelica(version="4.0.0")),
   Icon(graphics={
       Line(
         points={{-60,-16},{38,-16}},

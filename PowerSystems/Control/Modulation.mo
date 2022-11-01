@@ -1238,7 +1238,7 @@ package SpaceVector "Space vector logic and control"
             origin={-240,-70},
             extent={{-10,-10},{10,10}},
             rotation=270)));
-    Modelica.StateGraph.StepWithSignal sector2
+    Modelica.StateGraph.StepWithSignal sector2(nIn = 1, nOut = 1)
     annotation (Placement(transformation(extent={{118,170},{138,190}})));
     Modelica.StateGraph.TransitionWithSignal t1
     annotation (Placement(transformation(extent={{-124,190},{-104,210}})));
@@ -1260,10 +1260,10 @@ package SpaceVector "Space vector logic and control"
     annotation (Placement(transformation(extent={{-124,30},{-104,50}})));
     Modelica.StateGraph.Alternative Alternative2
     annotation (Placement(transformation(extent={{-58,124},{218,276}})));
-    Modelica.StateGraph.Step Step1
+    Modelica.StateGraph.Step Step1(nIn = 1, nOut = 1)
                                  annotation (Placement(transformation(extent={{
                 -94,190},{-74,210}})));
-    Modelica.StateGraph.Step Step2
+    Modelica.StateGraph.Step Step2(nIn = 1, nOut = 1)
                                  annotation (Placement(transformation(extent={{
                 -94,30},{-74,50}})));
     Modelica.StateGraph.Alternative Alternative3
@@ -1276,10 +1276,10 @@ package SpaceVector "Space vector logic and control"
     annotation (Placement(transformation(extent={{-4,228},{16,248}})));
     Modelica.StateGraph.TransitionWithSignal t4
     annotation (Placement(transformation(extent={{-2,152},{18,172}})));
-    Modelica.StateGraph.Step Step3
+    Modelica.StateGraph.Step Step3(nIn = 1, nOut = 1)
                                  annotation (Placement(transformation(extent={{
                 28,152},{48,172}})));
-    Modelica.StateGraph.Step Step4
+    Modelica.StateGraph.Step Step4(nIn = 1, nOut = 1)
                                  annotation (Placement(transformation(extent={{
                 26,68},{46,88}})));
     Modelica.StateGraph.TransitionWithSignal t5
@@ -1300,15 +1300,15 @@ package SpaceVector "Space vector logic and control"
     annotation (Placement(transformation(extent={{88,86},{108,106}})));
     Modelica.StateGraph.TransitionWithSignal t10
     annotation (Placement(transformation(extent={{88,50},{108,70}})));
-    Modelica.StateGraph.StepWithSignal sector3
+    Modelica.StateGraph.StepWithSignal sector3(nIn = 1, nOut = 1)
     annotation (Placement(transformation(extent={{118,134},{138,154}})));
-    Modelica.StateGraph.StepWithSignal sector1
+    Modelica.StateGraph.StepWithSignal sector1(nIn = 1, nOut = 1)
     annotation (Placement(transformation(extent={{118,228},{138,248}})));
-    Modelica.StateGraph.StepWithSignal sector6
+    Modelica.StateGraph.StepWithSignal sector6(nIn = 1, nOut = 1)
     annotation (Placement(transformation(extent={{118,-8},{138,12}})));
-    Modelica.StateGraph.StepWithSignal sector5
+    Modelica.StateGraph.StepWithSignal sector5(nIn = 1, nOut = 1)
     annotation (Placement(transformation(extent={{118,50},{138,70}})));
-    Modelica.StateGraph.StepWithSignal sector4
+    Modelica.StateGraph.StepWithSignal sector4(nIn = 1, nOut = 1)
     annotation (Placement(transformation(extent={{118,86},{138,106}})));
     Modelica.StateGraph.Transition t11(enableTimer=true, waitTime=T_pwm)
     annotation (Placement(transformation(extent={{148,228},{168,248}})));
@@ -1353,7 +1353,7 @@ package SpaceVector "Space vector logic and control"
   annotation (Placement(transformation(extent={{-280,-160},{-260,-140}})));
     Modelica.Blocks.Interfaces.BooleanOutput trigger
     annotation (Placement(transformation(extent={{300,100},{340,140}})));
-    Modelica.StateGraph.InitialStep InitialStep1
+    Modelica.StateGraph.InitialStep InitialStep1(nIn = 1, nOut = 1)
     annotation (Placement(transformation(extent={{-280,110},{-260,130}})));
     Modelica.Blocks.Logical.Or Or1
                                  annotation (Placement(transformation(extent={{
