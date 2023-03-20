@@ -1,7 +1,7 @@
 within PowerSystems.Types;
 package SI "SI types with custom attributes, like display units"
   extends Modelica.Icons.Package;
-  import MSI = Modelica.SIunits;
+  import MSI = Modelica.Units.SI;
 
   type Time = MSI.Time;
   type Frequency = MSI.Frequency;

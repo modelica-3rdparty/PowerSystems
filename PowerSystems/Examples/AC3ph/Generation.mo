@@ -1175,7 +1175,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
     Td=0.1,
     Ti=0.5,
     k=1/vDC_nom,
-    initType=Modelica.Blocks.Types.InitPID.SteadyState)
+    initType=Modelica.Blocks.Types.Init.SteadyState)
          annotation (Placement(transformation(extent={{40,20},{20,40}})));
   Modelica.Blocks.Sources.Constant set_vDC(k=vDC_nom)
       annotation (Placement(transformation(extent={{70,20},{50,40}})));
@@ -1302,7 +1302,7 @@ annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Continuous.LimPID PI_vDC(
       Td=0.05,
       controllerType=Modelica.Blocks.Types.SimpleController.PI,
-      initType=Modelica.Blocks.Types.InitPID.SteadyState,
+      initType=Modelica.Blocks.Types.Init.SteadyState,
     Ti=0.1,
       k=0.3*I_nom/vDC_nom,
       yMax=1.4*I_nom)
