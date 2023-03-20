@@ -19,11 +19,15 @@ See also the publication [Franke, Wiesmann: Flexible modeling of electrical powe
 
 ## Current release
 
-Download [PowerSystems v1.0.0 (2018-11-12)](../../archive/v1.0.0.zip)
+Download [PowerSystems v1.0.1 (2023-03-20)](../../archive/v1.0.1.zip)
 
 #### Revisions
 
+ * [Version v2.0.0 development  (2023-03-20)](../../archive/v2.0.0.zip)
+   * Upgrade used Modelica Standard Library to version 4.0.0 (#50, #51)
+
  * [Version v1.0.1  (2021-06-30)](../../archive/v1.0.1.zip)
+   * Remove StateSelect.prefer from angular velocity of electrical machines
    * Make semiconductor model in Semiconductors.PhaseModules.SwitchModule replaceable.
    * Fix unit in AC3ph.Impedances.Inductor (#43).
    * Added missing 'each' to AC3ph.Machines.Synchron_pm_ctrl (#44).
