@@ -19,11 +19,11 @@ See also the publication [Franke, Wiesmann: Flexible modeling of electrical powe
 
 ## Current release
 
-Download [PowerSystems v1.0.1 (2023-03-20)](../../archive/v1.0.1.zip)
+Download [PowerSystems v2.0.0 (2024-05-07)](../../archive/v2.0.0.zip)
 
 #### Revisions
 
- * [Version v2.0.0 development  (2023-03-20)](../../archive/v2.0.0.zip)
+ * [Version v2.0.0  (2024-05-07)](../../archive/v2.0.0.zip)
    * Upgrade used Modelica Standard Library to version 4.0.0 (#50, #51)
 
  * [Version v1.0.1  (2021-06-30)](../../archive/v1.0.1.zip)
