@@ -14,8 +14,8 @@ package PowerSystems "Library for electrical power systems"
     annotation (choicesAllMatching=true);
 
   annotation (preferredView="info",
-  version="2.0.0",
-  versionDate="2024-05-07",
+  version="2.1.0",
+  versionDate="2026-09-18",
   Documentation(info="<html>
 <p>The Modelica PowerSystems library is intended for the modeling of electrical <b>power systems</b> at different <b>levels of detail</b> both in <b>transient</b> and <b>steady-state</b> mode.</p>
 <p>The Users Guide to the library is <a href=\"modelica://PowerSystems.UsersGuide\"><b>here</b></a>.</p>
