@@ -3,7 +3,7 @@ package Ports "AC three-phase ports dq0 representation"
   extends Modelica.Icons.InterfacesPackage;
 
 partial model PortBase "base model adapting Spot to PowerSystems"
-  package PS = PackagePhaseSystem;
+  replaceable package PS = PackagePhaseSystem;
   function j = PS.j annotation(Inline=true);
   function jj = PS.jj annotation(Inline=true);
   function j_dq0 = PhaseSystems.ThreePhase_dq0.j annotation(Inline=true);
@@ -90,8 +90,8 @@ end ACdq0_n;
 partial model Port_p "AC one port 'positive', 3-phase"
   extends PortBase;
 
-  Ports.ACdq0_p term "positive terminal"
-                          annotation (Placement(transformation(extent={{-110,
+  Ports.ACdq0_p term(redeclare package PhaseSystem = PS) "positive terminal"
+    annotation (Placement(transformation(extent={{-110,
               -10},{-90,10}})));
   annotation (
           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -105,8 +105,8 @@ end Port_p;
 partial model Port_n "AC one port 'negative', 3-phase"
   extends PortBase;
 
-  Ports.ACdq0_n term "negative terminal"
-annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Ports.ACdq0_n term(redeclare package PhaseSystem = PS) "negative terminal"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   annotation (
           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
               {100,100}}), graphics={Text(
@@ -119,7 +119,7 @@ end Port_n;
 partial model Port_f "AC one port 'fault', 3-phase"
   extends PortBase;
 
-  Ports.ACdq0_p term "fault terminal"
+  Ports.ACdq0_p term(redeclare package PhaseSystem = PS) "fault terminal"
 annotation (Placement(transformation(
           origin={0,-100},
           extent={{-10,-10},{10,10}},
@@ -136,9 +136,9 @@ end Port_f;
 partial model Port_p_n "AC two port, 3-phase"
   extends PortBase;
 
-  Ports.ACdq0_p term_p "positive terminal"
+  Ports.ACdq0_p term_p(redeclare package PhaseSystem = PS) "positive terminal"
 annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Ports.ACdq0_n term_n "negative terminal"
+  Ports.ACdq0_n term_n(redeclare package PhaseSystem = PS) "negative terminal"
 annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
   Connections.branch(term_p.theta, term_n.theta);
@@ -166,7 +166,7 @@ end Port_pn;
 partial model Port_p_n_f "AC three port, 3-phase"
   extends Port_p_n;
 
-  Ports.ACdq0_n term_f "fault terminal"
+  Ports.ACdq0_n term_f(redeclare package PhaseSystem = PS) "fault terminal"
 annotation (Placement(transformation(
           origin={0,100},
           extent={{-10,-10},{10,10}},
@@ -514,13 +514,13 @@ partial model YDportTrafo_p_n_n
     "AC three port with Y or Delta topology for 3-winding transformers"
   extends PortBase;
 
-  Ports.ACdq0_p term_p "positive terminal"
+  Ports.ACdq0_p term_p(redeclare package PhaseSystem = PS) "positive terminal"
                                       annotation (Placement(transformation(
             extent={{-110,-10},{-90,10}})));
-  Ports.ACdq0_n term_na "negative terminal a"
+  Ports.ACdq0_n term_na(redeclare package PhaseSystem = PS) "negative terminal a"
                                        annotation (Placement(transformation(
             extent={{90,30},{110,50}})));
-  Ports.ACdq0_n term_nb "negative terminal b"
+  Ports.ACdq0_n term_nb(redeclare package PhaseSystem = PS) "negative terminal b"
                                        annotation (Placement(transformation(
             extent={{90,-50},{110,-30}})));
 
